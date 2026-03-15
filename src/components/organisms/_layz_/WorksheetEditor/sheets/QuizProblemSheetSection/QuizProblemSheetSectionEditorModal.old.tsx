@@ -140,7 +140,7 @@ export const QuizProblemSheetSectionEditorModal = ({
               extraNodes={[
                 <Button
                   key="copy"
-                  type="light"
+                  type="secondary"
                   size="tiny"
                   onClick={() => {
                     const testCases = { ...sheet.testCases };

@@ -8,7 +8,7 @@ import { Button } from './Button';
 // @ts-ignore
 Button.defaultProps = {
   submit: false,
-  type: 'accent',
+  type: 'primary',
   extend: false,
   disabled: false,
   responsive: false,
@@ -55,7 +55,7 @@ export const Regular: Story = {
   //   await waitForLoadingToDisappear(ctx);
   // },
   args: {
-    type: 'accent',
+    type: 'primary',
     // type: {
     //   control: {
     //     type: 'enum',
@@ -66,7 +66,7 @@ export const Regular: Story = {
   argTypes: {
     type: {
       control: 'radio',
-      options: [ 'accent', 'light', 'text', 'void' ],
+      options: [ 'primary', 'secondary', 'tertiary', 'ghost' ],
     },
   },
 };

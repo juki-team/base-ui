@@ -84,7 +84,7 @@ const Component = () => {
         value={entityData as object}
       >
         <ButtonLoader
-          type="light"
+          type="secondary"
           size="small"
           icon={<CloseIcon />}
         >

@@ -177,7 +177,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
             ))}
         </div>
         <div className="jk-row-col gap right wh-100">
-          <Button type="light" onClick={onClose}><T className="tt-se">cancel</T></Button>
+          <Button type="secondary" onClick={onClose}><T className="tt-se">cancel</T></Button>
           <ButtonLoader
             disabled={!validLengthNickname || !validCharNickname}
             onClick={(setLoader) => {

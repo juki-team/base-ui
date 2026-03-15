@@ -23,7 +23,7 @@ export function ResetPasswordModal({ nickname, companyKey, ...modalProps }: Rese
           <T className="tt-se">{'the new password will be sent to user\'s email'}</T>.
         </div>
         <div className="jk-row right gap extend">
-          <Button type="light" onClick={modalProps.onClose}><T className="tt-se">cancel</T></Button>
+          <Button type="secondary" onClick={modalProps.onClose}><T className="tt-se">cancel</T></Button>
           <ButtonLoader
             onClick={(setLoader) => resetUserPassword({
               params: { nickname, companyKey },

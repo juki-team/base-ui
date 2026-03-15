@@ -136,7 +136,7 @@ export default function ExcalidrawButton() {
         <div className="jk-row right">
           <Button
             tooltipContent="active excalidraw"
-            type="light"
+            type="secondary"
             size="tiny"
             icon={<EditIcon />}
             onClick={() => setIsActive(true)}

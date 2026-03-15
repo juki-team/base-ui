@@ -49,7 +49,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
       data-tooltip-content="tooltip testing"
       data-tooltip-place="left"
       size="small"
-      type="light"
+      type="secondary"
       icon={<RefreshIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile
@@ -59,7 +59,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
     <ButtonLoader
       key="button-2"
       size="small"
-      type="light"
+      type="secondary"
       icon={<RefreshIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile

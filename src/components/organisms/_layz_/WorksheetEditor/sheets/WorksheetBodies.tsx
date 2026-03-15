@@ -156,7 +156,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
       {page < pages ? (
         <Button
           className="next-button"
-          type="light"
+          type="secondary"
           onClick={() => onPageChange(
             page + 1,
             1,

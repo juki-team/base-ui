@@ -48,7 +48,7 @@ export const getActionButtons = (props: getActionButtonsProps): ButtonActionProp
               <Button size="small" icon={<SaveIcon />} onClick={onSaveEdit}><T className="tt-se">save</T></Button>
               <Button
                 size="small"
-                type="light"
+                type="secondary"
                 icon={<CloseIcon />}
                 onClick={onCancel}
               ><T className="tt-se">cancel</T></Button>

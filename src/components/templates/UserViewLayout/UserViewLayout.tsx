@@ -77,7 +77,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
         key="reset-password"
         icon={<LockIcon />}
         onClick={() => setOpenModal('RESET_PASSWORD')}
-        type="light"
+        type="secondary"
         label="reset password"
       />,
     ] : []),

@@ -8,7 +8,7 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
   
   const {
     submit = false,
-    type = 'accent',
+    type = 'primary',
     className,
     expand = false,
     icon,
@@ -18,6 +18,7 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
     disabled = false,
     responsiveMobile = false,
     tooltipContent,
+    'aria-label': ariaLabel,
     ...restProps
   } = props;
   
@@ -26,6 +27,7 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
   
   const size = (responsiveMobile && isSmallScreen) ? 'large' : _size;
   const hasChildren = !!children && (responsiveMobile ? !isSmallScreen : true);
+  const isIconOnly = !hasChildren && !!icon;
   
   return (
     <button
@@ -33,10 +35,11 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
       data-tooltip-content={tooltipContent}
       ref={ref}
       aria-disabled={disabled}
+      aria-label={ariaLabel ?? (isIconOnly ? tooltipContent : undefined)}
       type={submit ? 'submit' : 'button'}
       className={classNames(className, `jk-button ${type} jk-br-ie`, size, {
         expand,
-        'only-icon': !hasChildren,
+        'only-icon': isIconOnly,
         disabled,
         icon: !!(icon),
       })}

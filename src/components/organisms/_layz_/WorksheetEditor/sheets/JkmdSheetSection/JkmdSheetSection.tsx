@@ -73,7 +73,7 @@ export const JkmdSheetSection = (props: SheetSection<JkmdSheet>) => {
               >
                 {!readOnly && (
                   <ButtonLoader
-                    type="light"
+                    type="secondary"
                     expand
                     size="small"
                     data-tooltip-id="jk-tooltip"

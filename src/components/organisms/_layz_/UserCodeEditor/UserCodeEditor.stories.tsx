@@ -1,11 +1,18 @@
 import {
   CODE_LANGUAGE,
+  CodeEditorFiles,
   CodeLanguage,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
   SubmissionRunStatus,
 } from '@juki-team/commons';
+import { UIMessage } from 'ai';
+import { useRef, useState } from 'react';
+import { CheckIcon, ErrorIcon, ExclamationIcon, SpinIcon } from '../../../atoms/server';
 import { MockupJukiProvider } from '../../../mockup';
+import { AiChatPanel } from '../../AiChatPanel/AiChatPanel';
+import { AiChatSuggestion, AiChatToolStateUI } from '../../AiChatPanel/types';
 import { UserCodeEditor as UserCodeEditorCmp } from './';
+import { UserCodeEditorHandle } from './types';
 
 export default {
   component: UserCodeEditorCmp,
@@ -84,22 +91,99 @@ const initialTestCases = {
   },
 };
 
+export const DEFAULT_MD_MATH_TOOL_STATE_UI: AiChatToolStateUI = {
+  'input-streaming': { label: 'editing content', icon: <SpinIcon filledCircle size="tiny" className="cr-il" /> },
+  'input-available': { label: 'processing content', icon: <SpinIcon filledCircle size="tiny" className="cr-il" /> },
+  'approval-requested': { label: 'waiting for approval', icon: <ExclamationIcon filledCircle size="tiny" className="cr-wg" /> },
+  'approval-responded': { label: 'approval responded', icon: <SpinIcon filledCircle size="tiny" className="cr-il" /> },
+  'output-available': { label: 'content ready', icon: <CheckIcon filledCircle size="tiny" className="cr-ss" /> },
+  'output-error': { label: 'content error', icon: <ErrorIcon filledCircle size="tiny" className="cr-er" /> },
+  'output-denied': { label: 'content denied', icon: <ErrorIcon filledCircle size="tiny" className="cr-er" /> },
+};
+
+export const DEFAULT_MD_MATH_SUGGESTIONS: AiChatSuggestion[] = [
+  {
+    icon: <div>✨</div>,
+    label: 'improve',
+    prompt: 'Mejora la redacción y claridad del texto seleccionado manteniendo el mismo significado.',
+  },
+  {
+    icon: <div>📝</div>,
+    label: 'summarize',
+    prompt: 'Resume el texto seleccionado de forma concisa.',
+  },
+  {
+    icon: <div>🔤</div>,
+    label: 'fix grammar',
+    prompt: 'Corrige los errores gramaticales y ortográficos del texto seleccionado.',
+  },
+  {
+    icon: <div>🌐</div>,
+    label: 'translate',
+    prompt: 'Traduce el texto seleccionado al inglés.',
+  },
+];
+
 export const UserCodeEditor = () => {
+  const [files, setFiles] = useState<CodeEditorFiles<CodeLanguage>>({});
+  const [currentFileName, setCurrentFileName] = useState<string>('');
+  const { source, language } = files?.[currentFileName] || { source: '', language: CodeLanguage.TEXT };
+  const userCodeEditorRef = useRef<UserCodeEditorHandle>(null);
+  const getBodyRef = useRef(() => {
+    const selectedSource = userCodeEditorRef.current?.markdownGetSelection() ?? '';
+    if (selectedSource) {
+      userCodeEditorRef.current?.markdownHighlightSelectionNodes('jk-md-math-node-highlighted');
+    }
+    return { source: language === CodeLanguage.MARKDOWN ? source : '', selectedSource };
+  });
+
+  const appliedPartsRef = useRef<Set<string>>(new Set());
+  const onMessagesChangeRef = useRef((messages: UIMessage[]) => {
+    for (const message of messages) {
+      (
+        message.parts as {
+          type: string;
+          output: { data: { content: string } };
+          state: string;
+        }[]
+      ).forEach((part, i) => {
+        if (part?.type === 'tool-suggestMarkdown' && part?.state === 'output-available') {
+          const key = `${message.id}-${i}`;
+          if (!appliedPartsRef.current.has(key) && typeof part?.output?.data?.content === 'string') {
+            appliedPartsRef.current.add(key);
+            userCodeEditorRef.current?.markdownReplaceSelectionWithMarkdown(part.output?.data?.content);
+            userCodeEditorRef.current?.markdownHighlightSelectionNodes('jk-md-math-node-highlighted');
+          }
+        }
+      });
+    }
+  });
+
   return (
     <MockupJukiProvider>
       <div style={{ height: '500px', padding: 20 }}>
         <UserCodeEditorCmp<CodeLanguage>
+          ref={userCodeEditorRef}
           // languages={[{ value: "A", label: "A" }]}
           initialTestCases={initialTestCases}
-          languages={RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES.map(lang => ({
+          languages={[...RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES, CodeLanguage.MARKDOWN, CodeLanguage.MERMAID].map((lang) => ({
             value: lang,
             label: CODE_LANGUAGE[lang].label,
           }))}
           storeKey={'testing'}
           enableAddCustomSampleCases
           enableAddSampleCases
+          onFilesChange={setFiles}
+          onCurrentFileNameChange={setCurrentFileName}
         />
       </div>
+      <AiChatPanel
+        api="https://md.local.juki.app/api/chat/md-math"
+        getBodyRef={getBodyRef}
+        onMessagesChangeRef={onMessagesChangeRef}
+        toolStateUI={DEFAULT_MD_MATH_TOOL_STATE_UI}
+        suggestions={DEFAULT_MD_MATH_SUGGESTIONS}
+      />
     </MockupJukiProvider>
   );
 };

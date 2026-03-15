@@ -1,107 +1,120 @@
 import { CodeEditorFiles, CodeEditorTestCases, SubmissionRunStatus, SubmissionTestCase } from '@juki-team/commons';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { Dispatch, ReactNode, RefObject, SetStateAction } from 'react';
 import { UseResizeDetectorReturn } from 'react-resize-detector';
 import { BasicModalProps } from '../../../../atoms/Modal/types';
 import { CodeEditorPropertiesType } from '../../../../molecules/types';
+import { MdMathEditorHandle } from '../../MdMathEditor/types';
+
+export type RunState = { id: string; running: boolean };
 
 export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
-  onTestCasesChange?: (testCases: CodeEditorTestCases) => CodeEditorTestCases,
-  codeRunStatus?: SubmissionRunStatus,
-  fileName?: string,
-  newFileName?: true,
-  fileNameEdited?: [ string, string ],
-  fileNameDeleted?: string,
+  onTestCasesChange?: (testCases: CodeEditorTestCases) => CodeEditorTestCases;
+  codeRunStatus?: SubmissionRunStatus;
+  fileName?: string;
+  newFileName?: true;
+  fileNameEdited?: [string, string];
+  fileNameDeleted?: string;
 };
 
 export type CodeRunnerEditorOnChangeType<T> = (props: CodeRunnerEditorPropertiesType<T>) => void;
 
 export type CodeEditorCenterButtonsPropertiesType<T> = {
-  widthContainer: number
-  isRunning: boolean,
-  testCases: CodeEditorTestCases,
-  withLabels: boolean,
-  twoRows: boolean,
-  files: CodeEditorFiles<T>,
-  currentFileName: string,
-}
+  widthContainer: number;
+  runner: Runner | undefined;
+  withLabels: boolean;
+  files: CodeEditorFiles<T>;
+  currentFileName: string;
+};
 
 export type CodeEditorButtonsType<T> = (props: CodeEditorCenterButtonsPropertiesType<T>) => ReactNode;
 
 export type CodeEditorExpandPositionType = {
-  top: string | number,
-  left: string | number,
-  width: string | number,
-  height: string | number,
+  top: string | number;
+  left: string | number;
+  width: string | number;
+  height: string | number;
+};
+
+export interface Runner {
+  testCases: CodeEditorTestCases;
+  timeLimit: number;
+  memoryLimit: number;
+  id: string;
+  isRunning: boolean;
+  enableAddSampleCases: boolean;
+  enableAddCustomSampleCases: boolean;
+}
+
+export type RenderSecondPaneContext<T> = {
+  language: T;
+  files: CodeEditorFiles<T>;
+  currentFileName: string;
+  readOnly: boolean;
+  ui: {
+    direction: 'row' | 'column';
+  };
+  runner: Runner;
 };
 
 export interface CodeRunnerEditorProps<T> extends Omit<CodeEditorPropertiesType<T>, 'sourceCode' | 'language'> {
-  triggerFocus?: number,
-  files: CodeEditorFiles<T>,
-  currentFileName: string,
-  // sourceCode: string,
-  // language: T,
-  readOnly?: boolean,
-  onChange?: CodeRunnerEditorOnChangeType<T>,
-  languages?: { value: T, label: ReactNode }[],
-  className?: string,
-  testCases?: CodeEditorTestCases,
-  leftButtons?: CodeEditorButtonsType<T>,
-  centerButtons?: CodeEditorButtonsType<T>,
-  rightButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode,
-  timeLimit?: number,
-  memoryLimit?: number,
-  expandPosition?: CodeEditorExpandPositionType,
-  enableAddSampleCases?: boolean,
-  enableAddCustomSampleCases?: boolean,
-  withoutRunCodeButton?: boolean,
-  withoutDownloadCopyButton?: boolean,
-  onlyCodeEditor?: boolean,
+  triggerFocus?: number;
+  files: CodeEditorFiles<T>;
+  currentFileName: string;
+  readOnly?: boolean;
+  onChange?: CodeRunnerEditorOnChangeType<T>;
+  className?: string;
+  testCases?: CodeEditorTestCases;
+  timeLimit?: number;
+  memoryLimit?: number;
+  expandPosition?: CodeEditorExpandPositionType;
+  enableAddSampleCases?: boolean;
+  enableAddCustomSampleCases?: boolean;
+  onlyCodeEditor?: boolean;
+  mdEditorRef?: RefObject<MdMathEditorHandle | null>;
+  //
+  languages?: { value: T; label: ReactNode }[];
+  leftButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode;
+  centerButtons?: CodeEditorButtonsType<T>;
+  rightButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode;
 }
 
 export interface SettingsModalProps<T> extends BasicModalProps {
-  onChange?: CodeRunnerEditorOnChangeType<T>,
-  tabSize: number,
-  fontSize: number,
+  onChange?: CodeRunnerEditorOnChangeType<T>;
+  tabSize: number;
+  fontSize: number;
 }
 
 export interface TestCasesProps<T> {
-  testCases?: CodeEditorTestCases,
-  onChange?: CodeRunnerEditorOnChangeType<T>,
-  timeLimit: number,
-  memoryLimit: number,
-  direction: 'row' | 'column',
-  enableAddSampleCases: boolean,
-  enableAddCustomSampleCases: boolean,
-  isRunning: boolean,
+  testCases?: CodeEditorTestCases;
+  onChangeRef?: RefObject<CodeRunnerEditorOnChangeType<T> | undefined>;
+  timeLimit: number;
+  memoryLimit: number;
+  direction: 'row' | 'column';
+  enableAddSampleCases: boolean;
+  enableAddCustomSampleCases: boolean;
 }
 
 export interface HeaderProps<T> {
-  languages: { value: T, label: ReactNode }[],
-  onChange?: CodeRunnerEditorOnChangeType<T>,
-  testCases: CodeEditorTestCases,
-  setShowSettings: Dispatch<SetStateAction<boolean>>,
-  runId: string,
-  setRunId: Dispatch<SetStateAction<string>>,
-  leftOptions: (props: { widthContainer: number, withLabels: boolean, twoRows: boolean }) => ReactNode,
-  centerOptions: (props: { widthContainer: number, withLabels: boolean, twoRows: boolean }) => ReactNode,
-  rightOptions: (props: { withLabels: boolean, twoRows: boolean }) => ReactNode,
-  timeLimit: number,
-  memoryLimit: number,
-  expanded: boolean | null,
-  setExpanded: Dispatch<SetStateAction<boolean>>,
-  isRunning: boolean,
-  withoutRunCodeButton: boolean,
-  withoutDownloadCopyButton: boolean,
-  readOnly: boolean,
-  headerRef: UseResizeDetectorReturn<any>['ref'],
-  headerWidthContainer: number,
-  twoRows: boolean,
-  files: CodeEditorFiles<T>,
-  currentFileName: string,
+  languages: { value: T; label: ReactNode }[];
+  onChangeRef: RefObject<CodeRunnerEditorOnChangeType<T> | undefined>;
+  setShowSettings: Dispatch<SetStateAction<boolean>>;
+  onRunStart: (id: string) => void;
+  leftOptions: (props: { withLabels: boolean }) => ReactNode;
+  centerOptions: (props: { widthContainer: number; withLabels: boolean }) => ReactNode;
+  rightOptions: (props: { withLabels: boolean }) => ReactNode;
+  expanded: boolean | null;
+  setExpanded: Dispatch<SetStateAction<boolean>>;
+  readOnly: boolean;
+  headerRef: UseResizeDetectorReturn<any>['ref'];
+  headerWidthContainer: number;
+  files: CodeEditorFiles<T>;
+  currentFileName: string;
+  runner: Runner;
+  setRunState: Dispatch<SetStateAction<RunState>>;
 }
 
 export interface LogInfoProps {
-  testCase: SubmissionTestCase,
-  timeLimit: number,
-  memoryLimit: number,
+  testCase: SubmissionTestCase;
+  timeLimit: number;
+  memoryLimit: number;
 }

@@ -39,7 +39,7 @@ export function TwoActionModal(props: PropsWithChildren<TwoActionModalProps>) {
             <ButtonLoader
               onClick={secondary.onClick}
               disabled={secondary.disabled || loader === Status.LOADING}
-              type="light"
+              type="secondary"
               expand
             >
               {secondary.label || <T className="tt-se">cancel</T>}

@@ -59,7 +59,7 @@ function DatePickerComponent(props: DatePickerProps, ref: Ref<HTMLDivElement>) {
       {todayButton && (
         <div className="jk-row left extend">
           <div className="jk-divider tiny" />
-          <Button type="light" size="tiny" onClick={() => onChange(new Date())}>
+          <Button type="secondary" size="tiny" onClick={() => onChange(new Date())}>
             <T>select today</T>
           </Button>
         </div>

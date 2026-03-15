@@ -60,7 +60,7 @@ export function DocumentMembersModal(props: DocumentMembersModalProps) {
           }}
         />
         <div className="jk-row-col gap block">
-          <ButtonLoader type="light" onClick={onClose} disabled={loading}>
+          <ButtonLoader type="secondary" onClick={onClose} disabled={loading}>
             <T className="tt-se">close</T>
           </ButtonLoader>
           <ButtonLoader

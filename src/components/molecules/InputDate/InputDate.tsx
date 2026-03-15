@@ -44,7 +44,7 @@ export function InputDate(props: InputDateProps) {
           <Button
             icon={<PlusIcon rotate={45} />}
             size="small"
-            type="light"
+            type="secondary"
             className="clear-button"
             onClick={({ onClickEvent, onKeyDownEvent }) => {
               (onClickEvent || onKeyDownEvent)?.preventDefault();

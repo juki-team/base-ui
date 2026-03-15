@@ -68,7 +68,7 @@ export const GraphSheetSectionEditorModal = ({
                 setSheet({ ...sheet, dots });
               }}
               size="small"
-              type="light"
+              type="secondary"
             />
             <Button
               icon={<AddIcon />}

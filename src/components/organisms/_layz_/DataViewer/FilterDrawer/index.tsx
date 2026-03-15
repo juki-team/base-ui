@@ -232,7 +232,7 @@ export const FilterDrawer = <T, >(props: FilterDrawerProps<T>) => {
           </div>
           <div className="jk-row-col space-between gap block jk-pg-sm filter-drawer-buttons">
             <Button
-              type="light"
+              type="secondary"
               size="small"
               onClick={() => {
                 onResetFilters();

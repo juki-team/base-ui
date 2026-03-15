@@ -7,7 +7,7 @@ export function PreviousButton({ onClick }: { onClick: ButtonProps['onClick'] })
     <Button
       size="small"
       icon={<NavigateBeforeIcon />}
-      type="light"
+      type="secondary"
       onClick={onClick}
     />
   );

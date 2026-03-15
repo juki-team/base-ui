@@ -139,7 +139,7 @@ export const QuizOptionsSheetSectionEditor = ({ content, setContent, isSolvable 
           </div>
         ))}
         <Button
-          type="light"
+          type="secondary"
           className="jk-row gap"
           onClick={() =>
             setContent((prevState) => ({

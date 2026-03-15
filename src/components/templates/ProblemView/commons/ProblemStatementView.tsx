@@ -96,7 +96,7 @@ export const ProblemStatementView = <T, >({
         {isPrivate && (
           <div className="jk-row">
             <Link href={problem.externalUrl} target="_blank" rel="noopener noreferrer">
-              <Button type="light">
+              <Button type="secondary">
                 <T className="tt-se">click to view the full problem</T>
               </Button>
             </Link>

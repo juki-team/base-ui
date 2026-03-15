@@ -81,7 +81,7 @@ export function UsersSelector(props: UsersSelectorProps) {
             <p className="cr-er">{error}</p>
             <div className="jk-row right gap">
               <Button
-                type="light"
+                type="secondary"
                 onClick={() => setShow(false)}
               >
                 <T>cancel</T>
@@ -139,7 +139,7 @@ export function UsersSelector(props: UsersSelectorProps) {
         icon={<RefreshIcon />}
         data-tooltip-id="jk-tooltip"
         data-tooltip-content="reload"
-        type="light"
+        type="secondary"
         size="small"
         onClick={() => mutate()}
       />
@@ -148,7 +148,7 @@ export function UsersSelector(props: UsersSelectorProps) {
           icon={<GroupsIcon />}
           data-tooltip-id="jk-tooltip"
           data-tooltip-content="add users by nicknames in batches"
-          type="light"
+          type="secondary"
           size="small"
           onClick={() => {
             resetText();

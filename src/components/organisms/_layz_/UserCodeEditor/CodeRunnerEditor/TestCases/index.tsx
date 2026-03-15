@@ -21,15 +21,18 @@ import { ProblemVerdictTag } from '../../../../ProblemVerdictTag/ProblemVerdictT
 import type { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
 import { LogInfo } from './LogInfo';
 
-const AddCaseButton = <T, >({ onChange, testCasesValues, sample = false }: {
-  onChange: CodeRunnerEditorOnChangeType<T>,
-  testCasesValues: CodeEditorTestCase[],
-  testCases: CodeEditorTestCases,
-  sample?: boolean,
+const AddCaseButton = <T,>({
+  onChange,
+  testCasesValues,
+  sample = false,
+}: {
+  onChange: CodeRunnerEditorOnChangeType<T>;
+  testCasesValues: CodeEditorTestCase[];
+  testCases: CodeEditorTestCases;
+  sample?: boolean;
 }) => {
-  
   const { addNotification } = useJukiNotification();
-  
+
   return (
     <div
       data-tooltip-id="jk-tooltip"
@@ -39,12 +42,12 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, sample = false }: {
     >
       <AddIcon
         onClick={() => {
-          const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
-          const noCustomCases = testCasesValues.filter(testCaseValue => testCaseValue.sample);
+          const customCases = testCasesValues.filter((testCaseValue) => !testCaseValue.sample);
+          const noCustomCases = testCasesValues.filter((testCaseValue) => testCaseValue.sample);
           const cases = sample ? noCustomCases : customCases;
           if (cases.length < (sample ? 30 : 16)) {
             const key = globalThis.crypto.randomUUID();
-            const index = mex(cases.map(testCaseValue => testCaseValue.index));
+            const index = mex(cases.map((testCaseValue) => testCaseValue.index));
             onChange?.({
               onTestCasesChange: (testCases) => ({
                 ...testCases,
@@ -73,47 +76,50 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, sample = false }: {
   );
 };
 
-export const TestCases = <T, >(props: TestCasesProps<T>) => {
-  
+export const TestCases = <T,>(props: TestCasesProps<T>) => {
   const {
     testCases = {},
-    onChange,
+    onChangeRef,
     timeLimit,
     memoryLimit,
     direction,
     enableAddSampleCases,
     enableAddCustomSampleCases,
   } = props;
-  
-  const testCasesValues = Object.values(testCases)
-    .sort((a, b) => a.key === '*' ? -1 : b.key === '*' ? 1 : (a.sample !== b.sample) ? +b.sample - +a.sample : a.index - b.index);
-  const [ testCaseKey, setTestCaseKey ] = useState(testCasesValues[0]?.key || '*');
+
+  const testCasesValues = Object.values(testCases).sort((a, b) =>
+    a.key === '*' ? -1 : b.key === '*' ? 1 : a.sample !== b.sample ? +b.sample - +a.sample : a.index - b.index,
+  );
+  const [testCaseKey, setTestCaseKey] = useState(testCasesValues[0]?.key || '*');
   useEffect(() => {
     const testCasesValues = Object.values(testCases);
     if (testCasesValues.length && testCasesValues[0]) {
-      if (!testCasesValues.some(testCase => testCase.key === testCaseKey)) {
+      if (!testCasesValues.some((testCase) => testCase.key === testCaseKey)) {
         setTestCaseKey(testCasesValues[0].key);
       }
     }
-  }, [ testCaseKey, testCases ]);
-  
-  const [ outputTab, setOutputTab ] = useState('output');
-  const [ inputTab, setInputTab ] = useState('input');
+  }, [testCaseKey, testCases]);
+
+  const [outputTab, setOutputTab] = useState('output');
+  const [inputTab, setInputTab] = useState('input');
   const test = testCases[testCaseKey] as CodeEditorTestCase | undefined;
-  const testWithError = !!test && (
-    getDataOfTestCase(test, timeLimit, memoryLimit).failed
-    || !!test?.err
-    || [ SubmissionRunStatus.FAILED, SubmissionRunStatus.COMPILATION_ERROR, SubmissionRunStatus.FAILED_TEST_CASE ].includes(test.status)
-  );
+  const testWithError =
+    !!test &&
+    (getDataOfTestCase(test, timeLimit, memoryLimit).failed ||
+      !!test?.err ||
+      [SubmissionRunStatus.FAILED, SubmissionRunStatus.COMPILATION_ERROR, SubmissionRunStatus.FAILED_TEST_CASE].includes(
+        test.status,
+      ));
   useEffect(() => {
     setOutputTab(testWithError ? 'error' : 'output');
-  }, [ testWithError ]);
-  
-  const isLoadingState = test?.status === SubmissionRunStatus.RECEIVED
-    || test?.status === SubmissionRunStatus.COMPILING
-    || test?.status === SubmissionRunStatus.RUNNING_TEST_CASES
-    || test?.status === SubmissionRunStatus.RUNNING_TEST_CASE;
-  
+  }, [testWithError]);
+
+  const isLoadingState =
+    test?.status === SubmissionRunStatus.RECEIVED ||
+    test?.status === SubmissionRunStatus.COMPILING ||
+    test?.status === SubmissionRunStatus.RUNNING_TEST_CASES ||
+    test?.status === SubmissionRunStatus.RUNNING_TEST_CASE;
+
   const loader = isLoadingState && (
     <div
       className="jk-overlay jk-overlay-backdrop jk-row center pn-ae"
@@ -125,18 +131,16 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       </div>
     </div>
   );
-  
+
   const outputTabs: TabsType = {};
-  
+
   if (test?.testOut) {
-    
     outputTabs['test-output'] = {
       key: 'test-output',
       header: (
         <div className="jk-row gap left nowrap">
           <T className="tt-se">expected output</T>
-          {test?.withPE && <NewlineInfo text={test?.testOut || ''} />
-          }
+          {test?.withPE && <NewlineInfo text={test?.testOut || ''} />}
         </div>
       ),
       body: (
@@ -169,7 +173,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       </div>
     ),
   };
-  
+
   if (testWithError) {
     outputTabs['error'] = {
       key: 'error',
@@ -199,43 +203,50 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       ),
     };
   }
-  
+
   const inputTabs: TabsType = {
-    'input': {
+    input: {
       key: 'input',
       header: <T className="tt-se">input</T>,
-      body: (test?.sample ? enableAddSampleCases : enableAddCustomSampleCases) && onChange ?
-        <TextArea
-          style={{
-            height: 'calc(100% - 4px)',
-            overflow: 'auto',
-            width: 'calc(100% - 4px)',
-            margin: 2,
-            position: 'absolute',
-          }}
-          wrap="off"
-          className="tx-s flex-1"
-          value={test?.in}
-          disabled={!test}
-          onChange={test ? value => onChange({
-            onTestCasesChange: (testCases) => ({
-              ...testCases,
-              [test?.key]: { ...test, in: value },
-            }),
-          }) : undefined}
-        /> : (
+      body:
+        (test?.sample ? enableAddSampleCases : enableAddCustomSampleCases) && onChangeRef?.current ? (
+          <TextArea
+            style={{
+              height: 'calc(100% - 4px)',
+              overflow: 'auto',
+              width: 'calc(100% - 4px)',
+              margin: 2,
+              position: 'absolute',
+            }}
+            wrap="off"
+            className="tx-s flex-1"
+            value={test?.in}
+            disabled={!test}
+            onChange={
+              test
+                ? (value) =>
+                    onChangeRef?.current?.({
+                      onTestCasesChange: (testCases) => ({
+                        ...testCases,
+                        [test?.key]: { ...test, in: value },
+                      }),
+                    })
+                : undefined
+            }
+          />
+        ) : (
           <div className="flex-1 ow-ao jk-pg-xsm">
             <span className="jk-text-stdout">{test?.in}</span>
           </div>
         ),
     },
   };
-  
-  if ((test?.sample && enableAddSampleCases)) {
+
+  if (test?.sample && enableAddSampleCases) {
     inputTabs['output'] = {
       key: 'output',
       header: <T className="tt-se">expected output</T>,
-      body: onChange ?
+      body: onChangeRef?.current ? (
         <TextArea
           style={{
             height: 'calc(100% - 4px)',
@@ -247,19 +258,20 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
           wrap="off"
           className="tx-s flex-1"
           value={test?.testOut}
-          onChange={value => onChange({
-            onTestCasesChange: (testCases) => ({
-              ...testCases,
-              [test?.key]: { ...test, testOut: value },
-            }),
-          })}
-        /> : (
-          <div className="flex-1 ow-ao jk-pg-xsm">
-              <span className="jk-text-stdout">
-                {test?.testOut}
-              </span>
-          </div>
-        ),
+          onChange={(value) =>
+            onChangeRef?.current?.({
+              onTestCasesChange: (testCases) => ({
+                ...testCases,
+                [test?.key]: { ...test, testOut: value },
+              }),
+            })
+          }
+        />
+      ) : (
+        <div className="flex-1 ow-ao jk-pg-xsm">
+          <span className="jk-text-stdout">{test?.testOut}</span>
+        </div>
+      ),
     };
     inputTabs['settings'] = {
       key: 'settings',
@@ -271,40 +283,51 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             checked={test?.hidden}
             leftLabel={<T className="tt-se tx-s">no hidden</T>}
             rightLabel={<T className="tt-se tx-s">hidden</T>}
-            onChange={onChange ? hidden => onChange({
-              onTestCasesChange: (testCases) => ({
-                ...testCases,
-                [test?.key]: { ...test, hidden },
-              }),
-            }) : undefined}
+            onChange={
+              onChangeRef?.current
+                ? (hidden) =>
+                    onChangeRef?.current?.({
+                      onTestCasesChange: (testCases) => ({
+                        ...testCases,
+                        [test?.key]: { ...test, hidden },
+                      }),
+                    })
+                : undefined
+            }
           />
           <InputToggle
             size="small"
             checked={test?.withPE}
             leftLabel={<T className="tt-se tx-s">without PE</T>}
             rightLabel={<T className="tt-se tx-s">with PE</T>}
-            onChange={onChange ? withPE => onChange({
-              onTestCasesChange: (testCases) => ({
-                ...testCases,
-                [test?.key]: { ...test, withPE },
-              }),
-            }) : undefined}
+            onChange={
+              onChangeRef?.current
+                ? (withPE) =>
+                    onChangeRef?.current?.({
+                      onTestCasesChange: (testCases) => ({
+                        ...testCases,
+                        [test?.key]: { ...test, withPE },
+                      }),
+                    })
+                : undefined
+            }
           />
         </div>
       ),
     };
   }
-  
+
   return (
     <div className="jk-code-mirror-editor-test-cases jk-row stretch nowrap">
       <div className="jk-col nowrap stretch top tx-t border-right-highlight-light test-cases-header ow-ao">
         <div className="jk-row ta-cr fw-bd jk-pg-xsm-tb border-bottom-highlight-light">
-          <T className="tt-se" style={{ width: 48, lineHeight: 1 }}>test cases</T>
+          <T className="tt-se" style={{ width: 48, lineHeight: 1 }}>
+            test cases
+          </T>
         </div>
         {testCasesValues.map((testCase) => {
-          
           const verdict = getVerdictFromTestCase(testCase, timeLimit, memoryLimit).verdict;
-          
+
           return (
             <div
               key={testCase.key}
@@ -336,7 +359,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                       data-tooltip-content="delete case"
                       data-tooltip-place="right"
                       onClick={() => {
-                        onChange?.({
+                        onChangeRef?.current?.({
                           onTestCasesChange: (testCases) => {
                             const newTestCases = { ...testCases };
                             delete newTestCases[testCase.key];
@@ -348,36 +371,47 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                   </>
                 )}
               </div>
-              {testCase.status !== SubmissionRunStatus.NONE && (
-                (![ SubmissionRunStatus.EXECUTED_TEST_CASE, SubmissionRunStatus.FAILED_TEST_CASE, SubmissionRunStatus.COMPILATION_ERROR ].includes(testCase.status)) ? (
-                  <>&nbsp;<SpinIcon size="tiny" /></>
+              {testCase.status !== SubmissionRunStatus.NONE &&
+                (![
+                  SubmissionRunStatus.EXECUTED_TEST_CASE,
+                  SubmissionRunStatus.FAILED_TEST_CASE,
+                  SubmissionRunStatus.COMPILATION_ERROR,
+                ].includes(testCase.status) ? (
+                  <>
+                    &nbsp;
+                    <SpinIcon size="tiny" />
+                  </>
+                ) : !!testCase.testOut ||
+                  verdict === ProblemVerdict.CE ||
+                  verdict === ProblemVerdict.MLE ||
+                  verdict === ProblemVerdict.TLE ||
+                  verdict === ProblemVerdict.RE ? (
+                  <>
+                    &nbsp;
+                    <ProblemVerdictTag verdict={verdict} small />
+                  </>
                 ) : (
-                  (!!testCase.testOut || verdict === ProblemVerdict.CE || verdict === ProblemVerdict.MLE || verdict === ProblemVerdict.TLE || verdict === ProblemVerdict.RE) ? (
-                    <>&nbsp;<ProblemVerdictTag verdict={verdict} small /></>
-                  ) : (
-                    <div
-                      data-tooltip-id="jk-tooltip"
-                      data-tooltip-content="success executed"
-                      className="cr-il"
-                      style={{ lineHeight: 1, padding: '2px 4px' }}
-                    >
-                      <CheckIcon size="tiny" filledCircle />
-                    </div>
-                  )
-                )
-              )}
+                  <div
+                    data-tooltip-id="jk-tooltip"
+                    data-tooltip-content="success executed"
+                    className="cr-il"
+                    style={{ lineHeight: 1, padding: '2px 4px' }}
+                  >
+                    <CheckIcon size="tiny" filledCircle />
+                  </div>
+                ))}
             </div>
           );
         })}
         {/*TODO: add character inside de buttons to distinguish the buttons*/}
-        {enableAddSampleCases && onChange && (
+        {enableAddSampleCases && onChangeRef?.current && (
           <div className="jk-row jk-pg-xsm-tb border-top-highlight-light">
-            <AddCaseButton onChange={onChange} testCasesValues={testCasesValues} testCases={testCases} sample />
+            <AddCaseButton onChange={onChangeRef?.current} testCasesValues={testCasesValues} testCases={testCases} sample />
           </div>
         )}
-        {enableAddCustomSampleCases && onChange && (
+        {enableAddCustomSampleCases && onChangeRef?.current && (
           <div className="jk-row jk-pg-xsm-tb border-top-highlight-light">
-            <AddCaseButton onChange={onChange} testCasesValues={testCasesValues} testCases={testCases} />
+            <AddCaseButton onChange={onChangeRef?.current} testCasesValues={testCasesValues} testCases={testCases} />
           </div>
         )}
       </div>
@@ -419,10 +453,14 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                             <div className="dot-flashing" />
                           </div>
                         )}
-                        {(!!test && !isLoadingState && test.status !== SubmissionRunStatus.NONE)
-                          ? <LogInfo testCase={test} timeLimit={timeLimit} memoryLimit={memoryLimit} />
-                          : !!test && !isLoadingState &&
-                          <T className="tt-se">{test.sample ? 'unexecuted sample case' : 'unexecuted test case'}</T>}
+                        {!!test && !isLoadingState && test.status !== SubmissionRunStatus.NONE ? (
+                          <LogInfo testCase={test} timeLimit={timeLimit} memoryLimit={memoryLimit} />
+                        ) : (
+                          !!test &&
+                          !isLoadingState && (
+                            <T className="tt-se">{test.sample ? 'unexecuted sample case' : 'unexecuted test case'}</T>
+                          )
+                        )}
                       </div>
                     }
                   >

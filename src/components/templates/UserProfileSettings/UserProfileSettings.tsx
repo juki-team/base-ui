@@ -195,7 +195,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
             <div className="jk-col left gap nowrap jk-pg-sm" style={{ width: '100%' }}>
               <Button
                 size="small"
-                type="light"
+                type="secondary"
                 onClick={() => setSettings([
                   { key: ProfileSetting.LANGUAGE, value: Language.EN },
                   { key: ProfileSetting.THEME, value: Theme.LIGHT },

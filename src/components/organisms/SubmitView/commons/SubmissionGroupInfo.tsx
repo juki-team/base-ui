@@ -75,7 +75,7 @@ function DiffViewButton({ diffInput, croppedDiff, isProblemEditor }: {
         data-tooltip-content="view diff"
         icon={<VisibilityIcon />}
         size="tiny"
-        type="light"
+        type="secondary"
         onClick={() => setIsOpen(true)}
       />
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} closeIcon expand>

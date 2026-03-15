@@ -24,7 +24,7 @@ export function ImageUploaderModal(props: ImageUploaderModalProps) {
       key: 'public-images',
       header: <>
         <T className="tt-se">public images</T>
-        <Button icon={<RefreshIcon />} size="small" type="light" onClick={() => setCount(count + 1)} />
+        <Button icon={<RefreshIcon />} size="small" type="secondary" onClick={() => setCount(count + 1)} />
       </>,
       body: (
         <PublicImagesTab

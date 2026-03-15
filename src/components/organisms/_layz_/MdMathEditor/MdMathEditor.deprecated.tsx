@@ -38,7 +38,7 @@ const InformationButton = ({ open, setOpen, isOpenRef, withLabel }: InformationB
         data-tooltip-t-class-name="ws-np tt-se"
         size="small"
         className="bc-we"
-        type="void"
+        type="ghost"
         icon={<InfoIIcon circle />}
         onClick={() => setOpen(true)}
       >
@@ -201,7 +201,7 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
                   data-tooltip-id="jk-tooltip"
                   data-tooltip-content={withLabels ? '' : 'editor | preview'}
                   data-tooltip-t-class-name="ws-np"
-                  type="void"
+                  type="ghost"
                   size="small"
                   className="bc-we"
                   onClick={() => setView(View.EDITOR_VIEWER_HORIZONTAL)}
@@ -221,7 +221,7 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
                   data-tooltip-id="jk-tooltip"
                   data-tooltip-content={withLabels ? '' : 'preview'}
                   data-tooltip-t-class-name="ws-np"
-                  type="void"
+                  type="ghost"
                   size="small"
                   className="bc-we"
                   icon={<PreviewIcon />}
@@ -235,7 +235,7 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
                   data-tooltip-id="jk-tooltip"
                   data-tooltip-content={withLabels ? '' : 'editor'}
                   data-tooltip-t-class-name="ws-np"
-                  type="void"
+                  type="ghost"
                   size="small"
                   className="bc-we"
                   icon={<EditIcon />}
@@ -247,7 +247,7 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
             </div>
             <Button
               icon={<CloseIcon />}
-              type="void"
+              type="ghost"
               size="small"
               className="bc-we"
               onClick={() => setEditing(false)}

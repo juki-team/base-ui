@@ -1,14 +1,18 @@
-import { FC, lazy, Suspense } from 'react';
+import { forwardRef, lazy, ReactElement, Ref, RefAttributes, Suspense } from 'react';
 import { SpinIcon } from '../../../atoms/server';
-import type { UserCodeEditorProps } from './types';
+import type { UserCodeEditorHandle, UserCodeEditorProps } from './types';
 
 export const UserCodeEditorImport = () => import('./UserCodeEditor');
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const UserCodeEditorGen = lazy(() => UserCodeEditorImport()) as FC<UserCodeEditorProps<any>>;
+const UserCodeEditorGen = lazy(() => UserCodeEditorImport()) as <T>(
+  props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeEditorHandle> },
+) => ReactElement | null;
 
-export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => (
-  <Suspense fallback={<SpinIcon />}>
-    <UserCodeEditorGen {...props} />
-  </Suspense>
-);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const UserCodeEditor = forwardRef<UserCodeEditorHandle, UserCodeEditorProps<any>>(function UserCodeEditor(props, ref) {
+  return (
+    <Suspense fallback={<SpinIcon />}>
+      <UserCodeEditorGen {...props} ref={ref} />
+    </Suspense>
+  );
+}) as <T>(props: UserCodeEditorProps<T> & RefAttributes<UserCodeEditorHandle>) => ReactElement | null;

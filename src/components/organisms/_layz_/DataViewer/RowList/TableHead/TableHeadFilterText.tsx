@@ -34,7 +34,7 @@ export const TableHeadFilterText = (props: TableHeadFilterTextProps) => {
       <div className="jk-row right gap">
         <Button
           size="tiny"
-          type="light"
+          type="secondary"
           onClick={onReset}
           disabled={initialText === ''}
         >

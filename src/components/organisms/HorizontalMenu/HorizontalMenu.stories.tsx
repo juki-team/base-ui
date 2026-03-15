@@ -30,7 +30,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
       open={open}
     >
       <div>
-        <Button icon={<SettingsIcon />} type="light" />
+        <Button icon={<SettingsIcon />} type="secondary" />
       </div>
     </Popover>
     <Popover

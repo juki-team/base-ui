@@ -250,7 +250,7 @@
 //                       icon={<InkEraserIcon />}
 //                       onClick={() => setMode('erase')}
 //                     />
-//                     <Button size="tiny" type="light" icon={<DeleteIcon />} onClick={deleteAll} />
+//                     <Button size="tiny" type="secondary" icon={<DeleteIcon />} onClick={deleteAll} />
 //                   </div>
 //                   <InputColor
 //                     labelPlacement="left"
@@ -274,7 +274,7 @@
 //           ]}
 //         />
 //       ) : (
-//         <Button type="light" size="tiny" icon={<EditIcon />} onClick={() => setIsActive(true)} />
+//         <Button type="secondary" size="tiny" icon={<EditIcon />} onClick={() => setIsActive(true)} />
 //       )}
 //       <div
 //         style={{

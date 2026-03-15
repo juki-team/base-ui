@@ -77,7 +77,7 @@ export const GraphSheetSectionEditor = ({ content, setContent }: GraphSheetSecti
             setContent({ ...content, dots });
           }}
           size="small"
-          type="light"
+          type="secondary"
         />
         <Button
           icon={<AddIcon />}

@@ -31,7 +31,7 @@ export function SubmissionRetrieveButton({ submissionId }: SubmissionRetrieveBut
       }}
       size="tiny"
       icon={<RefreshIcon />}
-      type="light"
+      type="secondary"
     >
       <T className="tt-se">retrieve</T>
     </ButtonLoader>

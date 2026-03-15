@@ -119,7 +119,7 @@ export function FullscreenTimerButton() {
               timerCountdown.start();
             }
           }}
-          type={timerCountdown.isRunning ? 'light' : 'accent'}
+          type={timerCountdown.isRunning ? 'secondary' : 'primary'}
           className={timerCountdown.isRunning ? '' : 'bc-ss cr-we'}
         />
         <Button
@@ -205,7 +205,7 @@ export function FullscreenTimerButton() {
         <div className="jk-row right">
           <Button
             tooltipContent="active timer / countdown"
-            type="light"
+            type="secondary"
             size="tiny"
             icon={<TimerIcon />}
             onClick={() => setIsActive(true)}

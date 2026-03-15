@@ -1,0 +1,66 @@
+@use "../../mixins";
+
+.chat-right-panel {
+  position: sticky;
+  top: 0;
+  overflow: auto;
+  @include mixins.transition(width);
+  font-weight: var(--weight-light);
+  
+  strong {
+    font-weight: var(--weight-regular);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    padding: 0;
+    font-weight: var(--weight-regular);
+    
+    strong {
+      font-weight: inherit;
+    }
+  }
+  
+  
+  h1 {
+    font-size: calc(var(--tx-bs) * 1.107143) !important; // 18.5px;
+  }
+  
+  h2 {
+    font-size: calc(var(--tx-bs) * 1.05714) !important; // 18px;
+  }
+  
+  h3 {
+    font-size: calc(var(--tx-bs) * 1.04286) !important; // 17.5px;
+  }
+  
+  h4 {
+    font-size: calc(var(--tx-bs) * 1.02857) !important; // 17px;
+  }
+  
+  h5 {
+    font-size: calc(var(--tx-bs) * 1.01429) !important; // 16.5px;
+  }
+  
+  h6 {
+    font-size: var(--tx-bs) !important; // 16px
+  }
+}
+
+.vertical-text {
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+}
+
+.ai-chat-messages {
+  .message {
+    max-width: 80%;
+    
+    &.user {
+      align-self: end;
+    }
+    
+    &.chat {
+      align-self: start;
+    }
+  }
+}

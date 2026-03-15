@@ -30,7 +30,7 @@ export function ImageProfileModal({ isOpen, onClose, nickname, companyKey }: Ima
           circularCrop
         />
         <div className="jk-row right gap extend">
-          <Button type="light" onClick={onClose}><T className="tt-se">cancel</T></Button>
+          <Button type="secondary" onClick={onClose}><T className="tt-se">cancel</T></Button>
           <ButtonLoader
             onClick={async (setLoader) => {
               if (cropImage?.previewCanvasRef.current) {

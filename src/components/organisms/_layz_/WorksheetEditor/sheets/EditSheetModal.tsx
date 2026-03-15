@@ -29,7 +29,7 @@ export const EditSheetModal = <T, >(props: EditSheetModalProps<T>) => {
           onChange={setValue}
         />
         <div className="jk-row-col gap right">
-          <Button onClick={onClose} type="light">
+          <Button onClick={onClose} type="secondary">
             <T className="tt-se">close</T>
           </Button>
           <Button

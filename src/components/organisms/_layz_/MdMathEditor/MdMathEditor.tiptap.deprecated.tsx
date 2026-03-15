@@ -306,7 +306,7 @@
 //                         tooltipContent="unset code block"
 //                         icon={<CodeBlocksIcon />}
 //                         onClick={() => editor?.commands.toggleCodeBlock()}
-//                         type="light"
+//                         type="secondary"
 //                       />
 //                     </div>
 //                     <div className="jk-row group jk-br-ie bc-hl" style={{ maxWidth: 384, height: 28 + 28 }}>
@@ -389,7 +389,7 @@
 //                         tooltipContent="add image"
 //                         icon={<AddPhotoAlternateIcon />}
 //                         onClick={() => setOpenImageModal(true)}
-//                         type="light"
+//                         type="secondary"
 //                       />
 //                       <Button
 //                         tooltipContent={editor.isActive('orderedList') ? 'toggle bullet list' : editor.isActive('bulletList') ? 'toggle ordered list' : 'set bullet list'}
@@ -428,14 +428,14 @@
 //                       {/*  icon={<StepOutIcon rotate={90} />}*/}
 //                       {/*  onClick={() => editor.chain().focus().sinkListItem('listItem').run()}*/}
 //                       {/*  disabled={!editor.can().sinkListItem('listItem')}*/}
-//                       {/*  type="light"*/}
+//                       {/*  type="secondary"*/}
 //                       {/*/>*/}
 //                       {/*<Button*/}
 //                       {/*  tooltipContent="lift list item"*/}
 //                       {/*  icon={<StepIntoIcon rotate={90} />}*/}
 //                       {/*  onClick={() => editor.chain().focus().liftListItem('listItem').run()}*/}
 //                       {/*  disabled={!editor.can().liftListItem('listItem')}*/}
-//                       {/*  type="light"*/}
+//                       {/*  type="secondary"*/}
 //                       {/*/>*/}
 //                     </div>
 //                     <div className="jk-row group jk-br-ie bc-hl">
@@ -557,14 +557,14 @@
 //           {/*      size="small"*/}
 //           {/*      icon={<AddPhotoAlternateIcon />}*/}
 //           {/*      onClick={() => setOpenImageModal(true)}*/}
-//           {/*      type="light"*/}
+//           {/*      type="secondary"*/}
 //           {/*    />*/}
 //           {/*    <Button*/}
 //           {/*      tooltipContent={editor.isActive('codeBlock') ? 'unset code block' : 'set code block'}*/}
 //           {/*      size="small"*/}
 //           {/*      icon={<CodeBlocksIcon />}*/}
 //           {/*      onClick={() => editor?.commands.setCodeBlock()}*/}
-//           {/*      type="light"*/}
+//           {/*      type="secondary"*/}
 //           {/*    />*/}
 //           {/*    <Button*/}
 //           {/*      tooltipContent={editor.isActive('blockquote') ? 'unset blockquote' : 'set blockquote'}*/}
@@ -595,7 +595,7 @@
 //                   <Button
 //                     icon={<AddPhotoAlternateIcon strikethrough />}
 //                     onClick={() => editor.commands.deleteSelection()}
-//                     type="light"
+//                     type="secondary"
 //                   >
 //                     <T>delete image</T>
 //                   </Button>
@@ -621,7 +621,7 @@
 //                     icon={<StepOutIcon rotate={90} />}
 //                     onClick={() => editor.chain().focus().sinkListItem('listItem').run()}
 //                     disabled={!editor.can().sinkListItem('listItem')}
-//                     type="light"
+//                     type="secondary"
 //                     size="small"
 //                   />
 //                   <Button
@@ -629,7 +629,7 @@
 //                     icon={<StepIntoIcon rotate={90} />}
 //                     onClick={() => editor.chain().focus().liftListItem('listItem').run()}
 //                     disabled={!editor.can().liftListItem('listItem')}
-//                     type="light"
+//                     type="secondary"
 //                     size="small"
 //                   />
 //                 </div>
@@ -641,7 +641,7 @@
 //                     icon={<AddColumnRightIcon />}
 //                     onClick={() => editor.chain().focus().addColumnBefore().run()}
 //                     disabled={!editor.can().addColumnBefore()}
-//                     type="light"
+//                     type="secondary"
 //                     size="small"
 //                   />
 //                   <Button
@@ -649,7 +649,7 @@
 //                     icon={<AddColumnLeftIcon />}
 //                     onClick={() => editor.chain().focus().addColumnAfter().run()}
 //                     disabled={!editor.can().addColumnAfter()}
-//                     type="light"
+//                     type="secondary"
 //                     size="small"
 //                   />
 //                   <Button
@@ -657,7 +657,7 @@
 //                     icon={<AddRowAboveIcon />}
 //                     onClick={() => editor.chain().focus().addRowBefore().run()}
 //                     disabled={!editor.can().addRowBefore()}
-//                     type="light"
+//                     type="secondary"
 //                     size="small"
 //                   />
 //                   <Button
@@ -665,7 +665,7 @@
 //                     icon={<AddRowBelowIcon />}
 //                     onClick={() => editor.chain().focus().addRowAfter().run()}
 //                     disabled={!editor.can().addRowAfter()}
-//                     type="light"
+//                     type="secondary"
 //                     size="small"
 //                   />
 //                   <Button
@@ -673,7 +673,7 @@
 //                     icon={<ArrowUpwardIcon strikethrough />}
 //                     onClick={() => editor.chain().focus().deleteColumn().run()}
 //                     disabled={!editor.can().deleteColumn()}
-//                     type="light"
+//                     type="secondary"
 //                     size="small"
 //                   />
 //                   <Button
@@ -681,7 +681,7 @@
 //                     icon={<ArrowForwardIcon strikethrough />}
 //                     onClick={() => editor.chain().focus().deleteRow().run()}
 //                     disabled={!editor.can().deleteRow()}
-//                     type="light"
+//                     type="secondary"
 //                     size="small"
 //                   />
 //                 </div>
@@ -743,14 +743,14 @@
 //                         ])
 //                         .run();
 //                     }}
-//                     type="light"
+//                     type="secondary"
 //                     size="small"
 //                   />
 //                   <Button
 //                     tooltipContent="set link"
 //                     icon={<LinkIcon />}
 //                     onClick={setLink}
-//                     type="light"
+//                     type="secondary"
 //                     size="small"
 //                   />
 //                 </div>

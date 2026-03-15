@@ -31,7 +31,7 @@ export function SubmissionRejudgeButton({ submissionId }: SubmissionRejudgeButto
       }}
       size="tiny"
       icon={<RefreshIcon />}
-      type="light"
+      type="secondary"
     >
       <T className="tt-se">rejudge</T>
     </ButtonLoader>

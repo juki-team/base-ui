@@ -9,27 +9,35 @@ import {
   SubmissionRunStatus,
   Theme,
 } from '@juki-team/commons';
-import { type Dispatch, type SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import type { RefAttributes } from 'react';
+import {
+  type Dispatch,
+  type ForwardedRef,
+  forwardRef,
+  type ReactElement,
+  type SetStateAction,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import { EMPTY_OBJECT } from '../../../../constants';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
-import {
-  getEditorSettingsStorageKey,
-  getSettingsStoreKey,
-  getSourcesStoreKey,
-  getTestCasesStoreKey,
-} from '../../../helpers';
+import { getEditorSettingsStorageKey, getSettingsStoreKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useStableRef } from '../../../hooks/useStableRef';
 import { useSyncedState } from '../../../hooks/useSyncedState';
+import type { MdMathEditorHandle } from '../MdMathEditor/types';
 import { CodeRunnerEditor } from './CodeRunnerEditor/CodeRunnerEditor';
 import type { CodeRunnerEditorPropertiesType } from './CodeRunnerEditor/types';
-import type { UserCodeEditorProps } from './types';
+import type { UserCodeEditorHandle, UserCodeEditorProps } from './types';
 
 function getStoreRecovered(storeKey: string | undefined) {
   let storeRecovered = {};
   if (typeof localStorage !== 'undefined') {
-    const localStorageData = storeKey ? (localStorage.getItem(storeKey) || '{}') : '{}';
+    const localStorageData = storeKey ? localStorage.getItem(storeKey) || '{}' : '{}';
     if (isStringJson(localStorageData)) {
       storeRecovered = JSON.parse(localStorageData);
     }
@@ -37,39 +45,48 @@ function getStoreRecovered(storeKey: string | undefined) {
   return storeRecovered;
 }
 
-function useSaveStorage<T extends Record<string, unknown>, >(storeKey: string | undefined, defaultValue: T): [ T, Dispatch<SetStateAction<T>> ] {
-  
+function useSaveStorage<T extends Record<string, unknown>>(
+  storeKey: string | undefined,
+  defaultValue: T,
+): [T, Dispatch<SetStateAction<T>>] {
   const storeRecovered = getStoreRecovered(storeKey);
-  const [ value, setValue ] = useState<T>({ ...defaultValue, ...storeRecovered });
-  
+  const [value, setValue] = useState<T>({ ...defaultValue, ...storeRecovered });
+
   const defaultValueRef = useRef(defaultValue);
   defaultValueRef.current = defaultValue;
-  
+
   const storeRecoveredRef = useRef(storeRecovered);
   storeRecoveredRef.current = storeRecovered;
-  
+
   useEffect(() => {
     setValue({ ...defaultValueRef.current, ...storeRecoveredRef.current });
-  }, [ storeKey ]);
-  
+  }, [storeKey]);
+
   useEffect(() => {
-    if (storeKey) {
-      const stringValue = JSON.stringify(value);
-      if (localStorage.getItem(storeKey) !== stringValue) {
-        localStorage.setItem(storeKey, stringValue);
+    const id = setTimeout(() => {
+      if (storeKey) {
+        const stringValue = JSON.stringify(value);
+        if (localStorage.getItem(storeKey) !== stringValue) {
+          localStorage.setItem(storeKey, stringValue);
+        }
       }
-    }
-  }, [ storeKey, value ]);
-  
-  return [ value, setValue ];
+    }, 300);
+    return () => clearTimeout(id);
+  }, [storeKey, value]);
+
+  return [value, setValue];
 }
 
-function useSaveChunkStorage<T extends Record<string, unknown>, >(storeKey: string, initialValue: StorageType<T>, merge: (a: T, b: T | undefined) => T, formatStoreRecovered: (recovered: unknown) => StorageType<T>): [ StorageType<T>, Dispatch<SetStateAction<StorageType<T>>> ] {
-  
+function useSaveChunkStorage<T extends Record<string, unknown>>(
+  storeKey: string,
+  initialValue: StorageType<T>,
+  merge: (a: T, b: T | undefined) => T,
+  formatStoreRecovered: (recovered: unknown) => StorageType<T>,
+): [StorageType<T>, Dispatch<SetStateAction<StorageType<T>>>] {
   // const initialValueString = JSON.stringify(initialValue);
   const mergeRef = useStableRef(merge);
   const formatStoreRecoveredRef = useStableRef(formatStoreRecovered);
-  
+
   const mergeState = useCallback(() => {
     // let initialValue: StorageType<T> = {};
     // if (isStringJson(initialValueString)) {
@@ -77,36 +94,39 @@ function useSaveChunkStorage<T extends Record<string, unknown>, >(storeKey: stri
     // }
     const newState: StorageType<T> = {};
     const storeRecovered = Object.entries(formatStoreRecoveredRef.current(getStoreRecovered(storeKey)));
-    for (const [ key, value ] of Object.entries(initialValue)) {
-      newState[key] = mergeRef.current(value, storeRecovered.find(([ storeRecoveredKey ]) => storeRecoveredKey === key)?.[1]);
+    for (const [key, value] of Object.entries(initialValue)) {
+      newState[key] = mergeRef.current(value, storeRecovered.find(([storeRecoveredKey]) => storeRecoveredKey === key)?.[1]);
     }
-    for (const [ key, value ] of storeRecovered) {
+    for (const [key, value] of storeRecovered) {
       if (!newState[key]) {
         newState[key] = value;
       }
     }
     return newState;
-  }, [ storeKey, formatStoreRecoveredRef, mergeRef, initialValue ]);
-  
-  const [ value, setValue ] = useState<StorageType<T>>(mergeState());
-  
+  }, [storeKey, formatStoreRecoveredRef, mergeRef, initialValue]);
+
+  const [value, setValue] = useState<StorageType<T>>(mergeState());
+
   useEffect(() => {
     setValue(mergeState());
-  }, [ mergeState ]);
-  
+  }, [mergeState]);
+
   useEffect(() => {
-    const stringValue = JSON.stringify(value);
-    if (localStorage.getItem(storeKey) !== stringValue) {
-      localStorage.setItem(storeKey, stringValue);
-    }
-  }, [ storeKey, value ]);
-  
-  return [ value, setValue ];
+    const id = setTimeout(() => {
+      const stringValue = JSON.stringify(value);
+      if (localStorage.getItem(storeKey) !== stringValue) {
+        localStorage.setItem(storeKey, stringValue);
+      }
+    }, 300);
+    return () => clearTimeout(id);
+  }, [storeKey, value]);
+
+  return [value, setValue];
 }
 
 type StorageType<T extends Record<string, unknown>> = {
-  [key: string]: T,
-}
+  [key: string]: T;
+};
 
 const getDefaultFileName = (codeLanguage: CodeLanguage) => CODE_LANGUAGE[codeLanguage]?.mainFilename ?? 'main.source';
 
@@ -114,7 +134,7 @@ const getExtension = (codeLanguage: unknown) => CODE_LANGUAGE[codeLanguage as Co
 
 const mergeTestCases = (a: CodeEditorTestCases, b: CodeEditorTestCases | undefined): CodeEditorTestCases => {
   const newTestCases: CodeEditorTestCases = {};
-  for (const [ key, testCase ] of Object.entries(a)) {
+  for (const [key, testCase] of Object.entries(a)) {
     newTestCases[key] = {
       ...testCase,
       out: b?.[key]?.out ?? testCase?.out ?? '',
@@ -127,8 +147,8 @@ const mergeTestCases = (a: CodeEditorTestCases, b: CodeEditorTestCases | undefin
       newTestCases[key].in = b?.[key]?.in ?? testCase?.in ?? '';
     }
   }
-  
-  for (const [ key, testCase ] of Object.entries(b ?? {})) {
+
+  for (const [key, testCase] of Object.entries(b ?? {})) {
     if (!newTestCases[key]) {
       newTestCases[key] = testCase;
     }
@@ -136,7 +156,7 @@ const mergeTestCases = (a: CodeEditorTestCases, b: CodeEditorTestCases | undefin
   return newTestCases;
 };
 
-const mergeSources = <T, >(a: CodeEditorFiles<T>, b: CodeEditorFiles<T> | undefined): CodeEditorFiles<T> => {
+const mergeSources = <T,>(a: CodeEditorFiles<T>, b: CodeEditorFiles<T> | undefined): CodeEditorFiles<T> => {
   return { ...b, ...a };
 };
 
@@ -155,61 +175,67 @@ type SettingsStore = { lastFileName: string };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const formatSettingsStoreRecovered = (recovered: any): StorageType<SettingsStore> => {
   const state: StorageType<SettingsStore> = {};
-  for (const [ key, value ] of Object.entries(recovered)) {
+  for (const [key, value] of Object.entries(recovered)) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     state[key] = { lastFileName: typeof (value as any)?.lastFileName === 'string' ? (value as any).lastFileName : '' };
   }
   return state;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const formatStoreRecovered = <T, >(languages: UserCodeEditorProps<T>['languages']) => (recovered: any): StorageType<CodeEditorFiles<T>> => {
-  const state: StorageType<CodeEditorFiles<T>> = {};
-  for (const [ key, value ] of Object.entries(recovered)) {
-    state[key] = {};
-    let index = 1;
-    for (const [ lang, source ] of Object.entries(value || {})) {
-      if (typeof source === 'string') {
-        const name = `source-${index}.${getExtension(lang as CodeLanguage)}`;
-        state[key][name] = {
-          source,
-          language: languages.some(({ value }) => value === lang) ? lang as T : CodeLanguage.TEXT as T,
-          index,
-          name,
-          hidden: false,
-          protected: false,
-          readonly: false,
-        };
-        index++;
-      } else if (typeof source === 'object' && source !== null) {
-        state[key][lang] = {
-          source: 'source' in source && typeof source?.source === 'string' ? source?.source : '',
-          language: (('language' in source && typeof source?.language === 'string' ? (languages.some(({ value }) => value === source?.language) ? source?.language as T : CodeLanguage.TEXT as T) : '') || CodeLanguage.TEXT) as T,
-          index: 'index' in source && typeof source?.index === 'number' ? source?.index : 0,
-          name: lang,
-          hidden: 'hidden' in source && typeof source?.hidden === 'boolean' ? source.hidden : false,
-          protected: 'protected' in source && typeof source?.protected === 'boolean' ? source.protected : false,
-          readonly: 'readonly' in source && typeof source?.readonly === 'boolean' ? source.readonly : false,
-        };
+const formatStoreRecovered =
+  <T,>(languages: UserCodeEditorProps<T>['languages']) =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (recovered: any): StorageType<CodeEditorFiles<T>> => {
+    const state: StorageType<CodeEditorFiles<T>> = {};
+    for (const [key, value] of Object.entries(recovered)) {
+      state[key] = {};
+      let index = 1;
+      for (const [lang, source] of Object.entries(value || {})) {
+        if (typeof source === 'string') {
+          const name = `source-${index}.${getExtension(lang as CodeLanguage)}`;
+          state[key][name] = {
+            source,
+            language: languages?.some(({ value }) => value === lang) ? (lang as T) : (CodeLanguage.TEXT as T),
+            index,
+            name,
+            hidden: false,
+            protected: false,
+            readonly: false,
+          };
+          index++;
+        } else if (typeof source === 'object' && source !== null) {
+          state[key][lang] = {
+            source: 'source' in source && typeof source?.source === 'string' ? source?.source : '',
+            language: (('language' in source && typeof source?.language === 'string'
+              ? languages?.some(({ value }) => value === source?.language)
+                ? (source?.language as T)
+                : (CodeLanguage.TEXT as T)
+              : '') || CodeLanguage.TEXT) as T,
+            index: 'index' in source && typeof source?.index === 'number' ? source?.index : 0,
+            name: lang,
+            hidden: 'hidden' in source && typeof source?.hidden === 'boolean' ? source.hidden : false,
+            protected: 'protected' in source && typeof source?.protected === 'boolean' ? source.protected : false,
+            readonly: 'readonly' in source && typeof source?.readonly === 'boolean' ? source.readonly : false,
+          };
+        }
       }
     }
-  }
-  return state;
-};
+    return state;
+  };
 
 type CodeEditorSettingsStore<T> = {
-  theme: Theme,
-  lastLanguageUsed: T,
-  tabSize: number,
-  fontSize: number,
+  theme: Theme;
+  lastLanguageUsed: T;
+  tabSize: number;
+  fontSize: number;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const formatTestCasesStoreRecover = (recovered: any): StorageType<CodeEditorTestCases> => {
   const state: StorageType<CodeEditorTestCases> = {};
-  for (const [ key, value ] of Object.entries(recovered)) {
+  for (const [key, value] of Object.entries(recovered)) {
     state[key] = {};
-    for (const [ caseKey, caseValue ] of Object.entries(value as object)) {
+    for (const [caseKey, caseValue] of Object.entries(value as object)) {
       if (caseValue?.sample === false) {
         state[key][caseKey] = {
           key: caseKey,
@@ -252,8 +278,7 @@ const getNewInitialTestCases = (testCaseStoreKey: string, initialTestCases: Code
   return response;
 };
 
-export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
-  
+function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef<UserCodeEditorHandle>) {
   const {
     className,
     expandPosition,
@@ -272,41 +297,50 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
     enableAddCustomSampleCases,
     onIsRunningChange,
     readOnly,
-    withoutRunCodeButton,
-    withoutDownloadCopyButton,
     onCodeRunStatusChange,
     onlyCodeEditor,
-    setSetFile,
   } = props;
-  
-  const userNickname = useUserStore(state => state.user.nickname);
+
+  const userNickname = useUserStore((state) => state.user.nickname);
   const { addErrorNotification } = useJukiNotification();
-  
+
   const editorSettingsStorageKey = getEditorSettingsStorageKey(userNickname);
-  
-  const [ editorSettings, setEditorSettings ] = useSaveStorage<CodeEditorSettingsStore<T>>(
-    editorSettingsStorageKey,
-    { theme: Theme.LIGHT, lastLanguageUsed: CodeLanguage.CPP as T, tabSize: 2, fontSize: 14 },
-  );
-  
+
+  const [editorSettings, setEditorSettings] = useSaveStorage<CodeEditorSettingsStore<T>>(editorSettingsStorageKey, {
+    theme: Theme.LIGHT,
+    lastLanguageUsed: CodeLanguage.CPP as T,
+    tabSize: 2,
+    fontSize: 14,
+  });
+
   let defaultLanguage = editorSettings.lastLanguageUsed;
-  if (languages.length && !languages.some(lang => lang.value === defaultLanguage) && languages[0]) {
+  if (languages?.length && !languages.some((lang) => lang.value === defaultLanguage) && languages[0]) {
     defaultLanguage = languages[0].value;
   }
-  
-  const [ newInitialFiles ] = useSyncedState<StorageType<CodeEditorFiles<T>>>({ [storeKey]: { ...initialFiles } });
-  const [ filesStore, setFilesStore ] = useSaveChunkStorage<CodeEditorFiles<T>>(getSourcesStoreKey(userNickname), newInitialFiles, mergeSources, formatStoreRecovered(languages));
+
+  const [newInitialFiles] = useSyncedState<StorageType<CodeEditorFiles<T>>>({ [storeKey]: { ...initialFiles } });
+  const [filesStore, setFilesStore] = useSaveChunkStorage<CodeEditorFiles<T>>(
+    getSourcesStoreKey(userNickname),
+    newInitialFiles,
+    mergeSources,
+    formatStoreRecovered(languages),
+  );
   const onFilesChangeRef = useStableRef(onFilesChange);
   const files = filesStore[storeKey] || EMPTY_OBJECT;
-  useEffect(() => onFilesChangeRef.current?.(files), [ files, onFilesChangeRef ]);
+  useEffect(() => onFilesChangeRef.current?.(files), [files, onFilesChangeRef]);
   const defaultFileName = initialFileName ?? Object.keys(files)[0] ?? getDefaultFileName(defaultLanguage as CodeLanguage);
-  const [ newInitialSettings ] = useSyncedState<StorageType<SettingsStore>>({ [storeKey]: { lastFileName: defaultFileName } });
-  const [ settingsStore, setSettingsStore ] = useSaveChunkStorage<SettingsStore>(getSettingsStoreKey(userNickname), newInitialSettings, (a, b) => ({ ...a, ...b }), formatSettingsStoreRecovered);
+  const [newInitialSettings] = useSyncedState<StorageType<SettingsStore>>({ [storeKey]: { lastFileName: defaultFileName } });
+  const [settingsStore, setSettingsStore] = useSaveChunkStorage<SettingsStore>(
+    getSettingsStoreKey(userNickname),
+    newInitialSettings,
+    (a, b) => ({ ...a, ...b }),
+    formatSettingsStoreRecovered,
+  );
   const onCurrentFileNameChangeRef = useStableRef(onCurrentFileNameChange);
   const currentFileName = settingsStore[storeKey]?.lastFileName ?? defaultFileName;
-  useEffect(() => onCurrentFileNameChangeRef.current?.(currentFileName), [ currentFileName, onCurrentFileNameChangeRef ]);
+  useEffect(() => onCurrentFileNameChangeRef.current?.(currentFileName), [currentFileName, onCurrentFileNameChangeRef]);
   const setCurrentFileName = (lastFileName: string) => {
-    setSettingsStore(prevState => ({
+    setSettingsStore((prevState) => ({
       ...prevState,
       [storeKey]: {
         ...prevState[storeKey],
@@ -314,34 +348,52 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
       },
     }));
   };
-  
+
   const testCaseStoreKey = storeKey;
-  const [ newInitialTestCases ] = useSyncedState<StorageType<CodeEditorTestCases>>(getNewInitialTestCases(testCaseStoreKey, initialTestCases));
-  const [ testCasesStore, setTestCasesStore ] = useSaveChunkStorage<CodeEditorTestCases>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases, formatTestCasesStoreRecover);
+  const [newInitialTestCases] = useSyncedState<StorageType<CodeEditorTestCases>>(
+    getNewInitialTestCases(testCaseStoreKey, initialTestCases),
+  );
+  const [testCasesStore, setTestCasesStore] = useSaveChunkStorage<CodeEditorTestCases>(
+    getTestCasesStoreKey(userNickname),
+    newInitialTestCases,
+    mergeTestCases,
+    formatTestCasesStoreRecover,
+  );
   const onTestCasesChangeRef = useStableRef(onTestCasesChange);
   const testCases = testCasesStore[testCaseStoreKey]!;
   useEffect(() => {
     onTestCasesChangeRef.current?.(testCases);
-  }, [ onTestCasesChangeRef, testCases ]);
-  
-  const [ editorTriggerFocus, setEditorTriggerFocus ] = useState(0);
-  
-  useEffect(() => {
-    setSetFile?.((fileName: string, file: CodeEditorFile<T>) => {
-      setFilesStore(prevState => {
-        if (prevState[storeKey]) {
-          return {
-            ...prevState,
-            [storeKey]: {
-              ...prevState[storeKey],
-              [fileName]: file,
-            },
-          };
-        }
-        return prevState;
-      });
-    });
-  }, [ setFilesStore, setSetFile, storeKey ]);
+  }, [onTestCasesChangeRef, testCases]);
+
+  const [editorTriggerFocus, setEditorTriggerFocus] = useState(0);
+
+  const mdEditorRef = useRef<MdMathEditorHandle>(null);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      setFile: (fileName: string, file: CodeEditorFile<T>) => {
+        setFilesStore((prevState) => {
+          if (prevState[storeKey]) {
+            return {
+              ...prevState,
+              [storeKey]: {
+                ...prevState[storeKey],
+                [fileName]: file,
+              },
+            };
+          }
+          return prevState;
+        });
+      },
+      markdownGetSelection: () => mdEditorRef.current?.getSelectionMarkdown() ?? '',
+      markdownReplaceSelectionWithMarkdown: (md: string) => mdEditorRef.current?.replaceSelectionWithMarkdown(md),
+      markdownHighlightSelectionNodes: (className: string) => mdEditorRef.current?.highlightSelectionNodes(className),
+      markdownClearHighlight: () => mdEditorRef.current?.clearHighlight(),
+    }),
+    [setFilesStore, storeKey],
+  );
+
   const changeFileName = (prevState: StorageType<CodeEditorFiles<T>>, oldName: string, newName: string) => {
     const files = prevState[storeKey] || {};
     if (files[oldName]) {
@@ -349,7 +401,7 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
         ...files[oldName],
         name: newName,
       };
-      const { [oldName]: _, ...newFiles } = { ...files };
+      const { [oldName]: _removed, ...newFiles } = { ...files }; // eslint-disable-line @typescript-eslint/no-unused-vars
       newFiles[newName] = oldFile;
       return {
         ...prevState,
@@ -358,22 +410,21 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
     }
     return prevState;
   };
-  
+
   const onChange = ({
-                      source: newSourceCode,
-                      language: newLanguage,
-                      onTestCasesChange,
-                      theme,
-                      tabSize,
-                      fontSize,
-                      isRunning,
-                      codeRunStatus,
-                      newFileName,
-                      fileName,
-                      fileNameEdited,
-                      fileNameDeleted,
-                    }: CodeRunnerEditorPropertiesType<T>) => {
-    
+    source: newSourceCode,
+    language: newLanguage,
+    onTestCasesChange,
+    theme,
+    tabSize,
+    fontSize,
+    isRunning,
+    codeRunStatus,
+    newFileName,
+    fileName,
+    fileNameEdited,
+    fileNameDeleted,
+  }: CodeRunnerEditorPropertiesType<T>) => {
     if (codeRunStatus) {
       onCodeRunStatusChange?.(codeRunStatus, { files, currentFileName, testCases });
     }
@@ -381,7 +432,7 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
       onIsRunningChange?.(isRunning);
     }
     if (typeof newSourceCode === 'string') {
-      setFilesStore(prevState => {
+      setFilesStore((prevState) => {
         if (prevState[storeKey] && prevState[storeKey][currentFileName]) {
           return {
             ...prevState,
@@ -400,10 +451,14 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
     }
     if (newLanguage) {
       // setLanguage(newLanguage);
-      setEditorSettings(prevState => ({ ...prevState, lastLanguageUsed: newLanguage }));
-      setFilesStore(prevState => {
+      setEditorSettings((prevState) => ({ ...prevState, lastLanguageUsed: newLanguage }));
+      setFilesStore((prevState) => {
         const files = { ...(prevState[storeKey] || {}) };
-        const newRenamedFile = getNewFileName(removeExtension(currentFileName), `.${getExtension(newLanguage)}`, (name) => !!files[name]);
+        const newRenamedFile = getNewFileName(
+          removeExtension(currentFileName),
+          `.${getExtension(newLanguage)}`,
+          (name) => !!files[name],
+        );
         if (prevState[storeKey] && prevState[storeKey][currentFileName]) {
           const newState: StorageType<CodeEditorFiles<T>> = {
             ...prevState,
@@ -420,28 +475,28 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
         }
         return prevState;
       });
-      setEditorTriggerFocus(Date.now());
+      setEditorTriggerFocus((n) => n + 1);
     }
     if (onTestCasesChange) {
-      setTestCasesStore(prevState => ({
+      setTestCasesStore((prevState) => ({
         ...prevState,
         [testCaseStoreKey]: onTestCasesChange(prevState[testCaseStoreKey] || {}),
       }));
     }
     if (theme) {
-      setEditorSettings(prevState => ({ ...prevState, theme }));
-      setEditorTriggerFocus(Date.now());
+      setEditorSettings((prevState) => ({ ...prevState, theme }));
+      setEditorTriggerFocus((n) => n + 1);
     }
     if (tabSize) {
-      setEditorSettings(prevState => ({ ...prevState, tabSize }));
-      setEditorTriggerFocus(Date.now());
+      setEditorSettings((prevState) => ({ ...prevState, tabSize }));
+      setEditorTriggerFocus((n) => n + 1);
     }
     if (fontSize) {
-      setEditorSettings(prevState => ({ ...prevState, fontSize }));
-      setEditorTriggerFocus(Date.now());
+      setEditorSettings((prevState) => ({ ...prevState, fontSize }));
+      setEditorTriggerFocus((n) => n + 1);
     }
     if (newFileName) {
-      setFilesStore(prevState => {
+      setFilesStore((prevState) => {
         const files = { ...(prevState[storeKey] || {}) };
         const newFile = getNewFileName('new', `.${getExtension(defaultLanguage)}`, (name) => !!files[name]);
         setCurrentFileName(newFile);
@@ -457,11 +512,11 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
         };
         return { ...prevState, [storeKey]: files };
       });
-      setEditorTriggerFocus(Date.now());
+      setEditorTriggerFocus((n) => n + 1);
     }
     if (fileName) {
       setCurrentFileName(fileName);
-      setEditorTriggerFocus(Date.now());
+      setEditorTriggerFocus((n) => n + 1);
     }
     if (typeof fileNameEdited?.[0] === 'string' && typeof fileNameEdited?.[1] === 'string') {
       const newName = fileNameEdited[1];
@@ -469,22 +524,22 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
         addErrorNotification(<T className="tt-se">file name already exists</T>);
       } else {
         const oldName = fileNameEdited[0];
-        setFilesStore(prevState => changeFileName(prevState, oldName, newName));
+        setFilesStore((prevState) => changeFileName(prevState, oldName, newName));
         setCurrentFileName(newName);
-        setEditorTriggerFocus(Date.now());
+        setEditorTriggerFocus((n) => n + 1);
       }
     }
     if (fileNameDeleted) {
-      setFilesStore(prevState => {
+      setFilesStore((prevState) => {
         const files = prevState[storeKey] || {};
-        const { [fileNameDeleted]: _, ...newFiles } = { ...files };
+        const { [fileNameDeleted]: _removed, ...newFiles } = { ...files }; // eslint-disable-line @typescript-eslint/no-unused-vars
         setCurrentFileName(Object.keys(files)[0] ?? '');
         return { ...prevState, [storeKey]: newFiles };
       });
-      setEditorTriggerFocus(Date.now());
+      setEditorTriggerFocus((n) => n + 1);
     }
   };
-  
+
   return (
     <CodeRunnerEditor<T>
       triggerFocus={editorTriggerFocus}
@@ -504,9 +559,12 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
       expandPosition={expandPosition}
       enableAddSampleCases={enableAddSampleCases}
       enableAddCustomSampleCases={enableAddCustomSampleCases}
-      withoutRunCodeButton={withoutRunCodeButton}
-      withoutDownloadCopyButton={withoutDownloadCopyButton}
       onlyCodeEditor={onlyCodeEditor}
+      mdEditorRef={mdEditorRef}
     />
   );
 }
+
+export default forwardRef(UserCodeEditorInner) as <T>(
+  props: UserCodeEditorProps<T> & RefAttributes<UserCodeEditorHandle>,
+) => ReactElement | null;

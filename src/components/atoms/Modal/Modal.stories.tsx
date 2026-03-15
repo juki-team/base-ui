@@ -106,7 +106,7 @@ const CmpAccessibility = () => {
             <Input label="Second Input" placeholder="And here" />
             <div className="jk-row gap">
               <Button onClick={() => setOpen(false)}>Cancel</Button>
-              <Button onClick={() => setOpen(false)} type="accent">Accept</Button>
+              <Button onClick={() => setOpen(false)} type="primary">Accept</Button>
             </div>
           </div>
         </Modal>

@@ -118,7 +118,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
                 data-tooltip-content={!withText ? (expanded ? 'back' : 'expand') : ''}
                 data-tooltip-place="bottom-end"
                 size="tiny"
-                type="light"
+                type="secondary"
                 onClick={() => setExpanded(prevState => !prevState)}
                 icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
                 expand={twoRows}

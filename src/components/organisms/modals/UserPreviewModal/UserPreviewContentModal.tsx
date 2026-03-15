@@ -28,7 +28,7 @@ export const UserPreview = ({ user, onClose, userHref }: {
         <UserProfileDataContent user={user} />
       </div>
       <div className="jk-row-col gap block stretch">
-        <ButtonLoader size="small" type="light" onClick={onClose}><T className="tt-se">close</T></ButtonLoader>
+        <ButtonLoader size="small" type="secondary" onClick={onClose}><T className="tt-se">close</T></ButtonLoader>
         <Link href={userHref} target="_blank" rel="noreferrer">
           <Button size="small" expand>
             <div className="jk-row nowrap gap"><T className="ws-np tt-se">see profile</T><OpenInNewIcon /></div>

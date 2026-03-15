@@ -17,34 +17,24 @@ import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import ReactCodeMirror from './codemirror/ReactCodeMirror';
 import { CodeEditorProps } from './types';
 
-function CodeEditorCmp<T, >(props: CodeEditorProps<T>) {
-  
-  const {
-    source,
-    language,
-    theme,
-    readOnly = false,
-    onChange,
-    tabSize = 4,
-    fontSize = 14,
-    triggerFocus = 0,
-  } = props;
-  
+function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
+  const { source, language, theme, readOnly = false, onChange, tabSize = 4, fontSize = 14, triggerFocus = 0 } = props;
+
   const editorRef = useRef<EditorView | null>(null);
-  
+
   useEffect(() => {
     if (editorRef.current) {
       editorRef.current.focus();
     }
-  }, [ triggerFocus ]);
-  
+  }, [triggerFocus]);
+
   const extensions = [
     // basicSetup(),
     autocompletion(),
     search(),
     // oneDark,
   ];
-  
+
   switch (language) {
     case CodeLanguage.ICPC_CPP:
     case CodeLanguage.CPP:
@@ -89,9 +79,9 @@ function CodeEditorCmp<T, >(props: CodeEditorProps<T>) {
     default:
       break;
   }
-  
+
   const { height = 0, ref } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  
+
   return (
     <div style={{ fontSize: `${fontSize}px`, width: '100%', height: '100%' }} ref={ref}>
       <ReactCodeMirror

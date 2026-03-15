@@ -40,7 +40,7 @@ export const TableHeadFilterSelect = (props: TableHeadFilterSelectProps) => {
       <div className="jk-row right gap">
         <Button
           size="tiny"
-          type="light"
+          type="secondary"
           onClick={onReset}
           disabled={!initialSelectedOptions.length}
         >

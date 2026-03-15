@@ -57,7 +57,7 @@ function DrawerViewComponent(props: DrawerViewProps) {
             className={classNames('jk-drawer-layout elevation-2', position, { open: isOpen })}
           >
             {closeIcon === undefined ? (
-              <div className="jk-drawer-close-button" onClick={close}><Button icon={<CloseIcon />} type="light" />
+              <div className="jk-drawer-close-button" onClick={close}><Button icon={<CloseIcon />} type="secondary" />
               </div>
             ) : renderReactNodeOrFunctionP1(closeIcon, { isOpen, close })}
             <div className="jk-drawer-body">

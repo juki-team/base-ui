@@ -52,7 +52,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
               <ButtonLoader
                 expand
                 onClick={(setLoader) => logout({ setLoader })}
-                type="light"
+                type="secondary"
                 icon={<LogoutIcon />}
                 disabled={!!getQuerySessionId()}
               >

@@ -209,7 +209,7 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
               </p>
             </div>
             <div className="jk-row-col gap block">
-              <ButtonLoader type="light" onClick={onClose}>
+              <ButtonLoader type="secondary" onClick={onClose}>
                 <T className="tt-se">cancel</T>
               </ButtonLoader>
               <ButtonLoader

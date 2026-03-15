@@ -25,7 +25,7 @@ export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U,
       value={entityData as object}
     >
       <TabsInlineButton
-        type="light"
+        type="secondary"
         icon={<CloseIcon />}
         label="cancel"
       />

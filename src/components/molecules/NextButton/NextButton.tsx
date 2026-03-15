@@ -7,7 +7,7 @@ export function NextButton({ onClick }: { onClick: ButtonProps['onClick'] }) {
     <Button
       size="small"
       icon={<NavigateNextIcon />}
-      type="light"
+      type="secondary"
       onClick={onClick}
     />
   );

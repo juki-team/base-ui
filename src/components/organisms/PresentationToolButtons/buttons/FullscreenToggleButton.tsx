@@ -52,7 +52,7 @@ export const FullscreenToggleButton = () => {
       <div className="jk-row right">
         <Button
           tooltipContent="exit fullscreen"
-          type="light"
+          type="secondary"
           size="tiny"
           icon={<FullscreenExitIcon />}
           onClick={() => exitFullscreen()}
@@ -63,7 +63,7 @@ export const FullscreenToggleButton = () => {
     <div className="jk-row right">
       <Button
         tooltipContent="fullscreen"
-        type="light"
+        type="secondary"
         size="tiny"
         icon={<FullscreenIcon />}
         onClick={() => enterFullscreen()}

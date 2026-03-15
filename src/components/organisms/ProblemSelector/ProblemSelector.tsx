@@ -209,7 +209,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
               </div>
             }
             <ButtonLoader
-              type="light"
+              type="secondary"
               tooltipContent="reload"
               icon={data[judge.key]?.loading ? <SpinIcon /> : <RefreshIcon />}
               onClick={() => setTimestampTrigger(Date.now())}

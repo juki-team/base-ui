@@ -223,7 +223,7 @@ export const QuizProblemSheetSectionView = ({
                       {isEditor && (
                         <Button
                           size="tiny"
-                          type="light"
+                          type="secondary"
                           onClick={() => {
                             setModal(
                               <Modal onClose={() => setModal(null)} isOpen closeWhenClickOutside closeWhenKeyEscape>

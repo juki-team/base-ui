@@ -59,7 +59,7 @@ export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword
           <p><T>{(touched && disabled) ? 'must be a valid email' : ''}</T></p>
         </div>
         <div className="jk-row-col gap block">
-          <ButtonLoader type="light" onClick={onClose}><T className="tt-se">cancel</T></ButtonLoader>
+          <ButtonLoader type="secondary" onClick={onClose}><T className="tt-se">cancel</T></ButtonLoader>
           <ButtonLoader
             onClick={(setLoading) => onForgotPassword(email, setLoading!)}
             disabled={disabled}

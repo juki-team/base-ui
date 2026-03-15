@@ -229,7 +229,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
     <ButtonLoader
       key="download"
       size="small"
-      type="light"
+      type="secondary"
       icon={<RefreshIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile
@@ -239,7 +239,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
     <ButtonLoader
       key="download-2"
       size="small"
-      type="light"
+      type="secondary"
       icon={<RefreshIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile

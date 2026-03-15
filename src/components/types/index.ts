@@ -54,7 +54,7 @@ export type ButtonLoaderOnClickType<T = OnClickButtonEventType> =
   ((setLoaderStatus: SetLoaderStatusOnClickType, loaderStatus: LoaderStatusOnClickType, event: T) => void)
   | ((setLoaderStatus: SetLoaderStatusOnClickType, loaderStatus: LoaderStatusOnClickType, event: T) => Promise<void>);
 
-export type ButtonType = 'accent' | 'light' | 'text' | 'void'; // 'outline';
+export type ButtonType = 'primary' | 'secondary' | 'tertiary' | 'ghost'; // 'outline';
 
 export type ButtonSizeType = 'tiny' | 'small' | 'regular' | 'large' | 'huge';
 
@@ -71,6 +71,7 @@ export type ButtonBasicProps = {
   style?: CSSProperties,
   responsiveMobile?: boolean,
   tooltipContent?: string,
+  "aria-label"?: string,
 }
 
 export interface InputCommonsProps<T> {

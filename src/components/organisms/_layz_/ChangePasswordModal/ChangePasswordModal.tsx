@@ -111,7 +111,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
               'jk-col': isSmallScreen,
             })}
           >
-            <ButtonLoader type="light" onClick={onClose} expand>
+            <ButtonLoader type="secondary" onClick={onClose} expand>
               <T className="tt-se">cancel</T>
             </ButtonLoader>
             <ButtonLoader

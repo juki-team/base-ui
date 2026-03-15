@@ -5,19 +5,21 @@ import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView } from '@codemirror/view';
 import { CODE_LANGUAGE, CodeLanguage, NotificationType, ProfileSetting, Status, Theme } from '@juki-team/commons';
 import { codeBlockConfig } from '@milkdown/components/code-block';
+import { editorViewCtx } from '@milkdown/core';
 import { Crepe } from '@milkdown/crepe';
-import { remarkStringifyOptionsCtx } from '@milkdown/kit/core';
+import { parserCtx, prosePluginsCtx, remarkStringifyOptionsCtx, schemaCtx, serializerCtx } from '@milkdown/kit/core';
 import { cursor } from '@milkdown/kit/plugin/cursor';
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener';
 import { trailing, trailingConfig } from '@milkdown/kit/plugin/trailing';
 import { upload, uploadConfig, Uploader } from '@milkdown/kit/plugin/upload';
 import type { Node } from '@milkdown/kit/prose/model';
+import { EditorState, Plugin, PluginKey, Transaction } from '@milkdown/kit/prose/state';
 import { Milkdown, useEditor } from '@milkdown/react';
 import * as Viz from '@viz-js/viz';
 import { TFunction } from 'i18next';
 import katex from 'katex';
-import { Decoration } from 'prosemirror-view';
-import { Dispatch, SetStateAction, useMemo, useRef } from 'react';
+import { Decoration, DecorationSet } from 'prosemirror-view';
+import { Dispatch, forwardRef, SetStateAction, useImperativeHandle, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
@@ -30,11 +32,43 @@ import { basicSetup } from '../../../../molecules/_lazy_/CodeEditor/codemirror/e
 import type { NewNotificationType } from '../../../CardNotification/types';
 import { CodeRenderMode } from '../../MdMath/types';
 
+type HighlightMeta = { ranges: { from: number; to: number }[]; className: string } | { clear: true };
+
+// ProseMirror plugin that manages node-level highlight decorations.
+// Lives at module scope so its key is stable across renders.
+const highlightPluginKey = new PluginKey<DecorationSet>('nodeHighlight');
+
+const highlightPlugin = new Plugin<DecorationSet>({
+  key: highlightPluginKey,
+  state: {
+    init: () => DecorationSet.empty,
+    apply(tr: Transaction, decorations: DecorationSet) {
+      const meta = tr.getMeta(highlightPluginKey) as HighlightMeta | undefined;
+      if (meta) {
+        if ('clear' in meta) return DecorationSet.empty;
+        const decos = meta.ranges.map(({ from, to }) => Decoration.node(from, to, { class: meta.className }));
+        return DecorationSet.create(tr.doc, decos);
+      }
+      return decorations.map(tr.mapping, tr.doc);
+    },
+  },
+  props: {
+    decorations: (state: EditorState) => highlightPluginKey.getState(state),
+  },
+});
+
+export interface MilkdownEditorContentHandle {
+  getSelectionMarkdown: () => string;
+  replaceSelectionWithMarkdown: (md: string) => void;
+  highlightSelectionNodes: (className: string) => void;
+  clearHighlight: () => void;
+}
+
 interface MilkdownEditorContentProps {
-  onChange?: (md: string) => void,
-  value: string,
-  setLoader: Dispatch<SetStateAction<Status>>,
-  enableImageUpload: boolean,
+  onChange?: (md: string) => void;
+  value: string;
+  setLoader: Dispatch<SetStateAction<Status>>;
+  enableImageUpload: boolean;
 }
 
 export const defaultLightThemeOption = EditorView.theme(
@@ -50,37 +84,37 @@ export const defaultLightThemeOption = EditorView.theme(
 
 const uploader =
   (setLoader: Dispatch<SetStateAction<Status>>, addNotification: (props: NewNotificationType) => void): Uploader =>
-    async (files, schema) => {
-      const images: File[] = [];
-      
-      for (let i = 0; i < files.length; i++) {
-        const file = files.item(i);
-        if (!file) {
-          continue;
-        }
-        
-        // You can handle whatever the file type you want, we handle image here.
-        if (!file.type.includes('image/')) {
-          continue;
-        }
-        
-        images.push(file);
+  async (files, schema) => {
+    const images: File[] = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files.item(i);
+      if (!file) {
+        continue;
       }
-      setLoader(Status.LOADING);
-      const nodes: Node[] = (await Promise.all(
-        images.map(async (image) => {
-          const { status, message, content } = await handleUploadImage(image, false);
-          if (status === Status.SUCCESS && schema?.nodes?.image) {
-            addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
-            return schema.nodes.image.createAndFill({ src: content!.imageUrl, alt: image.name }) as Node;
-          }
-          addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
-          return null as unknown as Node;
-        }),
-      ));
-      setLoader(Status.SUCCESS);
-      return nodes;
-    };
+
+      // You can handle whatever the file type you want, we handle image here.
+      if (!file.type.includes('image/')) {
+        continue;
+      }
+
+      images.push(file);
+    }
+    setLoader(Status.LOADING);
+    const nodes: Node[] = await Promise.all(
+      images.map(async (image) => {
+        const { status, message, content } = await handleUploadImage(image, false);
+        if (status === Status.SUCCESS && schema?.nodes?.image) {
+          addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
+          return schema.nodes.image.createAndFill({ src: content!.imageUrl, alt: image.name }) as Node;
+        }
+        addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
+        return null as unknown as Node;
+      }),
+    );
+    setLoader(Status.SUCCESS);
+    return nodes;
+  };
 
 const plainText = StreamLanguage.define({
   token(stream) {
@@ -177,20 +211,20 @@ const myLanguages = [
   // }),
   LanguageDescription.of({
     name: CodeLanguage.DOT,
-    alias: [ 'dot' ],
-    extensions: [ 'dot' ],
+    alias: ['dot'],
+    extensions: ['dot'],
     load: () => import('@viz-js/lang-dot').then((m) => m.dot()),
   }),
   LanguageDescription.of({
     name: CodeLanguage.DOT + `/${CodeRenderMode.IMAGE}`,
-    alias: [ 'dot' ],
-    extensions: [ 'dot' ],
+    alias: ['dot'],
+    extensions: ['dot'],
     load: () => import('@viz-js/lang-dot').then((m) => m.dot()),
   }),
   LanguageDescription.of({
     name: CodeLanguage.TEXT,
-    alias: [ 'plaintext' ],
-    extensions: [ 'txt', 'text' ],
+    alias: ['plaintext'],
+    extensions: ['txt', 'text'],
     support: plainTextSupport,
   }),
 ];
@@ -220,15 +254,14 @@ function renderDot(content: string, t: TFunction): HTMLElement {
     const container = document.createElement('div');
     const newId = v4();
     container.id = newId;
-    
+
     const loader = document.createElement('div');
     loader.textContent = t('loading graph');
     loader.style.fontStyle = 'italic';
     container.appendChild(loader);
-    
-    Viz
-      .instance()
-      .then(viz => {
+
+    Viz.instance()
+      .then((viz) => {
         try {
           const container = document.getElementById(newId);
           if (container) {
@@ -250,7 +283,7 @@ function renderDot(content: string, t: TFunction): HTMLElement {
           }
         }
       })
-      .catch(error => {
+      .catch((error) => {
         const container = document.getElementById(newId);
         if (container) {
           container.innerHTML = '';
@@ -260,10 +293,10 @@ function renderDot(content: string, t: TFunction): HTMLElement {
           container.appendChild(errorDiv);
         }
       });
-    
+
     return container;
   }
-  
+
   return null as unknown as HTMLElement;
 }
 
@@ -273,112 +306,211 @@ function normalizeNewlines(text: string): string {
   return normalized.replace(/\n+$/g, '') + '\n';
 }
 
-export function MilkdownEditorContent({ value, onChange, setLoader }: MilkdownEditorContentProps) {
-  
-  const onChangeRef = useStableRef(onChange);
-  const { addNotification } = useJukiNotification();
-  const theme = useUserStore(store => store.user.settings[ProfileSetting.THEME]);
-  const currentMd = useRef(value);
-  const triggerRender = useMemo(() => value === currentMd.current ? 0 : Date.now(), [ value ]);
-  const t = useI18nStore(store => store.i18n.t);
-  
-  useEditor((root) => {
-    return new Crepe({
-      root,
-      defaultValue: value,
-      // defaultValue: value
-      //   .replace(/```C asCodeEditor/g, '```C&#x20;asCodeEditor')
-      //   .replace(/```CPP asCodeEditor/g, '```CPP&#x20;asCodeEditor')
-      //   .replace(/```JAVA asCodeEditor/g, '```JAVA&#x20;asCodeEditor')
-      //   .replace(/```PYTHON asCodeEditor/g, '```PYTHON&#x20;asCodeEditor')
-      //   .replace(/```JAVASCRIPT asCodeEditor/g, '```JAVASCRIPT&#x20;asCodeEditor')
-      //   // .replace(/```MERMAID asImage/g, '```MERMAID&#x20;asImage')
-      //   .replace(/```DOT asImage/g, '```DOT&#x20;asImage'),
-      featureConfigs: {
-        [Crepe.Feature.CodeMirror]: {
-          renderLanguage(lang, selected) {
-            const [ language, as ] = lang.split('/');
-            return (selected ? '✔ ' : '') + (CODE_LANGUAGE[language as CodeLanguage]?.label ?? language) + t(as === CodeRenderMode.EDITOR ? ' (render as code editor)' : as === CodeRenderMode.IMAGE ? ' (render as image)' : '');
+export const MilkdownEditorContent = forwardRef<MilkdownEditorContentHandle, MilkdownEditorContentProps>(
+  function MilkdownEditorContent({ value, onChange, setLoader }, ref) {
+    const onChangeRef = useStableRef(onChange);
+    const { addNotification } = useJukiNotification();
+    const theme = useUserStore((store) => store.user.settings[ProfileSetting.THEME]);
+    const currentMd = useRef(value);
+    const triggerRender = useMemo(() => (value === currentMd.current ? 0 : Date.now()), [value]);
+    const t = useI18nStore((store) => store.i18n.t);
+
+    const { get: getEditor } = useEditor(
+      (root) => {
+        return new Crepe({
+          root,
+          defaultValue: value,
+          // defaultValue: value
+          //   .replace(/```C asCodeEditor/g, '```C&#x20;asCodeEditor')
+          //   .replace(/```CPP asCodeEditor/g, '```CPP&#x20;asCodeEditor')
+          //   .replace(/```JAVA asCodeEditor/g, '```JAVA&#x20;asCodeEditor')
+          //   .replace(/```PYTHON asCodeEditor/g, '```PYTHON&#x20;asCodeEditor')
+          //   .replace(/```JAVASCRIPT asCodeEditor/g, '```JAVASCRIPT&#x20;asCodeEditor')
+          //   // .replace(/```MERMAID asImage/g, '```MERMAID&#x20;asImage')
+          //   .replace(/```DOT asImage/g, '```DOT&#x20;asImage'),
+          featureConfigs: {
+            [Crepe.Feature.BlockEdit]: {
+              blockHandle: {
+                floatingUIOptions: { strategy: 'fixed' as const },
+              },
+            },
+            [Crepe.Feature.CodeMirror]: {
+              renderLanguage(lang, selected) {
+                const [language, as] = lang.split('/');
+                return (
+                  (selected ? '✔ ' : '') +
+                  (CODE_LANGUAGE[language as CodeLanguage]?.label ?? language) +
+                  t(
+                    as === CodeRenderMode.EDITOR
+                      ? ' (render as code editor)'
+                      : as === CodeRenderMode.IMAGE
+                        ? ' (render as image)'
+                        : '',
+                  )
+                );
+              },
+              searchPlaceholder: 'Find a language...',
+              noResultText: 'No language found',
+            },
+            [Crepe.Feature.ImageBlock]: {
+              async onUpload(file: File) {
+                setLoader(Status.LOADING);
+                const { status, message, content } = await handleUploadImage(file, false);
+                if (status === Status.SUCCESS) {
+                  addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
+                  setLoader(Status.SUCCESS);
+                  return content!.imageUrl;
+                } else {
+                  addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
+                  setLoader(Status.ERROR);
+                  return '';
+                }
+              },
+              inlineUploadPlaceholderText: '???',
+            },
           },
-          searchPlaceholder: 'Find a language...',
-          noResultText: 'No language found',
-        },
-        [Crepe.Feature.ImageBlock]: {
-          async onUpload(file: File) {
-            setLoader(Status.LOADING);
-            const { status, message, content } = await handleUploadImage(file, false);
-            if (status === Status.SUCCESS) {
-              addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
-              setLoader(Status.SUCCESS);
-              return content!.imageUrl;
-            } else {
-              addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
-              setLoader(Status.ERROR);
-              return '';
-            }
-          },
-          inlineUploadPlaceholderText: '???',
-        },
+        }).editor
+          .use(listener)
+          .use(upload)
+          .use(cursor)
+          .use(trailing)
+          .config((ctx) => {
+            const listener = ctx.get(listenerCtx);
+            listener.markdownUpdated((_, markdown, prevMarkdown) => {
+              const fixedMarkdown = normalizeNewlines(markdown);
+              if (fixedMarkdown !== normalizeNewlines(prevMarkdown)) {
+                onChangeRef.current?.(fixedMarkdown);
+                currentMd.current = fixedMarkdown;
+              }
+            });
+            ctx.update(uploadConfig.key, (prev) => ({
+              ...prev,
+              uploader: uploader(setLoader, addNotification),
+              uploadWidgetFactory: (pos, spec) => {
+                const dom = document.createElement('span');
+                return Decoration.widget(pos, dom, spec);
+              },
+            }));
+            ctx.update(codeBlockConfig.key, (defaultConfig) => ({
+              ...defaultConfig,
+              languages: myLanguages,
+              extensions: [basicSetup(), ...(theme === Theme.DARK ? [oneDark] : [defaultLightThemeOption])],
+              previewToggleButton: () => 'edit',
+              renderPreview: (lang, content) => {
+                const [language, as] = lang.split('/');
+                if (language!.toLowerCase() === 'latex' && content.length > 0) {
+                  return renderLatex(content /*config == null ? void 0 : ctx.katexOptions*/);
+                }
+                // if (language.toLowerCase() === 'mermaid asimage' && content.length > 0) {
+                //   return renderMermaid(content);
+                // }
+                if (as === CodeRenderMode.IMAGE && content.length > 0) {
+                  return renderDot(content, t);
+                }
+                return null;
+              },
+            }));
+            ctx.set(remarkStringifyOptionsCtx, {
+              bullet: '-',
+              // fences: true,
+              // incrementListMarker: false,
+            });
+            ctx.update(trailingConfig.key, (prev) => ({
+              ...prev,
+              shouldAppend: () => false,
+            }));
+            ctx.update(prosePluginsCtx, (plugins) => [...plugins, highlightPlugin]);
+          });
       },
-    }).editor
-      .use(listener)
-      .use(upload)
-      .use(cursor)
-      .use(trailing)
-      .config((ctx) => {
-        const listener = ctx.get(listenerCtx);
-        listener.markdownUpdated((_, markdown, prevMarkdown) => {
-          const fixedMarkdown = normalizeNewlines(markdown);
-          if (fixedMarkdown !== normalizeNewlines(prevMarkdown)) {
-            onChangeRef.current?.(fixedMarkdown);
-            currentMd.current = fixedMarkdown;
+      [triggerRender, theme, t],
+    );
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        getSelectionMarkdown: () => {
+          const editor = getEditor();
+          if (!editor) return '';
+          return (
+            editor.action((ctx) => {
+              const view = ctx.get(editorViewCtx);
+              const serializer = ctx.get(serializerCtx);
+              const schema = ctx.get(schemaCtx);
+              const { from, to, empty } = view.state.selection;
+              if (empty) {
+                return '';
+              }
+              // Expand the selection to the full containing block node(s).
+              // depth=1 are the direct children of doc (paragraphs, headings, etc.).
+              const $from = view.state.doc.resolve(from);
+              const $to = view.state.doc.resolve(to);
+              const blockStart = $from.depth >= 1 ? $from.before(1) : 0;
+              const blockEnd = $to.depth >= 1 ? $to.after(1) : view.state.doc.content.size;
+              const slice = view.state.doc.slice(blockStart, blockEnd);
+              const tempDoc = schema.node('doc', null, slice.content);
+              return serializer(tempDoc);
+            }) ?? ''
+          );
+        },
+        replaceSelectionWithMarkdown: (md: string) => {
+          const editor = getEditor();
+          if (!editor) {
+            return;
           }
-        });
-        ctx.update(uploadConfig.key, (prev) => ({
-          ...prev,
-          uploader: uploader(setLoader, addNotification),
-          uploadWidgetFactory: (pos, spec) => {
-            const dom = document.createElement('span');
-            return Decoration.widget(pos, dom, spec);
-          },
-        }));
-        ctx.update(codeBlockConfig.key, (defaultConfig) => ({
-          ...defaultConfig,
-          languages: myLanguages,
-          extensions: [
-            basicSetup(),
-            ...(theme === Theme.DARK ? [ oneDark ] : [ defaultLightThemeOption ]),
-          ],
-          previewToggleButton: () => 'edit',
-          renderPreview: (lang, content) => {
-            const [ language, as ] = lang.split('/');
-            if (language!.toLowerCase() === 'latex' && content.length > 0) {
-              return renderLatex(content /*config == null ? void 0 : ctx.katexOptions*/);
+          editor.action((ctx) => {
+            const view = ctx.get(editorViewCtx);
+            const parser = ctx.get(parserCtx);
+            const { from, to } = view.state.selection;
+            const $from = view.state.doc.resolve(from);
+            const $to = view.state.doc.resolve(to);
+            const blockStart = $from.depth >= 1 ? $from.before(1) : 0;
+            const blockEnd = $to.depth >= 1 ? $to.after(1) : view.state.doc.content.size;
+            const newDoc = parser(md);
+            view.dispatch(view.state.tr.replaceWith(blockStart, blockEnd, newDoc.content));
+          });
+        },
+        highlightSelectionNodes: (className: string) => {
+          const editor = getEditor();
+          if (!editor) return;
+          editor.action((ctx) => {
+            const view = ctx.get(editorViewCtx);
+            const { from, to, empty } = view.state.selection;
+            if (empty) {
+              return;
             }
-            // if (language.toLowerCase() === 'mermaid asimage' && content.length > 0) {
-            //   return renderMermaid(content);
-            // }
-            if (as === CodeRenderMode.IMAGE && content.length > 0) {
-              return renderDot(content, t);
-            }
-            return null;
-          },
-        }));
-        ctx.set(remarkStringifyOptionsCtx, {
-          bullet: '-',
-          // fences: true,
-          // incrementListMarker: false,
-        });
-        ctx.update(trailingConfig.key, (prev) => ({
-          ...prev,
-          shouldAppend: () => false,
-        }));
-      });
-  }, [ triggerRender, theme, t ]);
-  
-  return (
-    <div className="jk-md-math-milkdown-editor jk-md-math wh-100 pn-re jk-br-ie">
-      <Milkdown />
-    </div>
-  );
-}
+            const $from = view.state.doc.resolve(from);
+            const $to = view.state.doc.resolve(to);
+            const blockStart = $from.depth >= 1 ? $from.before(1) : 0;
+            const blockEnd = $to.depth >= 1 ? $to.after(1) : view.state.doc.content.size;
+            const ranges: { from: number; to: number }[] = [];
+            view.state.doc.nodesBetween(blockStart, blockEnd, (node, pos, parent) => {
+              if (parent === view.state.doc) {
+                ranges.push({ from: pos, to: pos + node.nodeSize });
+                return false;
+              }
+              return true;
+            });
+            const meta: HighlightMeta = { ranges, className };
+            view.dispatch(view.state.tr.setMeta(highlightPluginKey, meta));
+          });
+        },
+        clearHighlight: () => {
+          const editor = getEditor();
+          if (!editor) return;
+          editor.action((ctx) => {
+            const view = ctx.get(editorViewCtx);
+            const meta: HighlightMeta = { clear: true };
+            view.dispatch(view.state.tr.setMeta(highlightPluginKey, meta));
+          });
+        },
+      }),
+      [getEditor],
+    );
+
+    return (
+      <div className="jk-md-math-milkdown-editor jk-md-math wh-100 pn-re jk-br-ie">
+        <Milkdown />
+      </div>
+    );
+  },
+);

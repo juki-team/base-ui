@@ -74,14 +74,14 @@ export function GraphvizViewers({ dot, className, viewSourceButton = true }: Gra
           <div className="jk-row tx-s gap">
             <Button
               size="tiny"
-              type="light"
+              type="secondary"
               tooltipContent={isPlaying ? 'pause' : 'play'}
               onClick={togglePlay}
               icon={isPlaying ? <StopCircleIcon /> : <PlayCircleIcon />}
             />
             <Button
               size="tiny"
-              type="light"
+              type="secondary"
               tooltipContent="prev"
               onClick={prev}
               icon={<ArrowLeftIcon />}
@@ -89,14 +89,14 @@ export function GraphvizViewers({ dot, className, viewSourceButton = true }: Gra
             <div><T className="tt-se">frame</T> {index + 1} / {graphs.length}</div>
             <Button
               size="tiny"
-              type="light"
+              type="secondary"
               tooltipContent="next"
               onClick={next}
               icon={<ArrowRightIcon />}
             />
             <Button
               size="tiny"
-              type="light"
+              type="secondary"
               tooltipContent="return start"
               onClick={reset}
               icon={<ReplyIcon />}

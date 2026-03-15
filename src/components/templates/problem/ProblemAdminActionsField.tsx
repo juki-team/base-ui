@@ -13,7 +13,7 @@ export function ProblemAdminActionsField({ record: { key } }: ProblemAdminAction
     <Field className="jk-row">
       {modal}
       <Button
-        type="light"
+        type="secondary"
         size="tiny"
         onClick={() => {
           setModal(

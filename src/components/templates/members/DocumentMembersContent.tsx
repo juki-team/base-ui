@@ -174,7 +174,7 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
       {/*                <div data-tooltip-id="jk-tooltip" data-tooltip-content="remove access"><DeleteIcon /></div>*/}
       {/*              }*/}
       {/*              size="small"*/}
-      {/*              type="light"*/}
+      {/*              type="secondary"*/}
       {/*            />*/}
       {/*          )}*/}
       {/*        </div>*/}

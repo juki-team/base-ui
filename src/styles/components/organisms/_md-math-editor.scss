@@ -1,0 +1,7 @@
+.jk-md-math-node-highlighted {
+  background-color: color-mix(in srgb, var(--t-color-highlight, #ffe066) 30%, transparent);
+  border-radius: 4px;
+  outline: 2px solid color-mix(in srgb, var(--t-color-highlight, #ffe066) 80%, transparent);
+  outline-offset: 1px;
+  transition: background-color 0.2s ease, outline-color 0.2s ease;
+}

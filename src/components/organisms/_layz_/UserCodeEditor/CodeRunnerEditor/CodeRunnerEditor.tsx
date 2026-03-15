@@ -1,42 +1,33 @@
 import {
   CODE_LANGUAGE,
-  type   CodeEditorTestCase,
-  type CodeEditorTestCases,
   CodeLanguage,
-  isCodeRunStatusMessageWebSocketResponseEventDTO,
   ONE_SECOND,
   ProfileSetting,
-  SubmissionRunStatus,
-  type   SubscribeCodeRunStatusWebSocketEventDTO,
-  WebSocketSubscriptionEvent,
+  RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 } from '@juki-team/commons';
-import { ReactNode, useCallback, useMemo, useRef, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../../../constants';
+import { CODE_EDITOR_PROGRAMMING_LANGUAGES } from '../../../../../constants';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
-import { Button, Input, Modal, Portal, T } from '../../../../atoms';
-import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon } from '../../../../atoms/server';
+import { Button, Portal, T } from '../../../../atoms';
 import { classNames } from '../../../../helpers';
-import { useSubscribe } from '../../../../hooks/useSubscribe';
-import { SplitPane, TwoActionModal } from '../../../../molecules';
-import type { CodeEditorPropertiesType } from '../../../../molecules/_lazy_/CodeEditor/types';
+import { useStableRef } from '../../../../hooks/useStableRef';
+import { SplitPane } from '../../../../molecules';
+import MdMathEditor from '../../MdMathEditor/MdMathEditor';
+import { FileTreePanel } from './FileTreePanel/FileTreePanel';
 import { FirstPane } from './FirstPane';
-import { Header } from './Header';
-import { SettingsModal } from './SettingsModal';
+import { MermaidViewer } from './MermaidViewer/MermaidViewer';
 import { TestCases } from './TestCases';
-import type { CodeRunnerEditorProps } from './types';
+import { CodeRunnerEditorProps, Runner } from './types';
 
-export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
-  
+export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
   const {
     readOnly,
-    // sourceCode,
-    languages = CODE_EDITOR_PROGRAMMING_LANGUAGES.map(lang => ({
+    languages = CODE_EDITOR_PROGRAMMING_LANGUAGES.map((lang) => ({
       value: lang as T,
       label: (CODE_LANGUAGE[lang]?.label || lang) as ReactNode,
     })),
-    // language,
     onChange: _onChange,
     leftButtons,
     centerButtons,
@@ -50,181 +41,142 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
     className,
     enableAddCustomSampleCases,
     enableAddSampleCases,
-    withoutRunCodeButton,
-    withoutDownloadCopyButton,
     onlyCodeEditor,
     files,
     currentFileName,
     triggerFocus,
+    mdEditorRef,
   } = props;
-  
+
   const { source = '', language = CodeLanguage.TEXT as T } = files?.[currentFileName] ?? {};
-  
-  const onChangeRef = useRef(_onChange);
-  onChangeRef.current = readOnly ? undefined : _onChange;
-  
-  const [ isRunning, setIsRunning ] = useState(false);
-  const [ runId, setRunId ] = useState('');
-  const preferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
-  const [ showSettings, setShowSettings ] = useState(false);
-  const [ direction, setDirection ] = useState<'row' | 'column'>('row');
-  const [ expanded, setExpanded ] = useState(false);
-  const [ openFileName, setOpenFileName ] = useState('');
-  const [ fileNameEdit, setFileNameEdit ] = useState('');
-  const [ fileNameDelete, setFileNameDelete ] = useState('');
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
-  const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  const [ viewFiles, setViewFiles ] = useState<boolean>(false);
-  
-  const event: Omit<SubscribeCodeRunStatusWebSocketEventDTO, 'clientId'> = {
-    event: WebSocketSubscriptionEvent.SUBSCRIBE_CODE_RUN_STATUS,
-    runId,
-  };
-  useSubscribe(
-    event,
-    (data) => {
-      if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
-        const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
-          onChangeRef.current?.({
-            onTestCasesChange: (prevState) => {
-              const newTestCases: CodeEditorTestCases = { ...prevState };
-              for (const testKey in newTestCases) {
-                if (prevState[testKey]?.messageTimestamp && prevState[testKey].messageTimestamp > data.messageTimestamp) {
-                  continue;
-                }
-                if (newTestCases[testKey]) {
-                  newTestCases[testKey] = {
-                    ...newTestCases[testKey],
-                    status,
-                    err,
-                    out,
-                    log,
-                    messageTimestamp: data.messageTimestamp,
-                  };
-                }
-              }
-              return newTestCases;
-            },
-          });
-        };
-        const status = data.status || SubmissionRunStatus.NONE;
-        const inputKey = data?.log?.inputKey;
-        
-        switch (status) {
-          case SubmissionRunStatus.RECEIVED:
-          case SubmissionRunStatus.FAILED:
-          case SubmissionRunStatus.COMPILING:
-          case SubmissionRunStatus.COMPILED:
-          case SubmissionRunStatus.COMPILATION_ERROR:
-            fillTestCases(
-              status,
-              data.log?.err || '',
-              data.log?.out || '',
-              data.log?.log || '',
-            );
-            break;
-          // case SubmissionRunStatus.RUNNING_TEST_CASES:
-          case SubmissionRunStatus.RUNNING_TEST_CASE:
-          case SubmissionRunStatus.EXECUTED_TEST_CASE:
-          case SubmissionRunStatus.FAILED_TEST_CASE:
-            onChangeRef.current?.({
-              onTestCasesChange: (prevState) => {
-                const newTestCases: CodeEditorTestCases = { ...prevState };
-                if (inputKey && newTestCases[inputKey]) {
-                  const testCase: CodeEditorTestCase = {
-                    ...newTestCases[inputKey],
-                    status,
-                    out: data.log?.out || '',
-                    log: data.log?.log || '',
-                    err: data.log?.err || '',
-                    messageTimestamp: data.messageTimestamp,
-                  };
-                  const prev = prevState[testCase.key];
-                  if (prev && prev.messageTimestamp > testCase.messageTimestamp) {
-                    return prevState;
-                  }
-                  return { ...prevState, [testCase.key]: testCase };
-                }
-                return prevState;
-              },
-            });
-            break;
-          default:
-        }
-        switch (status) {
-          case SubmissionRunStatus.RECEIVED:
-            setIsRunning(true);
-            onChangeRef.current?.({ isRunning: true });
-            break;
-          case SubmissionRunStatus.FAILED:
-          case SubmissionRunStatus.COMPILATION_ERROR:
-          case SubmissionRunStatus.COMPLETED:
-            setIsRunning(false);
-            onChangeRef.current?.({ isRunning: false });
-            break;
-          default:
-        }
-        onChangeRef.current?.({ codeRunStatus: status });
-      }
-    },
-    () => !!runId,
+
+  const onChangeRef = useStableRef(readOnly ? undefined : _onChange);
+
+  const preferredTheme = useUserStore((state) => state.user.settings[ProfileSetting.THEME]);
+
+  const [direction, setDirection] = useState<'row' | 'column'>('row');
+  const [expanded, setExpanded] = useState(false);
+
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
+
+  const secondChild = useMemo(() => {
+    if (RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES.includes(language as CodeLanguage)) {
+      return (
+        <TestCases
+          testCases={testCases}
+          timeLimit={timeLimit}
+          memoryLimit={memoryLimit}
+          onChangeRef={onChangeRef}
+          direction={direction}
+          enableAddSampleCases={readOnly ? false : !!enableAddSampleCases}
+          enableAddCustomSampleCases={readOnly ? false : !!enableAddCustomSampleCases}
+        />
+      );
+    }
+    if (language === CodeLanguage.MERMAID) {
+      return <MermaidViewer value={source} />;
+    }
+    if (language === CodeLanguage.MARKDOWN) {
+      return (
+        <MdMathEditor
+          ref={mdEditorRef}
+          className="ow-ao ht-100"
+          value={source}
+          onChange={(source) => onChangeRef?.current?.({ source })}
+        />
+      );
+    }
+
+    return null;
+  }, [
+    source,
+    language,
+    testCases,
+    timeLimit,
+    memoryLimit,
+    onChangeRef,
+    direction,
+    readOnly,
+    enableAddSampleCases,
+    enableAddCustomSampleCases,
+    mdEditorRef,
+  ]);
+
+  const hasSecondPane = secondChild != null;
+  const onlyFirstPane = onlyCodeEditor || !hasSecondPane;
+  const runner: Omit<Runner, 'id' | 'isRunning'> = useMemo(
+    () => ({
+      testCases: testCases || {},
+      timeLimit,
+      memoryLimit,
+      enableAddSampleCases: !!enableAddSampleCases,
+      enableAddCustomSampleCases: !!enableAddCustomSampleCases,
+    }),
+    [enableAddCustomSampleCases, enableAddSampleCases, memoryLimit, testCases, timeLimit],
   );
-  
-  const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
-    onChangeRef.current?.({ ...props, isRunning: false });
-    setIsRunning(false);
-  }, []);
-  
-  const firstChild = useMemo(() => (
-    <FirstPane {...{
+  const firstChild = useMemo(
+    () => (
+      <FirstPane
+        {...{
+          preferredTheme,
+          language,
+          readOnly,
+          source,
+          tabSize,
+          fontSize,
+          languages,
+          onlyFirstPane,
+          triggerFocus,
+          setExpanded,
+          files,
+          currentFileName,
+          leftButtons,
+          centerButtons,
+          rightButtons,
+          onChangeRef,
+          runner,
+          expandPosition,
+          expanded,
+        }}
+      />
+    ),
+    [
       preferredTheme,
-      codeEditorOnChange,
       language,
       readOnly,
       source,
       tabSize,
       fontSize,
       languages,
-      onlyCodeEditor,
+      onlyFirstPane,
       triggerFocus,
-    }} />
-  ), [ preferredTheme, codeEditorOnChange, language, readOnly, source, tabSize, fontSize, languages, onlyCodeEditor, triggerFocus ]);
-  
-  const withTestCases = !!testCases;
-  const twoRows = headerWidthContainer < (withoutRunCodeButton ? 340 : 420);
-  
-  const closableSecondPane = useMemo(() => (
-    withTestCases
-      ? { align: 'right' as const, expandLabel: <T className="label tx-t">test cases</T> }
-      : undefined
-  ), [ withTestCases ]);
-  
-  const closableFirstPane = useMemo(() => (
-    (withTestCases && isSmallScreen)
-      ? { align: 'right' as const, expandLabel: <T className="label tx-t">code editor</T> }
-      : undefined
-  ), [ withTestCases, isSmallScreen ]);
-  
-  const secondChild = useMemo(() => (
-    <TestCases
-      testCases={testCases}
-      onChange={onChangeRef.current}
-      timeLimit={timeLimit}
-      memoryLimit={memoryLimit}
-      direction={direction}
-      enableAddSampleCases={readOnly ? false : !!enableAddSampleCases}
-      enableAddCustomSampleCases={readOnly ? false : !!enableAddCustomSampleCases}
-      isRunning={isRunning}
-    />
-  ), [ testCases, timeLimit, memoryLimit, direction, readOnly, enableAddSampleCases, enableAddCustomSampleCases, isRunning ]);
-  
-  const onChange = () => {
-    onChangeRef.current?.({ fileNameEdited: [ openFileName, fileNameEdit ] });
-    setOpenFileName('');
-  };
-  
+      files,
+      currentFileName,
+      leftButtons,
+      centerButtons,
+      rightButtons,
+      onChangeRef,
+      runner,
+      expandPosition,
+      expanded,
+    ],
+  );
+
+  const closableSecondPane = useMemo(
+    () => (hasSecondPane ? { align: 'right' as const, expandLabel: <T className="label tx-t">test cases</T> } : undefined),
+    [hasSecondPane],
+  );
+
+  const closableFirstPane = useMemo(
+    () =>
+      hasSecondPane && isSmallScreen
+        ? { align: 'right' as const, expandLabel: <T className="label tx-t">code editor</T> }
+        : undefined,
+    [hasSecondPane, isSmallScreen],
+  );
+
   const { ref, width = 0 } = useResizeDetector();
-  
+
   const body = (
     <div
       className={classNames(
@@ -234,219 +186,54 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
       )}
       style={{ overflow: expanded ? 'hidden' : undefined }}
     >
-      <TwoActionModal
-        primary={{
-          label: <T className="tt-se">delete</T>,
-          onClick: () => {
-            onChangeRef.current?.({ fileNameDeleted: fileNameDelete });
-            setFileNameDelete('');
-          },
-        }}
-        title={<T className="tt-se">warning</T>}
-        isOpen={!!fileNameDelete}
-        onClose={() => setFileNameDelete('')}
-      >
-        <div className="jk-col gap">
-          <T className="tt-se">are you sure you want to delete the file?</T>
-          <div className="jk-tag bc-hl">{fileNameDelete}</div>
-          <T className="tt-se">{'it can\'t be undone'}</T>
-        </div>
-      </TwoActionModal>
-      <Modal
-        isOpen={!!openFileName}
-        onClose={() => setOpenFileName('')}
-      >
-        <div className="jk-pg jk-col gap stretch">
-          <Input
-            label={<T className="tt-se">new name</T>}
-            labelPlacement="top"
-            value={fileNameEdit}
-            onChange={setFileNameEdit}
-            onEnter={onChange}
-            expand
-          />
-          <div className="jk-row gap right">
-            <Button type="light" onClick={() => setOpenFileName('')}>
-              <T className="tt-se">cancel</T>
-            </Button>
-            <Button onClick={onChange}>
-              <T className="tt-se">change</T>
-            </Button>
-          </div>
-        </div>
-      </Modal>
-      <SettingsModal
-        isOpen={showSettings}
-        onClose={() => setShowSettings(false)}
-        onChange={onChangeRef.current}
-        tabSize={tabSize}
-        fontSize={fontSize}
-      />
-      <Header
-        headerRef={headerRef}
-        headerWidthContainer={headerWidthContainer}
-        twoRows={twoRows}
-        languages={languages}
-        testCases={testCases || {}}
-        leftOptions={({ widthContainer, twoRows, withLabels }) => leftButtons?.({
-          isRunning,
-          // source,
-          // language,
-          testCases: testCases || {},
-          widthContainer,
-          twoRows,
-          withLabels,
-          files,
-          currentFileName,
-        })}
-        centerOptions={({ widthContainer, twoRows, withLabels }) => centerButtons?.({
-          isRunning,
-          // source,
-          // language,
-          testCases: testCases || {},
-          widthContainer,
-          twoRows,
-          withLabels,
-          files,
-          currentFileName,
-        })}
-        rightOptions={({ twoRows, withLabels }) => rightButtons?.({
-          isRunning,
-          // source,
-          // language,
-          testCases: testCases || {},
-          twoRows,
-          withLabels,
-          files,
-          currentFileName,
-        })}
-        setShowSettings={setShowSettings}
-        runId={runId}
-        setRunId={setRunId}
-        onChange={onChangeRef.current}
-        timeLimit={timeLimit}
-        memoryLimit={memoryLimit}
-        expanded={expandPosition ? expanded : null}
-        setExpanded={setExpanded}
-        isRunning={isRunning}
-        withoutRunCodeButton={!!withoutRunCodeButton}
-        withoutDownloadCopyButton={!!withoutDownloadCopyButton}
-        readOnly={!!readOnly}
-        files={files}
-        currentFileName={currentFileName}
-      />
       <div className="flex-1 ow-hn jk-row nowrap stretch">
-        <div
-          className="jk-col top stretch nowrap"
-          style={{ borderRight: '1px solid var(--cr-ht-lt)' }}
-          ref={ref}
-        >
-          <div
-            className="jk-row fw-bd jk-pg-xsm-tb bc-hl left hoverable"
-            onClick={() => setViewFiles(!viewFiles)}
-            style={{ paddingLeft: 4 }}
-          >
-            {viewFiles ? <ArrowLeftIcon /> : <ArrowRightIcon />}
-            {viewFiles && <T className="tt-se">files</T>}
-          </div>
-          <div className="jk-divider vertical tiny" style={{ height: 1 }} />
-          <div className="jk-col top stretch gap nowrap ow-ao">
-            <div className="jk-col stretch">
-              {Object.entries(files)
-                .sort(([ , a ], [ , b ]) => a.index - b.index)
-                .map(([ name ], index) => (
-                  <div
-                    key={name}
-                    className={classNames('tx-t jk-pg-xsm jk-col nowrap left stretch', {
-                      'bc-al cr-at-it': name === currentFileName,
-                      'hoverable': name !== currentFileName,
-                    })}
-                    onClick={name !== currentFileName ? (() => onChangeRef.current?.({ fileName: name })) : undefined}
-                  >
-                    {viewFiles ? (
-                      <>
-                        {name}
-                        <div className="jk-row gap space-between">
-                          <DraftIcon letter={((index + 1) % 10) + ''} letterSize={12} size="tiny" />
-                          <div className="jk-row gap">
-                            <EditIcon
-                              className={classNames({ 'cr-tx-ht-lt': name !== currentFileName })}
-                              size="tiny"
-                              filledCircle={name !== currentFileName ? 'var(--cr-we)' : 'var(--cr-tx-ht)'}
-                              onClick={() => {
-                                setOpenFileName(name);
-                                setFileNameEdit(name);
-                              }}
-                            />
-                            <DeleteIcon
-                              className={classNames({ 'cr-tx-ht-lt': name !== currentFileName })}
-                              size="tiny"
-                              filledCircle={name !== currentFileName ? 'var(--cr-we)' : 'var(--cr-tx-ht)'}
-                              onClick={() => setFileNameDelete(name)}
-                            />
-                          </div>
-                        </div>
-                      </>
-                    ) : (
-                      <DraftIcon letter={((index + 1) % 10) + ''} letterSize={12} size="small" />
-                    )}
-                  </div>
-                ))}
-            </div>
-            <div className="jk-row jk-pg-xsm-t border-top-highlight-light">
-              <Button
-                size="tiny"
-                icon={<AddIcon />}
-                disabled={readOnly}
-                onClick={() => onChangeRef.current?.({ newFileName: true })}
-              />
-            </div>
-          </div>
-        </div>
+        <FileTreePanel
+          fileTreePanelRef={ref}
+          files={files}
+          currentFileName={currentFileName}
+          onChangeRef={onChangeRef}
+          readOnly={readOnly}
+        />
         <div className="jk-row transition-width" style={{ width: `calc(100% - ${width}px)` }}>
           {Object.keys(files).length === 0 ? (
             <div className="jk-col gap jk-pg">
               <T className="tt-se">there are no files in the editor, create a new file to start using the editor</T>
-              <Button type="light" onClick={() => onChangeRef.current?.({ newFileName: true })}>
+              <Button type="secondary" onClick={() => onChangeRef.current?.({ newFileName: true })}>
                 <T className="tt-se">create a new file</T>
               </Button>
             </div>
+          ) : onlyFirstPane ? (
+            firstChild
           ) : (
-            onlyCodeEditor ? (
-              firstChild
-            ) : (
-              <SplitPane
-                direction={direction}
-                minSize={80}
-                onlyFirstPane={!testCases}
-                closableSecondPane={closableSecondPane}
-                closableFirstPane={closableFirstPane}
-                toggleable
-                onChangeDirection={setDirection}
-                onePanelAtATime={isSmallScreen}
-                className="ht-100"
-              >
-                {firstChild}
-                {secondChild}
-              </SplitPane>
-            )
+            <SplitPane
+              direction={direction}
+              minSize={80}
+              onlyFirstPane={!hasSecondPane}
+              closableSecondPane={closableSecondPane}
+              closableFirstPane={closableFirstPane}
+              toggleable
+              onChangeDirection={setDirection}
+              onePanelAtATime={isSmallScreen}
+              className="ht-100"
+            >
+              {firstChild}
+              {secondChild}
+            </SplitPane>
           )}
         </div>
       </div>
     </div>
   );
-  
+
   if (expanded) {
     return (
       <Portal>
         <div className="jk-overlay jk-overlay-backdrop">
-          <div style={{ position: 'absolute', ...expandPosition }}>
-            {body}
-          </div>
+          <div style={{ position: 'absolute', ...expandPosition }}>{body}</div>
         </div>
       </Portal>
     );
   }
-  
+
   return body;
 }

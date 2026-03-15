@@ -89,7 +89,7 @@ export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheet>) =
             >
               {!readOnly && (
                 <ButtonLoader
-                  type="light"
+                  type="secondary"
                   size="small"
                   expand
                   onClick={async (setLoaderStatus) => {

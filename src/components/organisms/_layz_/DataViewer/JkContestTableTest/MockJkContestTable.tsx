@@ -39,7 +39,7 @@ export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryLis
     <ButtonLoader
       key="click"
       size="small"
-      type="light"
+      type="secondary"
       icon={<RefreshIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile
@@ -49,7 +49,7 @@ export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryLis
     <ButtonLoader
       key="click-2"
       size="small"
-      type="light"
+      type="secondary"
       icon={<RefreshIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile
