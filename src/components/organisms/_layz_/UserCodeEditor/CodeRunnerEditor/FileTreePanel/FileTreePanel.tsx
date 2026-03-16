@@ -12,7 +12,7 @@ import {
   FolderIcon,
   FolderOpenIcon,
 } from '../../../../../atoms/server';
-import { classNames } from '../../../../../helpers';
+import { classNames, normalizeFolderPath } from '../../../../../helpers';
 import { TwoActionModal } from '../../../../../molecules';
 import type { FileTreePanelProps } from './types';
 
@@ -224,12 +224,6 @@ function FolderNode<T>({
     </div>
   );
 }
-
-const normalizeFolderPath = (path: string): string => {
-  const collapsed = path.trim().replace(/\/+/g, '/').replace(/\/$/, '');
-  if (!collapsed || collapsed === '/') return '';
-  return collapsed.startsWith('/') ? collapsed : '/' + collapsed;
-};
 
 export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
   const { fileTreePanelRef, files, currentFileName, onChangeRef, readOnly } = props;

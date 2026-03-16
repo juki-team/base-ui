@@ -13,11 +13,12 @@ export const getTextContent = (elem: ReactNode | ReactNode[]): string => {
   if (typeof elem === 'string' || typeof elem === 'number') {
     return elem + '';
   }
-  
-  if (Array.isArray(elem)) { // Array of ReactNodes
+
+  if (Array.isArray(elem)) {
+    // Array of ReactNodes
     return elem.map(getTextContent).join('');
   }
-  
+
   if (isValidElement<PropsWithChildren>(elem) && !!elem.props.children) {
     const children = elem.props.children;
     if (Array.isArray(children)) {
@@ -72,7 +73,7 @@ export function downloadBlobAsFile(data: Blob, fileName: string = 'file') {
   // It is necessary to create a new blob object with mime-type explicitly set
   // otherwise only Chrome works like it should
   if (isBrowser()) {
-    const blob = new Blob([ data ], { type: data.type || 'application/octet-stream' });
+    const blob = new Blob([data], { type: data.type || 'application/octet-stream' });
     const blobURL = window.URL.createObjectURL(blob);
     downloadLink(blobURL, fileName);
   }
@@ -95,7 +96,7 @@ export async function downloadUrlAsFile(url: string, filename: string) {
 }
 
 export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName: string = 'file.csv') => {
-  const blob = new Blob([ data.map(e => e.join(',')).join('\n') ], { type: 'text/csv' });
+  const blob = new Blob([data.map((e) => e.join(',')).join('\n')], { type: 'text/csv' });
   downloadBlobAsFile(blob, fileName);
 };
 
@@ -113,24 +114,24 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
     workBook.SheetNames.push(name);
     workBook.Sheets[name] = {};
     workBook.Sheets[name]['!rows'] = [];
-    Object.entries(rows).forEach(([ i, rowData ]) => {
+    Object.entries(rows).forEach(([i, rowData]) => {
       const R = +i;
       if (rowData.height) {
         workBook.Sheets[name]!['!rows']![R] = { hpx: rowData.height };
       }
-      Object.entries(rowData.cells).forEach(([ i, cellData ]) => {
+      Object.entries(rowData.cells).forEach(([i, cellData]) => {
         const C = +i;
         if (range.s.r > R) range.s.r = R;
         if (range.s.c > C) range.s.c = C;
         if (range.e.r < R) range.e.r = R;
         if (range.e.c < C) range.e.c = C;
-        const cell: { v: string | number | boolean | Date, t: string, z?: string, s?: any } = {
+        const cell: { v: string | number | boolean | Date; t: string; z?: string; s?: any } = {
           v: cellData.text,
           t: 's',
         };
         if (cell.v == null) return;
         const cellRef = utils.encode_cell({ c: C, r: R });
-        
+
         if (typeof cell.v === 'number') {
           cell.t = 'n';
         } else if (typeof cell.v === 'boolean') {
@@ -146,7 +147,7 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
         if (typeof cell.v === 'string' && cell.v.includes('\n')) {
           cell.s.alignment = { wrapText: true };
         }
-        
+
         if (typeof cellData.style === 'number' && styles?.[cellData.style]) {
           const bgcolor = styles[cellData.style]!.bgcolor;
           if (typeof bgcolor === 'string') {
@@ -189,13 +190,13 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
     if (autofilter?.ref) {
       workBook.Sheets[name]['!autofilter'] = { ref: autofilter?.ref };
     }
-    
+
     if (!workBook.Sheets[name]['!cols']) {
       workBook.Sheets[name]['!cols'] = [];
     }
     // const c = cols || { len: 0 };
     // const { .columns } = c;
-    Object.entries(cols || {}).forEach(([ i, property ]) => {
+    Object.entries(cols || {}).forEach(([i, property]) => {
       const index = +i;
       if (!workBook.Sheets[name]!['!cols']![index]) {
         workBook.Sheets[name]!['!cols']![index] = {};
@@ -212,14 +213,14 @@ export const downloadSheetDataAsXlsxFile = async (sheets: SheetDataType[], fileN
   const workBook = await sheetDataToWorkBook(sheets, fileName);
   const { write } = await getXLSX();
   const workBookOut = write(workBook, { bookType: 'xlsx', type: 'binary' });
-  const blob = new Blob([ stringToArrayBuffer(workBookOut) ], { type: 'application/octet-stream' });
+  const blob = new Blob([stringToArrayBuffer(workBookOut)], { type: 'application/octet-stream' });
   downloadBlobAsFile(blob, fileName);
 };
 
 export const renderChildrenWithProps = (children: any, props: any) => {
   if (typeof children === 'function') {
     // return renderChildrenWithProps(renderReactNodeOrFunctionP1(children, props), props);
-    return (children(props));
+    return children(props);
   }
   return Children.map(children, (child) => {
     return !!child ? cloneElement(child, props) : child;
@@ -228,9 +229,25 @@ export const renderChildrenWithProps = (children: any, props: any) => {
 
 type classType = string | { [key: string]: boolean };
 
-export const classNames = (c1?: classType, c2?: classType, c3?: classType, c4?: classType, c5?: classType, c6?: classType, c7?: classType, c8?: classType, c9?: classType, c10?: classType, c11?: classType, c12?: classType, c13?: classType, c14?: classType, c15?: classType): string => {
+export const classNames = (
+  c1?: classType,
+  c2?: classType,
+  c3?: classType,
+  c4?: classType,
+  c5?: classType,
+  c6?: classType,
+  c7?: classType,
+  c8?: classType,
+  c9?: classType,
+  c10?: classType,
+  c11?: classType,
+  c12?: classType,
+  c13?: classType,
+  c14?: classType,
+  c15?: classType,
+): string => {
   let classes = '';
-  [ c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15 ].forEach(prop => {
+  [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15].forEach((prop) => {
     if (prop) {
       if (typeof prop === 'string') {
         classes += (classes ? ' ' : '') + prop;
@@ -247,7 +264,7 @@ export const classNames = (c1?: classType, c2?: classType, c3?: classType, c4?: 
 };
 
 export const isTrigger = (trigger: TriggerActionsType | TriggerActionsType[], value: TriggerActionsType) => {
-  return (trigger === value || (Array.isArray(trigger) && trigger.includes(value)));
+  return trigger === value || (Array.isArray(trigger) && trigger.includes(value));
 };
 
 export function toBlob(canvas: HTMLCanvasElement): Promise<Blob | null> {
@@ -271,4 +288,10 @@ export const openNewTab = (url: string) => {
       newWindow.opener = null;
     }
   }
+};
+
+export const normalizeFolderPath = (path: string): string => {
+  const collapsed = path.trim().replace(/\/+/g, '/').replace(/\/$/, '');
+  if (!collapsed || collapsed === '/') return '';
+  return collapsed.startsWith('/') ? collapsed : '/' + collapsed;
 };

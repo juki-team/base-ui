@@ -25,7 +25,13 @@ import {
 import { EMPTY_OBJECT } from '../../../../constants';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
-import { getEditorSettingsStorageKey, getSettingsStoreKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
+import {
+  getEditorSettingsStorageKey,
+  getSettingsStoreKey,
+  getSourcesStoreKey,
+  getTestCasesStoreKey,
+  normalizeFolderPath,
+} from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useStableRef } from '../../../hooks/useStableRef';
 import { useSyncedState } from '../../../hooks/useSyncedState';
@@ -201,6 +207,7 @@ const formatStoreRecovered =
             hidden: false,
             protected: false,
             readonly: false,
+            folderPath: '/',
           };
           index++;
         } else if (typeof source === 'object' && source !== null) {
@@ -216,6 +223,9 @@ const formatStoreRecovered =
             hidden: 'hidden' in source && typeof source?.hidden === 'boolean' ? source.hidden : false,
             protected: 'protected' in source && typeof source?.protected === 'boolean' ? source.protected : false,
             readonly: 'readonly' in source && typeof source?.readonly === 'boolean' ? source.readonly : false,
+            folderPath: normalizeFolderPath(
+              'folderPath' in source && typeof source?.folderPath === 'string' ? source.folderPath : '/',
+            ),
           };
         }
       }
@@ -411,7 +421,12 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
     [setFilesStore, storeKey],
   );
 
-  const changeFileName = (prevState: StorageType<CodeEditorFiles<T>>, oldName: string, newName: string, newFolderPath?: string) => {
+  const changeFileName = (
+    prevState: StorageType<CodeEditorFiles<T>>,
+    oldName: string,
+    newName: string,
+    newFolderPath?: string,
+  ) => {
     const files = prevState[storeKey] || {};
     if (files[oldName]) {
       const oldFile = {
@@ -527,6 +542,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
           hidden: false,
           protected: false,
           readonly: false,
+          folderPath: '/',
         };
         return { ...prevState, [storeKey]: files };
       });
