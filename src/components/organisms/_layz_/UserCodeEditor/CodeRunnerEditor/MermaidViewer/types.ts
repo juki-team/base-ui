@@ -11,3 +11,13 @@ export interface GraphicToolbarProps {
   mermaidTheme: MermaidTheme;
   zoomShortcutButtons: boolean;
 }
+
+export interface MermaidViewerProps {
+  source: string;
+  mermaidTheme?: MermaidTheme;
+  configJson?: string;
+  fileName?: string;
+  copyButtons?: boolean;
+  downloadButtons?: boolean;
+  zoomShortcutButtons?: boolean;
+}

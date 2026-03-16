@@ -130,7 +130,7 @@ export const UserCodeEditor = () => {
   const [editorWidth, setEditorWidth] = useState<string>('');
   const [currentFileName, setCurrentFileName] = useState<string>('');
   const { source, language } = files?.[currentFileName] || { source: '', language: CodeLanguage.TEXT };
-  const userCodeEditorRef = useRef<UserCodeEditorHandle>(null);
+  const userCodeEditorRef = useRef<UserCodeEditorHandle<CodeLanguage>>(null);
   const getBodyRef = useRef(() => {
     const selectedSource = userCodeEditorRef.current?.markdownGetSelection() ?? '';
     if (selectedSource) {
@@ -169,7 +169,12 @@ export const UserCodeEditor = () => {
             ref={userCodeEditorRef}
             // languages={[{ value: "A", label: "A" }]}
             initialTestCases={initialTestCases}
-            languages={[...RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES, CodeLanguage.MARKDOWN, CodeLanguage.MERMAID].map((lang) => ({
+            languages={[
+              ...RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
+              CodeLanguage.MARKDOWN,
+              CodeLanguage.MERMAID,
+              CodeLanguage.MDX,
+            ].map((lang) => ({
               value: lang,
               label: CODE_LANGUAGE[lang].label,
             }))}

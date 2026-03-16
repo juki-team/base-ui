@@ -17,6 +17,7 @@ import { SplitPane } from '../../../../molecules';
 import MdMathEditor from '../../MdMathEditor/MdMathEditor';
 import { FileTreePanel } from './FileTreePanel/FileTreePanel';
 import { FirstPane } from './FirstPane';
+import { MdxRenderer } from './MdxViewer/MdxRenderer';
 import { MermaidViewer } from './MermaidViewer/MermaidViewer';
 import { TestCases } from './TestCases';
 import { CodeRunnerEditorProps, Runner } from './types';
@@ -79,7 +80,14 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
     }
     if (language === CodeLanguage.MERMAID) {
       return (
-        <MermaidViewer value={source} mermaidTheme={mermaidTheme} configJson={mermaidConfigJson} fileName={mermaidFileName} />
+        <MermaidViewer source={source} mermaidTheme={mermaidTheme} configJson={mermaidConfigJson} fileName={mermaidFileName} />
+      );
+    }
+    if (language === CodeLanguage.MDX) {
+      return (
+        <div className="ht-100 wh-100 ow-ao jk-pg-xsm">
+          <MdxRenderer source={source} />
+        </div>
       );
     }
     if (language === CodeLanguage.MARKDOWN) {

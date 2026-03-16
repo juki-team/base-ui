@@ -4,7 +4,7 @@ import { Button, CopyToClipboard, T } from '../../../../../atoms';
 import { ContentCopyIcon, DownloadIcon, LoadingIcon, PlayArrowIcon, WarningIcon } from '../../../../../atoms/server';
 import { downloadBlobAsFile } from '../../../../../helpers';
 import { GraphicToolbar } from './GraphicToolbar';
-import { MermaidTheme } from './types';
+import { MermaidTheme, MermaidViewerProps } from './types';
 
 const DEFAULT_CONFIG = `{
   "logLevel": "error",
@@ -36,23 +36,17 @@ function ErrorPanel({ error }: { error: string }) {
   );
 }
 
-export const MermaidViewer = ({
-  value: code,
-  mermaidTheme = 'default',
-  configJson = DEFAULT_CONFIG,
-  fileName = 'diagram',
-  copyButtons = true,
-  downloadButtons = true,
-  zoomShortcutButtons = true,
-}: {
-  value: string;
-  mermaidTheme?: MermaidTheme;
-  configJson?: string;
-  fileName?: string;
-  copyButtons?: boolean;
-  downloadButtons?: boolean;
-  zoomShortcutButtons?: boolean;
-}) => {
+export const MermaidViewer = (props: MermaidViewerProps) => {
+  const {
+    source,
+    mermaidTheme = 'default',
+    configJson = DEFAULT_CONFIG,
+    fileName = 'diagram',
+    copyButtons = true,
+    downloadButtons = true,
+    zoomShortcutButtons = true,
+  } = props;
+
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -137,7 +131,7 @@ export const MermaidViewer = ({
           ...extraConfig,
         });
 
-        const { svg } = await mermaid.render(`mermaid-render-${renderId}`, code);
+        const { svg } = await mermaid.render(`mermaid-render-${renderId}`, source);
 
         // Mermaid v11 resolves with an error SVG instead of throwing
         if (svg.includes('aria-roledescription="error"')) {
@@ -165,7 +159,7 @@ export const MermaidViewer = ({
     return () => {
       clearTimeout(timeout);
     };
-  }, [code, mermaidTheme, configJson]);
+  }, [source, mermaidTheme, configJson]);
 
   const getPngBlob = useCallback((): Promise<Blob> => {
     const el = svgContainerRef.current;

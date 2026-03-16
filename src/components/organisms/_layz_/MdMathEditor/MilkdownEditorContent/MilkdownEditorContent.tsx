@@ -126,6 +126,7 @@ const plainText = StreamLanguage.define({
 
 const plainTextSupport = new LanguageSupport(plainText);
 
+console.log({ languages });
 const myLanguages = [
   // ...languages,
   LanguageDescription.of({
@@ -187,6 +188,18 @@ const myLanguages = [
     ...languages.find((language) => language.name === 'JSX'),
     name: CodeLanguage.JSX.toLowerCase(),
     load: () => import('@codemirror/lang-javascript').then((m) => m.javascript({ jsx: true })),
+  }),
+  LanguageDescription.of({
+    name: CodeLanguage.MDX.toLowerCase(),
+    alias: ['mdx'],
+    extensions: ['mdx'],
+    load: () =>
+      Promise.all([import('@codemirror/lang-markdown'), import('@codemirror/lang-javascript')]).then(
+        ([{ markdown }, { javascript }]) =>
+          markdown({
+            codeLanguages: [LanguageDescription.of({ name: 'javascript', load: async () => javascript({ jsx: true }) })],
+          }),
+      ),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'TSX'),
@@ -446,6 +459,7 @@ export const MilkdownEditorContent = forwardRef<MilkdownEditorContentHandle, Mil
             }));
             ctx.set(remarkStringifyOptionsCtx, {
               bullet: '-',
+              rule: '-',
               // fences: true,
               // incrementListMarker: false,
             });

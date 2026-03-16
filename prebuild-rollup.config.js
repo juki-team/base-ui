@@ -11,6 +11,7 @@ const plugins = [
       { src: 'node_modules/diff2html/**/*.{css,scss,sass,ttf,woff,woff2}', dest: 'src/vendor' },
       { src: 'node_modules/highlight.js/**/*.{css,scss,sass,ttf,woff,woff2}', dest: 'src/vendor' },
       { src: 'node_modules/katex/**/*.{css,scss,sass,ttf,woff,woff2}', dest: 'src/vendor' },
+      { src: 'node_modules/fumadocs-ui/**/*.{css,scss,sass,ttf,woff,woff2}', dest: 'src/vendor' },
     ],
     flatten: false,
   }),
