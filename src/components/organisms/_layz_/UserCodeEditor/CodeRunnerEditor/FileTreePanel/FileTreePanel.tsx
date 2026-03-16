@@ -363,7 +363,7 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
               size="tiny"
               icon={<AddIcon />}
               disabled={readOnly}
-              onClick={() => onChangeRef.current?.({ newFileName: true })}
+              onClick={() => onChangeRef.current?.({ newFileName: files[currentFileName]?.folderPath ?? '' })}
             >
               {viewFiles && <T className="tt-se">new file</T>}
             </Button>

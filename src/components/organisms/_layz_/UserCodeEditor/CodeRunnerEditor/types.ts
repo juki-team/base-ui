@@ -12,7 +12,7 @@ export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
   onTestCasesChange?: (testCases: CodeEditorTestCases) => CodeEditorTestCases;
   codeRunStatus?: SubmissionRunStatus;
   fileName?: string;
-  newFileName?: true;
+  newFileName?: string;
   fileNameEdited?: [string, string, string?];
   fileNameDeleted?: string;
 };

@@ -548,11 +548,12 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
       setEditorSettings((prevState) => ({ ...prevState, fontSize }));
       focusEditor();
     }
-    if (newFileName) {
+    if (newFileName !== undefined) {
       setFilesStore((prevState) => {
         const files = { ...(prevState[storeKey] || {}) };
-        const newName = getNewFileName('new', `.${getExtension(defaultLanguage)}`, (name) => !!files[name]);
-        const newKey = getFileKey('', newName);
+        const folderPath = newFileName;
+        const newName = getNewFileName('new', `.${getExtension(defaultLanguage)}`, (name) => !!files[getFileKey(folderPath, name)]);
+        const newKey = getFileKey(folderPath, newName);
         setCurrentFileName(newKey);
         const maxIndex = Object.values(files).reduce((accum, { index }) => Math.max(accum, index || 0), 0);
         files[newKey] = {
@@ -563,7 +564,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
           hidden: false,
           protected: false,
           readonly: false,
-          folderPath: '',
+          folderPath,
         };
         return { ...prevState, [storeKey]: files };
       });

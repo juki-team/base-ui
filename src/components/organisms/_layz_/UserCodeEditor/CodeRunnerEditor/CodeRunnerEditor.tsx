@@ -217,7 +217,7 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
           {Object.keys(files).length === 0 ? (
             <div className="jk-col gap jk-pg">
               <T className="tt-se">there are no files in the editor, create a new file to start using the editor</T>
-              <Button type="secondary" onClick={() => onChangeRef.current?.({ newFileName: true })}>
+              <Button type="secondary" onClick={() => onChangeRef.current?.({ newFileName: '' })}>
                 <T className="tt-se">create a new file</T>
               </Button>
             </div>
