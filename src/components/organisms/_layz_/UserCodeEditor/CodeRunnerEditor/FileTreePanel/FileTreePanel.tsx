@@ -16,21 +16,25 @@ import { classNames, normalizeFolderPath } from '../../../../../helpers';
 import { TwoActionModal } from '../../../../../molecules';
 import type { FileTreePanelProps } from './types';
 
+type TreeFileItem = { key: string; name: string; folderPath: string; index: number };
+
 type TreeNode =
   | {
       type: 'folder';
       name: string;
       path: string;
       children: TreeNode[];
-      files: { name: string; index: number }[];
+      files: TreeFileItem[];
     }
   | {
       type: 'file';
+      key: string;
       name: string;
+      folderPath: string;
       index: number;
     };
 
-function buildTree(entries: [string, { folderPath: string; index: number }][]): TreeNode[] {
+function buildTree(entries: [string, { folderPath: string; index: number; name: string }][]): TreeNode[] {
   const root: TreeNode[] = [];
   const folderMap = new Map<string, TreeNode & { type: 'folder' }>();
 
@@ -50,41 +54,44 @@ function buildTree(entries: [string, { folderPath: string; index: number }][]): 
     return node;
   };
 
-  const rootFiles: { name: string; index: number }[] = [];
+  const rootFiles: TreeFileItem[] = [];
 
-  for (const [name, file] of entries) {
+  for (const [key, file] of entries) {
     const fp = file.folderPath;
     const isRoot = !fp || fp === '/' || fp === '';
     if (isRoot) {
-      rootFiles.push({ name, index: file.index });
+      rootFiles.push({ key, name: file.name, folderPath: '', index: file.index });
     } else {
       const folder = getOrCreateFolder(fp.startsWith('/') ? fp : '/' + fp);
-      folder.files.push({ name, index: file.index });
+      folder.files.push({ key, name: file.name, folderPath: fp, index: file.index });
     }
   }
 
   const rootFileNodes: TreeNode[] = rootFiles
     .sort((a, b) => a.index - b.index)
-    .map((f) => ({ type: 'file', name: f.name, index: f.index }));
+    .map((f) => ({ type: 'file', key: f.key, name: f.name, folderPath: f.folderPath, index: f.index }));
 
   return [...rootFileNodes, ...root];
 }
 
 interface FileNodeProps<T> {
+  fileKey: string;
   name: string;
+  folderPath: string;
   globalIndex: number;
   currentFileName: string;
   viewFiles: boolean;
   onChangeRef: FileTreePanelProps<T>['onChangeRef'];
-  setOpenFileName: (name: string) => void;
+  setOpenFileName: (key: string) => void;
   setFileNameEdit: (name: string) => void;
   setFolderPathEdit: (path: string) => void;
-  setFileNameDelete: (name: string) => void;
-  folderPath: string;
+  setFileNameDelete: (key: string) => void;
 }
 
 function FileNode<T>({
+  fileKey,
   name,
+  folderPath,
   globalIndex,
   currentFileName,
   viewFiles,
@@ -93,20 +100,18 @@ function FileNode<T>({
   setFileNameEdit,
   setFolderPathEdit,
   setFileNameDelete,
-  folderPath,
 }: FileNodeProps<T>) {
   return (
     <div
-      key={name}
       className={classNames('tx-t jk-pg-xsm jk-col nowrap left stretch', {
-        'bc-al cr-at-it': name === currentFileName,
-        hoverable: name !== currentFileName,
+        'bc-ht-lt': fileKey === currentFileName,
+        hoverable: fileKey !== currentFileName,
       })}
       onClick={
-        name !== currentFileName
+        fileKey !== currentFileName
           ? (e) => {
               e.stopPropagation();
-              onChangeRef.current?.({ fileName: name });
+              onChangeRef.current?.({ fileName: fileKey });
             }
           : (e) => e.stopPropagation()
       }
@@ -135,18 +140,18 @@ function FileNode<T>({
             </div>
             <div className="jk-row gap display-on-hover-2 nowrap">
               <EditIcon
-                className={classNames({ 'cr-tx-ht-lt': name !== currentFileName })}
+                className={classNames({ 'cr-tx-ht-lt': fileKey !== currentFileName })}
                 size="tiny"
                 onClick={() => {
-                  setOpenFileName(name);
-                  setFileNameEdit(name.split('/').filter(Boolean).pop() ?? name);
-                  setFolderPathEdit(folderPath.replace(/^\//, ''));
+                  setOpenFileName(fileKey);
+                  setFileNameEdit(name);
+                  setFolderPathEdit(folderPath);
                 }}
               />
               <DeleteIcon
-                className={classNames({ 'cr-tx-ht-lt': name !== currentFileName })}
+                className={classNames({ 'cr-tx-ht-lt': fileKey !== currentFileName })}
                 size="tiny"
-                onClick={() => setFileNameDelete(name)}
+                onClick={() => setFileNameDelete(fileKey)}
               />
             </div>
           </div>
@@ -158,15 +163,22 @@ function FileNode<T>({
   );
 }
 
-interface FolderNodeProps<T> extends Omit<FileNodeProps<T>, 'name' | 'globalIndex'> {
+interface FolderNodeProps<T> {
   node: TreeNode & { type: 'folder' };
   depth: number;
   globalIndexMap: Map<string, number>;
+  currentFileName: string;
+  viewFiles: boolean;
+  onChangeRef: FileTreePanelProps<T>['onChangeRef'];
+  setOpenFileName: (key: string) => void;
+  setFileNameEdit: (name: string) => void;
+  setFolderPathEdit: (path: string) => void;
+  setFileNameDelete: (key: string) => void;
 }
 
-function folderContainsFile(node: TreeNode & { type: 'folder' }, fileName: string): boolean {
-  if (node.files.some((f) => f.name === fileName)) return true;
-  return node.children.some((child) => child.type === 'folder' && folderContainsFile(child, fileName));
+function folderContainsFile(node: TreeNode & { type: 'folder' }, fileKey: string): boolean {
+  if (node.files.some((f) => f.key === fileKey)) return true;
+  return node.children.some((child) => child.type === 'folder' && folderContainsFile(child, fileKey));
 }
 
 function FolderNode<T>({
@@ -205,9 +217,11 @@ function FolderNode<T>({
             .sort((a, b) => a.index - b.index)
             .map((f) => (
               <FileNode<T>
-                key={f.name}
+                key={f.key}
+                fileKey={f.key}
                 name={f.name}
-                globalIndex={globalIndexMap.get(f.name) ?? f.index}
+                folderPath={f.folderPath}
+                globalIndex={globalIndexMap.get(f.key) ?? f.index}
                 currentFileName={currentFileName}
                 viewFiles={viewFiles}
                 onChangeRef={onChangeRef}
@@ -215,7 +229,6 @@ function FolderNode<T>({
                 setFileNameEdit={setFileNameEdit}
                 setFolderPathEdit={setFolderPathEdit}
                 setFileNameDelete={setFileNameDelete}
-                folderPath={node.path}
               />
             ))}
           {node.children.map((child) =>
@@ -232,7 +245,6 @@ function FolderNode<T>({
                 setFolderPathEdit={setFolderPathEdit}
                 setFileNameDelete={setFileNameDelete}
                 globalIndexMap={globalIndexMap}
-                folderPath={node.path}
               />
             ) : null,
           )}
@@ -256,9 +268,9 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
     setOpenFileName('');
   };
 
-  const entries = Object.entries(files) as [string, { folderPath: string; index: number }][];
+  const entries = Object.entries(files) as [string, { folderPath: string; index: number; name: string }][];
   const sorted = [...entries].sort(([, a], [, b]) => a.index - b.index);
-  const globalIndexMap = new Map(sorted.map(([name], i) => [name, i]));
+  const globalIndexMap = new Map(sorted.map(([key], i) => [key, i]));
   const tree = buildTree(entries);
 
   const fileNodeProps = {
@@ -334,21 +346,15 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
             {tree.map((node) =>
               node.type === 'file' ? (
                 <FileNode<T>
-                  key={node.name}
+                  key={node.key}
+                  fileKey={node.key}
                   name={node.name}
-                  globalIndex={globalIndexMap.get(node.name) ?? node.index}
-                  folderPath=""
+                  folderPath={node.folderPath}
+                  globalIndex={globalIndexMap.get(node.key) ?? node.index}
                   {...fileNodeProps}
                 />
               ) : (
-                <FolderNode<T>
-                  key={node.path}
-                  node={node}
-                  depth={0}
-                  globalIndexMap={globalIndexMap}
-                  folderPath=""
-                  {...fileNodeProps}
-                />
+                <FolderNode<T> key={node.path} node={node} depth={0} globalIndexMap={globalIndexMap} {...fileNodeProps} />
               ),
             )}
           </div>

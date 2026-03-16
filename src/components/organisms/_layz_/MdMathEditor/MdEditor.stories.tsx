@@ -98,7 +98,7 @@ const Cmp = (props: MdMathEditorProps) => {
         </div>
         {props.enableIA && (
           <AiChatPanel
-            api="https://md.local.juki.app/api/chat/md-math"
+            api="https://md.local.juki.app/api/chat/md"
             getBodyRef={getBodyRef}
             onMessagesChangeRef={onMessagesChangeRef}
             toolStateUI={DEFAULT_MD_MATH_TOOL_STATE_UI}
