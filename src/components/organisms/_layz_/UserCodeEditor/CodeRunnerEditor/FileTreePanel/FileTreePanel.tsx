@@ -102,9 +102,13 @@ function FileNode<T>({
         'bc-al cr-at-it': name === currentFileName,
         hoverable: name !== currentFileName,
       })}
-      onClick={name !== currentFileName
-        ? (e) => { e.stopPropagation(); onChangeRef.current?.({ fileName: name }); }
-        : (e) => e.stopPropagation()
+      onClick={
+        name !== currentFileName
+          ? (e) => {
+              e.stopPropagation();
+              onChangeRef.current?.({ fileName: name });
+            }
+          : (e) => e.stopPropagation()
       }
     >
       {viewFiles ? (
@@ -135,8 +139,8 @@ function FileNode<T>({
                 size="tiny"
                 onClick={() => {
                   setOpenFileName(name);
-                  setFileNameEdit(name);
-                  setFolderPathEdit(folderPath);
+                  setFileNameEdit(name.split('/').filter(Boolean).pop() ?? name);
+                  setFolderPathEdit(folderPath.replace(/^\//, ''));
                 }}
               />
               <DeleteIcon
@@ -160,6 +164,11 @@ interface FolderNodeProps<T> extends Omit<FileNodeProps<T>, 'name' | 'globalInde
   globalIndexMap: Map<string, number>;
 }
 
+function folderContainsFile(node: TreeNode & { type: 'folder' }, fileName: string): boolean {
+  if (node.files.some((f) => f.name === fileName)) return true;
+  return node.children.some((child) => child.type === 'folder' && folderContainsFile(child, fileName));
+}
+
 function FolderNode<T>({
   node,
   depth,
@@ -173,19 +182,24 @@ function FolderNode<T>({
   globalIndexMap,
 }: FolderNodeProps<T>) {
   const [expanded, setExpanded] = useState(true);
+  const containsCurrent = folderContainsFile(node, currentFileName);
+  const isExpanded = containsCurrent || expanded;
 
   return (
     <div style={{ paddingLeft: depth > 0 ? 0 : 0 }}>
       <div
-        className="jk-row left gap hoverable jk-pg-xsm tx-t fw-bd"
+        className="jk-row left gap hoverable jk-pg-xsm tx-t fw-bd nowrap"
         style={{ cursor: 'pointer' }}
-        onClick={(e) => { e.stopPropagation(); setExpanded((v) => !v); }}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (!containsCurrent) setExpanded((v) => !v);
+        }}
       >
-        {expanded ? <FolderOpenIcon size="tiny" /> : <FolderIcon size="tiny" />}
+        {isExpanded ? <FolderOpenIcon size="tiny" /> : <FolderIcon size="tiny" />}
         {viewFiles && <span>{node.name}</span>}
-        {viewFiles && (expanded ? <ArrowDropDownIcon size="tiny" /> : <ArrowDropUpIcon size="tiny" />)}
+        {viewFiles && (isExpanded ? <ArrowDropDownIcon size="tiny" /> : <ArrowDropUpIcon size="tiny" />)}
       </div>
-      {expanded && (
+      {isExpanded && (
         <div style={{ marginLeft: 14, borderLeft: '1px solid var(--cr-ht)' }}>
           {node.files
             .sort((a, b) => a.index - b.index)
