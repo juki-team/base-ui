@@ -597,7 +597,6 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
     }
   };
 
-  console.log({ files });
   return (
     <CodeRunnerEditor<T>
       triggerFocus={editorTriggerFocus}

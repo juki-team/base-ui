@@ -126,7 +126,6 @@ const plainText = StreamLanguage.define({
 
 const plainTextSupport = new LanguageSupport(plainText);
 
-console.log({ languages });
 const myLanguages = [
   // ...languages,
   LanguageDescription.of({
