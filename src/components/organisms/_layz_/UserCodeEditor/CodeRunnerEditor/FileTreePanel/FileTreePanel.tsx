@@ -16,6 +16,18 @@ import { classNames, normalizeFolderPath } from '../../../../../helpers';
 import { TwoActionModal } from '../../../../../molecules';
 import type { FileTreePanelProps } from './types';
 
+const MAX_NAME_LENGTH = 16;
+
+function abbreviateFileName(name: string): string {
+  if (name.length <= MAX_NAME_LENGTH) {
+    return name;
+  }
+  const dotIndex = name.lastIndexOf('.');
+  const ext = dotIndex > 0 ? name.slice(dotIndex) : '';
+  const budget = MAX_NAME_LENGTH - ext.length - 1;
+  return budget > 0 ? name.slice(0, budget) + '…' + ext : name.slice(0, MAX_NAME_LENGTH - 1) + '…';
+}
+
 type TreeFileItem = { key: string; name: string; folderPath: string; index: number };
 
 type TreeNode =
@@ -124,18 +136,9 @@ function FileNode<T>({
               <span
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content={name}
-                style={{
-                  marginLeft: 2,
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  fontFamily: 'monospace',
-                  letterSpacing: '-0.04em',
-                  maxWidth: 64,
-                  width: 64,
-                }}
+                style={{ marginLeft: 2, fontFamily: 'monospace', letterSpacing: '-0.04em', whiteSpace: 'nowrap' }}
               >
-                {name}
+                {abbreviateFileName(name)}
               </span>
             </div>
             <div className="jk-row gap display-on-hover-2 nowrap">
