@@ -322,6 +322,7 @@ function MdMathComponent(props: MdMathProps) {
                       hidden: false,
                       readonly: false,
                       protected: false,
+                      folderPath: '',
                     },
                   }}
                 />
