@@ -30,13 +30,13 @@ import { downloadBlobAsFile, downloadUrlAsFile, isBrowser } from './commons';
 const checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
 const validate = (representation: string) => {
   return representation.length === 24 && checkForHexRegExp.test(representation);
-// return UUID_WITHOUT_DASHES.test(representation) || UUID_WITH_DASHES.test(representation)
+  // return UUID_WITHOUT_DASHES.test(representation) || UUID_WITH_DASHES.test(representation)
 };
 
 export function getQuerySessionId(): string {
   let queryToken = '';
   if (isBrowser()) {
-    queryToken = (new URLSearchParams(window.location.search)).get(QueryParamKey.TOKEN) ?? '';
+    queryToken = new URLSearchParams(window.location.search).get(QueryParamKey.TOKEN) ?? '';
   }
   return validate(queryToken) ? queryToken : '';
 }
@@ -48,33 +48,47 @@ export function getVisitorSessionId(): string {
   return getQuerySessionId() || '';
 }
 
-export const authorizedRequest = async <M extends Exclude<HTTPMethod, HTTPMethod.GET> = HTTPMethod.POST, N extends Blob | string = string>(url: string, options?: AuthorizedRequestType<M>, safe?: boolean): Promise<N> => {
+export const authorizedRequest = async <
+  M extends Exclude<HTTPMethod, HTTPMethod.GET> = HTTPMethod.POST,
+  N extends Blob | string = string,
+>(
+  url: string,
+  options?: AuthorizedRequestType<M>,
+  safe?: boolean,
+): Promise<N> => {
   return _authorizedRequest(url, options, safe);
 };
 
-export const getAuthorizedRequest = async <N extends Blob | string = string>(url: string, options?: Omit<AuthorizedRequestType, 'method'>, safe?: boolean): Promise<N> => {
+export const getAuthorizedRequest = async <N extends Blob | string = string>(
+  url: string,
+  options?: Omit<AuthorizedRequestType, 'method'>,
+  safe?: boolean,
+): Promise<N> => {
   return _authorizedRequest(url, options, safe);
 };
 
-const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N extends Blob | string = string>(url: string, options?: Partial<AuthorizedRequestType<M>>, safe?: boolean): Promise<N> => {
-  
+const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N extends Blob | string = string>(
+  url: string,
+  options?: Partial<AuthorizedRequestType<M>>,
+  safe?: boolean,
+): Promise<N> => {
   const { method = HTTPMethod.GET, body, signal, responseType, headers, cache, next } = options || {};
-  
+
   const requestHeaders = new Headers(headers ?? {});
   requestHeaders.set('accept', 'application/json');
-  
+
   if (!(body instanceof FormData)) {
     requestHeaders.set('content-type', 'application/json');
   }
   if (isBrowser()) {
     requestHeaders.set(HEADER_JUKI_FORWARDED_HOST, window.location?.host);
   }
-  
+
   const visitorSessionId = getVisitorSessionId();
   if (visitorSessionId) {
     requestHeaders.set(HEADER_JUKI_VISITOR_SESSION_ID, visitorSessionId);
   }
-  
+
   try {
     const response = await fetch(url, {
       method,
@@ -87,9 +101,9 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
     } as RequestInit);
     try {
       if (responseType === 'blob') {
-        return await response.blob() as N;
+        return (await response.blob()) as N;
       }
-      return await response.text() as N;
+      return (await response.text()) as N;
     } catch (error) {
       consoleWarn('error on get data', { url, error, responseType });
     }
@@ -99,7 +113,7 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
     return '' as N;
   } catch (error) {
     consoleWarn('error on fetch', { url, error });
-    
+
     if (signal?.aborted) {
       if (responseType === 'blob') {
         return new Blob() as N;
@@ -107,7 +121,7 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
       return JSON.stringify({
         success: false,
         message: ERROR[ErrorCode.ERR9997].message,
-        errors: [ { code: ErrorCode.ERR9997, detail: `[${method}] ${url} \n ${body}` } ],
+        errors: [{ code: ErrorCode.ERR9997, detail: `[${method}] ${url} \n ${body}` }],
       } as ErrorResponse) as N;
     }
     if (safe === false) {
@@ -119,10 +133,12 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
     return JSON.stringify({
       success: false,
       message: ERROR[ErrorCode.ERR9998].message,
-      errors: [ {
-        code: ErrorCode.ERR9998,
-        detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }),
-      } ],
+      errors: [
+        {
+          code: ErrorCode.ERR9998,
+          detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }),
+        },
+      ],
     } as ErrorResponse) as N;
   }
 };
@@ -145,9 +161,7 @@ export const getMetaHeaders = (): HeadersInit => ({
 
 export const publishNote = async (source: string) => {
   const { url, ...options } = jukiApiManager.API_V2.note.publish({ body: { source: source.trim() } });
-  const request = cleanRequest<ContentResponse<{ sourceUrl: string }>>(
-    await authorizedRequest(url, options),
-  );
+  const request = cleanRequest<ContentResponse<{ sourceUrl: string }>>(await authorizedRequest(url, options));
   if (request?.success && request?.content.sourceUrl) {
     return request.content.sourceUrl;
   }
@@ -172,15 +186,21 @@ export const publishNote = async (source: string) => {
 //   }
 // };
 
-export const handleUploadImage = async (image: Blob, isPublic: boolean): Promise<{
-  status: Status.ERROR,
-  message: string,
-  content: null
-} | {
-  status: Status.SUCCESS,
-  message: string,
-  content: { imageUrl: string, signedUrl: string }
-}> => {
+export const handleUploadImage = async (
+  image: Blob,
+  isPublic: boolean,
+): Promise<
+  | {
+      status: Status.ERROR;
+      message: string;
+      content: null;
+    }
+  | {
+      status: Status.SUCCESS;
+      message: string;
+      content: { imageUrl: string; signedUrl: string };
+    }
+> => {
   try {
     const { url, ...options } = jukiApiManager.API_V2.image.publish({
       body: {
@@ -188,15 +208,15 @@ export const handleUploadImage = async (image: Blob, isPublic: boolean): Promise
         isPublic,
       },
     });
-    const response = cleanRequest<ContentResponse<{ imageUrl: string, signedUrl: string }>>(
+    const response = cleanRequest<ContentResponse<{ imageUrl: string; signedUrl: string }>>(
       await authorizedRequest(url, options),
     );
-    
+
     if (!response.success) {
       console.error('response not success on handleUploadImage', { response });
       return { status: Status.ERROR, message: 'Ups, please try again', content: null };
     }
-    
+
     await fetch(response.content.signedUrl, {
       method: HTTPMethod.PUT,
       headers: {
@@ -211,15 +231,21 @@ export const handleUploadImage = async (image: Blob, isPublic: boolean): Promise
   }
 };
 
-export const handleUploadFile = async (image: Blob, folder: FilesJukiPub): Promise<{
-  status: Status.ERROR,
-  message: string,
-  content: null
-} | {
-  status: Status.SUCCESS,
-  message: string,
-  content: { imageUrl: string, signedUrl: string }
-}> => {
+export const handleUploadFile = async (
+  image: Blob,
+  folder: FilesJukiPub,
+): Promise<
+  | {
+      status: Status.ERROR;
+      message: string;
+      content: null;
+    }
+  | {
+      status: Status.SUCCESS;
+      message: string;
+      content: { imageUrl: string; signedUrl: string };
+    }
+> => {
   try {
     const { url, ...options } = jukiApiManager.API_V2.file.publish({
       body: {
@@ -227,15 +253,15 @@ export const handleUploadFile = async (image: Blob, folder: FilesJukiPub): Promi
         folder,
       },
     });
-    const response = cleanRequest<ContentResponse<{ imageUrl: string, signedUrl: string }>>(
+    const response = cleanRequest<ContentResponse<{ imageUrl: string; signedUrl: string }>>(
       await authorizedRequest(url, options),
     );
-    
+
     if (!response.success) {
       consoleError('response not success on handleUploadImage', { response });
       return { status: Status.ERROR, message: 'Ups, please try again', content: null };
     }
-    
+
     await fetch(response.content.signedUrl, {
       method: HTTPMethod.PUT,
       headers: {
@@ -250,12 +276,16 @@ export const handleUploadFile = async (image: Blob, folder: FilesJukiPub): Promi
   }
 };
 
-export const downloadWebsiteAsPdf = async (websiteUrl: string, name: string, exportOptions?: {
-  headerTemplate?: string,
-  footerTemplate?: string,
-  margin?: { top: string, bottom: string, left: string, right: string }
-  format?: string,
-}) => {
+export const downloadWebsiteAsPdf = async (
+  websiteUrl: string,
+  name: string,
+  exportOptions?: {
+    headerTemplate?: string;
+    footerTemplate?: string;
+    margin?: { top: string; bottom: string; left: string; right: string };
+    format?: string;
+  },
+) => {
   const { url, ...options } = jukiApiManager.API_V2.export.websiteToPdf({
     params: {
       url: websiteUrl,
@@ -265,10 +295,8 @@ export const downloadWebsiteAsPdf = async (websiteUrl: string, name: string, exp
       margin: exportOptions?.margin,
     },
   });
-  const response = cleanRequest<ContentResponse<{ urlExportedPDF: string }>>(
-    await authorizedRequest(url, options),
-  );
-  
+  const response = cleanRequest<ContentResponse<{ urlExportedPDF: string }>>(await authorizedRequest(url, options));
+
   if (response.success) {
     await downloadUrlAsFile('https://' + response.content.urlExportedPDF, name);
   } else {
@@ -278,9 +306,7 @@ export const downloadWebsiteAsPdf = async (websiteUrl: string, name: string, exp
 
 export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fileName: string) => {
   const { url, ...options } = jukiApiManager.API_V2.note.createPdf({ body: { source, theme } });
-  const result = await authorizedRequest(
-    url, { responseType: 'blob', ...options },
-  );
+  const result = await authorizedRequest(url, { responseType: 'blob', ...options });
   if (typeof result === 'string') {
     if (isObjectJson(result)) {
       const response = JSON.parse(result) as ErrorResponse;
@@ -293,8 +319,7 @@ export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fi
   downloadBlobAsFile(result, fileName);
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const safeReportError = async (error: Error, errorInfo: ErrorInfo | null, data?: Record<string, any>) => {
+export const safeReportError = async (error: Error, errorInfo: ErrorInfo | null, data?: Record<string, unknown>) => {
   const visitorSessionId = getVisitorSessionId();
   const location = isBrowser() ? window.location : new Location();
   consoleError('Error to report', { error, errorInfo, location, visitorSessionId, data });

@@ -180,22 +180,24 @@ const getNewFileName = (prefix: string, suffix: string, exist: (name: string) =>
 
 type SettingsStore = { lastFileName: string };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const formatSettingsStoreRecovered = (recovered: any): StorageType<SettingsStore> => {
+const formatSettingsStoreRecovered = (recovered: unknown): StorageType<SettingsStore> => {
   const state: StorageType<SettingsStore> = {};
-  for (const [key, value] of Object.entries(recovered)) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    state[key] = { lastFileName: typeof (value as any)?.lastFileName === 'string' ? (value as any).lastFileName : '' };
+  for (const [key, value] of Object.entries(recovered || {})) {
+    state[key] = {
+      lastFileName:
+        typeof (value as { lastFileName?: string })?.lastFileName === 'string'
+          ? (value as { lastFileName: string }).lastFileName
+          : '',
+    };
   }
   return state;
 };
 
 const formatStoreRecovered =
   <T,>(languages: UserCodeEditorProps<T>['languages']) =>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (recovered: any): StorageType<CodeEditorFiles<T>> => {
+  (recovered: unknown): StorageType<CodeEditorFiles<T>> => {
     const state: StorageType<CodeEditorFiles<T>> = {};
-    for (const [key, value] of Object.entries(recovered)) {
+    for (const [key, value] of Object.entries(recovered || {})) {
       state[key] = {};
       let index = 1;
       for (const [lang, source] of Object.entries(value || {})) {
@@ -260,10 +262,9 @@ type CodeEditorSettingsStore<T> = {
   fontSize: number;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const formatTestCasesStoreRecover = (recovered: any): StorageType<CodeEditorTestCases> => {
+const formatTestCasesStoreRecover = (recovered: unknown): StorageType<CodeEditorTestCases> => {
   const state: StorageType<CodeEditorTestCases> = {};
-  for (const [key, value] of Object.entries(recovered)) {
+  for (const [key, value] of Object.entries(recovered || {})) {
     state[key] = {};
     for (const [caseKey, caseValue] of Object.entries(value as object)) {
       if (caseValue?.sample === false) {

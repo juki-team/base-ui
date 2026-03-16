@@ -5,14 +5,13 @@ import type { UserCodeEditorHandle, UserCodeEditorProps } from './types';
 export const UserCodeEditorImport = () => import('./UserCodeEditor');
 
 const UserCodeEditorGen = lazy(() => UserCodeEditorImport()) as <T>(
-  props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeEditorHandle> },
+  props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeEditorHandle<T>> },
 ) => ReactElement | null;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const UserCodeEditor = forwardRef<UserCodeEditorHandle, UserCodeEditorProps<any>>(function UserCodeEditor(props, ref) {
+export const UserCodeEditor = forwardRef(function UserCodeEditor<T>(props: UserCodeEditorProps<T>, ref: Ref<UserCodeEditorHandle<T>>) {
   return (
     <Suspense fallback={<SpinIcon />}>
       <UserCodeEditorGen {...props} ref={ref} />
     </Suspense>
   );
-}) as <T>(props: UserCodeEditorProps<T> & RefAttributes<UserCodeEditorHandle>) => ReactElement | null;
+}) as <T>(props: UserCodeEditorProps<T> & RefAttributes<UserCodeEditorHandle<T>>) => ReactElement | null;

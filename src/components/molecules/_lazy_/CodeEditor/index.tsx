@@ -1,11 +1,12 @@
-import { type FC, lazy, Suspense } from 'react';
+import { lazy, ReactElement, Suspense } from 'react';
 import { SpinIcon } from '../../../atoms/server';
 import { CodeEditorProps } from './types';
 
 export const CodeEditorImport = () => import('./CodeEditor');
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CodeEditorCmp = lazy(() => CodeEditorImport()) as FC<CodeEditorProps<any>>;
+const CodeEditorCmp = lazy(() => CodeEditorImport()) as <T>(
+  props: CodeEditorProps<T>,
+) => ReactElement | null;
 
 export const CodeEditor = <T, >(props: CodeEditorProps<T>) => (
   <Suspense fallback={<SpinIcon />}>
