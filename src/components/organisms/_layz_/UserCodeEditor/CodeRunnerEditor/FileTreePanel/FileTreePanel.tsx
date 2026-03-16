@@ -79,11 +79,11 @@ function buildTree(entries: [string, { folderPath: string; index: number; name: 
     }
   }
 
-  const rootFileNodes: TreeNode[] = rootFiles
-    .sort((a, b) => a.index - b.index)
-    .map((f) => ({ type: 'file', key: f.key, name: f.name, folderPath: f.folderPath, index: f.index }));
+  const rootFileNodes: TreeNode[] = rootFiles.map(
+    (f) => ({ type: 'file', key: f.key, name: f.name, folderPath: f.folderPath, index: f.index }),
+  );
 
-  return [...rootFileNodes, ...root];
+  return [...rootFileNodes, ...root].sort((a, b) => a.name.localeCompare(b.name));
 }
 
 interface FileNodeProps<T> {
@@ -216,41 +216,43 @@ function FolderNode<T>({
       </div>
       {isExpanded && (
         <div style={{ marginLeft: 14, borderLeft: '1px solid var(--cr-ht)' }}>
-          {node.files
-            .sort((a, b) => a.index - b.index)
-            .map((f) => (
-              <FileNode<T>
-                key={f.key}
-                fileKey={f.key}
-                name={f.name}
-                folderPath={f.folderPath}
-                globalIndex={globalIndexMap.get(f.key) ?? f.index}
-                currentFileName={currentFileName}
-                viewFiles={viewFiles}
-                onChangeRef={onChangeRef}
-                setOpenFileName={setOpenFileName}
-                setFileNameEdit={setFileNameEdit}
-                setFolderPathEdit={setFolderPathEdit}
-                setFileNameDelete={setFileNameDelete}
-              />
-            ))}
-          {node.children.map((child) =>
-            child.type === 'folder' ? (
-              <FolderNode<T>
-                key={child.path}
-                node={child}
-                depth={depth + 1}
-                viewFiles={viewFiles}
-                currentFileName={currentFileName}
-                onChangeRef={onChangeRef}
-                setOpenFileName={setOpenFileName}
-                setFileNameEdit={setFileNameEdit}
-                setFolderPathEdit={setFolderPathEdit}
-                setFileNameDelete={setFileNameDelete}
-                globalIndexMap={globalIndexMap}
-              />
-            ) : null,
-          )}
+          {[
+            ...node.files.map((f) => ({ type: 'file' as const, name: f.name, data: f })),
+            ...node.children.filter((c) => c.type === 'folder').map((c) => ({ type: 'folder' as const, name: c.name, data: c })),
+          ]
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((item) =>
+              item.type === 'file' ? (
+                <FileNode<T>
+                  key={item.data.key}
+                  fileKey={item.data.key}
+                  name={item.data.name}
+                  folderPath={item.data.folderPath}
+                  globalIndex={globalIndexMap.get(item.data.key) ?? item.data.index}
+                  currentFileName={currentFileName}
+                  viewFiles={viewFiles}
+                  onChangeRef={onChangeRef}
+                  setOpenFileName={setOpenFileName}
+                  setFileNameEdit={setFileNameEdit}
+                  setFolderPathEdit={setFolderPathEdit}
+                  setFileNameDelete={setFileNameDelete}
+                />
+              ) : (
+                <FolderNode<T>
+                  key={item.data.path}
+                  node={item.data as TreeNode & { type: 'folder' }}
+                  depth={depth + 1}
+                  viewFiles={viewFiles}
+                  currentFileName={currentFileName}
+                  onChangeRef={onChangeRef}
+                  setOpenFileName={setOpenFileName}
+                  setFileNameEdit={setFileNameEdit}
+                  setFolderPathEdit={setFolderPathEdit}
+                  setFileNameDelete={setFileNameDelete}
+                  globalIndexMap={globalIndexMap}
+                />
+              ),
+            )}
         </div>
       )}
     </div>
