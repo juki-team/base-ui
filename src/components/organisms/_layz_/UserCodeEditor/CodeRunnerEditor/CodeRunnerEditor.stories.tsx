@@ -39,21 +39,21 @@ int main() {
     return 0;
 }`;
 
-const Template = (args: CodeRunnerEditorProps<string>) => {
-  const [ props, setProps ] = useState<
-    CodeRunnerEditorPropertiesType<CodeLanguage> & {
-    language: string;
-    sourceCode: string;
-  }
+const Template = (args: CodeRunnerEditorProps<string | CodeLanguage>) => {
+  const [props, setProps] = useState<
+    CodeRunnerEditorPropertiesType<string | CodeLanguage> & {
+      language: string;
+      sourceCode: string;
+    }
   >({
     language: CodeLanguage.JAVASCRIPT,
     sourceCode: sourceCode,
   });
-  
+
   return (
     <MockupJukiProvider>
       <div style={{ height: '500px', padding: 20 }}>
-        <CodeRunnerEditor
+        <CodeRunnerEditor<string | CodeLanguage>
           {...args}
           {...props}
           onlyCodeEditor
@@ -66,15 +66,14 @@ const Template = (args: CodeRunnerEditorProps<string>) => {
               readonly: false,
               hidden: false,
               protected: false,
+              folderPath: '',
             },
           }}
-          onChange={(props: any) => {
+          onChange={(props) => {
             console.info({ props });
             setProps((prevState) => ({ ...prevState, ...props }));
           }}
-          centerButtons={({ widthContainer }) => (
-            <div>width:{widthContainer}</div>
-          )}
+          centerButtons={({ widthContainer }) => <div>width:{widthContainer}</div>}
           expandPosition={{
             width: '800px',
             height: '800px',
