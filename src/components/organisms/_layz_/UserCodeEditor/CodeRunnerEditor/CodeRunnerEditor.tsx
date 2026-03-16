@@ -6,7 +6,6 @@ import {
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 } from '@juki-team/commons';
 import { ReactNode, useMemo, useState } from 'react';
-import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES } from '../../../../../constants';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
@@ -78,7 +77,9 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
       );
     }
     if (language === CodeLanguage.MERMAID) {
-      return <MermaidViewer value={source} mermaidTheme={mermaidTheme} configJson={mermaidConfigJson} fileName={mermaidFileName} />;
+      return (
+        <MermaidViewer value={source} mermaidTheme={mermaidTheme} configJson={mermaidConfigJson} fileName={mermaidFileName} />
+      );
     }
     if (language === CodeLanguage.MARKDOWN) {
       return (
@@ -184,8 +185,6 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
     [hasSecondPane, isSmallScreen],
   );
 
-  const { ref, width = 0 } = useResizeDetector();
-
   const body = (
     <div
       className={classNames(
@@ -196,14 +195,8 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
       style={{ overflow: expanded ? 'hidden' : undefined }}
     >
       <div className="flex-1 ow-hn jk-row nowrap stretch">
-        <FileTreePanel
-          fileTreePanelRef={ref}
-          files={files}
-          currentFileName={currentFileName}
-          onChangeRef={onChangeRef}
-          readOnly={readOnly}
-        />
-        <div className="jk-row transition-width" style={{ width: `calc(100% - ${width}px)` }}>
+        <FileTreePanel files={files} currentFileName={currentFileName} onChangeRef={onChangeRef} readOnly={readOnly} />
+        <div className="jk-row transition-width flex-1" style={{}}>
           {Object.keys(files).length === 0 ? (
             <div className="jk-col gap jk-pg">
               <T className="tt-se">there are no files in the editor, create a new file to start using the editor</T>

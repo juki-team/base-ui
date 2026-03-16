@@ -411,12 +411,13 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
     [setFilesStore, storeKey],
   );
 
-  const changeFileName = (prevState: StorageType<CodeEditorFiles<T>>, oldName: string, newName: string) => {
+  const changeFileName = (prevState: StorageType<CodeEditorFiles<T>>, oldName: string, newName: string, newFolderPath?: string) => {
     const files = prevState[storeKey] || {};
     if (files[oldName]) {
       const oldFile = {
         ...files[oldName],
         name: newName,
+        ...(newFolderPath !== undefined ? { folderPath: newFolderPath } : {}),
       };
       const { [oldName]: _removed, ...newFiles } = { ...files }; // eslint-disable-line @typescript-eslint/no-unused-vars
       newFiles[newName] = oldFile;
@@ -541,7 +542,8 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
         addErrorNotification(<T className="tt-se">file name already exists</T>);
       } else {
         const oldName = fileNameEdited[0];
-        setFilesStore((prevState) => changeFileName(prevState, oldName, newName));
+        const newFolderPath = fileNameEdited[2];
+        setFilesStore((prevState) => changeFileName(prevState, oldName, newName, newFolderPath));
         setCurrentFileName(newName);
         setEditorTriggerFocus((n) => n + 1);
       }

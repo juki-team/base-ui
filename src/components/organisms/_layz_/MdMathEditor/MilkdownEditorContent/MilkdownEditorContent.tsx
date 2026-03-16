@@ -126,7 +126,6 @@ const plainText = StreamLanguage.define({
 
 const plainTextSupport = new LanguageSupport(plainText);
 
-console.log({ languages });
 const myLanguages = [
   // ...languages,
   LanguageDescription.of({
@@ -254,10 +253,7 @@ const myLanguages = [
     name: CodeLanguage.BASH.toLowerCase(),
     alias: ['bash', 'sh', 'shell'],
     extensions: ['sh', 'bash'],
-    load: () =>
-      import('@codemirror/legacy-modes/mode/shell').then(
-        (m) => new LanguageSupport(StreamLanguage.define(m.shell)),
-      ),
+    load: () => import('@codemirror/legacy-modes/mode/shell').then((m) => new LanguageSupport(StreamLanguage.define(m.shell))),
   }),
   LanguageDescription.of({
     name: CodeLanguage.TEXT.toLowerCase(),
@@ -436,7 +432,6 @@ export const MilkdownEditorContent = forwardRef<MilkdownEditorContentHandle, Mil
               previewToggleButton: () => 'edit',
               renderPreview: (lang, content) => {
                 const [language, as] = lang.split('/');
-                console.log({ language, as });
                 if (language?.toLowerCase() === 'latex' && content.length > 0) {
                   return renderLatex(content /*config == null ? void 0 : ctx.katexOptions*/);
                 }

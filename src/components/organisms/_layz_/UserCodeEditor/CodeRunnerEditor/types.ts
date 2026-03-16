@@ -13,7 +13,7 @@ export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
   codeRunStatus?: SubmissionRunStatus;
   fileName?: string;
   newFileName?: true;
-  fileNameEdited?: [string, string];
+  fileNameEdited?: [string, string, string?];
   fileNameDeleted?: string;
 };
 

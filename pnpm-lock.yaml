@@ -88,8 +88,8 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.71.2(react@19.2.4))
       '@juki-team/commons':
-        specifier: ^0.1.6
-        version: 0.1.6
+        specifier: ^0.1.9
+        version: 0.1.9
       '@milkdown/components':
         specifier: ^7.19.0
         version: 7.19.0(@codemirror/language@6.12.2)(@codemirror/state@6.6.0)(@codemirror/view@6.40.0)(typescript@5.9.3)
@@ -1048,8 +1048,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@juki-team/commons@0.1.6':
-    resolution: {integrity: sha512-fepeeqLEpOUSvehUW7GFHvccsl4oQxXA+TRmsFkdURbVDATO1b3paPjrThvxHNrvH6C4KaU0f7GXzxpHqcCIBg==, tarball: https://npm.pkg.github.com/download/@juki-team/commons/0.1.6/44fc2c380d3182045279c4cc44a25a1bd1fe8de8}
+  '@juki-team/commons@0.1.9':
+    resolution: {integrity: sha512-YyWT+C1rriPoXAIfDtfjZ2/sgle1Om5UYzDnJy6qHtoN2Ngl1XrM3TKpfYY9feTv4FGuK7y9Y83ZPBJdXo2xlA==, tarball: https://npm.pkg.github.com/download/@juki-team/commons/0.1.9/74275efa9c543a5ed77b83ca6bb9a3f1ab1d459f}
 
   '@lezer/common@1.5.1':
     resolution: {integrity: sha512-6YRVG9vBkaY7p1IVxL4s44n5nUnaNnGM2/AckNgYOnxTG2kWh1vR8BMxPseWPjRNpb5VtXnMpeYAEAADoRV1Iw==}
@@ -7180,7 +7180,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@juki-team/commons@0.1.6': {}
+  '@juki-team/commons@0.1.9': {}
 
   '@lezer/common@1.5.1': {}
 
