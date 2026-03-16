@@ -1,36 +1,35 @@
 import { type ContentResponse } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
-import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useFetcher } from '../../hooks/useFetcher';
 import { NewVersionAvailableModal } from './NewVersionAvailableModal/NewVersionAvailableModal';
 import type { NewVersionAvailableProps } from './types';
 
 export function NewVersionAvailable({ apiVersionUrl }: NewVersionAvailableProps) {
-  
-  const reloadRoute = useRouterStore(state => state.reloadRoute);
-  const { data } = useFetcher<ContentResponse<{ version: string }>>(
-    apiVersionUrl,
-    { revalidateOnFocus: true, revalidateOnReconnect: true, revalidateIfStale: true, revalidateOnMount: true },
-  );
+  const { data } = useFetcher<ContentResponse<{ version: string }>>(apiVersionUrl, {
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true,
+    revalidateIfStale: true,
+    revalidateOnMount: true,
+  });
   const version = (data?.success && data.content.version) || '';
-  const [ versions, setVersions ] = useState<string[]>([]);
+  const [versions, setVersions] = useState<string[]>([]);
   useEffect(() => {
-    setVersions(prevState => [ version, ...prevState ]);
-  }, [ version ]);
-  const [ modal, setModal ] = useState(false);
+    setVersions((prevState) => [version, ...prevState]);
+  }, [version]);
+  const [modal, setModal] = useState(false);
   useEffect(() => {
     if (versions.length >= 2 && versions[0] && versions[1] && versions[0] !== versions[1]) {
       setModal(true);
     }
-  }, [ versions ]);
-  
+  }, [versions]);
+
   return (
     <NewVersionAvailableModal
       isOpen={modal}
       onClose={() => setModal(false)}
       previousVersion={versions[1] ?? '0.0.0'}
       newVersion={version}
-      reload={reloadRoute}
+      reload={() => window?.location?.reload?.()}
     />
   );
 }
