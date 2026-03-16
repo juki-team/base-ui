@@ -218,7 +218,7 @@ const formatStoreRecovered =
           const folderPath = normalizeFolderPath(
             'folderPath' in source && typeof source?.folderPath === 'string' ? source.folderPath : '',
           );
-          const name = normalizeFolderPath(lang);
+          const name = normalizeFolderPath('name' in source && typeof source?.name === 'string' ? source.name : '');
           const fileKey = getFileKey(folderPath, name);
           state[key][fileKey] = {
             source: 'source' in source && typeof source?.source === 'string' ? source?.source : '',
@@ -552,7 +552,11 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
       setFilesStore((prevState) => {
         const files = { ...(prevState[storeKey] || {}) };
         const folderPath = newFileName;
-        const newName = getNewFileName('new', `.${getExtension(defaultLanguage)}`, (name) => !!files[getFileKey(folderPath, name)]);
+        const newName = getNewFileName(
+          'new',
+          `.${getExtension(defaultLanguage)}`,
+          (name) => !!files[getFileKey(folderPath, name)],
+        );
         const newKey = getFileKey(folderPath, newName);
         setCurrentFileName(newKey);
         const maxIndex = Object.values(files).reduce((accum, { index }) => Math.max(accum, index || 0), 0);
