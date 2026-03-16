@@ -6,15 +6,15 @@ import {
   EMPTY_USER_PERMISSIONS,
   Language,
   MenuViewMode,
-  type ObjectId,
   ProfileSetting,
+  type RecordId,
   Theme,
   UserPing,
 } from '@juki-team/commons';
 import type { useResizeDetectorProps } from 'react-resize-detector';
 import { QueryParamKey } from '../enums';
 
-export const DAYS_2 = DAY_NAMES.map(name => name.substring(0, 2));
+export const DAYS_2 = DAY_NAMES.map((name) => name.substring(0, 2));
 
 export const SCROLL_WIDTH = 8;
 
@@ -89,13 +89,13 @@ export const EMPTY_USER: UserPing = {
   },
   permissions: { ...EMPTY_USER_PERMISSIONS },
   isLogged: false,
-  sessionId: '' as ObjectId,
+  sessionId: '' as RecordId,
   company: {
     key: '',
   },
 };
 
-export const PAGE_SIZE_OPTIONS = [ 25, 50, 100 ];
+export const PAGE_SIZE_OPTIONS = [25, 50, 100];
 
 export const DEFAULT_DATA_VIEWER_PROPS = {
   getPageQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.PAGE_TABLE,
@@ -107,8 +107,8 @@ export const DEFAULT_DATA_VIEWER_PROPS = {
   getVisiblesQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.VISIBLES,
 };
 
-export const CODE_EDIT0R_TAB_SIZES = [ 1, 2, 3, 4, 8 ];
-export const CODE_EDIT0R_FONT_SIZES = [ 8, 10, 12, 14, 16, 18, 20, 22, 24, 28, 30, 32, 34, 36, 38, 40, 42 ];
+export const CODE_EDIT0R_TAB_SIZES = [1, 2, 3, 4, 8];
+export const CODE_EDIT0R_FONT_SIZES = [8, 10, 12, 14, 16, 18, 20, 22, 24, 28, 30, 32, 34, 36, 38, 40, 42];
 
 export const CODE_EDITOR_PROGRAMMING_LANGUAGES = Object.values(CodeLanguage);
 
