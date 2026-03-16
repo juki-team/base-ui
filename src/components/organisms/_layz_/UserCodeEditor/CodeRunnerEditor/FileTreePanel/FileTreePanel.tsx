@@ -106,8 +106,8 @@ function FileNode<T>({
     >
       {viewFiles ? (
         <>
-          <div className="jk-row gap space-between">
-            <div className="jk-row">
+          <div className="jk-row gap nowrap space-between">
+            <div className="jk-row nowrap">
               <DraftIcon letter={((globalIndex + 1) % 10) + ''} letterSize={12} size="tiny" />
               <span
                 data-tooltip-id="jk-tooltip"
@@ -126,7 +126,7 @@ function FileNode<T>({
                 {name}
               </span>
             </div>
-            <div className="jk-row gap display-on-hover-2">
+            <div className="jk-row gap display-on-hover-2 nowrap">
               <EditIcon
                 className={classNames({ 'cr-tx-ht-lt': name !== currentFileName })}
                 size="tiny"
