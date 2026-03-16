@@ -186,6 +186,7 @@ export const UserCodeEditor = () => {
           />
         </div>
         <AiChatPanel
+          title="tu IA"
           api="https://md.local.juki.app/api/chat/md"
           getBodyRef={getBodyRef}
           onMessagesChangeRef={onMessagesChangeRef}

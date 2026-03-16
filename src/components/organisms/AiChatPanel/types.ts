@@ -8,6 +8,7 @@ export type AiChatSuggestion = { icon: ReactNode; label: string; prompt: string 
 export type Part = { type: 'text' | 'file'; text?: string; mediaType?: string; url?: string; name?: string };
 
 export interface AiChatPanelProps {
+  title?: string;
   getBodyRef: RefObject<() => object>;
   onMessagesChangeRef: RefObject<(messages: UIMessage<unknown, UIDataTypes, UITools>[]) => void>;
   api: string;

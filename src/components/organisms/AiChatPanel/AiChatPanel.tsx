@@ -6,18 +6,19 @@ import { useResizeDetector } from 'react-resize-detector';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, T, TextArea } from '../../atoms';
-import { CheckIcon, CloseIcon, ErrorIcon, SendIcon, SmartToyIcon } from '../../atoms/server';
+import { ArrowDownwardIcon, CheckIcon, CloseIcon, ErrorIcon, SendIcon, SmartToyIcon, StopCircleIcon } from '../../atoms/server';
 import { classNames, upperFirst } from '../../helpers';
 import { useStableRef } from '../../hooks/useStableRef';
 import { MdMathViewer } from '../MdMathViewer/MdMathViewer';
 import type { AiChatPanelProps, Part } from './types';
 
 export const AiChatPanel = (props: AiChatPanelProps) => {
-  const { api, storeKey, getBodyRef, onMessagesChangeRef, toolStateUI, suggestions, onWidthChange, actions } = props;
+  const { title, api, storeKey, getBodyRef, onMessagesChangeRef, toolStateUI, suggestions, onWidthChange, actions } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [pendingParts, setPendingParts] = useState<Part[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [showScrollButton, setShowScrollButton] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { ref: panelRef, width: panelWidth = 0 } = useResizeDetector<HTMLDivElement>({ handleHeight: false });
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
@@ -38,7 +39,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
 
   const storageKey = storeKey ? `jk-ai-chat/${getUserKey(nickname, companyKey)}/${storeKey}` : '';
 
-  const { messages, sendMessage, status, setMessages } = useChat({
+  const { messages, sendMessage, status, setMessages, stop } = useChat({
     transport: new DefaultChatTransport({ api }),
     messages: [],
   });
@@ -80,7 +81,9 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
       return;
     }
     const onScroll = () => {
-      shouldAutoScrollRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 10;
+      const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 10;
+      shouldAutoScrollRef.current = atBottom;
+      setShowScrollButton(!atBottom);
     };
     el.addEventListener('scroll', onScroll);
     return () => {
@@ -132,6 +135,9 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
   const send = (prompt?: string) => {
     shouldAutoScrollRef.current = true;
     const text = prompt ?? input;
+    if (!text) {
+      return;
+    }
     const parts: Part[] = [{ type: 'text', text }, ...pendingParts];
     void sendMessage({ parts } as Parameters<typeof sendMessage>[0], { body: { ...getBodyRef.current() } });
     setInput('');
@@ -161,7 +167,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
       >
         <SmartToyIcon />
         &nbsp;
-        <T className="fw-bd tt-se">Juki AI Editor</T>
+        <T className="fw-bd tt-se">{title || 'Juki AI Editor'}</T>
       </div>
 
       {isOpen && (
@@ -271,7 +277,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              void send();
+              if (status === 'ready') void send();
             }}
           >
             <div
@@ -344,7 +350,6 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
                     t('control + click to send message')
                   }
                   onChange={setInput}
-                  disabled={status !== 'ready'}
                   onCtrlEnter={send}
                 />
                 <div className="jk-col gap" style={{ height: '100%' }}>
@@ -353,9 +358,20 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
                     size="small"
                     icon={<span style={{ fontSize: 14 }}>🖼</span>}
                     onClick={() => fileInputRef.current?.click()}
-                    disabled={status !== 'ready'}
                   />
-                  <Button icon={<SendIcon />} submit style={{ flex: 1 }} />
+                  {status === 'submitted' || status === 'streaming' ? (
+                    <Button
+                      icon={<StopCircleIcon />}
+                      type="secondary"
+                      style={{ flex: 1 }}
+                      onClick={({ onClickEvent }) => {
+                        onClickEvent?.preventDefault();
+                        void stop();
+                      }}
+                    />
+                  ) : (
+                    <Button icon={<SendIcon />} submit style={{ flex: 1 }} disabled={status !== 'ready' || !input} />
+                  )}
                 </div>
               </div>
             </div>
@@ -378,6 +394,20 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
             </div>
           )}
 
+          {showScrollButton && (
+            <div style={{ position: 'sticky', bottom: 8, display: 'flex', justifyContent: 'center' }}>
+              <Button
+                icon={<ArrowDownwardIcon />}
+                size="small"
+                type="secondary"
+                onClick={() => {
+                  shouldAutoScrollRef.current = true;
+                  setShowScrollButton(false);
+                  messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }}
+              />
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
       )}
