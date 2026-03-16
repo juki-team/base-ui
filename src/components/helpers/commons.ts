@@ -291,7 +291,5 @@ export const openNewTab = (url: string) => {
 };
 
 export const normalizeFolderPath = (path: string): string => {
-  const collapsed = path.trim().replace(/\/+/g, '/').replace(/\/$/, '');
-  if (!collapsed || collapsed === '/') return '';
-  return collapsed.startsWith('/') ? collapsed : '/' + collapsed;
+  return path.trim().replace(/\/+/g, '/').replace(/^\/+/, '').replace(/\/+$/, '');
 };

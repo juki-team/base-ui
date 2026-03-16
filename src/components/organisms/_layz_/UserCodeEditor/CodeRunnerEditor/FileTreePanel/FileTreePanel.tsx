@@ -102,7 +102,10 @@ function FileNode<T>({
         'bc-al cr-at-it': name === currentFileName,
         hoverable: name !== currentFileName,
       })}
-      onClick={name !== currentFileName ? () => onChangeRef.current?.({ fileName: name }) : undefined}
+      onClick={name !== currentFileName
+        ? (e) => { e.stopPropagation(); onChangeRef.current?.({ fileName: name }); }
+        : (e) => e.stopPropagation()
+      }
     >
       {viewFiles ? (
         <>
@@ -176,7 +179,7 @@ function FolderNode<T>({
       <div
         className="jk-row left gap hoverable jk-pg-xsm tx-t fw-bd"
         style={{ cursor: 'pointer' }}
-        onClick={() => setExpanded((v) => !v)}
+        onClick={(e) => { e.stopPropagation(); setExpanded((v) => !v); }}
       >
         {expanded ? <FolderOpenIcon size="tiny" /> : <FolderIcon size="tiny" />}
         {viewFiles && <span>{node.name}</span>}

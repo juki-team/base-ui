@@ -138,6 +138,8 @@ const getDefaultFileName = (codeLanguage: CodeLanguage) => CODE_LANGUAGE[codeLan
 
 const getExtension = (codeLanguage: unknown) => CODE_LANGUAGE[codeLanguage as CodeLanguage]?.fileExtension[0] ?? 'source';
 
+const getFileKey = (folderPath: string, name: string) => (folderPath ? `${folderPath}/${name}` : name);
+
 const mergeTestCases = (a: CodeEditorTestCases, b: CodeEditorTestCases | undefined): CodeEditorTestCases => {
   const newTestCases: CodeEditorTestCases = {};
   for (const [key, testCase] of Object.entries(a)) {
@@ -207,11 +209,16 @@ const formatStoreRecovered =
             hidden: false,
             protected: false,
             readonly: false,
-            folderPath: '/',
+            folderPath: '',
           };
           index++;
         } else if (typeof source === 'object' && source !== null) {
-          state[key][lang] = {
+          const folderPath = normalizeFolderPath(
+            'folderPath' in source && typeof source?.folderPath === 'string' ? source.folderPath : '',
+          );
+          const name = normalizeFolderPath(lang);
+          const fileKey = getFileKey(folderPath, name);
+          state[key][fileKey] = {
             source: 'source' in source && typeof source?.source === 'string' ? source?.source : '',
             language: (('language' in source && typeof source?.language === 'string'
               ? languages?.some(({ value }) => value === source?.language)
@@ -219,13 +226,11 @@ const formatStoreRecovered =
                 : (CodeLanguage.TEXT as T)
               : '') || CodeLanguage.TEXT) as T,
             index: 'index' in source && typeof source?.index === 'number' ? source?.index : 0,
-            name: lang,
+            name,
             hidden: 'hidden' in source && typeof source?.hidden === 'boolean' ? source.hidden : false,
             protected: 'protected' in source && typeof source?.protected === 'boolean' ? source.protected : false,
             readonly: 'readonly' in source && typeof source?.readonly === 'boolean' ? source.readonly : false,
-            folderPath: normalizeFolderPath(
-              'folderPath' in source && typeof source?.folderPath === 'string' ? source.folderPath : '/',
-            ),
+            folderPath,
           };
         }
       }
@@ -233,13 +238,15 @@ const formatStoreRecovered =
 
     for (const [key, value] of Object.entries(state)) {
       state[key] = {};
-      for (const [fileKey, file] of Object.entries(value || {})) {
-        if (!file.name || !fileKey) {
-          file.name = getNewFileName('recovered', `.${getExtension(file.language)}`, (name) => !!value?.[name]);
-          state[key][file.name] = file;
-        } else {
-          state[key][file.name] = file;
+      for (const [, file] of Object.entries(value || {})) {
+        if (!file.name) {
+          file.name = getNewFileName(
+            'recovered',
+            `.${getExtension(file.language)}`,
+            (name) => !!value?.[getFileKey(file.folderPath, name)],
+          );
         }
+        state[key][getFileKey(file.folderPath, file.name)] = file;
       }
     }
 
@@ -301,7 +308,7 @@ const getNewInitialTestCases = (testCaseStoreKey: string, initialTestCases: Code
   return response;
 };
 
-function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef<UserCodeEditorHandle>) {
+function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef<UserCodeEditorHandle<T>>) {
   const {
     className,
     expandPosition,
@@ -393,20 +400,25 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
   }, [onTestCasesChangeRef, testCases]);
 
   const [editorTriggerFocus, setEditorTriggerFocus] = useState(0);
-
+  const focusEditor = () => setTimeout(() => setEditorTriggerFocus((n) => n + 1), 200);
   const mdEditorRef = useRef<MdMathEditorHandle>(null);
 
   useImperativeHandle(
     ref,
     () => ({
-      setFile: (fileName: string, file: CodeEditorFile<T>) => {
+      setFile: (file: CodeEditorFile<T>) => {
         setFilesStore((prevState) => {
           if (prevState[storeKey]) {
+            const folderPath = normalizeFolderPath(file.folderPath);
+            const fileKey = getFileKey(folderPath, file.name);
             return {
               ...prevState,
               [storeKey]: {
                 ...prevState[storeKey],
-                [fileName]: file,
+                [fileKey]: {
+                  ...file,
+                  folderPath,
+                },
               },
             };
           }
@@ -423,19 +435,21 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
 
   const changeFileName = (
     prevState: StorageType<CodeEditorFiles<T>>,
-    oldName: string,
+    oldKey: string,
     newName: string,
-    newFolderPath?: string,
+    newFolderPath: string,
   ) => {
     const files = prevState[storeKey] || {};
-    if (files[oldName]) {
-      const oldFile = {
-        ...files[oldName],
+    if (files[oldKey]) {
+      const resolvedFolderPath = (newFolderPath !== undefined ? newFolderPath : files[oldKey]?.folderPath) || '';
+      const newKey = getFileKey(resolvedFolderPath, newName);
+      const updatedFile = {
+        ...files[oldKey],
         name: newName,
-        ...(newFolderPath !== undefined ? { folderPath: newFolderPath } : {}),
+        folderPath: resolvedFolderPath,
       };
-      const { [oldName]: _removed, ...newFiles } = { ...files }; // eslint-disable-line @typescript-eslint/no-unused-vars
-      newFiles[newName] = oldFile;
+      const { [oldKey]: _removed, ...newFiles } = { ...files }; // eslint-disable-line @typescript-eslint/no-unused-vars
+      newFiles[newKey] = updatedFile;
       return {
         ...prevState,
         [storeKey]: newFiles,
@@ -487,11 +501,14 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
       setEditorSettings((prevState) => ({ ...prevState, lastLanguageUsed: newLanguage }));
       setFilesStore((prevState) => {
         const files = { ...(prevState[storeKey] || {}) };
-        const newRenamedFile = getNewFileName(
-          removeExtension(currentFileName),
+        const currentFile = prevState[storeKey]?.[currentFileName];
+        const currentFolderPath = currentFile?.folderPath ?? '';
+        const newBaseName = getNewFileName(
+          removeExtension(currentFile?.name ?? ''),
           `.${getExtension(newLanguage)}`,
-          (name) => !!files[name],
+          (name) => !!files[getFileKey(currentFolderPath, name)],
         );
+        const newKey = getFileKey(currentFolderPath, newBaseName);
         if (prevState[storeKey] && prevState[storeKey][currentFileName]) {
           const newState: StorageType<CodeEditorFiles<T>> = {
             ...prevState,
@@ -503,12 +520,14 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
               },
             },
           };
-          setCurrentFileName(newRenamedFile);
-          return changeFileName(newState, currentFileName, newRenamedFile);
+          setTimeout(() => {
+            setCurrentFileName(newKey);
+          }, 100);
+          return changeFileName(newState, currentFileName, newBaseName, currentFolderPath);
         }
         return prevState;
       });
-      setEditorTriggerFocus((n) => n + 1);
+      focusEditor();
     }
     if (onTestCasesChange) {
       setTestCasesStore((prevState) => ({
@@ -518,50 +537,53 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
     }
     if (theme) {
       setEditorSettings((prevState) => ({ ...prevState, theme }));
-      setEditorTriggerFocus((n) => n + 1);
+      focusEditor();
     }
     if (tabSize) {
       setEditorSettings((prevState) => ({ ...prevState, tabSize }));
-      setEditorTriggerFocus((n) => n + 1);
+      focusEditor();
     }
     if (fontSize) {
       setEditorSettings((prevState) => ({ ...prevState, fontSize }));
-      setEditorTriggerFocus((n) => n + 1);
+      focusEditor();
     }
     if (newFileName) {
       setFilesStore((prevState) => {
         const files = { ...(prevState[storeKey] || {}) };
-        const newFile = getNewFileName('new', `.${getExtension(defaultLanguage)}`, (name) => !!files[name]);
-        setCurrentFileName(newFile);
+        const newName = getNewFileName('new', `.${getExtension(defaultLanguage)}`, (name) => !!files[name]);
+        const newKey = getFileKey('', newName);
+        setCurrentFileName(newKey);
         const maxIndex = Object.values(files).reduce((accum, { index }) => Math.max(accum, index || 0), 0);
-        files[newFile] = {
+        files[newKey] = {
           source: CODE_LANGUAGE[defaultLanguage as CodeLanguage]?.templateSourceCode || '',
           language: defaultLanguage,
           index: maxIndex + 1,
-          name: newFile,
+          name: newName,
           hidden: false,
           protected: false,
           readonly: false,
-          folderPath: '/',
+          folderPath: '',
         };
         return { ...prevState, [storeKey]: files };
       });
-      setEditorTriggerFocus((n) => n + 1);
+      focusEditor();
     }
     if (fileName) {
       setCurrentFileName(fileName);
-      setEditorTriggerFocus((n) => n + 1);
+      focusEditor();
     }
     if (typeof fileNameEdited?.[0] === 'string' && typeof fileNameEdited?.[1] === 'string') {
+      const oldKey = fileNameEdited[0];
       const newName = fileNameEdited[1];
-      if (filesStore[newName]) {
+      const typedFiles = files as CodeEditorFiles<T>;
+      const newFolderPath = fileNameEdited[2] !== undefined ? fileNameEdited[2] : (typedFiles[oldKey]?.folderPath ?? '');
+      const newKey = getFileKey(newFolderPath, newName);
+      if (typedFiles[newKey] && newKey !== oldKey) {
         addErrorNotification(<T className="tt-se">file name already exists</T>);
       } else {
-        const oldName = fileNameEdited[0];
-        const newFolderPath = fileNameEdited[2];
-        setFilesStore((prevState) => changeFileName(prevState, oldName, newName, newFolderPath));
-        setCurrentFileName(newName);
-        setEditorTriggerFocus((n) => n + 1);
+        setFilesStore((prevState) => changeFileName(prevState, oldKey, newName, newFolderPath));
+        setCurrentFileName(newKey);
+        focusEditor();
       }
     }
     if (fileNameDeleted) {
@@ -571,10 +593,11 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
         setCurrentFileName(Object.keys(files)[0] ?? '');
         return { ...prevState, [storeKey]: newFiles };
       });
-      setEditorTriggerFocus((n) => n + 1);
+      focusEditor();
     }
   };
 
+  console.log({ files });
   return (
     <CodeRunnerEditor<T>
       triggerFocus={editorTriggerFocus}
@@ -605,5 +628,5 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
 }
 
 export default forwardRef(UserCodeEditorInner) as <T>(
-  props: UserCodeEditorProps<T> & RefAttributes<UserCodeEditorHandle>,
+  props: UserCodeEditorProps<T> & RefAttributes<UserCodeEditorHandle<T>>,
 ) => ReactElement | null;

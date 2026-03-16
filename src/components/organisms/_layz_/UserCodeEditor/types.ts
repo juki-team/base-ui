@@ -2,9 +2,8 @@ import { CodeEditorFile, CodeEditorFiles, CodeEditorTestCases, SubmissionRunStat
 import { MdMathEditorHandle } from '../MdMathEditor/types';
 import { CodeEditorExpandPositionType, CodeRunnerEditorProps } from './CodeRunnerEditor/types';
 
-export interface UserCodeEditorHandle {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setFile: (fileName: string, file: CodeEditorFile<any>) => void;
+export interface UserCodeEditorHandle<T> {
+  setFile: (file: CodeEditorFile<T>) => void;
   // Markdown file actions:
   markdownGetSelection: MdMathEditorHandle['getSelectionMarkdown'];
   markdownReplaceSelectionWithMarkdown: MdMathEditorHandle['replaceSelectionWithMarkdown'];
@@ -14,7 +13,14 @@ export interface UserCodeEditorHandle {
 
 export interface UserCodeEditorProps<T> extends Pick<
   CodeRunnerEditorProps<T>,
-  'languages' | 'leftButtons' | 'centerButtons' | 'rightButtons' | 'withoutRunCodeButton' | 'mermaidTheme' | 'mermaidConfigJson' | 'mermaidFileName'
+  | 'languages'
+  | 'leftButtons'
+  | 'centerButtons'
+  | 'rightButtons'
+  | 'withoutRunCodeButton'
+  | 'mermaidTheme'
+  | 'mermaidConfigJson'
+  | 'mermaidFileName'
 > {
   className?: string;
   expandPosition?: CodeEditorExpandPositionType;
