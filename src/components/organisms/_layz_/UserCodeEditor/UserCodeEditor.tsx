@@ -218,7 +218,14 @@ const formatStoreRecovered =
           const folderPath = normalizeFolderPath(
             'folderPath' in source && typeof source?.folderPath === 'string' ? source.folderPath : '',
           );
-          const name = normalizeFolderPath('name' in source && typeof source?.name === 'string' ? source.name : '');
+          const baseName = normalizeFolderPath('name' in source && typeof source?.name === 'string' ? source.name : '');
+          const name = state[key]?.[getFileKey(folderPath, baseName)]
+            ? getNewFileName(
+                baseName,
+                `.${getExtension('language' in source && typeof source?.language === 'string' ? source.language : '')}`,
+                (n) => !!state[key]?.[getFileKey(folderPath, n)],
+              )
+            : baseName;
           const fileKey = getFileKey(folderPath, name);
           state[key][fileKey] = {
             source: 'source' in source && typeof source?.source === 'string' ? source?.source : '',
@@ -245,7 +252,7 @@ const formatStoreRecovered =
           file.name = getNewFileName(
             'recovered',
             `.${getExtension(file.language)}`,
-            (name) => !!value?.[getFileKey(file.folderPath, name)],
+            (name) => !!state[key]?.[getFileKey(file.folderPath, name)],
           );
         }
         state[key][getFileKey(file.folderPath, file.name)] = file;
