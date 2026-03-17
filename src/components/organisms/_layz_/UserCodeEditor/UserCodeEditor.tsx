@@ -212,6 +212,7 @@ const formatStoreRecovered =
             protected: false,
             readonly: false,
             folderPath: '',
+            description: '',
           };
           index++;
         } else if (typeof source === 'object' && source !== null) {
@@ -240,6 +241,7 @@ const formatStoreRecovered =
             protected: 'protected' in source && typeof source?.protected === 'boolean' ? source.protected : false,
             readonly: 'readonly' in source && typeof source?.readonly === 'boolean' ? source.readonly : false,
             folderPath,
+            description: 'description' in source && typeof source?.description === 'string' ? source?.description : '',
           };
         }
       }
@@ -446,6 +448,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
     oldKey: string,
     newName: string,
     newFolderPath: string,
+    newDescription?: string,
   ) => {
     const files = prevState[storeKey] || {};
     if (files[oldKey]) {
@@ -455,6 +458,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
         ...files[oldKey],
         name: newName,
         folderPath: resolvedFolderPath,
+        ...(newDescription !== undefined && { description: newDescription }),
       };
       const { [oldKey]: _removed, ...newFiles } = { ...files }; // eslint-disable-line @typescript-eslint/no-unused-vars
       newFiles[newKey] = updatedFile;
@@ -576,6 +580,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
           protected: false,
           readonly: false,
           folderPath,
+          description: '',
         };
         return { ...prevState, [storeKey]: files };
       });
@@ -594,7 +599,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
       if (typedFiles[newKey] && newKey !== oldKey) {
         addErrorNotification(<T className="tt-se">file name already exists</T>);
       } else {
-        setFilesStore((prevState) => changeFileName(prevState, oldKey, newName, newFolderPath));
+        setFilesStore((prevState) => changeFileName(prevState, oldKey, newName, newFolderPath, fileNameEdited[3]));
         setCurrentFileName(newKey);
         focusEditor();
       }

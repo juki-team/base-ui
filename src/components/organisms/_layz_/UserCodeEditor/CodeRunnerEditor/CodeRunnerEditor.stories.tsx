@@ -67,6 +67,7 @@ const Template = (args: CodeRunnerEditorProps<string | CodeLanguage>) => {
               hidden: false,
               protected: false,
               folderPath: '',
+              description: '',
             },
           }}
           onChange={(props) => {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Input, Modal, T } from '../../../../../atoms';
+import { Button, Input, InputTextArea, Modal, T } from '../../../../../atoms';
 import {
   AddIcon,
   ArrowDropDownIcon,
@@ -16,19 +16,17 @@ import { classNames, normalizeFolderPath } from '../../../../../helpers';
 import { TwoActionModal } from '../../../../../molecules';
 import type { FileTreePanelProps } from './types';
 
-const MAX_NAME_LENGTH = 16;
-
-function abbreviateFileName(name: string): string {
-  if (name.length <= MAX_NAME_LENGTH) {
+function abbreviateFileName(name: string, maxNameLength = 16): string {
+  if (name.length <= maxNameLength) {
     return name;
   }
   const dotIndex = name.lastIndexOf('.');
   const ext = dotIndex > 0 ? name.slice(dotIndex) : '';
-  const budget = MAX_NAME_LENGTH - ext.length - 1;
-  return budget > 0 ? name.slice(0, budget) + '…' + ext : name.slice(0, MAX_NAME_LENGTH - 1) + '…';
+  const budget = maxNameLength - ext.length - 1;
+  return budget > 0 ? name.slice(0, budget) + '…' + ext : name.slice(0, maxNameLength - 1) + '…';
 }
 
-type TreeFileItem = { key: string; name: string; folderPath: string; index: number };
+type TreeFileItem = { key: string; name: string; folderPath: string; index: number; description: string };
 
 type TreeNode =
   | {
@@ -44,9 +42,10 @@ type TreeNode =
       name: string;
       folderPath: string;
       index: number;
+      description: string;
     };
 
-function buildTree(entries: [string, { folderPath: string; index: number; name: string }][]): TreeNode[] {
+function buildTree(entries: [string, { folderPath: string; index: number; name: string; description?: string }][]): TreeNode[] {
   const root: TreeNode[] = [];
   const folderMap = new Map<string, TreeNode & { type: 'folder' }>();
 
@@ -70,18 +69,24 @@ function buildTree(entries: [string, { folderPath: string; index: number; name: 
 
   for (const [key, file] of entries) {
     const fp = file.folderPath;
+    const description = file.description ?? '';
     const isRoot = !fp || fp === '/' || fp === '';
     if (isRoot) {
-      rootFiles.push({ key, name: file.name, folderPath: '', index: file.index });
+      rootFiles.push({ key, name: file.name, folderPath: '', index: file.index, description });
     } else {
       const folder = getOrCreateFolder(fp.startsWith('/') ? fp : '/' + fp);
-      folder.files.push({ key, name: file.name, folderPath: fp, index: file.index });
+      folder.files.push({ key, name: file.name, folderPath: fp, index: file.index, description });
     }
   }
 
-  const rootFileNodes: TreeNode[] = rootFiles.map(
-    (f) => ({ type: 'file', key: f.key, name: f.name, folderPath: f.folderPath, index: f.index }),
-  );
+  const rootFileNodes: TreeNode[] = rootFiles.map((f) => ({
+    type: 'file',
+    key: f.key,
+    name: f.name,
+    folderPath: f.folderPath,
+    index: f.index,
+    description: f.description,
+  }));
 
   return [...rootFileNodes, ...root].sort((a, b) => a.name.localeCompare(b.name));
 }
@@ -90,6 +95,7 @@ interface FileNodeProps<T> {
   fileKey: string;
   name: string;
   folderPath: string;
+  description: string;
   globalIndex: number;
   currentFileName: string;
   viewFiles: boolean;
@@ -97,6 +103,7 @@ interface FileNodeProps<T> {
   setOpenFileName: (key: string) => void;
   setFileNameEdit: (name: string) => void;
   setFolderPathEdit: (path: string) => void;
+  setDescriptionEdit: (description: string) => void;
   setFileNameDelete: (key: string) => void;
 }
 
@@ -104,6 +111,7 @@ function FileNode<T>({
   fileKey,
   name,
   folderPath,
+  description,
   globalIndex,
   currentFileName,
   viewFiles,
@@ -111,6 +119,7 @@ function FileNode<T>({
   setOpenFileName,
   setFileNameEdit,
   setFolderPathEdit,
+  setDescriptionEdit,
   setFileNameDelete,
 }: FileNodeProps<T>) {
   return (
@@ -149,6 +158,7 @@ function FileNode<T>({
                   setOpenFileName(fileKey);
                   setFileNameEdit(name);
                   setFolderPathEdit(folderPath);
+                  setDescriptionEdit(description);
                 }}
               />
               <DeleteIcon
@@ -160,7 +170,18 @@ function FileNode<T>({
           </div>
         </>
       ) : (
-        <DraftIcon letter={((globalIndex + 1) % 10) + ''} letterSize={12} size="tiny" />
+        <div className="jk-row gap nowrap space-between">
+          <div className="jk-row nowrap">
+            <DraftIcon letter={((globalIndex + 1) % 10) + ''} letterSize={12} size="tiny" />
+            {/*<span*/}
+            {/*  data-tooltip-id="jk-tooltip"*/}
+            {/*  data-tooltip-content={name}*/}
+            {/*  style={{ marginLeft: 2, fontFamily: 'monospace', letterSpacing: '-0.04em', whiteSpace: 'nowrap' }}*/}
+            {/*>*/}
+            {/*  {abbreviateFileName(name, 8)}*/}
+            {/*</span>*/}
+          </div>
+        </div>
       )}
     </div>
   );
@@ -176,6 +197,7 @@ interface FolderNodeProps<T> {
   setOpenFileName: (key: string) => void;
   setFileNameEdit: (name: string) => void;
   setFolderPathEdit: (path: string) => void;
+  setDescriptionEdit: (description: string) => void;
   setFileNameDelete: (key: string) => void;
 }
 
@@ -193,6 +215,7 @@ function FolderNode<T>({
   setOpenFileName,
   setFileNameEdit,
   setFolderPathEdit,
+  setDescriptionEdit,
   setFileNameDelete,
   globalIndexMap,
 }: FolderNodeProps<T>) {
@@ -215,10 +238,12 @@ function FolderNode<T>({
         {viewFiles && (isExpanded ? <ArrowDropDownIcon size="tiny" /> : <ArrowDropUpIcon size="tiny" />)}
       </div>
       {isExpanded && (
-        <div style={{ marginLeft: 14, borderLeft: '1px solid var(--cr-ht)' }}>
+        <div style={{ marginLeft: viewFiles ? 14 : 4, borderLeft: '1px solid var(--cr-ht)' }}>
           {[
             ...node.files.map((f) => ({ type: 'file' as const, name: f.name, data: f })),
-            ...node.children.filter((c) => c.type === 'folder').map((c) => ({ type: 'folder' as const, name: c.name, data: c })),
+            ...node.children
+              .filter((c) => c.type === 'folder')
+              .map((c) => ({ type: 'folder' as const, name: c.name, data: c })),
           ]
             .sort((a, b) => a.name.localeCompare(b.name))
             .map((item) =>
@@ -228,6 +253,7 @@ function FolderNode<T>({
                   fileKey={item.data.key}
                   name={item.data.name}
                   folderPath={item.data.folderPath}
+                  description={item.data.description}
                   globalIndex={globalIndexMap.get(item.data.key) ?? item.data.index}
                   currentFileName={currentFileName}
                   viewFiles={viewFiles}
@@ -235,6 +261,7 @@ function FolderNode<T>({
                   setOpenFileName={setOpenFileName}
                   setFileNameEdit={setFileNameEdit}
                   setFolderPathEdit={setFolderPathEdit}
+                  setDescriptionEdit={setDescriptionEdit}
                   setFileNameDelete={setFileNameDelete}
                 />
               ) : (
@@ -248,6 +275,7 @@ function FolderNode<T>({
                   setOpenFileName={setOpenFileName}
                   setFileNameEdit={setFileNameEdit}
                   setFolderPathEdit={setFolderPathEdit}
+                  setDescriptionEdit={setDescriptionEdit}
                   setFileNameDelete={setFileNameDelete}
                   globalIndexMap={globalIndexMap}
                 />
@@ -266,14 +294,20 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
   const [openFileName, setOpenFileName] = useState('');
   const [fileNameEdit, setFileNameEdit] = useState('');
   const [folderPathEdit, setFolderPathEdit] = useState('');
+  const [descriptionEdit, setDescriptionEdit] = useState('');
   const [fileNameDelete, setFileNameDelete] = useState('');
 
   const onChange = () => {
-    onChangeRef.current?.({ fileNameEdited: [openFileName, fileNameEdit, normalizeFolderPath(folderPathEdit)] });
+    onChangeRef.current?.({
+      fileNameEdited: [openFileName, fileNameEdit, normalizeFolderPath(folderPathEdit), descriptionEdit],
+    });
     setOpenFileName('');
   };
 
-  const entries = Object.entries(files) as [string, { folderPath: string; index: number; name: string }][];
+  const entries = Object.entries(files) as [
+    string,
+    { folderPath: string; index: number; name: string; description?: string },
+  ][];
   const sorted = [...entries].sort(([, a], [, b]) => a.index - b.index);
   const globalIndexMap = new Map(sorted.map(([key], i) => [key, i]));
   const tree = buildTree(entries);
@@ -285,6 +319,7 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
     setOpenFileName,
     setFileNameEdit,
     setFolderPathEdit,
+    setDescriptionEdit,
     setFileNameDelete,
   };
 
@@ -326,6 +361,13 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
             onEnter={onChange}
             expand
           />
+          <InputTextArea
+            label={<T className="tt-se">description</T>}
+            labelPlacement="top"
+            value={descriptionEdit}
+            onChange={setDescriptionEdit}
+            expand
+          />
           <div className="jk-row gap right">
             <Button type="secondary" onClick={() => setOpenFileName('')}>
               <T className="tt-se">cancel</T>
@@ -355,6 +397,7 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
                   fileKey={node.key}
                   name={node.name}
                   folderPath={node.folderPath}
+                  description={node.description}
                   globalIndex={globalIndexMap.get(node.key) ?? node.index}
                   {...fileNodeProps}
                 />
