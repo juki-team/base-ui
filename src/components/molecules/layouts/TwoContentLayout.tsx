@@ -53,20 +53,21 @@ export function TwoContentLayout<T = string>(props: TwoContentLayoutProps<T>) {
   const withBreadcrumbs = !!breadcrumbs?.length && !isSmallScreen;
 
   return (
-    <TwoContentSection
-      className={classNames('rectangular-style', { loading: !!loading })}
-      firstClassName={headerClassName}
-      secondClassName={bodyClassName}
-    >
+    <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })} secondClassName={bodyClassName}>
       <>
         {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
         {(!!children || (!withTabs && tabButtons && tabButtons.length > 0)) && (
           <div
-            className={classNames('jk-row gap extend jk-pg-xsm-b', {
-              'jk-pg-xsm-t': !withBreadcrumbs,
-              left: !isSmallScreen,
-              center: isSmallScreen,
-            })}
+            className={classNames(
+              'jk-pg-xsm-b',
+              {
+                'jk-pg-xsm-t': !withBreadcrumbs,
+                'jk-row gap extend': !headerClassName,
+                left: !headerClassName && !isSmallScreen,
+                center: !headerClassName && isSmallScreen,
+              },
+              headerClassName,
+            )}
           >
             {children}
             {!withTabs && tabButtons && tabButtons.length > 0 && (
