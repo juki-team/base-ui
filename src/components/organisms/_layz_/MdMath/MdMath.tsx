@@ -319,6 +319,7 @@ function MdMathComponent(props: MdMathProps) {
                       language: language,
                       index: 0,
                       name: fileName,
+                      description: '',
                       hidden: false,
                       readonly: false,
                       protected: false,

@@ -1,10 +1,10 @@
 // https://github.com/McShelby/reveal-pdfexport/tree/master
-import Reveal from 'reveal.js';
+import { type RevealApi, type RevealPluginFactory } from 'reveal.js';
 import { isBrowser } from '../../../helpers';
 
 export function isPrintingPDF() {
   if (isBrowser()) {
-    return (/print-pdf/gi).test(window.location.search);
+    return /print-pdf/gi.test(window.location.search);
   }
   return false;
 }
@@ -18,21 +18,24 @@ function togglePdfExport() {
     } else {
       query_doc.set('print-pdf', '');
     }
-    url_doc.search = (query_doc.toString() ? '?' + query_doc.toString() : '');
+    url_doc.search = query_doc.toString() ? '?' + query_doc.toString() : '';
     window.location.href = url_doc.toString();
   }
 }
 
-function installKeyBindings(reveal: Reveal.Api) {
+function installKeyBindings(reveal: RevealApi) {
   const shortcut = 'E';
-  reveal.addKeyBinding({
-    keyCode: shortcut.toUpperCase().charCodeAt(0),
-    key: shortcut.toUpperCase(),
-    description: 'PDF export mode',
-  }, togglePdfExport);
+  reveal.addKeyBinding(
+    {
+      keyCode: shortcut.toUpperCase().charCodeAt(0),
+      key: shortcut.toUpperCase(),
+      description: 'PDF export mode',
+    },
+    togglePdfExport,
+  );
 }
 
-export const PdfExport: Reveal.PluginFunction = () => ({
+export const PdfExport: RevealPluginFactory = () => ({
   id: 'pdf-export',
   init(reveal) {
     installKeyBindings(reveal);

@@ -9,6 +9,8 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "src",
+    "ignoreDeprecations": "6.0",
+    "rootDir": "./src",
     "declaration": true,
     "declarationDir": "dist/module-types",
     "esModuleInterop": true,

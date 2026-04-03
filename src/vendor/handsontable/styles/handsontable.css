@@ -25,56 +25,11 @@
  * INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER ARISING FROM
  * USE OR INABILITY TO USE THIS SOFTWARE.
  *
- * Version: 16.2.0
- * Release date: 25/11/2025 (built at 20/11/2025 13:26:57)
+ * Version: 17.0.1
+ * Release date: 25/03/2026 (built at 25/03/2026 09:28:45)
  */
-.htBorders .wtBorder.ht-border-style-dashed-vertical {
-  background-image: repeating-linear-gradient(to bottom, var(--ht-custom-border-color) 0 5px, transparent 0 10px);
-}
-.htBorders .wtBorder.ht-border-style-dashed-horizontal {
-  background-image: repeating-linear-gradient(to right, var(--ht-custom-border-color) 0 5px, transparent 0 10px);
-}
-.htBorders .wtBorder.ht-border-style-dotted-horizontal {
-  background-image: radial-gradient(circle, var(--ht-custom-border-color) calc(var(--ht-custom-border-size) / 2), transparent 0);
-  background-size: calc(var(--ht-custom-border-size) * 2) var(--ht-custom-border-size);
-  background-repeat: repeat-x;
-}
-.htBorders .wtBorder.ht-border-style-dotted-vertical {
-  background-image: radial-gradient(circle, var(--ht-custom-border-color) calc(var(--ht-custom-border-size) / 2), transparent 0);
-  background-size: var(--ht-custom-border-size) calc(var(--ht-custom-border-size) * 2);
-  background-repeat: repeat-y;
-}
-
-.ht-root-wrapper:not([class*=ht-theme]),
-.ht-portal:not([class*=ht-theme]) {
-  --ht-gap-size: 4px;
-  --ht-checkbox-size: 16px;
-  --ht-cell-horizontal-padding: 8px;
-  --ht-cell-vertical-padding: 4px;
-  --ht-font-size: 14px;
-  --ht-line-height: 20px;
-  --ht-letter-spacing: 0;
-  --ht-border-color: #222222;
-  --ht-foreground-color: #222222;
-  --ht-background-color: #ffffff;
-  --ht-header-foreground-color: #222222;
-  --ht-header-background-color: #f7f7f9;
-  --ht-header-row-foreground-color: #222222;
-  --ht-header-row-background-color: #f7f7f9;
-  --ht-cell-horizontal-border-color: #222222;
-  --ht-cell-vertical-border-color: #222222;
-  --ht-header-active-border-color: #1a42e8;
-  --ht-header-active-foreground-color: #ffffff;
-  --ht-header-active-background-color: #1a42e8;
-  --ht-header-row-active-foreground-color: #fff;
-  --ht-header-row-active-background-color: #1a42e8;
-  --ht-cell-selection-border-color: #1a42e8;
-  --ht-scrollbar-track-color: #f7f7f9;
-  --ht-scrollbar-thumb-color: #a3a3a3;
-}
-
 .ht-root-wrapper {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Helvetica Neue, Arial, sans-serif;
+  font-family: var(--ht-font-family), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -82,6 +37,7 @@
 }
 
 .htFocusCatcher {
+  display: block !important;
   position: absolute;
   width: 0;
   height: 0;
@@ -97,8 +53,18 @@
   min-height: 0;
 }
 
+.htScrollbarTest {
+  scrollbar-width: auto;
+  scrollbar-color: var(--ht-scrollbar-thumb-color) var(--ht-scrollbar-track-color);
+}
+
+.htScrollbarSafariTest::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
 .handsontable {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Helvetica Neue, Arial, sans-serif;
+  font-family: var(--ht-font-family), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   position: relative;
   font-size: var(--ht-font-size);
   line-height: var(--ht-line-height);
@@ -107,7 +73,9 @@
   color: var(--ht-foreground-color);
   /* Miscellaneous */
   touch-action: manipulation;
-  scrollbar-width: thin;
+}
+.handsontable .wtHolder {
+  scrollbar-width: auto;
   scrollbar-color: var(--ht-scrollbar-thumb-color) var(--ht-scrollbar-track-color);
 }
 .handsontable .wtHolder::-webkit-scrollbar {
@@ -145,6 +113,10 @@
   pointer-events: none;
   overflow: hidden;
 }
+.handsontable.htGhostTable.htNestedHeaders table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
 .handsontable.htGhostTable table thead th {
   border-bottom-width: 0;
 }
@@ -157,10 +129,10 @@
   border-top-width: 0;
   height: calc(var(--ht-cell-vertical-padding) * 2 + var(--ht-line-height) + 1px);
 }
-.handsontable.htHasScrollX:not(.htHorizontallyScrollableByWindow) .ht_master .wtHolder, .handsontable.htHasScrollY:not(.htVerticallyScrollableByWindow) .ht_master .wtHolder {
+.handsontable.htHasScrollX:not(.htHorizontallyScrollableByWindow):not(.htScrollbarHidden) .ht_master .wtHolder, .handsontable.htHasScrollY:not(.htVerticallyScrollableByWindow):not(.htScrollbarHidden) .ht_master .wtHolder {
   border-radius: var(--ht-wrapper-border-radius, 0);
 }
-.handsontable:not(.htHorizontallyScrollableByWindow) .ht_master .wtHolder, .handsontable:not(.htVerticallyScrollableByWindow) .ht_master .wtHolder {
+.handsontable:not(.htHorizontallyScrollableByWindow).htPagination .ht_master .wtHolder, .handsontable:not(.htHorizontallyScrollableByWindow).htHasScrollX .ht_master .wtHolder, .handsontable:not(.htHorizontallyScrollableByWindow).htHasScrollY .ht_master .wtHolder, .handsontable:not(.htVerticallyScrollableByWindow).htPagination .ht_master .wtHolder, .handsontable:not(.htVerticallyScrollableByWindow).htHasScrollX .ht_master .wtHolder, .handsontable:not(.htVerticallyScrollableByWindow).htHasScrollY .ht_master .wtHolder {
   background-color: var(--ht-background-color);
 }
 .handsontable tr.ht__row_even th {
@@ -486,11 +458,6 @@
   left: -1px;
 }
 
-.htScrollbarSafariTest::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
-}
-
 .handsontable.ht-wrapper:not(.htColumnHeaders) .ht_master .htCore tbody tr:first-child td:first-child {
   border-start-start-radius: var(--ht-wrapper-border-radius);
 }
@@ -746,28 +713,28 @@
   inset: 0;
   background: var(--ht-cell-selection-background-color, #1a42e8);
 }
-.handsontable td.area:before {
+.handsontable td.area::before {
   opacity: 0.14;
 }
-.handsontable td.area-1:before {
+.handsontable td.area-1::before {
   opacity: 0.21;
 }
-.handsontable td.area-2:before {
+.handsontable td.area-2::before {
   opacity: 0.28;
 }
-.handsontable td.area-3:before {
+.handsontable td.area-3::before {
   opacity: 0.35;
 }
-.handsontable td.area-4:before {
+.handsontable td.area-4::before {
   opacity: 0.42;
 }
-.handsontable td.area-5:before {
+.handsontable td.area-5::before {
   opacity: 0.49;
 }
-.handsontable td.area-6:before {
+.handsontable td.area-6::before {
   opacity: 0.56;
 }
-.handsontable td.area-7:before {
+.handsontable td.area-7::before {
   opacity: 0.63;
 }
 .handsontable td.area {
@@ -806,9 +773,22 @@
   cursor: crosshair;
   z-index: 10;
 }
+.handsontable .wtBorder.corner::after {
+  content: "";
+  position: absolute;
+  border-radius: var(--ht-cell-autofill-border-radius);
+  inset: min(0px, (var(--ht-cell-autofill-size) - var(--ht-cell-autofill-hit-area-size)) / 2);
+  background: transparent;
+}
+.handsontable .wtBorder.corner.wtCornerInlineEndEdge::after {
+  inset-inline-end: 0;
+}
+.handsontable .wtBorder.corner.wtCornerBlockEndEdge::after {
+  inset-block-end: 0;
+}
 
 .hot-display-license-info {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Helvetica Neue, Arial, sans-serif;
+  font-family: var(--ht-font-family), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   padding: var(--ht-license-vertical-padding, 16px) var(--ht-license-horizontal-padding, 16px);
   font-size: var(--ht-font-size-small);
   line-height: var(--ht-line-height-small);
@@ -1009,6 +989,77 @@
   background-color: var(--ht-cell-success-background-color) !important;
 }
 
+.handsontable .ht-multi-select-renderer {
+  padding: var(--ht-cell-vertical-padding) var(--ht-cell-horizontal-padding);
+  overflow: hidden;
+}
+.handsontable .ht-multi-select-chips-container {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--ht-gap-size);
+  overflow: hidden;
+  max-width: 100%;
+}
+.handsontable .ht-multi-select-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ht-gap-size);
+  padding: var(--ht-chip-vertical-padding) calc((var(--ht-line-height) - var(--ht-icon-size)) / 2) var(--ht-chip-vertical-padding) var(--ht-chip-horizontal-padding);
+  border-radius: var(--ht-chip-border-radius);
+  background: var(--ht-chip-background);
+  white-space: nowrap;
+  flex-shrink: 0;
+  max-width: 100px;
+  box-sizing: border-box;
+}
+.handsontable .ht-multi-select-chip-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ht-foreground-color);
+  font-style: normal;
+  font-weight: var(--ht-font-weight);
+  line-height: var(--ht-line-height, 40px);
+  letter-spacing: var(--ht-letter-spacing, 0);
+  padding: 0 var(--ht-chip-gap);
+}
+.handsontable .ht-multi-select-chip-remove {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ht-icon-size) !important;
+  height: var(--ht-icon-size) !important;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  color: var(--ht-icon-button-icon-color);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.handsontable .ht-multi-select-chip-remove::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.handsontable .ht-multi-select-chip-remove:hover {
+  background-color: var(--ht-icon-button-hover-background-color);
+}
+.handsontable .ht-multi-select-overflow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 calc(var(--ht-gap-size) * 2);
+  background: var(--ht-chip-background);
+  border-radius: var(--ht-chip-border-radius);
+  color: var(--ht-foreground-color);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 .handsontableInputHolder {
   position: absolute;
   top: 0;
@@ -1073,7 +1124,7 @@
 }
 
 .handsontable.listbox {
-  box-shadow: var(--ht-menu-shadow-x, 0) var(--ht-menu-shadow-y, 0) var(--ht-menu-shadow-blur, 8px) var(--ht-menu-shadow-color, rgba(0, 0, 0, 0.08));
+  box-shadow: var(--ht-menu-shadow-x, 0) var(--ht-menu-shadow-y, 0) var(--ht-menu-shadow-blur, 8px) color-mix(in srgb, var(--ht-menu-shadow-color, rgb(0, 0, 0)) var(--ht-menu-shadow-opacity, 100%), transparent);
   margin: 0;
   border: var(--ht-menu-border-width, 1px) solid var(--ht-menu-border-color, #e5e5e9);
 }
@@ -1112,7 +1163,7 @@
   color: inherit;
 }
 .handsontable.listbox table tr td:hover td {
-  background: var(--ht-menu-item-hover-color, #e5e5e9) !important;
+  background: color-mix(in srgb, var(--ht-menu-item-hover-color) var(--ht-menu-item-hover-color-opacity, 100%), transparent) !important;
   cursor: pointer;
   box-shadow: none !important;
 }
@@ -1120,7 +1171,7 @@
   transition: var(--ht-table-transition) background ease-in-out;
 }
 .handsontable.listbox table td:hover {
-  background-color: var(--ht-menu-item-hover-color, #e5e5e9) !important;
+  background-color: color-mix(in srgb, var(--ht-menu-item-hover-color) var(--ht-menu-item-hover-color-opacity, 100%), transparent) !important;
   cursor: pointer;
 }
 .handsontable.listbox table td.current:not([aria-expanded=true]) {
@@ -1137,14 +1188,10 @@
 .handsontable.listbox table thead th {
   height: auto !important;
   text-align: left;
-  border-width: 0 1px 1px;
 }
-.handsontable.listbox table thead th > div {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-.handsontable.listbox table thead th:first-child {
-  padding-left: 8px;
+.handsontable.listbox table thead th .relative {
+  padding-top: calc(var(--ht-cell-vertical-padding) + var(--ht-gap-size));
+  padding-bottom: calc(var(--ht-cell-vertical-padding) + var(--ht-gap-size));
 }
 .handsontable.listbox .ht_clone_top .wtHider {
   overflow: hidden;
@@ -1164,9 +1211,13 @@
   background-color: var(--ht-background-color, #ffffff);
 }
 
+[dir=rtl].handsontable.listbox table thead th {
+  text-align: right;
+}
+
 .pika-single {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Helvetica Neue, Arial, sans-serif;
-  box-shadow: var(--ht-menu-shadow-x, 0) var(--ht-menu-shadow-y, 0) var(--ht-menu-shadow-blur, 8px) var(--ht-menu-shadow-color, rgba(0, 0, 0, 0.08));
+  font-family: var(--ht-font-family), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  box-shadow: var(--ht-menu-shadow-x, 0) var(--ht-menu-shadow-y, 0) var(--ht-menu-shadow-blur, 8px) color-mix(in srgb, var(--ht-menu-shadow-color, rgb(0, 0, 0)) var(--ht-menu-shadow-opacity, 100%), transparent);
   position: relative;
   display: block;
   padding: 10px;
@@ -1244,11 +1295,11 @@
   opacity: 0.5;
 }
 .pika-single .pika-table td.is-today .pika-button {
-  background: var(--ht-menu-item-hover-color);
+  background: color-mix(in srgb, var(--ht-menu-item-hover-color) var(--ht-menu-item-hover-color-opacity, 100%), transparent);
 }
 .pika-single .pika-table td.is-selected .pika-button {
   background: var(--ht-accent-color, #1a42e8);
-  color: var(--ht-background-color, #ffffff);
+  color: var(--ht-primary-button-foreground-color, #ffffff);
 }
 .pika-single .pika-table td.pika-week {
   width: 12.5%;
@@ -1267,7 +1318,7 @@
   font-size: inherit;
 }
 .pika-single .pika-table .pika-button:hover {
-  background: var(--ht-menu-item-hover-color);
+  background: color-mix(in srgb, var(--ht-menu-item-hover-color) var(--ht-menu-item-hover-color-opacity, 100%), transparent);
 }
 
 [dir=rtl].htDatepickerHolder .pika-single .pika-next {
@@ -1279,6 +1330,174 @@
   transform: rotate(180deg);
   margin-left: auto;
   margin-right: 0;
+}
+
+.handsontableEditor {
+  position: absolute;
+}
+.handsontableEditor .ht-multi-select-editor {
+  box-shadow: var(--ht-menu-shadow-x, 0) var(--ht-menu-shadow-y, 0) var(--ht-menu-shadow-blur, 8px) color-mix(in srgb, var(--ht-menu-shadow-color, rgb(0, 0, 0)) var(--ht-menu-shadow-opacity, 100%), transparent);
+  scrollbar-width: auto;
+  scrollbar-color: var(--ht-scrollbar-thumb-color) var(--ht-scrollbar-track-color);
+  overflow-y: auto;
+  border-radius: 0 0 var(--ht-menu-border-radius) var(--ht-menu-border-radius);
+  border: var(--ht-menu-border-width) solid var(--ht-menu-border-color);
+  background: var(--ht-background-color);
+  width: max-content;
+  min-width: 120px;
+  padding: var(--ht-menu-vertical-padding) var(--ht-menu-horizontal-padding);
+}
+.handsontableEditor .ht-multi-select-editor .ht-multi-select-editor-search-input-wrapper {
+  display: flex;
+  padding: var(--ht-menu-item-vertical-padding) var(--ht-menu-item-horizontal-padding);
+  align-items: center;
+  gap: var(--ht-gap-size);
+  align-self: stretch;
+  position: relative;
+}
+.handsontableEditor .ht-multi-select-editor .ht-multi-select-editor-search-icon {
+  position: absolute;
+  left: calc(var(--ht-menu-item-horizontal-padding) + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+.handsontableEditor .ht-multi-select-editor input.ht-multi-select-editor-search-input {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: var(--ht-input-border-radius);
+  color: var(--ht-input-foreground-color);
+  background-color: var(--ht-input-background-color);
+  border: 1px solid var(--ht-input-border-color);
+  transition: var(--ht-table-transition) all ease-in-out;
+  line-height: var(--ht-line-height);
+  font-size: var(--ht-font-size);
+  padding: var(--ht-input-vertical-padding) var(--ht-menu-item-horizontal-padding) var(--ht-input-vertical-padding) 32px;
+}
+.handsontableEditor .ht-multi-select-editor input.ht-multi-select-editor-search-input:hover {
+  border-color: var(--ht-input-hover-border-color);
+  color: var(--ht-input-hover-foreground-color);
+  background-color: var(--ht-input-hover-background-color);
+}
+.handsontableEditor .ht-multi-select-editor input.ht-multi-select-editor-search-input:disabled {
+  border-color: var(--ht-input-disabled-border-color);
+  color: var(--ht-input-disabled-foreground-color);
+  background-color: var(--ht-input-disabled-background-color);
+}
+.handsontableEditor .ht-multi-select-editor input.ht-multi-select-editor-search-input:focus {
+  border-color: var(--ht-input-focus-border-color);
+  color: var(--ht-input-focus-foreground-color);
+  background-color: var(--ht-input-focus-background-color);
+  outline: none;
+  outline-offset: 0;
+  box-shadow: none;
+}
+.handsontableEditor .ht-multi-select-editor input.ht-multi-select-editor-search-input::placeholder {
+  color: var(--ht-foreground-color);
+  opacity: 0.6;
+}
+.handsontableEditor .ht-multi-select-editor .ht-multi-select-editor-separator {
+  width: 100%;
+  height: 1px;
+  background-color: var(--ht-menu-border-color);
+  margin: var(--ht-menu-vertical-padding) 0 var(--ht-menu-vertical-padding) 0;
+  padding: 0;
+}
+.handsontableEditor .ht-multi-select-editor ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin: 0;
+  padding: var(--ht-gap-size) var(--ht-menu-horizontal-padding);
+}
+.handsontableEditor .ht-multi-select-editor ul li {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  background: var(--ht-background-color);
+  padding: var(--ht-menu-item-vertical-padding) var(--ht-menu-item-horizontal-padding);
+  user-select: none;
+  cursor: pointer;
+}
+.handsontableEditor .ht-multi-select-editor ul li * {
+  cursor: pointer;
+}
+.handsontableEditor .ht-multi-select-editor ul li.ht-multi-select-editor-item-selected {
+  background: color-mix(in srgb, var(--ht-menu-item-active-color) var(--ht-menu-item-active-color-opacity, 100%), transparent);
+}
+.handsontableEditor .ht-multi-select-editor ul li div {
+  display: flex;
+  align-items: center;
+  flex: 1 0 0;
+}
+.handsontableEditor .ht-multi-select-editor ul li div input {
+  position: relative;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  width: var(--ht-checkbox-size);
+  height: var(--ht-checkbox-size);
+  display: flex;
+}
+.handsontableEditor .ht-multi-select-editor ul li div input::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.handsontableEditor .ht-multi-select-editor ul li div input::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: var(--ht-checkbox-size);
+  height: var(--ht-checkbox-size);
+  border-radius: var(--ht-checkbox-border-radius);
+  border: 1px solid var(--ht-checkbox-border-color);
+  background: var(--ht-checkbox-background-color);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.handsontableEditor .ht-multi-select-editor ul li div input:checked::before {
+  border-color: var(--ht-checkbox-checked-border-color);
+  background: var(--ht-checkbox-checked-background-color);
+}
+.handsontableEditor .ht-multi-select-editor ul li div input:checked::after {
+  color: var(--ht-checkbox-checked-icon-color);
+  background-color: currentColor;
+}
+.handsontableEditor .ht-multi-select-editor ul li div input:focus {
+  outline: none;
+}
+.handsontableEditor .ht-multi-select-editor ul li div label {
+  overflow: hidden;
+  color: var(--ht-foreground-color);
+  text-overflow: ellipsis;
+  font-size: var(--ht-font-size);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--ht-line-height);
+  letter-spacing: var(--ht-letter-spacing);
+  width: 100%;
+  padding: 0 0 0 calc(var(--ht-gap-size) * 2);
+}
+.handsontableEditor .ht-multi-select-editor ul li:hover {
+  background: color-mix(in srgb, var(--ht-menu-item-hover-color) var(--ht-menu-item-hover-color-opacity, 100%), transparent);
+}
+.handsontableEditor .ht-multi-select-editor ul li:has(input:focus) {
+  background: color-mix(in srgb, var(--ht-menu-item-hover-color) var(--ht-menu-item-hover-color-opacity, 100%), transparent);
 }
 
 .handsontable .htUISelectCaption {
@@ -1786,7 +2005,7 @@
   background-color: var(--ht-header-active-foreground-color);
 }
 .handsontable.htDropdownMenu > .ht_master, .handsontable.htContextMenu > .ht_master, .handsontable.htFiltersConditionsMenu > .ht_master {
-  box-shadow: var(--ht-menu-shadow-x, 0) var(--ht-menu-shadow-y, 0) var(--ht-menu-shadow-blur, 8px) var(--ht-menu-shadow-color, rgba(0, 0, 0, 0.08));
+  box-shadow: var(--ht-menu-shadow-x, 0) var(--ht-menu-shadow-y, 0) var(--ht-menu-shadow-blur, 8px) color-mix(in srgb, var(--ht-menu-shadow-color, rgb(0, 0, 0)) var(--ht-menu-shadow-opacity, 100%), transparent);
   border: var(--ht-menu-border-width, 1px) solid var(--ht-menu-border-color, #e5e5e9);
   border-radius: var(--ht-menu-border-radius);
   overflow: hidden;
@@ -1852,7 +2071,7 @@
   background-color: inherit !important;
 }
 .handsontable.htDropdownMenu table tbody tr td:not(.handsontable.htDropdownMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htDropdownMenu table tbody tr td.htDisabled, .handsontable.htContextMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htContextMenu table tbody tr td.htDisabled, .handsontable.htFiltersConditionsMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htFiltersConditionsMenu table tbody tr td.htDisabled):hover, .handsontable.htContextMenu table tbody tr td:not(.handsontable.htDropdownMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htDropdownMenu table tbody tr td.htDisabled, .handsontable.htContextMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htContextMenu table tbody tr td.htDisabled, .handsontable.htFiltersConditionsMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htFiltersConditionsMenu table tbody tr td.htDisabled):hover, .handsontable.htFiltersConditionsMenu table tbody tr td:not(.handsontable.htDropdownMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htDropdownMenu table tbody tr td.htDisabled, .handsontable.htContextMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htContextMenu table tbody tr td.htDisabled, .handsontable.htFiltersConditionsMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htFiltersConditionsMenu table tbody tr td.htDisabled):hover {
-  background: var(--ht-menu-item-hover-color, #e5e5e9) !important;
+  background: color-mix(in srgb, var(--ht-menu-item-hover-color) var(--ht-menu-item-hover-color-opacity, 100%), transparent) !important;
   cursor: pointer;
 }
 .handsontable.htDropdownMenu table tbody tr td:not(.handsontable.htDropdownMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htDropdownMenu table tbody tr td.htDisabled, .handsontable.htContextMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htContextMenu table tbody tr td.htDisabled, .handsontable.htFiltersConditionsMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htFiltersConditionsMenu table tbody tr td.htDisabled).current:not([aria-expanded=true]), .handsontable.htContextMenu table tbody tr td:not(.handsontable.htDropdownMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htDropdownMenu table tbody tr td.htDisabled, .handsontable.htContextMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htContextMenu table tbody tr td.htDisabled, .handsontable.htFiltersConditionsMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htFiltersConditionsMenu table tbody tr td.htDisabled).current:not([aria-expanded=true]), .handsontable.htFiltersConditionsMenu table tbody tr td:not(.handsontable.htDropdownMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htDropdownMenu table tbody tr td.htDisabled, .handsontable.htContextMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htContextMenu table tbody tr td.htDisabled, .handsontable.htFiltersConditionsMenu table tbody tr td.htCustomMenuRenderer, .handsontable.htFiltersConditionsMenu table tbody tr td.htDisabled).current:not([aria-expanded=true]) {
@@ -1887,7 +2106,7 @@
   display: none;
 }
 .handsontable.htDropdownMenu table tbody tr td:has(.htItemWrapper .selected), .handsontable.htContextMenu table tbody tr td:has(.htItemWrapper .selected), .handsontable.htFiltersConditionsMenu table tbody tr td:has(.htItemWrapper .selected) {
-  background-color: var(--ht-menu-item-active-color);
+  background-color: color-mix(in srgb, var(--ht-menu-item-active-color) var(--ht-menu-item-active-color-opacity, 100%), transparent);
 }
 .handsontable.htDropdownMenu table tbody tr td .htItemWrapper, .handsontable.htContextMenu table tbody tr td .htItemWrapper, .handsontable.htFiltersConditionsMenu table tbody tr td .htItemWrapper {
   margin-inline: calc(2 * var(--ht-gap-size, 4px));
@@ -2079,8 +2298,8 @@
   position: absolute;
 }
 .htCommentsContainer .htCommentTextArea {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Helvetica Neue, Arial, sans-serif;
-  box-shadow: var(--ht-menu-shadow-x, 0) var(--ht-menu-shadow-y, 0) var(--ht-menu-shadow-blur, 8px) var(--ht-menu-shadow-color, rgba(0, 0, 0, 0.08));
+  font-family: var(--ht-font-family), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  box-shadow: var(--ht-menu-shadow-x, 0) var(--ht-menu-shadow-y, 0) var(--ht-menu-shadow-blur, 8px) color-mix(in srgb, var(--ht-menu-shadow-color, rgb(0, 0, 0)) var(--ht-menu-shadow-opacity, 100%), transparent);
   width: 240px;
   height: 88px;
   font-size: var(--ht-font-size);
@@ -2102,14 +2321,32 @@
   background-color: var(--ht-comments-textarea-focus-background-color, #ffffff);
 }
 
+.htBorders .wtBorder.ht-border-style-dashed-vertical {
+  background-image: repeating-linear-gradient(to bottom, var(--ht-custom-border-color) 0 5px, transparent 0 10px);
+}
+.htBorders .wtBorder.ht-border-style-dashed-horizontal {
+  background-image: repeating-linear-gradient(to right, var(--ht-custom-border-color) 0 5px, transparent 0 10px);
+}
+.htBorders .wtBorder.ht-border-style-dotted-horizontal {
+  background-image: radial-gradient(circle, var(--ht-custom-border-color) calc(var(--ht-custom-border-size) / 2), transparent 0);
+  background-size: calc(var(--ht-custom-border-size) * 2) var(--ht-custom-border-size);
+  background-repeat: repeat-x;
+}
+.htBorders .wtBorder.ht-border-style-dotted-vertical {
+  background-image: radial-gradient(circle, var(--ht-custom-border-color) calc(var(--ht-custom-border-size) / 2), transparent 0);
+  background-size: var(--ht-custom-border-size) calc(var(--ht-custom-border-size) * 2);
+  background-repeat: repeat-y;
+}
+
 .handsontable .columnSorting:not(.indicatorDisabled) {
   position: relative;
 }
 .handsontable .columnSorting:not(.indicatorDisabled).sortAction {
-  padding-inline-start: calc(var(--ht-icon-size, 16px) + 2px);
-  padding-inline-end: calc(var(--ht-icon-size, 16px) + 2px);
   min-width: calc(var(--ht-icon-size, 16px) + 8px);
-  max-width: calc(100% - var(--ht-icon-size, 16px) * 2 - 5px) !important;
+}
+.handsontable .columnSorting:not(.indicatorDisabled).sortAction.ascending, .handsontable .columnSorting:not(.indicatorDisabled).sortAction.descending {
+  padding-inline-end: calc(var(--ht-icon-size, 16px) + 2px);
+  max-width: calc(100% - (var(--ht-icon-size, 16px) * 2 + var(--ht-gap-size, 4px) + 3px)) !important;
 }
 .handsontable .columnSorting:not(.indicatorDisabled).sortAction:hover {
   text-decoration: none;
@@ -2125,12 +2362,9 @@
   transform: translateY(-50%);
   text-align: right;
 }
-.handsontable .htLeft .columnSorting.sortAction {
-  padding-inline-start: 0;
-}
-.handsontable .htRight .columnSorting.sortAction {
-  padding-inline-start: var(--ht-icon-size, 16px);
-  padding-inline-end: var(--ht-gap-size, 4px);
+.handsontable .htRight .columnSorting.sortAction.ascending, .handsontable .htRight .columnSorting.sortAction.descending {
+  padding-inline-start: calc(var(--ht-icon-size, 16px) + 2px);
+  padding-inline-end: 0;
 }
 .handsontable .htRight .columnSorting.sortAction::before {
   left: 2px;
@@ -2143,13 +2377,13 @@
   right: auto;
   text-align: left;
 }
-[dir=rtl] .handsontable .htRight .columnSorting.sortAction {
-  padding-inline-start: var(--ht-gap-size, 4px);
-  padding-inline-end: var(--ht-icon-size, 16px);
+[dir=rtl] .handsontable .htRight .columnSorting.sortAction.ascending, [dir=rtl] .handsontable .htRight .columnSorting.sortAction.descending {
+  padding-inline-start: 0;
+  padding-inline-end: calc(var(--ht-icon-size, 16px) + 2px);
 }
-[dir=rtl] .handsontable .htLeft .columnSorting.sortAction {
-  padding-inline-start: var(--ht-icon-size, 16px);
-  padding-inline-end: var(--ht-gap-size, 4px);
+[dir=rtl] .handsontable .htLeft .columnSorting.sortAction.ascending, [dir=rtl] .handsontable .htLeft .columnSorting.sortAction.descending {
+  padding-inline-start: calc(var(--ht-icon-size, 16px) + 2px);
+  padding-inline-end: 0;
 }
 [dir=rtl] .handsontable .htLeft .columnSorting.sortAction::before {
   left: auto;
@@ -2163,7 +2397,7 @@
   position: relative;
   /* The multi-line header and header with longer text need more padding to not hide arrow,
       we make header wider in `GhostTable` to make some space for arrow which is positioned absolutely in the main table */
-  padding-right: 20px;
+  padding-inline-end: calc(var(--ht-icon-size, 16px) + 2px);
 }
 
 .handsontable .colHeader.columnSorting::after {
@@ -2399,7 +2633,7 @@
   display: none;
   z-index: 205;
   pointer-events: none;
-  background: var(--ht-move-backlight-color);
+  background: color-mix(in srgb, var(--ht-move-backlight-color) var(--ht-move-backlight-opacity, 100%), transparent);
 }
 .handsontable .on-moving--columns.show-ui .ht__manualColumnMove--guideline,
 .handsontable .on-moving--columns .ht__manualColumnMove--backlight, .handsontable.on-moving--columns.show-ui .ht__manualColumnMove--guideline,
@@ -2441,7 +2675,7 @@
   display: none;
   z-index: 205;
   pointer-events: none;
-  background: var(--ht-move-backlight-color);
+  background: color-mix(in srgb, var(--ht-move-backlight-color) var(--ht-move-backlight-opacity, 100%), transparent);
 }
 .handsontable .on-moving--rows.show-ui .ht__manualRowMove--guideline,
 .handsontable .on-moving--rows .ht__manualRowMove--backlight, .handsontable.on-moving--rows.show-ui .ht__manualRowMove--guideline,
@@ -2450,6 +2684,8 @@
 }
 
 .ht-dialog {
+  scrollbar-width: auto;
+  scrollbar-color: var(--ht-scrollbar-thumb-color) var(--ht-scrollbar-track-color);
   position: absolute;
   top: 0;
   left: 0;
@@ -2485,7 +2721,7 @@
   background-color: var(--ht-dialog-solid-background-color);
 }
 .ht-dialog--background-semi-transparent {
-  background-color: var(--ht-dialog-semi-transparent-background-color);
+  background-color: color-mix(in srgb, var(--ht-dialog-semi-transparent-background-color) var(--ht-dialog-semi-transparent-background-opacity, 100%), transparent);
 }
 .ht-dialog--animation {
   transition: opacity var(--ht-table-transition) ease-in-out;
@@ -2509,7 +2745,7 @@
   color: var(--ht-foreground-color);
 }
 .ht-dialog__content--background {
-  box-shadow: var(--ht-shadow-x, 0) var(--ht-shadow-y, 0) var(--ht-shadow-blur, 8px) var(--ht-shadow-color, rgba(0, 0, 0, 0.08));
+  box-shadow: var(--ht-shadow-x, 0) var(--ht-shadow-y, 0) var(--ht-shadow-blur, 8px) color-mix(in srgb, var(--ht-shadow-color, rgb(0, 0, 0)) var(--ht-shadow-opacity, 100%), transparent);
   border-radius: var(--ht-dialog-content-border-radius);
   background-color: var(--ht-dialog-content-background-color);
 }
@@ -2527,7 +2763,7 @@
   border-radius: var(--ht-wrapper-border-radius);
 }
 .ht-dialog--confirm .ht-dialog__content-wrapper-inner--background {
-  box-shadow: var(--ht-shadow-x, 0) var(--ht-shadow-y, 0) var(--ht-shadow-blur, 8px) var(--ht-shadow-color, rgba(0, 0, 0, 0.08));
+  box-shadow: var(--ht-shadow-x, 0) var(--ht-shadow-y, 0) var(--ht-shadow-blur, 8px) color-mix(in srgb, var(--ht-shadow-color, rgb(0, 0, 0)) var(--ht-shadow-opacity, 100%), transparent);
   border-radius: var(--ht-dialog-content-border-radius);
   background-color: var(--ht-dialog-content-background-color);
 }
@@ -2735,6 +2971,8 @@
   }
 }
 .ht-empty-data-state {
+  scrollbar-width: auto;
+  scrollbar-color: var(--ht-scrollbar-thumb-color) var(--ht-scrollbar-track-color);
   display: none;
   position: absolute;
   width: 100%;

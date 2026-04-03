@@ -41,6 +41,11 @@ const plugins = [
     useTsconfigDeclarationDir: true,
     tsconfig: './tsconfig.json',
     exclude: [ '**/*.stories.tsx' ],
+    tsconfigOverride: {
+      compilerOptions: {
+        rootDir: '.',
+      },
+    },
     // check: false,
   }),
   // postcss({

@@ -12,6 +12,7 @@
 @source inline("aria-label");
 @source inline("backdrop-blur-lg");
 @source inline("banner");
+@source inline("baseProps");
 @source inline("been");
 @source inline("bg-fd-background/80");
 @source inline("bg-fd-card");
@@ -29,6 +30,9 @@
 @source inline("color");
 @source inline("component");
 @source inline("const");
+@source inline("container");
+@source inline("context");
+@source inline("createContext");
 @source inline("custom");
 @source inline("customise");
 @source inline("cva");
@@ -36,7 +40,6 @@
 @source inline("data-[active=true]:text-fd-primary");
 @source inline("default");
 @source inline("defaultVariants");
-@source inline("div");
 @source inline("duration-300");
 @source inline("empty:hidden");
 @source inline("enableHoverToOpen");
@@ -44,7 +47,6 @@
 @source inline("export");
 @source inline("extends");
 @source inline("external");
-@source inline("false");
 @source inline("first:ms-0");
 @source inline("flex");
 @source inline("flex-1");
@@ -56,6 +58,7 @@
 @source inline("for");
 @source inline("found");
 @source inline("from");
+@source inline("full");
 @source inline("fumadocs-core/link");
 @source inline("function");
 @source inline("gap-1");
@@ -97,11 +100,12 @@
 @source inline("justify-end");
 @source inline("key");
 @source inline("label");
+@source inline("languageSelect");
 @source inline("last:me-0");
 @source inline("length");
-@source inline("lg");
 @source inline("lg:grid-cols-3");
 @source inline("lg:hidden");
+@source inline("linkItems");
 @source inline("links");
 @source inline("looking");
 @source inline("lucide-react");
@@ -121,14 +125,17 @@
 @source inline("menuItems");
 @source inline("might");
 @source inline("mobile");
-@source inline("mode");
 @source inline("ms-auto");
 @source inline("mt-4");
 @source inline("name");
 @source inline("nav");
+@source inline("navEnabled");
 @source inline("navItemVariants");
+@source inline("navItems");
+@source inline("navTitle");
 @source inline("nd-home-layout");
 @source inline("nd-nav");
+@source inline("new");
 @source inline("none");
 @source inline("not");
 @source inline("onPointerMove");
@@ -156,6 +163,7 @@
 @source inline("rounded-lg");
 @source inline("rounded-md");
 @source inline("searchToggle");
+@source inline("searchTrigger");
 @source inline("secondary");
 @source inline("separator");
 @source inline("setValue");
@@ -163,6 +171,7 @@
 @source inline("size-3");
 @source inline("size-4");
 @source inline("size-5");
+@source inline("slots");
 @source inline("sm");
 @source inline("sm:flex-row");
 @source inline("sm:hidden");
@@ -180,6 +189,8 @@
 @source inline("text-sm");
 @source inline("the");
 @source inline("themeSwitch");
+@source inline("this");
+@source inline("throw");
 @source inline("to");
 @source inline("top");
 @source inline("top-0");
@@ -187,12 +198,15 @@
 @source inline("transition-transform");
 @source inline("transparentMode");
 @source inline("trigger");
+@source inline("true");
 @source inline("type");
 @source inline("undefined");
+@source inline("under");
 @source inline("url");
 @source inline("use");
+@source inline("useHomeLayout");
 @source inline("useIsScrollTop");
-@source inline("useLinkItems");
+@source inline("useProvider");
 @source inline("useState");
 @source inline("value");
 @source inline("variant");
