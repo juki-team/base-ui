@@ -11,8 +11,7 @@ import { TwoContentSection } from '../TwoContentSection/TwoContentSection';
 import { JukiLoadingLayout } from './JukiLoadingLayout';
 import type { TwoContentLayoutProps } from './types';
 
-export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) {
-  
+export function TwoContentLayout<T = string>(props: TwoContentLayoutProps<T>) {
   const {
     breadcrumbs: initialBreadcrumbs,
     tabs: initialTabs = {},
@@ -22,47 +21,57 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
     children,
     loading,
     tabsInlineClassName,
+    headerClassName,
+    bodyClassName,
   } = props;
-  
+
   const LOADING_TAB = 'loading' as T;
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
   const _tabKeys = Object.keys(initialTabs);
-  const [ selectedTabKey, setSelectedTabKey ] = useSyncedState(loading ? LOADING_TAB : initialTabKey ?? (_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T);
-  const tabs: TabsType<T> = loading ? {
-    [LOADING_TAB as string]: {
-      key: LOADING_TAB,
-      header: (
-        <div className="jk-row">
-          <div className="dot-flashing" />
-        </div>
-      ),
-      body: <JukiLoadingLayout>{typeof loading === 'boolean' ? undefined : loading}</JukiLoadingLayout>,
-    },
-  } : initialTabs;
-  
+  const [selectedTabKey, setSelectedTabKey] = useSyncedState(
+    loading ? LOADING_TAB : (initialTabKey ?? ((_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T)),
+  );
+  const tabs: TabsType<T> = loading
+    ? {
+        [LOADING_TAB as string]: {
+          key: LOADING_TAB,
+          header: (
+            <div className="jk-row">
+              <div className="dot-flashing" />
+            </div>
+          ),
+          body: <JukiLoadingLayout>{typeof loading === 'boolean' ? undefined : loading}</JukiLoadingLayout>,
+        },
+      }
+    : initialTabs;
+
   const tabKeys = Object.keys(tabs);
-  
+
   const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey }) as ReactNode[];
-  
+
   const withTabs = tabKeys.length > 1;
   const withBreadcrumbs = !!breadcrumbs?.length && !isSmallScreen;
-  
+
   return (
-    <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })}>
+    <TwoContentSection
+      className={classNames('rectangular-style', { loading: !!loading })}
+      firstClassName={headerClassName}
+      secondClassName={bodyClassName}
+    >
       <>
         {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
         {(!!children || (!withTabs && tabButtons && tabButtons.length > 0)) && (
           <div
             className={classNames('jk-row gap extend jk-pg-xsm-b', {
               'jk-pg-xsm-t': !withBreadcrumbs,
-              'left': !isSmallScreen,
-              'center': isSmallScreen,
+              left: !isSmallScreen,
+              center: isSmallScreen,
             })}
           >
             {children}
             {!withTabs && tabButtons && tabButtons.length > 0 && (
               <div className="jk-row gap extend right">
-                {tabButtons.map(buttonsTab => renderReactNodeOrFunctionP1(buttonsTab, { selectedTabKey }))}
+                {tabButtons.map((buttonsTab) => renderReactNodeOrFunctionP1(buttonsTab, { selectedTabKey }))}
               </div>
             )}
           </div>

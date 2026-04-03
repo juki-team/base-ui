@@ -3,39 +3,38 @@ import { Href, ReactNodeOrFunctionP1Type, TabsType } from '../../types';
 
 type Full<T> = {
   [P in keyof T]-?: T[P];
-}
+};
 
-export interface PawsLoadingLayoutProps extends PropsWithChildren <{
-  sec?: number,
-  size?: number,
-  trace?: number,
-  style?: CSSProperties,
-}> {
-}
+export interface PawsLoadingLayoutProps extends PropsWithChildren<{
+  sec?: number;
+  size?: number;
+  trace?: number;
+  style?: CSSProperties;
+}> {}
 
-export interface JukiLoadingLayoutProps extends PawsLoadingLayoutProps {
-}
+export interface JukiLoadingLayoutProps extends PawsLoadingLayoutProps {}
 
 export interface PathLoadingPawsProps extends Full<Omit<PawsLoadingLayoutProps, 'style'>> {
-  step: number,
-  totalSteps: number,
-  N: number,
-  H: number,
-  W: number,
-  delay: number,
-  animationName: string,
-  bottom: number | string,
+  step: number;
+  totalSteps: number;
+  N: number;
+  H: number;
+  W: number;
+  delay: number;
+  animationName: string;
+  bottom: number | string;
 }
 
 export interface TwoContentLayoutProps<T> extends PropsWithChildren {
-  breadcrumbs?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T; }, ReactNode[]>,
-  tabs?: TabsType<T>,
-  tabButtons?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T; }>[],
-  getHrefOnTabChange?: (selectedTabKey: T) => Href,
-  selectedTabKey?: T,
-  loading?: boolean | ReactNode,
-  tabsInlineClassName?: string,
+  breadcrumbs?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T }, ReactNode[]>;
+  tabs?: TabsType<T>;
+  tabButtons?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T }>[];
+  getHrefOnTabChange?: (selectedTabKey: T) => Href;
+  selectedTabKey?: T;
+  loading?: boolean | ReactNode;
+  tabsInlineClassName?: string;
+  headerClassName?: string;
+  bodyClassName?: string;
 }
 
-export interface TwoContentCardsLayoutProps<T> extends TwoContentLayoutProps<T> {
-}
+export interface TwoContentCardsLayoutProps<T> extends TwoContentLayoutProps<T> {}
