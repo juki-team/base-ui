@@ -3,7 +3,9 @@ import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../helpers';
 import type { TwoContentSectionProps } from './types';
 
-export function TwoContentSection({ children, className, firstClassName, secondClassName }: TwoContentSectionProps) {
+export function TwoContentSection(props: TwoContentSectionProps) {
+  const { children, className, firstClassName = 'jk-col stretch top', secondClassName } = props;
+
   const { height = 0, ref } = useResizeDetector();
 
   return (
@@ -11,7 +13,7 @@ export function TwoContentSection({ children, className, firstClassName, secondC
       className={classNames('jk-two-content-section jk-col nowrap stretch', className)}
       style={{ '--first-content-section-height': height + 'px' } as CSSProperties}
     >
-      <div ref={ref} id="jk-two-content-section-first-panel" className={classNames('jk-col stretch top', firstClassName)}>
+      <div ref={ref} id="jk-two-content-section-first-panel" className={firstClassName}>
         {children[0]}
       </div>
       <div id="jk-two-content-section-second-panel" className={secondClassName}>
