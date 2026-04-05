@@ -4,7 +4,7 @@ import { classNames } from '../../helpers';
 import type { TwoContentSectionProps } from './types';
 
 export function TwoContentSection(props: TwoContentSectionProps) {
-  const { children, className, firstClassName = 'jk-col stretch top', secondClassName } = props;
+  const { children, className, firstClassName = 'jk-col stretch top jk-pg-rl', secondClassName } = props;
 
   const { height = 0, ref } = useResizeDetector();
 

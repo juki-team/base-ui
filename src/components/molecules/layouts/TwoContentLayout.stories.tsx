@@ -23,10 +23,9 @@ export default meta;
 type Story = StoryObj<typeof TwoContentLayoutComponent>;
 
 const UserLoader = () => {
-  
-  const user = useUserStore(store => store.user);
-  const setUser = useUserStore(store => store.setUser);
-  
+  const user = useUserStore((store) => store.user);
+  const setUser = useUserStore((store) => store.setUser);
+
   return (
     <Button
       onClick={() => {
@@ -39,9 +38,9 @@ const UserLoader = () => {
   );
 };
 
-const Component = <T, >(args: TwoContentLayoutProps<T>) => {
-  const [ layout, setLayout ] = useState(1);
-  
+const Component = <T,>(args: TwoContentLayoutProps<T>) => {
+  const [layout, setLayout] = useState(1);
+
   const outputTabs: TabsType = {
     problems: {
       key: 'problems',
@@ -71,8 +70,8 @@ const Component = <T, >(args: TwoContentLayoutProps<T>) => {
       ),
     },
   };
-  const [ isOpenAppLoader, setIsOpenAppLoader ] = useState(false);
-  
+  const [isOpenAppLoader, setIsOpenAppLoader] = useState(false);
+
   return (
     <MockupJukiProvider>
       {isOpenAppLoader && <ApplicationLoaderLayout />}
@@ -101,35 +100,47 @@ const Component = <T, >(args: TwoContentLayoutProps<T>) => {
           <TwoContentLayoutComponent<T>
             {...args}
             getHrefOnTabChange={() => '#'}
-            breadcrumbs={[ <div>a</div>, <div>b</div> ]}
+            breadcrumbs={[<div>a</div>, <div>b</div>]}
             tabs={outputTabs as unknown as TabsType<T>}
           >
             <h1>Title 2</h1>
           </TwoContentLayoutComponent>
         )}
         {layout === 3 && (
-          <TwoContentLayoutComponent {...args}>
-            <h1>Title 3</h1>
+          <TwoContentLayoutComponent<T> {...args} getHrefOnTabChange={() => '#'} tabs={outputTabs as unknown as TabsType<T>}>
+            <h1>Title 2</h1>
           </TwoContentLayoutComponent>
         )}
         {layout === 4 && (
-          <TwoContentLayoutComponent {...args} loading={<><T>loading</T>...</>}>
-            <h1>Title 1 loading</h1>
+          <TwoContentLayoutComponent {...args}>
+            <h1>Title 4</h1>
           </TwoContentLayoutComponent>
         )}
         {layout === 5 && (
-          <TwoContentLayoutComponent tabs={oneTab(<div>one tab</div>)}>
-            <h1>Title 5</h1>
+          <TwoContentLayoutComponent
+            {...args}
+            loading={
+              <>
+                <T>loading</T>...
+              </>
+            }
+          >
+            <h1>Title 5 loading</h1>
           </TwoContentLayoutComponent>
         )}
         {layout === 6 && (
-          <div className="expand-absolute jk-row">
+          <TwoContentLayoutComponent tabs={oneTab(<div>one tab</div>)}>
             <h1>Title 6</h1>
-          </div>
+          </TwoContentLayoutComponent>
         )}
         {layout === 7 && (
-          <TwoContentLayoutComponent tabs={oneTab(<div className="expand-absolute jk-col">one tab</div>)}>
+          <div className="expand-absolute jk-row">
             <h1>Title 7</h1>
+          </div>
+        )}
+        {layout === 8 && (
+          <TwoContentLayoutComponent tabs={oneTab(<div className="expand-absolute jk-col">one tab</div>)}>
+            <h1>Title 8</h1>
           </TwoContentLayoutComponent>
         )}
       </div>
@@ -137,5 +148,5 @@ const Component = <T, >(args: TwoContentLayoutProps<T>) => {
   );
 };
 export const Regular: Story = {
-  render: (args) => <Component  {...args} />,
+  render: (args) => <Component {...args} />,
 };

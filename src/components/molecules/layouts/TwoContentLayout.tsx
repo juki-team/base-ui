@@ -61,7 +61,7 @@ export function TwoContentLayout<T = string>(props: TwoContentLayoutProps<T>) {
             className={classNames(
               'jk-pg-xsm-b',
               {
-                'jk-pg-xsm-t': !withBreadcrumbs,
+                'jk-pg-sm-t': !withBreadcrumbs,
                 'jk-row gap extend': !headerClassName,
                 left: !headerClassName && !isSmallScreen,
                 center: !headerClassName && isSmallScreen,
@@ -83,8 +83,9 @@ export function TwoContentLayout<T = string>(props: TwoContentLayoutProps<T>) {
             selectedTabKey={selectedTabKey}
             extraNodes={tabButtons}
             // extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
-            tickStyle="background"
-            className={classNames('jk-pg-xsm-b', tabsInlineClassName)}
+            tickStyle="classic"
+            // className={classNames('jk-pg-xsm-b', tabsInlineClassName)}
+            className={classNames(tabsInlineClassName)}
             onChange={(tabKey) => {
               setSelectedTabKey(tabKey);
               if (getHrefOnTabChange && isBrowser()) {

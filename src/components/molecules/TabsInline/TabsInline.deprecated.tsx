@@ -2,7 +2,7 @@ import { Children, PropsWithChildren } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
-import { Button, Select } from '../../atoms';
+import { Select } from '../../atoms';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState } from '../../hooks/useHandleState';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
@@ -23,6 +23,7 @@ const TabWithLink = <T,>({ tabKey, children, getHrefOnTabChange, routerReplace }
 interface HeaderTabProps<T> {
   tab: TabType<T>;
   selectedTabKey: T;
+  tickStyle: TabsInlineProps<T>['tickStyle'];
   getHrefOnTabChange: TabsInlineProps<T>['getHrefOnTabChange'];
   routerReplace: TabsInlineProps<T>['routerReplace'];
   setSelectedTabKey: (key: T | undefined, force: boolean) => void;
@@ -32,26 +33,40 @@ const HeaderTab = <T = string,>(props: HeaderTabProps<T>) => {
   const {
     tab: { key, header },
     selectedTabKey,
+    tickStyle,
     getHrefOnTabChange,
     routerReplace,
     setSelectedTabKey,
   } = props;
 
-  const selected = key === selectedTabKey;
   return (
-    <TabWithLink tabKey={selected ? undefined : key} getHrefOnTabChange={getHrefOnTabChange} routerReplace={routerReplace}>
-      <Button
-        type="ghost"
-        onClick={selected ? undefined : () => setSelectedTabKey(key, false)}
-        className={classNames('fw-bd', { 'cr-tx-ht': selected })}
-        style={{
-          borderBottom: selected ? '2px solid var(--cr-tx-ht)' : '2px solid var(--cr-ht)',
-          borderBottomLeftRadius: 0,
-          borderBottomRightRadius: 0,
-        }}
+    <TabWithLink
+      tabKey={key === selectedTabKey ? undefined : key}
+      getHrefOnTabChange={getHrefOnTabChange}
+      routerReplace={routerReplace}
+    >
+      <div
+        key={key as string}
+        onClick={key === selectedTabKey ? undefined : () => setSelectedTabKey(key, false)}
+        className={classNames(`jk-tabs-inline-tab jk-row nowrap jk-tabs-inline-tab-${key}`, {
+          selected: key === selectedTabKey, // no used bold to prevent changes on the width
+
+          'cr-tx-ht-it': key === selectedTabKey && tickStyle === 'background',
+        })}
       >
-        {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}
-      </Button>
+        {tickStyle === 'background' ? (
+          <div
+            className={classNames('tab-tick-background jk-br-ie', {
+              'opacity-1230 bc-al cr-at-it selected': key === selectedTabKey,
+              'bc-ht-lt': key !== selectedTabKey,
+            })}
+          >
+            {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}
+          </div>
+        ) : (
+          renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })
+        )}
+      </div>
     </TabWithLink>
   );
 };
@@ -64,7 +79,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
     extraNodes,
     extraNodesPlacement = 'right',
     className,
-    tickStyle = 'classic',
+    tickStyle = 'line',
     getHrefOnTabChange,
     routerReplace,
     withBody,
@@ -148,6 +163,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
                       <HeaderTab
                         tab={tabsArray[selectedTabIndex]}
                         selectedTabKey={selectedTabKey}
+                        tickStyle={tickStyle}
                         getHrefOnTabChange={getHrefOnTabChange}
                         routerReplace={routerReplace}
                         setSelectedTabKey={setSelectedTabKey}
@@ -164,12 +180,13 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
               onChange={({ value }) => setSelectedTabKey(value, true)}
             />
           ) : (
-            <div className="jk-row left stretch jk-tabs-headers-inline">
+            <div className="jk-row gap left stretch jk-tabs-headers-inline">
               {Children.toArray(
                 displayedTabs.map((tab) => (
                   <HeaderTab
                     tab={tab}
                     selectedTabKey={selectedTabKey}
+                    tickStyle={tickStyle}
                     getHrefOnTabChange={getHrefOnTabChange}
                     routerReplace={routerReplace}
                     setSelectedTabKey={setSelectedTabKey}

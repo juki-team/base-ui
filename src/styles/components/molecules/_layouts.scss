@@ -5,8 +5,7 @@
   height: calc(var(--100VH) - var(--top-horizontal-menu-height, 0px) - var(--bottom-horizontal-menu-height, 0px));
   
   &:before {
-    
-    content: "";
+    //content: "";
     width: 100vw;
     height: calc(var(--first-content-section-height) - 1px);
     position: absolute;
@@ -24,7 +23,7 @@
     box-sizing: border-box;
     width: 100%;
     z-index: 2;
-    padding: 0 var(--pad-md);
+    //padding: 0 var(--pad-md);
     border-radius: 0;
     position: relative;
   }

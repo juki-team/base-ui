@@ -32,4 +32,18 @@
       padding: var(--pad-xt) var(--pad-t);
     }
   }
+  
+  &.tick-style-classic {
+    position: relative;
+    
+    &:after {
+      content: "";
+      width: 100%;
+      height: 0;
+      left: 0;
+      bottom: 0;
+      position: absolute;
+      border-bottom: 2px solid var(--cr-ht-lt);
+    }
+  }
 }

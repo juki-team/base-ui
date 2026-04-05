@@ -44,7 +44,7 @@
 .jk-button {
   // TODO: remove this var
   --button-padding: var(--pad-xs); // 16px
-  --button-padding-tb: calc(var(--tx-h-m) / 8);
+  --button-padding-tb: calc(var(--tx-h-m) / 4);
   --icon-margin-right: 0;
   --line-height: var(--tx-h-m); // 24px
   height: auto;
@@ -61,13 +61,13 @@
   padding: var(--button-padding-tb) calc(var(--tx-h-m) / 2);
   line-height: calc(var(--line-height) - 4px);
   --size-button-loader-icon: var(--line-height);
-  @include mixins.transition-fast(opacity, padding, outline-color, outline-width, background-color);
+  @include mixins.transition-slow(opacity, padding, outline-color, outline-width, background-color, border-color);
   
   .jk-icon {
     --size-icon: calc(var(--line-height) - 4px);
   }
   
-  &:not(.disabled):hover {
+  &:not(.disabled):not(.ghost):hover {
     --button-border-width: 3px;
   }
   

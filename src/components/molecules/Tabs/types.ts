@@ -1,28 +1,28 @@
 import { Href, ReactNodeOrFunctionP1Type, TabsType, TabType } from '../../types';
 
 export interface TabsProps<T = string> {
-  tabs: TabType<T>[],
-  className?: string,
-  selectedTabKey?: T,
-  onChange?: (tabKey: T) => void,
-  extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: string }>[],
-  extend?: boolean,
+  tabs: TabType<T>[];
+  className?: string;
+  selectedTabKey?: T;
+  onChange?: (tabKey: T) => void;
+  extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: string }>[];
+  extend?: boolean;
 }
 
 export interface TabsInlineProps<T = string> {
-  tabs: TabsType<T>,
-  selectedTabKey?: T,
-  onChange?: (tabKey: T) => void,
-  extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T }>[],
-  extraNodesPlacement?: 'left' | 'right' | 'bottomLeft' | 'bottomCenter' | 'bottomRight',
-  className?: string,
-  tickStyle?: 'line' | 'background',
-  getHrefOnTabChange?: (selectedTabKey: T) => Href,
-  routerReplace?: boolean,
-  withBody?: boolean,
+  tabs: TabsType<T>;
+  selectedTabKey?: T;
+  onChange?: (tabKey: T) => void;
+  extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T }>[];
+  extraNodesPlacement?: 'left' | 'right' | 'bottomLeft' | 'bottomCenter' | 'bottomRight';
+  className?: string;
+  tickStyle?: 'line' | 'background' | 'classic';
+  getHrefOnTabChange?: (selectedTabKey: T) => Href;
+  routerReplace?: boolean;
+  withBody?: boolean;
 }
 
 export interface TabsInlineBodyProps<T = string> {
-  tabs: TabsType<T>,
-  selectedTabKey?: T,
+  tabs: TabsType<T>;
+  selectedTabKey?: T;
 }

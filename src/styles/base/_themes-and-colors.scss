@@ -10,7 +10,7 @@
   --cr-wg: #F2C94C;
   --cr-er: #EB5757;
   
-  --cr-we: #FAFBFC; // 50
+  --cr-we: #FDFEFE; // 50
   --cr-gy: #333333;
   --cr-bk: #000102;
   
@@ -76,7 +76,6 @@
 }
 
 .jk-theme-light {
-  --cr-bk-let: color-mix(in srgb, var(--cr-bk) 80%, var(--base-white));
   --cr-bk-lt: color-mix(in srgb, var(--cr-bk) 90%, var(--base-white));
   --cr-we-lt: color-mix(in srgb, var(--cr-we) 10%, var(--base-white));
   --cr-we-dk: color-mix(in srgb, var(--cr-we) 96%, var(--base-black));
@@ -84,7 +83,6 @@
 }
 
 .jk-theme-dark {
-  --cr-bk-let: color-mix(in srgb, var(--cr-bk) 86%, var(--base-white));
   --cr-bk-lt: color-mix(in srgb, var(--cr-bk) 96%, var(--base-white));
   --cr-we-lt: color-mix(in srgb, var(--cr-we) 90%, var(--base-white));
   --cr-we-dk: color-mix(in srgb, var(--cr-we) 80%, var(--base-black));

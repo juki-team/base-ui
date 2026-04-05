@@ -16,9 +16,8 @@ const CSS_PROPS = [
 ] as const;
 
 export const useInjectCompanyStyles = () => {
-
-  const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
-  const companyStyles = useUserStore(store => store.company?.styles);
+  const userPreferredTheme = useUserStore((state) => state.user.settings?.[ProfileSetting.THEME]);
+  const companyStyles = useUserStore((store) => store.company?.styles);
 
   useEffect(() => {
     const body = document.body;
@@ -33,8 +32,8 @@ export const useInjectCompanyStyles = () => {
     set('--body-tx-cr', theme?.body?.textColor);
     set('--body-tx-cr-ht', theme?.body?.textColorHighlight);
     set('--body-tx-cr-ht-it', theme?.body?.textColorHighlightInset);
-    set('--body-bd-cr', theme?.body?.backgroundColor);
-    set('--body-bd-cr-ht', theme?.body?.backgroundColorHighlight);
+    // set('--body-bd-cr', theme?.body?.backgroundColor);
+    // set('--body-bd-cr-ht', theme?.body?.backgroundColorHighlight);
     set('--body-at-cr', theme?.body?.accentColor);
     set('--body-at-cr-it', theme?.body?.accentColorInset);
     set('--navbar-tx-cr', theme?.navbar?.textColor);
@@ -42,7 +41,7 @@ export const useInjectCompanyStyles = () => {
     set('--navbar-at-cr', theme?.navbar?.accentColor);
 
     return () => {
-      CSS_PROPS.forEach(prop => body.style.removeProperty(prop));
+      CSS_PROPS.forEach((prop) => body.style.removeProperty(prop));
     };
-  }, [ companyStyles, userPreferredTheme ]);
+  }, [companyStyles, userPreferredTheme]);
 };
