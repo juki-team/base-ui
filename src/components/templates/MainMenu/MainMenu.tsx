@@ -24,14 +24,13 @@ import type { MainMenuProps } from './types';
 
 const LOGO_SIZE = {
   '': 160,
-  'sm': 80,
-  'md': 120,
-  'lg': 160,
-  'hg': 192,
+  sm: 80,
+  md: 120,
+  lg: 160,
+  hg: 192,
 };
 
 export function MainMenu(props: MainMenuProps) {
-  
   const {
     menu: initialMenu,
     onSeeMyProfile,
@@ -43,34 +42,38 @@ export function MainMenu(props: MainMenuProps) {
     topImageUrl,
     onBack,
   } = props;
-  
-  const { Link, Image } = useUIStore(store => store.components);
-  const viewPortSize = usePageStore(store => store.viewPort.screen);
-  const searchParams = useRouterStore(state => state.searchParams);
-  const setSearchParams = useRouterStore(state => state.setSearchParams);
-  const isLoading = useUserStore(state => state.isLoading);
-  const { imageUrl: companyImageUrl, name, styles } = useUserStore(state => state.company);
+
+  const { Link, Image } = useUIStore((store) => store.components);
+  const viewPortSize = usePageStore((store) => store.viewPort.screen);
+  const searchParams = useRouterStore((state) => state.searchParams);
+  const setSearchParams = useRouterStore((state) => state.setSearchParams);
+  const isLoading = useUserStore((state) => state.isLoading);
+  const { imageUrl: companyImageUrl, name, styles } = useUserStore((state) => state.company);
   const {
     isLogged,
     settings: { [ProfileSetting.THEME]: preferredTheme, [ProfileSetting.MENU_VIEW_MODE]: userPreferredMenuViewMode },
-  } = useUserStore(state => state.user);
-  
+  } = useUserStore((state) => state.user);
+
   const imageUrl = topImageUrl || companyImageUrl;
-  
-  const { data } = useFetcher<ContentsResponse<CompanyUserPermissionsResponseDTO>>((multiCompanies && isLogged) ? jukiApiManager.API_V2.company.getPermissionList().url : null);
+
+  const { data } = useFetcher<ContentsResponse<CompanyUserPermissionsResponseDTO>>(
+    multiCompanies && isLogged ? jukiApiManager.API_V2.company.getPermissionList().url : null,
+  );
   const companyKey = searchParams.get(QueryParamKey.COMPANY) as string;
-  const companies = useMemo(() => data?.success ? data.contents : [], [ data ]);
-  const company = useMemo(() => companies.find((company) => company.key === companyKey), [ companyKey, companies ]);
-  
-  const [ helpOpen, setHelpOpen ] = useState(false);
-  
+  const companies = useMemo(() => (data?.success ? data.contents : []), [data]);
+  const company = useMemo(() => companies.find((company) => company.key === companyKey), [companyKey, companies]);
+
+  const [helpOpen, setHelpOpen] = useState(false);
+
+  const content = useMemo(() => (isLoading ? <JukiLoadingLayout /> : children), [isLoading, children]);
+
   const enabled = false;
   const menu = useMemo(() => {
     const menu: MenuType[] = [];
     if (multiCompanies && isLogged && enabled) {
       const select = (
         <Select
-          options={companies.map(company => ({
+          options={companies.map((company) => ({
             value: company.key,
             label: <span className="ws-np">{company.name}</span>,
           }))}
@@ -81,8 +84,9 @@ export function MainMenu(props: MainMenuProps) {
           expand
         />
       );
-      
-      menu.push({
+
+      menu.push(
+        {
           label: null,
           icon: null,
           selected: false,
@@ -93,9 +97,7 @@ export function MainMenu(props: MainMenuProps) {
             }
             const isSmall = viewPortSize === 'sm';
             return (
-              <div
-                className={classNames('jk-menu-item menu-item-company-selector cr-tx-ht-it', { 'jk-col gap': isSmall })}
-              >
+              <div className={classNames('jk-menu-item menu-item-company-selector cr-tx-ht-it', { 'jk-col gap': isSmall })}>
                 <div className="jk-menu-item-icon" style={{ height: 48 }}>
                   {company && (
                     <Popover
@@ -104,12 +106,7 @@ export function MainMenu(props: MainMenuProps) {
                       content={<div style={{ width: 200 }}>{select}</div>}
                       placement="right"
                     >
-                      <Image
-                        src={imageUrl}
-                        alt={company?.name}
-                        width={24}
-                        height={48}
-                      />
+                      <Image src={imageUrl} alt={company?.name} width={24} height={48} />
                     </Popover>
                   )}
                 </div>
@@ -125,69 +122,66 @@ export function MainMenu(props: MainMenuProps) {
     }
     menu.push(...initialMenu);
     return menu;
-  }, [ multiCompanies, isLogged, enabled, initialMenu, companies, company, setSearchParams, viewPortSize, preferredTheme, Image ]);
-  
+  }, [
+    multiCompanies,
+    isLogged,
+    enabled,
+    initialMenu,
+    companies,
+    company,
+    setSearchParams,
+    viewPortSize,
+    preferredTheme,
+    Image,
+  ]);
+
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode;
-  
-  const logoImageUrl = (styles?.[preferredTheme]?.navbar?.logoTheme === Theme.LIGHT) ? imageUrl.replace(
-    'white',
-    'color',
-  ) : imageUrl;
-  
+
+  const logoImageUrl =
+    styles?.[preferredTheme]?.navbar?.logoTheme === Theme.LIGHT ? imageUrl.replace('white', 'color') : imageUrl;
+
   // const drawerMenuMobile = (props: { onClose: () => void, menu: MenuType[] }) => (
   //   <DrawerViewMenuMobile {...props} logoImageUrl={logoImageUrl} moreApps={moreApps} />
   // );
-  
+
   const rightMobile = {
-    children: (
-      <LoginUser
-        collapsed={false}
-        isHorizontal
-        onSeeMyProfile={onSeeMyProfile}
-        profileSelected={profileSelected}
-      />
-    ),
+    children: <LoginUser collapsed={false} isHorizontal onSeeMyProfile={onSeeMyProfile} profileSelected={profileSelected} />,
   };
-  
+
   const centerMobile = {
     children: (
       <div className="jk-row">
         <Link href="/" style={{ display: 'contents' }}>
-          {(isLoading || !logoImageUrl)
-            ? <SpinIcon />
-            : (
-              <Image
-                src={logoImageUrl}
-                alt={name}
-                height={40}
-                width={80}
-              />
-            )}
+          {isLoading || !logoImageUrl ? <SpinIcon /> : <Image src={logoImageUrl} alt={name} height={40} width={80} />}
         </Link>
       </div>
     ),
   };
-  
+
   const topSection = ({ isOpen }: { isOpen: boolean }) => (
     <Link href="/">
       <div className="jk-row" style={{ height: '100%' }}>
-        {(isLoading || !logoImageUrl)
-          ? <SpinIcon />
-          : (
-            <Image
-              src={isOpen ? logoImageUrl : logoImageUrl.replace('horizontal', 'vertical')}
-              alt={name}
-              height={isOpen ? LOGO_SIZE[viewPortSize] / 2 : 80}
-              width={isOpen ? LOGO_SIZE[viewPortSize] : 40}
-            />
-          )}
+        {isLoading || !logoImageUrl ? (
+          <SpinIcon />
+        ) : (
+          <Image
+            src={isOpen ? logoImageUrl : logoImageUrl.replace('horizontal', 'vertical')}
+            alt={name}
+            height={isOpen ? LOGO_SIZE[viewPortSize] / 2 : 80}
+            width={isOpen ? LOGO_SIZE[viewPortSize] : 40}
+          />
+        )}
       </div>
     </Link>
   );
-  
+
   const bottomSection = ({ isOpen }: { isOpen: boolean }) => {
     return (
-      <div className={classNames('jk-col stretch gap settings-apps-login-user-content nowrap jk-pg-tb', { 'jk-pg-xsm-rl': isOpen })}>
+      <div
+        className={classNames('jk-col stretch gap settings-apps-login-user-content nowrap jk-pg-tb', {
+          'jk-pg-xsm-rl': isOpen,
+        })}
+      >
         <SettingsSection
           isOpen={isOpen}
           isMobile={false}
@@ -196,38 +190,33 @@ export function MainMenu(props: MainMenuProps) {
           popoverPlacement="right"
           moreApps={moreApps}
         />
-        <LoginUser
-          collapsed={!isOpen}
-          isVertical
-          onSeeMyProfile={onSeeMyProfile}
-          profileSelected={profileSelected}
-        />
+        <LoginUser collapsed={!isOpen} isVertical onSeeMyProfile={onSeeMyProfile} profileSelected={profileSelected} />
       </div>
     );
   };
-  
+
   const leftSection = () => (
     <Link href="/">
       <div className="jk-col extend">
         <div className="jk-row jk-pg-rl">
-          {(isLoading || !logoImageUrl)
-            ? <SpinIcon />
-            : (
-              <Image
-                src={logoImageUrl}
-                alt={name}
-                height={viewPortSize === 'md' ? 40 : 46}
-                width={viewPortSize === 'md' ? 80 : 92}
-              />
-            )}
+          {isLoading || !logoImageUrl ? (
+            <SpinIcon />
+          ) : (
+            <Image
+              src={logoImageUrl}
+              alt={name}
+              height={viewPortSize === 'md' ? 40 : 46}
+              width={viewPortSize === 'md' ? 80 : 92}
+            />
+          )}
         </div>
       </div>
     </Link>
   );
-  
+
   const rightSection = () => {
     return (
-      <div className="jk-row stretch gap settings-apps-login-user-content nowrap jk-pg-rl">
+      <div className="jk-row stretch gap gap settings-apps-login-user-content nowrap jk-pg-rl">
         <SettingsSection
           isOpen={false}
           isMobile={false}
@@ -236,41 +225,34 @@ export function MainMenu(props: MainMenuProps) {
           popoverPlacement="bottom"
           moreApps={moreApps}
         />
-        <LoginUser
-          collapsed={false}
-          isHorizontal
-          onSeeMyProfile={onSeeMyProfile}
-          profileSelected={profileSelected}
-        />
+        <LoginUser collapsed={false} isHorizontal onSeeMyProfile={onSeeMyProfile} profileSelected={profileSelected} />
       </div>
     );
   };
-  
-  return preferredMenuViewMode === MenuViewMode.HORIZONTAL
-    ? (
-      <HorizontalMenu
-        menu={menu}
-        leftSection={leftSection}
-        rightSection={rightSection}
-        // drawerMenuMobile={drawerMenuMobile}
-        rightMobile={rightMobile}
-        centerMobile={centerMobile}
-        onBack={onBack}
-      >
-        {isLoading ? <JukiLoadingLayout /> : children}
-      </HorizontalMenu>
-    )
-    : (
-      <VerticalMenu
-        menu={menu}
-        topSection={topSection}
-        bottomSection={bottomSection}
-        // drawerMenuMobile={drawerMenuMobile}
-        rightMobile={rightMobile}
-        centerMobile={centerMobile}
-        onBack={onBack}
-      >
-        {isLoading ? <JukiLoadingLayout /> : children}
-      </VerticalMenu>
-    );
+
+  return preferredMenuViewMode === MenuViewMode.HORIZONTAL ? (
+    <HorizontalMenu
+      menu={menu}
+      leftSection={leftSection}
+      rightSection={rightSection}
+      // drawerMenuMobile={drawerMenuMobile}
+      rightMobile={rightMobile}
+      centerMobile={centerMobile}
+      onBack={onBack}
+    >
+      {content}
+    </HorizontalMenu>
+  ) : (
+    <VerticalMenu
+      menu={menu}
+      topSection={topSection}
+      bottomSection={bottomSection}
+      // drawerMenuMobile={drawerMenuMobile}
+      rightMobile={rightMobile}
+      centerMobile={centerMobile}
+      onBack={onBack}
+    >
+      {content}
+    </VerticalMenu>
+  );
 }

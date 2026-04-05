@@ -20,6 +20,10 @@ span.jk-row, span.jk-col {
     gap: var(--gap);
   }
   
+  &.gap.gap {
+    gap: calc(var(--gap) * 2);
+  }
+  
   &.block {
     > * {
       flex: 1;
@@ -74,29 +78,24 @@ span.jk-row, span.jk-col {
   outline: 1px solid var(--cr-we) !important;
   border-radius: 50%;
   // regular
-  width: var(--tx-h-m);
-  height: var(--tx-h-m);
+  @include mixins.box-size(var(--tx-h-m));
   box-sizing: border-box;
   
   &.tiny {
-    width: var(--tx-h-t);
-    height: var(--tx-h-t);
+    @include mixins.box-size(var(--tx-h-t));
   }
   
   &.small {
-    width: var(--tx-h-s);
-    height: var(--tx-h-s);
+    @include mixins.box-size(var(--tx-h-s));
   }
   
   &.large {
-    width: var(--tx-h-l);
-    height: var(--tx-h-l);
+    @include mixins.box-size(var(--tx-h-l));
     outline-width: 2px !important;
   }
   
   &.huge {
-    width: var(--tx-h-h);
-    height: var(--tx-h-h);
+    @include mixins.box-size(var(--tx-h-h));
     outline-width: 2px !important;
   }
 }

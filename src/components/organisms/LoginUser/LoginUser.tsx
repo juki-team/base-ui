@@ -11,21 +11,24 @@ import { LoginIcon, LogoutIcon, SpinIcon } from '../../server';
 import type { LoginUserProps } from './types';
 
 export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile, profileSelected }: LoginUserProps) {
-  
   const { logout } = useJukiUser();
-  const userNickname = useUserStore(state => state.user.nickname);
-  const companyKey = useUserStore(state => state.company.key);
-  const userImageUrl = useUserStore(state => state.user.imageUrl);
-  const userIsLogged = useUserStore(state => state.user.isLogged);
-  const userIsLoading = useUserStore(state => state.isLoading);
-  const setSearchParams = useRouterStore(state => state.setSearchParams);
-  const viewPortSize = usePageStore(store => store.viewPort.screen);
-  const { Image } = useUIStore(store => store.components);
-  
+  const userNickname = useUserStore((state) => state.user.nickname);
+  const companyKey = useUserStore((state) => state.company.key);
+  const userImageUrl = useUserStore((state) => state.user.imageUrl);
+  const userIsLogged = useUserStore((state) => state.user.isLogged);
+  const userIsLoading = useUserStore((state) => state.isLoading);
+  const setSearchParams = useRouterStore((state) => state.setSearchParams);
+  const viewPortSize = usePageStore((store) => store.viewPort.screen);
+  const { Image } = useUIStore((store) => store.components);
+
   if (userIsLoading) {
-    return <div className="jk-row"><SpinIcon className="cr-we" /></div>;
+    return (
+      <div className="jk-row">
+        <SpinIcon className="cr-we" />
+      </div>
+    );
   }
-  
+
   if (userIsLogged) {
     return (
       <Popover
@@ -41,14 +44,11 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
             />
             {userNickname}
             <div className="jk-col gap">
-              <ButtonLoader
-                expand
-                onClick={async () => {
-                  await onSeeMyProfile(userNickname, companyKey);
-                }}
-              >
-                <T className="ws-np tt-se">my account</T>
-              </ButtonLoader>
+              {!!onSeeMyProfile && (
+                <ButtonLoader expand onClick={() => onSeeMyProfile(userNickname, companyKey)}>
+                  <T className="ws-np tt-se">my account</T>
+                </ButtonLoader>
+              )}
               <ButtonLoader
                 expand
                 onClick={(setLoader) => logout({ setLoader })}
@@ -70,16 +70,12 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
         placement={isVertical ? 'right-end' : 'bottom-end'}
       >
         <div
-          className={classNames('user-logged-head nowrap jk-row gap jk-pg-xsm-tb', { 'jk-br-ie': !collapsed })}
-          style={{ padding: collapsed ? undefined : '0 var(--pad-xt)' }}
+          className={classNames('user-logged-head nowrap jk-row gap left', {
+            'jk-br-ie': !collapsed,
+            collapsed,
+          })}
         >
-          <Image
-            src={userImageUrl}
-            alt={userNickname}
-            className="jk-user-profile-img large"
-            width={32}
-            height={32}
-          />
+          <Image src={userImageUrl} alt={userNickname} className="jk-user-profile-img large" fill />
           {viewPortSize !== 'sm' && viewPortSize !== 'md' && !collapsed && (
             <div className="jk-row nickname">{userNickname}</div>
           )}
@@ -89,7 +85,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
       </Popover>
     );
   }
-  
+
   return (
     <div
       data-tooltip-id="jk-tooltip"

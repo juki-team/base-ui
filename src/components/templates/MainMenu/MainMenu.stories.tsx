@@ -15,7 +15,7 @@ const meta: Meta<typeof MainMenuCmp> = {
   component: MainMenuCmp,
   argTypes: {
     menuViewMode: {
-      options: [ MenuViewMode.HORIZONTAL, MenuViewMode.VERTICAL ],
+      options: [MenuViewMode.HORIZONTAL, MenuViewMode.VERTICAL],
       control: { type: 'radio' },
     },
   },
@@ -31,16 +31,12 @@ const meta: Meta<typeof MainMenuCmp> = {
           moreApps={
             <>
               <div className="jk-row">
-                <div style={{ width: 95 }}>
-                  {/*<JukiCouchLogoHorImage />*/}
-                </div>
+                <div style={{ width: 95 }}>{/*<JukiCouchLogoHorImage />*/}</div>
                 <LoadingIcon size="small" /> <T className="tt-se">developing</T>
                 ...
               </div>
               <div className="jk-row">
-                <div style={{ width: 95 }}>
-                  {/*<JukiUtilsLogoHorImage />*/}
-                </div>
+                <div style={{ width: 95 }}>{/*<JukiUtilsLogoHorImage />*/}</div>
                 <LoadingIcon size="small" /> <T className="tt-se">developing</T>
                 ...
               </div>
@@ -52,12 +48,7 @@ const meta: Meta<typeof MainMenuCmp> = {
               <MdMathViewer source={SAMPLE_MD_CONTENT} />
             </div>
             <div className="bc-we">
-              <MdMathEditor
-                value={SAMPLE_MD_CONTENT}
-                onChange={() => {
-                }}
-                informationButton
-              />
+              <MdMathEditor value={SAMPLE_MD_CONTENT} onChange={() => {}} informationButton />
             </div>
           </div>
         </MainMenuCmp>
@@ -109,7 +100,7 @@ export const MainMenu: Story = {
 };
 
 const Cmp = ({ menuViewMode }: { menuViewMode?: MenuViewMode }) => {
-  const [ index, setIndex ] = useState(0);
+  const [index, setIndex] = useState(0);
   return (
     <MockupJukiProvider>
       <div style={{ height: '100VH' }}>
@@ -121,23 +112,19 @@ const Cmp = ({ menuViewMode }: { menuViewMode?: MenuViewMode }) => {
           moreApps={
             <>
               <div className="jk-row">
-                <div style={{ width: 95 }}>
-                  {/*<JukiCouchLogoHorImage />*/}
-                </div>
+                <div style={{ width: 95 }}>{/*<JukiCouchLogoHorImage />*/}</div>
                 <LoadingIcon size="small" /> <T className="tt-se">developing</T>
                 ...
               </div>
               <div className="jk-row">
-                <div style={{ width: 95 }}>
-                  {/*<JukiUtilsLogoHorImage />*/}
-                </div>
+                <div style={{ width: 95 }}>{/*<JukiUtilsLogoHorImage />*/}</div>
                 <LoadingIcon size="small" /> <T className="tt-se">developing</T>
                 ...
               </div>
             </>
           }
         >
-          <TwoContentLayout loading breadcrumbs={[ <div>a</div> ]}>
+          <TwoContentLayout loading breadcrumbs={[<div>a</div>]}>
             <h1>Title 1</h1>
             <Button
               onClick={() => {
@@ -154,7 +141,5 @@ const Cmp = ({ menuViewMode }: { menuViewMode?: MenuViewMode }) => {
 };
 
 export const MainMenuLoading: Story = {
-  render: ({ menuViewMode }) => (
-    <Cmp menuViewMode={menuViewMode} />
-  ),
+  render: ({ menuViewMode }) => <Cmp menuViewMode={menuViewMode} />,
 };

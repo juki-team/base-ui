@@ -23,10 +23,6 @@
     border-top-right-radius: var(--pad-xt);
   }
   
-  &:hover {
-    background: var(--cr-ht-lt);
-  }
-  
   .nickname {
     max-width: 150px;
     overflow: hidden;
@@ -37,7 +33,9 @@
     @include mixins.sm { display: none; }
   }
   
-  > img.jk-user-profile-img {
-    border-color: var(--cr-tx-ht-it) !important;
+  &:not(.settings-apps-login-user-content *):hover {
+    > img.jk-user-profile-img {
+      outline: 2px solid var(--cr-at) !important;
+    }
   }
 }

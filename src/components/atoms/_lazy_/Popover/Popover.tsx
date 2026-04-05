@@ -26,37 +26,38 @@ import type { TriggerOnActionsType } from '../../../types';
 import type { PopoverProps } from './types';
 
 interface PopoverOptions {
-  initialOpen?: boolean,
-  placement?: Placement,
-  modal?: boolean,
-  open?: boolean,
-  onOpenChange?: (open: boolean) => void,
-  triggerOn?: TriggerOnActionsType | TriggerOnActionsType[],
-  offset?: number,
-  padding?: number,
+  initialOpen?: boolean;
+  placement?: Placement;
+  modal?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  triggerOn?: TriggerOnActionsType | TriggerOnActionsType[];
+  offset?: number;
+  padding?: number;
 }
 
-export type UsePopoverReturn = UseFloatingReturn & UseInteractionsReturn & {
-  isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
-  modal: boolean | undefined;
-};
+export type UsePopoverReturn = UseFloatingReturn &
+  UseInteractionsReturn & {
+    isOpen: boolean;
+    setIsOpen: (open: boolean) => void;
+    modal: boolean | undefined;
+  };
 
 export function usePopover({
-                             initialOpen = false,
-                             placement = 'bottom',
-                             modal,
-                             open: controlledOpen,
-                             onOpenChange: setControlledOpen,
-                             triggerOn = TriggerAction.HOVER,
-                             offset: _offset,
-                             padding = 4,
-                           }: PopoverOptions): UsePopoverReturn {
-  const [ uncontrolledOpen, setUncontrolledOpen ] = useState(initialOpen);
-  
+  initialOpen = false,
+  placement = 'bottom',
+  modal,
+  open: controlledOpen,
+  onOpenChange: setControlledOpen,
+  triggerOn = TriggerAction.HOVER,
+  offset: _offset,
+  padding = 4,
+}: PopoverOptions): UsePopoverReturn {
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen);
+
   const isOpen = controlledOpen ?? uncontrolledOpen;
   const setIsOpen = setControlledOpen ?? setUncontrolledOpen;
-  
+
   const data = useFloating({
     placement,
     open: isOpen,
@@ -72,9 +73,9 @@ export function usePopover({
       shift({ padding }),
     ],
   });
-  
+
   const context = data.context;
-  
+
   const click = useClick(context, {
     enabled: controlledOpen === undefined && isTrigger(triggerOn, TriggerAction.CLICK),
   });
@@ -84,9 +85,9 @@ export function usePopover({
   });
   const dismiss = useDismiss(context);
   const role = useRole(context);
-  
-  const interactions = useInteractions([ click, dismiss, hover, role ]);
-  
+
+  const interactions = useInteractions([click, dismiss, hover, role]);
+
   return useMemo(
     () => ({
       isOpen,
@@ -95,7 +96,7 @@ export function usePopover({
       ...data,
       modal,
     }),
-    [ isOpen, setIsOpen, interactions, data, modal ],
+    [isOpen, setIsOpen, interactions, data, modal],
   );
 }
 
@@ -104,14 +105,14 @@ function getPlacementVariants(placement: Placement): Variants {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: Duration.FAST, ease: [ 0.25, 0.1, 0.25, 1 ] } as Transition,
+      transition: { duration: Duration.FAST, ease: [0.25, 0.1, 0.25, 1] } as Transition,
     },
     exit: {
       opacity: 0,
       transition: { duration: Duration.NORMAL, ease: 'easeInOut' } as Transition,
     },
   };
-  
+
   switch (placement) {
     case 'top-start':
       return {
@@ -203,7 +204,6 @@ function getPlacementVariants(placement: Placement): Variants {
 }
 
 export default function Popover(props: PopoverProps) {
-  
   const {
     children,
     triggerOn,
@@ -215,7 +215,7 @@ export default function Popover(props: PopoverProps) {
     offset,
     modal: _modal = false,
   } = props;
-  
+
   const {
     context: floatingContext,
     refs,
@@ -234,45 +234,52 @@ export default function Popover(props: PopoverProps) {
     triggerOn,
     offset,
   });
-  const jukiAppDivRef = useUIStore(store => store.jukiAppDivRef);
+  const jukiAppDivRef = useUIStore((store) => store.jukiAppDivRef);
   const onOpenChangeRef = useRef(onOpenChange);
-  
+
   onOpenChangeRef.current = onOpenChange;
-  
+
   useEffect(() => {
     if (typeof open === 'undefined') {
       onOpenChangeRef.current?.(isOpen);
     }
-  }, [ open, isOpen ]);
-  
+  }, [open, isOpen]);
+
+  const needsFocusManagement = modal || isTrigger(triggerOn ?? [], TriggerAction.CLICK);
+
+  const floatingContent = (
+    <div ref={refs.setFloating} style={{ ...floatingStyles, zIndex: 'var(--zi-popover)' }} {...getFloatingProps()}>
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        variants={getPlacementVariants(placement)}
+        className={popoverClassName}
+        style={{ maxHeight: 'calc(var(--vh, 1vh) * 90)' }}
+      >
+        {renderReactNodeOrFunctionP1(content, { isOpen, onClose: () => setIsOpen(false) })}
+      </motion.div>
+    </div>
+  );
+
   return (
     <>
-      {isValidElement(children) && cloneElement(children, {
-        // @ts-ignore
-        ref: refs.setReference,
-        ...getReferenceProps(),
-      })}
+      {isValidElement(children) &&
+        cloneElement(children, {
+          // @ts-ignore
+          ref: refs.setReference,
+          ...getReferenceProps(),
+        })}
       <AnimatePresence>
         {isOpen && (
           <FloatingPortal root={jukiAppDivRef}>
-            <FloatingFocusManager context={floatingContext} modal={modal}>
-              <div
-                ref={refs.setFloating}
-                style={{ ...floatingStyles, zIndex: 'var(--zi-popover)' }}
-                {...getFloatingProps()}
-              >
-                <motion.div
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  variants={getPlacementVariants(placement)}
-                  className={popoverClassName}
-                  style={{ maxHeight: 'calc(var(--vh, 1vh) * 90)' }}
-                >
-                  {renderReactNodeOrFunctionP1(content, { isOpen, onClose: () => setIsOpen(false) })}
-                </motion.div>
-              </div>
-            </FloatingFocusManager>
+            {needsFocusManagement ? (
+              <FloatingFocusManager context={floatingContext} modal={modal}>
+                {floatingContent}
+              </FloatingFocusManager>
+            ) : (
+              floatingContent
+            )}
           </FloatingPortal>
         )}
       </AnimatePresence>
