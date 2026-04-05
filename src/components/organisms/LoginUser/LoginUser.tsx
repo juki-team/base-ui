@@ -69,12 +69,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
         offset={4}
         placement={isVertical ? 'right-end' : 'bottom-end'}
       >
-        <div
-          className={classNames('user-logged-head nowrap jk-row gap left', {
-            'jk-br-ie': !collapsed,
-            collapsed,
-          })}
-        >
+        <div className={classNames('user-logged-head nowrap jk-row gap left', { 'jk-br-ie': !collapsed })}>
           <Image src={userImageUrl} alt={userNickname} className="jk-user-profile-img large" fill />
           {viewPortSize !== 'sm' && viewPortSize !== 'md' && !collapsed && (
             <div className="jk-row nickname">{userNickname}</div>
