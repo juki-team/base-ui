@@ -6,4 +6,5 @@ export interface LoginUserProps {
   isHorizontal?: boolean;
   onSeeMyProfile?: OnSeeMyProfileType;
   profileSelected?: boolean;
+  className?: string;
 }

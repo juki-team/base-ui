@@ -10,7 +10,7 @@ import { ButtonLoader } from '../../molecules';
 import { LoginIcon, LogoutIcon, SpinIcon } from '../../server';
 import type { LoginUserProps } from './types';
 
-export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile, profileSelected }: LoginUserProps) {
+export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile, profileSelected, className }: LoginUserProps) {
   const { logout } = useJukiUser();
   const userNickname = useUserStore((state) => state.user.nickname);
   const companyKey = useUserStore((state) => state.company.key);
@@ -69,7 +69,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
         offset={4}
         placement={isVertical ? 'right-end' : 'bottom-end'}
       >
-        <div className={classNames('user-logged-head nowrap jk-row gap left', { 'jk-br-ie': !collapsed })}>
+        <div className={classNames('user-logged-head nowrap jk-row gap left', { 'jk-br-ie': !collapsed }, className)}>
           <Image src={userImageUrl} alt={userNickname} className="jk-user-profile-img large" fill />
           {viewPortSize !== 'sm' && viewPortSize !== 'md' && !collapsed && (
             <div className="jk-row nickname">{userNickname}</div>
