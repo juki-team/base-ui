@@ -61,7 +61,7 @@
   padding: var(--button-padding-tb) calc(var(--tx-h-m) / 2);
   line-height: calc(var(--line-height) - 4px);
   --size-button-loader-icon: var(--line-height);
-  @include mixins.transition-slow(opacity, padding, outline-color, outline-width, background-color, border-color);
+  @include mixins.transition-fast(opacity, padding, outline-color, outline-width, background-color, border-color);
   
   .jk-icon {
     --size-icon: calc(var(--line-height) - 4px);
