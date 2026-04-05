@@ -73,7 +73,7 @@
     border: var(--border) solid var(--indigo-border);
     display: flex;
     position: relative;
-    transition: all var(--transition-duration) ease-in;
+    transition: all var(--transition-duration-normal) ease-in;
     color: var(--indigo-color);
   }
   
@@ -87,16 +87,16 @@
   
   .toggle--checkbox:checked + .toggle--label:before {
     animation-name: reverse;
-    animation-duration: var(--transition-duration);
+    animation-duration: var(--transition-duration-normal);
     animation-fill-mode: forwards;
-    transition: all var(--transition-duration) ease-in;
+    transition: all var(--transition-duration-normal) ease-in;
     background: var(--yellow-background);
     border-color: var(--yellow-border);
   }
   
   .toggle--label:before {
     animation-name: switch;
-    animation-duration: var(--transition-duration);
+    animation-duration: var(--transition-duration-normal);
     animation-fill-mode: forwards;
     content: "";
     width: var(--circle-size);
@@ -113,7 +113,7 @@
   
   .toggle--label::after {
     transition-delay: 0ms;
-    transition: all var(--transition-duration) ease-in;
+    transition: all var(--transition-duration-normal) ease-in;
     position: absolute;
     content: "";
     box-shadow: var(--gray-dots) calc(var(--circle-size) * -0.8) 0 0 1px, var(--gray-dots) calc(var(--circle-size) * -1) calc(var(--circle-size) * 0.5) 0 -0.5px;

@@ -93,10 +93,10 @@ const initialTestCases = {
 };
 
 const DEFAULT_MD_MATH_TOOL_STATE_UI: AiChatToolStateUI = {
-  'input-streaming': { label: 'editing content', icon: <SpinIcon filledCircle size="tiny" className="cr-il" /> },
-  'input-available': { label: 'processing content', icon: <SpinIcon filledCircle size="tiny" className="cr-il" /> },
+  'input-streaming': { label: 'editing content', icon: <SpinIcon filledCircle size="tiny" className="cr-io-lt" /> },
+  'input-available': { label: 'processing content', icon: <SpinIcon filledCircle size="tiny" className="cr-io-lt" /> },
   'approval-requested': { label: 'waiting for approval', icon: <ExclamationIcon filledCircle size="tiny" className="cr-wg" /> },
-  'approval-responded': { label: 'approval responded', icon: <SpinIcon filledCircle size="tiny" className="cr-il" /> },
+  'approval-responded': { label: 'approval responded', icon: <SpinIcon filledCircle size="tiny" className="cr-io-lt" /> },
   'output-available': { label: 'content ready', icon: <CheckIcon filledCircle size="tiny" className="cr-ss" /> },
   'output-error': { label: 'content error', icon: <ErrorIcon filledCircle size="tiny" className="cr-er" /> },
   'output-denied': { label: 'content denied', icon: <ErrorIcon filledCircle size="tiny" className="cr-er" /> },

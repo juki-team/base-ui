@@ -36,7 +36,7 @@ export function getSubmissionVerdictHeader(): DataViewerHeadersType<SubmissionSu
                     data-tooltip-content="this submission is within the silent period, it is not shown on the scoreboard and the verdict is not visible to participants"
                     className="jk-row"
                   >
-                    <LockClockIcon size="tiny" className="cr-el" />
+                    <LockClockIcon size="tiny" className="cr-er-lt" />
                   </div>
                 ) : submit.contest.isFrozen && (
                   <div

@@ -196,7 +196,7 @@ export function FullscreenTimerButton() {
           ]}
         >
           {isActive && !fullscreen ? (
-            <div className={classNames({ 'jk-overlay-backdrop jk-br-ie cr-sl jk-pg-xsm-rl': !timerCountdown.isStopped && !fullscreen })}>
+            <div className={classNames({ 'jk-overlay-backdrop jk-br-ie cr-ss-lt jk-pg-xsm-rl': !timerCountdown.isStopped && !fullscreen })}>
               {timerDisplay}
             </div>
           ) : undefined}

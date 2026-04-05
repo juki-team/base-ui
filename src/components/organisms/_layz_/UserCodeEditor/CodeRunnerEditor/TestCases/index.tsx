@@ -346,7 +346,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
                     letter={((testCase.index + 1) % 10) + ''}
                     letterSize={12}
                     size="small"
-                    className={classNames({ 'cr-il': testCase.sample })}
+                    className={classNames({ 'cr-io-lt': testCase.sample })}
                   />
                 )}
                 {(testCase.sample ? enableAddSampleCases : enableAddCustomSampleCases) && testCase.key !== '*' && (
@@ -394,7 +394,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
                   <div
                     data-tooltip-id="jk-tooltip"
                     data-tooltip-content="success executed"
-                    className="cr-il"
+                    className="cr-io-lt"
                     style={{ lineHeight: 1, padding: '2px 4px' }}
                   >
                     <CheckIcon size="tiny" filledCircle />
@@ -464,7 +464,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
                       </div>
                     }
                   >
-                    <div className={classNames('jk-row', { 'cr-el': testWithError, 'cr-il': !testWithError })}>
+                    <div className={classNames('jk-row', { 'cr-er-lt': testWithError, 'cr-io-lt': !testWithError })}>
                       <InfoIIcon filledCircle size="small" />
                     </div>
                   </Popover>

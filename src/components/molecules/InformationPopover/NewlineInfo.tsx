@@ -15,7 +15,7 @@ export const NewlineInfo = ({ text }: { text: string }) => {
         size="tiny"
         letter="⏎"
         letterSize={16}
-        className={classNames({ 'cr-sl': withEndLine, 'cr-el': !withEndLine })}
+        className={classNames({ 'cr-ss-lt': withEndLine, 'cr-er-lt': !withEndLine })}
       />
     </div>
   );

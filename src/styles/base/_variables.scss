@@ -3,38 +3,35 @@
 html body {
   --100VH: calc(var(--vh, 1vh) * 100);
   /* ********************************          GLOBAL SIZES          ******************************** */
-  
+
   --screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 80px */
   --screen-lg-min: 1280px; /* PCs        [1280, 1920O) 80px | 1120px (12c 64|32) | 80px */
   --screen-md-min: 640px; /* Tablets     [640,   1280) 40px |  560px (12c 32|16) | 40px */
   --screen-sm-min: 320px; /* Phones      [320,    640)  0px |  320px ( 7c 32|16) |  0px */
-  
-  //@include mixins.hg { --screen-content-width: 1760px; }
-  //@include mixins.lg { --screen-content-width: calc(100vw - 160px); }
-  //@include mixins.md { --screen-content-width: calc(100vw - 80px); }
-  //@include mixins.sm { --screen-content-width: calc(100vw - 20px); }
-  
+
   @include mixins.hg { --screen-cols: 15; }
   @include mixins.lg { --screen-cols: 12; }
   @include mixins.md { --screen-cols: 12; }
   @include mixins.sm { --screen-cols: 7; }
-}
 
-html body {
+  /* ********************************          GRID          ******************************** */
+
   //--screen-col-pad-width: calc(var(--screen-content-width, 100vw) / ((var(--screen-cols, 1) * 2) + var(--screen-cols, 1) - 1));
   --screen-col-pad-width: calc(min(100vw, 1760px) / ((var(--screen-cols, 1) * 2) + 4 + var(--screen-cols, 1) - 1));
   --screen-col-width: calc(var(--screen-col-pad-width, 1) * 2);
   --screen-content-width: calc((var(--screen-cols, 1) + 2) * var(--screen-col-width) + (var(--screen-cols, 1) - 1) * var(--screen-col-pad-width, 1));
-  
+
   --modal-cols-sm: calc(var(--screen-cols) - 4);
   --modal-cols-md: calc(var(--screen-cols) - 2);
   --modal-cols-lg: var(--screen-cols);
-  
+
   --modal-width-sm: calc(var(--modal-cols-sm, 1) * var(--screen-col-width) + (var(--modal-cols-sm, 1) - 1) * var(--screen-col-pad-width, 1));
   --modal-width-md: calc(var(--modal-cols-md, 1) * var(--screen-col-width) + (var(--modal-cols-md, 1) - 1) * var(--screen-col-pad-width, 1));
   --modal-width-lg: calc(var(--modal-cols-lg, 1) * var(--screen-col-width) + (var(--modal-cols-lg, 1) - 1) * var(--screen-col-pad-width, 1));
   --modal-max-height: calc(var(--vh, 1vh) * 90);
-  
+
+  /* ********************************          SPACING          ******************************** */
+
   --pad-xH: 56px;
   --pad-H: 52px;
   --pad-xL: 48px;
@@ -48,50 +45,50 @@ html body {
   --pad-xs: 16px;
   --pad-t: 12px;
   --pad-xt: 8px;
-  
+
   @include mixins.hg { --pad-lg: var(--pad-h); }
   @include mixins.lg { --pad-lg: var(--pad-xl); }
   @include mixins.md { --pad-lg: var(--pad-l); }
   @include mixins.sm { --pad-lg: var(--pad-m); }
-  
+
   @include mixins.hg { --pad-md: var(--pad-l); }
   @include mixins.lg { --pad-md: var(--pad-m); }
   @include mixins.md { --pad-md: var(--pad-s); }
   @include mixins.sm { --pad-md: var(--pad-xs); }
-  
+
   @include mixins.hg { --pad-sm: var(--pad-s); }
   @include mixins.lg { --pad-sm: var(--pad-xs); }
   @include mixins.md { --pad-sm: var(--pad-t); }
   @include mixins.sm { --pad-sm: var(--pad-xt); }
-  
+
   @include mixins.hg { --gap: calc(var(--pad-s) / 2); }
   @include mixins.lg { --gap: calc(var(--pad-xs) / 2); }
   @include mixins.md { --gap: calc(var(--pad-t) / 2); }
   @include mixins.sm { --gap: calc(var(--pad-xt) / 2); }
-  
+
   @include mixins.hg { --border-radius: 16px; }
   @include mixins.lg { --border-radius: 14px; }
   @include mixins.md { --border-radius: 12px; }
   @include mixins.sm { --border-radius: 10px; }
-  
+
   @include mixins.hg { --border-radius-inline: 7px; }
   @include mixins.lg { --border-radius-inline: 6px; }
   @include mixins.md { --border-radius-inline: 5px; }
   @include mixins.sm { --border-radius-inline: 10px; }
-}
 
-html body {
+  /* ********************************          TYPOGRAPHY          ******************************** */
+
   --weight-lighter: 100;
   --weight-light: 200;
   --weight-regular: 300;
   --weight-bold: 500;
   --weight-bolder: 700;
-  
+
   --tx-bs: 16px;
   --tx-bh: calc(var(--tx-bs) * 1.5);
-  
+
   --tx-bds: calc(var(--tx-bs) * 0.125);
-  
+
   --tx-s-vh: calc(var(--tx-bs) + (var(--tx-bds) * 4));
   --tx-h-vh: calc(var(--tx-s-vh) * 1.5);
   --tx-s-h: calc(var(--tx-bs) + var(--tx-bds) + var(--tx-bds));
@@ -106,41 +103,45 @@ html body {
   --tx-h-t: calc(var(--tx-s-t) * 1.5);
   --tx-s-vt: calc(var(--tx-bs) - (var(--tx-bds) * 4));
   --tx-h-vt: calc(var(--tx-s-t) * 1.5);
-  
+
   --line-height-head: 1.4;
   --font-size-h3: calc(var(--tx-bs) + 10px); // 26
   --font-size-h2: calc(var(--tx-bs) + 14px); // 30
   --font-size-h1: calc(var(--tx-bs) + 18px); // 34
-  
+
   // 22
   @include mixins.sm { --font-size-h3: calc(var(--tx-bs) + 10px - 4px); }
   // 26
   @include mixins.sm { --font-size-h2: calc(var(--tx-bs) + 14px - 4px); }
   // 30
   @include mixins.sm { --font-size-h1: calc(var(--tx-bs) + 18px - 4px); }
-}
 
-html body {
+  /* ********************************          Z-INDEX          ******************************** */
+
   --zi-menu: 50;
   --zi-select-options: 60;
   --zi-drawer: 70;
   --zi-overlay: 80;
-  
+
   --zi-notification: 100;
   --zi-excalidraw: 200;
   --zi-tool-buttons: 300;
-  
+
   --zi-popover: 1000;
   --zi-tooltip: 2000;
-  
+
+  /* ********************************          MISC          ******************************** */
+
   --left-vertical-collapsed-menu-width: 48px;
-  
+
   --size-scrollbar: 8px;
-  
+
   --transition-duration-slow: 0.45s;
-  --transition-duration: 0.3s;
+  --transition-duration-normal: 0.3s;
   --transition-duration-fast: 0.15s;
-  
+
+  /* ********************************          THEME BASE (light default)          ******************************** */
+
   --body-tx-cr: #1A1A1A; // #FEFEFE
   --body-tx-cr-ht: #184674; // #94989F
   --body-tx-cr-ht-it: var(--cr-we);
@@ -149,7 +150,7 @@ html body {
   --body-bd-cr-ht: color-mix(in srgb, var(--body-at-cr), var(--base-white) 96%); // #FAFBFC; // #202831
   --body-at-cr: #1D5182; // #2365a6 // #565a64 #656b75
   --body-at-cr-it: var(--cr-we);
-  
+
   --navbar-tx-cr: var(--cr-we);
   --navbar-bd-cr: #1C4670; // #45454C
   --navbar-at-cr: var(--cr-we);

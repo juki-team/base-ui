@@ -8,7 +8,7 @@
 {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow, filter, backdrop-filter, font-weight;
   //transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: var(--transition-duration);
+  transition-duration: var(--transition-duration-normal);
 }
 
 .cr-bk { color: var(--cr-bk); }
@@ -31,25 +31,29 @@
 
 .cr-we { color: var(--cr-we); }
 
-.cr-il { color: var(--cr-io-lt); }
+.cr-io-lt { color: var(--cr-io-lt); }
 
 .cr-io { color: var(--cr-io); }
 
-.cr-id { color: var(--cr-io-dk); }
+.cr-io-dk { color: var(--cr-io-dk); }
 
-.cr-sd { color: var(--cr-ss-dk); }
+.cr-ss-lt { color: var(--cr-ss-lt); }
 
 .cr-ss { color: var(--cr-ss); }
 
-.cr-sl { color: var(--cr-ss-lt); }
+.cr-ss-dk { color: var(--cr-ss-dk); }
+
+.cr-wg-lt { color: var(--cr-wg-lt); }
 
 .cr-wg { color: var(--cr-wg); }
 
-.cr-el { color: var(--cr-er-lt); }
+.cr-wg-dk { color: var(--cr-wg-dk); }
+
+.cr-er-lt { color: var(--cr-er-lt); }
 
 .cr-er { color: var(--cr-er); }
 
-.cr-ed { color: var(--cr-er-dk); }
+.cr-er-dk { color: var(--cr-er-dk); }
 
 .cr-tx-ht-lt { color: var(--cr-tx-ht-lt); }
 
@@ -105,35 +109,35 @@
 
 .bc-sw-dk { --background-color: var(--cr-sw-dk); }
 
-.bc-il { --background-color: var(--cr-io-lt); }
+.bc-io-lt, .bc-il { --background-color: var(--cr-io-lt); }
 
 .bc-io { --background-color: var(--cr-io); }
 
-.bc-id { --background-color: var(--cr-io-dk); }
+.bc-io-dk, .bc-id { --background-color: var(--cr-io-dk); }
 
-.bc-sl { --background-color: var(--cr-ss-lt); }
+.bc-ss-lt, .bc-sl { --background-color: var(--cr-ss-lt); }
 
 .bc-ss { --background-color: var(--cr-ss); }
 
-.bc-sd { --background-color: var(--cr-ss-dk); }
+.bc-ss-dk, .bc-sd { --background-color: var(--cr-ss-dk); }
 
-.bc-wl { --background-color: var(--cr-wg-lt); }
+.bc-wg-lt, .bc-wl { --background-color: var(--cr-wg-lt); }
 
 .bc-wg { --background-color: var(--cr-wg); }
 
-.bc-wgd { --background-color: var(--cr-wg-dk); }
+.bc-wg-dk, .bc-wgd { --background-color: var(--cr-wg-dk); }
 
-.bc-el { --background-color: var(--cr-er-lt); }
+.bc-er-lt, .bc-el { --background-color: var(--cr-er-lt); }
 
 .bc-er { --background-color: var(--cr-er); }
 
-.bc-ed { --background-color: var(--cr-er-dk); }
+.bc-er-dk, .bc-ed { --background-color: var(--cr-er-dk); }
 
-.bc-al { --background-color: var(--cr-at-lt); }
+.bc-at-lt, .bc-al { --background-color: var(--cr-at-lt); }
 
 .bc-at { --background-color: var(--cr-at); }
 
-.bc-ad { --background-color: var(--cr-at-dk); }
+.bc-at-dk, .bc-ad { --background-color: var(--cr-at-dk); }
 
 .bc-ht-lt { --background-color: var(--cr-ht-lt); }
 

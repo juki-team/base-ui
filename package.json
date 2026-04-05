@@ -11,7 +11,8 @@
   "files": [
     "dist",
     "src/vendor",
-    "src/styles"
+    "src/styles",
+    "LLMS.md"
   ],
   "engines": {
     "node": ">=24"

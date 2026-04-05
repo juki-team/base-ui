@@ -8,7 +8,7 @@ export const QuietInformation = (props: InformationPopoverProps) => {
     <InformationPopover
       icon={
         <div className="jk-row jk-tag bc-el">
-          <LockIcon size="small" filledCircle className="cr-el" />
+          <LockIcon size="small" filledCircle className="cr-er-lt" />
         </div>
       }
       {...props}
