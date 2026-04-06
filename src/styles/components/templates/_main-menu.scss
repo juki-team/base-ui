@@ -34,7 +34,9 @@
   }
   
   &:not(.settings-apps-login-user-content *):hover {
-    > img.jk-user-profile-img {
+    color: var(--cr-tx-ht);
+    
+    > .jk-user-profile-img {
       outline: 2px solid var(--cr-at) !important;
     }
   }

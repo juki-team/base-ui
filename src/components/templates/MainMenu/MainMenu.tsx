@@ -62,7 +62,8 @@ export function MainMenu(props: MainMenuProps) {
   const companyKey = searchParams.get(QueryParamKey.COMPANY) as string;
   const companies = useMemo(() => (data?.success ? data.contents : []), [data]);
   const company = useMemo(() => companies.find((company) => company.key === companyKey), [companyKey, companies]);
-
+  const isSmall = viewPortSize === 'sm';
+  const isMedium = viewPortSize === 'md';
   const [helpOpen, setHelpOpen] = useState(false);
 
   const content = useMemo(() => (isLoading ? <JukiLoadingLayout /> : children), [isLoading, children]);
@@ -92,10 +93,10 @@ export function MainMenu(props: MainMenuProps) {
           selected: false,
           menuItemWrapper: ({ isOpenVerticalMenu }) => {
             let imageUrl = company?.imageUrl?.replace('horizontal', 'vertical') || '';
-            if (viewPortSize === 'sm' && preferredTheme !== Theme.DARK) {
+            if (isSmall && preferredTheme !== Theme.DARK) {
               imageUrl = imageUrl.replace('white', 'color');
             }
-            const isSmall = viewPortSize === 'sm';
+
             return (
               <div className={classNames('jk-menu-item menu-item-company-selector cr-tx-ht-it', { 'jk-col gap': isSmall })}>
                 <div className="jk-menu-item-icon" style={{ height: 48 }}>
@@ -122,18 +123,7 @@ export function MainMenu(props: MainMenuProps) {
     }
     menu.push(...initialMenu);
     return menu;
-  }, [
-    multiCompanies,
-    isLogged,
-    enabled,
-    initialMenu,
-    companies,
-    company,
-    setSearchParams,
-    viewPortSize,
-    preferredTheme,
-    Image,
-  ]);
+  }, [multiCompanies, isLogged, enabled, initialMenu, companies, company, setSearchParams, isSmall, preferredTheme, Image]);
 
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode;
 
@@ -145,7 +135,9 @@ export function MainMenu(props: MainMenuProps) {
   // );
 
   const rightMobile = {
-    children: <LoginUser collapsed={false} isHorizontal onSeeMyProfile={onSeeMyProfile} profileSelected={profileSelected} />,
+    children: (
+      <LoginUser popoverPlacement="bottom-end" isHorizontal onSeeMyProfile={onSeeMyProfile} profileSelected={profileSelected} />
+    ),
   };
 
   const centerMobile = {
@@ -190,7 +182,14 @@ export function MainMenu(props: MainMenuProps) {
           popoverPlacement="right"
           moreApps={moreApps}
         />
-        <LoginUser collapsed={!isOpen} isVertical onSeeMyProfile={onSeeMyProfile} profileSelected={profileSelected} />
+        <LoginUser
+          withLabel={isOpen && !(isSmall || isMedium)}
+          isVertical
+          popoverPlacement="right-end"
+          onSeeMyProfile={onSeeMyProfile}
+          profileSelected={profileSelected}
+          className={isOpen && !(isSmall || isMedium) ? 'left' : ''}
+        />
       </div>
     );
   };
@@ -225,7 +224,13 @@ export function MainMenu(props: MainMenuProps) {
           popoverPlacement="bottom"
           moreApps={moreApps}
         />
-        <LoginUser collapsed={false} isHorizontal onSeeMyProfile={onSeeMyProfile} profileSelected={profileSelected} />
+        <LoginUser
+          withLabel={!(isSmall || isMedium)}
+          isHorizontal
+          popoverPlacement="bottom-end"
+          onSeeMyProfile={onSeeMyProfile}
+          profileSelected={profileSelected}
+        />
       </div>
     );
   };

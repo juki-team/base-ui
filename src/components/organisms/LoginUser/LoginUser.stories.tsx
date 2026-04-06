@@ -19,7 +19,7 @@ export const NotLogged: Story = {
     </MockupJukiProvider>
   ),
   args: {
-    collapsed: false,
+    withLabel: false,
   },
 };
 
@@ -30,7 +30,7 @@ export const NotLoggedCollapsed: Story = {
     </MockupJukiProvider>
   ),
   args: {
-    collapsed: true,
+    withLabel: true,
   },
 };
 
@@ -43,7 +43,7 @@ export const Vertical: Story = {
     </MockupJukiProvider>
   ),
   args: {
-    collapsed: false,
+    withLabel: false,
     isVertical: true,
     profileSelected: false,
   },
@@ -58,7 +58,7 @@ export const VerticalCollapsed: Story = {
     </MockupJukiProvider>
   ),
   args: {
-    collapsed: true,
+    withLabel: true,
     isVertical: true,
     profileSelected: true,
   },
@@ -71,7 +71,7 @@ export const Horizontal: Story = {
     </MockupJukiProvider>
   ),
   args: {
-    collapsed: false,
+    withLabel: false,
     isHorizontal: true,
     profileSelected: false,
   },

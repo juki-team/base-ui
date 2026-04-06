@@ -1,5 +1,4 @@
 import { QueryParamKey } from '../../../enums';
-import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
@@ -10,7 +9,15 @@ import { ButtonLoader } from '../../molecules';
 import { LoginIcon, LogoutIcon, SpinIcon } from '../../server';
 import type { LoginUserProps } from './types';
 
-export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile, profileSelected, className }: LoginUserProps) {
+export function LoginUser({
+  withLabel,
+  isVertical,
+  popoverPlacement,
+  isHorizontal,
+  onSeeMyProfile,
+  profileSelected,
+  className,
+}: LoginUserProps) {
   const { logout } = useJukiUser();
   const userNickname = useUserStore((state) => state.user.nickname);
   const companyKey = useUserStore((state) => state.company.key);
@@ -18,7 +25,6 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
   const userIsLogged = useUserStore((state) => state.user.isLogged);
   const userIsLoading = useUserStore((state) => state.isLoading);
   const setSearchParams = useRouterStore((state) => state.setSearchParams);
-  const viewPortSize = usePageStore((store) => store.viewPort.screen);
   const { Image } = useUIStore((store) => store.components);
 
   if (userIsLoading) {
@@ -67,13 +73,13 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
           </div>
         }
         offset={4}
-        placement={isVertical ? 'right-end' : 'bottom-end'}
+        placement={popoverPlacement}
       >
-        <div className={classNames('user-logged-head nowrap jk-row gap left', { 'jk-br-ie': !collapsed }, className)}>
-          <Image src={userImageUrl} alt={userNickname} className="jk-user-profile-img large" fill />
-          {viewPortSize !== 'sm' && viewPortSize !== 'md' && !collapsed && (
-            <div className="jk-row nickname">{userNickname}</div>
-          )}
+        <div className={classNames('user-logged-head nowrap jk-row gap fw-br', className)}>
+          <span className="jk-user-profile-img large">
+            <Image src={userImageUrl} alt={userNickname} fill className="br-50-pc" />
+          </span>
+          {withLabel && <div className="jk-row nickname">{userNickname}</div>}
           {isHorizontal && profileSelected && <div className="selected horizontal" />}
           {isVertical && profileSelected && <div className="selected vertical" />}
         </div>
@@ -84,16 +90,12 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
   return (
     <div
       data-tooltip-id="jk-tooltip"
-      data-tooltip-content={collapsed ? 'sign in' : ''}
+      data-tooltip-content={!withLabel ? 'sign in' : ''}
       data-tooltip-t-class-name="ws-np ws-np"
       className="jk-row extend"
     >
-      <Button
-        onClick={() => setSearchParams({ name: QueryParamKey.SIGN_IN, value: 'true' })}
-        icon={!collapsed && <LoginIcon />}
-        expand
-      >
-        {viewPortSize !== 'sm' && (!collapsed ? <T className="ws-np tt-se">sign in</T> : <LoginIcon />)}
+      <Button onClick={() => setSearchParams({ name: QueryParamKey.SIGN_IN, value: 'true' })} icon={<LoginIcon />} expand>
+        {withLabel && <T className="ws-np tt-se">sign in</T>}
       </Button>
     </div>
   );
