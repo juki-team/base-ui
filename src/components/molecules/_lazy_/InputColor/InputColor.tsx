@@ -27,17 +27,17 @@ const rgbToHsl = (r: number, g: number, b: number): { h: number; s: number; l: n
   r /= 255;
   g /= 255;
   b /= 255;
-  
+
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
   let h = 0;
   let s = 0;
   const l = (max + min) / 2;
-  
+
   if (max !== min) {
     const d = max - min;
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    
+
     switch (max) {
       case r:
         h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
@@ -50,7 +50,7 @@ const rgbToHsl = (r: number, g: number, b: number): { h: number; s: number; l: n
         break;
     }
   }
-  
+
   return {
     h: Math.round(h * 360),
     s: Math.round(s * 100) / 100,
@@ -63,7 +63,7 @@ const valueToColorResult = (value: string | ColorResult | undefined): ColorResul
   if (!value) {
     return DEFAULT_COLOR;
   }
-  
+
   if (typeof value === 'string') {
     const rgb = hexToRgb(value);
     const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
@@ -74,14 +74,13 @@ const valueToColorResult = (value: string | ColorResult | undefined): ColorResul
       hsl,
     };
   }
-  
+
   return value;
 };
 
 export default function InputColor({ value, children, onChange, ...inputProps }: InputColorProps) {
-  
   const newColor = typeof value === 'string' ? value : value?.hex;
-  
+
   return (
     <Input
       {...inputProps}
@@ -100,7 +99,7 @@ export default function InputColor({ value, children, onChange, ...inputProps }:
             <SketchPicker
               color={newColor}
               onChangeComplete={(colorResult) => onChange?.(valueToColorResult(colorResult))}
-              presetColors={[...PALLETE.CLAROS, ...PALLETE.VIVOS, ...PALLETE.AGRISADOS, ...PALLETE.OSCUROS]}
+              presetColors={[...PALLETE.claros, ...PALLETE.vivos, ...PALLETE.agrisados, ...PALLETE.oscuros]}
             />
             {/*<Button*/}
             {/*  onClick={() => {*/}
