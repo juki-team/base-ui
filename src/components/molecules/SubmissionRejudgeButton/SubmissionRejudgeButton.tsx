@@ -11,18 +11,20 @@ import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import type { SubmissionRejudgeButtonProps } from './types';
 
 export function SubmissionRejudgeButton({ submissionId }: SubmissionRejudgeButtonProps) {
-  
   const { notifyResponse } = useJukiNotification();
   const mutate = useMatchMutate();
-  const rejudgeSubmission = (submissionId: string): ButtonLoaderOnClickType => async (setLoaderStatus) => {
-    setLoaderStatus(Status.LOADING);
-    
-    const { url, ...options } = jukiApiManager.API_V2.submission.rejudge({ params: { id: submissionId } });
-    const response = cleanRequest<ContentResponse<{ listCount: number, status: SubmissionRunStatus.RECEIVED }>>(
-      await authorizedRequest(url, options));
-    notifyResponse(response, setLoaderStatus);
-  };
-  
+  const rejudgeSubmission =
+    (submissionId: string): ButtonLoaderOnClickType =>
+    async (setLoaderStatus) => {
+      setLoaderStatus(Status.LOADING);
+
+      const { url, ...options } = jukiApiManager.API_V2.submission.rejudge({ params: { id: submissionId } });
+      const response = cleanRequest<ContentResponse<{ listCount: number; status: typeof SubmissionRunStatus.RECEIVED }>>(
+        await authorizedRequest(url, options),
+      );
+      notifyResponse(response, setLoaderStatus);
+    };
+
   return (
     <ButtonLoader
       onClick={async (...props) => {
