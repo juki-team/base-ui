@@ -11,20 +11,19 @@ import { ImageProfileModal } from './ImageProfileModal';
 import type { EditProfileModalProps } from './types';
 
 interface JudgeInputProps {
-  judge: { value: Judge, label: string, logo: string, url: string, logoSize: [ number, number ] },
-  user: UserProfileResponseDTO,
-  setUser: Dispatch<UserProfileResponseDTO>,
+  judge: (typeof JUDGE)[Judge];
+  user: UserProfileResponseDTO;
+  setUser: Dispatch<UserProfileResponseDTO>;
 }
 
 function JudgeInput({ judge: { value, label, logo, logoSize }, user, setUser }: JudgeInputProps) {
-  
-  const { Image } = useUIStore(store => store.components);
+  const { Image } = useUIStore((store) => store.components);
   const height1 = (32 / logoSize[0]) * logoSize[1];
   const width1 = 32;
-  
+
   const height2 = (24 / logoSize[1]) * logoSize[0];
   const width2 = 24;
-  
+
   let height;
   let width;
   if (Math.max(height1, width1) > Math.max(height2, width2)) {
@@ -34,23 +33,18 @@ function JudgeInput({ judge: { value, label, logo, logoSize }, user, setUser }: 
     height = height1;
     width = width1;
   }
-  
+
   return (
     <div className="jk-form-item" key={value}>
       <Input
         label={
           <div className="jk-row left gap">
-            <Image
-              src={logo}
-              alt={label}
-              height={height}
-              width={width}
-            />
+            <Image src={logo} alt={label} height={height} width={width} />
             <span>{label}</span>
           </div>
         }
         labelPlacement="top"
-        onChange={nickname => setUser({ ...user, handles: { ...(user.handles || {}), [value]: nickname } })}
+        onChange={(nickname) => setUser({ ...user, handles: { ...(user.handles || {}), [value]: nickname } })}
         value={user?.handles?.[value]}
       />
     </div>
@@ -58,16 +52,15 @@ function JudgeInput({ judge: { value, label, logo, logoSize }, user, setUser }: 
 }
 
 export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfileModalProps) {
-  
-  const [ userState, setUserState ] = useState(user);
+  const [userState, setUserState] = useState(user);
   const { updateUserProfileData } = useJukiUser();
-  const { Image } = useUIStore(store => store.components);
+  const { Image } = useUIStore((store) => store.components);
   const loadingRef = useRef(false);
   useEntityDiff(user, isOpen && !loadingRef.current);
-  const [ modalImageProfile, setModalImageProfile ] = useState(false);
+  const [modalImageProfile, setModalImageProfile] = useState(false);
   const validLengthNickname = userState.nickname.length >= 3 && userState.nickname.length <= 32;
   const validCharNickname = ALPHANUMERIC_DASH_UNDERSCORE_REGEX.test(userState.nickname);
-  
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="user-profile jk-row stretch center gap jk-pg-md pn-re">
@@ -91,93 +84,121 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
           <div className="jk-form-item">
             <Input
               label={
-                <div className="jk-row left gap"><PersonIcon size="small" /><T className="tt-se">nickname</T></div>
+                <div className="jk-row left gap">
+                  <PersonIcon size="small" />
+                  <T className="tt-se">nickname</T>
+                </div>
               }
               labelPlacement="top"
-              onChange={nickname => setUserState({ ...userState, nickname })}
+              onChange={(nickname) => setUserState({ ...userState, nickname })}
               value={userState.nickname}
             />
             <p>
-              {!validLengthNickname
-                ? <T className="tt-se">must be at least 3 characters and must be less than 32 characters</T>
-                : !validCharNickname &&
-                <T className="tt-se">only alphanumeric characters or dash or underscore is valid</T>}
+              {!validLengthNickname ? (
+                <T className="tt-se">must be at least 3 characters and must be less than 32 characters</T>
+              ) : (
+                !validCharNickname && <T className="tt-se">only alphanumeric characters or dash or underscore is valid</T>
+              )}
             </p>
           </div>
           <div className="jk-row-col gap">
             <Input
               label={
-                <div className="jk-row left gap"><PersonIcon size="small" /><T className="tt-se">given name</T></div>
+                <div className="jk-row left gap">
+                  <PersonIcon size="small" />
+                  <T className="tt-se">given name</T>
+                </div>
               }
               labelPlacement="top"
-              onChange={givenName => setUserState({ ...userState, givenName })}
+              onChange={(givenName) => setUserState({ ...userState, givenName })}
               value={userState.givenName}
               className="flex-1"
             />
             <Input
               label={
-                <div className="jk-row left gap"><PersonIcon size="small" /><T className="tt-se">family name</T></div>
+                <div className="jk-row left gap">
+                  <PersonIcon size="small" />
+                  <T className="tt-se">family name</T>
+                </div>
               }
               labelPlacement="top"
-              onChange={familyName => setUserState({ ...userState, familyName })}
+              onChange={(familyName) => setUserState({ ...userState, familyName })}
               value={userState.familyName}
               className="flex-1"
             />
           </div>
           <div className="jk-form-item">
             <label>
-              <div className="jk-row left gap"><PersonIcon size="small" /><T className="tt-se">about me</T></div>
-              <TextArea onChange={aboutMe => setUserState({ ...userState, aboutMe })} value={userState.aboutMe} />
+              <div className="jk-row left gap">
+                <PersonIcon size="small" />
+                <T className="tt-se">about me</T>
+              </div>
+              <TextArea onChange={(aboutMe) => setUserState({ ...userState, aboutMe })} value={userState.aboutMe} />
             </label>
           </div>
           <div className="jk-row-col gap">
             <Input
               label={
                 <div className="jk-row left gap">
-                  <LocationCityIcon size="small" /><T className="tt-se">country</T>
+                  <LocationCityIcon size="small" />
+                  <T className="tt-se">country</T>
                 </div>
               }
               labelPlacement="top"
-              onChange={country => setUserState({ ...userState, country })}
+              onChange={(country) => setUserState({ ...userState, country })}
               value={userState.country}
             />
             <Input
               label={
-                <div className="jk-row left gap"><LocationOnIcon size="small" /><T className="tt-se">city</T></div>
+                <div className="jk-row left gap">
+                  <LocationOnIcon size="small" />
+                  <T className="tt-se">city</T>
+                </div>
               }
               labelPlacement="top"
-              onChange={city => setUserState({ ...userState, city })}
+              onChange={(city) => setUserState({ ...userState, city })}
               value={userState.city}
             />
           </div>
           <Input
             label={
-              <div className="jk-row left gap"><SchoolIcon size="small" /><T className="tt-se">institution</T></div>
+              <div className="jk-row left gap">
+                <SchoolIcon size="small" />
+                <T className="tt-se">institution</T>
+              </div>
             }
             labelPlacement="top"
-            onChange={institution => setUserState({ ...userState, institution })}
+            onChange={(institution) => setUserState({ ...userState, institution })}
             value={userState.institution}
           />
-          <div className="fw-bd"><T className="tt-se">nicknames from other judges</T></div>
+          <div className="fw-bd">
+            <T className="tt-se">nicknames from other judges</T>
+          </div>
           {[
-            [ Judge.CODEFORCES, Judge.CODEFORCES_GYM ],
-            [ Judge.UVA_ONLINE_JUDGE, Judge.CODECHEF ],
-            [ Judge.AT_CODER, Judge.TOPCODER ], [ Judge.JV_UMSA, Judge.JUKI_JUDGE ],
-            [ Judge.LEETCODE ],
-          ]
-            .map(([ judge1, judge2 ]) => (
-              <div className="jk-row gap block" key={`${judge1}-${judge2}`}>
-                {judge1 && JUDGE[judge1]
-                  ? <JudgeInput judge={JUDGE[judge1]} user={userState} setUser={setUserState} />
-                  : <div className="jk-form-item" />}
-                {judge2 && JUDGE[judge2]
-                  ? <JudgeInput judge={JUDGE[judge2]} user={userState} setUser={setUserState} />
-                  : <div className="jk-form-item" />}
-              </div>
-            ))}
+            [Judge.CODEFORCES, Judge.CODEFORCES_GYM],
+            [Judge.UVA_ONLINE_JUDGE, Judge.CODECHEF],
+            [Judge.AT_CODER, Judge.TOPCODER],
+            [Judge.JV_UMSA, Judge.JUKI_JUDGE],
+            [Judge.LEETCODE],
+          ].map(([judge1, judge2]) => (
+            <div className="jk-row gap block" key={`${judge1}-${judge2}`}>
+              {judge1 && JUDGE[judge1] ? (
+                <JudgeInput judge={JUDGE[judge1]} user={userState} setUser={setUserState} />
+              ) : (
+                <div className="jk-form-item" />
+              )}
+              {judge2 && JUDGE[judge2] ? (
+                <JudgeInput judge={JUDGE[judge2]} user={userState} setUser={setUserState} />
+              ) : (
+                <div className="jk-form-item" />
+              )}
+            </div>
+          ))}
         </div>
         <div className="jk-row-col gap right wh-100">
-          <Button type="secondary" onClick={onClose}><T className="tt-se">cancel</T></Button>
+          <Button type="secondary" onClick={onClose}>
+            <T className="tt-se">cancel</T>
+          </Button>
           <ButtonLoader
             disabled={!validLengthNickname || !validCharNickname}
             onClick={(setLoader) => {

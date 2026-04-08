@@ -1,4 +1,4 @@
-import { type  ContentsResponse } from '@juki-team/commons';
+import { type ContentsResponse } from '@juki-team/commons';
 import { useMemo, useRef } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS, PAGE_SIZE_OPTIONS } from '../../../constants';
 import { usePageStore } from '../../../stores/page/usePageStore';
@@ -8,7 +8,6 @@ import { DataViewer } from '../_layz_/DataViewer';
 import type { PagedDataViewerProps } from '../_layz_/DataViewer/types';
 
 export function PagedDataViewer<T extends object, V = T>(props: PagedDataViewerProps<T, V>) {
-  
   const {
     cards,
     rows = { height: 68 },
@@ -30,24 +29,24 @@ export function PagedDataViewer<T extends object, V = T>(props: PagedDataViewerP
     virtualizerOverscan,
     focusRowKey,
   } = props;
-  
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
+
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
   const {
     data: response,
     request,
     setLoaderStatusRef,
   } = useDataViewerRequester<ContentsResponse<V>>(getUrl, { refreshInterval });
-  
+
   const lastTotalRef = useRef(-1);
-  
-  lastTotalRef.current = response?.success ? response.meta.totalElements : lastTotalRef.current;
-  
+
+  lastTotalRef.current = response?.success ? response.meta.total : lastTotalRef.current;
+
   const toRowRef = useStableRef(toRow);
   const data: T[] = useMemo(() => {
     const data = response?.success ? response.contents : [];
     return toRowRef.current ? data.map(toRowRef.current) : (data as unknown as T[]);
-  }, [ response, toRowRef ]);
-  
+  }, [response, toRowRef]);
+
   return (
     <DataViewer<T>
       getRecordStyle={getRecordStyle}
