@@ -24,7 +24,6 @@ import {
   UpsertWorksheetDTO,
   UserRoles,
   UserSettings,
-  UserStatus,
 } from '@juki-team/commons';
 import type { ErrorInfo } from 'react';
 import { RowDataType } from '../components/molecules/_lazy_/DataGrid/types';
@@ -241,13 +240,6 @@ export class ApiManager {
         updatePreferences: valid<{ params: { nickname: string; companyKey: string }; body: UserSettings }, HTTPMethod.PUT>(
           ({ params: { nickname, companyKey }, body }) => ({
             url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/preferences`),
-            method: HTTPMethod.PUT,
-            body: JSON.stringify(body),
-          }),
-        ),
-        updateStatus: valid<{ params: { nickname: string; companyKey: string }; body: { status: UserStatus } }, HTTPMethod.PUT>(
-          ({ params: { nickname, companyKey }, body }) => ({
-            url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/status`),
             method: HTTPMethod.PUT,
             body: JSON.stringify(body),
           }),
