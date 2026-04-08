@@ -88,6 +88,7 @@
     --animate-fd-nav-menu-out: fd-nav-menu-out 200ms ease;
   }
 }
+
 @layer utilities {
   .\@container {
     container-type: inline-size;
@@ -2827,6 +2828,7 @@
 [dir='rtl'] {
   --fd-sidebar-drawer-offset: -100%;
 }
+
 .fd-page-tree-item-name {
   display: inline-flex;
   width: 100%;
@@ -2943,6 +2945,7 @@
   inherits: false;
   initial-value: 0px;
 }
+
 @property --tw-border-style {
   syntax: "*";
   inherits: false;
