@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { classNames } from '../../helpers';
@@ -27,8 +28,8 @@ export function UserMockChip(props: UserMockChipProps) {
   );
 }
 
-export function UserChip(props: UserChipProps) {
-  const { imageUrl, email, familyName, nickname, givenName, className, companyKey, withoutLink } = props;
+export const UserChip = forwardRef<HTMLDivElement, UserChipProps>(function UserChipCmp(props, ref) {
+  const { imageUrl, email, familyName, nickname, givenName, className, companyKey, withoutLink, children, onlyImage } = props;
 
   const { Image } = useUIStore((store) => store.components);
   const userCompanyKey = useUserStore((store) => store.company.key);
@@ -36,45 +37,56 @@ export function UserChip(props: UserChipProps) {
   const onlyNickname = !givenName && !familyName && !email;
 
   const image = (
-    <Image
-      src={imageUrl}
-      className={classNames('jk-user-profile-img ', { huge: !onlyNickname })}
-      alt={nickname}
-      height={onlyNickname ? 24 : 50}
-      width={onlyNickname ? 24 : 50}
-    />
+    <span className={classNames('jk-user-profile-img', { large: !onlyNickname })}>
+      <Image src={imageUrl} alt={nickname} fill className="br-50-pc" />
+    </span>
   );
 
   return (
-    <div className={classNames('jk-row nowrap center', className)}>
+    <div ref={ref} className={classNames('jk-row nowrap center', className)}>
       {withoutLink ? (
-        image
+        <>
+          {image}
+          {!onlyImage && (
+            <>
+              &nbsp;
+              <div className="jk-col flex-1">
+                <div className="fw-bd">{nickname}</div>
+              </div>
+            </>
+          )}
+        </>
       ) : (
         <UserNicknameLink nickname={nickname} companyKey={companyKey}>
-          {image}
+          <div className="jk-row nowrap">
+            {image}
+            {!onlyImage && (
+              <>
+                &nbsp;
+                <div className="jk-col flex-1">
+                  <div className="fw-bd">{nickname}</div>
+                  {userCompanyKey !== companyKey && (
+                    <div className="jk-tag bc-ht-lt tx-t cr-tx-sc" style={{ padding: '1px 2px' }}>
+                      {companyKey}
+                    </div>
+                  )}
+                  {(!!givenName || !!familyName) && (
+                    <div className="fw-lt ta-cr tx-s" style={{ lineHeight: 1 }}>
+                      {givenName} {familyName}
+                    </div>
+                  )}
+                  {!!email && (
+                    <div className="fw-lt tx-s" style={{ lineHeight: 1 }}>
+                      {email}
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
         </UserNicknameLink>
       )}
-      &nbsp;
-      <div className="jk-col flex-1">
-        {withoutLink ? (
-          <div className="fw-bd">{nickname}</div>
-        ) : (
-          <UserNicknameLink nickname={nickname} companyKey={companyKey}>
-            <div className="link fw-bd ">{nickname}</div>
-          </UserNicknameLink>
-        )}
-        {(!!givenName || !!familyName) && (
-          <div className="fw-lr ta-cr">
-            {givenName} {familyName}
-          </div>
-        )}
-        {!!email && <div className="fw-lr">{email}</div>}
-        {userCompanyKey !== companyKey && (
-          <div className="jk-tag bc-ht-lt tx-t" style={{ padding: '1px 2px' }}>
-            {companyKey}
-          </div>
-        )}
-      </div>
+      {children}
     </div>
   );
-}
+});

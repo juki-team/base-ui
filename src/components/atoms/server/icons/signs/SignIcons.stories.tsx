@@ -7,7 +7,7 @@ const meta = {
   argTypes: {
     color: { control: 'color' },
     size: {
-      options: [ 'tiny', 'small', 'regular', 'large', 'huge', 'very-huge' ],
+      options: ['tiny', 'small', 'regular', 'large', 'huge', 'very-huge'],
       control: { type: 'select' },
     },
     circle: { control: 'boolean' },
@@ -34,15 +34,15 @@ export const Signs = {
       DoubleUpIcon,
       CheckIcon_,
     };
-    
+
     return (
       <div className="jk-row block gap" style={{ color: args.color }}>
         {Object.entries(icons)
-          .sort(([ a ], [ b ]) => a.localeCompare(b))
-          .map(([ iconName, Component ]) => (
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(([iconName, Component]) => (
             <div className="jk-row nowrap center" key={iconName}>
               <Component {...args} />
-              <div className="tx-t cr-g1" style={{ width: 140 }}>
+              <div className="tx-t" style={{ width: 140 }}>
                 {iconName}
               </div>
             </div>

@@ -22,27 +22,22 @@ export const Regular: FC<BasicIconProps> = (args) => {
     TelegramIcon,
     GmailIcon,
   };
-  
-  const [ color, setColor ] = useState<ColorResult>({
+
+  const [color, setColor] = useState<ColorResult>({
     hex: '',
     hsl: { h: 0, s: 0, l: 0 },
     rgb: { r: 0, g: 0, b: 0 },
   });
-  const [ percent, setPercent ] = useState<number | undefined>();
-  const [ speed, setSpeed ] = useState<SpinIconProps['speed']>('regular');
-  
+  const [percent, setPercent] = useState<number | undefined>();
+  const [speed, setSpeed] = useState<SpinIconProps['speed']>('regular');
+
   return (
     <MockupJukiProvider>
       <h3>BalloonIcon</h3>
       <div className="jk-row block gap">
         <div className="jk-row gap extend nowrap">
           <InputColor value={color} onChange={setColor} label="color" />
-          <Input
-            type="number"
-            onChange={setPercent}
-            value={percent}
-            label="percent"
-          />
+          <Input type="number" onChange={setPercent} value={percent} label="percent" />
         </div>
         <div className="jk-row" style={{ color: color.hex }}>
           <BalloonIcon percent={percent} {...args} />
@@ -51,13 +46,11 @@ export const Regular: FC<BasicIconProps> = (args) => {
       <div className="jk-divider" />
       <div className="jk-row block gap">
         {Object.entries(icons)
-          .sort(([ iconName1 ], [ iconName2 ]) =>
-            iconName1.localeCompare(iconName2),
-          )
-          .map(([ iconName, Component ]) => (
+          .sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2))
+          .map(([iconName, Component]) => (
             <div className="jk-row gap nowrap center">
               <Component {...args} />
-              <div className="tx-t cr-g1" style={{ width: 140 }}>
+              <div className="tx-t" style={{ width: 140 }}>
                 {iconName}
               </div>
             </div>
@@ -68,7 +61,7 @@ export const Regular: FC<BasicIconProps> = (args) => {
       <div className="jk-row block gap">
         <div className="jk-row extend nowrap">
           <Select
-            options={[ 'none', 'slow', 'regular', 'fast' ].map((speed) => ({
+            options={['none', 'slow', 'regular', 'fast'].map((speed) => ({
               label: speed,
               value: speed,
             }))}

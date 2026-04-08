@@ -2,51 +2,32 @@
 export function ThemeColorPalette() {
   return (
     <div className="jk-row gap jk-pg">
-      {[ 'light', 'dark' ].map((theme) => (
-        <div
-          key={theme}
-          className={'jk-pg-lg jk-col gap jk-theme-' + theme}
-          style={{ backgroundColor: 'var(--cr-we)' }}
-        >
+      {['light', 'dark'].map((theme) => (
+        <div key={theme} className={'jk-pg-lg jk-col gap jk-theme-' + theme} style={{ backgroundColor: 'var(--cr-we)' }}>
           <h3>Theme {theme}</h3>
           <div className="jk-row color-cells">
             <div style={{ backgroundColor: 'var(--base-white)' }} />
             <div style={{ backgroundColor: 'var(--base-black)' }} />
           </div>
           <div className="jk-row color-cells">
-            <div className="appearance-accent-light">light</div>
-            <div className="appearance-accent">accent</div>
-            <div className="appearance-accent-dark">dark</div>
+            <div style={{ backgroundColor: 'var(--cr-at-lt)' }}>light</div>
+            <div style={{ backgroundColor: 'var(--cr-at)' }}>error</div>
+            <div style={{ backgroundColor: 'var(--cr-at-dk)' }}>dark</div>
           </div>
           <div className="jk-row color-cells">
-            <div className="appearance-info-light">light</div>
-            <div className="appearance-info">info</div>
-            <div className="appearance-info-dark">dark</div>
+            <div style={{ backgroundColor: 'var(--cr-ss-lt)' }}>light</div>
+            <div style={{ backgroundColor: 'var(--cr-ss)' }}>error</div>
+            <div style={{ backgroundColor: 'var(--cr-ss-dk)' }}>dark</div>
           </div>
           <div className="jk-row color-cells">
-            <div className="appearance-success-light">light</div>
-            <div className="appearance-success">success</div>
-            <div className="appearance-success-dark">dark</div>
+            <div style={{ backgroundColor: 'var(--cr-wg-lt)' }}>light</div>
+            <div style={{ backgroundColor: 'var(--cr-wg)' }}>error</div>
+            <div style={{ backgroundColor: 'var(--cr-wg-dk)' }}>dark</div>
           </div>
           <div className="jk-row color-cells">
-            <div className="appearance-warning-light">light</div>
-            <div className="appearance-warning">warning</div>
-            <div className="appearance-warning-dark">dark</div>
-          </div>
-          <div className="jk-row color-cells">
-            <div className="appearance-error-light">light</div>
-            <div className="appearance-error">error</div>
-            <div className="appearance-error-dark">dark</div>
-          </div>
-          <div className="jk-row color-cells">
-            <div className="appearance-gray-1">gray-1</div>
-            <div className="appearance-gray-2">gray-2</div>
-            <div className="appearance-gray-3">gray-3</div>
-          </div>
-          <div className="jk-row color-cells">
-            <div className="appearance-gray-4">gray-4</div>
-            <div className="appearance-gray-5">gray-5</div>
-            <div className="appearance-gray-6">gray-6</div>
+            <div style={{ backgroundColor: 'var(--cr-er-lt)' }}>light</div>
+            <div style={{ backgroundColor: 'var(--cr-er)' }}>error</div>
+            <div style={{ backgroundColor: 'var(--cr-er-dk)' }}>dark</div>
           </div>
           <div className="jk-row color-cells with-labels">
             <div style={{ backgroundColor: 'var(--cr-ht-lt)' }}>
@@ -98,6 +79,17 @@ export function ThemeColorPalette() {
             </div>
             <div style={{ backgroundColor: 'var(--cr-we-darkest)' }}>
               <div>darkest</div>
+            </div>
+          </div>
+          <div className="jk-row color-cells with-labels">
+            <div style={{ backgroundColor: 'var(--bc-sf)' }}>
+              <div>bc-sf</div>
+            </div>
+            <div style={{ backgroundColor: 'var(--bc-sf-md)' }}>
+              <div>bc-sf-md</div>
+            </div>
+            <div style={{ backgroundColor: 'var(--bc-sf-hi)' }}>
+              <div>bc-sf-hi</div>
             </div>
           </div>
         </div>

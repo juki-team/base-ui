@@ -44,10 +44,10 @@ const meta: Meta<typeof MainMenuCmp> = {
           }
         >
           <div className="jk-pg-lg ow-ao ht-100">
-            <div className="bc-we jk-pg">
+            <div className="bc-sf-md jk-pg">
               <MdMathViewer source={SAMPLE_MD_CONTENT} />
             </div>
-            <div className="bc-we">
+            <div className="bc-sf-md">
               <MdMathEditor value={SAMPLE_MD_CONTENT} onChange={() => {}} informationButton />
             </div>
           </div>

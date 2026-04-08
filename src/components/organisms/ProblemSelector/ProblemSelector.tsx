@@ -163,7 +163,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
                         <div className="jk-col stretch">
                           <div className="jk-row gap left">
                             {problem.name}
-                            <div className="jk-tag bc-il cr-we tx-t">{PROBLEM_TYPE[problem.settings.type].label}</div>
+                            <div className="jk-tag bc-io-lt cr-we tx-t">{PROBLEM_TYPE[problem.settings.type].label}</div>
                           </div>
                           <div className="jk-row left gap tx-s">
                             {problem.tags?.map((tag) => (
@@ -179,7 +179,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
                       <div>
                         {problem.key} {problem.name}{' '}
                         {problem.tags?.map((tag) => (
-                          <div className="jk-tag bc-g6" key={tag}>
+                          <div className="jk-tag bc-sf-hi" key={tag}>
                             {tag}
                           </div>
                         ))}

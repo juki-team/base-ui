@@ -5,7 +5,6 @@ import {
   consoleWarn,
   ContentResponse,
   type ContentsResponse,
-  ERROR,
   ErrorCode,
   ErrorResponse,
   FilesJukiPub,
@@ -120,8 +119,8 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
       }
       return JSON.stringify({
         success: false,
-        message: ERROR[ErrorCode.ERR9997].message,
-        errors: [{ code: ErrorCode.ERR9997, detail: `[${method}] ${url} \n ${body}` }],
+        message: ErrorCode.ABORTED_REQUEST.toLowerCase().replaceAll('_', ' '),
+        errors: [{ code: ErrorCode.ABORTED_REQUEST, detail: `[${method}] ${url} \n ${body}` }],
       } as ErrorResponse) as N;
     }
     if (safe === false) {
@@ -132,10 +131,10 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
     }
     return JSON.stringify({
       success: false,
-      message: ERROR[ErrorCode.ERR9998].message,
+      message: ErrorCode.ERROR_ON_RESPONSE.toLowerCase().replaceAll('_', ' '),
       errors: [
         {
-          code: ErrorCode.ERR9998,
+          code: ErrorCode.ERROR_ON_RESPONSE,
           detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }),
         },
       ],
@@ -314,7 +313,7 @@ export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fi
         throw new JkError(response.errors[0]!.code, { message: response.errors[0]!.detail });
       }
     }
-    throw new JkError(ErrorCode.ERR9997, { message: 'error generating the pdf' });
+    throw new JkError(ErrorCode.ABORTED_REQUEST, { message: 'error generating the pdf' });
   }
   downloadBlobAsFile(result, fileName);
 };

@@ -3,9 +3,7 @@ import { Button } from '../../../atoms';
 import { EditIcon } from '../../../atoms/server';
 import { MockJkContestTable } from '../../../organisms/_layz_/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../../organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable';
-import {
-  MockJkSubmissionTable,
-} from '../../../organisms/_layz_/DataViewer/JkSubmissionsTableTest/MockJkSubmissionTable';
+import { MockJkSubmissionTable } from '../../../organisms/_layz_/DataViewer/JkSubmissionsTableTest/MockJkSubmissionTable';
 import { MockJkUserTable } from '../../../organisms/_layz_/DataViewer/JkUserTableTest/MockJkUserTable';
 import { TabsType } from '../../../types';
 import { TabsInline } from '../../index';
@@ -87,24 +85,21 @@ const outputTabs: TabsType = {
   test: {
     key: 'test',
     header: <div>test</div>,
-    body: (
-      <div>test</div>
-    ),
+    body: <div>test</div>,
   },
 };
 
 export const JudgeTabs = () => {
-  
-  const [ outputTab, setOutputTab ] = useState('problems');
-  
+  const [outputTab, setOutputTab] = useState('problems');
+
   return (
-    <div className="jk-col gap nowrap bc-we-dk" style={{ height: 400 }}>
+    <div className="jk-col gap nowrap bc-sf-hi" style={{ height: 400 }}>
       <TabsInline
         tabs={outputTabs}
         onChange={setOutputTab}
         selectedTabKey={outputTab}
         tickStyle="background"
-        extraNodes={[ <Button key="edit" icon={<EditIcon />} /> ]}
+        extraNodes={[<Button key="edit" icon={<EditIcon />} />]}
       />
       <div className="flex-1" style={{ overflow: 'hidden auto', width: '100%', height: '300px', position: 'relative' }}>
         <TabsInlineBody tabs={outputTabs} selectedTabKey={outputTab} />

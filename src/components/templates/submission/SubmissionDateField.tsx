@@ -3,14 +3,11 @@ import { TimerDisplay } from '../../molecules';
 import { Field } from '../../organisms';
 import type { SubmissionDateFieldProps } from './types';
 
-export function SubmissionDateField({
-                                      record: { timestamp, contest },
-                                      isCard,
-                                    }: SubmissionDateFieldProps) {
+export function SubmissionDateField({ record: { timestamp, contest }, isCard }: SubmissionDateFieldProps) {
   const label = 'date';
   const date = new Date(timestamp);
   const twoLines = !isCard;
-  
+
   return (
     <Field className="jk-col center nowrap">
       <div className="date-field jk-col center">
@@ -29,7 +26,7 @@ export function SubmissionDateField({
           </div>
         )}
       </div>
-      <div className="jk-row date-field-label cr-g3 tx-t">
+      <div className="jk-row date-field-label cr-tx-sc tx-t">
         {typeof label === 'string' ? <T className="tt-se">{label}</T> : label}
       </div>
     </Field>

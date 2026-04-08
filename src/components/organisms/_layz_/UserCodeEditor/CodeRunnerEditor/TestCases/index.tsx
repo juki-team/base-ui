@@ -38,9 +38,10 @@ const AddCaseButton = <T,>({
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={`add ${sample ? 'sample' : 'custom sample'} case`}
       data-tooltip-place="left"
-      className="jk-button secondary tiny only-icon jk-br-ie"
+      className="jk-button secondary small only-icon jk-br-ie"
     >
       <AddIcon
+        size="small"
         onClick={() => {
           const customCases = testCasesValues.filter((testCaseValue) => !testCaseValue.sample);
           const noCustomCases = testCasesValues.filter((testCaseValue) => testCaseValue.sample);
@@ -107,9 +108,13 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
     !!test &&
     (getDataOfTestCase(test, timeLimit, memoryLimit).failed ||
       !!test?.err ||
-      [SubmissionRunStatus.FAILED, SubmissionRunStatus.COMPILATION_ERROR, SubmissionRunStatus.FAILED_TEST_CASE].includes(
-        test.status,
-      ));
+      (
+        [
+          SubmissionRunStatus.FAILED,
+          SubmissionRunStatus.COMPILATION_ERROR,
+          SubmissionRunStatus.FAILED_TEST_CASE,
+        ] as SubmissionRunStatus[]
+      ).includes(test.status));
   useEffect(() => {
     setOutputTab(testWithError ? 'error' : 'output');
   }, [testWithError]);
@@ -372,11 +377,13 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
                 )}
               </div>
               {testCase.status !== SubmissionRunStatus.NONE &&
-                (![
-                  SubmissionRunStatus.EXECUTED_TEST_CASE,
-                  SubmissionRunStatus.FAILED_TEST_CASE,
-                  SubmissionRunStatus.COMPILATION_ERROR,
-                ].includes(testCase.status) ? (
+                (!(
+                  [
+                    SubmissionRunStatus.EXECUTED_TEST_CASE,
+                    SubmissionRunStatus.FAILED_TEST_CASE,
+                    SubmissionRunStatus.COMPILATION_ERROR,
+                  ] as SubmissionRunStatus[]
+                ).includes(testCase.status) ? (
                   <>
                     &nbsp;
                     <SpinIcon size="tiny" />
@@ -417,18 +424,12 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
       </div>
       {!enableAddSampleCases && test?.hidden ? (
         <div className="jk-row center ht-100 flex-1">
-          <T className="tt-se jk-tag bc-il">test input hidden</T>
+          <T className="tt-se jk-tag bc-io-lt">test input hidden</T>
         </div>
       ) : (
         <SplitPane direction={direction === 'row' ? 'column' : 'row'} className="flex-1 ow-hn">
           <div className="jk-col extend stretch nowrap">
-            <TabsInline
-              tabs={inputTabs}
-              selectedTabKey={inputTab}
-              onChange={setInputTab}
-              className="border-bottom-highlight-light tx-t jk-pg-xsm"
-              tickStyle="background"
-            />
+            <TabsInline tabs={inputTabs} selectedTabKey={inputTab} onChange={setInputTab} tabButtonsClassName="tx-t" />
             <div className="flex-1 wh-100 pn-re ow-hn">
               <TabsInlineBody tabs={inputTabs} selectedTabKey={inputTab} />
             </div>
@@ -438,13 +439,12 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
               tabs={outputTabs}
               selectedTabKey={outputTab}
               onChange={setOutputTab}
-              className="border-bottom-highlight-light tx-t jk-pg-xsm"
-              tickStyle="background"
+              tabButtonsClassName="tx-t"
               extraNodesPlacement="left"
               extraNodes={[
                 <div key="info">
                   <Popover
-                    popoverClassName="bc-we jk-br-ie elevation-1 jk-pg-xsm"
+                    popoverClassName="bc-sf-hi jk-br-ie elevation-1 jk-pg-xsm"
                     content={
                       <div className="pn-re">
                         {isLoadingState && (
@@ -464,8 +464,10 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
                       </div>
                     }
                   >
-                    <div className={classNames('jk-row', { 'cr-er-lt': testWithError, 'cr-io-lt': !testWithError })}>
-                      <InfoIIcon filledCircle size="small" />
+                    <div
+                      className={classNames('jk-row jk-pg-xsm-l', { 'cr-er-lt': testWithError, 'cr-io-lt': !testWithError })}
+                    >
+                      <InfoIIcon filledCircle size="tiny" />
                     </div>
                   </Popover>
                 </div>,

@@ -152,7 +152,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
         scrollContainerRef.current = el;
         panelRef.current = el;
       }}
-      className={classNames('chat-right-panel jk-br-ie jk-col gap nowrap stretch ht-100', { 'bc-we': isOpen })}
+      className={classNames('chat-right-panel jk-br-ie jk-col gap nowrap stretch ht-100', { 'bc-sf-md': isOpen })}
       style={{ width, minWidth: width }}
     >
       <div
@@ -281,7 +281,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
             }}
           >
             <div
-              className={classNames('jk-col gap-sm jk-br-ie', { 'bc-al': isDragging })}
+              className={classNames('jk-col gap-sm jk-br-ie', { 'bc-at-lt': isDragging })}
               style={{ border: isDragging ? '2px dashed var(--cr-io)' : '2px dashed transparent', padding: 4 }}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}

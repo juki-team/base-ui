@@ -215,7 +215,7 @@ function MdMathComponent(props: MdMathProps) {
             if (href === '@') {
               return <CustomField commands={commands} restText={restText} />;
             }
-            const style = { outline: '2px solid var(--cr-gy-6)', border: 'none', height: '100%' };
+            const style = { outline: '2px solid var(--cr-ht)', border: 'none', height: '100%' };
             if (commands.height) {
               style.height = Number.isNaN(+commands.height) ? commands.height : commands.height + 'px';
             }
@@ -331,7 +331,7 @@ function MdMathComponent(props: MdMathProps) {
             }
 
             return (
-              <div className="jk-pg-sm bc-we-lt jk-br-ie">
+              <div className="jk-pg-sm bc-sf-md jk-br-ie">
                 <CodeViewer
                   className={classNames({ fragment: isRoot })}
                   code={children}

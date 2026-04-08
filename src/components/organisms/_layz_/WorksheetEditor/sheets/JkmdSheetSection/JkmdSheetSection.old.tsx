@@ -24,11 +24,9 @@ import { SheetSection } from '../types';
 import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { JkmdSheetSectionEditor } from './JkmdSheetSectionEditor';
 
-interface JkmdSheetSectionProps extends SheetSection<JkmdSheet> {
-}
+interface JkmdSheetSectionProps extends SheetSection<JkmdSheet> {}
 
 export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
-  
   const {
     content: initialContent,
     setContent: saveContent,
@@ -41,23 +39,23 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
     readOnly,
     userResults,
   } = props;
-  
+
   const { notifyResponse } = useJukiNotification();
-  const [ edit, setEdit ] = useState(false);
-  const [ modal, setModal ] = useState(false);
-  const [ content, _setContent ] = useSyncedState(initialContent);
+  const [edit, setEdit] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [content, _setContent] = useSyncedState(initialContent);
   const sectionRef = useRef<HTMLDivElement>(null);
   const onSaveEdit = () => {
     setEdit(!edit);
     saveContent?.(content);
   };
   useOnSaveSheetSection(sectionRef, edit, onSaveEdit);
-  
+
   const setContent = saveContent ? _setContent : undefined;
   const submissions = userResults?.data?.submissions[WorksheetType.JK_MD]?.[chunkId] ?? [];
   const lastSubmission = submissions.at(-1);
   const text = content.content.trim();
-  
+
   return (
     <div
       ref={sectionRef}
@@ -73,52 +71,54 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
           isValid={(value) => isStringJson(value) && isJkmdSheet(JSON.parse(value))}
         />
       )}
-      {setContent && edit
-        ? <JkmdSheetSectionEditor content={content} setContent={setContent} isSolvable={!!isSolvable} />
-        : (
-          <div className="jk-col gap stretch jk-md-sheet-section-view wh-100 pn-re">
-            {isSolvable && !setSheet && text && (
-              <ResultHeader
-                submitted={!!lastSubmission}
-                points={content.points}
-                userPoints={lastSubmission?.points ?? 0}
-                isResolved={!!lastSubmission?.isCompleted}
-              >
-                {!readOnly && (
-                  <ButtonLoader
-                    type="secondary"
-                    expand
-                    size="small"
-                    data-tooltip-id="jk-tooltip"
-                    data-tooltip-content={!!lastSubmission?.read ? 'mark as unread' : 'mark as read'}
-                    onClick={async (setLoaderStatus) => {
-                      setLoaderStatus(Status.LOADING);
-                      const jkMdSubmissionDTO: JkmdSubmissionDTO = {
-                        type: WorksheetType.JK_MD,
-                        id: content.id,
-                        read: !lastSubmission?.read,
-                      };
-                      const { url, ...options } = jukiApiManager.API_V2.worksheet.submitJkMd({
-                        params: { worksheetKey },
-                        body: jkMdSubmissionDTO,
-                      });
-                      const response = cleanRequest<ContentResponse<{}>>(await authorizedRequest(url, options));
-                      await userResults?.mutate?.();
-                      notifyResponse(response, setLoaderStatus);
-                    }}
-                    icon={<InputCheckbox checked={!!lastSubmission?.read} onChange={() => null} />}
-                  >
-                    <T className="tt-se">{!!lastSubmission?.read ? '_read' : 'unread'}</T>
-                  </ButtonLoader>
-                )}
-              </ResultHeader>
-            )}
-            <ChunkTitle content={content} />
-            {!!text && (
-              <div className="bc-we jk-br-ie jk-pg wh-100"><MdMathViewer source={text} /></div>
-            )}
-          </div>
-        )}
+      {setContent && edit ? (
+        <JkmdSheetSectionEditor content={content} setContent={setContent} isSolvable={!!isSolvable} />
+      ) : (
+        <div className="jk-col gap stretch jk-md-sheet-section-view wh-100 pn-re">
+          {isSolvable && !setSheet && text && (
+            <ResultHeader
+              submitted={!!lastSubmission}
+              points={content.points}
+              userPoints={lastSubmission?.points ?? 0}
+              isResolved={!!lastSubmission?.isCompleted}
+            >
+              {!readOnly && (
+                <ButtonLoader
+                  type="secondary"
+                  expand
+                  size="small"
+                  data-tooltip-id="jk-tooltip"
+                  data-tooltip-content={!!lastSubmission?.read ? 'mark as unread' : 'mark as read'}
+                  onClick={async (setLoaderStatus) => {
+                    setLoaderStatus(Status.LOADING);
+                    const jkMdSubmissionDTO: JkmdSubmissionDTO = {
+                      type: WorksheetType.JK_MD,
+                      id: content.id,
+                      read: !lastSubmission?.read,
+                    };
+                    const { url, ...options } = jukiApiManager.API_V2.worksheet.submitJkMd({
+                      params: { worksheetKey },
+                      body: jkMdSubmissionDTO,
+                    });
+                    const response = cleanRequest<ContentResponse<{}>>(await authorizedRequest(url, options));
+                    await userResults?.mutate?.();
+                    notifyResponse(response, setLoaderStatus);
+                  }}
+                  icon={<InputCheckbox checked={!!lastSubmission?.read} onChange={() => null} />}
+                >
+                  <T className="tt-se">{!!lastSubmission?.read ? '_read' : 'unread'}</T>
+                </ButtonLoader>
+              )}
+            </ResultHeader>
+          )}
+          <ChunkTitle content={content} />
+          {!!text && (
+            <div className="bc-sf-md jk-br-ie jk-pg wh-100">
+              <MdMathViewer source={text} />
+            </div>
+          )}
+        </div>
+      )}
       {setSheet && (
         <FloatToolbar
           actionButtons={getActionButtons({

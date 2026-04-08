@@ -37,15 +37,14 @@ import {
 import type { ProblemStatementViewProps } from '../types';
 import { SampleTest } from './SampleTest';
 
-export const ProblemStatementView = <T, >({
-                                            problem,
-                                            contest,
-                                            infoPlacement,
-                                            withoutName,
-                                            forPrinting,
-                                            withoutDownloadButtons,
-                                          }: ProblemStatementViewProps<T>) => {
-  
+export const ProblemStatementView = <T,>({
+  problem,
+  contest,
+  infoPlacement,
+  withoutName,
+  forPrinting,
+  withoutDownloadButtons,
+}: ProblemStatementViewProps<T>) => {
   const {
     judge: { key: judgeKey, isExternal, name: judgeName },
     key: problemKey,
@@ -55,33 +54,28 @@ export const ProblemStatementView = <T, >({
     author,
     statement,
   } = problem;
-  
-  const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
-  const t = useI18nStore(state => state.i18n.t);
+
+  const userPreferredLanguage = useUserStore((state) => state.user.settings?.[ProfileSetting.LANGUAGE]);
+  const t = useI18nStore((state) => state.i18n.t);
   const problemName = contest?.index ? `${contest?.index}. (${problemKey}) ${name}` : `(${problemKey}) ${name}`;
-  const {
-    statementDescription,
-    statementInput,
-    statementOutput,
-    statementNote,
-    mdStatement,
-    shouldViewPDF,
-  } = getStatementData(t, { statement, settings }, userPreferredLanguage, problemName);
+  const { statementDescription, statementInput, statementOutput, statementNote, mdStatement, shouldViewPDF } = getStatementData(
+    t,
+    { statement, settings },
+    userPreferredLanguage,
+    problemName,
+  );
   const { addWarningNotification } = useJukiNotification();
-  const { Link } = useUIStore(store => store.components);
-  
+  const { Link } = useUIStore((store) => store.components);
+
   if (isExternal) {
     let content = statement.html[Language.EN] || statement.html[Language.ES];
     const isPrivate = judgeKey === Judge.LEETCODE;
     if (isPrivate) {
       content = ''; // content.substring(0, 200) + '...';
     }
-    
+
     return (
-      <div
-        className="jk-col wh-100 extend top gap nowrap stretch left"
-        style={{ position: 'relative' }}
-      >
+      <div className="jk-col wh-100 extend top gap nowrap stretch left" style={{ position: 'relative' }}>
         {/*{contest && (*/}
         {/*  <ProblemLetter*/}
         {/*    index={contest.index}*/}
@@ -89,10 +83,7 @@ export const ProblemStatementView = <T, >({
         {/*    style={{ position: 'absolute', top: 'var(--pad-m)', left: 'var(--pad-m)' }}*/}
         {/*  />*/}
         {/*)}*/}
-        <div
-          className={`${judgeKey}-statement`}
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
+        <div className={`${judgeKey}-statement`} dangerouslySetInnerHTML={{ __html: content }} />
         {isPrivate && (
           <div className="jk-row">
             <Link href={problem.externalUrl} target="_blank" rel="noopener noreferrer">
@@ -105,12 +96,16 @@ export const ProblemStatementView = <T, >({
       </div>
     );
   }
-  
+
   if (shouldViewPDF) {
     return (
       <div className="wh-100 ht-100">
         <iframe
-          src={problem.statement.pdfUrl[userPreferredLanguage] || problem.statement.pdfUrl[Language.ES] || problem.statement.pdfUrl[Language.EN]}
+          src={
+            problem.statement.pdfUrl[userPreferredLanguage] ||
+            problem.statement.pdfUrl[Language.ES] ||
+            problem.statement.pdfUrl[Language.EN]
+          }
           width="100%"
           height="100%"
           style={{ border: 'none' }}
@@ -119,19 +114,16 @@ export const ProblemStatementView = <T, >({
       </div>
     );
   }
-  
+
   const handleDownloadPdf = async () => {
-    
     const { url, ...options } = jukiApiManager.API_V2.export.problem.statementToPdf({
       params: {
         key: problemKey,
         language: userPreferredLanguage,
       },
     });
-    const response = cleanRequest<ContentResponse<{ urlExportedPDF: string }>>(
-      await authorizedRequest(url, options),
-    );
-    
+    const response = cleanRequest<ContentResponse<{ urlExportedPDF: string }>>(await authorizedRequest(url, options));
+
     if (response.success) {
       if (!response.content.urlExportedPDF) {
         return addWarningNotification(
@@ -147,11 +139,11 @@ export const ProblemStatementView = <T, >({
       throw new Error('error on download pdf');
     }
   };
-  
+
   const handleDownloadMd = () => {
-    downloadBlobAsFile(new Blob([ mdStatement ], { type: 'text/plain' }), `${judgeName} - ${problemName}.md`);
+    downloadBlobAsFile(new Blob([mdStatement], { type: 'text/plain' }), `${judgeName} - ${problemName}.md`);
   };
-  
+
   return (
     <div className="jk-row extend top gap nowrap stretch left">
       <div className="jk-col top stretch flex-3">
@@ -160,15 +152,15 @@ export const ProblemStatementView = <T, >({
             className="opacity-hover"
             actionButtons={[
               {
-                icon: <DownloadIcon />,
+                icon: <DownloadIcon size="tiny" />,
                 buttons: [
                   {
-                    icon: <DownloadIcon />,
+                    icon: <DownloadIcon size="tiny" />,
                     label: <T>pdf</T>,
                     onClick: handleDownloadPdf,
                   },
                   {
-                    icon: <DownloadIcon />,
+                    icon: <DownloadIcon size="tiny" />,
                     label: <T>jk md</T>,
                     onClick: handleDownloadMd,
                   },
@@ -215,18 +207,20 @@ export const ProblemStatementView = <T, >({
           <div>
             <T className="tt-se tx-l cr-tx-ht fw-bd">subtasks description</T>
             <div className="jk-col left stretch gap">
-              {Object.values(settings.pointsByGroups).map(pointsByGroup => (
+              {Object.values(settings.pointsByGroups).map((pointsByGroup) => (
                 <div className="jk-row extend gap" key={pointsByGroup.group}>
-                  <div className="flex-1 bc-we jk-pg-sm jk-br-ie">
+                  <div className="flex-1 bc-sf-md jk-pg-sm jk-br-ie">
                     <div className="fw-bd cr-tx-ht-dk">
                       <T className="tt-se">subtask</T> {pointsByGroup.group}
                       &nbsp;({pointsByGroup.points}&nbsp;
-                      {pointsByGroup.points === 1
-                        ? <T className="tt-se">point</T>
-                        : <T className="tt-se">points</T>})
+                      {pointsByGroup.points === 1 ? <T className="tt-se">point</T> : <T className="tt-se">points</T>})
                     </div>
                     <MdMathViewer
-                      source={pointsByGroup.description?.[userPreferredLanguage] || pointsByGroup.description?.[Language.ES] || pointsByGroup.description?.[Language.EN]}
+                      source={
+                        pointsByGroup.description?.[userPreferredLanguage] ||
+                        pointsByGroup.description?.[Language.ES] ||
+                        pointsByGroup.description?.[Language.EN]
+                      }
                     />
                   </div>
                 </div>
@@ -238,12 +232,16 @@ export const ProblemStatementView = <T, >({
         <div className="jk-row stretch gap">
           <div className="jk-row stretch gap nowrap flex-1 jk-pg-xsm-tb">
             {/*<h3><T>output sample</T></h3>*/}
-            <div className="jk-row"><T className="tt-se cr-tx-ht fw-bd">input sample</T></div>
-            <div className="jk-row"><T className="tt-se cr-tx-ht fw-bd">output sample</T></div>
+            <div className="jk-row">
+              <T className="tt-se cr-tx-ht fw-bd">input sample</T>
+            </div>
+            <div className="jk-row">
+              <T className="tt-se cr-tx-ht fw-bd">output sample</T>
+            </div>
           </div>
         </div>
         <div className="jk-col stretch gap">
-          {(statement.sampleCases || [ { input: '', output: '' } ]).map((_, index) => (
+          {(statement.sampleCases || [{ input: '', output: '' }]).map((_, index) => (
             <SampleTest
               index={index}
               sampleCases={statement.sampleCases}
@@ -255,8 +253,10 @@ export const ProblemStatementView = <T, >({
         </div>
         {!!statementNote && (
           <div>
-            <h3><T className="tt-se">note</T></h3>
-            <div className="bc-we jk-pg-sm jk-br-ie">
+            <h3>
+              <T className="tt-se">note</T>
+            </h3>
+            <div className="bc-sf-md jk-pg-sm jk-br-ie">
               <MdMathViewer source={statementNote} />
             </div>
           </div>
@@ -264,12 +264,7 @@ export const ProblemStatementView = <T, >({
       </div>
       {!forPrinting && infoPlacement === 'left' && !withoutDownloadButtons && (
         <div className="screen md lg hg flex-1">
-          <JukiProblemInfo
-            settings={settings}
-            tags={tags}
-            author={author}
-            expand
-          >
+          <JukiProblemInfo settings={settings} tags={tags} author={author} expand>
             <ButtonLoader
               size="small"
               icon={<DownloadIcon />}
@@ -279,11 +274,10 @@ export const ProblemStatementView = <T, >({
                   await handleDownloadPdf();
                   setLoaderStatus(Status.SUCCESS);
                 } catch (error) {
-                  void safeReportError(
-                    error as Error,
-                    null,
-                    { message: 'Error on handleDownloadPdf', problemKey: problem.key },
-                  );
+                  void safeReportError(error as Error, null, {
+                    message: 'Error on handleDownloadPdf',
+                    problemKey: problem.key,
+                  });
                   setLoaderStatus(Status.ERROR);
                 }
               }}
@@ -299,11 +293,7 @@ export const ProblemStatementView = <T, >({
                   handleDownloadMd();
                   setLoaderStatus(Status.SUCCESS);
                 } catch (error) {
-                  void safeReportError(
-                    error as Error,
-                    null,
-                    { message: 'Error on handleDownloadMd', problemKey: problem.key },
-                  );
+                  void safeReportError(error as Error, null, { message: 'Error on handleDownloadMd', problemKey: problem.key });
                   setLoaderStatus(Status.ERROR);
                 }
               }}

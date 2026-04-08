@@ -3,15 +3,8 @@ import { classNames, copy } from '../../helpers';
 import { ContentCopyIcon, DoneAllIcon } from '../server';
 import type { CopyToClipboardProps } from './types';
 
-export function CopyToClipboard({
-  text,
-  size = 'regular',
-  tooltipContent,
-  children,
-  noStyling,
-  className,
-  disabled = false,
-}: CopyToClipboardProps) {
+export function CopyToClipboard(props: CopyToClipboardProps) {
+  const { text, size = 'regular', tooltipContent, children, noStyling, className, disabled = false } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = async <T,>(event: MouseEvent<T>) => {
@@ -26,7 +19,7 @@ export function CopyToClipboard({
     <div
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={isOpen ? 'copied' : (tooltipContent ?? 'copy')}
-      className={classNames('jk-row gap', size, className, {
+      className={classNames('jk-row gap', className, {
         'link jk-br-ie jk-button secondary': !noStyling,
         'jk-row nowrap': !!children,
         'only-icon': !children,

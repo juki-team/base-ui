@@ -9,7 +9,6 @@ import { PaginationProps } from './types';
 const SIZE_PAGES = 3;
 
 export const Pagination = (props: PaginationProps) => {
-  
   const {
     dataLength,
     total,
@@ -22,18 +21,18 @@ export const Pagination = (props: PaginationProps) => {
     onPageSizeChange,
     isOnToolbar,
   } = props;
-  
+
   const startPage = 1;
   const endPage = Math.max(Math.ceil(total / pageSize), startPage);
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
-  
-  const t = useI18nStore(state => state.i18n.t);
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
+
+  const t = useI18nStore((state) => state.i18n.t);
   useEffect(() => {
     if (!initializing && (page < startPage || endPage < page)) {
       jumpToPage(startPage);
     }
-  }, [ endPage, initializing, jumpToPage, page ]);
-  
+  }, [endPage, initializing, jumpToPage, page]);
+
   useEffect(() => {
     if (!pageSizeOptions.includes(pageSize) && pageSizeOptions[0]) {
       onPageSizeChange(pageSizeOptions[0]);
@@ -42,9 +41,9 @@ export const Pagination = (props: PaginationProps) => {
       // { name: pageSizeKey, value: pageSizeOptions[0] + '', replace: true },
       // );
     }
-  }, [ pageSizeOptions, pageSize, onPageSizeChange ]);
-  
-  const pages = [ page ];
+  }, [pageSizeOptions, pageSize, onPageSizeChange]);
+
+  const pages = [page];
   const right = endPage - page;
   if (page > 1) {
     pages.splice(0, 0, page - 1);
@@ -63,19 +62,19 @@ export const Pagination = (props: PaginationProps) => {
       pages.push(page + 1 + i);
     }
   }
-  
+
   const prev = page > startPage ? () => jumpToPage(page - 1) : undefined;
   const next = page < endPage ? () => jumpToPage(page + 1) : undefined;
-  
+
   const firstItem = (page - 1) * pageSize + 1;
   const lastItem = firstItem + dataLength - 1;
-  
+
   return (
     <div className={classNames('jk-data-viewer-pagination jk-row gap center', { loading })}>
       <div className="jk-row center nowrap">
         {isOnToolbar ? (
           <div className="jk-row gap nowrap">
-            <div className="jk-row nowrap jk-br-ie tx-s ws-np bc-we">
+            <div className="jk-row nowrap jk-br-ie tx-s ws-np bc-sf-md">
               <div
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content="previous"
@@ -91,7 +90,7 @@ export const Pagination = (props: PaginationProps) => {
                 }}
                 className="ws-np"
               >
-                {dataLength ? firstItem === lastItem ? firstItem : `${firstItem} - ${lastItem}` : '0'}
+                {dataLength ? (firstItem === lastItem ? firstItem : `${firstItem} - ${lastItem}`) : '0'}
                 &nbsp;<T>of</T>&nbsp;{total}
               </div>
               <div
@@ -105,24 +104,25 @@ export const Pagination = (props: PaginationProps) => {
             </div>
             {pageSizeOptions.length > 1 && (
               <Select
-                options={pageSizeOptions.map(option => ({
+                options={pageSizeOptions.map((option) => ({
                   value: option,
-                  label: <div className="jk-row left nowrap">{option}&nbsp;<T>per page</T></div>,
+                  label: (
+                    <div className="jk-row left nowrap tx-s">
+                      {option}&nbsp;<T className="">per page</T>
+                    </div>
+                  ),
                 }))}
                 selectedOption={{ value: pageSize }}
                 onChange={initializing ? undefined : ({ value }) => onPageSizeChange(value)}
                 optionsPlacement="bottom"
-                className="bc-we jk-br-ie"
+                className="bc-sf-md jk-br-ie"
               />
             )}
           </div>
         ) : (
           <>
             {!isSmallScreen && (
-              <div
-                className={classNames('page-item cr-pr jk-row jk-br', { disabled: page === startPage })}
-                onClick={prev}
-              >
+              <div className={classNames('page-item cr-pr jk-row jk-br', { disabled: page === startPage })} onClick={prev}>
                 <NavigateBeforeIcon />
               </div>
             )}
@@ -130,7 +130,7 @@ export const Pagination = (props: PaginationProps) => {
               {startPage < (pages[0] ?? 0) && (
                 <>
                   <div
-                    className={classNames('page-item cr-pr jk-row jk-br cr-g3', { selected: startPage === page })}
+                    className={classNames('page-item cr-pr jk-row jk-br cr-tx-sc', { selected: startPage === page })}
                     onClick={() => jumpToPage(startPage)}
                   >
                     {loading && startPage === page ? <SpinIcon /> : startPage}
@@ -142,7 +142,7 @@ export const Pagination = (props: PaginationProps) => {
                   )}
                 </>
               )}
-              {pages.map(index => (
+              {pages.map((index) => (
                 <div
                   key={index}
                   className={classNames('page-item cr-pr jk-row jk-br fw-bd', {
@@ -162,7 +162,7 @@ export const Pagination = (props: PaginationProps) => {
                     </div>
                   )}
                   <div
-                    className={classNames('page-item cr-pr jk-row jk-br-ie cr-g3', { selected: endPage === page })}
+                    className={classNames('page-item cr-pr jk-row jk-br-ie cr-tx-sc', { selected: endPage === page })}
                     onClick={() => jumpToPage(endPage)}
                   >
                     {loading && endPage === page ? <SpinIcon /> : endPage}
@@ -171,10 +171,7 @@ export const Pagination = (props: PaginationProps) => {
               )}
             </div>
             {!isSmallScreen && (
-              <div
-                className={classNames('page-item cr-pr jk-row jk-br-ie', { disabled: page === endPage })}
-                onClick={next}
-              >
+              <div className={classNames('page-item cr-pr jk-row jk-br-ie', { disabled: page === endPage })} onClick={next}>
                 <NavigateNextIcon />
               </div>
             )}
@@ -183,7 +180,7 @@ export const Pagination = (props: PaginationProps) => {
       </div>
       {!isOnToolbar && (
         <Select
-          options={pageSizeOptions.map(option => ({ value: option, label: option + ' / ' + t('page') }))}
+          options={pageSizeOptions.map((option) => ({ value: option, label: option + ' / ' + t('page') }))}
           selectedOption={{ value: pageSize }}
           onChange={initializing ? undefined : ({ value }) => onPageSizeChange(value)}
           optionsPlacement="top"

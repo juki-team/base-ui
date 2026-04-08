@@ -26,7 +26,7 @@
         }
         
         &.box-disabled {
-          color: var(--cr-gy-4);
+          color: var(--cr-tx-ds);
           cursor: unset;
         }
       }
@@ -101,7 +101,7 @@
     
     &.editor-right-preview-left {
       .editor {
-        border-right: 1px solid var(--cr-gy-3);
+        border-right: 1px solid var(--cr-ht);
         width: 50%;
       }
       
@@ -144,7 +144,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 1px solid var(--cr-gy-4);
+      border: 1px solid var(--cr-ht);
       padding: var(--pad-xt);
       
       img {

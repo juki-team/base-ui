@@ -20,6 +20,7 @@ export interface TabsInlineProps<T = string> {
   getHrefOnTabChange?: (selectedTabKey: T) => Href;
   routerReplace?: boolean;
   withBody?: boolean;
+  tabButtonsClassName?: string;
 }
 
 export interface TabsInlineBodyProps<T = string> {

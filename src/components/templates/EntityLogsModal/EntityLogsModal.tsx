@@ -9,7 +9,9 @@ export function EntityLogsModal({ url, ...restProps }: EntityLogsModalProps) {
   return (
     <Modal {...restProps} closeIcon>
       <div className="jk-pg">
-        <h3><T>logs</T></h3>
+        <h3>
+          <T>logs</T>
+        </h3>
         <FetcherLayer<ContentResponse<LogDataResponseDTO[]>> url={url}>
           {({ data }) => (
             <div>
@@ -36,16 +38,12 @@ export function EntityLogsModal({ url, ...restProps }: EntityLogsModalProps) {
                         >
                           {type === 'ADD' ? '+' : type === 'REMOVE' ? '-' : '*'}
                         </div>
-                        <div className="tx-t jk-tag bc-g6">{valueType}</div>
+                        <div className="tx-t jk-tag bc-sf-hi">{valueType}</div>
                         <div className="tx-t jk-tag bc-io">{path}</div>
                         <div className="jk-row gap nowrap">
-                          <div className="tx-t">
-                            {isObjectJson(oldValue) ? JSON.stringify(oldValue) : ''}
-                          </div>
+                          <div className="tx-t">{isObjectJson(oldValue) ? JSON.stringify(oldValue) : ''}</div>
                           {'=>'}
-                          <div className="tx-t">
-                            {isObjectJson(value) ? JSON.stringify(value) : ''}
-                          </div>
+                          <div className="tx-t">{isObjectJson(value) ? JSON.stringify(value) : ''}</div>
                         </div>
                       </div>
                     ))}

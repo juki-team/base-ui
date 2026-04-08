@@ -1,22 +1,24 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
 export interface UserMockChipProps {
-  className?: string,
+  className?: string;
 }
 
 export interface UserChipProps {
-  imageUrl: string,
-  nickname: string,
-  givenName?: string,
-  familyName?: string,
-  email?: string,
-  className?: string,
-  companyKey: string,
-  withoutLink?: boolean,
+  imageUrl: string;
+  nickname: string;
+  givenName?: string;
+  familyName?: string;
+  email?: string;
+  className?: string;
+  companyKey: string;
+  withoutLink?: boolean;
+  children?: ReactNode;
+  onlyImage?: boolean;
 }
 
 export interface UserNicknameLinkProps {
-  nickname: string,
-  companyKey: string,
-  children: ReactElement,
+  nickname: string;
+  companyKey: string;
+  children: ReactElement;
 }

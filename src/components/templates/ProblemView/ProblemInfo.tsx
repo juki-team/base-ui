@@ -68,7 +68,7 @@ function ContentInfo(
     <div className={classNames('jk-col stretch jk-br-ie', { 'jk-pg-sm': !withoutPadding })}>
       {head}
       {children && (
-        <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={children} placement="bottom">
+        <Popover popoverClassName="bc-sf-hi jk-br-ie elevation-1" content={children} placement="bottom">
           <div className="jk-row">
             &nbsp;
             <ExclamationIcon filledCircle className="cr-tx-ht" rotate={180} />
@@ -90,7 +90,7 @@ function ExtraProblemInfo({ tags, author, centered, withoutPadding }: JukiProble
               .filter((tag) => !!tag.trim())
               .map((tag) => (
                 <Fragment key={tag}>
-                  <span className="jk-tag bc-g6">
+                  <span className="jk-tag bc-sf-hi">
                     <T>{tag}</T>
                   </span>
                   &nbsp;
@@ -300,7 +300,7 @@ export function ProblemInfo({ problem, size }: ProblemInfoProps) {
 
   return (
     <Popover
-      popoverClassName="bc-we jk-br-ie elevation-1"
+      popoverClassName="bc-sf-hi jk-br-ie elevation-1"
       content={
         !problem.judge?.isExternal ? (
           <div className="jk-pg-xsm">

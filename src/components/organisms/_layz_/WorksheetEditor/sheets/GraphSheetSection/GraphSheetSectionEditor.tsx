@@ -43,7 +43,7 @@ export const GraphSheetSectionEditor = ({ content, setContent }: GraphSheetSecti
         />
         {new Array(content.dots.length).fill(1).map((_, index) => (
           <div
-            className={classNames('jk-tag clickable', { 'bc-g5': index !== frame })}
+            className={classNames('jk-tag clickable', { 'bc-sf-hi': index !== frame })}
             onClick={() => setFrame(index)}
             key={index}
           >

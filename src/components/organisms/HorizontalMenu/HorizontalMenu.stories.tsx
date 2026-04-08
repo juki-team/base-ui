@@ -23,8 +23,8 @@ configureActions({
 const rightSection = ({ open = undefined }: { open?: boolean }) => (
   <div className="jk-row gap" style={{ width: '240px' }}>
     <Popover
-      popoverClassName="bc-we jk-br-ie elevation-1"
-      content={<div className="cr-g1"> Settings </div>}
+      popoverClassName="bc-sf-hi jk-br-ie elevation-1"
+      content={<div> Settings </div>}
       triggerOn={TriggerAction.CLICK}
       placement="bottom"
       open={open}
@@ -36,7 +36,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
     <Popover
       open={open}
       content={
-        <div className="jk-col gap more-apps-popover cr-g1">
+        <div className="jk-col gap more-apps-popover">
           <div className="fw-bd tt-se">
             <T>more apps coming soon</T>
           </div>
@@ -90,11 +90,7 @@ const rightMobile = {
 };
 
 const centerMobile = {
-  children: (
-    <div className="cr-we">
-      {/*<JukiJudgeLogoHorImage />*/}
-    </div>
-  ),
+  children: <div className="cr-we">{/*<JukiJudgeLogoHorImage />*/}</div>,
   content: ({ onClose }: DrawerActionsType) => (
     <div>
       TOP MENU <div onClick={onClose}>close top!</div>
@@ -129,13 +125,9 @@ const ButtonN = () => {
   return (
     <Button
       onClick={() => {
-        addInfoNotification(
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        );
+        addInfoNotification('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
         addInfoNotification('Lorem ipsum');
-        addQuietNotification(
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        );
+        addQuietNotification('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
         addQuietNotification('Lorem ipsum ');
       }}
     >
@@ -160,12 +152,7 @@ export const HorizontalMenu = () => (
         drawerMenuMobile={drawerMenuMobile}
       >
         <div>
-          <MdMathEditor
-            value={SAMPLE_MD_CONTENT}
-            onChange={() => {
-            }}
-            informationButton
-          />
+          <MdMathEditor value={SAMPLE_MD_CONTENT} onChange={() => {}} informationButton />
           <ButtonN />
         </div>
       </HorizontalMenuCmp>

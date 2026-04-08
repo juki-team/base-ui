@@ -7,7 +7,7 @@ import {
   type QuizProblemSheet,
   type QuizTextSheet,
 } from '@juki-team/commons';
-import { Children, type  Dispatch } from 'react';
+import { Children, type Dispatch } from 'react';
 import { EMPTY_LIST_SHEET } from '../../../../../../constants';
 import { Button, Collapse, T } from '../../../../../atoms';
 import { UpIcon } from '../../../../../atoms/server';
@@ -17,41 +17,39 @@ import { AddNewChild } from '../AddNewChild';
 import { UpRemoveDownButtons } from '../UpRemoveDownButtons';
 
 export interface ListSheetRecursiveSectionProps {
-  sheet: ListSheet,
-  setSheet?: Dispatch<ListSheet>,
-  forceExpanded?: boolean,
-  onlyText?: boolean,
+  sheet: ListSheet;
+  setSheet?: Dispatch<ListSheet>;
+  forceExpanded?: boolean;
+  onlyText?: boolean;
 }
 
 export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps) => {
-  
   const { sheet, setSheet, forceExpanded } = props;
-  
+
   const { header, content, children } = sheet;
-  
+
   const renderHeader = !!setSheet ? (
-    <MdMathEditor
-      value={header}
-      onChange={(header) => setSheet({ ...sheet, header })}
-      informationButton
-    />
-  ) : <div className="jk-pg-rl"><MdMathViewer source={header} /></div>;
-  
+    <MdMathEditor value={header} onChange={(header) => setSheet({ ...sheet, header })} informationButton />
+  ) : (
+    <div className="jk-pg-rl">
+      <MdMathViewer source={header} />
+    </div>
+  );
+
   const renderAddSection = !!setSheet && (
     <Button
-      onClick={() => (
+      onClick={() =>
         setSheet({
           ...sheet,
-          children: [ ...sheet.children, EMPTY_LIST_SHEET() ],
+          children: [...sheet.children, EMPTY_LIST_SHEET()],
         })
-      )}
+      }
     >
       <T>add sub list</T>
     </Button>
   );
-  
+
   const renderContent = content.map((itemContent) => {
-    
     // const setSheetCb: SetContentType<JkmdSheet | CodeEditorSheet | GraphSheet | QuizProblemSheet | QuizTextSheet | QuizOptionsSheet> | undefined = setSheet ? (content) => {
     //   const newContent = [ ...sheet.content ];
     //   newContent.splice(index, 1, content);
@@ -88,17 +86,21 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
       </div>
     );
   });
-  
+
   const renderChildren = children.map((content, index) => (
     <div className="jk-row nowrap gap">
       <ListSheetRecursiveSection
         sheet={content}
-        setSheet={setSheet ? (newSubSection) => {
-          const newSheet = { ...sheet };
-          newSheet.children = [ ...newSheet.children ];
-          newSheet.children[index] = newSubSection;
-          setSheet(newSheet);
-        } : undefined}
+        setSheet={
+          setSheet
+            ? (newSubSection) => {
+                const newSheet = { ...sheet };
+                newSheet.children = [...newSheet.children];
+                newSheet.children[index] = newSubSection;
+                setSheet(newSheet);
+              }
+            : undefined
+        }
       />
       {setSheet && (
         <UpRemoveDownButtons<ListSheet>
@@ -109,9 +111,9 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
       )}
     </div>
   ));
-  
+
   const renderBody = (
-    <div className="jk-col gap extend stretch jk-pg-sm bc-we">
+    <div className="jk-col gap extend stretch jk-pg-sm bc-sf-md">
       {Children.toArray(renderContent)}
       {setSheet && (
         <AddNewChild<JkmdSheet | CodeEditorSheet | GraphSheet | QuizProblemSheet | QuizTextSheet | QuizOptionsSheet>
@@ -133,16 +135,14 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
       {renderAddSection}
     </div>
   );
-  
+
   return (
     <div className="jk-row extend">
       <Collapse
         className="jk-row extend"
         header={({ toggle, isOpen }) => (
-          <div className="jk-row extend nowrap space-between jk-br bc-we">
-            <div className="jk-row extend left">
-              {renderHeader}
-            </div>
+          <div className="jk-row extend nowrap space-between jk-br bc-sf-md">
+            <div className="jk-row extend left">{renderHeader}</div>
             <div className="jk-row collapse-toggle-button">
               <UpIcon onClick={toggle} rotate={isOpen ? 0 : 180} className="link" />
             </div>

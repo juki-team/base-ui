@@ -7,6 +7,7 @@ import { classNames, getQuerySessionId } from '../../helpers';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { ButtonLoader } from '../../molecules';
 import { LoginIcon, LogoutIcon, SpinIcon } from '../../server';
+import { UserChip } from '../UserChip/UserChip';
 import type { LoginUserProps } from './types';
 
 export function LoginUser({
@@ -38,7 +39,7 @@ export function LoginUser({
   if (userIsLogged) {
     return (
       <Popover
-        popoverClassName="bc-we jk-br-ie elevation-1"
+        popoverClassName="bc-sf-hi jk-br-ie elevation-1"
         content={
           <div className="jk-col gap user-profile-popup jk-pg-sm">
             <Image
@@ -75,14 +76,22 @@ export function LoginUser({
         offset={4}
         placement={popoverPlacement}
       >
-        <div className={classNames('user-logged-head nowrap jk-row gap fw-br', className)}>
-          <span className="jk-user-profile-img large">
-            <Image src={userImageUrl} alt={userNickname} fill className="br-50-pc" />
-          </span>
-          {withLabel && <div className="jk-row nickname">{userNickname}</div>}
+        <UserChip
+          companyKey={companyKey}
+          imageUrl={userImageUrl}
+          nickname={userNickname}
+          className={classNames('user-logged-head extend', { left: !!withLabel }, className)}
+          onlyImage={!withLabel}
+        >
+          {/*<div className={classNames('user-logged-head nowrap jk-row gap fw-br', className)}>*/}
+          {/*  <span className="jk-user-profile-img large">*/}
+          {/*    <Image src={userImageUrl} alt={userNickname} fill className="br-50-pc" />*/}
+          {/*  </span>*/}
+          {/*  {withLabel && <div className="jk-row nickname">{userNickname}</div>}*/}
           {isHorizontal && profileSelected && <div className="selected horizontal" />}
           {isVertical && profileSelected && <div className="selected vertical" />}
-        </div>
+          {/*</div>*/}
+        </UserChip>
       </Popover>
     );
   }

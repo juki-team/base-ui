@@ -61,7 +61,7 @@
   },
   "scripts": {
     "caddy": "caddy run --config Caddyfile",
-    "dev": "cross-env NODE_ENV=storybook storybook dev -p 6006 --host storybook.local.juki.app",
+    "dev": "cross-env NODE_ENV=storybook storybook dev -p 6006 --host 0.0.0.0",
     "prebuild:rollup": "rm -rf src/vendor && rollup -c prebuild-rollup.config.js && rm -rf tmp-prebuild",
     "build:storybook": "rm -rf docs && storybook build -o docs",
     "build:rollup-clean": "rm -rf dist && rm -rf node_modules/.cache/rollup-plugin-typescript2",
@@ -108,7 +108,7 @@
     "@floating-ui/react": "^0.27.19",
     "@handsontable/react-wrapper": "^17.0.1",
     "@hookform/resolvers": "^5.2.2",
-    "@juki-team/commons": "^0.1.11",
+    "@juki-team/commons": "^0.1.17",
     "@mdx-js/mdx": "^3.1.1",
     "@milkdown/components": "^7.20.0",
     "@milkdown/core": "^7.20.0",

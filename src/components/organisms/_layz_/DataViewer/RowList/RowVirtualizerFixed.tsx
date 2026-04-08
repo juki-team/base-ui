@@ -7,8 +7,7 @@ import { useStableRef } from '../../../../hooks/useStableRef';
 import type { DataViewerTableHeadersType, RowVirtualizerFixedProps } from '../types';
 import { TableHead } from './TableHead';
 
-export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => {
-  
+export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
   const {
     data,
     headers,
@@ -27,40 +26,40 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     focusRowKey,
     // setWithVerticalScroll,
   } = props;
-  
+
   const parentRef = useRef<HTMLDivElement>(null);
   const { height: headerHeight = 0, ref: headerRef } = useResizeDetector();
   const dataRef = useStableRef(data);
   const getRecordKeyRef = useStableRef(getRecordKey);
   const rowVirtualizer = useVirtualizer({
     count: data.length,
-    estimateSize: useCallback(() => rowHeight + gap * 2, [ rowHeight, gap ]),
+    estimateSize: useCallback(() => rowHeight + gap * 2, [rowHeight, gap]),
     overscan: virtualizerOverscan,
     getScrollElement: useCallback(() => parentRef.current, []),
-    getItemKey: useCallback((index: number) => {
-      const fn = getRecordKeyRef.current;
-      return fn ? fn({ data: dataRef.current, index }) : index;
-    }, [ dataRef, getRecordKeyRef ]),
+    getItemKey: useCallback(
+      (index: number) => {
+        const fn = getRecordKeyRef.current;
+        return fn ? fn({ data: dataRef.current, index }) : index;
+      },
+      [dataRef, getRecordKeyRef],
+    ),
   });
-  
-  const visibleHeaders = useMemo(() =>
-      headers.filter(header => header.visible?.getVisible?.()),
-    [ headers ],
-  );
-  
+
+  const visibleHeaders = useMemo(() => headers.filter((header) => header.visible?.getVisible?.()), [headers]);
+
   useEffect(() => {
     const fn = getRecordKeyRef.current;
     if (!focusRowKey || !fn) {
       return;
     }
-    
+
     const index = dataRef.current.findIndex((_, i) => fn({ data: dataRef.current, index: i }) === focusRowKey);
     if (index < 0) {
       return;
     }
-    
+
     rowVirtualizer.scrollToIndex(index, { align: 'center', behavior: 'smooth' });
-  }, [ dataRef, focusRowKey, getRecordKeyRef, rowVirtualizer ]);
+  }, [dataRef, focusRowKey, getRecordKeyRef, rowVirtualizer]);
   // const onRecordRenderRef = useRef(onRecordRender);
   // onRecordRenderRef.current = onRecordRender;
   // useEffect(() => { // no works
@@ -68,34 +67,32 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   //     onRecordRenderRef.current?.({ data, index: virtualRow.index, isCard: false })
   //   ));
   // }, [ data, rowVirtualizer ]);
-  
+
   const totalSize = rowVirtualizer.getTotalSize();
   const scrollEl = rowVirtualizer.scrollElement;
   const scrollOffset = rowVirtualizer.scrollOffset ?? 0;
-  
+
   const hasScrollTop = scrollOffset > 0;
   const hasScrollBottom = scrollEl
-    ? scrollOffset + scrollEl.clientHeight < (totalSize + headerHeight + gap /*border bottom header*/)
+    ? scrollOffset + scrollEl.clientHeight < totalSize + headerHeight + gap /*border bottom header*/
     : false;
   const hasScrollLeft = scrollEl ? scrollEl.scrollLeft > 0 : false;
-  const hasScrollRight = scrollEl
-    ? scrollEl.scrollWidth - scrollEl.clientWidth - scrollEl.scrollLeft > 1
-    : false;
-  
+  const hasScrollRight = scrollEl ? scrollEl.scrollWidth - scrollEl.clientWidth - scrollEl.scrollLeft > 1 : false;
+
   const virtualItems = rowVirtualizer.getVirtualItems();
   const withVerticalScroll = hasScrollTop || hasScrollBottom;
-  
+
   // useEffect(() => {
   //   setWithVerticalScroll(withVerticalScroll);
   // }, [ withVerticalScroll ]);
-  
+
   const { topHeaders, rightBorders, headersWidth, headersStickyWidth } = useMemo(() => {
     const topHeaders: DataViewerTableHeadersType<T>[] = [];
     const rightBorders: number[] = [];
     let index = 0;
-    
+
     for (const header of visibleHeaders) {
-      const group = groups.find(group => group.value === header.group);
+      const group = groups.find((group) => group.value === header.group);
       const previous = topHeaders[topHeaders.length - 1];
       if (group) {
         if (previous?.group === group.value) {
@@ -114,19 +111,15 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
       }
       index++;
     }
-    
+
     const headersStickyWidth = visibleHeaders.reduce((sum, head) => sum + (head.sticky ? head.width : 0), 0);
     const headersWidth = visibleHeaders.reduce((sum, head) => sum + head.width, 0);
-    
+
     return { topHeaders, rightBorders, headersWidth, headersStickyWidth };
-  }, [ groups, visibleHeaders ]);
-  
+  }, [groups, visibleHeaders]);
+
   return (
-    <div
-      ref={parentRef}
-      style={{ height: '100%', overflow: 'scroll' }}
-      className="jk-table-rows-container"
-    >
+    <div ref={parentRef} style={{ height: '100%', overflow: 'scroll' }} className="jk-table-rows-container">
       <TableHead
         headers={headers}
         setHeaders={setHeaders}
@@ -192,8 +185,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
                 key={columnIndex}
                 style={{ width: width, minWidth: width }}
                 className={classNames({ sticky: !!sticky })}
-              >
-              </div>
+              ></div>
             ))}
           </div>
         )}
@@ -205,11 +197,11 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
           start: null,
         })) : rowVirtualizer.getVirtualItems())
         */}
-        {virtualItems.map(virtualRow => (
+        {virtualItems.map((virtualRow) => (
           <motion.div
             key={virtualRow.key}
             jk-data-virtual-row-key={virtualRow.key}
-            layoutId={virtualRow.key as string || undefined}
+            layoutId={(virtualRow.key as string) || undefined}
             style={{
               ...(getRecordStyle?.({ data, index: virtualRow.index, isCard: false, isStickySection: false }) || {}),
               position: virtualRow.start !== null ? 'absolute' : undefined,
@@ -229,10 +221,13 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
               <div
                 key={virtualRow.key + '_' + columnIndex}
                 style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
-                className={classNames({
-                  sticky: !!sticky,
-                  'with-right-border': rightBorders.includes(index),
-                }, 'jk-table-row-field bc-we')}
+                className={classNames(
+                  {
+                    sticky: !!sticky,
+                    'with-right-border': rightBorders.includes(index),
+                  },
+                  'jk-table-row-field bc-sf-md',
+                )}
                 data-testid={virtualRow.key + '_' + columnIndex}
               >
                 {data[virtualRow.index] && (

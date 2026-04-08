@@ -3,23 +3,22 @@ import type { UserProfileProps } from './types';
 import { UserProfileDataContent } from './UserProfileDataContent';
 
 export function UserProfile({ user }: UserProfileProps) {
-  
-  const { Image } = useUIStore(store => store.components);
-  
+  const { Image } = useUIStore((store) => store.components);
+
   return (
     <div className="jk-col gap">
       <div className="user-profile jk-row stretch center gap pn-re">
         <div className="jk-col top jk-pg-md">
           <Image
             src={user?.imageUrl}
-            className="jk-user-profile-img elevation-1 bc-we"
+            className="jk-user-profile-img elevation-1 bc-sf-md"
             alt={user?.nickname as string}
             width={104}
             height={104}
             style={{ width: 104, height: 104 }}
           />
         </div>
-        <UserProfileDataContent user={user} className="top left jk-pg-md bc-we jk-br-ie" />
+        <UserProfileDataContent user={user} className="top left jk-pg-md bc-sf-md jk-br-ie" />
       </div>
     </div>
   );

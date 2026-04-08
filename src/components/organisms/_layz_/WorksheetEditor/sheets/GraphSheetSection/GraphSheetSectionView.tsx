@@ -30,7 +30,7 @@ export const GraphSheetSectionView = ({ content, setSheet }: GraphSheetSectionPr
 
   return (
     <div className="jk-col gap">
-      <div className="br-g5 jk-br-ie bc-we">{content.dots?.[frame] && <GraphvizViewer dot={content.dots[frame]} />}</div>
+      <div className="br-hl jk-br-ie bc-sf-md">{content.dots?.[frame] && <GraphvizViewer dot={content.dots[frame]} />}</div>
       <div className="jk-row gap center">
         <Button
           icon={<ArrowBackIcon />}
@@ -40,7 +40,7 @@ export const GraphSheetSectionView = ({ content, setSheet }: GraphSheetSectionPr
         />
         {new Array(content.dots.length).fill(1).map((_, index) => (
           <div
-            className={classNames('jk-tag clickable', { 'bc-g5': index !== frame })}
+            className={classNames('jk-tag clickable', { 'bc-sf-hi': index !== frame })}
             onClick={() => setFrame(index)}
             key={index}
           >

@@ -20,7 +20,7 @@ span.jk-row, span.jk-col {
     gap: var(--gap);
   }
   
-  &.gap.gap {
+  &.gap-2 {
     gap: calc(var(--gap) * 2);
   }
   
@@ -242,7 +242,7 @@ span.jk-row, span.jk-col {
 
 .jk-table-inline-header {
   box-sizing: border-box;
-  border: 1px solid var(--cr-gy-5);
+  border: 1px solid var(--cr-ht);
   border-radius: var(--border-radius-inline) var(--border-radius-inline) 0 0;
   color: var(--cr-tx-ht);
   font-weight: var(--weight-bold);
@@ -257,9 +257,9 @@ span.jk-row, span.jk-col {
   border-top-right-radius: 0;
   
   &:not(button) {
-    border-bottom: 1px solid var(--cr-gy-5);
-    border-left: 1px solid var(--cr-gy-5);
-    border-right: 1px solid var(--cr-gy-5);
+    border-bottom: 1px solid var(--cr-ht);
+    border-left: 1px solid var(--cr-ht);
+    border-right: 1px solid var(--cr-ht);
   }
 }
 

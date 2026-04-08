@@ -22,9 +22,13 @@ import { WorksheetBodies } from '../WorksheetEditor/sheets/WorksheetBodies';
 import { OnPageChange, WorksheetViewerProps } from './types';
 
 export default function WorksheetViewer(props: WorksheetViewerProps) {
-  
   const {
-    worksheet: { content, quiz: { enable: quizEnable }, key: worksheetKey, user: { isManager } },
+    worksheet: {
+      content,
+      quiz: { enable: quizEnable },
+      key: worksheetKey,
+      user: { isManager },
+    },
     resultsUserKey,
     page: initialPage,
     subPage: initialSubPage,
@@ -33,56 +37,71 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
     readOnly: initialReadOnly = false,
     withoutTableOfContents = false,
   } = props;
-  
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
-  const userNickname = useUserStore(state => state.user.nickname);
-  const companyKey = useUserStore(state => state.company.key);
-  const userIsLogged = useUserStore(state => state.user.isLogged);
-  const setSearchParams = useRouterStore(state => state.setSearchParams);
-  
-  const [ page, _setPage ] = useSyncedState(initialPage ?? 1);
-  const [ subPage, _setSubPage ] = useSyncedState(initialSubPage ?? 1);
+
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
+  const userNickname = useUserStore((state) => state.user.nickname);
+  const companyKey = useUserStore((state) => state.company.key);
+  const userIsLogged = useUserStore((state) => state.user.isLogged);
+  const setSearchParams = useRouterStore((state) => state.setSearchParams);
+
+  const [page, _setPage] = useSyncedState(initialPage ?? 1);
+  const [subPage, _setSubPage] = useSyncedState(initialSubPage ?? 1);
   const onPageChangeRef = useStableRef(_onPageChangeRef);
-  const onPageChange: OnPageChange = useCallback((page, subPage, entries) => {
-    if (onPageChangeRef.current) {
-      onPageChangeRef.current(page, subPage, entries);
-    } else {
-      _setPage(page);
-      _setSubPage(subPage);
-      setSearchParams(entries);
-    }
-  }, [ _setPage, _setSubPage, onPageChangeRef, setSearchParams ]);
-  
+  const onPageChange: OnPageChange = useCallback(
+    (page, subPage, entries) => {
+      if (onPageChangeRef.current) {
+        onPageChangeRef.current(page, subPage, entries);
+      } else {
+        _setPage(page);
+        _setSubPage(subPage);
+        setSearchParams(entries);
+      }
+    },
+    [_setPage, _setSubPage, onPageChangeRef, setSearchParams],
+  );
+
   const {
     data: userResultsData,
     mutate: userResultsMutate,
     isLoading: userResultsIsLoading,
     isValidating: userResultsIsValidating,
-  } = useFetcher<ContentResponse<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && quizEnable && userIsLogged ? jukiApiManager.API_V2.worksheet.getSubmissionsUser({
-    params: {
-      key: worksheetKey,
-      userKey: resultsUserKey || getUserKey(userNickname, companyKey),
-    },
-  }).url : null);
-  const userResults: UserResultsType = useMemo(() => ({
-    data: userResultsData?.success ? userResultsData.content : undefined,
-    isLoading: userResultsIsLoading,
-    isValidating: userResultsIsValidating,
-    mutate: userResultsMutate,
-  }), [ userResultsData, userResultsIsLoading, userResultsIsValidating, userResultsMutate ]);
-  const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [ content ]);
-  
+  } = useFetcher<ContentResponse<WorksheetUserSubmissionsResponseDTO>>(
+    worksheetKey && quizEnable && userIsLogged
+      ? jukiApiManager.API_V2.worksheet.getSubmissionsUser({
+          params: {
+            key: worksheetKey,
+            userKey: resultsUserKey || getUserKey(userNickname, companyKey),
+          },
+        }).url
+      : null,
+  );
+  const userResults: UserResultsType = useMemo(
+    () => ({
+      data: userResultsData?.success ? userResultsData.content : undefined,
+      isLoading: userResultsIsLoading,
+      isValidating: userResultsIsValidating,
+      mutate: userResultsMutate,
+    }),
+    [userResultsData, userResultsIsLoading, userResultsIsValidating, userResultsMutate],
+  );
+  const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [content]);
+
   const readOnly = initialReadOnly || (userResults?.data ? userNickname !== userResults.data.user.nickname : false);
   const pages = sheetsInPages.length;
-  
-  useKeyDown(useCallback((event) => {
-    if (event.code === 'ArrowRight') {
-      onPageChange(Math.min(page + 1, pages), 1, []);
-    } else if (event.code === 'ArrowLeft') {
-      onPageChange(Math.max(page - 1, 1), 1, []);
-    }
-  }, [ onPageChange, page, pages ]));
-  
+
+  useKeyDown(
+    useCallback(
+      (event) => {
+        if (event.code === 'ArrowRight') {
+          onPageChange(Math.min(page + 1, pages), 1, []);
+        } else if (event.code === 'ArrowLeft') {
+          onPageChange(Math.max(page - 1, 1), 1, []);
+        }
+      },
+      [onPageChange, page, pages],
+    ),
+  );
+
   return (
     <div
       id="jk-worksheet-viewer-container"
@@ -91,30 +110,19 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
         'jk-row': !isSmallScreen,
       })}
     >
-      {!withoutTableOfContents && (
-        isSmallScreen ? (
-          (pages > 1) && (
+      {!withoutTableOfContents &&
+        (isSmallScreen ? (
+          pages > 1 && (
             <div className="jk-row">
-              <WorksheetContents
-                page={page}
-                subPage={subPage}
-                onPageChange={onPageChange}
-                sheetsInPages={sheetsInPages}
-              />
+              <WorksheetContents page={page} subPage={subPage} onPageChange={onPageChange} sheetsInPages={sheetsInPages} />
             </div>
           )
         ) : (
-          <div className="jk-col gap bc-we jk-pg-xsm jk-br-ie left worksheet-content sticky-top">
+          <div className="jk-col gap bc-sf-md jk-pg-xsm jk-br-ie left worksheet-content sticky-top">
             <T className="tt-se fw-bd cr-tx-ht">table of content</T>
-            <TableOfContents
-              sheetsInPages={sheetsInPages}
-              page={page}
-              subPage={subPage}
-              onPageChange={onPageChange}
-            />
+            <TableOfContents sheetsInPages={sheetsInPages} page={page} subPage={subPage} onPageChange={onPageChange} />
           </div>
-        )
-      )}
+        ))}
       <WorksheetBodies
         sheetsInPages={sheetsInPages}
         isSolvable={quizEnable && userIsLogged}

@@ -47,7 +47,7 @@
   --button-padding-tb: calc(var(--tx-h-m) / 4);
   --icon-margin-right: 0;
   --line-height: var(--tx-h-m); // 24px
-  height: auto;
+  height: var(--line-height);
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -59,41 +59,66 @@
   cursor: pointer;
   overflow: hidden;
   padding: var(--button-padding-tb) calc(var(--tx-h-m) / 2);
-  line-height: calc(var(--line-height) - 4px);
+  //line-height: calc(var(--line-height) - 4px);
+  line-height: var(--line-height);
   --size-button-loader-icon: var(--line-height);
   @include mixins.transition-fast(opacity, padding, outline-color, outline-width, background-color, border-color);
   
-  .jk-icon {
-    --size-icon: calc(var(--line-height) - 4px);
-  }
+  //.jk-icon {
+  //  --size-icon: calc(var(--line-height) - 4px);
+  //}
   
   &:not(.disabled):not(.ghost):hover {
     --button-border-width: 3px;
   }
   
+  &.regular {
+    --line-height: var(--tx-h-m); // 24px
+    &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
+      font-size: var(--tx-s-m); // 16px
+    }
+  }
+  
+  &.very-tiny {
+    --line-height: var(--tx-h-vt); // 12px
+    &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
+      font-size: var(--tx-s-vt); // 8px
+    }
+  }
+  
   &.tiny {
-    --line-height: var(--tx-h-t); // 12px;
-    font-size: var(--tx-s-t); // 12px
+    --line-height: var(--tx-h-t); // 18px
+    &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
+      font-size: var(--tx-s-t); // 12px
+    }
   }
   
   &.small {
-    --line-height: var(--tx-h-s); // 18px
-    font-size: var(--tx-s-s); // 14px
-  }
-  
-  &.regular {
-    --line-height: var(--tx-h-m); // 24px
-    font-size: var(--tx-s-m);
+    --line-height: var(--tx-h-s); // 21px
+    &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
+      font-size: var(--tx-s-s); // 14px
+    }
   }
   
   &.large {
-    --line-height: var(--tx-h-l); // 36px
-    font-size: var(--tx-s-l);
+    --line-height: var(--tx-h-l); // 27px
+    &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
+      font-size: var(--tx-s-l); // 18px
+    }
   }
   
   &.huge {
-    --line-height: var(--tx-h-h); // 48px
-    font-size: var(--tx-s-h);
+    --line-height: var(--tx-h-h); // 30px
+    &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
+      font-size: var(--tx-s-h); // 20px
+    }
+  }
+  
+  &.very-huge {
+    --line-height: var(--tx-h-vh); // 36px
+    &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
+      font-size: var(--tx-s-vh); // 24px
+    }
   }
   
   &:not(.jk-button-loader) {
@@ -101,7 +126,7 @@
   }
   
   &.only-icon {
-    padding: var(--button-padding-tb);
+    padding: 0 var(--button-padding-tb);
     
     &:not(.disabled):hover {
       --button-border-width: 2px;

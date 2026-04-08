@@ -3,22 +3,13 @@ import { Button, Select, T } from '../../atoms';
 import type { TimePickerProps } from '../DatePicker/types';
 
 export function TimePicker(props: TimePickerProps) {
-  
-  const {
-    todayButton = false,
-    date,
-    showMinutes,
-    showSeconds,
-    showMilliseconds,
-    onChange,
-    isDisabled,
-  } = props;
-  
+  const { todayButton = false, date, showMinutes, showSeconds, showMilliseconds, onChange, isDisabled } = props;
+
   return (
     <div className="jk-col jk-date-picker-grid-time center">
       <div className="jk-row">
         <Select
-          options={HOURS.map(hour => ({
+          options={HOURS.map((hour) => ({
             value: hour,
             label: hour.padStart(2),
             disabled: !!isDisabled?.(date.changeHours(hour)).hours,
@@ -30,7 +21,7 @@ export function TimePicker(props: TimePickerProps) {
           <>
             :
             <Select
-              options={MINUTES.map(minute => ({
+              options={MINUTES.map((minute) => ({
                 value: minute,
                 label: minute.padStart(2),
                 disabled: !!isDisabled?.(date.changeMinutes(minute)).minutes,
@@ -42,7 +33,7 @@ export function TimePicker(props: TimePickerProps) {
               <>
                 :
                 <Select
-                  options={SECONDS.map(second => ({
+                  options={SECONDS.map((second) => ({
                     value: second,
                     label: second.padStart(2),
                     disabled: !!isDisabled?.(date.changeSeconds(second)).seconds,
@@ -54,7 +45,7 @@ export function TimePicker(props: TimePickerProps) {
                   <>
                     .
                     <Select
-                      options={MILLISECONDS.map(millisecond => ({
+                      options={MILLISECONDS.map((millisecond) => ({
                         value: millisecond,
                         label: millisecond.padStart(3),
                         disabled: !!isDisabled?.(date.changeMilliseconds(millisecond)).milliseconds,
@@ -70,19 +61,16 @@ export function TimePicker(props: TimePickerProps) {
         )}
       </div>
       <div className="jk-row labels tx-s">
-        <T className="cr-g3">HH</T>
+        <T className="cr-tx-sc">HH</T>
         {showMinutes && (
           <>
-            :
-            <T className="cr-g3">MM</T>
+            :<T className="cr-tx-sc">MM</T>
             {showSeconds && (
               <>
-                :
-                <T className="cr-g3">SS</T>
+                :<T className="cr-tx-sc">SS</T>
                 {showMilliseconds && (
                   <>
-                    .
-                    <T className="cr-g3">MS</T>
+                    .<T className="cr-tx-sc">MS</T>
                   </>
                 )}
               </>
@@ -93,7 +81,9 @@ export function TimePicker(props: TimePickerProps) {
       {todayButton && (
         <>
           <div className="jk-divider tiny" />
-          <Button size="tiny" onClick={() => onChange(new Date())} style={{ height: 12 }}>today</Button>
+          <Button size="tiny" onClick={() => onChange(new Date())} style={{ height: 12 }}>
+            today
+          </Button>
         </>
       )}
     </div>

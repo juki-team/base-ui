@@ -53,7 +53,7 @@ export function MultiSelect<T, U extends ReactNode, V extends ReactNode>(props: 
 
   return (
     <Popover
-      popoverClassName="bc-we jk-br-ie elevation-1"
+      popoverClassName="bc-sf-hi jk-br-ie elevation-1"
       placement={optionsPlacement}
       triggerOn={TriggerAction.CLICK}
       offset={4}

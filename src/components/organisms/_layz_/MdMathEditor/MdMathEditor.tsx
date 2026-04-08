@@ -47,6 +47,7 @@ const Toolbar = memo(function Toolbar({ enableDownload, enableTextPlain, setMode
               icon:
                 mode === Mode.TEXT_PLAIN ? (
                   <ArticleIcon
+                    size="tiny"
                     onClick={() => setMode(Mode.WYSIWYG)}
                     data-tooltip-id="jk-tooltip"
                     data-tooltip-content="WYSIWYG"
@@ -54,6 +55,7 @@ const Toolbar = memo(function Toolbar({ enableDownload, enableTextPlain, setMode
                   />
                 ) : (
                   <CodeIcon
+                    size="tiny"
                     onClick={() => setMode(Mode.TEXT_PLAIN)}
                     data-tooltip-id="jk-tooltip"
                     data-tooltip-content="view as text plain"
@@ -66,7 +68,7 @@ const Toolbar = memo(function Toolbar({ enableDownload, enableTextPlain, setMode
       ...(enableDownload
         ? [
             {
-              icon: <DownloadIcon />,
+              icon: <DownloadIcon size="tiny" />,
               buttons: [
                 // TODO:
                 // {
@@ -75,7 +77,7 @@ const Toolbar = memo(function Toolbar({ enableDownload, enableTextPlain, setMode
                 //   onClick: handleShareMdPdf('pdf', source, sourceUrl, setSourceUrl, userTheme),
                 // },
                 {
-                  icon: <DownloadIcon />,
+                  icon: <DownloadIcon size="tiny" />,
                   label: <T>md</T>,
                   onClick: () =>
                     downloadBlobAsFile(
@@ -200,7 +202,7 @@ const MdMathEditor = forwardRef<MdMathEditorHandle, MdMathEditorProps>(function 
                 transform: 'translate(0, 100%)',
               }}
             >
-              <div className="jk-row bc-we jk-pg-sm jk-br-ie" style={{ alignItems: 'baseline' }}>
+              <div className="jk-row bc-sf-md jk-pg-sm jk-br-ie" style={{ alignItems: 'baseline' }}>
                 <T className="tt-se">uploading images</T> &nbsp;
                 <div className="dot-flashing" />
               </div>

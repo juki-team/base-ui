@@ -102,7 +102,7 @@ export function MainMenu(props: MainMenuProps) {
                 <div className="jk-menu-item-icon" style={{ height: 48 }}>
                   {company && (
                     <Popover
-                      popoverClassName="bc-we jk-br-ie elevation-1"
+                      popoverClassName="bc-sf-hi jk-br-ie elevation-1"
                       triggerOn={isOpenVerticalMenu ? [] : TriggerAction.CLICK}
                       content={<div style={{ width: 200 }}>{select}</div>}
                       placement="right"
@@ -215,7 +215,7 @@ export function MainMenu(props: MainMenuProps) {
 
   const rightSection = () => {
     return (
-      <div className="jk-row stretch gap gap settings-apps-login-user-content nowrap jk-pg-rl">
+      <div className="jk-row stretch gap-2 settings-apps-login-user-content nowrap jk-pg-rl">
         <SettingsSection
           isOpen={false}
           isMobile={false}

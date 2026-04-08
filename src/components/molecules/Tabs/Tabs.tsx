@@ -19,18 +19,14 @@ const hiddenStyle: CSSProperties = {
   pointerEvents: 'none',
 };
 
-export function Tabs<T extends string, >(props: TabsProps<T>) {
-  
-  const {
-    tabs,
-    selectedTabKey,
+export function Tabs<T extends string>(props: TabsProps<T>) {
+  const { tabs, selectedTabKey, onChange, className = '', extraNodes: _extraNodes, extend } = props;
+
+  const [tabKey, setTabKey] = useHandleState<T>(
+    (tabs[0]?.key || '') as NotUndefined<T>,
+    selectedTabKey as NotUndefined<T> | undefined,
     onChange,
-    className = '',
-    extraNodes: _extraNodes,
-    extend,
-  } = props;
-  
-  const [ tabKey, setTabKey ] = useHandleState<T>((tabs[0]?.key || '') as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined, onChange);
+  );
   const tabsHeaderRef = useRef<HTMLDivElement>(null);
   const { width: widthTabs = 0, ref: refTabs } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthActions = 0, ref: refActions } = useResizeDetector(RESIZE_DETECTOR_PROPS);
@@ -42,18 +38,20 @@ export function Tabs<T extends string, >(props: TabsProps<T>) {
       indexes[key] = index;
     });
     return indexes;
-  }, [ tabs ]);
-  
+  }, [tabs]);
+
   useEffect(() => {
     const handleEsc = ({ keyCode }: { keyCode: number }) => {
       if (tabsHeaderFocus.current && typeof indexes[tabKey] === 'number') {
-        if (keyCode === 39) { // ArrowRight
+        if (keyCode === 39) {
+          // ArrowRight
           const right = tabs[(indexes[tabKey] + 1) % tabs.length];
           if (right) {
             setTabKey(right.key as NotUndefined<T>);
           }
         }
-        if (keyCode === 37) { // ArrowLeft
+        if (keyCode === 37) {
+          // ArrowLeft
           const left = tabs[(indexes[tabKey] - 1 + tabs.length) % tabs.length];
           if (left) {
             setTabKey(left.key as NotUndefined<T>);
@@ -62,28 +60,28 @@ export function Tabs<T extends string, >(props: TabsProps<T>) {
       }
     };
     window.addEventListener('keydown', handleEsc);
-    
+
     return () => {
       window.removeEventListener('keydown', handleEsc);
     };
-  }, [ tabKey, setTabKey, indexes, tabs ]);
+  }, [tabKey, setTabKey, indexes, tabs]);
   const tabsHeaderFocus = useRef(false);
-  useClickOutside(() => tabsHeaderFocus.current = false, tabsHeaderRef);
-  
+  useClickOutside(() => (tabsHeaderFocus.current = false), tabsHeaderRef);
+
   const tabHeaders: { [key: string]: ReactNode } = {};
   tabs.forEach(({ key, header }) => {
     tabHeaders[key] = renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey });
   });
-  const [ maxWidthUsed, setMaxWidthUsed ] = useState(widthTabs + widthActions + 32);
+  const [maxWidthUsed, setMaxWidthUsed] = useState(widthTabs + widthActions + 32);
   useEffect(() => {
     const newWidth = widthTabs + widthActions + 32;
     if (newWidth > maxWidthUsed) {
       setMaxWidthUsed(newWidth);
     }
-  }, [ maxWidthUsed, widthActions, widthTabs ]);
+  }, [maxWidthUsed, widthActions, widthTabs]);
   const isExtend = typeof extend === 'boolean' ? extend : widthContainer > maxWidthUsed;
   const extraNodes = (_extraNodes || []).filter(Boolean);
-  
+
   return (
     <div
       className={classNames('jk-tabs-layout', className, {
@@ -96,7 +94,7 @@ export function Tabs<T extends string, >(props: TabsProps<T>) {
       <div className="jk-tabs-header jk-row space-between nowrap" ref={refTabsContainer}>
         <div
           className="jk-tabs-tabs jk-row left"
-          onClick={() => tabsHeaderFocus.current = true}
+          onClick={() => (tabsHeaderFocus.current = true)}
           ref={tabsHeaderRef}
           style={isExtend ? {} : hiddenStyle}
         >
@@ -121,25 +119,22 @@ export function Tabs<T extends string, >(props: TabsProps<T>) {
             popoverClassName="jk-tabs-select"
           />
         )}
-        <div
-          className="jk-tabs-actions jk-row right nowrap gap"
-          style={!(!!extraNodes.length && isExtend) ? hiddenStyle : {}}
-        >
+        <div className="jk-tabs-actions jk-row right nowrap gap" style={!(!!extraNodes.length && isExtend) ? hiddenStyle : {}}>
           <div className="jk-divider horizontal" />
           <div className="jk-row gap nowrap" ref={refActions}>
-            {Children.toArray(extraNodes.map((action, index) => (
-              renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey }, index)
-            )))}
+            {Children.toArray(
+              extraNodes.map((action, index) => renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey }, index)),
+            )}
           </div>
         </div>
-        {(!!extraNodes.length && !isExtend) && (
+        {!!extraNodes.length && !isExtend && (
           <Popover
-            popoverClassName="bc-we jk-br-ie elevation-1"
+            popoverClassName="bc-sf-hi jk-br-ie elevation-1"
             content={
               <div className="jk-col gap stretch jk-tab-extra-nodes jk-pg-xsm">
-                {Children.toArray(extraNodes.map((action, index) => (
-                  renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey }, index)
-                )))}
+                {Children.toArray(
+                  extraNodes.map((action, index) => renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey }, index)),
+                )}
               </div>
             }
             triggerOn={TriggerAction.CLICK}
@@ -153,7 +148,7 @@ export function Tabs<T extends string, >(props: TabsProps<T>) {
       </div>
       <div className="jk-tabs-content">
         {tabs.map(({ body, key }) => (
-          <div className={classNames({ 'selected': tabKey === key })} key={key}>
+          <div className={classNames({ selected: tabKey === key })} key={key}>
             {renderReactNodeOrFunctionP1(body, { selectedTabKey: tabKey })}
           </div>
         ))}

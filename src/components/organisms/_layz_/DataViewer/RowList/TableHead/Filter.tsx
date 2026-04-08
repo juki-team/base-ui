@@ -11,24 +11,27 @@ import { TableHeadFilterSelect } from './TableHeadFilterSelect';
 import { TableHeadFilterText } from './TableHeadFilterText';
 
 interface FilterProps {
-  filter?: TableHeaderFilterType,
-  columnIndex: string,
-  disabled: boolean,
+  filter?: TableHeaderFilterType;
+  columnIndex: string;
+  disabled: boolean;
 }
 
 // TODO: disabled (?)
 export const Filter = ({ filter, columnIndex }: FilterProps) => {
-  
-  const [ visible, setVisible ] = useState(false);
-  
-  const filtered = isFilterText(filter) ? !!filter.getFilter()
-    : isFilterSelect(filter) ? !!filter.getFilter().length
-      : isFilterDate(filter) ? !!filter.getFilter()?.isValidDate()
-        : isFilterDateRange(filter) ? !!filter.getFilter()?.[0]?.isValidDate() && !!filter.getFilter()?.[1]?.isValidDate()
+  const [visible, setVisible] = useState(false);
+
+  const filtered = isFilterText(filter)
+    ? !!filter.getFilter()
+    : isFilterSelect(filter)
+      ? !!filter.getFilter().length
+      : isFilterDate(filter)
+        ? !!filter.getFilter()?.isValidDate()
+        : isFilterDateRange(filter)
+          ? !!filter.getFilter()?.[0]?.isValidDate() && !!filter.getFilter()?.[1]?.isValidDate()
           : false;
   return (
     <Popover
-      popoverClassName="bc-we jk-br-ie elevation-1"
+      popoverClassName="bc-sf-hi jk-br-ie elevation-1"
       onOpenChange={setVisible}
       content={({ isOpen }) => {
         const onReset = () => {
@@ -40,7 +43,7 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
             <TableHeadFilterText
               columnIndex={columnIndex}
               initialText={filter.getFilter()}
-              onFilter={props => {
+              onFilter={(props) => {
                 filter.onFilter(props);
                 setVisible(false);
               }}
@@ -55,7 +58,7 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
               columnIndex={columnIndex}
               options={filter.options}
               initialSelectedOptions={filter.getFilter()}
-              onFilter={props => {
+              onFilter={(props) => {
                 filter.onFilter(props);
                 setVisible(false);
               }}
@@ -70,7 +73,7 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
               columnIndex={columnIndex}
               isDisabled={filter.isDisabled}
               initialSelectedDate={filter.getFilter()}
-              onFilter={props => {
+              onFilter={(props) => {
                 filter.onFilter(props);
                 setVisible(false);
               }}
@@ -87,7 +90,7 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
               isDisabled={filter.isDisabled}
               initialStartSelectedDate={filter.getFilter()[0]}
               initialEndSelectedDate={filter.getFilter()[1]}
-              onFilter={props => {
+              onFilter={(props) => {
                 filter.onFilter(props);
                 setVisible(false);
               }}
@@ -107,7 +110,7 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
     >
       <div
         className={classNames('tool jk-row jk-br-ie', {
-          'bc-al cr-at-it active': filtered,
+          'bc-at-lt cr-at-it active': filtered,
           'cr-hd': !filtered,
           visible,
           // disabled,

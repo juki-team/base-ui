@@ -25,42 +25,33 @@ import { SubmissionListenerVerdict } from './SubmissionListenerVerdict';
 import { SubmissionMemory } from './SubmissionMemory';
 import { SubmissionTime } from './SubmissionTime';
 
-const DisplayGridData = ({ data }: { data: { title: ReactNode, content: ReactNode }[] }) => {
+const DisplayGridData = ({ data }: { data: { title: ReactNode; content: ReactNode }[] }) => {
   return (
     <div className="jk-table-grid wh-100">
       {data.map(({ title, content }, index) => (
-        <div className="jk-col bc-we jk-pg-xsm jk-br-ie" key={index}>
-          <div>
-            {title}
-          </div>
-          <div>
-            {content}
-          </div>
+        <div className="jk-col bc-sf-hi jk-pg-xsm jk-br-ie" key={index}>
+          <div>{title}</div>
+          <div>{content}</div>
         </div>
       ))}
     </div>
   );
 };
 
-export const SubmitViewContent = ({ submit, header, className }: {
-  submit: SubmissionDataResponseDTO,
-  header?: ReactNode,
-  className?: string
+export const SubmitViewContent = ({
+  submit,
+  header,
+  className,
+}: {
+  submit: SubmissionDataResponseDTO;
+  header?: ReactNode;
+  className?: string;
 }) => {
-  
   const {
     runId,
     submitId,
-    problem: {
-      isManager,
-      isAdministrator,
-      scoringMode: problemScoringMode,
-      key: problemKey,
-    },
-    user: {
-      nickname,
-      canViewSourceCode,
-    },
+    problem: { isManager, isAdministrator, scoringMode: problemScoringMode, key: problemKey },
+    user: { nickname, canViewSourceCode },
     language,
     sourceCode,
     memoryUsed,
@@ -73,39 +64,38 @@ export const SubmitViewContent = ({ submit, header, className }: {
     judgmentTime,
     contest,
   } = submit;
-  
+
   const isProblemEditor = isManager || isAdministrator;
   const date = new Date(timestamp);
   const testCasesByGroup: { [key: number]: TestCaseResult[] } = {};
-  (
-    testCaseResults || []
-  ).forEach((testCase) => {
-    const group = testCase.group ? (
-      problemScoringMode === ProblemScoringMode.SUBTASK ? testCase.group : 1
-    ) : 0;
+  (testCaseResults || []).forEach((testCase) => {
+    const group = testCase.group ? (problemScoringMode === ProblemScoringMode.SUBTASK ? testCase.group : 1) : 0;
     if (testCasesByGroup[group]) {
       testCasesByGroup[group].push(testCase);
     } else {
-      testCasesByGroup[group] = [ testCase ];
+      testCasesByGroup[group] = [testCase];
     }
   });
-  
-  const compilationFailed = verdict !== ProblemVerdict.NONE
-    && verdict !== ProblemVerdict.PENDING
-    && compilationResult?.success === false;
-  
-  const { Link } = useUIStore(store => store.components);
-  const userCompanyKey = useUserStore(state => state.company.key);
+
+  const compilationFailed =
+    verdict !== ProblemVerdict.NONE && verdict !== ProblemVerdict.PENDING && compilationResult?.success === false;
+
+  const { Link } = useUIStore((store) => store.components);
+  const userCompanyKey = useUserStore((state) => state.company.key);
   const origin = getJudgeOrigin(submit.problem.company.key, userCompanyKey);
-  
+
   const isLeetCode = submit.problem.judge.key === Judge.LEETCODE;
-  const { data } = useFetcher<ContentsResponse<JudgeDataResponseDTO>>(
-    jukiApiManager.API_V2.judge.getSummaryList().url,
-  );
+  const { data } = useFetcher<ContentsResponse<JudgeDataResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
   const getSubmissionUrl = data?.success ? data.contents.find(({ key }) => key === Judge.LEETCODE)?.getSubmissionUrl : '';
-  const getSubmissionUrlFn = new Function('problemKey', 'submissionId', 'username', 'submissionRunId', getSubmissionUrl || 'return \'\'');
+  const getSubmissionUrlFn = new Function(
+    'problemKey',
+    'submissionId',
+    'username',
+    'submissionRunId',
+    getSubmissionUrl || "return ''",
+  );
   const externalUrl = getSubmissionUrlFn(problemKey, submitId, nickname, runId) as string;
-  
+
   return (
     <div className={classNames('jk-col stretch gap wh-100', className)}>
       {header}
@@ -160,48 +150,49 @@ export const SubmitViewContent = ({ submit, header, className }: {
                   </div>
                 ),
               },
-              ...(hasTimeHasMemory(verdict) ? [
-                {
-                  title: <T className="fw-bd tt-se">time used</T>,
-                  content: <SubmissionTime timeUsed={timeUsed} verdict={verdict} />,
-                }, {
-                  title: <T className="fw-bd tt-se">memory used</T>,
-                  content: <SubmissionMemory memoryUsed={memoryUsed} verdict={verdict} />,
-                },
-              ] : []),
+              ...(hasTimeHasMemory(verdict)
+                ? [
+                    {
+                      title: <T className="fw-bd tt-se">time used</T>,
+                      content: <SubmissionTime timeUsed={timeUsed} verdict={verdict} />,
+                    },
+                    {
+                      title: <T className="fw-bd tt-se">memory used</T>,
+                      content: <SubmissionMemory memoryUsed={memoryUsed} verdict={verdict} />,
+                    },
+                  ]
+                : []),
               {
                 title: <T className="fw-bd tt-se">date</T>,
                 content: <DateLiteral date={date} twoLines />,
               },
-              ...(isProblemEditor ? [
-                {
-                  title: <T className="fw-bd tt-se">{judgmentTime > 0 ? 'judgment time' : 'judging'}</T>,
-                  content: (
-                    <div className="jk-row">
-                      ~&nbsp;
-                      {judgmentTime > 0
-                        ? <TimerDisplay
-                          counter={judgmentTime}
-                          literal
-                          type="minutes-seconds-milliseconds"
-                          maxSplit={2}
-                          abbreviated
-                        />
-                        : <Timer
-                          remaining={Date.now() - -judgmentTime}
-                          interval={1000}
-                          literal
-                          type="seconds"
-                        />
-                      }
-                    </div>
-                  ),
-                },
-                {
-                  title: <T className="fw-bd tt-se">actions</T>,
-                  content: <SubmissionRejudgeButton submissionId={submit.submitId} />,
-                },
-              ] : []),
+              ...(isProblemEditor
+                ? [
+                    {
+                      title: <T className="fw-bd tt-se">{judgmentTime > 0 ? 'judgment time' : 'judging'}</T>,
+                      content: (
+                        <div className="jk-row">
+                          ~&nbsp;
+                          {judgmentTime > 0 ? (
+                            <TimerDisplay
+                              counter={judgmentTime}
+                              literal
+                              type="minutes-seconds-milliseconds"
+                              maxSplit={2}
+                              abbreviated
+                            />
+                          ) : (
+                            <Timer remaining={Date.now() - -judgmentTime} interval={1000} literal type="seconds" />
+                          )}
+                        </div>
+                      ),
+                    },
+                    {
+                      title: <T className="fw-bd tt-se">actions</T>,
+                      content: <SubmissionRejudgeButton submissionId={submit.submitId} />,
+                    },
+                  ]
+                : []),
             ]}
           />
         )}
@@ -209,15 +200,11 @@ export const SubmitViewContent = ({ submit, header, className }: {
         className="wh-100"
       >
         {!!compilationResult?.err && (
-          <div className="submission-stderr-content jk-text-stderr tx-t bc-er cr-we jk-pg-xsm">
-            {compilationResult?.err}
-          </div>
+          <div className="submission-stderr-content jk-text-stderr tx-t bc-er cr-we jk-pg-xsm">{compilationResult?.err}</div>
         )}
       </Collapse>
-      {(
-        (verdictByGroups && !!Object.keys(verdictByGroups).length)
-        || (testCasesByGroup && !!Object.keys(testCasesByGroup).length)
-      ) && (
+      {((verdictByGroups && !!Object.keys(verdictByGroups).length) ||
+        (testCasesByGroup && !!Object.keys(testCasesByGroup).length)) && (
         <div className="wh-100">
           <div className="tx-l fw-bd cr-tx-ht-dk">
             <T className="tt-se">
@@ -233,19 +220,25 @@ export const SubmitViewContent = ({ submit, header, className }: {
               <div className="jk-row">
                 <T className="tt-se">{problemScoringMode === ProblemScoringMode.SUBTASK ? 'groups' : ''}</T>
               </div>
-              <div className="jk-row" style={{ flex: 3 }}><T className="tt-se">verdict</T></div>
+              <div className="jk-row" style={{ flex: 3 }}>
+                <T className="tt-se">verdict</T>
+              </div>
               {(problemScoringMode === ProblemScoringMode.SUBTASK || problemScoringMode === ProblemScoringMode.PARTIAL) && (
-                <div className="jk-row"><T className="tt-se">points</T></div>
+                <div className="jk-row">
+                  <T className="tt-se">points</T>
+                </div>
               )}
-              <div className="jk-row"><T className="tt-se">time</T></div>
-              <div className="jk-row"><T className="tt-se">memory</T></div>
+              <div className="jk-row">
+                <T className="tt-se">time</T>
+              </div>
+              <div className="jk-row">
+                <T className="tt-se">memory</T>
+              </div>
             </div>
           </div>
-          {(
-            verdictByGroups && !!Object.keys(verdictByGroups).length
-          ) ? (
+          {verdictByGroups && !!Object.keys(verdictByGroups).length ? (
             <div className="jk-col jk-br-ie">
-              {Object.entries(verdictByGroups).map(([ groupKey, result ]) => (
+              {Object.entries(verdictByGroups).map(([groupKey, result]) => (
                 <SubmissionGroupInfo
                   key={groupKey}
                   groupKey={+groupKey}
@@ -262,7 +255,7 @@ export const SubmitViewContent = ({ submit, header, className }: {
             </div>
           ) : (
             <div className="jk-col jk-br-ie">
-              {Object.entries(testCasesByGroup).map(([ groupKey, result ]) => (
+              {Object.entries(testCasesByGroup).map(([groupKey, result]) => (
                 <SubmissionGroupInfo
                   key={groupKey}
                   groupKey={+groupKey}
@@ -271,9 +264,11 @@ export const SubmitViewContent = ({ submit, header, className }: {
                   memoryUsed={0}
                   verdict={verdict}
                   timeUsed={0}
-                  points={problemScoringMode === ProblemScoringMode.PARTIAL
-                    ? +result.reduce((sum, testCase) => sum + testCase.points, 0).toFixed(3)
-                    : 0}
+                  points={
+                    problemScoringMode === ProblemScoringMode.PARTIAL
+                      ? +result.reduce((sum, testCase) => sum + testCase.points, 0).toFixed(3)
+                      : 0
+                  }
                   testCases={result}
                   submitId={submitId}
                 />
@@ -284,7 +279,9 @@ export const SubmitViewContent = ({ submit, header, className }: {
       )}
       {!!canViewSourceCode && !isLeetCode && (
         <div className="jk-col stretch wh-100">
-          <div className="tx-l fw-bd cr-tx-ht-dk"><T className="tt-se">source code</T></div>
+          <div className="tx-l fw-bd cr-tx-ht-dk">
+            <T className="tt-se">source code</T>
+          </div>
           <div className="submission-info-code-source">
             <CodeViewer code={sourceCode} language={language} lineNumbers />
           </div>
@@ -294,7 +291,8 @@ export const SubmitViewContent = ({ submit, header, className }: {
         <div className="jk-row wh-100">
           <Link href={externalUrl} target="_blank">
             <Button>
-              <T className="tt-se">view submission on LeetCode</T><OpenInNewIcon />
+              <T className="tt-se">view submission on LeetCode</T>
+              <OpenInNewIcon />
             </Button>
           </Link>
         </div>

@@ -25,18 +25,13 @@ const steps = [
   },
 ];
 
-export function LoginModalCmp({
-                                multiCompanies,
-                                openForgotPasswordModal,
-                                setOpenForgotPasswordModal,
-                              }: LoginModalProps) {
-  
+export function LoginModalCmp({ multiCompanies, openForgotPasswordModal, setOpenForgotPasswordModal }: LoginModalProps) {
   const { signIn } = useJukiUser();
-  const { osLabel, label } = useUserStore(state => state.device);
-  const searchParams = useRouterStore(state => state.searchParams);
-  const appendSearchParams = useRouterStore(state => state.appendSearchParams);
-  const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
-  const [ passwordTourOpened, setPasswordTourOpened ] = useState(false);
+  const { osLabel, label } = useUserStore((state) => state.device);
+  const searchParams = useRouterStore((state) => state.searchParams);
+  const appendSearchParams = useRouterStore((state) => state.appendSearchParams);
+  const deleteSearchParams = useRouterStore((state) => state.deleteSearchParams);
+  const [passwordTourOpened, setPasswordTourOpened] = useState(false);
   const onError = () => {
     if (!passwordTourOpened) {
       setIsOpen(true);
@@ -44,14 +39,15 @@ export function LoginModalCmp({
     }
   };
   const { setIsOpen } = useTour();
-  
-  const onSubmit = ({ companyKey, ...data }: LoginFormType, setLoader: SetLoaderStatusOnClickType) => signIn({
-    params: companyKey ? { companyKey } : undefined,
-    body: { ...data, osName: osLabel, deviceName: label },
-    setLoader,
-    onError,
-  });
-  
+
+  const onSubmit = ({ companyKey, ...data }: LoginFormType, setLoader: SetLoaderStatusOnClickType) =>
+    signIn({
+      params: companyKey ? { companyKey } : undefined,
+      body: { ...data, osName: osLabel, deviceName: label },
+      setLoader,
+      onError,
+    });
+
   return (
     <LoginModalTemplate
       isOpen={searchParams.has(QueryParamKey.SIGN_IN)}
@@ -69,15 +65,11 @@ export function LoginModalCmp({
 }
 
 export function LoginModal(props: Omit<LoginModalProps, 'openForgotPasswordModal' | 'setOpenForgotPasswordModal'>) {
-  
-  const [ openForgotPasswordModal, setOpenForgotPasswordModal ] = useState(false);
-  
+  const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState(false);
+
   return (
     <>
-      <ForgotPasswordModal
-        isOpen={openForgotPasswordModal}
-        onClose={() => setOpenForgotPasswordModal(false)}
-      />
+      <ForgotPasswordModal isOpen={openForgotPasswordModal} onClose={() => setOpenForgotPasswordModal(false)} />
       <TourProvider
         steps={steps}
         onClickHighlighted={(_, { setIsOpen }) => {

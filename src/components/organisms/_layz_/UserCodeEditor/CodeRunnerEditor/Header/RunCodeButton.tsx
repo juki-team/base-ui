@@ -52,6 +52,7 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
   const { addErrorNotification } = useJukiNotification();
   const activeRunIdRef = useRef('');
   const currentFile = files[currentFileName];
+  console.log({ files, currentFileName });
   const event: Omit<SubscribeCodeRunStatusWebSocketEventDTO, 'clientId'> = {
     event: WebSocketSubscriptionEvent.SUBSCRIBE_CODE_RUN_STATUS,
     runId,
@@ -163,17 +164,18 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
       const runId = v4();
       onRunStart(runId);
       activeRunIdRef.current = runId;
+      console.log({ currentFileName });
       const { url, ...options } = jukiApiManager.API_V2.code.run({
         body: {
           runId,
           files: [
-            ...Object.values(files).map(({ language, source, name }) => ({
+            ...Object.values(files).map(({ language, source, name, active }) => ({
               language: language as CodeLanguage,
               source,
               fullFileName: name,
               isInput: false,
-              isEntryPoint: name === currentFileName,
-              toCompile: name === currentFileName,
+              isEntryPoint: active,
+              toCompile: active,
             })),
             ...Object.values(testCases).map((testCase) => ({
               fullFileName: `${testCase.key}.in`,
@@ -239,13 +241,12 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
     <ButtonLoader
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={!withLabels ? 'run (Ctrl+Enter / ⌘+Enter)' : '(Ctrl+Enter / ⌘+Enter)'}
-      size="small"
-      icon={<PlayArrowIcon />}
+      icon={<PlayArrowIcon size="tiny" />}
       onClick={handleRunCode}
       setLoaderStatusRef={(setLoader) => (setLoaderRef.current = setLoader)}
       disabled={!currentFile}
     >
-      {withLabels && <T className="tt-se">run</T>}
+      {withLabels && <T className="tt-se tx-t">run</T>}
     </ButtonLoader>
   );
 };

@@ -37,7 +37,6 @@ const InformationButton = ({ open, setOpen, isOpenRef, withLabel }: InformationB
         data-tooltip-content={withLabel ? '' : 'information'}
         data-tooltip-t-class-name="ws-np tt-se"
         size="small"
-        className="bc-we"
         type="ghost"
         icon={<InfoIIcon circle />}
         onClick={() => setOpen(true)}
@@ -179,7 +178,7 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
     >
       {editing ? (
         <>
-          <div className="content-bar-options jk-row space-between jk-br-ie jk-pg-xsm sticky-top bc-we">
+          <div className="content-bar-options jk-row space-between jk-br-ie jk-pg-xsm sticky-top bc-sf-md">
             <div className={classNames('jk-row gap left', { gap: !withLabels })}>
               {informationButton && (
                 <InformationButton
@@ -203,7 +202,6 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
                   data-tooltip-t-class-name="ws-np"
                   type="ghost"
                   size="small"
-                  className="bc-we"
                   onClick={() => setView(View.EDITOR_VIEWER_HORIZONTAL)}
                 >
                   <div className="jk-row">
@@ -223,7 +221,6 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
                   data-tooltip-t-class-name="ws-np"
                   type="ghost"
                   size="small"
-                  className="bc-we"
                   icon={<PreviewIcon />}
                   onClick={() => setView(View.ONLY_VIEWER)}
                 >
@@ -237,7 +234,6 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
                   data-tooltip-t-class-name="ws-np"
                   type="ghost"
                   size="small"
-                  className="bc-we"
                   icon={<EditIcon />}
                   onClick={() => setView(View.ONLY_EDITOR)}
                 >
@@ -249,7 +245,6 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
               icon={<CloseIcon />}
               type="ghost"
               size="small"
-              className="bc-we"
               onClick={() => setEditing(false)}
             />
           </div>
@@ -293,7 +288,7 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
         <div className="jk-loader-layer pn-ae">
           <div className="jk-loader-layer pn-ae jk-overlay-backdrop" style={{ opacity: 0.8 }}></div>
           <div className="jk-row" style={{ zIndex: 1 }}>
-            <div className="jk-row bc-we jk-pg-sm jk-br-ie" style={{ alignItems: 'baseline' }}>
+            <div className="jk-row jk-pg-sm jk-br-ie" style={{ alignItems: 'baseline' }}>
               <T className="tt-se">uploading images</T> &nbsp;
               <div className="dot-flashing" />
             </div>

@@ -18,12 +18,11 @@ import { ButtonAction } from '../../../molecules';
 import { TimerDisplay } from '../../../molecules/Timer/TimerDisplay';
 
 export function FullscreenTimerButton() {
-  
-  const playBell = useSoundStore(store => store.playBell);
-  const [ isActive, setIsActive ] = useState(false);
-  const [ fullscreen, setFullscreen ] = useState(true);
-  const [ type, setType ] = useState<'timer' | 'countdown'>('timer');
-  
+  const playBell = useSoundStore((store) => store.playBell);
+  const [isActive, setIsActive] = useState(false);
+  const [fullscreen, setFullscreen] = useState(true);
+  const [type, setType] = useState<'timer' | 'countdown'>('timer');
+
   const timeout = useCallback(() => {
     if (type === 'countdown') {
       playBell();
@@ -33,12 +32,12 @@ export function FullscreenTimerButton() {
         }, i * 1000);
       }
     }
-  }, [ playBell, type ]);
+  }, [playBell, type]);
   const countdown = useTimer('tool-buttons-countdown', -1000, timeout);
   const timer = useTimer('tool-buttons-timer', 1000);
-  
+
   const timerCountdown = type === 'timer' ? timer : countdown;
-  
+
   const typeToggle = (size: ButtonProps['size']) => (
     <InputToggle
       size={size}
@@ -73,15 +72,9 @@ export function FullscreenTimerButton() {
       }}
     />
   );
-  
-  const timerDisplay = (
-    <TimerDisplay
-      inline
-      type="hours-minutes-seconds"
-      counter={timerCountdown.counter}
-    />
-  );
-  
+
+  const timerDisplay = <TimerDisplay inline type="hours-minutes-seconds" counter={timerCountdown.counter} />;
+
   const timerButtons = (size: ButtonProps['size']) => (
     <>
       {type === 'countdown' && (
@@ -94,7 +87,7 @@ export function FullscreenTimerButton() {
           <Button
             size={size}
             icon={<div>+5</div>}
-            onClick={() => countdown.setCountdownFrom(countdown.countdownFrom + (ONE_MINUTE * 5))}
+            onClick={() => countdown.setCountdownFrom(countdown.countdownFrom + ONE_MINUTE * 5)}
           />
           <Button
             size={size}
@@ -104,7 +97,7 @@ export function FullscreenTimerButton() {
           <Button
             size={size}
             icon={<div>-5</div>}
-            onClick={() => countdown.setCountdownFrom(Math.max(countdown.countdownFrom - (ONE_MINUTE * 5), 0))}
+            onClick={() => countdown.setCountdownFrom(Math.max(countdown.countdownFrom - ONE_MINUTE * 5, 0))}
           />
         </div>
       )}
@@ -135,7 +128,7 @@ export function FullscreenTimerButton() {
       </div>
     </>
   );
-  
+
   return (
     <>
       {isActive ? (
@@ -157,7 +150,7 @@ export function FullscreenTimerButton() {
             },
             {
               children: (
-                <div className="jk-col gap bc-we elevation-1 jk-pg-xsm jk-br-ie">
+                <div className="jk-col gap bc-sf-hi elevation-1 jk-pg-xsm jk-br-ie">
                   {typeToggle('tiny')}
                   {timerDisplay}
                   {timerButtons('tiny')}
@@ -196,7 +189,11 @@ export function FullscreenTimerButton() {
           ]}
         >
           {isActive && !fullscreen ? (
-            <div className={classNames({ 'jk-overlay-backdrop jk-br-ie cr-ss-lt jk-pg-xsm-rl': !timerCountdown.isStopped && !fullscreen })}>
+            <div
+              className={classNames({
+                'jk-overlay-backdrop jk-br-ie cr-ss-lt jk-pg-xsm-rl': !timerCountdown.isStopped && !fullscreen,
+              })}
+            >
               {timerDisplay}
             </div>
           ) : undefined}
@@ -220,21 +217,14 @@ export function FullscreenTimerButton() {
               opacity: isActive ? 1 : 0,
               backgroundColor: 'var(--cr-ht-lt)',
             }}
-            className="bc-we jk-col stretch jk-overlay-backdrop jk-overlay"
+            className="bc-sf-hi jk-col stretch jk-overlay-backdrop jk-overlay"
           >
             <div className="jk-col gap huge-text">
-              <div className="jk-col gap display-on-hover-1 bf-4 jk-pg-sm jk-br">
-                {typeToggle('huge')}
-              </div>
-              <div
-                className="jk-col jk-pg-sm bc-we wh-100"
-                style={{ '--background-color': '#FAFBFC44' } as CSSProperties}
-              >
+              <div className="jk-col gap display-on-hover-1 bf-4 jk-pg-sm jk-br">{typeToggle('huge')}</div>
+              <div className="jk-col jk-pg-sm bc-sf-hi wh-100" style={{ '--background-color': '#FAFBFC44' } as CSSProperties}>
                 {timerDisplay}
               </div>
-              <div className="jk-col gap display-on-hover-2 bf-4 jk-pg-sm jk-br">
-                {timerButtons('huge')}
-              </div>
+              <div className="jk-col gap display-on-hover-2 bf-4 jk-pg-sm jk-br">{timerButtons('huge')}</div>
             </div>
           </div>
         </Portal>

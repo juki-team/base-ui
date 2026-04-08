@@ -98,9 +98,9 @@
       
       &.disabled {
         > div {
-          color: var(--cr-gy-4);
+          color: var(--cr-tx-mt);
           cursor: not-allowed;
-          background-color: var(--cr-gy-6);
+          background-color: var(--cr-ht-lt);
           border-radius: var(--pad-t);
         }
       }
@@ -113,7 +113,7 @@
           position: absolute;
           //width: 45px;
           height: 24px;
-          background-color: var(--cr-gy-6);
+          background-color: var(--cr-ht-lt);
         }
       }
     }
@@ -124,11 +124,11 @@
     
     .date {
       &.is-next-month, &.is-previous-month {
-        color: var(--cr-gy-4);
+        color: var(--cr-tx-mt);
         font-weight: var(--weight-regular);
         
         &.disabled {
-          color: var(--cr-gy-5);
+          color: var(--cr-tx-ds);
         }
       }
       

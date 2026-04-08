@@ -222,7 +222,7 @@
         
         &:hover {
           .jk-table-row-field {
-            background-color: var(--cr-we-det);
+            background-color: var(--bc-sf-hi);
           }
         }
         
@@ -337,7 +337,7 @@
   box-sizing: border-box;
   height: 100%;
   position: relative;
-  background: var(--cr-we-det);
+  background: var(--bc-sf-md);
   
   .jk-table-head-drag {
     box-sizing: border-box;

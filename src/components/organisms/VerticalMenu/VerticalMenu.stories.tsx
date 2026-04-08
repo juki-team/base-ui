@@ -41,12 +41,7 @@ const menu = [
 
 const rightSection = ({ open = undefined }: { open?: boolean }) => (
   <div className="jk-row gap" style={{ width: '240px' }}>
-    <Popover
-      content={<div className="cr-g1"> Settings </div>}
-      triggerOn={TriggerAction.CLICK}
-      placement="bottom"
-      open={open}
-    >
+    <Popover content={<div> Settings </div>} triggerOn={TriggerAction.CLICK} placement="bottom" open={open}>
       <div>
         <Button icon={<SettingsIcon />} type="text" />
       </div>
@@ -54,7 +49,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
     <Popover
       open={open}
       content={
-        <div className="jk-col gap more-apps-popover cr-g1">
+        <div className="jk-col gap more-apps-popover">
           <div className="fw-bd tt-se">
             <T>more apps coming soon</T>
           </div>
@@ -108,11 +103,7 @@ const rightMobile = {
 };
 
 const centerMobile = {
-  children: (
-    <div className="cr-we">
-      {/*<JukiJudgeLogoHorImage />*/}
-    </div>
-  ),
+  children: <div className="cr-we">{/*<JukiJudgeLogoHorImage />*/}</div>,
   content: ({ onClose }: DrawerActionsType) => (
     <div>
       TOP MENU <div onClick={onClose}>close top!</div>
@@ -138,13 +129,7 @@ export const VerticalMenu = () => (
         drawerMenuMobile={drawerMenuMobile}
       >
         <div>
-          <MdMathEditor
-            value={SAMPLE_MD_CONTENT}
-            onChange={() => {
-            }}
-            enableDownload
-            informationButton
-          />
+          <MdMathEditor value={SAMPLE_MD_CONTENT} onChange={() => {}} enableDownload informationButton />
         </div>
       </VerticalMenuCmp>
     </div>

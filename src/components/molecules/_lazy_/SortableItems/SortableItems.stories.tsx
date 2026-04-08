@@ -24,20 +24,19 @@ configureActions({
 // };
 
 const Component: SortableItemComponent<string, { otherValue: string }> = ({
-                                                                            style,
-                                                                            attributes,
-                                                                            listeners,
-                                                                            item,
-                                                                            isOver,
-                                                                            isDragging,
-                                                                            setNodeRef,
-                                                                          }) => {
-  
-  const test = new Array(Math.round(+(item.key) * 5)).fill(0).map((_, i) => i);
-  
+  style,
+  attributes,
+  listeners,
+  item,
+  isOver,
+  isDragging,
+  setNodeRef,
+}) => {
+  const test = new Array(Math.round(+item.key * 5)).fill(0).map((_, i) => i);
+
   return (
     <div
-      // className="jk-row left gap bc-we"
+      // className="jk-row left gap bc-sf-hi"
       // style={{ opacity: isDragging && !isPreview ? 0 : 1 }}
       ref={setNodeRef}
       style={{ ...style, border: '1px solid black' }}
@@ -69,7 +68,7 @@ const Component: SortableItemComponent<string, { otherValue: string }> = ({
 };
 
 export const SimpleSortableRows = () => {
-  const [ items, setItems ] = useState<SortableItem<string>[]>([
+  const [items, setItems] = useState<SortableItem<string>[]>([
     { key: '1', value: '111' },
     {
       key: '2',
@@ -77,7 +76,7 @@ export const SimpleSortableRows = () => {
     },
     {
       key: '3',
-      
+
       value: '333',
     },
     {
@@ -87,7 +86,7 @@ export const SimpleSortableRows = () => {
     { key: '4', value: '555' },
     {
       key: '5',
-      
+
       value: '666',
     },
     { key: '6', value: '777' },

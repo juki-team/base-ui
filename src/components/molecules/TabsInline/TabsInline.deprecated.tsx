@@ -57,7 +57,7 @@ const HeaderTab = <T = string,>(props: HeaderTabProps<T>) => {
         {tickStyle === 'background' ? (
           <div
             className={classNames('tab-tick-background jk-br-ie', {
-              'opacity-1230 bc-al cr-at-it selected': key === selectedTabKey,
+              'opacity-1230 bc-at-lt cr-at-it selected': key === selectedTabKey,
               'bc-ht-lt': key !== selectedTabKey,
             })}
           >
@@ -137,7 +137,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
             >
               <div className="jk-row jk-pg-xsm" onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex - 1]?.key)}>
                 <NavigateBeforeIcon
-                  className={classNames('br-50-pc bc-al cr-at-it elevation-1', {
+                  className={classNames('br-50-pc bc-at-lt cr-at-it elevation-1', {
                     activated: selectedTabIndex - 1 >= 0,
                     disabled: !(selectedTabIndex - 1 >= 0),
                   })}
@@ -203,7 +203,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
             >
               <div className="jk-row jk-pg-xsm" onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex + 1]?.key)}>
                 <NavigateNextIcon
-                  className={classNames('br-50-pc bc-al cr-at-it elevation-1', {
+                  className={classNames('br-50-pc bc-at-lt cr-at-it elevation-1', {
                     activated: selectedTabIndex + 1 < tabsLength,
                     disabled: !(selectedTabIndex + 1 < tabsLength),
                   })}

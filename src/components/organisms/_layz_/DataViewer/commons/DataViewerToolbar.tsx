@@ -35,8 +35,8 @@ import { isSomethingFiltered, renderHead } from './utils';
 const buttonFilterStyles = (active: boolean) =>
   classNames(
     {
-      'bc-al cr-at-it': active,
-      'bc-we': !active,
+      'bc-at-lt cr-at-it': active,
+      'bc-sf-md': !active,
       active,
     },
     'jk-row jk-data-viewer-tools-filter jk-br-ie cr-pr jk-row nowrap',
@@ -240,6 +240,7 @@ const DataViewerToolbarCmp = <T,>(props: DataViewerToolbarProps<T>) => {
               const header = headers.find((head) => head.index === lastOptionChanged?.value);
               header?.visible.onToggle();
             }}
+            className="bc-sf-md"
           >
             <ToolbarButtonIcon
               Icon={TableEyeIcon}
@@ -304,7 +305,7 @@ const DataViewerToolbarCmp = <T,>(props: DataViewerToolbarProps<T>) => {
               <div className="jk-divider horizontal" />
               <div>
                 <Popover
-                  popoverClassName="bc-we jk-br-ie elevation-1"
+                  popoverClassName="bc-sf-hi jk-br-ie elevation-1"
                   content={<div className="jk-pg-sm jk-col stretch gap">{extraNodes.map(renderReactNodeOrFunction)}</div>}
                   triggerOn={TriggerAction.CLICK}
                   placement="bottom"

@@ -213,6 +213,7 @@ const formatStoreRecovered =
             readonly: false,
             folderPath: '',
             description: '',
+            active: false,
           };
           index++;
         } else if (typeof source === 'object' && source !== null) {
@@ -242,6 +243,7 @@ const formatStoreRecovered =
             readonly: 'readonly' in source && typeof source?.readonly === 'boolean' ? source.readonly : false,
             folderPath,
             description: 'description' in source && typeof source?.description === 'string' ? source?.description : '',
+            active: false,
           };
         }
       }
@@ -391,6 +393,19 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
         lastFileName,
       },
     }));
+
+    setFilesStore((prevState) => {
+      if (prevState[storeKey] && prevState[storeKey][currentFileName]) {
+        const updatedFiles = Object.fromEntries(
+          Object.entries(prevState[storeKey]).map(([fileName, fileData]) => [
+            fileName,
+            typeof fileData === 'object' && fileData !== null ? { ...fileData, active: fileName === lastFileName } : fileData,
+          ]),
+        );
+        return { ...prevState, [storeKey]: updatedFiles };
+      }
+      return prevState;
+    });
   };
 
   const testCaseStoreKey = storeKey;
@@ -581,6 +596,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
           readonly: false,
           folderPath,
           description: '',
+          active: true,
         };
         return { ...prevState, [storeKey]: files };
       });

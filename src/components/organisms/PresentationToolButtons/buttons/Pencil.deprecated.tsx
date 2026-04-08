@@ -230,7 +230,7 @@
 //             { icon: <EditIcon />, type: 'accent', label: <T>exit</T>, onClick: () => setIsActive(false) },
 //             {
 //               children: (
-//                 <div className="jk-col gap bc-we elevation-1 jk-pg-xsm jk-br-ie">
+//                 <div className="jk-col gap bc-sf-md elevation-1 jk-pg-xsm jk-br-ie">
 //                   <div className="jk-row gap">
 //                     <Button
 //                       size="tiny"

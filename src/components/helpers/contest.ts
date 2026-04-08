@@ -8,7 +8,7 @@ export const getContestState = (contest: ContestTimeData) => {
     return { order: 1, label: 'endless', bc: 'bc-io' };
   }
   if (contest.isPast) {
-    return { order: 2, label: 'past', bc: 'bc-g5' };
+    return { order: 2, label: 'past', bc: 'bc-sf-md' };
   }
   if (contest.isLive) {
     return { order: 3, label: 'live', bc: 'bc-er' };
@@ -16,5 +16,5 @@ export const getContestState = (contest: ContestTimeData) => {
   if (contest.isFuture) {
     return { order: 4, label: 'upcoming', bc: 'bc-ss' };
   }
-  return { order: 5, label: '-', bc: 'bc-g5' };
+  return { order: 5, label: '-', bc: 'bc-sf-md' };
 };

@@ -172,7 +172,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
             setRunState={setRunState}
           />
         )}
-        <div className="code-viewer-to-print bc-we jk-pg jk-br-ie">
+        <div className="code-viewer-to-print bc-sf-md jk-pg jk-br-ie">
           <CodeViewer code={source} language={language as CodeLanguage} />
         </div>
         <Select
@@ -286,12 +286,11 @@ export const Header = <T,>(props: HeaderProps<T>) => {
           data-tooltip-id="jk-tooltip"
           data-tooltip-content={!withLabels ? 'settings' : ''}
           data-tooltip-place="bottom-end"
-          size="small"
           type="secondary"
           onClick={() => setShowSettings(true)}
-          icon={<SettingsIcon />}
+          icon={<SettingsIcon size="tiny" />}
         >
-          {withLabels && <T className="tt-se">settings</T>}
+          {withLabels && <T className="tt-se tx-t">settings</T>}
         </Button>
         {expanded !== null && (
           <Button

@@ -16,56 +16,53 @@ import { UserChip, UsersSelector } from '../../organisms';
 import { InfoIIcon } from '../../server';
 import type { DocumentCustomMembersContentProps } from './types';
 
-function PrintUsers({ members, renderMember }: {
-  members?: EntityMembersResponseDTO['spectators'],
-  renderMember?: (member: DocumentMemberResponseDTO) => ReactNode
+function PrintUsers({
+  members,
+  renderMember,
+}: {
+  members?: EntityMembersResponseDTO['spectators'];
+  renderMember?: (member: DocumentMemberResponseDTO) => ReactNode;
 }) {
   const users = Object.values(members || {});
-  
+
   if (!users.length) {
-    return <div className="jk-row extend left"><T className="fw-lr tt-se tx-s">nobody</T></div>;
+    return (
+      <div className="jk-row extend left">
+        <T className="fw-lr tt-se tx-s">nobody</T>
+      </div>
+    );
   }
-  
+
   return (
     <div className="jk-row left gap">
-      {users.map(member => (
-        renderMember
-          ? renderMember(member)
-          : (
-            <UserChip
-              imageUrl={member.imageUrl}
-              nickname={member.nickname}
-              key={member.nickname}
-              companyKey={member.company.key}
-            />
-          )
-      ))}
+      {users.map((member) =>
+        renderMember ? (
+          renderMember(member)
+        ) : (
+          <UserChip
+            imageUrl={member.imageUrl}
+            nickname={member.nickname}
+            key={member.nickname}
+            companyKey={member.company.key}
+          />
+        ),
+      )}
     </div>
   );
 }
 
 export function DocumentCustomMembersContent(props: DocumentCustomMembersContentProps) {
-  
-  const {
-    members,
-    setMembers,
-    documentOwner,
-    administrators,
-    managers,
-    participants,
-    guests,
-    spectators,
-  } = props;
-  
-  const companyKey = useUserStore(state => state.company.key);
+  const { members, setMembers, documentOwner, administrators, managers, participants, guests, spectators } = props;
+
+  const companyKey = useUserStore((state) => state.company.key);
   const documentAccess = getDocumentAccess({ members });
-  
+
   const administratorsLabel = administrators?.name || 'administrators';
   const managersLabel = managers?.name || 'managers';
   const participantsLabel = participants?.name || 'participants';
   const guestsLabel = guests?.name || 'guests';
   const spectatorsLabel = spectators?.name || 'spectators';
-  
+
   return (
     <div className="jk-col gap stretch gap">
       <div>
@@ -83,8 +80,10 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{administratorsLabel}</T>
             {!!administrators?.description && (
-              <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={administrators?.description || ''}>
-                <div className="jk-row"><InfoIIcon circle size="small" /></div>
+              <Popover popoverClassName="bc-sf-hi jk-br-ie elevation-1" content={administrators?.description || ''}>
+                <div className="jk-row">
+                  <InfoIIcon circle size="small" />
+                </div>
               </Popover>
             )}
             {/*{administrators?.closeable && setMembers && (*/}
@@ -114,12 +113,14 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           {members.rankAdministrators === EntityMembersRank.NONE ? (
             <T className="tt-se">not selectable</T>
           ) : members.rankAdministrators === EntityMembersRank.CLOSE ? (
-            <><T className="tt-se">{`only the following users will be ${administratorsLabel}`}</T>:</>
+            <>
+              <T className="tt-se">{`only the following users will be ${administratorsLabel}`}</T>:
+            </>
           ) : (
             <T className="tt-se">{`all users will be ${administratorsLabel}`}</T>
           )}
-          {(members.rankAdministrators === EntityMembersRank.CLOSE || members.rankAdministrators === EntityMembersRank.OPEN) && (
-            administrators && setMembers ? (
+          {(members.rankAdministrators === EntityMembersRank.CLOSE || members.rankAdministrators === EntityMembersRank.OPEN) &&
+            (administrators && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.administrators ?? {})}
                 onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
@@ -132,12 +133,13 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                       type: MemberType.USER,
                     };
                   }
-                  setMembers(prevState => ({ ...prevState, administrators }));
+                  setMembers((prevState) => ({ ...prevState, administrators }));
                 }}
                 companyKey={companyKey}
               />
-            ) : <PrintUsers members={members.administrators} renderMember={administrators.renderMember} />
-          )}
+            ) : (
+              <PrintUsers members={members.administrators} renderMember={administrators.renderMember} />
+            ))}
         </div>
       )}
       {managers !== undefined && (
@@ -145,8 +147,10 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{managers?.name || 'managers'}</T>
             {!!managers?.description && (
-              <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={managers?.description || ''}>
-                <div className="jk-row"><InfoIIcon circle size="small" /></div>
+              <Popover popoverClassName="bc-sf-hi jk-br-ie elevation-1" content={managers?.description || ''}>
+                <div className="jk-row">
+                  <InfoIIcon circle size="small" />
+                </div>
               </Popover>
             )}
             {/*{managers?.closeable && setMembers && (*/}
@@ -176,12 +180,14 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           {members.rankManagers === EntityMembersRank.NONE ? (
             <T className="tt-se">not selectable</T>
           ) : members.rankManagers === EntityMembersRank.CLOSE ? (
-            <><T className="tt-se">{`only the following users will be ${managersLabel}`}</T>:</>
+            <>
+              <T className="tt-se">{`only the following users will be ${managersLabel}`}</T>:
+            </>
           ) : (
             <T className="tt-se">{`all users will be ${managersLabel}`}</T>
           )}
-          {(members.rankManagers === EntityMembersRank.CLOSE || members.rankManagers === EntityMembersRank.OPEN) && (
-            managers && setMembers ? (
+          {(members.rankManagers === EntityMembersRank.CLOSE || members.rankManagers === EntityMembersRank.OPEN) &&
+            (managers && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.managers ?? {})}
                 onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
@@ -194,12 +200,13 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                       type: MemberType.USER,
                     };
                   }
-                  setMembers(prevState => ({ ...prevState, managers }));
+                  setMembers((prevState) => ({ ...prevState, managers }));
                 }}
                 companyKey={companyKey}
               />
-            ) : <PrintUsers members={members.managers} renderMember={managers.renderMember} />
-          )}
+            ) : (
+              <PrintUsers members={members.managers} renderMember={managers.renderMember} />
+            ))}
         </div>
       )}
       {participants !== undefined && (
@@ -207,8 +214,10 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{participants?.name || 'participants'}</T>
             {!!participants?.description && (
-              <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={participants?.description || ''}>
-                <div className="jk-row"><InfoIIcon circle size="small" /></div>
+              <Popover popoverClassName="bc-sf-hi jk-br-ie elevation-1" content={participants?.description || ''}>
+                <div className="jk-row">
+                  <InfoIIcon circle size="small" />
+                </div>
               </Popover>
             )}
             {participants?.closeable && setMembers && documentAccess !== EntityAccess.PRIVATE && (
@@ -216,10 +225,12 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                 <div className="jk-divider horizontal tiny" />
                 <InputToggle
                   checked={members.rankParticipants === EntityMembersRank.CLOSE}
-                  onChange={(value) => setMembers(prevState => ({
-                    ...prevState,
-                    rankParticipants: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
-                  }))}
+                  onChange={(value) =>
+                    setMembers((prevState) => ({
+                      ...prevState,
+                      rankParticipants: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
+                    }))
+                  }
                   leftLabel={
                     <T className={classNames({ 'fw-bd': members.rankParticipants === EntityMembersRank.OPEN })}>
                       {members.rankParticipants === EntityMembersRank.OPEN ? 'opened' : 'open'}
@@ -238,12 +249,14 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           {members.rankParticipants === EntityMembersRank.NONE ? (
             <T className="tt-se">not selectable</T>
           ) : members.rankParticipants === EntityMembersRank.CLOSE ? (
-            <><T className="tt-se">{`only the following users will be ${participantsLabel}`}</T>:</>
+            <>
+              <T className="tt-se">{`only the following users will be ${participantsLabel}`}</T>:
+            </>
           ) : (
             <T className="tt-se">{`all users will be ${participantsLabel}`}</T>
           )}
-          {(members.rankParticipants === EntityMembersRank.CLOSE || members.rankParticipants === EntityMembersRank.OPEN) && (
-            participants && setMembers ? (
+          {(members.rankParticipants === EntityMembersRank.CLOSE || members.rankParticipants === EntityMembersRank.OPEN) &&
+            (participants && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.participants ?? {})}
                 onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
@@ -256,12 +269,13 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                       type: MemberType.USER,
                     };
                   }
-                  setMembers(prevState => ({ ...prevState, participants }));
+                  setMembers((prevState) => ({ ...prevState, participants }));
                 }}
                 companyKey={companyKey}
               />
-            ) : <PrintUsers members={members.participants} renderMember={participants.renderMember} />
-          )}
+            ) : (
+              <PrintUsers members={members.participants} renderMember={participants.renderMember} />
+            ))}
         </div>
       )}
       {guests !== undefined && (
@@ -269,8 +283,10 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{guests?.name || 'guests'}</T>
             {!!guests?.description && (
-              <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={guests?.description || ''}>
-                <div className="jk-row"><InfoIIcon circle size="small" /></div>
+              <Popover popoverClassName="bc-sf-hi jk-br-ie elevation-1" content={guests?.description || ''}>
+                <div className="jk-row">
+                  <InfoIIcon circle size="small" />
+                </div>
               </Popover>
             )}
             {guests?.closeable && setMembers && documentAccess !== EntityAccess.PRIVATE && (
@@ -278,10 +294,12 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                 <div className="jk-divider horizontal tiny" />
                 <InputToggle
                   checked={members.rankGuests === EntityMembersRank.CLOSE}
-                  onChange={(value) => setMembers(prevState => ({
-                    ...prevState,
-                    rankGuests: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
-                  }))}
+                  onChange={(value) =>
+                    setMembers((prevState) => ({
+                      ...prevState,
+                      rankGuests: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
+                    }))
+                  }
                   leftLabel={
                     <T className={classNames({ 'fw-bd': members.rankGuests === EntityMembersRank.OPEN })}>
                       {members.rankGuests === EntityMembersRank.OPEN ? 'opened' : 'open'}
@@ -300,12 +318,14 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           {members.rankGuests === EntityMembersRank.NONE ? (
             <T className="tt-se">not selectable</T>
           ) : members.rankGuests === EntityMembersRank.CLOSE ? (
-            <><T className="tt-se">{`only the following users will be ${guestsLabel}`}</T>:</>
+            <>
+              <T className="tt-se">{`only the following users will be ${guestsLabel}`}</T>:
+            </>
           ) : (
             <T className="tt-se">{`all users will be ${guestsLabel}`}</T>
           )}
-          {(members.rankGuests === EntityMembersRank.CLOSE || members.rankGuests === EntityMembersRank.OPEN) && (
-            guests && setMembers ? (
+          {(members.rankGuests === EntityMembersRank.CLOSE || members.rankGuests === EntityMembersRank.OPEN) &&
+            (guests && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.guests ?? {})}
                 onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
@@ -318,12 +338,13 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                       type: MemberType.USER,
                     };
                   }
-                  setMembers(prevState => ({ ...prevState, guests }));
+                  setMembers((prevState) => ({ ...prevState, guests }));
                 }}
                 companyKey={companyKey}
               />
-            ) : <PrintUsers members={members.guests} renderMember={guests.renderMember} />
-          )}
+            ) : (
+              <PrintUsers members={members.guests} renderMember={guests.renderMember} />
+            ))}
         </div>
       )}
       {spectators !== undefined && (
@@ -331,8 +352,10 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{spectators?.name || 'spectators'}</T>
             {!!spectators?.description && (
-              <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={spectators?.description || ''}>
-                <div className="jk-row"><InfoIIcon circle size="small" /></div>
+              <Popover popoverClassName="bc-sf-hi jk-br-ie elevation-1" content={spectators?.description || ''}>
+                <div className="jk-row">
+                  <InfoIIcon circle size="small" />
+                </div>
               </Popover>
             )}
             {/*{spectators?.closeable && setMembers && (*/}
@@ -362,12 +385,14 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           {members.rankSpectators === EntityMembersRank.NONE ? (
             <T className="tt-se">not selectable</T>
           ) : members.rankSpectators === EntityMembersRank.CLOSE ? (
-            <><T className="tt-se">{`only the following users will be ${spectatorsLabel}`}</T>:</>
+            <>
+              <T className="tt-se">{`only the following users will be ${spectatorsLabel}`}</T>:
+            </>
           ) : (
             <T className="tt-se">{`all users will be ${spectatorsLabel}`}</T>
           )}
-          {(members.rankSpectators === EntityMembersRank.CLOSE || members.rankSpectators === EntityMembersRank.OPEN) && (
-            spectators && setMembers ? (
+          {(members.rankSpectators === EntityMembersRank.CLOSE || members.rankSpectators === EntityMembersRank.OPEN) &&
+            (spectators && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.spectators ?? {})}
                 onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
@@ -380,12 +405,13 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                       type: MemberType.USER,
                     };
                   }
-                  setMembers(prevState => ({ ...prevState, spectators }));
+                  setMembers((prevState) => ({ ...prevState, spectators }));
                 }}
                 companyKey={companyKey}
               />
-            ) : <PrintUsers members={members.spectators} renderMember={spectators.renderMember} />
-          )}
+            ) : (
+              <PrintUsers members={members.spectators} renderMember={spectators.renderMember} />
+            ))}
         </div>
       )}
     </div>

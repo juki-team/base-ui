@@ -8,22 +8,21 @@ import { Filter } from './Filter';
 const fillWidth = true;
 
 interface RenderHeaderProps<T> {
-  header: DataViewerTableHeadersType<T>,
-  onMouseHoldMove: (event: MouseEvent<HTMLDivElement>) => void,
-  onMouseHoldUp: () => void,
-  onMouseHoldDown: (index: number) => (event: MouseEvent<HTMLDivElement>) => void,
-  loading: boolean,
-  headers: DataViewerTableHeadersType<T>[],
-  withTools: boolean,
-  withRightBorder: boolean,
-  borderTopLeftRadius?: boolean,
-  borderTopRightRadius?: boolean,
-  borderBottomLeftRadius?: boolean,
-  borderBottomRightRadius?: boolean,
+  header: DataViewerTableHeadersType<T>;
+  onMouseHoldMove: (event: MouseEvent<HTMLDivElement>) => void;
+  onMouseHoldUp: () => void;
+  onMouseHoldDown: (index: number) => (event: MouseEvent<HTMLDivElement>) => void;
+  loading: boolean;
+  headers: DataViewerTableHeadersType<T>[];
+  withTools: boolean;
+  withRightBorder: boolean;
+  borderTopLeftRadius?: boolean;
+  borderTopRightRadius?: boolean;
+  borderBottomLeftRadius?: boolean;
+  borderBottomRightRadius?: boolean;
 }
 
-const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
-  
+const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
   const {
     header,
     onMouseHoldUp,
@@ -37,20 +36,11 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
     borderBottomLeftRadius,
     borderBottomRightRadius,
   } = props;
-  
-  const {
-    index: columnIndex,
-    width,
-    filter,
-    sort,
-    sticky,
-    headClassName,
-    headIndex,
-    accumulatedWidth,
-  } = header;
-  const { onSort, getOrder } = sort || {} as TableSortType;
+
+  const { index: columnIndex, width, filter, sort, sticky, headClassName, headIndex, accumulatedWidth } = header;
+  const { onSort, getOrder } = sort || ({} as TableSortType);
   const order = getOrder?.();
-  
+
   return (
     <div
       key={columnIndex + '_head'}
@@ -78,35 +68,36 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
         key={columnIndex}
         style={{ width: width + 'px', ...header.style }}
       >
-        <div className="jk-table-head-field flex-1 ht-100">
-          {renderHead({ header, columnIndex, className: headClassName })}
-        </div>
+        <div className="jk-table-head-field flex-1 ht-100">{renderHead({ header, columnIndex, className: headClassName })}</div>
         {withTools && (
           <div className="jk-row jk-table-head-tools">
             {sort && (
               <div
                 className={classNames('tool jk-row jk-br-ie', {
-                  'bc-al cr-at-it active': !!order,
+                  'bc-at-lt cr-at-it active': !!order,
                   'cr-hd': !order,
                 })}
                 onClick={() => onSort({ columnIndex })}
               >
-                
-                {order
-                  ? order > 0 ? <ArrowUpwardIcon size="small" /> : <ArrowDownwardIcon size="small" />
-                  : <SortIcon up down size="small" />}
+                {order ? (
+                  order > 0 ? (
+                    <ArrowUpwardIcon size="small" />
+                  ) : (
+                    <ArrowDownwardIcon size="small" />
+                  )
+                ) : (
+                  <SortIcon up down size="small" />
+                )}
               </div>
             )}
-            {filter?.onFilter && (
-              <Filter columnIndex={columnIndex} filter={filter} disabled={loading} />
-            )}
+            {filter?.onFilter && <Filter columnIndex={columnIndex} filter={filter} disabled={loading} />}
           </div>
         )}
         {withTools && (!fillWidth || headIndex < headers.length) && (
           <div
             className="jk-table-head-drag"
             onMouseDown={onMouseHoldDown(headIndex)}
-            onClick={event => {
+            onClick={(event) => {
               event.preventDefault();
               event.stopPropagation();
             }}
@@ -119,24 +110,26 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
   );
 };
 
-const TableHeadCmp = <T, >(props: TableHeadProps<T>) => {
-  
+const TableHeadCmp = <T,>(props: TableHeadProps<T>) => {
   const { headers, setHeaders, loading, gap, headerRef, topHeaders, rightBorders, hasScrollTop } = props;
-  
-  const [ dragging, setDragging ] = useState(-1);
-  
+
+  const [dragging, setDragging] = useState(-1);
+
   const dividerPositionRef = useRef(0);
-  
-  const onMouseHoldDown = useCallback((columnIndex: number) => (event: MouseEvent<HTMLDivElement>) => {
-    setDragging(columnIndex);
-    dividerPositionRef.current = event.clientX;
-  }, []);
-  
+
+  const onMouseHoldDown = useCallback(
+    (columnIndex: number) => (event: MouseEvent<HTMLDivElement>) => {
+      setDragging(columnIndex);
+      dividerPositionRef.current = event.clientX;
+    },
+    [],
+  );
+
   const onMouseHoldUp = useCallback(() => {
     setDragging(-1);
     dividerPositionRef.current = 0;
   }, []);
-  
+
   const onMouseHoldMove = (event: MouseEvent<HTMLDivElement>) => {
     const columnIndex = dragging;
     // const nextColumnIndex = columnIndex + 1;
@@ -160,7 +153,7 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>) => {
     //     setHeaders(newHeaders);
     //   }
     // } else {
-    const newHeaders = [ ...headers ];
+    const newHeaders = [...headers];
     if (newHeaders[columnIndex]) {
       newHeaders[columnIndex] = {
         ...newHeaders[columnIndex],
@@ -170,39 +163,30 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>) => {
     }
     // }
   };
-  
+
   const displayTopHeader = !!rightBorders.length;
   const headersWidth = headers.reduce((sum, head) => sum + (head.visible?.getVisible?.() ? head.width : 0), 0);
-  
+
   return (
-    <div
-      className="jk-table-head-container"
-      ref={headerRef}
-      onMouseMove={onMouseHoldMove}
-      style={{ paddingBottom: gap }}
-    >
+    <div className="jk-table-head-container" ref={headerRef} onMouseMove={onMouseHoldMove} style={{ paddingBottom: gap }}>
       {displayTopHeader && (
-        <div
-          className={classNames('jk-table-head', { 'elevation-1': hasScrollTop })}
-          style={{ width: headersWidth }}
-        >
+        <div className={classNames('jk-table-head', { 'elevation-1': hasScrollTop })} style={{ width: headersWidth }}>
           {Children.toArray(
-            topHeaders
-              .map((header, index) => (
-                <RenderHeader
-                  key={header.headIndex}
-                  header={header}
-                  onMouseHoldMove={onMouseHoldMove}
-                  onMouseHoldUp={onMouseHoldUp}
-                  onMouseHoldDown={onMouseHoldDown}
-                  loading={loading}
-                  headers={headers}
-                  withTools={false}
-                  withRightBorder={!(header.head === '' && topHeaders[index + 1]?.head === '') && index !== topHeaders.length - 1}
-                  borderTopLeftRadius={index === 0}
-                  borderTopRightRadius={index === topHeaders.length - 1}
-                />
-              )),
+            topHeaders.map((header, index) => (
+              <RenderHeader
+                key={header.headIndex}
+                header={header}
+                onMouseHoldMove={onMouseHoldMove}
+                onMouseHoldUp={onMouseHoldUp}
+                onMouseHoldDown={onMouseHoldDown}
+                loading={loading}
+                headers={headers}
+                withTools={false}
+                withRightBorder={!(header.head === '' && topHeaders[index + 1]?.head === '') && index !== topHeaders.length - 1}
+                borderTopLeftRadius={index === 0}
+                borderTopRightRadius={index === topHeaders.length - 1}
+              />
+            )),
           )}
         </div>
       )}

@@ -19,7 +19,6 @@
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-  //--divider-background-color: var(--cr-gy-6);
   --divider-background-color: var(--cr-ht-lt);
   @include mixins.hg { margin: 16px 0; }
   @include mixins.lg { margin: 12px 0; }
@@ -76,7 +75,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   > p:first-child { // clarification
     height: var(--pad-m);
     line-height: var(--pad-m);
-    color: var(--cr-gy-4);
+    color: var(--cr-tx-mt);
     font-size: var(--tx-s-s);
     position: absolute;
     right: 0;
@@ -129,7 +128,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   outline-color: var(--input-border-color);
   
   &::placeholder {
-    color: var(--cr-gy-4);
+    color: var(--cr-tx-mt);
     font-weight: var(--weight-regular);
     @include mixins.font-size(s);
   }
@@ -301,7 +300,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
   
   > .jk-icon {
-    color: var(--cr-gy-4);
+    color: var(--cr-tx-mt);
     position: absolute;
     bottom: 0;
     right: 6px;
@@ -318,7 +317,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     font-weight: var(--weight-bold);
     
     + .input-icon {
-      color: var(--cr-gy-3);
+      color: var(--cr-tx-sc);
     }
   }
   
@@ -537,7 +536,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   &.open {
     .jk-input-select {
-      border-color: var(--cr-gy-4);
+      border-color: var(--cr-ht);
     }
   }
 }
@@ -629,7 +628,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     padding: 0 var(--pad-t);
     
     &.placeholder {
-      color: var(--cr-gy-4);
+      color: var(--cr-tx-mt);
       font-weight: var(--weight-regular);
       @include mixins.font-size(s);
     }

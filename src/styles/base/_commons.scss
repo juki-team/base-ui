@@ -1,36 +1,66 @@
 @use "../mixins";
 
-// color
+// ============================================================
+// TRANSITIONS — applies to all color/bg utility classes
+// ============================================================
 
 [class^="cr-"], [class*=" cr-"],
 [class^="fw-"], [class*=" fw-"],
-[class^="bc-"], [class*=" bc-"],
-{
+[class^="bc-"], [class*=" bc-"] {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow, filter, backdrop-filter, font-weight;
-  //transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: var(--transition-duration-normal);
 }
 
+// ============================================================
+// TEXT COLOR  (cr-*)
+// ============================================================
+
+// --- black / white ---
 .cr-bk { color: var(--cr-bk); }
 
-.cr-b2 { color: var(--cr-bk-lt);}
-
-.cr-g1 { color: var(--cr-gy-1); }
-
-.cr-g2 { color: var(--cr-gy-2); }
-
-.cr-g3 { color: var(--cr-gy-3); }
-
-.cr-g4 { color: var(--cr-gy-4); }
-
-.cr-g5 { color: var(--cr-gy-5); }
-
-.cr-g6 { color: var(--cr-gy-6); }
-
-.cr-w2 { color: var(--cr-we-dk); }
+.cr-b2 { color: var(--cr-bk-lt); }
 
 .cr-we { color: var(--cr-we); }
 
+.cr-w2 { color: var(--cr-we-dk); }
+
+// --- body text scale (derived from --body-tx-cr) ---
+.cr-tx { color: var(--cr-tx); }
+
+// default
+.cr-tx-sc { color: var(--cr-tx-sc); }
+
+// secondary — labels, subtitles
+.cr-tx-mt { color: var(--cr-tx-mt); }
+
+// muted — placeholders, hints
+.cr-tx-ds { color: var(--cr-tx-ds); }
+
+// disabled
+
+// --- highlight text (blue heading) ---
+.cr-tx-ht-lt { color: var(--cr-tx-ht-lt); }
+
+.cr-tx-ht { color: var(--cr-tx-ht); }
+
+.cr-tx-ht-dk { color: var(--cr-tx-ht-dk); }
+
+.cr-tx-ht-it { color: var(--cr-tx-ht-it); }
+
+// inverse (white on blue)
+
+// --- accent (primary brand color) ---
+.cr-at-lt { color: var(--cr-at-lt); }
+
+.cr-at { color: var(--cr-at); }
+
+.cr-at-dk { color: var(--cr-at-dk); }
+
+.cr-at-it { color: var(--cr-at-it); }
+
+// inverse (white on accent)
+
+// --- semantic ---
 .cr-io-lt { color: var(--cr-io-lt); }
 
 .cr-io { color: var(--cr-io); }
@@ -55,124 +85,112 @@
 
 .cr-er-dk { color: var(--cr-er-dk); }
 
-.cr-tx-ht-lt { color: var(--cr-tx-ht-lt); }
-
-.cr-tx-ht { color: var(--cr-tx-ht); }
-
-.cr-tx-ht-dk { color: var(--cr-tx-ht-dk); }
-
-.cr-tx-ht-it { color: var(--cr-tx-ht-it); }
-
-.cr-at-lt { color: var(--cr-at-lt); }
-
-.cr-at { color: var(--cr-at); }
-
-.cr-at-dk { color: var(--cr-at-dk); }
-
-.cr-at-it { color: var(--cr-at-it); }
-
+// --- overlay / highlight (semi-transparent black) ---
 .cr-hl { color: var(--cr-ht-lt); }
 
+// light
 .cr-ht { color: var(--cr-ht); }
 
+// medium
 .cr-hd { color: var(--cr-ht-dk); }
 
-// background-color
+// dark
 
+// ============================================================
+// BACKGROUND COLOR  (bc-*)
+// ============================================================
+
+// --- surfaces (page → cards → modals) ---
+.bc-sf { --background-color: var(--bc-sf); }
+
+// page background (base)
+.bc-sf-md { --background-color: var(--bc-sf-md); }
+
+// cards
+.bc-sf-hi { --background-color: var(--bc-sf-hi); }
+
+// elevated cards / modals
+
+// --- black / white ---
 .bc-bk { --background-color: var(--cr-bk); }
 
 .bc-b2 { --background-color: var(--cr-bk-lt); }
 
-.bc-g1 { --background-color: var(--cr-gy-1); }
-
-.bc-g2 { --background-color: var(--cr-gy-2); }
-
-.bc-g3 { --background-color: var(--cr-gy-3); }
-
-.bc-g4 { --background-color: var(--cr-gy-4); }
-
-.bc-g5 { --background-color: var(--cr-gy-5); }
-
-.bc-g6 { --background-color: var(--cr-gy-6); }
-
 .bc-we { --background-color: var(--cr-we); }
 
-.bc-we-lt { --background-color: var(--cr-we-lt); }
-
-.bc-we-dk { --background-color: var(--cr-we-dk); }
+.bc-w2 { --background-color: var(--cr-we-dk); }
 
 .bc-we-det { --background-color: var(--cr-we-det); }
 
-.bc-sw-lt { --background-color: var(--cr-sw-lt); }
+.bc-we-lt { --background-color: var(--cr-we-lt); }
 
-.bc-sw { --background-color: var(--cr-sw); }
-
-.bc-sw-dk { --background-color: var(--cr-sw-dk); }
-
-.bc-io-lt, .bc-il { --background-color: var(--cr-io-lt); }
-
-.bc-io { --background-color: var(--cr-io); }
-
-.bc-io-dk, .bc-id { --background-color: var(--cr-io-dk); }
-
-.bc-ss-lt, .bc-sl { --background-color: var(--cr-ss-lt); }
-
-.bc-ss { --background-color: var(--cr-ss); }
-
-.bc-ss-dk, .bc-sd { --background-color: var(--cr-ss-dk); }
-
-.bc-wg-lt, .bc-wl { --background-color: var(--cr-wg-lt); }
-
-.bc-wg { --background-color: var(--cr-wg); }
-
-.bc-wg-dk, .bc-wgd { --background-color: var(--cr-wg-dk); }
-
-.bc-er-lt, .bc-el { --background-color: var(--cr-er-lt); }
-
-.bc-er { --background-color: var(--cr-er); }
-
-.bc-er-dk, .bc-ed { --background-color: var(--cr-er-dk); }
-
-.bc-at-lt, .bc-al { --background-color: var(--cr-at-lt); }
+// --- accent ---
+.bc-at-lt { --background-color: var(--cr-at-lt); }
 
 .bc-at { --background-color: var(--cr-at); }
 
-.bc-at-dk, .bc-ad { --background-color: var(--cr-at-dk); }
+.bc-at-dk { --background-color: var(--cr-at-dk); }
 
+// --- semantic ---
+.bc-io-lt { --background-color: var(--cr-io-lt); }
+
+.bc-io { --background-color: var(--cr-io); }
+
+.bc-io-dk { --background-color: var(--cr-io-dk); }
+
+.bc-ss-lt { --background-color: var(--cr-ss-lt); }
+
+.bc-ss { --background-color: var(--cr-ss); }
+
+.bc-ss-dk { --background-color: var(--cr-ss-dk); }
+
+.bc-wg-lt { --background-color: var(--cr-wg-lt); }
+
+.bc-wg { --background-color: var(--cr-wg); }
+
+.bc-wg-dk { --background-color: var(--cr-wg-dk); }
+
+.bc-er-lt { --background-color: var(--cr-er-lt); }
+
+.bc-er { --background-color: var(--cr-er); }
+
+.bc-er-dk { --background-color: var(--cr-er-dk); }
+
+// --- overlay / highlight ---
 .bc-ht-lt { --background-color: var(--cr-ht-lt); }
 
 .bc-ht { --background-color: var(--cr-ht); }
 
 .bc-ht-dk { --background-color: var(--cr-ht-dk); }
 
+// --- special ---
 .bc-tx-ht { --background-color: var(--cr-tx-ht); }
 
 [class^="bc-"], [class*=" bc-"] {
   background-color: var(--background-color);
 }
 
-// border
+// ============================================================
+// BORDER  (br-*)
+// ============================================================
 
+// --- black / white ---
 .br-bk { border: 1px solid var(--cr-bk); }
 
 .br-b2 { border: 1px solid var(--cr-bk-lt); }
 
-.br-g1 { border: 1px solid var(--cr-gy-1); }
-
-.br-g2 { border: 1px solid var(--cr-gy-2); }
-
-.br-g3 { border: 1px solid var(--cr-gy-3); }
-
-.br-g4 { border: 1px solid var(--cr-gy-4); }
-
-.br-g5 { border: 1px solid var(--cr-gy-5); }
-
-.br-g6 { border: 1px solid var(--cr-gy-6); }
+.br-we { border: 1px solid var(--cr-we); }
 
 .br-w2 { border: 1px solid var(--cr-we-dk); }
 
-.br-we { border: 1px solid var(--cr-we); }
+// --- accent ---
+.br-al { border: 1px solid var(--cr-at-lt); }
 
+.br-at { border: 1px solid var(--cr-at); }
+
+.br-ad { border: 1px solid var(--cr-at-dk); }
+
+// --- semantic ---
 .br-io { border: 1px solid var(--cr-io); }
 
 .br-ss { border: 1px solid var(--cr-ss); }
@@ -181,64 +199,86 @@
 
 .br-er { border: 1px solid var(--cr-er); }
 
-.br-al { border: 1px solid var(--cr-at-lt); }
-
-.br-at { border: 1px solid var(--cr-at); }
-
-.br-ad { border: 1px solid var(--cr-at-dk); }
-
+// --- overlay / highlight ---
 .br-hl { border: 1px solid var(--cr-ht-lt); }
 
 .br-ht { border: 1px solid var(--cr-ht); }
 
 .br-hd { border: 1px solid var(--cr-ht-dk); }
 
-.cursor-pointer, .cr-pr { cursor: pointer; }
+// ============================================================
+// LAYOUT — flex, display, position, size
+// ============================================================
 
-.pe-ne { pointer-events: none; }
+.flex-1 { flex: 1; }
 
-.screen:not(.hg) {
-  @include mixins.hg { display: none; }
+.flex-2 { flex: 2; }
+
+.flex-3 { flex: 3; }
+
+.flex-4 { flex: 4; }
+
+.flex-5 { flex: 5; }
+
+.flex-6 { flex: 6; }
+
+.flex-7 { flex: 7; }
+
+.flex-8 { flex: 8; }
+
+.dy-cs { display: contents; }
+
+.dy-bk { display: block; }
+
+.dy-ib { display: inline-block; }
+
+.dy-ib- { display: inline-block !important; }
+
+.dy-if { display: inline-flex; }
+
+.dy-if- { display: inline-flex !important; }
+
+.pn-re { position: relative; }
+
+.pn-ae { position: absolute; }
+
+.pn-fd { position: fixed; }
+
+.wh-ao { width: auto; }
+
+.wh-100 { width: 100%; }
+
+.wh-50 { width: 50%; }
+
+.ht-100 { height: 100%; }
+
+.ht-ao { height: auto !important; }
+
+.ai-be { align-items: baseline !important; }
+
+.va-tp { vertical-align: top; }
+
+.ow-ao { overflow: auto; }
+
+.ow-hn { overflow: hidden; }
+
+.ow-ve { overflow: visible !important; }
+
+.bs-bb { box-sizing: border-box; }
+
+.br-50-pc { border-radius: 50%; }
+
+.sides-mobile-padding {
+  padding-left: var(--pad-xs);
+  padding-right: var(--pad-xs);
 }
 
-.screen:not(.lg) {
-  @include mixins.lg { display: none; }
-}
-
-.screen:not(.md) {
-  @include mixins.md { display: none; }
-}
-
-.screen:not(.sm) {
-  @include mixins.sm { display: none; }
-}
-
-.link:not(.jk-icon) {
-  color: var(--cr-tx-ht-lt);
-  cursor: pointer;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.rotating {
-  animation: lds-dual-ring 0.9s linear infinite;
-  
-  &.slow { animation-duration: 1.2s; }
-  
-  //&.regular { animation-duration: 1s; }
-  
-  &.fast { animation-duration: 0.6s; }
-}
-
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg)
-  }
-  100% {
-    transform: rotate(360deg)
-  }
+.expand-absolute {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
 
 .float-top-right {
@@ -258,67 +298,9 @@
   }
 }
 
-.display-on-hover {
-  opacity: 0;
-  
-  &:hover { opacity: 1; }
-  
-  &-1 {
-    opacity: 0.1;
-    
-    &:hover { opacity: 1; }
-  }
-  
-  &-2 {
-    opacity: 0.2;
-    
-    &:hover { opacity: 1; }
-  }
-  
-  &-3 {
-    opacity: 0.3;
-    
-    &:hover { opacity: 1; }
-  }
-  
-  &-4 {
-    opacity: 0.4;
-    
-    &:hover { opacity: 1; }
-  }
-  
-  &-5 {
-    opacity: 0.5;
-    
-    &:hover { opacity: 1; }
-  }
-  
-  &-6 {
-    opacity: 0.6;
-    
-    &:hover { opacity: 1; }
-  }
-  
-  &-7 {
-    opacity: 0.7;
-    
-    &:hover { opacity: 1; }
-  }
-  
-  &-8 {
-    opacity: 0.8;
-    
-    &:hover { opacity: 1; }
-  }
-  
-  &-9 {
-    opacity: 0.9;
-    
-    &:hover { opacity: 1; }
-  }
-  
-  @include mixins.transition(opacity);
-}
+// ============================================================
+// TYPOGRAPHY
+// ============================================================
 
 .wb-bw { word-break: break-word; }
 
@@ -328,50 +310,7 @@
 
 .wb-nl { word-break: normal; }
 
-.flex-1 { flex: 1; }
-
-.flex-2 { flex: 2; }
-
-.flex-3 { flex: 3; }
-
-.flex-4 { flex: 4; }
-
-.flex-5 { flex: 5; }
-
-.flex-6 { flex: 6; }
-
-.flex-7 { flex: 7; }
-
-.flex-8 { flex: 8; }
-
-.sides-mobile-padding {
-  padding-left: var(--pad-xs);
-  padding-right: var(--pad-xs);
-}
-
-.elevation-1 { @include mixins.elevation(1); }
-
-.elevation-2 { @include mixins.elevation(2); }
-
-.elevation-3 { @include mixins.elevation(3); }
-
-.pn-re { position: relative; }
-
-.pn-ae { position: absolute; }
-
-.pn-fd { position: fixed; }
-
-.br-50-pc { border-radius: 50%; }
-
-.wh-ao { width: auto; }
-
-.wh-100 { width: 100% }
-
-.wh-50 { width: 50% }
-
-.ht-100 { height: 100% }
-
-.ht-ao { height: auto !important; }
+.line-height-1 { line-height: 1; }
 
 .fl-tt-il {
   &:first-letter {
@@ -379,6 +318,110 @@
   }
 }
 
+// ============================================================
+// INTERACTIONS — cursor, pointer, hover states
+// ============================================================
+
+.cursor-pointer, .cr-pr { cursor: pointer; }
+
+.pe-ne { pointer-events: none; }
+
+.link:not(.jk-icon) {
+  color: var(--cr-tx-ht-lt);
+  cursor: pointer;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.hoverable {
+  cursor: pointer;
+  
+  &:hover {
+    background: var(--cr-ht-lt);
+  }
+}
+
+// hover → elevation-1
+.hr-e1 {
+  cursor: pointer;
+  
+  &:hover {
+    @include mixins.elevation(1);
+  }
+}
+
+.outline-hover {
+  &:hover {
+    outline: 2px solid var(--color);
+  }
+}
+
+.display-on-hover {
+  opacity: 0;
+  
+  &:hover { opacity: 1; }
+  
+  &-1 { opacity: 0.1;
+    
+    &:hover { opacity: 1; }
+  }
+  
+  &-2 { opacity: 0.2;
+    
+    &:hover { opacity: 1; }
+  }
+  
+  &-3 { opacity: 0.3;
+    
+    &:hover { opacity: 1; }
+  }
+  
+  &-4 { opacity: 0.4;
+    
+    &:hover { opacity: 1; }
+  }
+  
+  &-5 { opacity: 0.5;
+    
+    &:hover { opacity: 1; }
+  }
+  
+  &-6 { opacity: 0.6;
+    
+    &:hover { opacity: 1; }
+  }
+  
+  &-7 { opacity: 0.7;
+    
+    &:hover { opacity: 1; }
+  }
+  
+  &-8 { opacity: 0.8;
+    
+    &:hover { opacity: 1; }
+  }
+  
+  &-9 { opacity: 0.9;
+    
+    &:hover { opacity: 1; }
+  }
+  
+  @include mixins.transition(opacity);
+}
+
+// ============================================================
+// VISUAL — elevation, decorative borders, image effects
+// ============================================================
+
+.elevation-1 { @include mixins.elevation(1); }
+
+.elevation-2 { @include mixins.elevation(2); }
+
+.elevation-3 { @include mixins.elevation(3); }
+
+// pseudo-element top border using overlay color
 .border-top-highlight {
   position: relative;
   
@@ -458,85 +501,66 @@
   }
 }
 
-.hoverable {
-  cursor: pointer;
-  
-  &:hover {
-    background: var(--cr-ht-lt);
-  }
+// adds white outline glow — useful for images on dark/light surfaces
+.image-border {
+  filter: drop-shadow(0 0 1px var(--cr-we)) drop-shadow(0 0 1px var(--cr-we));
 }
 
-.hr-e1 {
-  cursor: pointer;
-  
-  &:hover {
-    @include mixins.elevation(1);
-  }
+.transition-width {
+  @include mixins.transition(width, min-width, max-width);
 }
 
-.expand-absolute {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-}
-
-.dy-cs { display: contents; }
-
-.dy-bk { display: block; }
-
-.dy-ib { display: inline-block; }
-
-.dy-ib- { display: inline-block !important; }
-
-.dy-if { display: inline-flex; }
-
-.dy-if- { display: inline-flex !important; }
-
-.va-tp { vertical-align: top; }
-
-.ow-ao { overflow: auto; }
-
-.ow-hn { overflow: hidden; }
-
-.ow-ve { overflow: visible !important; }
-
-.ai-be { align-items: baseline !important; }
+// ============================================================
+// STATE
+// ============================================================
 
 .disabled:not(.with-loader-icon):not(.jk-wrapper-input):not(.jk-select-options):not(.jk-select-option) {
   opacity: 0.5;
   cursor: auto !important;
 }
 
-@media print {
-  .page-break {
-    break-before: page;
-  }
+// ============================================================
+// ANIMATIONS
+// ============================================================
+
+.rotating {
+  animation: lds-dual-ring 0.9s linear infinite;
   
-  .avoid-break {
-    break-inside: avoid;
-  }
+  &.slow { animation-duration: 1.2s; }
+  
+  &.fast { animation-duration: 0.6s; }
 }
 
-.image-border {
-  filter: drop-shadow(0 0 1px var(--cr-we)) drop-shadow(0 0 1px var(--cr-we));
+@keyframes lds-dual-ring {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-.line-height-1 {
-  line-height: 1;
+// ============================================================
+// RESPONSIVE — show/hide by breakpoint
+// ============================================================
+
+.screen:not(.hg) {
+  @include mixins.hg { display: none; }
 }
 
-.bs-bb {
-  box-sizing: border-box;
+.screen:not(.lg) {
+  @include mixins.lg { display: none; }
 }
 
-.outline-hover {
-  &:hover {
-    outline: 2px solid var(--color);
-  }
+.screen:not(.md) {
+  @include mixins.md { display: none; }
 }
 
-.transition-width {
-  @include mixins.transition(width, min-width, max-width);
+.screen:not(.sm) {
+  @include mixins.sm { display: none; }
+}
+
+// ============================================================
+// PRINT
+// ============================================================
+
+@media print {
+  .page-break { break-before: page; }
+  .avoid-break { break-inside: avoid; }
 }

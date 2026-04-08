@@ -688,11 +688,12 @@ Shows login button when unauthenticated, or user avatar + popover menu when auth
 
 | Prop | Type | Required | Default |
 |------|------|----------|---------|
-| `collapsed` | `boolean` | Yes | — |
-| `isVertical` | `boolean` | No | — |
-| `isHorizontal` | `boolean` | No | — |
-| `onSeeMyProfile` | `OnSeeMyProfileType` | No | — |
-| `profileSelected` | `boolean` | No | — |
+| `withLabel` | `boolean` | No | — | Show nickname label next to avatar |
+| `isVertical` | `boolean` | No | — | Vertical menu variant |
+| `isHorizontal` | `boolean` | No | — | Horizontal menu variant |
+| `onSeeMyProfile` | `OnSeeMyProfileType` | No | — | |
+| `profileSelected` | `boolean` | No | — | |
+| `className` | `string` | No | — | |
 
 ---
 
@@ -1203,31 +1204,53 @@ Or in SCSS files:
 --screen-sm-min: 320px
 ```
 
-#### Spacing (responsive, changes per breakpoint)
+#### Spacing (static values)
 ```css
---pad-xH   /* extra huge */
---pad-H    /* huge */
---pad-lg   /* large */
---pad-m    /* medium */
---pad-sm   /* small */
---pad-xsm  /* extra small */
---pad-xt   /* tiny */
---gap      /* default flex gap */
+--pad-xH: 56px 
+--pad-H: 52px
+--pad-xL: 48px
+--pad-L: 44px
+--pad-xh: 40px
+--pad-h: 36px
+--pad-xl: 32px
+--pad-l: 28px
+--pad-m:  24px
+--pad-s: 20px
+--pad-xs: 16px
+--pad-t: 12px
+--pad-xt: 8px
+```
+
+#### Spacing (responsive — use these in components)
+```css
+--pad-lg   /* hg:36  lg:32  md:28  sm:24 */
+--pad-md   /* hg:28  lg:24  md:20  sm:16 */
+--pad-sm   /* hg:20  lg:16  md:12  sm:8  */
+--gap      /* hg:10  lg:8   md:6   sm:4  (half of --pad-sm) */
 ```
 
 #### Z-index layers
 ```css
 --zi-menu
---zi-modal
 --zi-drawer
+--zi-overlay
 --zi-popover
 --zi-tooltip
 ```
 
-#### Typography
+#### Typography scale (base = 16px, step = 2px)
 ```css
---tx-bs          /* base font size */
---font-size-h1, --font-size-h2, --font-size-h3
+--tx-bs           /* base: 16px */
+--tx-s-vt         /*  8px */  --tx-h-vt   /* 12px */
+--tx-s-t          /* 12px */  --tx-h-t    /* 18px */
+--tx-s-s          /* 14px */  --tx-h-s    /* 21px */
+--tx-s-m          /* 16px */  --tx-h-m    /* 24px */
+--tx-s-l          /* 18px */  --tx-h-l    /* 27px */
+--tx-s-h          /* 20px */  --tx-h-h    /* 30px */
+--tx-s-vh         /* 24px */  --tx-h-vh   /* 36px */
+--font-size-h1    /* 34px */
+--font-size-h2    /* 30px */
+--font-size-h3    /* 26px */
 --weight-lighter, --weight-light, --weight-regular, --weight-bold, --weight-bolder
 ```
 
@@ -1263,101 +1286,120 @@ Applied via `.jk-theme-light` or `.jk-theme-dark` on a parent element.
 --cr-ss-dk  /* success dark */
 
 --cr-wg-lt  /* warning light */
---cr-wg     /* warning (orange) */
+--cr-wg     /* warning (yellow) */
 --cr-wg-dk  /* warning dark */
 
 --cr-er-lt  /* error light */
 --cr-er     /* error (red) */
 --cr-er-dk  /* error dark */
-
---cr-we-lt  /* white light */
---cr-we     /* white */
---cr-we-dk  /* white dark */
---cr-we-det /* white detail */
-
---cr-bk-lt  /* black light */
---cr-bk     /* black */
-
---cr-gy     /* gray */
---cr-gy-1   /* gray 100% */
---cr-gy-2   /* gray 83% */
---cr-gy-3   /* gray 66% */
---cr-gy-4   /* gray 49% */
---cr-gy-5   /* gray 32% */
---cr-gy-6   /* gray 15% */
 ```
 
-#### Accent (brand color)
+#### Neutral (white/black)
+```css
+--cr-we-lt  /* white lighter */
+--cr-we     /* page background (light: #FDFEFE, dark: #202831) */
+--cr-we-dk  /* white slightly darker */
+--cr-we-det /* white detail */
+--cr-bk-lt  /* black lighter */
+--cr-bk     /* black (light: #000102, dark: #FEFEFE) */
+```
+
+#### Text color scale (derived from `--body-tx-cr`, use these for all text)
+```css
+--cr-tx     /* default body text */
+--cr-tx-sc  /* secondary — labels, subtitles */
+--cr-tx-mt  /* muted — placeholders, hints */
+--cr-tx-ds  /* disabled */
+```
+
+#### Text highlight (blue headings/links)
+```css
+--cr-tx-ht-lt  /* lighter */
+--cr-tx-ht     /* default */
+--cr-tx-ht-dk  /* darker */
+--cr-tx-ht-it  /* inverse (white on blue) */
+```
+
+#### Accent (primary brand color)
 ```css
 --cr-at-lt  /* accent light */
 --cr-at     /* accent */
 --cr-at-dk  /* accent dark */
---cr-at-it  /* accent interactive */
+--cr-at-it  /* inverse (white on accent) */
 ```
 
 #### Transparent overlays
 ```css
---cr-ht-lt  /* hover light */
---cr-ht     /* hover */
---cr-ht-dk  /* hover dark */
---cr-sw-lt  /* selected light */
---cr-sw     /* selected */
---cr-sw-dk  /* selected dark */
+--cr-ht-lt  /* overlay 10% black */
+--cr-ht     /* overlay 25% black */
+--cr-ht-dk  /* overlay 40% black */
+--cr-sw-lt  /* shadow light */
+--cr-sw     /* shadow */
+--cr-sw-dk  /* shadow dark */
 ```
 
-#### Text highlight
+#### Surface backgrounds (page → cards → modals)
 ```css
---cr-tx-ht-lt
---cr-tx-ht
---cr-tx-ht-dk
---cr-tx-ht-it  /* interactive */
+--bc-sf     /* page/panel base — most tinted */
+--bc-sf-md  /* cards */
+--bc-sf-hi  /* elevated cards / modals — lightest */
 ```
 
-#### Navbar colors
+#### Navbar
 ```css
 --navbar-tx-cr   /* navbar text */
---navbar-bd-cr   /* navbar border */
+--navbar-bd-cr   /* navbar background */
 --navbar-at-cr   /* navbar accent */
 ```
 
 ---
 
-### Color Utility Classes (`src/styles/base/_commons.scss` and `_themes-and-colors.scss`)
+### Color Utility Classes (`src/styles/base/_commons.scss`)
 
-**Text color (black/white/gray):**
-`.cr-bk`, `.cr-b2` (black-lt), `.cr-we`, `.cr-w2` (white-dk)
-`.cr-g1` `.cr-g2` `.cr-g3` `.cr-g4` `.cr-g5` `.cr-g6` (gray scale 100%→15%)
+**Text color — neutral:**
+`.cr-bk` `.cr-b2`(black-lt) `.cr-we` `.cr-w2`(white-dk)
 
-**Text color (semantic):**
-`.cr-io-lt`, `.cr-io`, `.cr-io-dk`
-`.cr-ss-lt`, `.cr-ss`, `.cr-ss-dk`
-`.cr-wg-lt`, `.cr-wg`, `.cr-wg-dk`
-`.cr-er-lt`, `.cr-er`, `.cr-er-dk`
+**Text color — body scale** (use these for all text):
+`.cr-tx`(default) `.cr-tx-sc`(secondary) `.cr-tx-mt`(muted) `.cr-tx-ds`(disabled)
 
-**Text color (accent/highlight):**
-`.cr-at-lt`, `.cr-at`, `.cr-at-dk`, `.cr-at-it`
-`.cr-tx-ht-lt`, `.cr-tx-ht`, `.cr-tx-ht-dk`, `.cr-tx-ht-it`
-`.cr-hl` (hover-lt), `.cr-ht` (hover), `.cr-hd` (hover-dk)
+**Text color — highlight (blue):**
+`.cr-tx-ht-lt` `.cr-tx-ht` `.cr-tx-ht-dk` `.cr-tx-ht-it`
 
-**Background color (black/white/gray):**
-`.bc-bk`, `.bc-b2`, `.bc-we`, `.bc-we-lt`, `.bc-we-dk`, `.bc-we-det`
-`.bc-g1` `.bc-g2` `.bc-g3` `.bc-g4` `.bc-g5` `.bc-g6`
+**Text color — accent:**
+`.cr-at-lt` `.cr-at` `.cr-at-dk` `.cr-at-it`
 
-**Background color (semantic):**
-`.bc-io-lt`, `.bc-io`, `.bc-io-dk`
-`.bc-ss-lt`, `.bc-ss`, `.bc-ss-dk`
-`.bc-wg-lt`, `.bc-wg`, `.bc-wg-dk`
-`.bc-er-lt`, `.bc-er`, `.bc-er-dk`
+**Text color — semantic:**
+`.cr-io-lt` `.cr-io` `.cr-io-dk`
+`.cr-ss-lt` `.cr-ss` `.cr-ss-dk`
+`.cr-wg-lt` `.cr-wg` `.cr-wg-dk`
+`.cr-er-lt` `.cr-er` `.cr-er-dk`
 
-**Background color (accent/overlay):**
-`.bc-at-lt`, `.bc-at`, `.bc-at-dk`
-`.bc-sw-lt`, `.bc-sw`, `.bc-sw-dk`
-`.bc-ht-lt`, `.bc-ht`, `.bc-ht-dk`
-`.bc-tx-ht`
+**Text color — overlay:**
+`.cr-hl`(ht-lt) `.cr-ht` `.cr-hd`(ht-dk)
 
-**Border color:** `.br-bk`, `.br-b2`, `.br-we`, `.br-w2`, `.br-io`, `.br-ss`, `.br-wg`, `.br-er`
-`.br-al` (accent-lt), `.br-at`, `.br-ad` (accent-dk)
-`.br-hl` (hover-lt), `.br-ht`, `.br-hd` (hover-dk)
+**Background — surfaces:**
+`.bc-sf`(page base) `.bc-sf-md`(cards) `.bc-sf-hi`(elevated/modals)
+
+**Background — neutral:**
+`.bc-bk` `.bc-b2` `.bc-we` `.bc-w2` `.bc-we-lt` `.bc-we-det`
+
+**Background — accent:**
+`.bc-at-lt` `.bc-at` `.bc-at-dk`
+
+**Background — semantic:**
+`.bc-io-lt` `.bc-io` `.bc-io-dk`
+`.bc-ss-lt` `.bc-ss` `.bc-ss-dk`
+`.bc-wg-lt` `.bc-wg` `.bc-wg-dk`
+`.bc-er-lt` `.bc-er` `.bc-er-dk`
+
+**Background — overlay:**
+`.bc-ht-lt` `.bc-ht` `.bc-ht-dk` `.bc-tx-ht`
+
+**Border:**
+`.br-bk` `.br-b2` `.br-we` `.br-w2`
+`.br-al`(accent-lt) `.br-at` `.br-ad`(accent-dk)
+`.br-io` `.br-ss` `.br-wg` `.br-er`
+`.br-hl`(ht-lt) `.br-ht` `.br-hd`(ht-dk)
 
 ---
 
@@ -1420,6 +1462,7 @@ Applied via `.jk-theme-light` or `.jk-theme-dark` on a parent element.
 
 /* Modifiers (append to .jk-row or .jk-col) */
 .gap                 /* adds --gap spacing between children */
+.gap-2               /* adds --gap * 2 spacing (use instead of double nesting .gap) */
 .block               /* display: block */
 .space-between       /* justify-content: space-between */
 .center              /* justify-content: center */
@@ -1446,11 +1489,11 @@ Applied via `.jk-theme-light` or `.jk-theme-dark` on a parent element.
 
 #### User profile image
 ```
-.jk-user-profile-img          /* base circular avatar */
-.jk-user-profile-img.tiny     /* 16px */
-.jk-user-profile-img.small    /* 24px */
-.jk-user-profile-img.large    /* 32px */
-.jk-user-profile-img.huge     /* 50px */
+.jk-user-profile-img          /* base circular avatar — 24px (--tx-h-m) */
+.jk-user-profile-img.tiny     /* 18px (--tx-h-t) */
+.jk-user-profile-img.small    /* 21px (--tx-h-s) */
+.jk-user-profile-img.large    /* 27px (--tx-h-l) */
+.jk-user-profile-img.huge     /* 30px (--tx-h-h) */
 ```
 
 #### Border radius
@@ -1482,8 +1525,8 @@ Applied via `.jk-theme-light` or `.jk-theme-dark` on a parent element.
 #### Opacity utilities
 ```
 .opacity-0
-.opacity-hover      /* 0 → 1 on hover */
-.opacity-hover-4    /* 0 → 0.4 on hover */
+.opacity-hover      /* 0.2 → 1 on hover */
+.opacity-hover-4    /* 0.4 → 1 on hover */
 ```
 
 #### Display utilities
@@ -1513,6 +1556,31 @@ Applied via `.jk-theme-light` or `.jk-theme-dark` on a parent element.
 .flex-1 through .flex-8   /* flex: 1 ... flex: 8 */
 ```
 
+#### Tags & tables
+```
+.jk-tag                      /* inline tag/chip — styled with --cr-tx-ht background by default */
+.jk-table-inline-header      /* styled table header row */
+.jk-table-inline-row         /* styled table data row */
+.jk-table-grid               /* CSS grid layout (auto-fill, minmax 200px) */
+```
+
+#### Text output
+```
+.jk-text-stdout   /* monospace pre-formatted stdout output */
+.jk-text-stderr   /* monospace pre-formatted stderr output */
+```
+
+#### Filters
+```
+.bf-4   /* backdrop-filter: blur(4px) */
+.fr-4   /* filter: blur(4px) */
+```
+
+#### Full-screen overlay
+```
+.jk-full-screen-overlay   /* fixed, fills viewport, z-index: --zi-popover */
+```
+
 #### Misc
 ```
 .hoverable           /* cursor: pointer + hover highlight */
@@ -1537,8 +1605,8 @@ Applied via `.jk-theme-light` or `.jk-theme-dark` on a parent element.
 .screen.sm    /* visible only on sm */
 
 /* Hover-reveal opacity levels */
-.display-on-hover          /* opacity: 0 → 1 on parent hover */
-.display-on-hover.op-1 ... .op-9
+.display-on-hover          /* opacity: 0 → 1 on hover */
+.display-on-hover-1 ... .display-on-hover-9  /* opacity: 0.1–0.9 → 1 on hover */
 
 /* Borders with accent color */
 .border-top-highlight
@@ -1557,6 +1625,29 @@ Applied via `.jk-theme-light` or `.jk-theme-dark` on a parent element.
 
 /* Transitions */
 .transition-width
+
+/* Interactions */
+.link                /* blue link color + underline on hover */
+.outline-hover       /* 2px outline on hover using --color var */
+
+/* Positioning helpers */
+.expand-absolute     /* position: absolute; fills parent 100% */
+.float-top-right     /* position: absolute; top-right corner */
+  .float-top-right.pad-t   /* with --pad-t inset */
+  .float-top-right.pad-xt  /* with --pad-xt inset */
+.sides-mobile-padding      /* left/right padding = --pad-xs */
+
+/* Image effect */
+.image-border        /* white drop-shadow glow (useful on any surface) */
+
+/* Text */
+.line-height-1       /* line-height: 1 */
+.fl-tt-il            /* first-letter text-transform: initial */
+.ai-be               /* align-items: baseline */
+.va-tp               /* vertical-align: top */
+.bs-bb               /* box-sizing: border-box */
+.wh-50               /* width: 50% */
+.ht-ao               /* height: auto !important */
 ```
 
 ---

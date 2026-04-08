@@ -298,7 +298,7 @@
 //           />
 //           <div className={classNames('jk-md-math-left-menu', { open })}>
 //             <div className="jk-col" onMouseDown={(event) => event.preventDefault()}>
-//               <div className="content jk-row gap nowrap left jk-pg-xsm bc-we jk-br-ie">
+//               <div className="content jk-row gap nowrap left jk-pg-xsm bc-sf-md jk-br-ie">
 //                 {editor.isFocused && editor.isActive('codeBlock') ? (
 //                   <>
 //                     <div className="jk-row group jk-br-ie bc-hl">
@@ -489,7 +489,7 @@
 //                 className="jk-row trigger-content nowrap stretch center"
 //                 onClick={() => setOpen(!open)}
 //               >
-//                 <div className="jk-row center trigger bc-we jk-br-ie ow-hn">
+//                 <div className="jk-row center trigger bc-sf-md jk-br-ie ow-hn">
 //                   <div className="jk-row"><MoreVertIcon /></div>
 //                 </div>
 //                 <div className="div-gap" />
@@ -498,7 +498,7 @@
 //           </div>
 //           {/*<FloatingMenu*/}
 //           {/*  editor={editor}*/}
-//           {/*  className="bc-we jk-br-ie"*/}
+//           {/*  className="bc-sf-md jk-br-ie"*/}
 //           {/*>*/}
 //           {/*  <div*/}
 //           {/*    className="jk-row left jk-pg-xsm"*/}
@@ -578,7 +578,7 @@
 //           {/*</FloatingMenu>*/}
 //           <BubbleMenu
 //             editor={editor}
-//             className="bc-we jk-br-ie"
+//             className="bc-sf-md jk-br-ie"
 //             shouldShow={({ editor, state }) => (
 //               (editor.isFocused && editor.isActive('image'))
 //               || (editor?.isFocused && state.selection.empty && (editor.isActive('orderedList') || editor.isActive('bulletList')) && !editor.isActive('table'))

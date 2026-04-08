@@ -7,7 +7,6 @@ import type { InputDateProps } from '../DatePicker/types';
 
 // TODO: Add label
 export function InputDate(props: InputDateProps) {
-  
   const {
     todayButton = false,
     date,
@@ -24,22 +23,15 @@ export function InputDate(props: InputDateProps) {
     inputLabel,
     disabled = false,
   } = props;
-  
+
   const input = () => {
-    
     if (inputLabel) {
       return inputLabel(props, () => null);
     }
-    
+
     return date?.isValidDate() ? (
       <div className="jk-row gap jk-input-date jk-br-ie">
-        <DateLiteral
-          date={date}
-          className="flex-1 cr-tx-ht-dk"
-          show={type}
-          twoLines={twoLines}
-          withDayName={withDayName}
-        />
+        <DateLiteral date={date} className="flex-1 cr-tx-ht-dk" show={type} twoLines={twoLines} withDayName={withDayName} />
         {onDateClean && (
           <Button
             icon={<PlusIcon rotate={45} />}
@@ -63,7 +55,7 @@ export function InputDate(props: InputDateProps) {
       </div>
     );
   };
-  
+
   if (inline) {
     return (
       <div className="jk-date-picker-layout">
@@ -71,7 +63,7 @@ export function InputDate(props: InputDateProps) {
         <DatePicker
           todayButton={todayButton}
           date={date || baseDate}
-          onChange={date => onDatePick(date, () => null)}
+          onChange={(date) => onDatePick(date, () => null)}
           type={type}
           isDisabled={isDisabled}
           isSelected={isSelected}
@@ -79,16 +71,16 @@ export function InputDate(props: InputDateProps) {
       </div>
     );
   }
-  
+
   return (
     <div className={classNames('jk-date-picker-layout', { disabled })} style={extend ? { width: '100%' } : {}}>
       <Popover
-        popoverClassName="bc-we jk-br-ie elevation-1"
+        popoverClassName="bc-sf-hi jk-br-ie elevation-1"
         content={() => (
           <DatePicker
             todayButton={todayButton}
             date={date || baseDate}
-            onChange={date => onDatePick(date, () => null)}
+            onChange={(date) => onDatePick(date, () => null)}
             type={type}
             isDisabled={isDisabled}
             isSelected={isSelected}

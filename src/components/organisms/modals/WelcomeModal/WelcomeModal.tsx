@@ -9,13 +9,12 @@ import type { ButtonLoaderOnClickType } from '../../../types';
 import type { WelcomeModalProps } from './types';
 
 export function WelcomeModal({ onSeeMyProfile: _onSeeMyProfile }: WelcomeModalProps) {
-  
-  const { Image } = useUIStore(store => store.components);
-  const searchParams = useRouterStore(state => state.searchParams);
-  const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
-  const nickname = useUserStore(state => state.user.nickname);
-  const companyKey = useUserStore(state => state.company.key);
-  
+  const { Image } = useUIStore((store) => store.components);
+  const searchParams = useRouterStore((state) => state.searchParams);
+  const deleteSearchParams = useRouterStore((state) => state.deleteSearchParams);
+  const nickname = useUserStore((state) => state.user.nickname);
+  const companyKey = useUserStore((state) => state.company.key);
+
   const onSeeMyProfile: ButtonLoaderOnClickType = async (setLoaderStatus) => {
     setLoaderStatus(Status.LOADING);
     await _onSeeMyProfile(nickname, companyKey);
@@ -23,16 +22,17 @@ export function WelcomeModal({ onSeeMyProfile: _onSeeMyProfile }: WelcomeModalPr
     setLoaderStatus(Status.SUCCESS);
   };
   const onClose = () => deleteSearchParams({ name: QueryParamKey.WELCOME });
-  
+
   return (
-    <Modal
-      isOpen={searchParams.has(QueryParamKey.WELCOME)}
-      onClose={onClose}
-    >
+    <Modal isOpen={searchParams.has(QueryParamKey.WELCOME)} onClose={onClose}>
       <div className="jk-pg-md jk-row nowrap">
         <div className="jk-col gap stretch">
-          <h2><T className="tt-se">hi</T>&nbsp;<span className="given-name">{nickname}</span>!</h2>
-          <h3><T className="tt-se">welcome to the platform!</T></h3>
+          <h2>
+            <T className="tt-se">hi</T>&nbsp;<span className="given-name">{nickname}</span>!
+          </h2>
+          <h3>
+            <T className="tt-se">welcome to the platform!</T>
+          </h3>
           <div className="jk-col gap stretch flex-1">
             {/*<p>*/}
             {/*  <T className="tt-se">*/}
@@ -40,10 +40,12 @@ export function WelcomeModal({ onSeeMyProfile: _onSeeMyProfile }: WelcomeModalPr
             {/*  </T>*/}
             {/*</p>*/}
             <div className="jk-row-col gap block">
-              <ButtonLoader type="secondary" onClick={onSeeMyProfile} expand>
+              <ButtonLoader size="large" type="secondary" onClick={onSeeMyProfile} expand>
                 <T className="ws-np tt-se">see my profile</T>
               </ButtonLoader>
-              <ButtonLoader onClick={onClose} expand><T className="tt-se">continue</T></ButtonLoader>
+              <ButtonLoader size="large" onClick={onClose} expand>
+                <T className="tt-se">continue</T>
+              </ButtonLoader>
             </div>
           </div>
         </div>

@@ -128,7 +128,7 @@ export function Modal<T extends ModalButtonLoaderEventType>(props: ModalProps<T>
                 <div className="jk-modal-close-button wh-100">
                   <button
                     type="button"
-                    className="jk-button secondary only-icon jk-br-ie"
+                    className="jk-button bc-sf-hi only-icon jk-br-ie"
                     aria-label="Close modal"
                     disabled={loader === Status.LOADING}
                     onClick={handleCloseClick}

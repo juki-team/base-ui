@@ -198,7 +198,7 @@ const meta: Meta<typeof AccountCircleIcon> = {
   component: AccountCircleIcon,
   argTypes: {
     size: {
-      options: [ 'huge', 'large', 'regular', 'small', 'tiny' ],
+      options: ['huge', 'large', 'regular', 'small', 'tiny'],
       control: {
         type: 'select',
         labels: {
@@ -413,43 +413,29 @@ export const Google: FC<BasicIconProps> = (args) => {
     SmartToyIcon,
     DoneAllIcon,
   };
-  
-  const [ color, setColor ] = useState<ColorResult>({
+
+  const [color, setColor] = useState<ColorResult>({
     hex: '',
     hsl: { h: 0, s: 0, l: 0 },
     rgb: { r: 0, g: 0, b: 0 },
   });
-  const [ filter, setFilter ] = useState('');
-  
+  const [filter, setFilter] = useState('');
+
   return (
     <MockupJukiProvider>
       <h3>icons</h3>
       <div className="jk-row extend">
-        <InputColor
-          value={color}
-          onChange={setColor}
-          label={<T className="tt-se">color</T>}
-        />
-        <Input
-          value={filter}
-          onChange={setFilter}
-          label={<T className="tt-se">filter</T>}
-        />
+        <InputColor value={color} onChange={setColor} label={<T className="tt-se">color</T>} />
+        <Input value={filter} onChange={setFilter} label={<T className="tt-se">filter</T>} />
       </div>
       <div className="jk-row block gap" style={{ color: color.hex, height: '100%', width: '100%', overflow: 'auto' }}>
         {Object.entries(icons)
-          .filter(([ iconName ]) =>
-            filter
-              ? iconName.toLowerCase().includes(filter.toLowerCase())
-              : true,
-          )
-          .sort(([ iconName1 ], [ iconName2 ]) =>
-            iconName1.localeCompare(iconName2),
-          )
-          .map(([ iconName, Component ]) => (
+          .filter(([iconName]) => (filter ? iconName.toLowerCase().includes(filter.toLowerCase()) : true))
+          .sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2))
+          .map(([iconName, Component]) => (
             <div className="jk-row gap nowrap center" key={iconName}>
               <Component {...args} />
-              <div className="tx-t cr-g1" style={{ width: 140 }}>
+              <div className="tx-t" style={{ width: 140 }}>
                 {iconName}
               </div>
             </div>

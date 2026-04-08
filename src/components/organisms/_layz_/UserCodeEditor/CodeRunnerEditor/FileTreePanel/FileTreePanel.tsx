@@ -299,7 +299,12 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
 
   const onChange = () => {
     onChangeRef.current?.({
-      fileNameEdited: [openFileName, fileNameEdit, normalizeFolderPath(folderPathEdit), descriptionEdit],
+      fileNameEdited: [
+        openFileName,
+        fileNameEdit.trim().replace(/\//g, '_'),
+        normalizeFolderPath(folderPathEdit),
+        descriptionEdit,
+      ],
     });
     setOpenFileName('');
   };
@@ -409,7 +414,7 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
           <div className="jk-row jk-pg-xsm-t border-top-highlight-light">
             <Button
               size="tiny"
-              icon={<AddIcon />}
+              icon={<AddIcon size="tiny" />}
               disabled={readOnly}
               onClick={() => onChangeRef.current?.({ newFileName: files[currentFileName]?.folderPath ?? '' })}
             >

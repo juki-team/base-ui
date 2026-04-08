@@ -8,63 +8,58 @@ import { LOGO_WORKSHEET_TYPE } from './logos';
 import { upRemoveDownButtons } from './upRemoveDownActions';
 
 interface getActionButtonsProps {
-  type: WorksheetType,
-  edit: boolean,
-  setModal: (modal: boolean) => void,
-  index: number,
-  sheetLength: number,
-  setSheet?: SetSheetType<BodyWorksheet>,
-  onSaveEdit?: () => void,
-  onCancel?: () => void,
+  type: WorksheetType;
+  edit: boolean;
+  setModal: (modal: boolean) => void;
+  index: number;
+  sheetLength: number;
+  setSheet?: SetSheetType<BodyWorksheet>;
+  onSaveEdit?: () => void;
+  onCancel?: () => void;
 }
 
 export const getActionButtons = (props: getActionButtonsProps): ButtonActionProps[] => {
-  
-  const {
-    type,
-    edit,
-    index,
-    sheetLength,
-    setSheet,
-    setModal,
-    onSaveEdit,
-    onCancel,
-  } = props;
-  
+  const { type, edit, index, sheetLength, setSheet, setModal, onSaveEdit, onCancel } = props;
+
   return [
     {
       children: (
-        <div className="bc-al cr-at-it jk-pg-xsm jk-row gap nowrap jk-br-ie tx-t ws-np" style={{ opacity: 0.6 }}>
+        <div className="bc-at-lt cr-at-it jk-pg-xsm jk-row gap nowrap jk-br-ie tx-t ws-np" style={{ opacity: 0.6 }}>
           {LOGO_WORKSHEET_TYPE('tiny')[type].icon}
           {LOGO_WORKSHEET_TYPE('tiny')[type].label}
         </div>
       ),
     },
-    ...(onSaveEdit && onCancel ?
-      edit ? [ {
-          icon: <VisibilityIcon size="small" />,
-          children: (
-            <div className=" jk-col gap stretch">
-              <Button size="small" icon={<SaveIcon />} onClick={onSaveEdit}><T className="tt-se">save</T></Button>
-              <Button
-                size="small"
-                type="secondary"
-                icon={<CloseIcon />}
-                onClick={onCancel}
-              ><T className="tt-se">cancel</T></Button>
-            </div>
-          ),
-          placement: 'left-start',
-        } as ButtonActionProps ]
-        : [ {
-          icon: <EditIcon size="small" />,
-          children: undefined,
-          onClick: onSaveEdit,
-          ['data-tooltip-id']: 'jk-tooltip',
-          ['data-tooltip-content']: 'edit',
-          ['data-tooltip-place']: 'left',
-          placement: 'left-start',
-        } as ButtonActionProps ] : []),
+    ...(onSaveEdit && onCancel
+      ? edit
+        ? [
+            {
+              icon: <VisibilityIcon size="small" />,
+              children: (
+                <div className=" jk-col gap stretch">
+                  <Button size="small" icon={<SaveIcon />} onClick={onSaveEdit}>
+                    <T className="tt-se">save</T>
+                  </Button>
+                  <Button size="small" type="secondary" icon={<CloseIcon />} onClick={onCancel}>
+                    <T className="tt-se">cancel</T>
+                  </Button>
+                </div>
+              ),
+              placement: 'left-start',
+            } as ButtonActionProps,
+          ]
+        : [
+            {
+              icon: <EditIcon size="small" />,
+              children: undefined,
+              onClick: onSaveEdit,
+              ['data-tooltip-id']: 'jk-tooltip',
+              ['data-tooltip-content']: 'edit',
+              ['data-tooltip-place']: 'left',
+              placement: 'left-start',
+            } as ButtonActionProps,
+          ]
+      : []),
     {
       icon: <SortIcon className="cr-we" up down />,
       size: 'tiny' as ButtonSizeType,

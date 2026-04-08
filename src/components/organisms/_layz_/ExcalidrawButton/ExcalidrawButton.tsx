@@ -22,15 +22,14 @@ const getSafeBgColor = () => {
 };
 
 export default function ExcalidrawButton() {
-  
-  const [ isActive, setIsActive ] = useState(false);
-  const [ viewBackgroundColor, setViewBackgroundColor ] = useState(getSafeBgColor());
-  const [ excalidrawData, setExcalidrawData ] = useState({
+  const [isActive, setIsActive] = useState(false);
+  const [viewBackgroundColor, setViewBackgroundColor] = useState(getSafeBgColor());
+  const [excalidrawData, setExcalidrawData] = useState({
     elements: [] as readonly OrderedExcalidrawElement[],
     appState: { viewBackgroundColor: 'transparent' } as AppState,
   });
-  const [ excalidrawAPI, setExcalidrawAPI ] = useState<ExcalidrawImperativeAPI | null>(null);
-  
+  const [excalidrawAPI, setExcalidrawAPI] = useState<ExcalidrawImperativeAPI | null>(null);
+
   useEffect(() => {
     const stored = sessionStorage.getItem(LOCAL_STORAGE_KEY);
     if (stored) {
@@ -41,24 +40,24 @@ export default function ExcalidrawButton() {
             ...parsed?.appState,
             collaborators: undefined,
           } as AppState,
-          elements: (parsed?.elements) ?? [],
+          elements: parsed?.elements ?? [],
         });
       } catch (err) {
         console.error('Failed to parse Excalidraw data:', err);
       }
     }
-  }, [ isActive ]);
-  
+  }, [isActive]);
+
   useEffect(() => {
     excalidrawAPI?.updateScene({
       appState: {
         viewBackgroundColor,
       },
     });
-  }, [ excalidrawAPI, viewBackgroundColor ]);
-  
+  }, [excalidrawAPI, viewBackgroundColor]);
+
   const backgroundToggle = (
-    <div className="jk-col gap bc-we elevation-1 jk-br-ie" style={{ padding: 2 }}>
+    <div className="jk-col gap bc-sf-hi elevation-1 jk-br-ie" style={{ padding: 2 }}>
       <T className="tt-se tx-t">background</T>
       <InputToggle
         // data-tooltip-id="jk-tooltip"
@@ -70,7 +69,7 @@ export default function ExcalidrawButton() {
             data-tooltip-id="jk-tooltip"
             data-tooltip-content="white"
             data-tooltip-place="bottom-end"
-            className="br-50-pc br-g1"
+            className="br-50-pc br-hl"
             style={{ background: 'white', width: 12, height: 12 }}
           />
         }
@@ -79,7 +78,7 @@ export default function ExcalidrawButton() {
             data-tooltip-id="jk-tooltip"
             data-tooltip-content="transparent"
             data-tooltip-place="bottom-end"
-            className="br-50-pc br-g1"
+            className="br-50-pc br-hl"
             style={{
               background: 'white',
               width: 12,
@@ -101,7 +100,7 @@ export default function ExcalidrawButton() {
       />
     </div>
   );
-  
+
   return (
     <>
       {isActive ? (

@@ -87,20 +87,20 @@ export default function InputColor({ value, children, onChange, ...inputProps }:
       {...inputProps}
       register={undefined}
       type="text"
-      onChange={newValue => {
+      onChange={(newValue) => {
         onChange?.(valueToColorResult(newValue));
       }}
       value={newColor}
       onClick={(e) => e.preventDefault()}
     >
       <Popover
-        popoverClassName="bc-we jk-br-ie elevation-1"
+        popoverClassName="bc-sf-hi jk-br-ie elevation-1"
         content={() => (
           <div className="color-picker-layout jk-pg-xsm">
             <SketchPicker
               color={newColor}
               onChangeComplete={(colorResult) => onChange?.(valueToColorResult(colorResult))}
-              presetColors={[ ...PALLETE.CLAROS, ...PALLETE.VIVOS, ...PALLETE.AGRISADOS, ...PALLETE.OSCUROS ]}
+              presetColors={[...PALLETE.CLAROS, ...PALLETE.VIVOS, ...PALLETE.AGRISADOS, ...PALLETE.OSCUROS]}
             />
             {/*<Button*/}
             {/*  onClick={() => {*/}
@@ -117,21 +117,21 @@ export default function InputColor({ value, children, onChange, ...inputProps }:
         triggerOn={TriggerAction.CLICK}
         placement="bottom"
       >
-        {children
-          ? children
-          : (
-            <div
-              style={{
-                width: 'calc(var(--tx-bh) - 4px)',
-                height: 'calc(var(--tx-bh) - 4px)',
-                borderRadius: '4px',
-                backgroundColor: newColor,
-                border: '1px solid rgba(0, 0, 0, 0.2)',
-                margin: 2,
-                zIndex: 1,
-              }}
-            />
-          )}
+        {children ? (
+          children
+        ) : (
+          <div
+            style={{
+              width: 'calc(var(--tx-bh) - 4px)',
+              height: 'calc(var(--tx-bh) - 4px)',
+              borderRadius: '4px',
+              backgroundColor: newColor,
+              border: '1px solid rgba(0, 0, 0, 0.2)',
+              margin: 2,
+              zIndex: 1,
+            }}
+          />
+        )}
       </Popover>
     </Input>
   );

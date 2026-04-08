@@ -49,12 +49,10 @@
   --cr-er-dk: color-mix(in srgb, var(--cr-er) var(--tone), var(--cr-bk));
   --cr-er-lt: color-mix(in srgb, var(--cr-er) var(--tone), var(--cr-we));
   
-  --cr-gy-1: color-mix(in srgb, var(--cr-gy) 100%, var(--cr-we));
-  --cr-gy-2: color-mix(in srgb, var(--cr-gy) 83%, var(--cr-we));
-  --cr-gy-3: color-mix(in srgb, var(--cr-gy) 66%, var(--cr-we));
-  --cr-gy-4: color-mix(in srgb, var(--cr-gy) 49%, var(--cr-we));
-  --cr-gy-5: color-mix(in srgb, var(--cr-gy) 32%, var(--cr-we));
-  --cr-gy-6: color-mix(in srgb, var(--cr-gy) 15%, var(--cr-we));
+  --cr-tx: var(--body-tx-cr); // default — body text
+  --cr-tx-sc: color-mix(in srgb, var(--body-tx-cr) 65%, var(--cr-we)); // secondary — labels, subtitles
+  --cr-tx-mt: color-mix(in srgb, var(--body-tx-cr) 40%, var(--cr-we)); // muted — placeholders, hints
+  --cr-tx-ds: color-mix(in srgb, var(--body-tx-cr) 20%, var(--cr-we)); // disabled
   
   --cr-ht-lt: color-mix(in srgb, var(--cr-bk) 10%, transparent); // 1A
   --cr-ht: color-mix(in srgb, var(--cr-bk) 25%, transparent); // 40
@@ -66,13 +64,17 @@
   
   --cr-at-lt: color-mix(in srgb, var(--body-at-cr) var(--tone), var(--cr-we));
   --cr-at: var(--body-at-cr);
-  --cr-at-dk: color-mix(in srgb, var(--body-at-cr) var(--tone), var(--cr-bk));
   --cr-at-it: var(--body-at-cr-it);
+  --cr-at-dk: color-mix(in srgb, var(--body-at-cr) var(--tone), var(--cr-bk));
   
   --cr-tx-ht-lt: color-mix(in srgb, var(--body-tx-cr-ht) 100%, var(--cr-bk) 30%);
   --cr-tx-ht: var(--body-tx-cr-ht);
-  --cr-tx-ht-dk: color-mix(in srgb, var(--body-tx-cr-ht) 80%, var(--cr-bk) 50%);
   --cr-tx-ht-it: var(--body-tx-cr-ht-it);
+  --cr-tx-ht-dk: color-mix(in srgb, var(--body-tx-cr-ht) 80%, var(--cr-bk) 50%);
+  
+  --accent-gray: color-mix(in srgb, var(--body-at-cr), #808080 50%);
+  --bc-sf: color-mix(in srgb, var(--accent-gray), var(--cr-we) 90%); // #F0F1F2; // #191F27
+  //--bc-sf-ht: color-mix(in srgb, var(--cr-at-lt), var(--cr-we) 80%); // #FAFBFC; // #20231
 }
 
 .jk-theme-light {
@@ -80,6 +82,9 @@
   --cr-we-lt: color-mix(in srgb, var(--cr-we) 10%, var(--base-white));
   --cr-we-dk: color-mix(in srgb, var(--cr-we) 96%, var(--base-black));
   --cr-we-det: color-mix(in srgb, var(--cr-we) 92%, var(--base-black));
+  
+  --bc-sf-md: color-mix(in srgb, var(--bc-sf), var(--base-white) 60%);
+  --bc-sf-hi: color-mix(in srgb, var(--bc-sf), var(--base-white) 98%);
 }
 
 .jk-theme-dark {
@@ -87,4 +92,7 @@
   --cr-we-lt: color-mix(in srgb, var(--cr-we) 90%, var(--base-white));
   --cr-we-dk: color-mix(in srgb, var(--cr-we) 80%, var(--base-black));
   --cr-we-det: color-mix(in srgb, var(--cr-we) 90%, var(--base-black));
+  
+  --bc-sf-md: color-mix(in srgb, var(--bc-sf), var(--base-white) 10%);
+  --bc-sf-hi: color-mix(in srgb, var(--bc-sf), var(--base-white) 40%);
 }

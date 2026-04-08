@@ -15,7 +15,7 @@ export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
   const { content, checkedOptions, setCheckedOptions, readOnly } = props;
 
   return (
-    <div className="bc-we jk-br-ie jk-pg jk-col stretch gap wh-100">
+    <div className="bc-sf-md jk-br-ie jk-pg jk-col stretch gap wh-100">
       <MdMathViewer source={content.description} className="bc-ht-lt jk-pg-xsm jk-br-ie" />
       <T className="tt-se fw-bd cr-tx-ht">{content.multiple ? 'select one or more options' : 'select one option'}</T>
       <div className="jk-col stretch left gap">
@@ -45,13 +45,13 @@ export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
               <InputCheckbox
                 checked={checkedOptions.includes(option.id)}
                 onChange={() => null}
-                className={classNames({ 'bc-sl jk-br-ie': option.correct })}
+                className={classNames({ 'bc-ss-lt jk-br-ie': option.correct })}
               />
             ) : (
               <InputRadio
                 checked={checkedOptions.includes(option.id)}
                 onChange={() => null}
-                className={classNames({ 'bc-sl br-50-pc': option.correct })}
+                className={classNames({ 'bc-ss-lt br-50-pc': option.correct })}
               />
             )}
             <div>

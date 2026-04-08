@@ -2,20 +2,19 @@ import { T } from '../../../atoms';
 import { downloadBlobAsFile } from '../../../helpers';
 import { FloatToolbar } from '../../../molecules';
 import type { ButtonActionProps } from '../../../molecules/types';
-import { DownloadIcon, EditIcon, OpenInNewIcon } from '../../../server';
+import { DownloadIcon, EditIcon } from '../../../server';
 import type { MdFloatToolbarProps } from './types';
 
 export function MdFloatToolbar({ source, edit, onEdit, download }: MdFloatToolbarProps) {
-  
   // const [ sourceUrl, setSourceUrl ] = useState('');
   // const { user: { settings: { [ProfileSetting.THEME]: userTheme } } } = useJukiUser();
   // useEffect(() => setSourceUrl(''), [ source ]);
-  
+
   const actionButtons: ButtonActionProps[] = [];
   if (edit && onEdit) {
     actionButtons.push({
-      icon: <EditIcon />,
-      buttons: [ { icon: <EditIcon />, label: <T>edit</T>, onClick: onEdit } ],
+      icon: <EditIcon size="tiny" />,
+      buttons: [{ icon: <EditIcon size="tiny" />, label: <T>edit</T>, onClick: onEdit }],
     });
   }
   // if (share) {
@@ -37,7 +36,7 @@ export function MdFloatToolbar({ source, edit, onEdit, download }: MdFloatToolba
   // }
   if (download) {
     actionButtons.push({
-      icon: <DownloadIcon />,
+      icon: <DownloadIcon size="tiny" />,
       buttons: [
         // TODO:
         // {
@@ -46,17 +45,17 @@ export function MdFloatToolbar({ source, edit, onEdit, download }: MdFloatToolba
         //   onClick: handleShareMdPdf('pdf', source, sourceUrl, setSourceUrl, userTheme),
         // },
         {
-          icon: <OpenInNewIcon />,
+          icon: <DownloadIcon size="tiny" />,
           label: <T>md</T>,
-          onClick: () => downloadBlobAsFile(new Blob([ source ], { type: 'text/plain' }), 'file.md'),
+          onClick: () => downloadBlobAsFile(new Blob([source], { type: 'text/plain' }), 'file.md'),
         },
       ],
     });
   }
-  
+
   if (actionButtons.length) {
     return <FloatToolbar actionButtons={actionButtons} />;
   }
-  
+
   return null;
-};
+}

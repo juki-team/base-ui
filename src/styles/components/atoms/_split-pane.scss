@@ -159,7 +159,7 @@
         left: calc(50% - 32px);
         width: 64px;
         height: var(--line-notch-size);
-        background: linear-gradient(to bottom, var(--cr-gy-4) 20%, var(--cr-we) 20% 40%, var(--cr-gy-4) 40% 60%, var(--cr-we) 60% 80%, var(--cr-gy-4) 80%);
+        background: linear-gradient(to bottom, var(--cr-ht) 20%, var(--cr-we) 20% 40%, var(--cr-ht) 40% 60%, var(--cr-we) 60% 80%, var(--cr-ht) 80%);
       }
     }
     
@@ -234,7 +234,7 @@
         left: calc(var(--line-notch-size) / 2 * -1);
         width: var(--line-notch-size);
         height: 64px;
-        background: linear-gradient(to right, var(--cr-gy-4) 0% 20%, var(--cr-we) 20% 40%, var(--cr-gy-4) 40% 60%, var(--cr-we) 60% 80%, var(--cr-gy-4) 80% 100%);
+        background: linear-gradient(to right, var(--cr-ht) 0% 20%, var(--cr-we) 20% 40%, var(--cr-ht) 40% 60%, var(--cr-we) 60% 80%, var(--cr-ht) 80% 100%);
       }
     }
     

@@ -14,7 +14,7 @@ export function ImageUploaderButton(props: ImageUploaderButtonProps) {
     _children ||
     (({ setOpen, withLabel }: UploadImageButtonChildrenProps) => {
       return (
-        <Button icon={<CloudUploadIcon />} type="secondary" className="bc-we" size="small" onClick={() => setOpen(true)}>
+        <Button icon={<CloudUploadIcon />} type="secondary" size="small" onClick={() => setOpen(true)}>
           {withLabel && <T>pick / upload image</T>}
         </Button>
       );

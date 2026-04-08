@@ -14,10 +14,8 @@ export default meta;
 type Story = StoryObj<typeof Image>;
 
 const Images = ({ src }: { src: string }) => {
-  const { Image } = useUIStore(store => store.components);
-  return (
-    <Image src={src} alt="juki-hello" fill />
-  );
+  const { Image } = useUIStore((store) => store.components);
+  return <Image src={src} alt="juki-hello" fill />;
 };
 
 export const Regular: Story = {
@@ -49,25 +47,20 @@ export const Regular: Story = {
       'https://images.juki.pub/assets/juki-utils-vertical-white-logo.png',
       'https://images.juki.pub/assets/leetcode-logo-color.svg',
     ];
-    
+
     return (
       <MockupJukiProvider>
-        <div
-          style={{ color: '#164066', backgroundColor: '#F0F2F5' }}
-          className="jk-col"
-        >
-          {images
-            .sort()
-            .map((src) => (
-              <div className="jk-row nowrap center block">
-                <div style={{ width: '200px', height: '200px' }}>
-                  <Images src={src} />
-                </div>
-                <div className="tx-t cr-g1" style={{ width: 140 }}>
-                  {src}
-                </div>
+        <div style={{ color: '#164066', backgroundColor: '#F0F2F5' }} className="jk-col">
+          {images.sort().map((src) => (
+            <div className="jk-row nowrap center block">
+              <div style={{ width: '200px', height: '200px' }}>
+                <Images src={src} />
               </div>
-            ))}
+              <div className="tx-t" style={{ width: 140 }}>
+                {src}
+              </div>
+            </div>
+          ))}
         </div>
       </MockupJukiProvider>
     );

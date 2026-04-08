@@ -54,7 +54,7 @@ export function ProblemView<T>(props: PropsWithChildren<ProblemViewProps<T>>) {
   const problemStatement = (
     <div
       className={classNames('jk-problem-view-statement', problem.judge.isSubmitSupported ? '' : className, {
-        'jk-pg-sm jk-br-ie bc-we': !shouldViewPDF,
+        'jk-pg-sm jk-br-ie bc-sf-md': !shouldViewPDF,
         'ow-ve': shouldViewPDF,
       })}
     >

@@ -16,7 +16,6 @@ import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModa
 import type { DocumentMembersButtonProps } from './types';
 
 export function DocumentMembersButton(props: PropsWithChildren<DocumentMembersButtonProps>) {
-  
   const {
     isAdministrator,
     members,
@@ -35,42 +34,45 @@ export function DocumentMembersButton(props: PropsWithChildren<DocumentMembersBu
     children,
     size,
   } = props;
-  
-  const [ show, setShow ] = useState(false);
+
+  const [show, setShow] = useState(false);
   const { notifyResponse } = useJukiNotification();
   const documentAccess = getDocumentAccess({ members });
-  
-  const onSave = initialOnSave ?? (async (members, close) => {
-    const worksheetToPatch: { members: EntityMembersDTO } = {
-      members: {
-        rankAdministrators: members.rankAdministrators,
-        administrators: Object.keys(members.administrators),
-        rankManagers: members.rankManagers,
-        managers: Object.keys(members.managers),
-        rankGuests: members.rankGuests,
-        guests: Object.keys(members.guests),
-        rankSpectators: members.rankSpectators,
-        spectators: Object.keys(members.spectators),
-        rankParticipants: members.rankParticipants,
-        participants: Object.keys(members.participants),
-      },
-    };
-    const response = cleanRequest<ContentResponse<string>>(
-      await authorizedRequest(saveUrl!, {
-        method: HTTPMethod.PUT,
-        body: JSON.stringify(worksheetToPatch),
-      }));
-    await reloadDocument?.();
-    notifyResponse(response);
-    close();
-  });
-  
+
+  const onSave =
+    initialOnSave ??
+    (async (members, close) => {
+      const worksheetToPatch: { members: EntityMembersDTO } = {
+        members: {
+          rankAdministrators: members.rankAdministrators,
+          administrators: Object.keys(members.administrators),
+          rankManagers: members.rankManagers,
+          managers: Object.keys(members.managers),
+          rankGuests: members.rankGuests,
+          guests: Object.keys(members.guests),
+          rankSpectators: members.rankSpectators,
+          spectators: Object.keys(members.spectators),
+          rankParticipants: members.rankParticipants,
+          participants: Object.keys(members.participants),
+        },
+      };
+      const response = cleanRequest<ContentResponse<string>>(
+        await authorizedRequest(saveUrl!, {
+          method: HTTPMethod.PUT,
+          body: JSON.stringify(worksheetToPatch),
+        }),
+      );
+      await reloadDocument?.();
+      notifyResponse(response);
+      close();
+    });
+
   const button = children || (
     <Button key="share" icon={<ShareIcon />} size={size}>
       <T className="tt-se">share</T>
     </Button>
   );
-  
+
   const actionButtons = [
     {
       children: button,
@@ -78,9 +80,10 @@ export function DocumentMembersButton(props: PropsWithChildren<DocumentMembersBu
         {
           children: (
             <div>
-              <div style={{ maxWidth: 256 }} className="jk-pg-xsm bc-we jk-br-ie">
+              <div style={{ maxWidth: 256 }} className="jk-pg-xsm jk-br-ie">
                 <div className="fw-bd">
-                  <T className="tt-se">access</T>: <T className="tt-se">{entityAccess?.[documentAccess]?.name ?? ENTITY_ACCESS[documentAccess]?.label}</T>
+                  <T className="tt-se">access</T>:{' '}
+                  <T className="tt-se">{entityAccess?.[documentAccess]?.name ?? ENTITY_ACCESS[documentAccess]?.label}</T>
                 </div>
                 <T className="tt-se">
                   {entityAccess?.[documentAccess]?.description ?? ENTITY_ACCESS[documentAccess]?.description}
@@ -106,14 +109,14 @@ export function DocumentMembersButton(props: PropsWithChildren<DocumentMembersBu
       ],
     },
   ];
-  
+
   return (
     <>
       <ButtonAction
         {...actionButtons[0]}
         className="top center"
         placement="bottom"
-        popoverClassName="jk-pg-xsm bc-we jk-br-ie elevation-1"
+        popoverClassName="jk-pg-xsm bc-sf-hi jk-br-ie elevation-1"
       />
       <DocumentMembersModal
         isOpen={show}

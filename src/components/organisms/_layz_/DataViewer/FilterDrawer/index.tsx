@@ -57,7 +57,7 @@ const RenderFilterTitle = <T,>({
       </div>
       {onSort ? (
         <div
-          className={classNames('jk-row nowrap jk-tag tx-s cr-pr', { 'bc-al cr-at-it': !!order, 'bc-ht-lt': !order })}
+          className={classNames('jk-row nowrap jk-tag tx-s cr-pr', { 'bc-at-lt cr-at-it': !!order, 'bc-ht-lt': !order })}
           onClick={() => onSort({ columnIndex })}
         >
           <T className="tt-se">sort</T>

@@ -26,6 +26,7 @@ interface HeaderTabProps<T> {
   getHrefOnTabChange: TabsInlineProps<T>['getHrefOnTabChange'];
   routerReplace: TabsInlineProps<T>['routerReplace'];
   setSelectedTabKey: (key: T | undefined, force: boolean) => void;
+  buttonClassName?: string;
 }
 
 const HeaderTab = <T = string,>(props: HeaderTabProps<T>) => {
@@ -35,6 +36,7 @@ const HeaderTab = <T = string,>(props: HeaderTabProps<T>) => {
     getHrefOnTabChange,
     routerReplace,
     setSelectedTabKey,
+    buttonClassName,
   } = props;
 
   const selected = key === selectedTabKey;
@@ -43,7 +45,7 @@ const HeaderTab = <T = string,>(props: HeaderTabProps<T>) => {
       <Button
         type="ghost"
         onClick={selected ? undefined : () => setSelectedTabKey(key, false)}
-        className={classNames('fw-bd', { 'cr-tx-ht': selected })}
+        className={classNames('fw-bd', { 'cr-tx-ht': selected }, buttonClassName)}
         style={{
           borderBottom: selected ? '2px solid var(--cr-tx-ht)' : '2px solid var(--cr-ht)',
           borderBottomLeftRadius: 0,
@@ -68,6 +70,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
     getHrefOnTabChange,
     routerReplace,
     withBody,
+    tabButtonsClassName,
   } = props;
 
   const tabsArray = Object.values(tabs);
@@ -122,7 +125,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
             >
               <div className="jk-row jk-pg-xsm" onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex - 1]?.key)}>
                 <NavigateBeforeIcon
-                  className={classNames('br-50-pc bc-al cr-at-it elevation-1', {
+                  className={classNames('br-50-pc bc-at-lt cr-at-it elevation-1', {
                     activated: selectedTabIndex - 1 >= 0,
                     disabled: !(selectedTabIndex - 1 >= 0),
                   })}
@@ -151,6 +154,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
                         getHrefOnTabChange={getHrefOnTabChange}
                         routerReplace={routerReplace}
                         setSelectedTabKey={setSelectedTabKey}
+                        buttonClassName={tabButtonsClassName}
                       />
                     )}
                   </div>
@@ -173,6 +177,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
                     getHrefOnTabChange={getHrefOnTabChange}
                     routerReplace={routerReplace}
                     setSelectedTabKey={setSelectedTabKey}
+                    buttonClassName={tabButtonsClassName}
                   />
                 )),
               )}
@@ -186,7 +191,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
             >
               <div className="jk-row jk-pg-xsm" onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex + 1]?.key)}>
                 <NavigateNextIcon
-                  className={classNames('br-50-pc bc-al cr-at-it elevation-1', {
+                  className={classNames('br-50-pc bc-at-lt cr-at-it elevation-1', {
                     activated: selectedTabIndex + 1 < tabsLength,
                     disabled: !(selectedTabIndex + 1 < tabsLength),
                   })}

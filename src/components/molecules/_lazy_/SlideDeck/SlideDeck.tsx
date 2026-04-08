@@ -203,7 +203,7 @@ function SlideDeckComponent(props: SlideDeckProps) {
         <div className="slides">{Children.toArray(children)}</div>
       </div>
       {loading && (
-        <div className="jk-loader-layer jk-overlay bc-we">
+        <div className="jk-loader-layer jk-overlay bc-sf-hi">
           <div className="jk-row ai-be">
             <T className="tt-se">loading</T>&nbsp;
             <div className="dot-flashing" />
