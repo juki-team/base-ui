@@ -32,16 +32,20 @@ export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebS
     return getWebSocketResponseEventKey(WebSocketResponseEvent.SUBMISSION_RUN_STATUS, event.clientId, event.submitId);
   }
   if (isSubscribeGetDataWebSocketEventDTO(event) || isUnsubscribeGetDataWebSocketEventDTO(event)) {
-    return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_, event.clientId, event.dataId);
+    return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA, event.clientId, event.dataId);
   }
   if (isSubscribeUserNotificationWebSocketEventDTO(event) || isUnsubscribeUserNotificationWebSocketEventDTO(event)) {
-    return getWebSocketResponseEventKey(WebSocketResponseEvent.USER_NOTIFICATION_, event.clientId, '*');
+    return getWebSocketResponseEventKey(WebSocketResponseEvent.USER_NOTIFICATION, event.clientId, '*');
   }
   if (isSubscribeProblemCrawledWebSocketEventDTO(event) || isUnsubscribeProblemCrawledWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.PROBLEM_CRAWLED, event.clientId, event.problemKey);
   }
   if (isSubscribeSubmissionsCrawlWebSocketEventDTO(event) || isUnsubscribeSubmissionsCrawlWebSocketEventDTO(event)) {
-    return getWebSocketResponseEventKey(WebSocketResponseEvent.SUBMISSIONS_CRAWL, event.clientId, join([ event.contestKey, event.problemKeys ]));
+    return getWebSocketResponseEventKey(
+      WebSocketResponseEvent.SUBMISSIONS_CRAWL,
+      event.clientId,
+      join([event.contestKey, event.problemKeys]),
+    );
   }
   if (isSubscribeContestChangesWebSocketEventDTO(event) || isUnsubscribeContestChangesWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.CONTEST_CHANGES, event.clientId, event.contestKey);
@@ -49,7 +53,7 @@ export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebS
   if (isSubscribeClientTrackWebSocketEventDTO(event) || isUnsubscribeClientTrackWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.CLIENT_TRACK, event.clientId, '*');
   }
-  
+
   return '' as WebSocketResponseEventKey;
 }
 
@@ -78,6 +82,6 @@ export function getUnsubscribeEvent(event: WebSocketSubscribeEventDTO): WebSocke
   if (isSubscribeUserNotificationWebSocketEventDTO(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_USER_NOTIFICATION };
   }
-  
+
   return event;
 }
