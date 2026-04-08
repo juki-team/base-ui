@@ -37,7 +37,7 @@ export const UserChip = forwardRef<HTMLDivElement, UserChipProps>(function UserC
   const onlyNickname = !givenName && !familyName && !email;
 
   const image = (
-    <span className={classNames('jk-user-profile-img', { large: !onlyNickname })}>
+    <span className={classNames('jk-user-profile-img pn-re', { large: !onlyNickname })}>
       <Image src={imageUrl} alt={nickname} fill className="br-50-pc" />
     </span>
   );
