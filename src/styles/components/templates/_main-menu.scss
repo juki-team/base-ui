@@ -36,7 +36,7 @@
   &:not(.settings-apps-login-user-content *):hover {
     color: var(--cr-tx-ht);
     
-    > .jk-user-profile-img {
+    .jk-user-profile-img {
       outline: 2px solid var(--cr-at) !important;
     }
   }
