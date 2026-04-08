@@ -18,7 +18,7 @@ export function SubmissionRetrieveButton({ submissionId }: SubmissionRetrieveBut
     setLoaderStatus(Status.LOADING);
     
     const { url, ...options } = jukiApiManager.API_V2.submission.retrieve({ params: { id: submissionId } });
-    const response = cleanRequest<ContentResponse<{ listCount: number, status: SubmissionRunStatus.RECEIVED }>>(
+    const response = cleanRequest<ContentResponse<{ listCount: number, status: typeof SubmissionRunStatus.RECEIVED }>>(
       await authorizedRequest(url, options));
     notifyResponse(response, setLoaderStatus);
   };
