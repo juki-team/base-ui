@@ -4,7 +4,7 @@ import { ContentCopyIcon, DoneAllIcon } from '../server';
 import type { CopyToClipboardProps } from './types';
 
 export function CopyToClipboard(props: CopyToClipboardProps) {
-  const { text, size = 'regular', tooltipContent, children, noStyling, className, disabled = false } = props;
+  const { text, iconSize = 'regular', tooltipContent, children, noStyling, className, disabled = false } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = async <T,>(event: MouseEvent<T>) => {
@@ -38,7 +38,7 @@ export function CopyToClipboard(props: CopyToClipboardProps) {
       onClick={disabled ? undefined : handleClick}
     >
       {/*{children ?? (isOpen ? <CheckIcon size={size} /> : <ContentCopyIcon size={size} />)}*/}
-      {isOpen ? <DoneAllIcon size={size} /> : <ContentCopyIcon size={size} />}
+      {isOpen ? <DoneAllIcon size={iconSize} /> : <ContentCopyIcon size={iconSize} />}
       {children}
     </div>
   );

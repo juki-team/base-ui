@@ -332,7 +332,7 @@ function MdMathComponent(props: MdMathProps) {
             }
 
             return (
-              <div className="jk-pg-sm bc-sf-md jk-br-ie">
+              <div className="jk-pg-sm-tb bc-sf-md jk-br-ie">
                 <CodeViewer
                   className={classNames({ fragment: isRoot })}
                   code={children}

@@ -94,12 +94,12 @@ export function DocumentMembersButton(props: PropsWithChildren<DocumentMembersBu
               {(copyLink || isAdministrator) && (
                 <div className="jk-row gap nowrap">
                   {copyLink && (
-                    <CopyToClipboard text={copyLink()} className="flex-1">
+                    <CopyToClipboard text={copyLink()} className="flex-1" iconSize="small">
                       <T className="tt-se">copy link</T>
                     </CopyToClipboard>
                   )}
                   {isAdministrator && (
-                    <Button icon={<EditIcon />} onClick={() => setShow(true)} className="flex-1">
+                    <Button icon={<EditIcon size="small" />} onClick={() => setShow(true)} className="flex-1">
                       <T className="tt-se">edit</T>
                     </Button>
                   )}

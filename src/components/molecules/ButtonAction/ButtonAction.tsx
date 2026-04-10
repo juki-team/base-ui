@@ -51,7 +51,6 @@ export function ButtonAction(props: ButtonActionProps) {
       triggerOn={isSmallScreen ? TriggerAction.CLICK : TriggerAction.HOVER}
       placement={placement}
       popoverClassName={popoverClassName}
-      open
       offset={offset}
       content={
         <div className="jk-col gap stretch nowrap">

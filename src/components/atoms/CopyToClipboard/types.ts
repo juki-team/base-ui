@@ -3,7 +3,7 @@ import { IconProps } from '../server/icons/types';
 
 export interface CopyToClipboardProps {
   text: string,
-  size?: IconProps['size'],
+  iconSize?: IconProps['size'],
   tooltipContent?: string,
   children?: ReactNode,
   noStyling?: boolean,

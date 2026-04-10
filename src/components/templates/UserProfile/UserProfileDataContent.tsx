@@ -16,7 +16,7 @@ export function UserProfileDataContent({ user, className }: UserProfileDataConte
       <div className="jk-col stretch">
         <div className="jk-row left gap nowrap">
           <h3 className="fl-tt-il">{user?.nickname}</h3>
-          <CopyToClipboard text={user?.nickname} size="small" />
+          <CopyToClipboard text={user?.nickname} iconSize="small" />
         </div>
         <div className="cr-tx-sc">
           {user?.givenName} {user?.familyName}

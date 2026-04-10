@@ -221,7 +221,7 @@ export const MermaidViewer = (props: MermaidViewerProps) => {
             <div className="jk-row gap">
               {copyButtons && (
                 <>
-                  <CopyToClipboard key="copy-svg" disabled={!renderedSvg} size="tiny" text={renderedSvg}>
+                  <CopyToClipboard key="copy-svg" disabled={!renderedSvg} iconSize="tiny" text={renderedSvg}>
                     SVG
                   </CopyToClipboard>
                   <Button onClick={handleCopyPNG} disabled={!renderedSvg} icon={<ContentCopyIcon size="small" />} size="tiny">

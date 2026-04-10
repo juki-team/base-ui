@@ -19,7 +19,7 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
           <div className="sample-text-content jk-br-ie">
             <div className="jk-row gap sample-text-icons">
               {!forPrinting && withPE && <NewlineInfo text={sample.input} />}
-              {!forPrinting && <CopyToClipboard text={sample.input} size="tiny" className="small" />}
+              {!forPrinting && <CopyToClipboard text={sample.input} iconSize="tiny" className="small" />}
             </div>
             <span>{sample.input}</span>
           </div>
@@ -28,7 +28,7 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
           <div className="sample-text-content jk-br-ie">
             <div className="jk-row gap sample-text-icons">
               {!forPrinting && withPE && <NewlineInfo text={sample.output} />}
-              {!forPrinting && <CopyToClipboard text={sample.output} size="tiny" className="small" />}
+              {!forPrinting && <CopyToClipboard text={sample.output} iconSize="tiny" className="small" />}
             </div>
             <span>{sample.output}</span>
           </div>

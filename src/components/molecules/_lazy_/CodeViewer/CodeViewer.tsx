@@ -42,7 +42,7 @@ export default function CodeViewer(props: CodeViewerProps) {
     <div className={classNames('jk-code-viewer jk-br-ie br-hl', className, { 'line-numbers': lineNumbers })} style={style}>
       <div className="jk-code-viewer-content jk-row nowrap top jk-br-ie" style={{ maxHeight }}>
         {lineNumbers && (
-          <div className="jk-code-viewer-line-numbers jk-pg-sm-tb jk-pg-xsm-rl">
+          <div className="jk-code-viewer-line-numbers bc-sf-hi jk-pg-sm-tb jk-pg-xsm-rl">
             {lines.map((_, i) => (
               <div key={i} style={{ '--line-index': i } as CSSProperties}>
                 {i + 1}
@@ -50,7 +50,7 @@ export default function CodeViewer(props: CodeViewerProps) {
             ))}
           </div>
         )}
-        <pre style={height ? { height } : undefined} className="jk-br-ie">
+        <pre style={height ? { height } : undefined} className="jk-br-ie bc-sf-hi">
           <code
             className={`ta-lt language-${CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext'} jk-pg-sm-trb jk-pg-xsm-l dy-bk`}
             style={{ minHeight: `calc(${lines.length} * (var(--text-medium-size) * 1.5))` }}
@@ -62,7 +62,7 @@ export default function CodeViewer(props: CodeViewerProps) {
         {withLanguageLabel && !!CODE_LANGUAGE[language]?.label && (
           <div className="tx-t jk-tag bc-at-lt cr-at-it jk-pg-xsm">{CODE_LANGUAGE[language]?.label}</div>
         )}
-        {withCopyButton && <CopyToClipboard text={code} size="small" />}
+        {withCopyButton && <CopyToClipboard text={code} iconSize="small" />}
       </div>
     </div>
   );

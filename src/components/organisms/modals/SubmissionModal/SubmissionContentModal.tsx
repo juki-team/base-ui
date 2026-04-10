@@ -41,7 +41,7 @@ export function SubmissionContentModal({ submitId, ...modalProps }: SubmissionMo
                   icon={<OpenInNewIcon size="tiny" />}
                 />
               </Link>
-              <CopyToClipboard text={submitId} size="tiny" tooltipContent="copy id" className="small" />
+              <CopyToClipboard text={submitId} iconSize="tiny" tooltipContent="copy id" className="small" />
               <ButtonLoader
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content="reload"

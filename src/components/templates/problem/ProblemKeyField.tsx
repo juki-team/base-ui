@@ -8,7 +8,7 @@ export function ProblemKeyField({ record: { key } }: ProblemKeyFieldProps) {
       <div className="jk-row">
         <div className="jk-row tx-s fw-bd">{key}</div>
         &nbsp;
-        <CopyToClipboard text={key} size="tiny" />
+        <CopyToClipboard text={key} iconSize="tiny" />
       </div>
     </Field>
   );
