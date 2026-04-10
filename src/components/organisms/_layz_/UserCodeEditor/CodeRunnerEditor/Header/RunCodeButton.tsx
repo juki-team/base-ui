@@ -52,7 +52,6 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
   const { addErrorNotification } = useJukiNotification();
   const activeRunIdRef = useRef('');
   const currentFile = files[currentFileName];
-  console.log({ files, currentFileName });
   const event: Omit<SubscribeCodeRunStatusWebSocketEventDTO, 'clientId'> = {
     event: WebSocketSubscriptionEvent.SUBSCRIBE_CODE_RUN_STATUS,
     runId,
@@ -164,7 +163,6 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
       const runId = v4();
       onRunStart(runId);
       activeRunIdRef.current = runId;
-      console.log({ currentFileName });
       const { url, ...options } = jukiApiManager.API_V2.code.run({
         body: {
           runId,

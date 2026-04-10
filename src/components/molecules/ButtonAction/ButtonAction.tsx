@@ -10,7 +10,6 @@ import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import type { ButtonActionProps } from '../FloatToolbar/types';
 
 export function ButtonAction(props: ButtonActionProps) {
-  
   const {
     children,
     icon,
@@ -24,73 +23,69 @@ export function ButtonAction(props: ButtonActionProps) {
     popoverClassName,
     ...resProps
   } = props;
-  
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
+
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(null);
-  
+
   const buttonAction = (
     <div className={classNames('button-action jk-row', className, placement)}>
-      {children ?? <ButtonLoader
-        {...resProps}
-        icon={icon}
-        type={type}
-        size={size}
-        setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
-        disabled={disabled}
-      />}
+      {children ?? (
+        <ButtonLoader
+          {...resProps}
+          icon={icon}
+          type={type}
+          size={size}
+          setLoaderStatusRef={(setLoader) => (setLoaderRef.current = setLoader)}
+          disabled={disabled}
+        />
+      )}
     </div>
   );
-  
+
   if (buttons.length === 0) {
     return buttonAction;
   }
-  
+
   return (
     <Popover
       triggerOn={isSmallScreen ? TriggerAction.CLICK : TriggerAction.HOVER}
       placement={placement}
       popoverClassName={popoverClassName}
-      // open
+      open
       offset={offset}
       content={
         <div className="jk-col gap stretch nowrap">
-          {buttons.map(({
-                          icon,
-                          onClick,
-                          label,
-                          disabled,
-                          size = 'small',
-                          type = 'primary',
-                          children,
-                          ...props
-                        }, index) => (
-            children ?? <ButtonLoader
-              {...props}
-              key={index}
-              type={type}
-              icon={icon}
-              size={size}
-              disabled={disabled}
-              onClick={async setLoader => {
-                const result = onClick?.();
-                if (result instanceof Promise) {
-                  setLoader(Status.LOADING);
-                  setLoaderRef.current?.(Status.LOADING);
-                  result
-                    .then?.(() => {
-                    setLoader(Status.SUCCESS);
-                    setLoaderRef.current?.(Status.SUCCESS);
-                  })
-                    .catch(() => {
-                      setLoader(Status.ERROR);
-                      setLoaderRef.current?.(Status.ERROR);
-                    });
-                }
-              }}
-            >
-              {label}
-            </ButtonLoader>
-          ))}
+          {buttons.map(
+            ({ icon, onClick, label, disabled, size = 'small', type = 'primary', children, ...props }, index) =>
+              children ?? (
+                <ButtonLoader
+                  {...props}
+                  key={index}
+                  type={type}
+                  icon={icon}
+                  size={size}
+                  disabled={disabled}
+                  onClick={async (setLoader) => {
+                    const result = onClick?.();
+                    if (result instanceof Promise) {
+                      setLoader(Status.LOADING);
+                      setLoaderRef.current?.(Status.LOADING);
+                      result
+                        .then?.(() => {
+                          setLoader(Status.SUCCESS);
+                          setLoaderRef.current?.(Status.SUCCESS);
+                        })
+                        .catch(() => {
+                          setLoader(Status.ERROR);
+                          setLoaderRef.current?.(Status.ERROR);
+                        });
+                    }
+                  }}
+                >
+                  {label}
+                </ButtonLoader>
+              ),
+          )}
         </div>
       }
     >

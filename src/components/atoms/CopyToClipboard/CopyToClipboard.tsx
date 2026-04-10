@@ -30,7 +30,7 @@ export function CopyToClipboard(props: CopyToClipboardProps) {
           ? {}
           : {
               width: 'min-content',
-              height: 'min-content',
+              // height: 'min-content',
               // padding: 'calc(var(--gap) / 3)',
             }
       }

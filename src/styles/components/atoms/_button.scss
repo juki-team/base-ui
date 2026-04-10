@@ -59,6 +59,7 @@
   cursor: pointer;
   overflow: hidden;
   padding: var(--button-padding-tb) calc(var(--tx-h-m) / 2);
+  box-sizing: border-box;
   //line-height: calc(var(--line-height) - 4px);
   line-height: var(--line-height);
   --size-button-loader-icon: var(--line-height);
