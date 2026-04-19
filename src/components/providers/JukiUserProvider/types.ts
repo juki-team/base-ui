@@ -1,25 +1,24 @@
-import type { ClientId, CompanyPing, Device, UserPing } from '@juki-team/commons';
+import type { ClientId, CompanyPingResponseDTO, Device, UserPing } from '@juki-team/commons';
 import { KeyedMutator } from 'swr';
 
-export interface JukiUserProviderProps {
-}
+export interface JukiUserProviderProps {}
 
 export interface UserState {
-  uiId: string,
-  clientId: ClientId,
-  user: UserPing,
-  setUser: (user: Partial<UserPing>) => void,
-  company: CompanyPing,
-  setCompany: (company: CompanyPing) => void,
-  isLoading: boolean,
-  mutate: KeyedMutator<any>,
-  setMutate: (mutate: KeyedMutator<any>) => void,
-  device: Device,
-  setDevice: (user: Device) => void,
+  uiId: string;
+  clientId: ClientId;
+  user: UserPing;
+  setUser: (user: Partial<UserPing>) => void;
+  company: CompanyPingResponseDTO;
+  setCompany: (company: CompanyPingResponseDTO) => void;
+  isLoading: boolean;
+  mutate: KeyedMutator<unknown>;
+  setMutate: (mutate: KeyedMutator<unknown>) => void;
+  device: Device;
+  setDevice: (user: Device) => void;
 }
 
 export interface InitUserState {
-  user: UserState['user'],
-  company: UserState['company'],
-  isLoading: UserState['isLoading']
+  user: UserState['user'];
+  company: UserState['company'];
+  isLoading: UserState['isLoading'];
 }
