@@ -2,7 +2,7 @@ import {
   DocumentMemberResponseDTO,
   EntityAccess,
   EntityMembersResponseDTO,
-  UserCompanyBasicInfoResponseDTO,
+  UserOrganizationBasicInfoResponseDTO,
 } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { ButtonSizeType } from '../../types';
@@ -18,7 +18,7 @@ type MemberObj = {
 export interface DocumentCustomMembersContentProps {
   members: EntityMembersResponseDTO;
   setMembers?: Dispatch<SetStateAction<EntityMembersResponseDTO>>;
-  documentOwner: UserCompanyBasicInfoResponseDTO;
+  documentOwner: UserOrganizationBasicInfoResponseDTO;
   administrators?: MemberObj;
   managers?: Omit<MemberObj, 'closeable'>;
   participants?: MemberObj;

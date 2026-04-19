@@ -28,7 +28,7 @@ export const useInjectCompanyStyles = () => {
       }
     };
 
-    const theme = companyStyles?.[userPreferredTheme];
+    const theme = companyStyles?.[(userPreferredTheme?.toLowerCase() as 'light') || 'light'];
     set('--body-tx-cr', theme?.body?.textColor);
     set('--body-tx-cr-ht', theme?.body?.textColorHighlight);
     set('--body-tx-cr-ht-it', theme?.body?.textColorHighlightInset);

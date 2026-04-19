@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CompanyTrustedCompanyResponseDTO, ContentResponse } from '@juki-team/commons';
+import { ContentResponse, OrganizationTrustedCompanyResponseDTO } from '@juki-team/commons';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -15,16 +15,12 @@ import { SetLoaderStatusOnClickType } from '../../../../types';
 import type { LoginFormType, LoginModalTemplateProps } from './types';
 
 const loginMultiCompaniesSchema = yup.object().shape({
-  nickname: yup.string()
-    .required('cannot be empty'),
-  password: yup.string()
-    .required('cannot be empty'),
-  companyKey: yup.string()
-    .required('cannot be empty'),
+  nickname: yup.string().required('cannot be empty'),
+  password: yup.string().required('cannot be empty'),
+  companyKey: yup.string().required('cannot be empty'),
 });
 
 export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
-  
   const {
     isOpen,
     onClose,
@@ -36,9 +32,9 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
     openForgotPasswordModal,
     setOpenForgotPasswordModal,
   } = props;
-  
-  const { Image } = useUIStore(store => store.components);
-  const companyKey = useUserStore(store => store.company.key);
+
+  const { Image } = useUIStore((store) => store.components);
+  const companyKey = useUserStore((store) => store.company.key);
   const {
     handleSubmit,
     formState: { isValid, errors, touchedFields },
@@ -51,26 +47,32 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
     mode: 'all',
     reValidateMode: 'onBlur',
   });
-  
+
   useEffect(() => {
     reset({ companyKey });
-  }, [ isOpen, reset, companyKey ]);
-  
+  }, [isOpen, reset, companyKey]);
+
   // const { t } = useT();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
-  
-  const { data } = useFetcher<ContentResponse<CompanyTrustedCompanyResponseDTO[]>>(jukiApiManager.API_V2.company.getTrustedCompaniesList().url);
-  
+
+  const { data } = useFetcher<ContentResponse<OrganizationTrustedCompanyResponseDTO[]>>(
+    jukiApiManager.API_V2.company.getTrustedCompaniesList().url,
+  );
+
   const trustedCompanies = data?.success ? data.content : [];
-  
+
   return (
     <SplitModal
       isOpen={isOpen && !openForgotPasswordModal}
       onClose={onClose}
       title={
         <>
-          <h3><T className="tt-se cr-at-it">login</T></h3>
-          <p className="tx-h"><T className="tt-se">Nice see you again!</T></p>
+          <h3>
+            <T className="tt-se cr-at-it">login</T>
+          </h3>
+          <p className="tx-h">
+            <T className="tt-se">Nice see you again!</T>
+          </p>
         </>
       }
       graphic={
@@ -94,7 +96,9 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
             {/*  buttonText={t('login with Google')}*/}
             {/*  className="google-button"*/}
             {/*/>*/}
-            <div className="jk-divider"><T>or</T></div>
+            <div className="jk-divider">
+              <T>or</T>
+            </div>
           </>
         )}
         <form onSubmit={handleSubmit((data: LoginFormType) => onSubmit(data, setLoaderRef.current!))}>
@@ -134,7 +138,9 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                   expand
                   required
                 />
-                <p><T>{(!isValid && errors?.companyKey?.message) || ''}</T></p>
+                <p>
+                  <T>{(!isValid && errors?.companyKey?.message) || ''}</T>
+                </p>
               </div>
             )}
             <div className="jk-form-item">
@@ -149,7 +155,9 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                 expand
                 required
               />
-              <p><T>{(!isValid && errors?.nickname?.message) || ''}</T></p>
+              <p>
+                <T>{(!isValid && errors?.nickname?.message) || ''}</T>
+              </p>
             </div>
             <div className="jk-form-item">
               <InputPassword
@@ -163,15 +171,13 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                 expand
                 required
               />
-              <p><T>{errors?.password?.message || ''}</T></p>
+              <p>
+                <T>{errors?.password?.message || ''}</T>
+              </p>
             </div>
             <div className="jk-col gap stretch">
               <div className="jk-row left">
-                <div
-                  className="link"
-                  data-tour-key="forgot-password"
-                  onClick={() => setOpenForgotPasswordModal(true)}
-                >
+                <div className="link" data-tour-key="forgot-password" onClick={() => setOpenForgotPasswordModal(true)}>
                   <T className="tt-se">forgot password?</T>
                 </div>
               </div>
@@ -179,7 +185,9 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                 <div>
                   <p className="label">
                     <T className="tt-se">not a member?</T>,&nbsp;
-                    <span className="link" onClick={onSignUpButton}><T>sign up now</T></span>
+                    <span className="link" onClick={onSignUpButton}>
+                      <T>sign up now</T>
+                    </span>
                   </p>
                 </div>
               )}
@@ -187,11 +195,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                 <ButtonLoader type="secondary" onClick={onClose}>
                   <T className="tt-se">cancel</T>
                 </ButtonLoader>
-                <ButtonLoader
-                  disabled={!isValid}
-                  setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
-                  submit
-                >
+                <ButtonLoader disabled={!isValid} setLoaderStatusRef={(setLoader) => (setLoaderRef.current = setLoader)} submit>
                   <T className="tt-se">login</T>
                 </ButtonLoader>
               </div>

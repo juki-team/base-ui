@@ -6,8 +6,6 @@ import {
   CodeEditorSubmissionDTO,
   CodeLanguage,
   CodeRunDTO,
-  CompanyPlan,
-  CompanyStyles,
   EntityMembersDTO,
   FilesJukiPub,
   getUserKey,
@@ -17,6 +15,8 @@ import {
   Judge,
   JudgeLanguage,
   Language,
+  OrganizationPlan,
+  OrganizationStylesResponseDTO,
   ProblemVerdict,
   QuizOptionsSubmissionDTO,
   QuizProblemSubmissionDTO,
@@ -689,7 +689,7 @@ export class ApiManager {
               contactTelegram?: string;
               contactCellPhoneNumber?: string;
               contactEmail?: string;
-              styles?: CompanyStyles;
+              styles?: OrganizationStylesResponseDTO;
             };
           },
           HTTPMethod.PATCH
@@ -708,7 +708,7 @@ export class ApiManager {
               judgeKeys?: string[];
               trustedCompaniesKeys?: string[];
               startTimestamp?: number;
-              plan?: CompanyPlan;
+              plan?: OrganizationPlan;
             };
           },
           HTTPMethod.PATCH

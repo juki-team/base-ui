@@ -11,8 +11,8 @@ export interface UserState {
   company: CompanyPingResponseDTO;
   setCompany: (company: CompanyPingResponseDTO) => void;
   isLoading: boolean;
-  mutate: KeyedMutator<unknown>;
-  setMutate: (mutate: KeyedMutator<unknown>) => void;
+  mutate: KeyedMutator<string>;
+  setMutate: (mutate: KeyedMutator<string>) => void;
   device: Device;
   setDevice: (user: Device) => void;
 }
