@@ -5,8 +5,9 @@
   "author": "juki-team",
   "license": "MIT",
   "type": "module",
+  "sideEffects": ["*.scss", "*.css"],
   "main": "dist/cjs/main.js",
-  "module": "dist/esm/main.js",
+  "module": "dist/esm/index.js",
   "types": "dist/module-types/index.d.ts",
   "files": [
     "dist",
@@ -20,37 +21,37 @@
   "exports": {
     ".": {
       "types": "./dist/module-types/src/index.d.ts",
-      "import": "./dist/esm/main.js",
+      "import": "./dist/esm/index.js",
       "require": "./dist/cjs/main.js"
     },
     "./server-components": {
       "types": "./dist/module-types/src/components/server/index.d.ts",
-      "import": "./dist/esm/server.js",
+      "import": "./dist/esm/components/server/index.js",
       "require": "./dist/cjs/server.js"
     },
     "./helpers": {
       "types": "./dist/module-types/src/helpers/index.d.ts",
-      "import": "./dist/esm/helpers.js",
+      "import": "./dist/esm/helpers/index.js",
       "require": "./dist/cjs/helpers.js"
     },
     "./enums": {
       "types": "./dist/module-types/src/enums/index.d.ts",
-      "import": "./dist/esm/enums.js",
+      "import": "./dist/esm/enums/index.js",
       "require": "./dist/cjs/enums.js"
     },
     "./types": {
       "types": "./dist/module-types/src/types/index.d.ts",
-      "import": "./dist/esm/types.js",
+      "import": "./dist/esm/types/index.js",
       "require": "./dist/cjs/types.js"
     },
     "./constants": {
       "types": "./dist/module-types/src/constants/index.d.ts",
-      "import": "./dist/esm/constants.js",
+      "import": "./dist/esm/constants/index.js",
       "require": "./dist/cjs/constants.js"
     },
     "./settings": {
       "types": "./dist/module-types/src/settings/index.d.ts",
-      "import": "./dist/esm/settings.js",
+      "import": "./dist/esm/settings/index.js",
       "require": "./dist/cjs/settings.js"
     },
     "./styles/mixins": {
