@@ -5,6 +5,7 @@
   "author": "juki-team",
   "license": "MIT",
   "type": "module",
+  "sideEffects": ["*.scss", "*.css"],
   "main": "dist/cjs/main.js",
   "module": "dist/esm/main.js",
   "types": "dist/module-types/index.d.ts",
