@@ -7,7 +7,7 @@
   "type": "module",
   "sideEffects": ["*.scss", "*.css"],
   "main": "dist/cjs/main.js",
-  "module": "dist/esm/index.js",
+  "module": "dist/esm/main.js",
   "types": "dist/module-types/index.d.ts",
   "files": [
     "dist",
@@ -21,37 +21,37 @@
   "exports": {
     ".": {
       "types": "./dist/module-types/src/index.d.ts",
-      "import": "./dist/esm/index.js",
+      "import": "./dist/esm/main.js",
       "require": "./dist/cjs/main.js"
     },
     "./server-components": {
       "types": "./dist/module-types/src/components/server/index.d.ts",
-      "import": "./dist/esm/components/server/index.js",
+      "import": "./dist/esm/server.js",
       "require": "./dist/cjs/server.js"
     },
     "./helpers": {
       "types": "./dist/module-types/src/helpers/index.d.ts",
-      "import": "./dist/esm/helpers/index.js",
+      "import": "./dist/esm/helpers.js",
       "require": "./dist/cjs/helpers.js"
     },
     "./enums": {
       "types": "./dist/module-types/src/enums/index.d.ts",
-      "import": "./dist/esm/enums/index.js",
+      "import": "./dist/esm/enums.js",
       "require": "./dist/cjs/enums.js"
     },
     "./types": {
       "types": "./dist/module-types/src/types/index.d.ts",
-      "import": "./dist/esm/types/index.js",
+      "import": "./dist/esm/types.js",
       "require": "./dist/cjs/types.js"
     },
     "./constants": {
       "types": "./dist/module-types/src/constants/index.d.ts",
-      "import": "./dist/esm/constants/index.js",
+      "import": "./dist/esm/constants.js",
       "require": "./dist/cjs/constants.js"
     },
     "./settings": {
       "types": "./dist/module-types/src/settings/index.d.ts",
-      "import": "./dist/esm/settings/index.js",
+      "import": "./dist/esm/settings.js",
       "require": "./dist/cjs/settings.js"
     },
     "./styles/mixins": {
