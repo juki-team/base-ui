@@ -1,4 +1,5 @@
 import { DAY_NAMES, MONTH_NAMES } from '@juki-team/commons';
+import { padStart } from '@juki-team/commons/number';
 import { classNames, showOfDateDisplayType } from '../../helpers';
 import { T } from '../T/T';
 import type { DateLiteralProps } from './types';
@@ -52,10 +53,10 @@ export function DateLiteral(props: DateLiteralProps) {
       </div>
       {showHours && (
         <div className="cr-tx-sc">
-          {date.getHours().padStart(2)}
-          {showMinutes && <>:{date.getMinutes().padStart(2)}</>}
-          {showSeconds && <>:{date.getSeconds().padStart(2)}</>}
-          {showMilliseconds && <>.{date.getMilliseconds().padStart(3)}</>}
+          {padStart(date.getHours(), 2)}
+          {showMinutes && <>:{padStart(date.getMinutes(), 2)}</>}
+          {showSeconds && <>:{padStart(date.getSeconds(), 2)}</>}
+          {showMilliseconds && <>.{padStart(date.getMilliseconds(), 3)}</>}
         </div>
       )}
     </div>

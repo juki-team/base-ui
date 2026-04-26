@@ -1,3 +1,4 @@
+import { isValidDate } from '@juki-team/commons/date';
 import { TriggerAction } from '../../../enums';
 import { Button, DateLiteral, Popover, T } from '../../atoms';
 import { classNames } from '../../helpers';
@@ -29,7 +30,7 @@ export function InputDate(props: InputDateProps) {
       return inputLabel(props, () => null);
     }
 
-    return date?.isValidDate() ? (
+    return date && isValidDate(date) ? (
       <div className="jk-row gap jk-input-date jk-br-ie">
         <DateLiteral date={date} className="flex-1 cr-tx-ht-dk" show={type} twoLines={twoLines} withDayName={withDayName} />
         {onDateClean && (

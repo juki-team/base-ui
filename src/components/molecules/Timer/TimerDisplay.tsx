@@ -1,3 +1,4 @@
+import { padStart } from '@juki-team/commons/number';
 import { Fragment } from 'react';
 import { T } from '../../atoms';
 import { classNames, cutTimeSplit } from '../../helpers';
@@ -30,7 +31,7 @@ export function TimerDisplay(props: TimerDisplayProps) {
         </Fragment>
       )) : inline ? timeSplit.map((remaining, index) => (
         <div key={remaining.label + index}>
-          <span className="ff-me">{remaining.remaining.padStart(remaining.digits, '0')}</span>
+          <span className="ff-me">{padStart(remaining.remaining, remaining.digits, '0')}</span>
           {(index !== timeSplit.length - 1 && [ 'h', 'm' ].includes(remaining.abbreviatedLabel)) && (
             <span className="fw-bd">:</span>
           )}
@@ -44,7 +45,7 @@ export function TimerDisplay(props: TimerDisplayProps) {
       )) : timeSplit.map((remaining, index) => (
         <Fragment key={remaining.label + index}>
           <div className="content-stamp">
-            <div className="jk-row ff-me">{remaining.remaining.padStart(remaining.digits, '0')}</div>
+            <div className="jk-row ff-me">{padStart(remaining.remaining, remaining.digits, '0')}</div>
             <div className="content-label jk-row">
               <T className="tt-se">{abbreviated ? remaining.abbreviatedLabel : remaining.label}</T></div>
           </div>

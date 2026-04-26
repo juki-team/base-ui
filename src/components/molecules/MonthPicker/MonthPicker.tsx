@@ -1,4 +1,5 @@
 import { MONTH_NAMES, YEARS } from '@juki-team/commons';
+import { changeMonth, changeYear, decreaseYear, increaseMonth, increaseYear, startOfYear } from '@juki-team/commons/date';
 import { useState } from 'react';
 import { classNames } from '../../helpers';
 import { Div, Select, T } from '../../atoms';
@@ -11,29 +12,29 @@ export function MonthPicker({ date, onChange, isDisabled, isSelected }: MonthPic
   const [ viewDate, setViewDate ] = useState(date);
   
   const gridMonths: (Date[])[] = [];
-  let dateCursor = new Date(viewDate.startOfYear());
+  let dateCursor = new Date(startOfYear(viewDate));
   for (let i = 0; i < 4; i++) {
     gridMonths.push([]);
     for (let j = 0; j < 3; j++) {
       gridMonths[i]!.push(new Date(dateCursor));
-      dateCursor = dateCursor.increaseMonth();
+      dateCursor = increaseMonth(dateCursor);
     }
   }
   
   return (
     <>
       <div className="jk-row jk-month-picker-header">
-        <PreviousButton onClick={() => setViewDate(viewDate.decreaseYear())} />
+        <PreviousButton onClick={() => setViewDate(decreaseYear(viewDate))} />
         <Select
           options={YEARS.map(year => ({
             value: year,
             label: year,
-            disabled: !!(isDisabled?.(new Date().changeYear(year)).year),
+            disabled: !!(isDisabled?.(changeYear(new Date(), year)).year),
           }))}
           selectedOption={{ value: viewDate.getFullYear(), label: viewDate.getFullYear() }}
-          onChange={({ value }) => setViewDate(viewDate.changeYear(value))}
+          onChange={({ value }) => setViewDate(changeYear(viewDate, value))}
         />
-        <NextButton onClick={() => setViewDate(viewDate.increaseYear())} />
+        <NextButton onClick={() => setViewDate(increaseYear(viewDate))} />
       </div>
       <div className="jk-date-picker-grid-months">
         {gridMonths.map((row, index) => (
@@ -45,7 +46,7 @@ export function MonthPicker({ date, onChange, isDisabled, isSelected }: MonthPic
                 <Div
                   className={classNames('month jk-row', { disabled, selected })}
                   key={date.getTime()}
-                  onClick={() => !disabled && onChange(date.changeYear(date.getFullYear()).changeMonth(date.getMonth()))}
+                  onClick={() => !disabled && onChange(changeMonth(changeYear(date, date.getFullYear()), date.getMonth()))}
                   onKeyDownClick
                 >
                   <div><T>{MONTH_NAMES[date.getMonth()] ?? date.getMonth().toString()}</T></div>

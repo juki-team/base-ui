@@ -1,4 +1,6 @@
 import { HOURS, MILLISECONDS, MINUTES, SECONDS } from '@juki-team/commons';
+import { changeHours, changeMilliseconds, changeMinutes, changeSeconds } from '@juki-team/commons/date';
+import { padStart } from '@juki-team/commons/number';
 import { Button, Select, T } from '../../atoms';
 import type { TimePickerProps } from '../DatePicker/types';
 
@@ -11,11 +13,11 @@ export function TimePicker(props: TimePickerProps) {
         <Select
           options={HOURS.map((hour) => ({
             value: hour,
-            label: hour.padStart(2),
-            disabled: !!isDisabled?.(date.changeHours(hour)).hours,
+            label: padStart(hour, 2),
+            disabled: !!isDisabled?.(changeHours(date, hour)).hours,
           }))}
-          selectedOption={{ value: date.getHours(), label: date.getHours().padStart(2) }}
-          onChange={({ value }) => onChange(date.changeHours(value))}
+          selectedOption={{ value: date.getHours(), label: padStart(date.getHours(), 2) }}
+          onChange={({ value }) => onChange(changeHours(date, value))}
         />
         {showMinutes && (
           <>
@@ -23,11 +25,11 @@ export function TimePicker(props: TimePickerProps) {
             <Select
               options={MINUTES.map((minute) => ({
                 value: minute,
-                label: minute.padStart(2),
-                disabled: !!isDisabled?.(date.changeMinutes(minute)).minutes,
+                label: padStart(minute, 2),
+                disabled: !!isDisabled?.(changeMinutes(date, minute)).minutes,
               }))}
-              selectedOption={{ value: date.getMinutes(), label: date.getMinutes().padStart(2) }}
-              onChange={({ value }) => onChange(date.changeMinutes(value))}
+              selectedOption={{ value: date.getMinutes(), label: padStart(date.getMinutes(), 2) }}
+              onChange={({ value }) => onChange(changeMinutes(date, value))}
             />
             {showSeconds && (
               <>
@@ -35,11 +37,11 @@ export function TimePicker(props: TimePickerProps) {
                 <Select
                   options={SECONDS.map((second) => ({
                     value: second,
-                    label: second.padStart(2),
-                    disabled: !!isDisabled?.(date.changeSeconds(second)).seconds,
+                    label: padStart(second, 2),
+                    disabled: !!isDisabled?.(changeSeconds(date, second)).seconds,
                   }))}
-                  selectedOption={{ value: date.getSeconds(), label: date.getSeconds().padStart(2) }}
-                  onChange={({ value }) => onChange(date.changeSeconds(value))}
+                  selectedOption={{ value: date.getSeconds(), label: padStart(date.getSeconds(), 2) }}
+                  onChange={({ value }) => onChange(changeSeconds(date, value))}
                 />
                 {showMilliseconds && (
                   <>
@@ -47,11 +49,11 @@ export function TimePicker(props: TimePickerProps) {
                     <Select
                       options={MILLISECONDS.map((millisecond) => ({
                         value: millisecond,
-                        label: millisecond.padStart(3),
-                        disabled: !!isDisabled?.(date.changeMilliseconds(millisecond)).milliseconds,
+                        label: padStart(millisecond, 3),
+                        disabled: !!isDisabled?.(changeMilliseconds(date, millisecond)).milliseconds,
                       }))}
-                      selectedOption={{ value: date.getMilliseconds(), label: date.getMilliseconds().padStart(3) }}
-                      onChange={({ value }) => onChange(date.changeMilliseconds(value))}
+                      selectedOption={{ value: date.getMilliseconds(), label: padStart(date.getMilliseconds(), 3) }}
+                      onChange={({ value }) => onChange(changeMilliseconds(date, value))}
                     />
                   </>
                 )}

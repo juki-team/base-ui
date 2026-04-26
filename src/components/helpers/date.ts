@@ -1,4 +1,5 @@
 import { MONTH_NAMES } from '@juki-team/commons';
+import { padStart } from '@juki-team/commons/number';
 import { i18n } from 'i18next';
 import { DateLiteralProps } from '../atoms/DateLiteral/types';
 import { DateDisplayType, TimeDisplayType } from '../types';
@@ -42,10 +43,10 @@ export const getDateLiteral = (date: Date, show: Required<DateLiteralProps>['sho
     (showMonths ? ' ' + t(MONTH_NAMES[date.getMonth()] || '') : '') +
     (showYears ? ' ' + date.getFullYear() : '') +
     (showHours ? (
-      ', ' + date.getHours().padStart(2) +
-      (showMinutes ? ':' + date.getMinutes().padStart(2) : '') +
-      (showSeconds ? ':' + date.getSeconds().padStart(2) : '') +
-      (showMilliseconds ? '.' + date.getMilliseconds().padStart(3) : '')
+      ', ' + padStart(date.getHours(), 2) +
+      (showMinutes ? ':' + padStart(date.getMinutes(), 2) : '') +
+      (showSeconds ? ':' + padStart(date.getSeconds(), 2) : '') +
+      (showMilliseconds ? '.' + padStart(date.getMilliseconds(), 3) : '')
     ) : '')
   );
 };

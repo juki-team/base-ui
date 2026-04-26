@@ -1,4 +1,14 @@
 import { MONTH_NAMES, YEARS } from '@juki-team/commons';
+import {
+  changeDay,
+  changeMonth,
+  changeYear,
+  decreaseMonth,
+  increaseDay,
+  increaseMonth,
+  startOfMonth,
+  startOfWeek,
+} from '@juki-team/commons/date';
 import { useState } from 'react';
 import { DAYS_2 } from '../../../constants';
 import { classNames } from '../../helpers';
@@ -11,12 +21,12 @@ export function DayPicker({ date, onChange, isDisabled, isSelected }: DayPickerP
   
   const [ viewDate, setViewDate ] = useState(date);
   const gridDays: (Date[])[] = [];
-  let dateCursor = new Date(viewDate.startOfMonth().startOfWeek());
+  let dateCursor = new Date(startOfWeek(startOfMonth(viewDate)));
   for (let i = 0; i < 6; i++) {
     gridDays.push([]);
     for (let j = 0; j < 7; j++) {
       gridDays[i]!.push(new Date(dateCursor));
-      dateCursor = dateCursor.increaseDay();
+      dateCursor = increaseDay(dateCursor);
     }
   }
   
@@ -27,25 +37,25 @@ export function DayPicker({ date, onChange, isDisabled, isSelected }: DayPickerP
           options={YEARS.map(year => ({
             value: year,
             label: year,
-            disabled: !!(isDisabled?.(new Date().changeYear(year)).year),
+            disabled: !!(isDisabled?.(changeYear(new Date(), year)).year),
           }))}
           selectedOption={{ value: viewDate.getFullYear(), label: viewDate.getFullYear() }}
-          onChange={({ value }) => setViewDate(viewDate.changeYear(value))}
+          onChange={({ value }) => setViewDate(changeYear(viewDate, value))}
         />
-        <PreviousButton onClick={() => setViewDate(viewDate.decreaseMonth())} />
+        <PreviousButton onClick={() => setViewDate(decreaseMonth(viewDate))} />
         <Select
           options={MONTH_NAMES.map((month, index) => ({
             value: index,
             label: <T>{month}</T>,
-            disabled: !!(isDisabled?.(viewDate.changeMonth(index)).month),
+            disabled: !!(isDisabled?.(changeMonth(viewDate, index)).month),
           }))}
           selectedOption={{
             value: viewDate.getMonth(),
             label: <T>{MONTH_NAMES[viewDate.getMonth()] ?? viewDate.getMonth().toString()}</T>,
           }}
-          onChange={({ value }) => setViewDate(viewDate.changeMonth(value))}
+          onChange={({ value }) => setViewDate(changeMonth(viewDate, value))}
         />
-        <NextButton onClick={() => setViewDate(viewDate.increaseMonth())} />
+        <NextButton onClick={() => setViewDate(increaseMonth(viewDate))} />
       </div>
       <div className="jk-row jk-date-picker-days fw-bd">
         {DAYS_2.map(day => (
@@ -71,9 +81,7 @@ export function DayPicker({ date, onChange, isDisabled, isSelected }: DayPickerP
                   })}
                   key={date.getTime()}
                   onClick={() => !disabled &&
-                    onChange(date.changeYear(date.getFullYear())
-                      .changeMonth(date.getMonth())
-                      .changeDay(date.getDate()))
+                    onChange(changeDay(changeMonth(changeYear(date, date.getFullYear()), date.getMonth()), date.getDate()))
                   }
                   onKeyDownClick
                 >

@@ -1,3 +1,4 @@
+import { changeYear, decreaseYear, increaseYear } from '@juki-team/commons/date';
 import { useState } from 'react';
 import { classNames } from '../../helpers';
 import { Div } from '../../atoms';
@@ -12,26 +13,26 @@ export function YearPicker({ date, onChange, isDisabled, isSelected }: YearPicke
   const gridYears: (Date[])[] = [];
   let dateCursor = new Date(viewDate);
   while (dateCursor.getFullYear() % 12) {
-    dateCursor = dateCursor.decreaseYear();
+    dateCursor = decreaseYear(dateCursor);
   }
   for (let i = 0; i < 4; i++) {
     gridYears.push([]);
     for (let j = 0; j < 3; j++) {
       gridYears[i]!.push(new Date(dateCursor));
-      dateCursor = dateCursor.increaseYear();
+      dateCursor = increaseYear(dateCursor);
     }
   }
   
   return (
     <>
       <div className="jk-row jk-year-picker-header">
-        <PreviousButton onClick={() => setViewDate(viewDate.decreaseYear(12))} />
+        <PreviousButton onClick={() => setViewDate(decreaseYear(viewDate, 12))} />
         <div className="jk-row space-between years-label">
           <div>{gridYears[0]![0]!.getFullYear()}</div>
           &nbsp;-&nbsp;
           <div>{gridYears[3]![2]!.getFullYear()}</div>
         </div>
-        <NextButton onClick={() => setViewDate(viewDate.increaseYear(12))} />
+        <NextButton onClick={() => setViewDate(increaseYear(viewDate, 12))} />
       </div>
       <div className="jk-date-picker-grid-years">
         {gridYears.map((row, index) => (
@@ -43,7 +44,7 @@ export function YearPicker({ date, onChange, isDisabled, isSelected }: YearPicke
                 <Div
                   className={classNames('year', { disabled, selected })}
                   key={date.getTime()}
-                  onClick={() => !disabled && onChange(date.changeYear(date.getFullYear()))}
+                  onClick={() => !disabled && onChange(changeYear(date, date.getFullYear()))}
                   onKeyDownClick
                 >
                   <div>{date.getFullYear()}</div>
