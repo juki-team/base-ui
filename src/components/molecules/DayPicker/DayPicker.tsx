@@ -1,4 +1,4 @@
-import { MONTH_NAMES, YEARS } from '@juki-team/commons';
+import { MONTH_NAMES, YEARS } from '@juki-team/commons/constants';
 import {
   changeDay,
   changeMonth,
@@ -8,19 +8,18 @@ import {
   increaseMonth,
   startOfMonth,
   startOfWeek,
-} from '@juki-team/commons/date';
+} from '@juki-team/commons/helpers';
 import { useState } from 'react';
 import { DAYS_2 } from '../../../constants';
-import { classNames } from '../../helpers';
 import { Div, Select, T } from '../../atoms';
+import { classNames } from '../../helpers';
 import type { DayPickerProps } from '../DatePicker/types';
 import { NextButton } from '../NextButton/NextButton';
 import { PreviousButton } from '../PreviousButton/PreviousButton';
 
 export function DayPicker({ date, onChange, isDisabled, isSelected }: DayPickerProps) {
-  
-  const [ viewDate, setViewDate ] = useState(date);
-  const gridDays: (Date[])[] = [];
+  const [viewDate, setViewDate] = useState(date);
+  const gridDays: Date[][] = [];
   let dateCursor = new Date(startOfWeek(startOfMonth(viewDate)));
   for (let i = 0; i < 6; i++) {
     gridDays.push([]);
@@ -29,15 +28,15 @@ export function DayPicker({ date, onChange, isDisabled, isSelected }: DayPickerP
       dateCursor = increaseDay(dateCursor);
     }
   }
-  
+
   return (
     <>
       <div className="jk-row jk-day-picker-header">
         <Select
-          options={YEARS.map(year => ({
+          options={YEARS.map((year) => ({
             value: year,
             label: year,
-            disabled: !!(isDisabled?.(changeYear(new Date(), year)).year),
+            disabled: !!isDisabled?.(changeYear(new Date(), year)).year,
           }))}
           selectedOption={{ value: viewDate.getFullYear(), label: viewDate.getFullYear() }}
           onChange={({ value }) => setViewDate(changeYear(viewDate, value))}
@@ -47,7 +46,7 @@ export function DayPicker({ date, onChange, isDisabled, isSelected }: DayPickerP
           options={MONTH_NAMES.map((month, index) => ({
             value: index,
             label: <T>{month}</T>,
-            disabled: !!(isDisabled?.(changeMonth(viewDate, index)).month),
+            disabled: !!isDisabled?.(changeMonth(viewDate, index)).month,
           }))}
           selectedOption={{
             value: viewDate.getMonth(),
@@ -58,9 +57,11 @@ export function DayPicker({ date, onChange, isDisabled, isSelected }: DayPickerP
         <NextButton onClick={() => setViewDate(increaseMonth(viewDate))} />
       </div>
       <div className="jk-row jk-date-picker-days fw-bd">
-        {DAYS_2.map(day => (
+        {DAYS_2.map((day) => (
           <div className="day" key={day}>
-            <div><T>{day}</T></div>
+            <div>
+              <T>{day}</T>
+            </div>
           </div>
         ))}
       </div>
@@ -68,7 +69,7 @@ export function DayPicker({ date, onChange, isDisabled, isSelected }: DayPickerP
       <div className="jk-date-picker-grid-dates">
         {gridDays.map((row, index) => (
           <div className="jk-row" key={index}>
-            {row.map(date => {
+            {row.map((date) => {
               const disabled = !!isDisabled?.(date).day;
               const selected = !!isSelected?.(date).day;
               return (
@@ -80,7 +81,8 @@ export function DayPicker({ date, onChange, isDisabled, isSelected }: DayPickerP
                     'is-previous-month': date.getMonth() < viewDate.getMonth(),
                   })}
                   key={date.getTime()}
-                  onClick={() => !disabled &&
+                  onClick={() =>
+                    !disabled &&
                     onChange(changeDay(changeMonth(changeYear(date, date.getFullYear()), date.getMonth()), date.getDate()))
                   }
                   onKeyDownClick

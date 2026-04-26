@@ -1,4 +1,4 @@
-import { Status } from '@juki-team/commons';
+import { Status } from '@juki-team/commons/enums';
 import { useEffect, useState } from 'react';
 import { jukiAppRoutes } from '../../../../settings';
 import { useUIStore } from '../../../../stores/ui/useUIStore';

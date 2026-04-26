@@ -1,6 +1,6 @@
-import { ProblemVerdict } from '@juki-team/commons';
+import type { ProblemVerdict } from '@juki-team/commons';
 
 export interface ProblemVerdictTagProps {
-  verdict: ProblemVerdict,
-  small?: boolean
+  verdict: ProblemVerdict;
+  small?: boolean;
 }

@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 import { T } from '../../atoms';
 
 export function ApplicationLoaderLayout() {
@@ -8,11 +8,13 @@ export function ApplicationLoaderLayout() {
         <T className="tt-se">loading application</T>&nbsp;
         <div
           className="dot-flashing"
-          style={{
-            '--dot-flashing-color': 'var(--cr-tx-ht-it)',
-            '--dot-flashing-color-light': 'var(--cr-tx-ht-lt)',
-            '--dot-flashing-size': '10px',
-          } as CSSProperties}
+          style={
+            {
+              '--dot-flashing-color': 'var(--cr-tx-ht-it)',
+              '--dot-flashing-color-light': 'var(--cr-tx-ht-lt)',
+              '--dot-flashing-size': '10px',
+            } as CSSProperties
+          }
         />
       </h1>
     </div>

@@ -22,39 +22,36 @@ import { useInjectTheme } from '../../hooks/useInjectTheme';
 import { useMatchMutate } from '../../hooks/useMatchMutate';
 
 export const JukiUserProvider = () => {
-  const setUser = useUserStore(state => state.setUser);
-  const setCompany = useUserStore(state => state.setCompany);
-  const setDevice = useUserStore(state => state.setDevice);
-  const setMutate = useUserStore(state => state.setMutate);
-  const isLoading = useUserStore(state => state.isLoading);
-  const userNickname = useUserStore(state => state.user.nickname);
-  const companyKey = useUserStore(state => state.company.key);
-  const userSessionId = useUserStore(state => state.user.sessionId);
-  const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
-  const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
-  const isOnline = usePageStore(store => store.isOnline);
-  const isFocus = usePageStore(store => store.isFocus);
-  const isVisible = usePageStore(store => store.isVisible);
-  
+  const setUser = useUserStore((state) => state.setUser);
+  const setCompany = useUserStore((state) => state.setCompany);
+  const setDevice = useUserStore((state) => state.setDevice);
+  const setMutate = useUserStore((state) => state.setMutate);
+  const isLoading = useUserStore((state) => state.isLoading);
+  const userNickname = useUserStore((state) => state.user.nickname);
+  const companyKey = useUserStore((state) => state.company.key);
+  const userSessionId = useUserStore((state) => state.user.sessionId);
+  const userPreferredLanguage = useUserStore((state) => state.user.settings?.[ProfileSetting.LANGUAGE]);
+  const i18nChangeLanguage = useI18nStore((state) => state.changeLanguage);
+  const isOnline = usePageStore((store) => store.isOnline);
+  const isFocus = usePageStore((store) => store.isFocus);
+  const isVisible = usePageStore((store) => store.isVisible);
+
   const isFirstRenderForRefresh = useRef(true);
   const isFirstRenderForMutate = useRef(true);
-  
+
   const {
     data,
     // isLoading: isLoadingPing,
     // isValidating: isValidatingPing,
     mutate,
-  } = useFetcher<ContentResponse<PingResponseDTO>>(
-    jukiApiManager.API_V2.auth.ping().url,
-    { refreshInterval: ONE_MINUTE * 5 },
-  );
-  
+  } = useFetcher<ContentResponse<PingResponseDTO>>(jukiApiManager.API_V2.auth.ping().url, { refreshInterval: ONE_MINUTE * 5 });
+
   const matchMutate = useMatchMutate();
-  
+
   const refreshAllRequest = useCallback(async () => {
     await matchMutate(new RegExp(`${JUKI_SERVICE_V2_URL}`));
-  }, [ matchMutate ]);
-  
+  }, [matchMutate]);
+
   useEffect(() => {
     if (isLoading) {
       return;
@@ -64,12 +61,12 @@ export const JukiUserProvider = () => {
       return;
     }
     void refreshAllRequest();
-  }, [ userNickname, companyKey, userSessionId, refreshAllRequest, isLoading ]);
-  
+  }, [userNickname, companyKey, userSessionId, refreshAllRequest, isLoading]);
+
   useEffect(() => {
     i18nChangeLanguage(userPreferredLanguage);
-  }, [ i18nChangeLanguage, userPreferredLanguage ]);
-  
+  }, [i18nChangeLanguage, userPreferredLanguage]);
+
   useEffect(() => {
     if (isLoading) {
       return;
@@ -78,17 +75,17 @@ export const JukiUserProvider = () => {
       isFirstRenderForMutate.current = false;
       return;
     }
-    
+
     if (isFocus && isVisible) {
       void mutate();
     }
-  }, [ mutate, isOnline, isFocus, isVisible, isLoading ]);
-  
+  }, [mutate, isOnline, isFocus, isVisible, isLoading]);
+
   useEffect(() => {
     if (!data) {
       return;
     }
-    
+
     if (data?.success) {
       setCompany(data.content.company);
       if (data.content.user.isLogged) {
@@ -116,11 +113,11 @@ export const JukiUserProvider = () => {
           },
         });
       }
-      
+
       // localStorageCrossDomains.setItem(JUKI_TOKEN_NAME, data?.content.user.sessionId); // With new cookies integration is useless
     }
-  }, [ data, setCompany, setUser ]);
-  
+  }, [data, setCompany, setUser]);
+
   useEffect(() => {
     if (isBrowser()) {
       import('react-device-detect').then((mod) => {
@@ -134,11 +131,11 @@ export const JukiUserProvider = () => {
       });
     }
     setMutate(mutate);
-  }, [ mutate, setDevice, setMutate ]);
-  
+  }, [mutate, setDevice, setMutate]);
+
   useInjectTheme();
   useInjectFontSize();
   useInjectCompanyStyles();
-  
+
   return null;
 };

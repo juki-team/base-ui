@@ -1,7 +1,7 @@
 import { useChat } from '@ai-sdk/react';
 import { getUserKey } from '@juki-team/commons';
 import { DefaultChatTransport } from 'ai';
-import { CSSProperties, DragEvent, useEffect, useRef, useState } from 'react';
+import { type CSSProperties, type DragEvent, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../stores/user/useUserStore';

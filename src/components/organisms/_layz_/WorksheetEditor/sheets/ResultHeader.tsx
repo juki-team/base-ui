@@ -1,5 +1,5 @@
-import { QuizOptionsSubmissionResponseDTO } from '@juki-team/commons';
-import { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
+import type { QuizOptionsSubmissionResponseDTO } from '@juki-team/commons';
+import type { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { T } from '../../../../atoms';
 import { classNames } from '../../../../helpers';

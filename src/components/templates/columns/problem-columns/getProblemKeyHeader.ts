@@ -1,4 +1,4 @@
-import { type ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import type { ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { ProblemKeyField } from '../../problem/ProblemKeyField';
 

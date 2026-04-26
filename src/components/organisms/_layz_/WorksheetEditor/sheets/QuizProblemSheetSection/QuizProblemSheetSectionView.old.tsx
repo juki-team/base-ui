@@ -67,7 +67,7 @@ export const QuizProblemSheetSectionView = ({
   })), [ languageEditor, setSourceCodes ]);
   const [ modal, setModal ] = useState<ReactNode>(null);
   
-  let middleButtons: UserCodeEditorProps<any>['middleButtons'] | undefined = undefined;
+  let middleButtons: UserCodeEditorProps<string>['middleButtons'] | undefined = undefined;
   if (isSolvable) {
     middleButtons = ({ testCases, isRunning }) => (
       <div>

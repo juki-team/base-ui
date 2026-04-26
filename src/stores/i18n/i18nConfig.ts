@@ -1,10 +1,10 @@
-import { Language } from '@juki-team/commons';
+import { Language } from '@juki-team/commons/enums';
 
 const i18nConfig = {
   lang: Language.ES,
-  locales: [ Language.ES, Language.EN ],
+  locales: [Language.ES, Language.EN],
   defaultLocale: Language.ES,
-  namespaces: [ 'translation' ],
+  namespaces: ['translation'],
 };
 
 export default i18nConfig;

@@ -5,9 +5,9 @@ import { isBrowser } from '../helpers';
 const getHash = () => (isBrowser() ? decodeURIComponent(window.location.hash.replace('#', '')) : undefined);
 
 export const useHash = () => {
-  const [ hash, setHash ] = useState(() => getHash() ?? '');
-  const routeParams = useRouterStore(store => store.routeParams);
-  
+  const [hash, setHash] = useState(() => getHash() ?? '');
+  const routeParams = useRouterStore((store) => store.routeParams);
+
   useEffect(() => {
     const handleHashChange = () => {
       setHash(getHash() ?? '');
@@ -17,7 +17,7 @@ export const useHash = () => {
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
     };
-  }, [ routeParams ]);
-  
+  }, [routeParams]);
+
   return hash;
 };

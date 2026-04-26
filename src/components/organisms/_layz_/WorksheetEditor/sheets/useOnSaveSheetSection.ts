@@ -2,7 +2,6 @@ import { type RefObject, useEffect } from 'react';
 import { useStableRef } from '../../../../hooks/useStableRef';
 
 export const useOnSaveSheetSection = (sectionRef: RefObject<HTMLDivElement | null>, edit: boolean, onSave: () => void) => {
-  
   const onSaveRef = useStableRef(onSave);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -14,5 +13,5 @@ export const useOnSaveSheetSection = (sectionRef: RefObject<HTMLDivElement | nul
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ edit ]);
+  }, [edit]);
 };

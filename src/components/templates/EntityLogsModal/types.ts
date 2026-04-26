@@ -1,5 +1,5 @@
 import type { BasicModalProps } from '../../atoms/types';
 
 export interface EntityLogsModalProps extends BasicModalProps {
-  url: string,
+  url: string;
 }

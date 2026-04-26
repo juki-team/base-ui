@@ -1,8 +1,8 @@
-import { MONTH_NAMES } from '@juki-team/commons';
-import { padStart } from '@juki-team/commons/number';
-import { i18n } from 'i18next';
-import { DateLiteralProps } from '../atoms/DateLiteral/types';
-import { DateDisplayType, TimeDisplayType } from '../types';
+import { MONTH_NAMES } from '@juki-team/commons/constants';
+import { padStart } from '@juki-team/commons/helpers';
+import type { i18n } from 'i18next';
+import type { DateLiteralProps } from '../atoms/DateLiteral/types';
+import type { DateDisplayType, TimeDisplayType } from '../types';
 
 export const showOfDateDisplayType = (type: DateDisplayType) => {
   const showMilliseconds = type.includes('milliseconds');
@@ -26,27 +26,20 @@ export const showOfTimeDisplayType = (type: TimeDisplayType) => {
 };
 
 export const getDateLiteral = (date: Date, show: Required<DateLiteralProps>['show'], t: i18n['t']) => {
-  
-  const {
-    showYears,
-    showMonths,
-    showDays,
-    showHours,
-    showMinutes,
-    showSeconds,
-    showMilliseconds,
-  } = showOfDateDisplayType(show);
-  
+  const { showYears, showMonths, showDays, showHours, showMinutes, showSeconds, showMilliseconds } =
+    showOfDateDisplayType(show);
+
   return (
     // withDayName && <><T>{DAY_NAMES[date.getDay()]}</T>,&nbsp;</>}
     (showDays ? date.getDate() : '') +
-    (showMonths ? ' ' + t(MONTH_NAMES[date.getMonth()] || '') : '') +
-    (showYears ? ' ' + date.getFullYear() : '') +
-    (showHours ? (
-      ', ' + padStart(date.getHours(), 2) +
-      (showMinutes ? ':' + padStart(date.getMinutes(), 2) : '') +
-      (showSeconds ? ':' + padStart(date.getSeconds(), 2) : '') +
-      (showMilliseconds ? '.' + padStart(date.getMilliseconds(), 3) : '')
-    ) : '')
+    (showMonths ? ` ${t(MONTH_NAMES[date.getMonth()] || '')}` : '') +
+    (showYears ? ` ${date.getFullYear()}` : '') +
+    (showHours
+      ? ', ' +
+        padStart(date.getHours(), 2) +
+        (showMinutes ? `:${padStart(date.getMinutes(), 2)}` : '') +
+        (showSeconds ? `:${padStart(date.getSeconds(), 2)}` : '') +
+        (showMilliseconds ? `.${padStart(date.getMilliseconds(), 3)}` : '')
+      : '')
   );
 };

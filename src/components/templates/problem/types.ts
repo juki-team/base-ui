@@ -1,6 +1,6 @@
-import { ProblemSummaryListResponseDTO } from '@juki-team/commons';
-import { IconProps } from '../../atoms/server/icons/types';
-import { TableHeadFieldProps } from '../../organisms/_layz_/DataViewer/types';
+import type { ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import type { IconProps } from '../../atoms/server/icons/types';
+import type { TableHeadFieldProps } from '../../organisms/_layz_/DataViewer/types';
 
 type TableHeadFieldProblemSummaryListResponseDTOProps = TableHeadFieldProps<ProblemSummaryListResponseDTO>;
 
@@ -19,9 +19,9 @@ export type ProblemNameModalFieldProps = TableHeadFieldProblemSummaryListRespons
 export type ProblemOwnerFieldProps = TableHeadFieldProblemSummaryListResponseDTOProps;
 
 export interface ProblemStatusProps {
-  solved: boolean,
-  tried: boolean,
-  size?: IconProps['size'],
+  solved: boolean;
+  tried: boolean;
+  size?: IconProps['size'];
 }
 
 export type TagsFieldProps = TableHeadFieldProps<{ tags: string[] }>;

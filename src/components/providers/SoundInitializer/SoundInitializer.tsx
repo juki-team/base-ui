@@ -3,9 +3,8 @@ import { Sound } from '../../../enums';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
 
 export function SoundInitializer() {
-  
-  const setSounds = useSoundStore(state => state.setSounds);
-  
+  const setSounds = useSoundStore((state) => state.setSounds);
+
   useEffect(() => {
     setSounds({
       [Sound.CLICK]: new Audio('https://files.juki.pub/sounds/click.wav'),
@@ -17,7 +16,7 @@ export function SoundInitializer() {
       [Sound.POP]: new Audio('https://files.juki.pub/sounds/pop.wav'),
       [Sound.BELL]: new Audio('https://files.juki.pub/sounds/bell.mp3'),
     });
-  }, [ setSounds ]);
-  
+  }, [setSounds]);
+
   return null;
 }

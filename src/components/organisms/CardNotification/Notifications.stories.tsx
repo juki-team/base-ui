@@ -1,17 +1,12 @@
-import { type  Meta, type StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 import { Button } from '../../atoms';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { MockupJukiProvider } from '../../mockup';
 
 function Comp() {
-  const {
-    addInfoNotification,
-    addSuccessNotification,
-    addWarningNotification,
-    addErrorNotification,
-    addQuietNotification,
-  } = useJukiNotification();
+  const { addInfoNotification, addSuccessNotification, addWarningNotification, addErrorNotification, addQuietNotification } =
+    useJukiNotification();
   const largeMessage = (
     <div>
       LoremIpsumLoremIpsum
@@ -22,12 +17,11 @@ function Comp() {
       </ul>
     </div>
   );
-  const textMessage =
-    'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum';
+  const textMessage = 'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum';
   const shortMessage = <div> LoremIpsumLoremIpsum </div>;
   const veryShortMessage = 'Lorem';
   // const veryShortMessage = <div> Lorem </div>;
-  
+
   return (
     <div className="jk-row left">
       <div className="jk-col">
@@ -90,7 +84,7 @@ function Comp() {
       </div>
     </div>
   );
-};
+}
 
 const meta: Meta<typeof Button> = {
   component: Button,

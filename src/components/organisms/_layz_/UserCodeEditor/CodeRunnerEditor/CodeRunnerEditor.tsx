@@ -5,7 +5,7 @@ import {
   ProfileSetting,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 } from '@juki-team/commons';
-import { ReactNode, useMemo, useState } from 'react';
+import { type ReactNode, useMemo, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES } from '../../../../../constants';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
@@ -20,7 +20,7 @@ import { FirstPane } from './FirstPane';
 import { MdxRenderer } from './MdxViewer/MdxRenderer';
 import { MermaidViewer } from './MermaidViewer/MermaidViewer';
 import { TestCases } from './TestCases';
-import { CodeRunnerEditorProps, Runner } from './types';
+import type { CodeRunnerEditorProps, Runner } from './types';
 
 export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
   const {

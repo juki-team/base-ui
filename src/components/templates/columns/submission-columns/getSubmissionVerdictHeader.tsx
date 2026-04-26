@@ -1,4 +1,4 @@
-import { PROBLEM_VERDICT, type  SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import { PROBLEM_VERDICT, type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import { T } from '../../../atoms';
 import { AcUnitIcon, FitnessCenterIcon, LockClockIcon } from '../../../atoms/server';
 import { FieldText } from '../../../organisms';
@@ -14,12 +14,13 @@ export function getSubmissionVerdictHeader(): DataViewerHeadersType<SubmissionSu
       <FieldText
         text={
           <>
-            {submit.hiddenSubmission || submit.hiddenVerdict
-              ? <SubmissionListenerVerdict submit={submit} className="fr-4" />
-              : <SubmissionInfo submitId={submit.submitId} canViewSourceCode={submit.user.canViewSourceCode}>
+            {submit.hiddenSubmission || submit.hiddenVerdict ? (
+              <SubmissionListenerVerdict submit={submit} className="fr-4" />
+            ) : (
+              <SubmissionInfo submitId={submit.submitId} canViewSourceCode={submit.user.canViewSourceCode}>
                 <SubmissionListenerVerdict submit={submit} />
               </SubmissionInfo>
-            }
+            )}
             {submit.contest && (
               <div className="jk-row gap">
                 {submit.contest.isUpsolving ? (
@@ -38,14 +39,16 @@ export function getSubmissionVerdictHeader(): DataViewerHeadersType<SubmissionSu
                   >
                     <LockClockIcon size="tiny" className="cr-er-lt" />
                   </div>
-                ) : submit.contest.isFrozen && (
-                  <div
-                    data-tooltip-id="jk-tooltip"
-                    data-tooltip-content="this submission is within the Frozen period, it is not shown on the scoreboard"
-                    className="jk-row"
-                  >
-                    <AcUnitIcon size="tiny" className="cr-io" />
-                  </div>
+                ) : (
+                  submit.contest.isFrozen && (
+                    <div
+                      data-tooltip-id="jk-tooltip"
+                      data-tooltip-content="this submission is within the Frozen period, it is not shown on the scoreboard"
+                      className="jk-row"
+                    >
+                      <AcUnitIcon size="tiny" className="cr-io" />
+                    </div>
+                  )
                 )}
               </div>
             )}
@@ -58,10 +61,7 @@ export function getSubmissionVerdictHeader(): DataViewerHeadersType<SubmissionSu
     sort: true,
     filter: {
       type: 'select',
-      options: Object.values(PROBLEM_VERDICT)
-        .map(({ value, label }) => (
-          { label: <T className="tt-se">{label}</T>, value }
-        )),
+      options: Object.values(PROBLEM_VERDICT).map(({ value, label }) => ({ label: <T className="tt-se">{label}</T>, value })),
     },
     cardPosition: 'bottom',
     minWidth: 220,

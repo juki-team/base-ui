@@ -1,4 +1,4 @@
-import { RefObject, useEffect } from 'react';
+import { type RefObject, useEffect } from 'react';
 
 /**
  * Hook that alerts clicks outside of the passed ref
@@ -13,12 +13,12 @@ export function useClickOutside(clickOutside: (event: MouseEvent) => void, ref: 
         clickOutside(event);
       }
     }
-    
+
     // Bind the event listener
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       // Unbind the event listener on clean up
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ clickOutside, ref ]);
+  }, [clickOutside, ref]);
 }

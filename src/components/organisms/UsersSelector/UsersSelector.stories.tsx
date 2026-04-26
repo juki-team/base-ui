@@ -1,4 +1,4 @@
-import { getUserKey, UserSummaryListResponseDTO } from '@juki-team/commons';
+import { getUserKey, type UserSummaryListResponseDTO } from '@juki-team/commons';
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { UsersSelector as UsersSelectorComponent } from './UsersSelector';
@@ -8,8 +8,8 @@ export default {
 };
 
 export const UsersSelector = () => {
-  const [ users, setUsers ] = useState<UserSummaryListResponseDTO[]>([]);
-  
+  const [users, setUsers] = useState<UserSummaryListResponseDTO[]>([]);
+
   return (
     <MockupJukiProvider>
       <div className="jk-pg-lg">

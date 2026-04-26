@@ -1,25 +1,25 @@
-import { cleanRequest, consoleInfo, type ContentResponse, ONE_MINUTE } from '@juki-team/commons';
+import { ONE_MINUTE } from '@juki-team/commons/constants';
+import { cleanRequest, consoleInfo } from '@juki-team/commons/helpers';
+import type { ContentResponse } from '@juki-team/commons/types';
 import { useEffect } from 'react';
 import { jukiApiManager } from '../../settings';
 import { usePageStore } from '../../stores/page/usePageStore';
 import { authorizedRequest, isDev } from '../helpers';
 
 export const useCheckAndStartServices = () => {
-  
-  const isLive = usePageStore(store => store.isOnline && store.isFocus && store.isVisible);
-  
+  const isLive = usePageStore((store) => store.isOnline && store.isFocus && store.isVisible);
+
   useEffect(() => {
-    
     if (!isLive) {
       return;
     }
-    
+
     const fun = async () => {
       if (isDev()) {
         return;
       }
       const lastRequested = +(localStorage.getItem('lastRequestedServicesCheck') || '0');
-      if ((Date.now() - lastRequested) >= ONE_MINUTE) {
+      if (Date.now() - lastRequested >= ONE_MINUTE) {
         localStorage.setItem('lastRequestedServicesCheck', Date.now().toString());
         const { url, ...options } = jukiApiManager.API_V2.system.services.checkAndStart();
         const response = cleanRequest<ContentResponse<string>>(await authorizedRequest(url, options));
@@ -27,11 +27,11 @@ export const useCheckAndStartServices = () => {
       }
     };
     void fun();
-    
+
     const interval = setInterval(fun, ONE_MINUTE);
-    
+
     return () => {
       clearInterval(interval);
     };
-  }, [ isLive ]);
+  }, [isLive]);
 };

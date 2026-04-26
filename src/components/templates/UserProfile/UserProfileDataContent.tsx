@@ -1,4 +1,4 @@
-import { type ContentsResponse, Judge, JUDGE, type JudgeDataResponseDTO } from '@juki-team/commons';
+import { type ContentsResponse, JUDGE, type Judge, type JudgeDataResponseDTO } from '@juki-team/commons';
 import { jukiApiManager } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { CopyToClipboard } from '../../atoms';
@@ -51,7 +51,7 @@ export function UserProfileDataContent({ user, className }: UserProfileDataConte
           const getProfileUrlFn = new Function('userNickname', getProfileUrl || "return ''");
           const externalUrl = getProfileUrlFn(nickname) as string;
 
-          let [w, h] = JUDGE[judge as Judge]?.logoSize || [1, 1];
+          const [w, h] = JUDGE[judge as Judge]?.logoSize || [1, 1];
           let height = (64 / w) * h;
           let width = 64;
           if (height > 32) {

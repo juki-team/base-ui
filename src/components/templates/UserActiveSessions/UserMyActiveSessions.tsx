@@ -1,4 +1,4 @@
-import { type  ContentsResponse, type SessionBasicResponseDTO, Status } from '@juki-team/commons';
+import { type ContentsResponse, type SessionBasicResponseDTO, Status } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS } from '../../../constants';
 import { QueryParamKey } from '../../../enums';
@@ -15,68 +15,76 @@ import type { DataViewerHeadersType } from '../../organisms/_layz_/DataViewer/ty
 import type { UserMyActiveSessionsProps } from './types';
 
 export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
-  
   const { deleteUserSession } = useJukiUser();
-  const userSessionId = useUserStore(state => state.user.sessionId);
+  const userSessionId = useUserStore((state) => state.user.sessionId);
   const {
     data: response,
     request,
     setLoaderStatusRef,
   } = useDataViewerRequester<ContentsResponse<SessionBasicResponseDTO>>(() => jukiApiManager.API_V2.user.getMySessions().url);
-  
+
   const mutate = useMatchMutate();
-  
-  const columns: DataViewerHeadersType<SessionBasicResponseDTO>[] = useMemo(() => [
-    {
-      head: 'session',
-      index: 'session',
-      Field: ({ record: { updateTimestamp, deviceName, osName, id } }) => (
-        <Field className="jk-col center">
-          <div className="fw-bd">{deviceName}</div>
-          <div>{osName}</div>
-          <DateLiteral date={new Date(updateTimestamp)} />
-          {userSessionId === id && <div className="jk-tag bc-io"><T className="tt-se">this device</T></div>}
-        </Field>
-      ),
-      cardPosition: 'top',
-      minWidth: 250,
-      sort: {
-        compareFn: () => (rowA, rowB) => rowB.updateTimestamp - rowA.updateTimestamp,
-      },
-    },
-    {
-      head: 'operations',
-      index: 'operations',
-      Field: ({ record: { id } }) => {
-        return (
-          <Field className="jk-col center gap">
-            {userSessionId !== id && (
-              <ButtonLoader
-                icon={<DeleteIcon />}
-                onClick={(setLoader) => deleteUserSession({
-                  params: { sessionId: id },
-                  setLoader,
-                  onSuccess: async () => {
-                    setLoader(Status.LOADING);
-                    await mutate(jukiApiManager.API_V2.user.getMySessions().url);
-                    setLoader(Status.SUCCESS);
-                  },
-                })}
-                size="tiny"
-              >
-                <T>delete session</T>
-              </ButtonLoader>
+
+  const columns: DataViewerHeadersType<SessionBasicResponseDTO>[] = useMemo(
+    () => [
+      {
+        head: 'session',
+        index: 'session',
+        Field: ({ record: { updateTimestamp, deviceName, osName, id } }) => (
+          <Field className="jk-col center">
+            <div className="fw-bd">{deviceName}</div>
+            <div>{osName}</div>
+            <DateLiteral date={new Date(updateTimestamp)} />
+            {userSessionId === id && (
+              <div className="jk-tag bc-io">
+                <T className="tt-se">this device</T>
+              </div>
             )}
           </Field>
-        );
+        ),
+        cardPosition: 'top',
+        minWidth: 250,
+        sort: {
+          compareFn: () => (rowA, rowB) => rowB.updateTimestamp - rowA.updateTimestamp,
+        },
       },
-      cardPosition: 'bottom',
-      minWidth: 190,
-    },
-  ], [ deleteUserSession, mutate, userSessionId ]);
-  
-  const data: SessionBasicResponseDTO[] = (response?.success ? response?.contents : []);
-  
+      {
+        head: 'operations',
+        index: 'operations',
+        Field: ({ record: { id } }) => {
+          return (
+            <Field className="jk-col center gap">
+              {userSessionId !== id && (
+                <ButtonLoader
+                  icon={<DeleteIcon />}
+                  onClick={(setLoader) =>
+                    deleteUserSession({
+                      params: { sessionId: id },
+                      setLoader,
+                      onSuccess: async () => {
+                        setLoader(Status.LOADING);
+                        await mutate(jukiApiManager.API_V2.user.getMySessions().url);
+                        setLoader(Status.SUCCESS);
+                      },
+                    })
+                  }
+                  size="tiny"
+                >
+                  <T>delete session</T>
+                </ButtonLoader>
+              )}
+            </Field>
+          );
+        },
+        cardPosition: 'bottom',
+        minWidth: 190,
+      },
+    ],
+    [deleteUserSession, mutate, userSessionId],
+  );
+
+  const data: SessionBasicResponseDTO[] = response?.success ? response?.contents : [];
+
   return (
     <DataViewer<SessionBasicResponseDTO>
       headers={columns}

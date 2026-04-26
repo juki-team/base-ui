@@ -1,4 +1,4 @@
-import { MenuViewMode, ProfileSetting } from '@juki-team/commons';
+import { MenuViewMode, ProfileSetting } from '@juki-team/commons/enums';
 import { type ReactNode, useEffect } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
@@ -12,23 +12,18 @@ import { TabsInlineBody } from '../TabsInlineBody/TabsInlineBody';
 import { TwoContentSection } from '../TwoContentSection/TwoContentSection';
 import type { TwoContentCardsLayoutProps } from './types';
 
-export function TwoContentCardsLayout<T, >(props: TwoContentCardsLayoutProps<T>) {
-  
-  const {
-    breadcrumbs: initialBreadcrumbs,
-    tabs = {},
-    tabButtons,
-    getHrefOnTabChange,
-    selectedTabKey,
-    children,
-  } = props;
-  
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
-  const preferredMenuViewMode = useUserStore(state => state.user.settings[ProfileSetting.MENU_VIEW_MODE]);
-  const pushRoute = useRouterStore(state => state.pushRoute);
+export function TwoContentCardsLayout<T>(props: TwoContentCardsLayoutProps<T>) {
+  const { breadcrumbs: initialBreadcrumbs, tabs = {}, tabButtons, getHrefOnTabChange, selectedTabKey, children } = props;
+
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
+  const preferredMenuViewMode = useUserStore((state) => state.user.settings[ProfileSetting.MENU_VIEW_MODE]);
+  const pushRoute = useRouterStore((state) => state.pushRoute);
   const tabKeys = Object.keys(tabs);
-  const [ tab, setTab ] = useHandleState<T>((tabs[tabKeys[0]!]?.key ?? '') as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
-  
+  const [tab, setTab] = useHandleState<T>(
+    (tabs[tabKeys[0]!]?.key ?? '') as NotUndefined<T>,
+    selectedTabKey as NotUndefined<T> | undefined,
+  );
+
   const pushTab = (tabKey: T) => {
     if (getHrefOnTabChange) {
       pushRoute(getHrefOnTabChange(tabKey));
@@ -36,17 +31,17 @@ export function TwoContentCardsLayout<T, >(props: TwoContentCardsLayoutProps<T>)
       setTab(tabKey as NotUndefined<T>);
     }
   };
-  
+
   useEffect(() => {
     if (selectedTabKey) {
       setTab(selectedTabKey as NotUndefined<T>);
     }
-  }, [ selectedTabKey, setTab ]);
-  
+  }, [selectedTabKey, setTab]);
+
   const withTabs = tabKeys.length > 1;
   const tabsOnBody = preferredMenuViewMode === MenuViewMode.VERTICAL && withTabs;
   const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey: tab }) as ReactNode[];
-  
+
   return (
     <TwoContentSection className="cards-style">
       <div>
@@ -60,7 +55,7 @@ export function TwoContentCardsLayout<T, >(props: TwoContentCardsLayoutProps<T>)
           {children}
           {!(preferredMenuViewMode === MenuViewMode.HORIZONTAL && withTabs) && !!tabButtons?.length && !tabsOnBody && (
             <div className="jk-row gap extend right">
-              {tabButtons.map(buttonsTab => renderReactNodeOrFunctionP1(buttonsTab, { selectedTabKey: tab }))}
+              {tabButtons.map((buttonsTab) => renderReactNodeOrFunctionP1(buttonsTab, { selectedTabKey: tab }))}
             </div>
           )}
         </div>
@@ -90,10 +85,7 @@ export function TwoContentCardsLayout<T, >(props: TwoContentCardsLayoutProps<T>)
           className="two-content-layout-body jk-pg-trbl"
           style={{ height: preferredMenuViewMode === MenuViewMode.VERTICAL && withTabs ? 'calc(100% - 40px)' : '100%' }}
         >
-          <TabsInlineBody
-            tabs={tabs}
-            selectedTabKey={tab}
-          />
+          <TabsInlineBody tabs={tabs} selectedTabKey={tab} />
         </div>
       </div>
     </TwoContentSection>

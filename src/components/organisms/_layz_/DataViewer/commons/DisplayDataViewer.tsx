@@ -1,5 +1,5 @@
 import { DataViewMode } from '@juki-team/commons';
-import { Children, CSSProperties, useRef } from 'react';
+import { Children, type CSSProperties, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../../../constants';
 import { T } from '../../../../atoms';
@@ -7,11 +7,10 @@ import { classNames, renderReactNodeOrFunction } from '../../../../helpers';
 import { LineLoader } from '../../../../server';
 import { CardRowVirtualizerFixed } from '../CardList';
 import { ViewContainerRows } from '../RowList/ViewContainerRows';
-import { DisplayDataViewerProps } from '../types';
+import type { DisplayDataViewerProps } from '../types';
 import { DataViewerToolbar } from './DataViewerToolbar';
 
-export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
-  
+export const DisplayDataViewer = <T,>(props: DisplayDataViewerProps<T>) => {
   const {
     viewPortSize,
     cards: { height: cardHeight = 300, width: cardWidth = 256, expanded: cardExpanded = false } = {
@@ -49,20 +48,22 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     virtualizerOverscan,
     focusRowKey,
   } = props;
-  
+
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
   const toolbarRef = useRef<HTMLDivElement>(null);
   const { height: toolbarHeight = 0 } = useResizeDetector({ targetRef: toolbarRef });
   const isSizeSm = viewPortSize === 'sm';
-  
+
   return (
     <div
       className="jk-data-viewer-content jk-br-ie"
-      style={{
-        '--jk-table-toolbar-height': toolbarHeight + 'px',
-        position: 'relative',
-        // '--jk-data-viewer-header-table-height': height + 1 + 'px',
-      } as CSSProperties}
+      style={
+        {
+          '--jk-table-toolbar-height': `${toolbarHeight}px`,
+          position: 'relative',
+          // '--jk-data-viewer-header-table-height': height + 1 + 'px',
+        } as CSSProperties
+      }
     >
       <DataViewerToolbar<T>
         setViewMode={setViewMode}
@@ -95,15 +96,9 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
           {Children.toArray(extraNodes.map((extraButton, index) => renderReactNodeOrFunction(extraButton, index)))}
         </div>
       )}
-      <div
-        className={classNames('jk-view-container', viewMode.toLowerCase())}
-        ref={viewContainerRef}
-      >
+      <div className={classNames('jk-view-container', viewMode.toLowerCase())} ref={viewContainerRef}>
         {data.length > 0 && loading && <LineLoader />}
-        <div
-          className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}
-          style={{ width: (viewContainerWidth || 0) }}
-        >
+        <div className={classNames('jk-data-viewer-body', viewMode.toLowerCase())} style={{ width: viewContainerWidth || 0 }}>
           {data.length === 0 && loading && (
             <div className="jk-row center expand-absolute pe-ne" style={{ height: '100%' }}>
               <div className="jk-row" style={{ alignItems: 'baseline' }}>

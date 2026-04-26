@@ -3,52 +3,46 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import {
-  ALPHANUMERIC_DASH_UNDERSCORE_REGEX,
-  LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX,
-} from '../../../../../constants';
+import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX, LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX } from '../../../../../constants';
 import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { Input, InputCheckbox, InputPassword, T } from '../../../../atoms';
 import { classNames } from '../../../../helpers';
 import { ButtonLoader, SplitModal } from '../../../../molecules';
-import { SetLoaderStatusOnClickType } from '../../../../types';
+import type { SetLoaderStatusOnClickType } from '../../../../types';
 import type { SignUpFormType, SignUpModalComponentProps } from './types';
 
 const signUpSchema = yup.object().shape({
-  givenName: yup.string()
-    .required('cannot be empty')
-    .min(3, 'must be at least 3 characters'),
-  familyName: yup.string()
-    .required('cannot be empty')
-    .min(3, 'must be at least 3 characters'),
-  email: yup.string()
-    .required('cannot be empty')
-    .email('must be a valid email'),
-  checkbox: yup.boolean()
+  givenName: yup.string().required('cannot be empty').min(3, 'must be at least 3 characters'),
+  familyName: yup.string().required('cannot be empty').min(3, 'must be at least 3 characters'),
+  email: yup.string().required('cannot be empty').email('must be a valid email'),
+  checkbox: yup
+    .boolean()
     .required('you must accept the terms of service')
-    .oneOf([ true ], 'you must accept the terms of service'),
-  nickname: yup.string()
+    .oneOf([true], 'you must accept the terms of service'),
+  nickname: yup
+    .string()
     .required('cannot be empty')
     .matches(ALPHANUMERIC_DASH_UNDERSCORE_REGEX, 'only alphanumeric characters or dash or underscore is valid')
     .min(3, 'must be at least 3 characters')
     .max(32, 'must be less than 32 characters'),
-  password: yup.string()
+  password: yup
+    .string()
     .required('cannot be empty')
     .min(8, 'must be at least 8 characters')
     .matches(
       LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX,
       'must have at least one uppercase, one lowercase letter and one number',
     ),
-  passwordConfirmation: yup.string()
+  passwordConfirmation: yup
+    .string()
     .required('cannot be empty')
-    .oneOf([ yup.ref('password'), '' ], 'both passwords must match'),
+    .oneOf([yup.ref('password'), ''], 'both passwords must match'),
 });
 
 export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
-  
   const { isOpen, onClose, onSubmit, signUpWithGoogle, reactAppGoogleClientId, onSignInButton } = props;
-  
-  const { Image } = useUIStore(store => store.components);
+
+  const { Image } = useUIStore((store) => store.components);
   const {
     register,
     handleSubmit,
@@ -60,23 +54,27 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
     mode: 'all',
     reValidateMode: 'onBlur',
   });
-  
+
   useEffect(() => {
     reset();
-  }, [ isOpen, reset ]);
-  
+  }, [isOpen, reset]);
+
   // const refSetLoading = useRef<SetLoaderStatusOnClickType>();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   // const { t } = useT();
-  
+
   return (
     <SplitModal
       isOpen={isOpen}
       onClose={onClose}
       title={
         <>
-          <h3><T className="tt-se cr-at-it">sign up</T></h3>
-          <p className="tx-h"><T className="tt-se">happy you join us</T></p>
+          <h3>
+            <T className="tt-se cr-at-it">sign up</T>
+          </h3>
+          <p className="tx-h">
+            <T className="tt-se">happy you join us</T>
+          </p>
         </>
       }
       graphic={
@@ -100,7 +98,9 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
             {/*  buttonText={t('sign up with Google')}*/}
             {/*  className="google-button"*/}
             {/*/>*/}
-            <div className="jk-divider"><T>or</T></div>
+            <div className="jk-divider">
+              <T>or</T>
+            </div>
           </>
         )}
         <form onSubmit={handleSubmit((data: SignUpFormType) => onSubmit(data, setLoaderRef.current))}>
@@ -117,7 +117,9 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
                   })}
                   required
                 />
-                <p><T>{errors?.givenName?.message || ''}</T></p>
+                <p>
+                  <T>{errors?.givenName?.message || ''}</T>
+                </p>
               </div>
               <div className="jk-form-item">
                 <Input
@@ -130,7 +132,9 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
                   })}
                   required
                 />
-                <p><T>{errors.familyName?.message || ''}</T></p>
+                <p>
+                  <T>{errors.familyName?.message || ''}</T>
+                </p>
               </div>
             </div>
             <div className="jk-form-item">
@@ -144,7 +148,9 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
                 })}
                 required
               />
-              <p><T>{(!isValid && errors?.nickname?.message) || ''}</T></p>
+              <p>
+                <T>{(!isValid && errors?.nickname?.message) || ''}</T>
+              </p>
             </div>
             <div className="jk-form-item">
               <Input
@@ -157,7 +163,9 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
                 })}
                 required
               />
-              <p><T>{(!isValid && errors?.email?.message) || ''}</T></p>
+              <p>
+                <T>{(!isValid && errors?.email?.message) || ''}</T>
+              </p>
             </div>
             <div className="jk-form-item">
               <InputPassword
@@ -170,7 +178,9 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
                 })}
                 required
               />
-              <p><T>{(!isValid && errors?.password?.message) || ''}</T></p>
+              <p>
+                <T>{(!isValid && errors?.password?.message) || ''}</T>
+              </p>
             </div>
             <div className="jk-form-item">
               <InputPassword
@@ -183,7 +193,9 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
                 })}
                 required
               />
-              <p><T>{(!isValid && errors?.passwordConfirmation?.message) || ''}</T></p>
+              <p>
+                <T>{(!isValid && errors?.passwordConfirmation?.message) || ''}</T>
+              </p>
             </div>
             <div className="jk-form-item required">
               <Controller
@@ -192,31 +204,27 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
                 defaultValue={false}
                 render={({ field: { value, ...field } }) => {
                   return (
-                    <InputCheckbox
-                      {...field}
-                      checked={value}
-                      label={<T>I accept the Terms of Service and Privacy Policy</T>}
-                    />
+                    <InputCheckbox {...field} checked={value} label={<T>I accept the Terms of Service and Privacy Policy</T>} />
                   );
                 }}
               />
-              <p><T>{(!isValid && errors?.checkbox?.message) || ''}</T></p>
+              <p>
+                <T>{(!isValid && errors?.checkbox?.message) || ''}</T>
+              </p>
             </div>
             <div className="jk-pg-b">
               <p className="label">
                 <T className="tt-se">are you already a member?</T>,&nbsp;
-                <span className="link" onClick={onSignInButton}><T>sign in now</T></span>
+                <span className="link" onClick={onSignInButton}>
+                  <T>sign in now</T>
+                </span>
               </p>
             </div>
             <div className="jk-row-col gap block">
               <ButtonLoader type="secondary" onClick={onClose}>
                 <T className="tt-se">cancel</T>
               </ButtonLoader>
-              <ButtonLoader
-                setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
-                disabled={!isValid}
-                submit
-              >
+              <ButtonLoader setLoaderStatusRef={(setLoader) => (setLoaderRef.current = setLoader)} disabled={!isValid} submit>
                 <T className="ws-np tt-se">sign up</T>
               </ButtonLoader>
             </div>

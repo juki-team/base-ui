@@ -1,4 +1,4 @@
-import { Status } from '@juki-team/commons';
+import { Status } from '@juki-team/commons/enums';
 import { useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
@@ -11,30 +11,23 @@ import type { CropImageType } from '../../molecules/types';
 import type { ImageProfileModalProps } from './types';
 
 export function ImageProfileModal({ isOpen, onClose, nickname, companyKey }: ImageProfileModalProps) {
-  
   const { updateUserProfileImage } = useJukiUser();
-  const mutateUser = useUserStore(state => state.mutate);
+  const mutateUser = useUserStore((state) => state.mutate);
   const mutate = useMatchMutate();
-  const [ cropImage, setCropImage ] = useState<CropImageType>();
-  
+  const [cropImage, setCropImage] = useState<CropImageType>();
+
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
       <div className="jk-pg-lg jk-col gap">
-        <ImageLoaderCropper
-          aspect={1}
-          onCropChange={setCropImage}
-          rotate={0}
-          scale={1}
-          withRotate
-          withScale
-          circularCrop
-        />
+        <ImageLoaderCropper aspect={1} onCropChange={setCropImage} rotate={0} scale={1} withRotate withScale circularCrop />
         <div className="jk-row right gap extend">
-          <Button type="secondary" onClick={onClose}><T className="tt-se">cancel</T></Button>
+          <Button type="secondary" onClick={onClose}>
+            <T className="tt-se">cancel</T>
+          </Button>
           <ButtonLoader
             onClick={async (setLoader) => {
               if (cropImage?.previewCanvasRef.current) {
-                const blob = (await toBlob(cropImage.previewCanvasRef.current));
+                const blob = await toBlob(cropImage.previewCanvasRef.current);
                 if (blob) {
                   await updateUserProfileImage({
                     params: { nickname, companyKey },
@@ -51,7 +44,7 @@ export function ImageProfileModal({ isOpen, onClose, nickname, companyKey }: Ima
                 }
               }
             }}
-            disabled={!cropImage || !cropImage?.previewCanvasRef.current}
+            disabled={!(cropImage && cropImage?.previewCanvasRef.current)}
           >
             <T className="tt-se">save image</T>
           </ButtonLoader>

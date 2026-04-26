@@ -7,7 +7,6 @@ import { HorizontalMenu } from '../HorizontalMenu/HorizontalMenu';
 import type { VerticalMenuProps } from './types';
 
 export function VerticalMenu(props: VerticalMenuProps) {
-  
   const {
     isOpen = true,
     onToggle,
@@ -20,21 +19,21 @@ export function VerticalMenu(props: VerticalMenuProps) {
     drawerMenuMobile,
     onBack,
   } = props;
-  
-  const [ open, setOpen ] = useSyncedState(isOpen);
-  const { isSmallScreen, isMediumScreen, isLargeScreen, isHugeScreen } = usePageStore(store => store.viewPort);
-  
+
+  const [open, setOpen] = useSyncedState(isOpen);
+  const { isSmallScreen, isMediumScreen, isLargeScreen, isHugeScreen } = usePageStore((store) => store.viewPort);
+
   useEffect(() => {
     if (isMediumScreen) {
       setOpen(false);
     }
-  }, [ isMediumScreen, setOpen ]);
+  }, [isMediumScreen, setOpen]);
   useEffect(() => {
     if (isLargeScreen || isHugeScreen) {
       setOpen(true);
     }
-  }, [ isLargeScreen, isHugeScreen, setOpen ]);
-  
+  }, [isLargeScreen, isHugeScreen, setOpen]);
+
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
     const { selected, icon, label, tooltipLabel, onClick, menuItemWrapper } = menu[i]!;
@@ -52,29 +51,31 @@ export function VerticalMenu(props: VerticalMenuProps) {
         data-tooltip-content={!open ? tooltipLabel : ''}
         data-tooltip-place="right"
       >
-        <div className="jk-menu-item-icon jk-row">
-          {renderReactNodeOrFunction(icon)}
-        </div>
-        <div className="jk-menu-item-label">
-          {renderReactNodeOrFunction(label)}
-        </div>
+        <div className="jk-menu-item-icon jk-row">{renderReactNodeOrFunction(icon)}</div>
+        <div className="jk-menu-item-label">{renderReactNodeOrFunction(label)}</div>
       </div>
     );
     if (menuItemWrapper) {
-      menus.push(renderReactNodeOrFunctionP1(menuItemWrapper, {
-        selected,
-        icon,
-        label,
-        onClick,
-        children: menuItem,
-        index: i,
-        isOpenVerticalMenu: open,
-      }, i));
+      menus.push(
+        renderReactNodeOrFunctionP1(
+          menuItemWrapper,
+          {
+            selected,
+            icon,
+            label,
+            onClick,
+            children: menuItem,
+            index: i,
+            isOpenVerticalMenu: open,
+          },
+          i,
+        ),
+      );
     } else {
       menus.push(menuItem);
     }
   }
-  
+
   const handleCollapse = () => {
     if (onToggle) {
       onToggle?.(!open);
@@ -82,7 +83,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
       setOpen(!open);
     }
   };
-  
+
   return isSmallScreen ? (
     <HorizontalMenu
       menu={menu}
@@ -104,21 +105,15 @@ export function VerticalMenu(props: VerticalMenuProps) {
               {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
             </div>
           </div>
-          <div className="flex-2">
-            {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}
-          </div>
+          <div className="flex-2">{typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}</div>
           <div className={classNames('jk-menu-items jk-col gap nowrap flex-8', { stretch: open })}>
             {Children.toArray(menus)}
             <div className="jk-menu-item extra" />
           </div>
-          <div>
-            {typeof bottomSection === 'function' ? bottomSection({ isOpen: open }) : bottomSection}
-          </div>
+          <div>{typeof bottomSection === 'function' ? bottomSection({ isOpen: open }) : bottomSection}</div>
         </section>
       </header>
-      <section className="jk-menu-main-layout">
-        {children}
-      </section>
+      <section className="jk-menu-main-layout">{children}</section>
     </div>
   );
 }

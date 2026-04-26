@@ -88,9 +88,9 @@ export enum Sound {
 }
 
 export enum Duration {
-  FAST = 0.100,
-  NORMAL = 0.250,
-  LOW = 0.400,
+  FAST = 0.1,
+  NORMAL = 0.25,
+  LOW = 0.4,
 }
 
 export enum Period {
@@ -99,7 +99,7 @@ export enum Period {
   LIVE_END = 'LIVE_END',
   PAST = 'PAST',
   CALC = 'CALC',
-  TIME_OUT = 'TIME_OUT'
+  TIME_OUT = 'TIME_OUT',
 }
 
 export enum TriggerAction {

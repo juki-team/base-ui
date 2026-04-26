@@ -6,17 +6,17 @@ import {
   CHANNEL_PUBLISH_SUBSCRIPTIONS,
   CHANNEL_SUBSCRIBE_CLIENT,
   CHANNEL_SUBSCRIBE_NOTIFICATIONS,
+  type ContentResponse,
   cleanRequest,
   consoleError,
   consoleInfo,
   consoleWarn,
-  ContentResponse,
   getParamsOfClientId,
 } from '@juki-team/commons';
-import Ably, { TokenDetails, TokenRequest } from 'ably';
+import Ably, { type TokenDetails, type TokenRequest } from 'ably';
 import { LiveObjects } from 'ably/liveobjects';
 import { AblyProvider, ChannelProvider, useChannel } from 'ably/react';
-import { PropsWithChildren, useEffect } from 'react';
+import { type PropsWithChildren, useEffect } from 'react';
 import { ABLY_LOG_LEVEL } from '../../../constants/settings';
 import { QueryParamKey } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
@@ -31,36 +31,36 @@ import { ErrorBoundary } from '../../templates';
 const WebsocketProvider = () => {
   const clientId = useUserStore((state) => state.clientId);
   const broadcastMessage = useWebsocketStore((state) => state.broadcastMessage);
-  const setProps = useWebsocketStore(store => store.setProps);
+  const setProps = useWebsocketStore((store) => store.setProps);
   const { channel: channelPublishSubscription } = useChannel(CHANNEL_PUBLISH_SUBSCRIPTIONS);
   const { channel: channelPublishMessages } = useChannel(CHANNEL_PUBLISH_MESSAGES);
   const { channel: channelPresenceClient } = useChannel(CHANNEL_PRESENCE_CLIENT);
-  
+
   useEffect(() => {
     setProps({ channelPublishSubscription });
-  }, [ channelPublishSubscription, setProps ]);
+  }, [channelPublishSubscription, setProps]);
   useEffect(() => {
     setProps({ channelPublishMessages });
-  }, [ channelPublishMessages, setProps ]);
+  }, [channelPublishMessages, setProps]);
   useEffect(() => {
     void channelPresenceClient.presence.enter({ clientId });
     return () => {
       void channelPresenceClient.presence.leave({ clientId });
     };
-  }, [ channelPresenceClient, clientId ]);
-  
+  }, [channelPresenceClient, clientId]);
+
   useChannel(CHANNEL_SUBSCRIBE_CLIENT(clientId), (msg) => {
     const { data } = msg;
     const key = data?.key;
     broadcastMessage(key, data);
   });
-  
+
   useChannel(CHANNEL_SUBSCRIBE_NOTIFICATIONS, (msg) => {
     const { data } = msg;
     const key = data?.key;
     broadcastMessage(key, data);
   });
-  
+
   return null;
 };
 
@@ -74,7 +74,7 @@ const newAblyClient = (uiId: string) => {
           let tokenRequest;
           try {
             const response = cleanRequest<ContentResponse<TokenDetails | TokenRequest | string | null>>(
-              await authorizedRequest(jukiApiManager.API_V2.websocket.auth().url + `?uiId=${uiId}`),
+              await authorizedRequest(`${jukiApiManager.API_V2.websocket.auth().url}?uiId=${uiId}`),
             );
             tokenRequest = response.success ? response.content : null;
           } catch (error) {
@@ -96,9 +96,8 @@ const newAblyClient = (uiId: string) => {
 };
 
 export const JukiAblyInitializer = () => {
-  
-  const clientId = useUserStore(store => store.clientId);
-  const newAuth = useWebsocketStore(store => store.newAuth);
+  const clientId = useUserStore((store) => store.clientId);
+  const newAuth = useWebsocketStore((store) => store.newAuth);
   const { setRealtimeClient, realtimeClient, setSpaces } = useAblyStore();
   const realtimeClientRef = useStableRef(realtimeClient);
   useEffect(() => {
@@ -109,42 +108,40 @@ export const JukiAblyInitializer = () => {
           realtimeClientRef.current.close();
         }
         const { sessionId, uiId } = getParamsOfClientId(clientId);
-        if (!!sessionId && !!uiId) {
+        if (sessionId && uiId) {
           consoleInfo(`Creating new Ably connection clientId: "${clientId}"`);
           const realtimeClient = newAblyClient(uiId);
           if (realtimeClient) {
             realtimeClient.connection.on('connected', () => {
               consoleInfo('Ably connected');
             });
-            
+
             realtimeClient.connection.on('disconnected', () => {
               consoleWarn('Ably disconnected');
             });
-            
+
             realtimeClient.connection.on('suspended', () => {
               consoleWarn('Ably connection suspended');
             });
-            
+
             realtimeClient.connection.on('failed', (stateChange) => {
               consoleError('Ably connection failed', { reason: stateChange.reason });
-              void safeReportError(
-                new Error('Ably connection failed: ' + stateChange.reason?.message),
-                null,
-                { message: 'Ably connection failed' },
-              );
+              void safeReportError(new Error(`Ably connection failed: ${stateChange.reason?.message}`), null, {
+                message: 'Ably connection failed',
+              });
             });
-            
+
             realtimeClient.connection.on('closed', () => {
               consoleWarn('Ably connection closed');
             });
-            
+
             realtimeClient.connection.on('update', (stateChange) => {
               consoleInfo('Ably connection state changed', {
                 previous: stateChange.previous,
                 current: stateChange.current,
               });
             });
-            
+
             setRealtimeClient(realtimeClient);
             setSpaces(new Spaces(realtimeClient));
             setTimeout(newAuth, 1000);
@@ -155,15 +152,11 @@ export const JukiAblyInitializer = () => {
           consoleWarn('sessionId or uiId are empty', { sessionId, uiId });
         }
       } catch (error) {
-        void safeReportError(
-          error as Error,
-          null,
-          { message: 'Error during Ably authorization' },
-        );
+        void safeReportError(error as Error, null, { message: 'Error during Ably authorization' });
       }
     })();
-  }, [ clientId, newAuth, realtimeClientRef, setRealtimeClient, setSpaces ]);
-  
+  }, [clientId, newAuth, realtimeClientRef, setRealtimeClient, setSpaces]);
+
   if (isBrowser() && realtimeClient) {
     return (
       <ErrorBoundary background>
@@ -183,25 +176,22 @@ export const JukiAblyInitializer = () => {
       </ErrorBoundary>
     );
   }
-  
+
   return null;
 };
 
 export const JukiAblySpaceProvider = ({ children }: PropsWithChildren) => {
-  
-  const searchParams = useRouterStore(store => store.searchParams);
+  const searchParams = useRouterStore((store) => store.searchParams);
   const roomKey = searchParams.get(QueryParamKey.ROOM);
-  const spaces = useAblyStore(store => store.spaces);
-  
+  const spaces = useAblyStore((store) => store.spaces);
+
   if (isBrowser() && spaces && roomKey) {
     return (
       <SpacesProvider client={spaces}>
-        <SpaceProvider name={'room:' + roomKey}>
-          {children}
-        </SpaceProvider>
+        <SpaceProvider name={`room:${roomKey}`}>{children}</SpaceProvider>
       </SpacesProvider>
     );
   }
-  
+
   return children;
 };

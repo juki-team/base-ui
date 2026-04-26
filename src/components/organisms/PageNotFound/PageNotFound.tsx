@@ -4,9 +4,8 @@ import { HomeIcon } from '../../server';
 import type { PageNotFoundProps } from './types';
 
 export function PageNotFound({ children, style }: PageNotFoundProps) {
-  
-  const { Link, Image } = useUIStore(store => store.components);
-  
+  const { Link, Image } = useUIStore((store) => store.components);
+
   return (
     <div className="jk-col gap extend center nowrap" style={style}>
       <div className="jk-row pn-re" style={{ height: '40%', width: '80%' }}>
@@ -19,12 +18,16 @@ export function PageNotFound({ children, style }: PageNotFoundProps) {
       </div>
       {children || (
         <>
-          <h3><T className="tt-se ta-cr">page not found</T></h3>
+          <h3>
+            <T className="tt-se ta-cr">page not found</T>
+          </h3>
           <p className="ta-cr">
             <T className="tt-se">the page does not exist or you do not have permissions to view it</T>
           </p>
           <Link href="/public">
-            <Button size="small" icon={<HomeIcon />}><T>go to home page</T></Button>
+            <Button size="small" icon={<HomeIcon />}>
+              <T>go to home page</T>
+            </Button>
           </Link>
         </>
       )}

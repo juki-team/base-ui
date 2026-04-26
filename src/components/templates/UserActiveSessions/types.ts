@@ -1,2 +1,1 @@
-export interface UserMyActiveSessionsProps {
-}
+export type UserMyActiveSessionsProps = {};

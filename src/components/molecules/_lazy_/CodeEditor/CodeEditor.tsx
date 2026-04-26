@@ -9,13 +9,13 @@ import { python } from '@codemirror/lang-python';
 import { search } from '@codemirror/search';
 import type { EditorView } from '@codemirror/view';
 // import { oneDark } from '@codemirror/theme-one-dark';
-import { CodeLanguage, Theme } from '@juki-team/commons';
+import { CodeLanguage, Theme } from '@juki-team/commons/enums';
 import { memo, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 // import { basicSetup } from '@uiw/codemirror-extensions-basic-setup';
 import ReactCodeMirror from './codemirror/ReactCodeMirror';
-import { CodeEditorProps } from './types';
+import type { CodeEditorProps } from './types';
 
 function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
   const { source, language, theme, readOnly = false, onChange, tabSize = 4, fontSize = 14, triggerFocus = 0 } = props;
@@ -87,7 +87,7 @@ function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
       <ReactCodeMirror
         readOnly={readOnly}
         value={source}
-        height={height + 'px'}
+        height={`${height}px`}
         extensions={extensions}
         onChange={(value) => onChange?.({ source: value })}
         theme={theme === Theme.DARK ? 'dark' : 'light'}

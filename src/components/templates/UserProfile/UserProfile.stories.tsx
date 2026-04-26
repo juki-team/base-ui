@@ -27,8 +27,7 @@ Regular.args = {
     email: 'me@oscargauss.com',
     familyName: 'family name',
     givenName: 'given name',
-    imageUrl:
-      'https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png',
+    imageUrl: 'https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png',
     nickname: 'OscarGauss',
     aboutMe: 'about me',
     city: 'La Paz',

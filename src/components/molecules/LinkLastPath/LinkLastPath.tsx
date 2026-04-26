@@ -7,14 +7,13 @@ import { getHref } from '../../helpers';
 import type { LastPathType } from '../../providers/JukiLastPathInitializer/types';
 import type { LinkLastPathProps } from './types';
 
-export function LinkLastPath<T extends string | number = string, >(props: LinkLastPathProps<T>) {
-  
+export function LinkLastPath<T extends string | number = string>(props: LinkLastPathProps<T>) {
   const { children, lastPathKey, overwriteCompanyKey } = props;
-  
-  const { Link } = useUIStore(store => store.components);
-  
-  const lastPath = useLastPathStore(state => state.lastPath) as LastPathType<T>;
-  
+
+  const { Link } = useUIStore((store) => store.components);
+
+  const lastPath = useLastPathStore((state) => state.lastPath) as LastPathType<T>;
+
   const searchParams = useMemo(() => {
     const { searchParams } = getHref(lastPath?.[lastPathKey] ?? '');
     if (overwriteCompanyKey) {
@@ -22,12 +21,12 @@ export function LinkLastPath<T extends string | number = string, >(props: LinkLa
       clonedSearchParams.set(QueryParamKey.COMPANY, overwriteCompanyKey || '');
       return clonedSearchParams;
     }
-    
+
     return searchParams;
-  }, [ lastPath, lastPathKey, overwriteCompanyKey ]);
-  
+  }, [lastPath, lastPathKey, overwriteCompanyKey]);
+
   const pathname = getHref(lastPath?.[lastPathKey])?.pathname;
-  
+
   if (pathname) {
     return (
       <Link
@@ -41,6 +40,6 @@ export function LinkLastPath<T extends string | number = string, >(props: LinkLa
       </Link>
     );
   }
-  
+
   return children;
 }

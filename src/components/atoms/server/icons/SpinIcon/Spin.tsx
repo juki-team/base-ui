@@ -1,4 +1,4 @@
-import { RootIconProps } from '../types';
+import type { RootIconProps } from '../types';
 
 const Spin = ({ color }: RootIconProps) => (
   <>

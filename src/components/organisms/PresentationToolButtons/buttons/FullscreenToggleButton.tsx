@@ -44,9 +44,8 @@ function exitFullscreen() {
 }
 
 export const FullscreenToggleButton = () => {
-  
-  const isFullscreen = usePageStore(store => store.isFullscreen);
-  
+  const isFullscreen = usePageStore((store) => store.isFullscreen);
+
   return isFullscreen ? (
     <>
       <div className="jk-row right">

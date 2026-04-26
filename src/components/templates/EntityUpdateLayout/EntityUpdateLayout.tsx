@@ -1,4 +1,4 @@
-import { cleanRequest, type ContentResponse, HTTPMethod, Status } from '@juki-team/commons';
+import { type ContentResponse, cleanRequest, HTTPMethod, Status } from '@juki-team/commons';
 import { useState } from 'react';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { authorizedRequest } from '../../helpers';
@@ -10,25 +10,16 @@ import { CloseIcon, SaveIcon } from '../../server';
 import type { EntityUpdateLayoutProps } from './types';
 
 export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U, V>) {
-  
   const { Cmp, entity: initialEntity, entityKey, viewRoute, updateApiURL, viewApiURL, toEntityUpsert } = props;
-  
-  const pushRoute = useRouterStore(state => state.pushRoute);
+
+  const pushRoute = useRouterStore((state) => state.pushRoute);
   const { notifyResponse } = useJukiNotification();
   const mutate = useMatchMutate();
-  const [ entity ] = useState(initialEntity);
-  
-  const tabButtons = ({ entityData, disableUpdateButton }: { entityData: T, disableUpdateButton?: boolean }) => [
-    <CheckUnsavedChanges
-      key="cancel"
-      onClickContinue={() => pushRoute(viewRoute(entityKey))}
-      value={entityData as object}
-    >
-      <TabsInlineButton
-        type="secondary"
-        icon={<CloseIcon />}
-        label="cancel"
-      />
+  const [entity] = useState(initialEntity);
+
+  const tabButtons = ({ entityData, disableUpdateButton }: { entityData: T; disableUpdateButton?: boolean }) => [
+    <CheckUnsavedChanges key="cancel" onClickContinue={() => pushRoute(viewRoute(entityKey))} value={entityData as object}>
+      <TabsInlineButton type="secondary" icon={<CloseIcon />} label="cancel" />
     </CheckUnsavedChanges>,
     <TabsInlineButtonLoader
       key="save"
@@ -36,13 +27,12 @@ export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U,
       icon={<SaveIcon />}
       onClick={async (setLoaderStatus) => {
         setLoaderStatus(Status.LOADING);
-        const response = cleanRequest<ContentResponse<string>>(await authorizedRequest(
-          updateApiURL(entityData)(entityKey),
-          {
+        const response = cleanRequest<ContentResponse<string>>(
+          await authorizedRequest(updateApiURL(entityData)(entityKey), {
             method: HTTPMethod.PUT,
             body: JSON.stringify(toEntityUpsert(entityData)),
-          },
-        ));
+          }),
+        );
         if (notifyResponse(response, setLoaderStatus)) {
           setLoaderStatus(Status.LOADING);
           await mutate(viewApiURL(entityKey));
@@ -52,8 +42,6 @@ export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U,
       label="update"
     />,
   ];
-  
-  return (
-    <Cmp entity={entity} entityKey={entityKey} tabButtons={tabButtons} />
-  );
+
+  return <Cmp entity={entity} entityKey={entityKey} tabButtons={tabButtons} />;
 }

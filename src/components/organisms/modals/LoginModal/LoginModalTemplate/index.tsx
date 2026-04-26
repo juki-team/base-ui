@@ -1,2 +1,2 @@
-export * from './LoginModalTemplate';
 export * from './ForgotPassword';
+export * from './LoginModalTemplate';

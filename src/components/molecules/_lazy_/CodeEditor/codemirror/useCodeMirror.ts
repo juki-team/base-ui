@@ -3,7 +3,7 @@ import { EditorView, type ViewUpdate } from '@codemirror/view';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { getDefaultExtensions } from './getDefaultExtensions';
 import { getScheduler, TimeoutLatch } from './timeoutLatch';
-import { ReactCodeMirrorProps } from './types';
+import type { ReactCodeMirrorProps } from './types';
 import { getStatistics } from './utils';
 
 export const ExternalChange = Annotation.define<boolean>();
@@ -40,9 +40,9 @@ export function useCodeMirror(props: UseCodeMirror) {
     root,
     initialState,
   } = props;
-  const [ container, setContainer ] = useState<HTMLDivElement | null>();
-  const [ view, setView ] = useState<EditorView>();
-  const [ state, setState ] = useState<EditorState>();
+  const [container, setContainer] = useState<HTMLDivElement | null>();
+  const [view, setView] = useState<EditorView>();
+  const [state, setState] = useState<EditorState>();
   const typingLatch = useState<{ current: TimeoutLatch | null }>(() => ({ current: null }))[0];
   const pendingUpdate = useState<{ current: (() => void) | null }>(() => ({ current: null }))[0];
   const defaultThemeOption = EditorView.theme({
@@ -79,14 +79,14 @@ export function useCodeMirror(props: UseCodeMirror) {
         }, TYPING_TIMOUT);
         getScheduler().add(typingLatch.current);
       }
-      
+
       const doc = vu.state.doc;
       const value = doc.toString();
       onChange(value, vu);
     }
     onStatistics && onStatistics(getStatistics(vu));
   });
-  
+
   const defaultExtensions = getDefaultExtensions({
     theme,
     editable,
@@ -95,14 +95,14 @@ export function useCodeMirror(props: UseCodeMirror) {
     indentWithTab: defaultIndentWithTab,
     basicSetup: defaultBasicSetup,
   });
-  
-  let getExtensions = [ updateListener, defaultThemeOption, ...defaultExtensions ];
-  
+
+  let getExtensions = [updateListener, defaultThemeOption, ...defaultExtensions];
+
   if (onUpdate && typeof onUpdate === 'function') {
     getExtensions.push(EditorView.updateListener.of(onUpdate));
   }
   getExtensions = getExtensions.concat(extensions);
-  
+
   useLayoutEffect(() => {
     if (container && !state) {
       const config = {
@@ -130,14 +130,14 @@ export function useCodeMirror(props: UseCodeMirror) {
         setView(undefined);
       }
     };
-  }, [ container, state ]);
-  
+  }, [container, state]);
+
   useEffect(() => {
     if (props.container) {
       setContainer(props.container);
     }
-  }, [ props.container ]);
-  
+  }, [props.container]);
+
   useEffect(
     () => () => {
       if (view) {
@@ -149,15 +149,15 @@ export function useCodeMirror(props: UseCodeMirror) {
         typingLatch.current = null;
       }
     },
-    [ view ],
+    [view],
   );
-  
+
   useEffect(() => {
     if (autoFocus && view) {
       view.focus();
     }
-  }, [ autoFocus, view ]);
-  
+  }, [autoFocus, view]);
+
   useEffect(() => {
     if (view) {
       view.dispatch({ effects: StateEffect.reconfigure.of(getExtensions) });
@@ -180,7 +180,7 @@ export function useCodeMirror(props: UseCodeMirror) {
     onChange,
     onUpdate,
   ]);
-  
+
   useEffect(() => {
     if (value === undefined) {
       return;
@@ -188,23 +188,23 @@ export function useCodeMirror(props: UseCodeMirror) {
     const currentValue = view ? view.state.doc.toString() : '';
     if (view && value !== currentValue) {
       const isTyping = typingLatch.current && !typingLatch.current.isDone;
-      
+
       const forceUpdate = () => {
         if (view && value !== view.state.doc.toString()) {
           view.dispatch({
             changes: { from: 0, to: view.state.doc.toString().length, insert: value || '' },
-            annotations: [ ExternalChange.of(true) ],
+            annotations: [ExternalChange.of(true)],
           });
         }
       };
-      
+
       if (!isTyping) {
         forceUpdate();
       } else {
         pendingUpdate.current = forceUpdate;
       }
     }
-  }, [ value, view ]);
-  
+  }, [value, view]);
+
   return { state, setState, view, setView, container, setContainer };
 }

@@ -121,23 +121,21 @@ export function Select<T, U extends ReactNode, V extends ReactNodeOrFunctionType
               setIsOpen(false);
             };
 
-            const handleClick =
-              !isDisabled && !option.disabled
-                ? (event: MouseEvent<HTMLDivElement>) => {
-                    event.stopPropagation();
+            const handleClick = !(isDisabled || option.disabled)
+              ? (event: MouseEvent<HTMLDivElement>) => {
+                  event.stopPropagation();
+                  handleSelect();
+                }
+              : undefined;
+
+            const handleKeyDown = !(isDisabled || option.disabled)
+              ? (event: KeyboardEvent<HTMLDivElement>) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
                     handleSelect();
                   }
-                : undefined;
-
-            const handleKeyDown =
-              !isDisabled && !option.disabled
-                ? (event: KeyboardEvent<HTMLDivElement>) => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                      event.preventDefault();
-                      handleSelect();
-                    }
-                  }
-                : undefined;
+                }
+              : undefined;
 
             return (
               <div

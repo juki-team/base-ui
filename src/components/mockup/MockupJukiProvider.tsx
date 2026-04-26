@@ -1,6 +1,6 @@
-import { Language } from '@juki-team/commons';
-import { createInstance, i18n } from 'i18next';
-import { PropsWithChildren } from 'react';
+import { Language } from '@juki-team/commons/enums';
+import { createInstance, type i18n } from 'i18next';
+import type { PropsWithChildren } from 'react';
 import { SWRConfig } from 'swr';
 import { EMPTY_COMPANY, EMPTY_USER, SWR_CONFIG } from '../../constants';
 import { UserStoreProvider } from '../../stores/user/useUserStore';
@@ -13,15 +13,15 @@ import '../../styles/vendor/index.scss';
 
 enum TestPath {
   USER = 'USER',
-  ADMIN = 'ADMIN'
+  ADMIN = 'ADMIN',
 }
 
 const i18nInstance = createInstance() as i18n;
 
 const i18nConfig = {
-  locales: [ Language.ES, Language.EN ],
+  locales: [Language.ES, Language.EN],
   defaultLocale: Language.ES,
-  namespaces: [ 'translation' ],
+  namespaces: ['translation'],
 };
 
 await i18nInstance.init({
@@ -53,8 +53,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
         // tokenName="juki-token"
         // socketServiceUrl={socketServiceUrl}
         multiCompanies={false}
-        onSeeMyProfile={() => {
-        }}
+        onSeeMyProfile={() => {}}
         router={{
           pathname: '',
           routeParams: {},
@@ -68,9 +67,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
           [TestPath.ADMIN]: { pathname: '', searchParams: new URLSearchParams() },
         }}
       >
-        <SWRConfig value={SWR_CONFIG}>
-          {children}
-        </SWRConfig>
+        <SWRConfig value={SWR_CONFIG}>{children}</SWRConfig>
       </JukiProviders>
       <JukiI18nInitializer />
       <MockupLoginButton />

@@ -1,5 +1,6 @@
-import { CodeEditorFiles, Theme } from '@juki-team/commons';
-import { Dispatch, ReactNode, RefObject, SetStateAction, useCallback, useMemo, useState } from 'react';
+import type { Theme } from '@juki-team/commons/enums';
+import type { CodeEditorFiles } from '@juki-team/commons/types';
+import { type Dispatch, type ReactNode, type RefObject, type SetStateAction, useCallback, useMemo, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../../constants';
 import { classNames } from '../../../../helpers';
@@ -7,7 +8,7 @@ import { CodeEditor } from '../../../../molecules';
 import type { CodeEditorPropertiesType } from '../../../../molecules/_lazy_/CodeEditor/types';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';
-import {
+import type {
   CodeEditorButtonsType,
   CodeEditorCenterButtonsPropertiesType,
   CodeEditorExpandPositionType,

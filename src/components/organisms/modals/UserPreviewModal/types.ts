@@ -1,2 +1,1 @@
-export interface UserPreviewModalProps {
-}
+export type UserPreviewModalProps = {};

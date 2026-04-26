@@ -2,7 +2,7 @@ import { Children, type CSSProperties, memo, type PropsWithChildren, useId } fro
 import { useResizeDetector } from 'react-resize-detector';
 import type { PathLoadingPawsProps, PawsLoadingLayoutProps } from './types';
 
-function Icon({ height, width }: { height: number, width: number }) {
+function Icon({ height, width }: { height: number; width: number }) {
   return (
     <svg
       height={height}
@@ -25,10 +25,9 @@ function Icon({ height, width }: { height: number, width: number }) {
 }
 
 function PathLoadingPawsComponent(props: PropsWithChildren<Omit<PathLoadingPawsProps, 'children'>>) {
-  
   // const { step, totalSteps, N, H, W, delay, animationName, bottom, sec, size } = props;
   const { totalSteps, N, delay, animationName, bottom, sec, size, trace, children: childrenCmp } = props;
-  
+
   const children = [];
   for (let i = 0; i < N; i++) {
     const totalDelay = (N - i) * sec + delay;
@@ -49,7 +48,7 @@ function PathLoadingPawsComponent(props: PropsWithChildren<Omit<PathLoadingPawsP
   // const direction = step % 2 ? -1 : 1;
   // const ang = direction * (Math.asin(H / Math.sqrt(H * H + W * W)) - Math.PI / 2);
   const ang = Math.PI / 2; // 1
-  
+
   return (
     <div className="jk-loader-layout-container" style={{ bottom }}>
       {childrenCmp && (
@@ -57,10 +56,7 @@ function PathLoadingPawsComponent(props: PropsWithChildren<Omit<PathLoadingPawsP
           {childrenCmp}
         </div>
       )}
-      <div
-        className="jk-loader-layout-paws"
-        style={{ width: 56, '--paws-rotate': `${ang}rad` } as CSSProperties}
-      >
+      <div className="jk-loader-layout-paws" style={{ width: 56, '--paws-rotate': `${ang}rad` } as CSSProperties}>
         {Children.toArray(children)}
       </div>
     </div>
@@ -70,16 +66,15 @@ function PathLoadingPawsComponent(props: PropsWithChildren<Omit<PathLoadingPawsP
 const PathLoadingPaws = memo(PathLoadingPawsComponent);
 
 function PawsLoadingLayoutComponent(props: PawsLoadingLayoutProps) {
-  
   // const { sec = 0.1, size = 36, trace = 14 } = props;
   const { sec = 0.15, size = 18, trace = 6, children: childrenCmp, style } = props; // 1
-  
+
   const id = useId().split(':').join('');
   const { width = 0, height = 0, ref } = useResizeDetector();
   const animationName = `pawAnimation${id}`;
   // const totalSteps = Math.max(1, Math.floor(height / (size * 6)) - 1) * 2;
   const totalSteps = 1; // 1
-  const H = height / (1 + (totalSteps) * 10);
+  const H = height / (1 + totalSteps * 10);
   //const H = 1;
   // const W = width - size * 2;
   const W = Math.min(width - size * 2, 200); // 1

@@ -1,5 +1,5 @@
 import {
-  DocumentMemberResponseDTO,
+  type DocumentMemberResponseDTO,
   EntityAccess,
   EntityMembersRank,
   type EntityMembersResponseDTO,
@@ -8,7 +8,7 @@ import {
   MemberType,
   type UserSummaryListResponseDTO,
 } from '@juki-team/commons';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { InputToggle, Popover, T } from '../../atoms';
 import { classNames } from '../../helpers';

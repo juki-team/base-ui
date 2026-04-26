@@ -1,4 +1,4 @@
-import { Status } from '@juki-team/commons';
+import { Status } from '@juki-team/commons/enums';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
@@ -7,7 +7,7 @@ import { Input } from '../Input/Input';
 import { Modal } from './Modal';
 import type { ModalButtonLoaderEventType, ModalProps } from './types';
 
-// @ts-ignore
+// @ts-expect-error
 Modal.defaultProps = {
   closeIcon: true,
   closeWhenClickOutside: false,
@@ -26,26 +26,20 @@ function sleep(ms: number) {
 }
 
 const Cmp = (args: ModalProps<ModalButtonLoaderEventType>) => {
-  const [ open, setOpen ] = useState(false);
-  const [ waitOnClose, setWaitOnClose ] = useState(0);
-  
+  const [open, setOpen] = useState(false);
+  const [waitOnClose, setWaitOnClose] = useState(0);
+
   const onClose: ModalProps<ModalButtonLoaderEventType>['onClose'] = async (setLoader) => {
     setLoader(Status.LOADING);
     await sleep(waitOnClose);
     setOpen(false);
     setLoader(Status.SUCCESS);
   };
-  
+
   return (
     <MockupJukiProvider>
       <div className="jk-pg">
-        <Input
-          onChange={setWaitOnClose}
-          value={waitOnClose}
-          type="number"
-          label="time to wait"
-        />{' '}
-        ms
+        <Input onChange={setWaitOnClose} value={waitOnClose} type="number" label="time to wait" /> ms
         <Button onClick={() => setOpen(!open)}>Open Modal</Button>
         <Modal<ModalButtonLoaderEventType>
           {...args}
@@ -72,8 +66,8 @@ export const Regular: Story = {
 };
 
 const CmpAccessibility = () => {
-  const [ open, setOpen ] = useState(false);
-  
+  const [open, setOpen] = useState(false);
+
   return (
     <MockupJukiProvider>
       <div className="jk-pg jk-col gap">
@@ -88,7 +82,7 @@ const CmpAccessibility = () => {
           <li>✅ ARIA attributes for screen readers</li>
         </ul>
         <Button onClick={() => setOpen(true)}>Open Accessible Modal</Button>
-        
+
         <Modal
           isOpen={open}
           onClose={() => setOpen(false)}
@@ -99,14 +93,16 @@ const CmpAccessibility = () => {
           <div className="jk-pg-md jk-col gap">
             <h2 id="accessible-modal-title">Accessible Modal Example</h2>
             <p id="accessible-modal-description">
-              Try using your keyboard to navigate. Press Tab to move between focusable elements.
-              Press Escape to close the modal.
+              Try using your keyboard to navigate. Press Tab to move between focusable elements. Press Escape to close the
+              modal.
             </p>
             <Input label="First Input" placeholder="Try tabbing here" />
             <Input label="Second Input" placeholder="And here" />
             <div className="jk-row gap">
               <Button onClick={() => setOpen(false)}>Cancel</Button>
-              <Button onClick={() => setOpen(false)} type="primary">Accept</Button>
+              <Button onClick={() => setOpen(false)} type="primary">
+                Accept
+              </Button>
             </div>
           </div>
         </Modal>

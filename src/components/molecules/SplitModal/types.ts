@@ -1,13 +1,13 @@
 import type { ReactElement } from 'react';
 import type { ModalButtonLoaderEventType, ModalProps } from '../../atoms/Modal/types';
-import { ReactNodeOrFunctionType } from '../../types';
+import type { ReactNodeOrFunctionType } from '../../types';
 
 export interface SplitModalProps<T extends ModalButtonLoaderEventType> extends ModalProps<T> {
-  className?: string,
-  title: ReactNodeOrFunctionType,
-  graphic: ReactNodeOrFunctionType,
-  closeIcon?: boolean,
-  closeOnKeyEscape?: boolean,
-  closeOnClickOverlay?: boolean,
-  children: ReactElement,
+  className?: string;
+  title: ReactNodeOrFunctionType;
+  graphic: ReactNodeOrFunctionType;
+  closeIcon?: boolean;
+  closeOnKeyEscape?: boolean;
+  closeOnClickOverlay?: boolean;
+  children: ReactElement;
 }

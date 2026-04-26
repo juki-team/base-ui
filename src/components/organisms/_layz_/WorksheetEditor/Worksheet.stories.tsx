@@ -1,4 +1,4 @@
-import { ContentResponse, Status, Theme, WorksheetDataResponseDTO } from '@juki-team/commons';
+import { type ContentResponse, Status, Theme, type WorksheetDataResponseDTO } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { jukiApiManager } from '../../../../settings';
 import { T } from '../../../atoms';
@@ -77,7 +77,6 @@ export const WorksheetResultViewer: Story = {
             {/*  <DateLiteral date={new Date(noteSheet.updatedAt)} show="year-month-day-hours-minutes" />*/}
             {/*</div>*/}
           </TwoContentLayout>
-        
         )}
       </FetcherLayer>
     </MockupJukiProvider>
@@ -110,13 +109,13 @@ export const WorksheetResultViewer: Story = {
 //   },
 // });
 
-const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, }) => {
-  const [ content, setContent ] = useSyncedState(initialContent);
+const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO }) => {
+  const [content, setContent] = useSyncedState(initialContent);
   return (
     <>
       <WorksheetEditorCmp
         worksheet={content}
-        setContent={(content) => setContent(prevState => ({ ...prevState, content }))}
+        setContent={(content) => setContent((prevState) => ({ ...prevState, content }))}
         // readOnly={false}
         // readOnly={!!user?.nickname}
       />
@@ -158,7 +157,6 @@ export const WorksheetEditor: Story = {
             {/*  <DateLiteral date={new Date(noteSheet.updatedAt)} show="year-month-day-hours-minutes" />*/}
             {/*</div>*/}
           </TwoContentLayout>
-        
         )}
       </FetcherLayer>
     </MockupJukiProvider>
@@ -181,10 +179,7 @@ export const WorksheetViewerAsSlides: Story = {
                 aspectRatio={data.content.slides.aspectRatio}
                 fontSize={data.content.slides.fontSize}
               >
-                <WorksheetAsSlides
-                  {...args}
-                  worksheet={data.content}
-                />
+                <WorksheetAsSlides {...args} worksheet={data.content} />
               </SlideDeck>,
             )}
             // tabButtons={buttons}

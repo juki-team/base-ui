@@ -1,7 +1,7 @@
 import {
-  cleanRequest,
   type ContentResponse,
   type ContentsResponse,
+  cleanRequest,
   Judge,
   type JudgeDataResponseDTO,
   PROBLEM_TYPE,

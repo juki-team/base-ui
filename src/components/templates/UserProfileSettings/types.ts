@@ -1,6 +1,6 @@
-import { UserProfileResponseDTO } from '@juki-team/commons';
+import type { UserProfileResponseDTO } from '@juki-team/commons';
 
 export interface UserProfileSettingsProps {
-  user: UserProfileResponseDTO,
-  onClickUpdatePassword: () => void,
+  user: UserProfileResponseDTO;
+  onClickUpdatePassword: () => void;
 }

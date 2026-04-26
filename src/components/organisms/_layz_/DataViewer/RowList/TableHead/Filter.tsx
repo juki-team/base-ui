@@ -1,10 +1,11 @@
+import { isValidDate } from '@juki-team/commons/date';
 import { useState } from 'react';
 import { TriggerAction } from '../../../../../../enums';
 import { Popover } from '../../../../../atoms';
 import { classNames } from '../../../../../helpers';
 import { FilterListIcon } from '../../../../../server';
 import { isFilterDate, isFilterDateRange, isFilterSelect, isFilterText } from '../../commons/utils';
-import { TableHeaderFilterType } from '../../types';
+import type { TableHeaderFilterType } from '../../types';
 import { TableHeadFilterDate } from './TableHeadFilterDate';
 import { TableHeadFilterDateRange } from './TableHeadFilterDateRange';
 import { TableHeadFilterSelect } from './TableHeadFilterSelect';
@@ -25,9 +26,15 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
     : isFilterSelect(filter)
       ? !!filter.getFilter().length
       : isFilterDate(filter)
-        ? !!filter.getFilter()?.isValidDate()
+        ? (() => {
+            const f = filter.getFilter();
+            return !!(f && isValidDate(f));
+          })()
         : isFilterDateRange(filter)
-          ? !!filter.getFilter()?.[0]?.isValidDate() && !!filter.getFilter()?.[1]?.isValidDate()
+          ? (() => {
+              const [s, e] = filter.getFilter() ?? [];
+              return !!(s && isValidDate(s) && e && isValidDate(e));
+            })()
           : false;
   return (
     <Popover
@@ -51,7 +58,8 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
               visible={isOpen}
             />
           );
-        } else if (isFilterSelect(filter)) {
+        }
+        if (isFilterSelect(filter)) {
           return (
             <TableHeadFilterSelect
               visible={isOpen}
@@ -65,7 +73,8 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
               onReset={onReset}
             />
           );
-        } else if (isFilterDate(filter)) {
+        }
+        if (isFilterDate(filter)) {
           return (
             <TableHeadFilterDate
               visible={isOpen}
@@ -81,7 +90,8 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
               baseDate={filter.baseDate}
             />
           );
-        } else if (isFilterDateRange(filter)) {
+        }
+        if (isFilterDateRange(filter)) {
           return (
             <TableHeadFilterDateRange
               visible={isOpen}
@@ -99,9 +109,8 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
               baseEndDate={filter.baseEndDate}
             />
           );
-        } else {
-          return <div>FILTER</div>;
         }
+        return <div>FILTER</div>;
       }}
       placement="bottom"
       triggerOn={TriggerAction.CLICK}

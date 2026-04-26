@@ -1,4 +1,4 @@
-import { type SWRConfiguration } from 'swr';
+import type { SWRConfiguration } from 'swr';
 
 // @ts-expect-error vite env — import.meta.env is undefined in Next.js, optional chaining prevents crash
 const _viteEnv: Record<string, string> | undefined = import.meta.env;

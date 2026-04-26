@@ -4,7 +4,6 @@ import type { InputTextAreaProps } from '../Input/types';
 import { TextArea } from '../TextArea/TextArea';
 
 export function InputTextArea(props: InputTextAreaProps) {
-  
   const {
     className,
     expand = false,
@@ -14,9 +13,9 @@ export function InputTextArea(props: InputTextAreaProps) {
     register,
     ...restProps
   } = props;
-  
+
   const id = useId();
-  
+
   return (
     <div
       className={classNames('jk-wrapper-input jk-wrapper-input-text-area', className, {
@@ -28,10 +27,11 @@ export function InputTextArea(props: InputTextAreaProps) {
     >
       <TextArea
         {...restProps}
-        register={register ? typeof register === 'function' ? register((value) => value) : register : undefined}
+        register={register ? (typeof register === 'function' ? register((value) => value) : register) : undefined}
       />
       <label htmlFor={`input-${id}`}>
-        {inputLabel}{labelPlacement === 'left' ? <>:&nbsp;</> : ''}
+        {inputLabel}
+        {labelPlacement === 'left' ? <>:&nbsp;</> : ''}
       </label>
     </div>
   );

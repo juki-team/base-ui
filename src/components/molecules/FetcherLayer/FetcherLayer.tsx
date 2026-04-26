@@ -1,4 +1,5 @@
-import { consoleError, type ContentResponse, type ContentsResponse, type ErrorResponse } from '@juki-team/commons';
+import { consoleError } from '@juki-team/commons/helpers';
+import type { ContentResponse, ContentsResponse, ErrorResponse } from '@juki-team/commons/types';
 import { useEffect, useMemo, useRef } from 'react';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { LineLoader, LoaderLayer } from '../../atoms/server';
@@ -7,41 +8,40 @@ import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import type { FetcherLayerProps } from './types';
 
-const isContentResponseType = <T, >(data: any): data is ContentResponse<T> => {
-  return !!(data?.success && data?.content);
+const isContentResponseType = <T,>(data: unknown): data is ContentResponse<T> => {
+  return !!(data && typeof data === 'object' && 'success' in data && 'content' in data && data.success);
 };
 
-const isContentsResponseType = <T, >(data: any): data is ContentsResponse<T> => {
-  return !!(data?.success && data?.contents);
+const isContentsResponseType = <T,>(data: unknown): data is ContentsResponse<T> => {
+  return !!(data && typeof data === 'object' && 'success' in data && 'contents' in data && data.success);
 };
 
-const isErrorResponseType = (data: any): data is ErrorResponse => {
-  return data?.success === false;
+const isErrorResponseType = (data: unknown): data is ErrorResponse => {
+  return !!(data && typeof data === 'object' && 'success' in data && data.success === false);
 };
 
-export function FetcherLayer<T extends (ContentResponse<U> | ContentsResponse<U>), U = any>(props: FetcherLayerProps<T, U>) {
-  
+export function FetcherLayer<T extends ContentResponse<U> | ContentsResponse<U>, U = unknown>(props: FetcherLayerProps<T, U>) {
   const { url, options, errorView, loadingView, children, onError: _onError, triggerFetch } = props;
-  
+
   const onErrorRef = useRef(_onError);
   onErrorRef.current = _onError;
   const { isLoading, data, error, mutate, isValidating } = useFetcher<T>(url, options);
   const { notifyResponse } = useJukiNotification();
-  const { Image } = useUIStore(store => store.components);
+  const { Image } = useUIStore((store) => store.components);
   useEffect(() => {
     if (triggerFetch) {
       void mutate();
     }
-  }, [ triggerFetch, mutate ]);
-  
+  }, [triggerFetch, mutate]);
+
   const dataRef = useRef(data);
   dataRef.current = data;
-  
+
   const errorRef = useRef(error);
   errorRef.current = error;
-  
+
   const isError = !isLoading && (data?.success === false || error);
-  
+
   useEffect(() => {
     if (isError) {
       if (isErrorResponseType(dataRef.current)) {
@@ -50,39 +50,41 @@ export function FetcherLayer<T extends (ContentResponse<U> | ContentsResponse<U>
       consoleError(errorRef.current);
       onErrorRef.current?.(errorRef.current);
     }
-  }, [ notifyResponse, isError ]);
-  
+  }, [notifyResponse, isError]);
+
   const validChild = useMemo(() => {
     if (isContentResponseType<U>(data) || isContentsResponseType<U>(data)) {
       return renderReactNodeOrFunctionP1(children, { data, isLoading, error, mutate });
     }
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ data, error, isLoading, mutate ]); // [ children ]
-  
+  }, [data, error, isLoading, mutate]); // [ children ]
+
   if (isLoading) {
     if (loadingView) {
       return <>{renderReactNodeOrFunction(loadingView)}</>;
     }
-    
+
     return <LoaderLayer loading={true} />;
   }
-  
+
   if (isContentResponseType<U>(data) || isContentsResponseType<U>(data)) {
-    return <>
-      {validChild}
-      {isValidating && (
-        <div className="pn-ae wh-100" style={{ top: 0 }}>
-          <LineLoader />
-        </div>
-      )}
-    </>;
+    return (
+      <>
+        {validChild}
+        {isValidating && (
+          <div className="pn-ae wh-100" style={{ top: 0 }}>
+            <LineLoader />
+          </div>
+        )}
+      </>
+    );
   }
-  
+
   if (errorView) {
     return <>{renderReactNodeOrFunctionP1(errorView, { data, isLoading, error, mutate })}</>;
   }
-  
+
   return (
     <div className="jk-row jk-col extend">
       <div className="jk-row pn-re" style={{ height: '40%', width: '60%' }}>

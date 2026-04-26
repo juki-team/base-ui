@@ -1,7 +1,7 @@
 import { T } from '../../atoms';
 import { AcUnitIcon } from '../../atoms/server';
 import { InformationPopover } from './InformationPopover';
-import { InformationPopoverProps } from './types';
+import type { InformationPopoverProps } from './types';
 
 export const FrozenInformation = (props: InformationPopoverProps) => {
   return (
@@ -15,8 +15,8 @@ export const FrozenInformation = (props: InformationPopoverProps) => {
     >
       <T className="tt-se fw-bd">frozen period</T>
       <T className="tt-se">
-        in this period the scoreboard is not updated but the contestant will still be able to know the verdict of
-        his submissions
+        in this period the scoreboard is not updated but the contestant will still be able to know the verdict of his
+        submissions
       </T>
     </InformationPopover>
   );

@@ -1,10 +1,16 @@
-import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE, CodeLanguage, Judge, QuizProblemSheet } from '@juki-team/commons';
+import {
+  ACCEPTED_PROGRAMMING_LANGUAGES,
+  CODE_LANGUAGE,
+  type CodeLanguage,
+  type Judge,
+  type QuizProblemSheet,
+} from '@juki-team/commons';
 import { useState } from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../../constants';
 import { Input, InputCheckbox, Modal, MultiSelect, T } from '../../../../../atoms';
-import { BasicModalProps } from '../../../../../atoms/Modal/types';
+import type { BasicModalProps } from '../../../../../atoms/Modal/types';
 import { ProblemSelector } from '../../../../ProblemSelector/ProblemSelector';
-import { SetContentType } from '../../types';
+import type { SetContentType } from '../../types';
 import { ProblemSummary } from './ProblemSummary';
 
 interface RunnerSheetSectionProps extends BasicModalProps {

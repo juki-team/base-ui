@@ -6,22 +6,22 @@ import { SignUpModalTemplate } from './SignUpModalTemplate';
 import type { SignUpModalComponentProps } from './SignUpModalTemplate/types';
 
 export function SignUpModal() {
-  
-  const { osLabel, label } = useUserStore(state => state.device);
-  const searchParams = useRouterStore(state => state.searchParams);
-  const appendSearchParams = useRouterStore(state => state.appendSearchParams);
-  const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
+  const { osLabel, label } = useUserStore((state) => state.device);
+  const searchParams = useRouterStore((state) => state.searchParams);
+  const appendSearchParams = useRouterStore((state) => state.appendSearchParams);
+  const deleteSearchParams = useRouterStore((state) => state.deleteSearchParams);
   const { signUp } = useJukiUser();
-  
-  const onSubmit: SignUpModalComponentProps['onSubmit'] = (data, setLoader) => signUp({
-    body: { ...data, osName: osLabel, deviceName: label },
-    setLoader,
-    onSuccess: () => {
-      deleteSearchParams({ name: QueryParamKey.SIGN_UP });
-      appendSearchParams({ name: QueryParamKey.WELCOME, value: '1' });
-    },
-  });
-  
+
+  const onSubmit: SignUpModalComponentProps['onSubmit'] = (data, setLoader) =>
+    signUp({
+      body: { ...data, osName: osLabel, deviceName: label },
+      setLoader,
+      onSuccess: () => {
+        deleteSearchParams({ name: QueryParamKey.SIGN_UP });
+        appendSearchParams({ name: QueryParamKey.WELCOME, value: '1' });
+      },
+    });
+
   return (
     <SignUpModalTemplate
       isOpen={searchParams.has(QueryParamKey.SIGN_UP)}
@@ -33,4 +33,4 @@ export function SignUpModal() {
       onSubmit={onSubmit}
     />
   );
-};
+}

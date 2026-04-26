@@ -1,28 +1,28 @@
-import { ONE_SECOND } from '@juki-team/commons';
+import { ONE_SECOND } from '@juki-team/commons/constants';
 import { create } from 'zustand';
 
 type TimerInternal = {
-  nowRef: number,
-  counter: number,
-  accumulated: number,
-  remaining: number,
-  interval: number,
-  intervalRef?: ReturnType<typeof setInterval>,
-  tickInterval: number,
+  nowRef: number;
+  counter: number;
+  accumulated: number;
+  remaining: number;
+  interval: number;
+  intervalRef?: ReturnType<typeof setInterval>;
+  tickInterval: number;
 };
 
 interface TimerStore {
-  timers: Record<string, TimerInternal>,
-  setTimer: (key: string, timer: Partial<TimerInternal>) => void,
-  startTimer: (key: string, interval: number) => void,
-  pauseTimer: (key: string) => void,
-  resetTimer: (key: string) => void,
-  clearTimer: (key: string) => void,
+  timers: Record<string, TimerInternal>;
+  setTimer: (key: string, timer: Partial<TimerInternal>) => void;
+  startTimer: (key: string, interval: number) => void;
+  pauseTimer: (key: string) => void;
+  resetTimer: (key: string) => void;
+  clearTimer: (key: string) => void;
 }
 
 export const useTimerStore = create<TimerStore>((set, get) => ({
   timers: {},
-  
+
   setTimer: (key, timer) => {
     const timers = { ...get().timers };
     timers[key] = {
@@ -36,7 +36,7 @@ export const useTimerStore = create<TimerStore>((set, get) => ({
     };
     set({ timers });
   },
-  
+
   clearTimer: (key) => {
     const currentTimers = { ...get().timers };
     const timer = currentTimers[key];
@@ -45,17 +45,17 @@ export const useTimerStore = create<TimerStore>((set, get) => ({
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { [key]: _, ...timers } = currentTimers;
-    
+
     set({ timers });
   },
-  
+
   resetTimer: (key) => {
     const timers = { ...get().timers };
     const timer = timers[key];
     if (timer?.intervalRef) {
       clearInterval(timer.intervalRef);
     }
-    
+
     timers[key] = {
       nowRef: 0,
       counter: 0,
@@ -65,18 +65,18 @@ export const useTimerStore = create<TimerStore>((set, get) => ({
       intervalRef: undefined,
       tickInterval: timer?.tickInterval ?? 0,
     };
-    
+
     set({ timers });
   },
-  
+
   startTimer: (key, interval) => {
     const { timers } = get();
     const previousTimer = timers[key];
-    
+
     if (previousTimer?.intervalRef) {
       clearInterval(previousTimer.intervalRef);
     }
-    
+
     const baseTimer: TimerInternal = {
       nowRef: Date.now(),
       counter: previousTimer?.counter ?? 0,
@@ -86,7 +86,7 @@ export const useTimerStore = create<TimerStore>((set, get) => ({
       intervalRef: undefined,
       tickInterval: Math.max(Math.min(interval / 10, ONE_SECOND), 10),
     };
-    
+
     const intervalRef = setInterval(() => {
       set((state) => {
         const currentTimer = {
@@ -99,14 +99,15 @@ export const useTimerStore = create<TimerStore>((set, get) => ({
           tickInterval: state.timers[key]?.tickInterval ?? baseTimer.tickInterval,
         };
         const currentCounter = currentTimer.accumulated + (Date.now() - currentTimer.nowRef);
-        
+
         if (
           Math.floor(currentTimer.counter / interval) === Math.floor(currentCounter / currentTimer.interval) &&
-          Math.floor((currentTimer.remaining - currentTimer.counter) / interval) === Math.floor((currentTimer.remaining - currentCounter) / currentTimer.interval)
+          Math.floor((currentTimer.remaining - currentTimer.counter) / interval) ===
+            Math.floor((currentTimer.remaining - currentCounter) / currentTimer.interval)
         ) {
           return state;
         }
-        
+
         return {
           timers: {
             ...state.timers,
@@ -118,7 +119,7 @@ export const useTimerStore = create<TimerStore>((set, get) => ({
         };
       });
     }, baseTimer.tickInterval);
-    
+
     set((state) => ({
       timers: {
         ...state.timers,
@@ -129,20 +130,20 @@ export const useTimerStore = create<TimerStore>((set, get) => ({
       },
     }));
   },
-  
+
   pauseTimer: (key) => {
     set((state) => {
       const t = state.timers[key];
       if (!t) return state;
-      
+
       if (t.intervalRef) {
         clearInterval(t.intervalRef);
       }
-      
+
       const now = Date.now();
       const elapsedSinceLastStart = now - t.nowRef;
       const accumulated = t.accumulated + elapsedSinceLastStart;
-      
+
       return {
         timers: {
           ...state.timers,

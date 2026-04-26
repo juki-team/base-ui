@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { persistGlobalURLSearchParams } from '../../../settings/AppRoutes';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { classNames, getHref, isBrowser, renderReactNodeOrFunctionP1 } from '../../helpers';
@@ -25,16 +25,16 @@ export function TwoContentLayout<T = string>(props: TwoContentLayoutProps<T>) {
     bodyClassName,
   } = props;
 
-  const LOADING_TAB = 'loading' as T;
+  const LoadingTab = 'loading' as T;
   const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
   const _tabKeys = Object.keys(initialTabs);
   const [selectedTabKey, setSelectedTabKey] = useSyncedState(
-    loading ? LOADING_TAB : (initialTabKey ?? ((_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T)),
+    loading ? LoadingTab : (initialTabKey ?? ((_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T)),
   );
   const tabs: TabsType<T> = loading
     ? {
-        [LOADING_TAB as string]: {
-          key: LOADING_TAB,
+        [LoadingTab as string]: {
+          key: LoadingTab,
           header: (
             <div className="jk-row">
               <div className="dot-flashing" />
@@ -63,7 +63,7 @@ export function TwoContentLayout<T = string>(props: TwoContentLayoutProps<T>) {
               {
                 'jk-pg-sm-t': !withBreadcrumbs,
                 'jk-row gap extend': !headerClassName,
-                left: !headerClassName && !isSmallScreen,
+                left: !(headerClassName || isSmallScreen),
                 center: !headerClassName && isSmallScreen,
               },
               headerClassName,
@@ -92,7 +92,7 @@ export function TwoContentLayout<T = string>(props: TwoContentLayoutProps<T>) {
                 const { pathname, searchParams } = getHref(getHrefOnTabChange(tabKey));
                 const search = persistGlobalURLSearchParams(searchParams);
                 if (isBrowser()) {
-                  window.history.replaceState({}, '', `${pathname}${search ? '?' + search : ''}`);
+                  window.history.replaceState({}, '', `${pathname}${search ? `?${search}` : ''}`);
                 }
               }
             }}

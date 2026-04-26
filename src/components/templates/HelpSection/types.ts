@@ -1,2 +1,1 @@
-export interface HelpSectionProps {
-}
+export type HelpSectionProps = {};

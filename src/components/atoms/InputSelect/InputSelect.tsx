@@ -7,7 +7,6 @@ import type { SelectProps } from '../Select/types';
 import { T } from '../T/T';
 
 export function InputSelect<T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) {
-  
   const {
     expand = false,
     labelPlacement = 'top-border',
@@ -19,22 +18,24 @@ export function InputSelect<T, U extends ReactNode, V extends ReactNodeOrFunctio
     selectedOption,
     ...selectProps
   } = props;
-  
+
   const { setValue: registerSetValue, ...register } = _register || {};
-  
-  const [ value, setValue ] = useState<T>('' as T);
-  
+
+  const [value, setValue] = useState<T>('' as T);
+
   // const inputRef = useRef<HTMLInputElement>(null);
-  
-  const myOnChange: SelectProps<T, U, V>['onChange'] = onChange ? onChange : ({ value }) => {
-    setValue(value);
-    if ('name' in register) {
-      registerSetValue?.(register?.name, value, { shouldTouch: true });
-    }
-  };
-  
+
+  const myOnChange: SelectProps<T, U, V>['onChange'] = onChange
+    ? onChange
+    : ({ value }) => {
+        setValue(value);
+        if ('name' in register) {
+          registerSetValue?.(register?.name, value, { shouldTouch: true });
+        }
+      };
+
   const id = useId();
-  
+
   return (
     <div
       className={classNames('jk-wrapper-input jk-wrapper-input-select', {
@@ -60,14 +61,19 @@ export function InputSelect<T, U extends ReactNode, V extends ReactNodeOrFunctio
       <Select
         {...selectProps}
         onChange={myOnChange}
-        selectedOption={selectedOption ? selectedOption : {
-          value,
-          label: value ? undefined : <T className="tt-se">select an option</T> as U,
-        }}
+        selectedOption={
+          selectedOption
+            ? selectedOption
+            : {
+                value,
+                label: value ? undefined : ((<T className="tt-se">select an option</T>) as U),
+              }
+        }
         // onBlur={() => inputRef.current?.blur()}
       />
       <label htmlFor={`input-${id}`}>
-        {inputLabel}{labelPlacement === 'left' ? <>:&nbsp;</> : ''}
+        {inputLabel}
+        {labelPlacement === 'left' ? <>:&nbsp;</> : ''}
       </label>
     </div>
   );

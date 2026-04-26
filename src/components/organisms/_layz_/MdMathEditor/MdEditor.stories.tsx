@@ -1,15 +1,15 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
-import { UIMessage } from 'ai';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { UIMessage } from 'ai';
 import { useRef, useState } from 'react';
 import { CheckIcon, ErrorIcon, ExclamationIcon, SpinIcon } from '../../../atoms/server';
 import { MockupJukiProvider } from '../../../mockup';
 import { AiChatPanel } from '../../AiChatPanel/AiChatPanel';
-import { AiChatSuggestion, AiChatToolStateUI } from '../../AiChatPanel/types';
+import type { AiChatSuggestion, AiChatToolStateUI } from '../../AiChatPanel/types';
 import { SAMPLE_MD_CONTENT } from '../../MdMathViewer/constants';
 import { MdMathViewer } from '../../MdMathViewer/MdMathViewer';
 import { MemoMdMathViewer } from '../../MdMathViewer/MemoMdMathViewer.deprecated';
 import { MdMathEditor } from './';
-import { MdMathEditorHandle, MdMathEditorProps } from './types';
+import type { MdMathEditorHandle, MdMathEditorProps } from './types';
 
 const meta: Meta<typeof MdMathEditor> = {
   component: MdMathEditor,

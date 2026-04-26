@@ -1,10 +1,11 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
-import { FC, useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { type FC, useState } from 'react';
 import { Button } from '../../../atoms';
 import { downloadBlobAsFile, toBlob } from '../../../helpers';
 import { MockupJukiProvider } from '../../../mockup';
 import { ImageLoaderCropper as ImageLoaderCropperCmp } from './';
-import { CropImageType, ImageLoaderCropperProps } from './types';
+import type { CropImageType, ImageLoaderCropperProps } from './types';
+
 // import { COMPONENTS_WRITING_TOOLS } from './constants';
 
 const meta: Meta<typeof ImageLoaderCropperCmp> = {
@@ -15,12 +16,9 @@ export default meta;
 
 type Story = StoryObj<typeof ImageLoaderCropperCmp>;
 
-const ImageLoaderCropperComponent: FC<ImageLoaderCropperProps> = ({
-                                                                    onCropChange,
-                                                                    ...props
-                                                                  }) => {
-  const [ cropImage, setCropImage ] = useState<CropImageType>();
-  
+const ImageLoaderCropperComponent: FC<ImageLoaderCropperProps> = ({ onCropChange, ...props }) => {
+  const [cropImage, setCropImage] = useState<CropImageType>();
+
   return (
     <MockupJukiProvider>
       <div className="jk-col gap">
@@ -56,9 +54,7 @@ const ImageLoaderCropperComponent: FC<ImageLoaderCropperProps> = ({
 };
 
 export const ImageLoaderCropper: Story = {
-  render: (args: ImageLoaderCropperProps) => (
-    <ImageLoaderCropperComponent {...args} />
-  ),
+  render: (args: ImageLoaderCropperProps) => <ImageLoaderCropperComponent {...args} />,
 };
 
 /*export const ImageLoaderCropperClassic = ImageLoaderCropperComponent.bind({});

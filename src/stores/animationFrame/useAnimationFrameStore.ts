@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 
 interface AnimationFrameState {
-  frames: { [key: string]: number },
-  addFrame: (id: string) => void,
-  subFrame: (id: string) => void,
-  framePending: boolean,
+  frames: { [key: string]: number };
+  addFrame: (id: string) => void;
+  subFrame: (id: string) => void;
+  framePending: boolean;
 }
 
 export const useAnimationFrameStore = create<AnimationFrameState>((set, get) => ({

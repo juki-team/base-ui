@@ -7,14 +7,21 @@ import { CheckIcon, OpenInNewIcon, VoidIcon } from '../../server';
 import type { ContestNameLinkFieldProps } from './types';
 
 export function ContestNameLinkField(props: ContestNameLinkFieldProps) {
-  
-  const { record: { name, key, user, company: { key: companyKey } }, isCard } = props;
-  
-  const { Link } = useUIStore(store => store.components);
-  const userCompanyKey = useUserStore(state => state.company.key);
-  
+  const {
+    record: {
+      name,
+      key,
+      user,
+      company: { key: companyKey },
+    },
+    isCard,
+  } = props;
+
+  const { Link } = useUIStore((store) => store.components);
+  const userCompanyKey = useUserStore((state) => state.company.key);
+
   const origin = getJudgeOrigin(companyKey, userCompanyKey);
-  
+
   return (
     <Field className="jk-row left block">
       {user.isGuest || user.isAdministrator || user.isParticipant || user.isManager || user.isSpectator ? (
@@ -71,24 +78,24 @@ export function ContestNameLinkField(props: ContestNameLinkFieldProps) {
               className="cr-tx-ht"
               letterColor="var(--cr-tx-ht-it)"
             />
-          ) : user.isSpectator && (
-            <VoidIcon
-              data-tooltip-id="jk-tooltip"
-              data-tooltip-content="you are spectator"
-              data-tooltip-t-class-name="tt-se ws-np"
-              size="small"
-              filledSquare
-              letter="S"
-              className="cr-tx-ht"
-              letterColor="var(--cr-tx-ht-it)"
-            />
+          ) : (
+            user.isSpectator && (
+              <VoidIcon
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="you are spectator"
+                data-tooltip-t-class-name="tt-se ws-np"
+                size="small"
+                filledSquare
+                letter="S"
+                className="cr-tx-ht"
+                letterColor="var(--cr-tx-ht-it)"
+              />
+            )
           )}
         </div>
       ) : (
-        <div className={classNames('jk-row gap fw-bd', { center: isCard, left: !isCard })}>
-          {name}
-        </div>
+        <div className={classNames('jk-row gap fw-bd', { center: isCard, left: !isCard })}>{name}</div>
       )}
     </Field>
   );
-};
+}

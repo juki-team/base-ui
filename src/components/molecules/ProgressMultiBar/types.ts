@@ -1,15 +1,15 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export interface CircularProgressProps {
-  progress: number,
-  size?: number,
+  progress: number;
+  size?: number;
 }
 
 export interface MultiProgressBarProps {
-  label?: ReactNode,
-  progress: { label?: string | ReactNode, percentage: number, color?: string }[],
-  points?: { label?: string | ReactNode, percentage: number, color?: string }[],
-  height?: number,
-  className?: string,
-  tooltipPlacement?: 'top' | 'bottom',
+  label?: ReactNode;
+  progress: { label?: string | ReactNode; percentage: number; color?: string }[];
+  points?: { label?: string | ReactNode; percentage: number; color?: string }[];
+  height?: number;
+  className?: string;
+  tooltipPlacement?: 'top' | 'bottom';
 }

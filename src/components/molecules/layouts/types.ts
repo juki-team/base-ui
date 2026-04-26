@@ -1,16 +1,17 @@
 import type { CSSProperties, PropsWithChildren, ReactNode } from 'react';
-import { Href, ReactNodeOrFunctionP1Type, TabsType } from '../../types';
+import type { Href, ReactNodeOrFunctionP1Type, TabsType } from '../../types';
 
 type Full<T> = {
   [P in keyof T]-?: T[P];
 };
 
-export interface PawsLoadingLayoutProps extends PropsWithChildren<{
-  sec?: number;
-  size?: number;
-  trace?: number;
-  style?: CSSProperties;
-}> {}
+export interface PawsLoadingLayoutProps
+  extends PropsWithChildren<{
+    sec?: number;
+    size?: number;
+    trace?: number;
+    style?: CSSProperties;
+  }> {}
 
 export interface JukiLoadingLayoutProps extends PawsLoadingLayoutProps {}
 

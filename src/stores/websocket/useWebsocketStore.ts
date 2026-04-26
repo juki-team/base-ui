@@ -1,12 +1,13 @@
-import { consoleInfo, WebSocketSubscribeEventDTO, WebSocketUnsubscribeEventDTO } from '@juki-team/commons';
+import type { WebSocketSubscribeEventDTO, WebSocketUnsubscribeEventDTO } from '@juki-team/commons/dto';
+import { consoleInfo } from '@juki-team/commons/helpers';
 import { create } from 'zustand';
 import { getKeyWebSocketEventDTO, getUnsubscribeEvent } from '../../components/helpers';
-import { WebsocketSubStore } from './types';
+import type { WebsocketSubStore } from './types';
 
 export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
   let publishQueue: Array<{ key: string; event: WebSocketSubscribeEventDTO | WebSocketUnsubscribeEventDTO }> = [];
   let isPublishing = false;
-  
+
   const flushQueue = async () => {
     if (isPublishing || publishQueue.length === 0) {
       return;
@@ -20,13 +21,13 @@ export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
     }
     isPublishing = false;
   };
-  
+
   const queuePublish = (key: string, event: WebSocketSubscribeEventDTO | WebSocketUnsubscribeEventDTO) => {
     publishQueue.push({ key, event });
   };
-  
+
   setInterval(flushQueue, 200);
-  
+
   const getSubscribeToEvent: () => WebsocketSubStore['subscribeToEvent'] = () => {
     consoleInfo('new SubscribeToEvent function');
     return (event, callback) => {
@@ -35,7 +36,7 @@ export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
       set((state) => ({
         subscribers: {
           ...state.subscribers,
-          [key]: [ ...(state.subscribers[key] || []), callback ],
+          [key]: [...(state.subscribers[key] || []), callback],
         },
       }));
       return () => {
@@ -50,7 +51,7 @@ export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
       };
     };
   };
-  
+
   return {
     subscribers: {},
     newAuth: () => set({ subscribeToEvent: getSubscribeToEvent() }),

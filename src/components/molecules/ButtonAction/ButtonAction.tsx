@@ -1,9 +1,9 @@
-import { Status } from '@juki-team/commons';
+import { Status } from '@juki-team/commons/enums';
 import { useRef } from 'react';
 import { TriggerAction } from '../../../enums';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { Popover } from '../../atoms';
-import { PopoverProps } from '../../atoms/_lazy_/Popover/types';
+import type { PopoverProps } from '../../atoms/_lazy_/Popover/types';
 import { classNames } from '../../helpers';
 import type { SetLoaderStatusOnClickType } from '../../types';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';

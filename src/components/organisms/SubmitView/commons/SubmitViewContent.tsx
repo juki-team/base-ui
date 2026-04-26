@@ -8,7 +8,7 @@ import {
   type SubmissionDataResponseDTO,
   type TestCaseResult,
 } from '@juki-team/commons';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { ContestTab } from '../../../../enums';
 import { jukiApiManager, jukiAppRoutes } from '../../../../settings';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
@@ -236,7 +236,7 @@ export const SubmitViewContent = ({
               </div>
             </div>
           </div>
-          {verdictByGroups && !!Object.keys(verdictByGroups).length ? (
+          {verdictByGroups && Object.keys(verdictByGroups).length ? (
             <div className="jk-col jk-br-ie">
               {Object.entries(verdictByGroups).map(([groupKey, result]) => (
                 <SubmissionGroupInfo

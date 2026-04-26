@@ -2,7 +2,7 @@ import { indentWithTab } from '@codemirror/commands';
 import { EditorState, type Extension } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView, keymap, placeholder } from '@codemirror/view';
-import { basicSetup, type BasicSetupOptions } from './extensions/basic-setup';
+import { type BasicSetupOptions, basicSetup } from './extensions/basic-setup';
 import { defaultLightThemeOption } from './theme/light';
 
 export * from '@codemirror/theme-one-dark';
@@ -29,7 +29,7 @@ export const getDefaultExtensions = (optios: DefaultExtensionsOptions = {}): Ext
   } = optios;
   const getExtensions: Extension[] = [];
   if (defaultIndentWithTab) {
-    getExtensions.unshift(keymap.of([ indentWithTab ]));
+    getExtensions.unshift(keymap.of([indentWithTab]));
   }
   if (defaultBasicSetup) {
     if (typeof defaultBasicSetup === 'boolean') {
@@ -60,6 +60,6 @@ export const getDefaultExtensions = (optios: DefaultExtensionsOptions = {}): Ext
   if (readOnly) {
     getExtensions.push(EditorState.readOnly.of(true));
   }
-  
-  return [ ...getExtensions ];
+
+  return [...getExtensions];
 };

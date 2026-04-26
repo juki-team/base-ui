@@ -1,2 +1,1 @@
-export interface ThemeColorPaletteProps {
-}
+export type ThemeColorPaletteProps = {};

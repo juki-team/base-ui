@@ -1,8 +1,11 @@
 // https://medium.com/@MatDrinksTea/rendering-markdown-and-latex-in-react-dec355e74119
-import { CODE_LANGUAGE, CodeLanguage, type ContentResponse, type UserBasicResponseDTO } from '@juki-team/commons';
-import { type Element } from 'hast';
+import { CODE_LANGUAGE } from '@juki-team/commons/constants';
+import type { UserBasicResponseDTO } from '@juki-team/commons/dto';
+import { CodeLanguage } from '@juki-team/commons/enums';
+import type { ContentResponse } from '@juki-team/commons/types';
+import type { Element } from 'hast';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
-import { Children, ComponentType, type CSSProperties, memo, type ReactNode, useMemo } from 'react';
+import { Children, type ComponentType, type CSSProperties, memo, type ReactNode, useMemo } from 'react';
 import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
@@ -25,7 +28,7 @@ import { GraphvizViewers } from '../../GraphvizViewers/GraphvizViewers';
 import { UserChip } from '../../UserChip/UserChip';
 import { UserCodeEditor } from '../UserCodeEditor';
 import { MermaidInline } from './MermaidInline';
-import { CodeRenderMode, CommandsObjectType, MdMathProps } from './types';
+import { CodeRenderMode, type CommandsObjectType, type MdMathProps } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
 // const schema = {
@@ -82,11 +85,11 @@ import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 //   },
 // };
 
-type hxProps = { children: ReactNode & ReactNode[]; node: Element };
+type HxProps = { children: ReactNode & ReactNode[]; node: Element };
 
 const hx =
   (setSearchParams: SetSearchParamsType, noHLinks: boolean) =>
-  ({ children, node }: hxProps) => {
+  ({ children, node }: HxProps) => {
     const newChildren = Array.isArray(children) ? [...children] : [children];
     if (typeof newChildren[0] === 'string') {
       const [commands, newText] = getCommands(newChildren[0]);
@@ -166,8 +169,8 @@ function MdMathComponent(props: MdMathProps) {
             };
           }
           if (commands.size) {
-            style.width = commands.size.width + 'px';
-            style.height = commands.size.height + 'px';
+            style.width = `${commands.size.width}px`;
+            style.height = `${commands.size.height}px`;
           }
           return <img alt={newAlt} src={src} style={style} title={title} />;
         },
@@ -217,7 +220,7 @@ function MdMathComponent(props: MdMathProps) {
             }
             const style = { outline: '2px solid var(--cr-ht)', border: 'none', height: '100%' };
             if (commands.height) {
-              style.height = Number.isNaN(+commands.height) ? commands.height : commands.height + 'px';
+              style.height = Number.isNaN(+commands.height) ? commands.height : `${commands.height}px`;
             }
 
             if (commands.preview === 'pdf') {
@@ -338,7 +341,7 @@ function MdMathComponent(props: MdMathProps) {
                   code={children}
                   language={language}
                   lineNumbers={commands.lineNumbers}
-                  height={Number.isNaN(+(commands.height || '_')) ? commands.height : commands.height + 'px'}
+                  height={Number.isNaN(+(commands.height || '_')) ? commands.height : `${commands.height}px`}
                 />
               </div>
             );

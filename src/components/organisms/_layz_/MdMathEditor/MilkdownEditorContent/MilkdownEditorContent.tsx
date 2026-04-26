@@ -3,7 +3,8 @@ import { languages } from '@codemirror/language-data';
 import { stex } from '@codemirror/legacy-modes/mode/stex';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView } from '@codemirror/view';
-import { CODE_LANGUAGE, CodeLanguage, NotificationType, ProfileSetting, Status, Theme } from '@juki-team/commons';
+import { CODE_LANGUAGE } from '@juki-team/commons/constants';
+import { CodeLanguage, NotificationType, ProfileSetting, Status, Theme } from '@juki-team/commons/enums';
 import { codeBlockConfig } from '@milkdown/components/code-block';
 import { editorViewCtx } from '@milkdown/core';
 import { Crepe } from '@milkdown/crepe';
@@ -11,16 +12,16 @@ import { parserCtx, prosePluginsCtx, remarkStringifyOptionsCtx, schemaCtx, seria
 import { cursor } from '@milkdown/kit/plugin/cursor';
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener';
 import { trailing, trailingConfig } from '@milkdown/kit/plugin/trailing';
-import { upload, uploadConfig, Uploader } from '@milkdown/kit/plugin/upload';
+import { type Uploader, upload, uploadConfig } from '@milkdown/kit/plugin/upload';
 import type { Node } from '@milkdown/kit/prose/model';
-import { EditorState, Plugin, PluginKey, Transaction } from '@milkdown/kit/prose/state';
+import { type EditorState, Plugin, PluginKey, type Transaction } from '@milkdown/kit/prose/state';
 import { Milkdown, useEditor } from '@milkdown/react';
 import * as Viz from '@viz-js/viz';
-import { TFunction } from 'i18next';
+import type { TFunction } from 'i18next';
 import katex from 'katex';
 import mermaid from 'mermaid';
 import { Decoration, DecorationSet } from 'prosemirror-view';
-import { Dispatch, forwardRef, SetStateAction, useImperativeHandle, useMemo, useRef } from 'react';
+import { type Dispatch, forwardRef, type SetStateAction, useImperativeHandle, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
@@ -135,7 +136,7 @@ const myLanguages = [
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'C'),
-    name: CodeLanguage.C.toLowerCase() + `/${CodeRenderMode.EDITOR}`,
+    name: `${CodeLanguage.C.toLowerCase()}/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-cpp').then((m) => m.cpp()),
   }),
   LanguageDescription.of({
@@ -145,7 +146,7 @@ const myLanguages = [
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'C++'),
-    name: CodeLanguage.CPP.toLowerCase() + `/${CodeRenderMode.EDITOR}`,
+    name: `${CodeLanguage.CPP.toLowerCase()}/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-cpp').then((m) => m.cpp()),
   }),
   LanguageDescription.of({
@@ -155,7 +156,7 @@ const myLanguages = [
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'Java'),
-    name: CodeLanguage.JAVA.toLowerCase() + `/${CodeRenderMode.EDITOR}`,
+    name: `${CodeLanguage.JAVA.toLowerCase()}/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-java').then((m) => m.java()),
   }),
   LanguageDescription.of({
@@ -165,7 +166,7 @@ const myLanguages = [
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'Python'),
-    name: CodeLanguage.PYTHON.toLowerCase() + `/${CodeRenderMode.EDITOR}`,
+    name: `${CodeLanguage.PYTHON.toLowerCase()}/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-python').then((m) => m.python()),
   }),
   LanguageDescription.of({
@@ -175,7 +176,7 @@ const myLanguages = [
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'JavaScript'),
-    name: CodeLanguage.JAVASCRIPT.toLowerCase() + `/${CodeRenderMode.EDITOR}`,
+    name: `${CodeLanguage.JAVASCRIPT.toLowerCase()}/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-javascript').then((m) => m.javascript()),
   }),
   LanguageDescription.of({
@@ -244,7 +245,7 @@ const myLanguages = [
     load: () => import('@viz-js/lang-dot').then((m) => m.dot()),
   }),
   LanguageDescription.of({
-    name: CodeLanguage.DOT.toLowerCase() + `/${CodeRenderMode.IMAGE}`,
+    name: `${CodeLanguage.DOT.toLowerCase()}/${CodeRenderMode.IMAGE}`,
     alias: ['dot'],
     extensions: ['dot'],
     load: () => import('@viz-js/lang-dot').then((m) => m.dot()),
@@ -256,7 +257,7 @@ const myLanguages = [
     load: () => import('codemirror-lang-mermaid').then((m) => m.mermaid()),
   }),
   LanguageDescription.of({
-    name: CodeLanguage.MERMAID.toLowerCase() + `/${CodeRenderMode.IMAGE}`,
+    name: `${CodeLanguage.MERMAID.toLowerCase()}/${CodeRenderMode.IMAGE}`,
     alias: ['mmd'],
     extensions: ['mmd'],
     load: () => import('codemirror-lang-mermaid').then((m) => m.mermaid()),
@@ -349,7 +350,7 @@ function renderDot(content: string, t: TFunction): HTMLElement {
 function normalizeNewlines(text: string): string {
   let normalized = text.replace(/\n{3,}/g, '\n\n');
   normalized = normalized.replace(/&#x20;/gi, ' ');
-  return normalized.replace(/\n+$/g, '') + '\n';
+  return `${normalized.replace(/\n+$/g, '')}\n`;
 }
 
 export const MilkdownEditorContent = forwardRef<MilkdownEditorContentHandle, MilkdownEditorContentProps>(
@@ -406,11 +407,10 @@ export const MilkdownEditorContent = forwardRef<MilkdownEditorContentHandle, Mil
                   addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
                   setLoader(Status.SUCCESS);
                   return content!.imageUrl;
-                } else {
-                  addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
-                  setLoader(Status.ERROR);
-                  return '';
                 }
+                addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
+                setLoader(Status.ERROR);
+                return '';
               },
               inlineUploadPlaceholderText: '???',
             },

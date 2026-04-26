@@ -7,19 +7,22 @@ import { OpenInNewIcon } from '../../server';
 import type { SubmissionProblemFieldProps } from './types';
 
 export function SubmissionProblemField(props: SubmissionProblemFieldProps) {
-  
   const {
     record: {
-      problem: { key: problemKey, name: problemName, company: { key: problemCompanyKey } },
+      problem: {
+        key: problemKey,
+        name: problemName,
+        company: { key: problemCompanyKey },
+      },
     },
     isCard,
   } = props;
-  
-  const { Link } = useUIStore(store => store.components);
-  const userCompanyKey = useUserStore(state => state.company.key);
-  
+
+  const { Link } = useUIStore((store) => store.components);
+  const userCompanyKey = useUserStore((state) => state.company.key);
+
   const origin = getJudgeOrigin(problemCompanyKey, userCompanyKey);
-  
+
   return (
     <FieldText
       text={

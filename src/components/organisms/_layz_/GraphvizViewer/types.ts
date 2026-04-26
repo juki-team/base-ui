@@ -1,14 +1,14 @@
 export interface GraphvizEditorModalProps {
-  value: string,
-  onChange?: (newValue: string) => void,
-  className?: string,
-  width?: number,
-  height?: number,
+  value: string;
+  onChange?: (newValue: string) => void;
+  className?: string;
+  width?: number;
+  height?: number;
 }
 
 export interface GraphvizEditorProps {
-  value: string,
-  onSave: (newValue: string) => void,
+  value: string;
+  onSave: (newValue: string) => void;
 }
 
 export interface GraphvizViewerProps {

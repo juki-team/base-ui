@@ -1,7 +1,7 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 export interface CheckUnsavedChangesProps<T> {
-  children: ReactElement,
-  onClickContinue: () => void,
-  value: T,
+  children: ReactElement;
+  onClickContinue: () => void;
+  value: T;
 }

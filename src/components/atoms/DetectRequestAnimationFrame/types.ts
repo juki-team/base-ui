@@ -1,3 +1,3 @@
 export interface DetectRequestAnimationFrameProps {
-  name?: string,
+  name?: string;
 }

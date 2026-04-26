@@ -1,4 +1,4 @@
-import { lazy, ReactElement, Suspense } from 'react';
+import { lazy, type ReactElement, Suspense } from 'react';
 import { SpinIcon } from '../../../atoms/server';
 import type { SortableItemsProps } from './types';
 

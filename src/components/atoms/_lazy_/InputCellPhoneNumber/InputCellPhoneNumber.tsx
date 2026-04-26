@@ -1,11 +1,11 @@
-import { ProfileSetting } from '@juki-team/commons';
+import { ProfileSetting } from '@juki-team/commons/enums';
 import { getTimezone } from 'countries-and-timezones';
 import i18nIsoCountries from 'i18n-iso-countries';
 import enLocale from 'i18n-iso-countries/langs/en.json';
 import esLocale from 'i18n-iso-countries/langs/es.json';
 import {
-  CountryCallingCode,
-  CountryCode,
+  type CountryCallingCode,
+  type CountryCode,
   getCountries,
   getCountryCallingCode as libGetCountryCallingCode,
 } from 'libphonenumber-js';
@@ -20,7 +20,7 @@ function isoToFlagEmoji(iso: string) {
   return iso
     .toUpperCase()
     .split('')
-    .map(char => String.fromCodePoint(char.charCodeAt(0) + 127397))
+    .map((char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
     .join('');
 }
 
@@ -74,7 +74,6 @@ function getCountryCallingCode(countryCode: CountryCode) {
 }
 
 export default function InputCellPhoneNumber(props: InputCellPhoneNumberProps) {
-  
   const {
     expand = false,
     labelPlacement = 'top-border',
@@ -84,19 +83,21 @@ export default function InputCellPhoneNumber(props: InputCellPhoneNumberProps) {
     register,
     ...inputProps
   } = props;
-  
+
   const id = useId();
-  const preferredLanguage = useUserStore(store => store.user.settings[ProfileSetting.LANGUAGE]);
-  
-  const [ countryCode, setCountryCode ] = useState<CountryCode>(getTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone)?.countries[0] as CountryCode ?? '' as CountryCode);
+  const preferredLanguage = useUserStore((store) => store.user.settings[ProfileSetting.LANGUAGE]);
+
+  const [countryCode, setCountryCode] = useState<CountryCode>(
+    (getTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone)?.countries[0] as CountryCode) ?? ('' as CountryCode),
+  );
   const options = useMemo(() => {
-    const countries = getCountries().map(countryCode => ({
+    const countries = getCountries().map((countryCode) => ({
       countryCode,
       name: i18nIsoCountries.getName(countryCode, preferredLanguage.toLowerCase()),
       callingCode: getCountryCallingCode(countryCode),
       emoji: isoToFlagEmoji(countryCode),
     }));
-    
+
     return countries.map(({ countryCode, callingCode, emoji, name }) => ({
       value: countryCode,
       label: (
@@ -108,10 +109,10 @@ export default function InputCellPhoneNumber(props: InputCellPhoneNumberProps) {
         </div>
       ),
     }));
-  }, [ preferredLanguage ]);
-  
+  }, [preferredLanguage]);
+
   const dialCode = getCountryCallingCode(countryCode);
-  
+
   return (
     <div
       className={classNames(`jk-wrapper-input jk-wrapper-input-cell-phone-number`, {
@@ -135,11 +136,14 @@ export default function InputCellPhoneNumber(props: InputCellPhoneNumberProps) {
       <InputBase
         {...inputProps}
         onChange={(value, event) => onChange?.(`${dialCode} ${value}`, event)}
-        register={register ? typeof register === 'function' ? register((value) => `${dialCode} ${value}`) : register : undefined}
+        register={
+          register ? (typeof register === 'function' ? register((value) => `${dialCode} ${value}`) : register) : undefined
+        }
         inputId={id}
       />
       <label htmlFor={`input-${id}`}>
-        {inputLabel}{labelPlacement === 'left' ? <>:&nbsp;</> : ''}
+        {inputLabel}
+        {labelPlacement === 'left' ? <>:&nbsp;</> : ''}
       </label>
     </div>
   );

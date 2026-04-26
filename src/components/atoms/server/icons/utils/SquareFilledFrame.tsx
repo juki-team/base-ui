@@ -1,25 +1,26 @@
 import { arcS, H, M, V } from './functions';
 
 interface SquareFilledFrameProps {
-  cx?: number,
-  cy?: number,
-  strokeWidth?: number,
-  sizeBox?: number,
+  cx?: number;
+  cy?: number;
+  strokeWidth?: number;
+  sizeBox?: number;
 }
 
-export const SquareFilledFrame = ({ cx = 0, cy = 0, strokeWidth = 2, sizeBox = 24 }: SquareFilledFrameProps) => { // width = 2
+export const SquareFilledFrame = ({ cx = 0, cy = 0, strokeWidth = 2, sizeBox = 24 }: SquareFilledFrameProps) => {
+  // width = 2
   // const  k = (2 - Math.sqrt(2)) / Math.sqrt(8);
-  
+
   const start = 2;
-  const scaleStart = (sizeBox * start / 24);
+  const scaleStart = (sizeBox * start) / 24;
   // const centerX = cx + sizeBox / 2;
   // const centerY = cy + sizeBox / 2;
-  
+
   // const  k = (2 - Math.sqrt(2)) / Math.sqrt(8);
   const k = 0.4;
   const a = sizeBox - scaleStart;
   const b = a - scaleStart;
-  
+
   return (
     <path
       fill="currentColor"

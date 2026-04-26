@@ -1,5 +1,5 @@
 // import { configureActions } from 'storybook/actions';
-import { type Meta, type StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupJukiProvider, MockupToggleThemeButton } from '../components/mockup';
 import { TabsInline as TabsComponent } from '../components/molecules';
 
@@ -183,7 +183,7 @@ const tabs = {
           ].map((color) => (
             <div className="jk-row gap nowrap elevation-1 jk-pg-md jk-br-ie" style={{ width: '140px' }} key={color}>
               <pre>"{color}"</pre>
-              <div className={'fw-br ' + color}>text</div>
+              <div className={`fw-br ${color}`}>text</div>
             </div>
           ))}
         </div>
@@ -290,7 +290,7 @@ const tabs = {
           {['tt-se', 'tt-ce', 'tt-ue', 'tt-le'].map((tt) => (
             <div className="jk-row gap nowrap elevation-1 jk-pg-md jk-br-ie" style={{ width: 350 }} key={tt}>
               <pre>"{tt}"</pre>
-              <div className={'ws-np ' + tt}>&nbsp;Lorem ipsum dolor sit amet&nbsp;</div>
+              <div className={`ws-np ${tt}`}>&nbsp;Lorem ipsum dolor sit amet&nbsp;</div>
             </div>
           ))}
         </div>
@@ -307,7 +307,7 @@ const tabs = {
           {['ta-cr', 'ta-st', 'ta-ed'].map((tt) => (
             <div className="jk-row gap nowrap elevation-1 jk-pg-md jk-br-ie" style={{ width: 420 }} key={tt}>
               <pre>"{tt}"</pre>
-              <div className={'ws-np ' + tt} style={{ width: 400 }}>
+              <div className={`ws-np ${tt}`} style={{ width: 400 }}>
                 &nbsp;Lorem ipsum dolor sit amet&nbsp;
               </div>
             </div>
@@ -326,7 +326,7 @@ const tabs = {
           {['elevation-1', 'elevation-2', 'elevation-3'].map((tt) => (
             <div className="jk-row gap nowrap jk-pg-md jk-br-ie" style={{ width: 420 }} key={tt}>
               <pre>"{tt}"</pre>
-              <div className={'ws-np ' + tt} style={{ width: 400 }}>
+              <div className={`ws-np ${tt}`} style={{ width: 400 }}>
                 &nbsp;Lorem ipsum dolor sit amet&nbsp;
               </div>
             </div>
@@ -368,7 +368,7 @@ const tabs = {
           ].map((tt) => (
             <div className="jk-row gap nowrap jk-pg-md jk-br-ie" style={{ width: 420 }} key={tt}>
               <pre>"jk-tag {tt}"</pre>
-              <div className={'jk-tag ' + tt}>Lorem ipsum dolor sit amet</div>
+              <div className={`jk-tag ${tt}`}>Lorem ipsum dolor sit amet</div>
             </div>
           ))}
         </div>
@@ -386,25 +386,25 @@ const tabs = {
             <div className="jk-row gap nowrap jk-pg-md jk-br-ie" style={{ width: 420 }} key={tt}>
               <div>
                 <pre>"jk-pg-{tt}"</pre>
-                <div className={'bc-sf-md jk-pg-' + tt}>
+                <div className={`bc-sf-md jk-pg-${tt}`}>
                   <div className="bc-io ws-np">Lorem ipsum</div>
                 </div>
               </div>
               <div>
                 <pre>"jk-pg-sm-{tt}"</pre>
-                <div className={'bc-sf-md jk-pg-sm-' + tt}>
+                <div className={`bc-sf-md jk-pg-sm-${tt}`}>
                   <div className="bc-io ws-np">Lorem ipsum</div>
                 </div>
               </div>
               <div>
                 <pre>"jk-pg-md-{tt}"</pre>
-                <div className={'bc-sf-md jk-pg-md-' + tt}>
+                <div className={`bc-sf-md jk-pg-md-${tt}`}>
                   <div className="bc-io ws-np">Lorem ipsum</div>
                 </div>
               </div>
               <div>
                 <pre>"jk-pg-lg-{tt}"</pre>
-                <div className={'bc-sf-md jk-pg-lg-' + tt}>
+                <div className={`bc-sf-md jk-pg-lg-${tt}`}>
                   <div className="bc-io ws-np">Lorem ipsum</div>
                 </div>
               </div>

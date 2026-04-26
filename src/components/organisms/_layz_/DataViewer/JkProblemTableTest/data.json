@@ -15,9 +15,7 @@
       },
       "key": "P-sSk",
       "name": "El entrenamiento de Juki en la montaña",
-      "tags": [
-        "sliding window"
-      ],
+      "tags": ["sliding window"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -248,9 +246,7 @@
       },
       "key": "P-mYZ",
       "name": "Adivinanza",
-      "tags": [
-        "2024"
-      ],
+      "tags": ["2024"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -514,10 +510,7 @@
       },
       "key": "P-PNM",
       "name": "Aaah!",
-      "tags": [
-        "kattis",
-        "condicionales"
-      ],
+      "tags": ["kattis", "condicionales"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -550,10 +543,7 @@
       },
       "key": "P-1601",
       "name": "Pizza con Queso",
-      "tags": [
-        "kattis",
-        "operaciones"
-      ],
+      "tags": ["kattis", "operaciones"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -586,10 +576,7 @@
       },
       "key": "P-1600",
       "name": "Encontrando el número que falta",
-      "tags": [
-        "kattis",
-        "operaciones"
-      ],
+      "tags": ["kattis", "operaciones"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -985,11 +972,7 @@
       },
       "key": "P-1586",
       "name": "Reino de Numerolandia",
-      "tags": [
-        "arreglos",
-        "busqueda",
-        "array"
-      ],
+      "tags": ["arreglos", "busqueda", "array"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -1022,9 +1005,7 @@
       },
       "key": "P-1585",
       "name": "Sucesión Fibonacci",
-      "tags": [
-        "math"
-      ],
+      "tags": ["math"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -1090,9 +1071,7 @@
       },
       "key": "P-1583",
       "name": "LOS 3 OSOS",
-      "tags": [
-        "basico"
-      ],
+      "tags": ["basico"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -1224,10 +1203,7 @@
       },
       "key": "P-1573",
       "name": "Frogo",
-      "tags": [
-        "greedy",
-        "sortings"
-      ],
+      "tags": ["greedy", "sortings"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -1425,9 +1401,7 @@
       },
       "key": "P-1574",
       "name": "El Misterio del Triángulo Sagrado",
-      "tags": [
-        "geometry"
-      ],
+      "tags": ["geometry"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -1592,12 +1566,7 @@
       },
       "key": "P-1568",
       "name": "Los PELUCHEs de Briegal",
-      "tags": [
-        "OBI",
-        "OBI2023",
-        "OBI2023Dep",
-        "OBI2023DepN3"
-      ],
+      "tags": ["OBI", "OBI2023", "OBI2023Dep", "OBI2023DepN3"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -1630,12 +1599,7 @@
       },
       "key": "P-1567",
       "name": "Tienda de dulces",
-      "tags": [
-        "OBI",
-        "OBI2023",
-        "OBI2023Dep",
-        "OBI2023DepN3"
-      ],
+      "tags": ["OBI", "OBI2023", "OBI2023Dep", "OBI2023DepN3"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -1668,11 +1632,7 @@
       },
       "key": "P-1566",
       "name": "rimahS y el problema sin sentido",
-      "tags": [
-        "OBI",
-        "OBI2023",
-        "OBI2023DepN3"
-      ],
+      "tags": ["OBI", "OBI2023", "OBI2023DepN3"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -1705,12 +1665,7 @@
       },
       "key": "P-1565",
       "name": "Leirbag y los Paquetes ",
-      "tags": [
-        "OBI",
-        "OBI2023",
-        "OBI2023Dep",
-        "OBI2023DepN2"
-      ],
+      "tags": ["OBI", "OBI2023", "OBI2023Dep", "OBI2023DepN2"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -1743,13 +1698,7 @@
       },
       "key": "P-1564",
       "name": "Torneo de Frontón",
-      "tags": [
-        "OBI",
-        "OBI2023",
-        "OBI2023Dep",
-        "OBI2023DepN2",
-        "OBI2023DepN3"
-      ],
+      "tags": ["OBI", "OBI2023", "OBI2023Dep", "OBI2023DepN2", "OBI2023DepN3"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -1782,12 +1731,7 @@
       },
       "key": "P-1562",
       "name": "La cola de uno",
-      "tags": [
-        "OBI",
-        "OBI2023",
-        "OBI2023Dep",
-        "OBI2023DepN2"
-      ],
+      "tags": ["OBI", "OBI2023", "OBI2023Dep", "OBI2023DepN2"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -1820,11 +1764,7 @@
       },
       "key": "P-1561",
       "name": "Meeting Point",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -1857,11 +1797,7 @@
       },
       "key": "P-1560",
       "name": "Latam++",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -1894,11 +1830,7 @@
       },
       "key": "P-1559",
       "name": "Keen on Order",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -1931,11 +1863,7 @@
       },
       "key": "P-1558",
       "name": "Journey of the Robber",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -1968,11 +1896,7 @@
       },
       "key": "P-1557",
       "name": "Inversions",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -2005,11 +1929,7 @@
       },
       "key": "P-1556",
       "name": "Health in Hazard",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -2042,11 +1962,7 @@
       },
       "key": "P-1555",
       "name": "GPS on a Flat Earth",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -2079,11 +1995,7 @@
       },
       "key": "P-1554",
       "name": "Forward and Backward",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -2116,11 +2028,7 @@
       },
       "key": "P-1553",
       "name": "Elevated Profits",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -2153,11 +2061,7 @@
       },
       "key": "P-1552",
       "name": "Deciphering WordWhiz",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -2190,11 +2094,7 @@
       },
       "key": "P-1551",
       "name": "Candy Rus",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -2227,11 +2127,7 @@
       },
       "key": "P-1550",
       "name": "Blackboard Game",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -2264,11 +2160,7 @@
       },
       "key": "P-1549",
       "name": "Analyzing Contracts",
-      "tags": [
-        "ICPC",
-        "ICPC2023",
-        "ICPC2023Latam"
-      ],
+      "tags": ["ICPC", "ICPC2023", "ICPC2023Latam"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -2796,9 +2688,7 @@
       },
       "key": "P-1517",
       "name": "Potencias de 2",
-      "tags": [
-        "binario"
-      ],
+      "tags": ["binario"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -2831,9 +2721,7 @@
       },
       "key": "P-1516",
       "name": "Decimal a Binario",
-      "tags": [
-        "binario"
-      ],
+      "tags": ["binario"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -2866,9 +2754,7 @@
       },
       "key": "P-1515",
       "name": "La Fiesta de Franco",
-      "tags": [
-        "matematica"
-      ],
+      "tags": ["matematica"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -2901,9 +2787,7 @@
       },
       "key": "P-1514",
       "name": "Fuerza de un número",
-      "tags": [
-        "matematica"
-      ],
+      "tags": ["matematica"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -2969,9 +2853,7 @@
       },
       "key": "P-1512",
       "name": "Consultando Primos",
-      "tags": [
-        "matematica"
-      ],
+      "tags": ["matematica"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -3037,9 +2919,7 @@
       },
       "key": "P-1510",
       "name": "Subconjuntos pares",
-      "tags": [
-        "subsets"
-      ],
+      "tags": ["subsets"],
       "user": {
         "isOwner": true,
         "isManager": true,
@@ -3072,11 +2952,7 @@
       },
       "key": "P-1509",
       "name": "Los 10 primeros",
-      "tags": [
-        "sort",
-        "vector",
-        "pair"
-      ],
+      "tags": ["sort", "vector", "pair"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -3109,9 +2985,7 @@
       },
       "key": "P-1508",
       "name": "Cadenas Locas",
-      "tags": [
-        "implementation"
-      ],
+      "tags": ["implementation"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -3144,9 +3018,7 @@
       },
       "key": "P-1507",
       "name": "Buscando a Waldo",
-      "tags": [
-        "busqueda"
-      ],
+      "tags": ["busqueda"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -3278,11 +3150,7 @@
       },
       "key": "P-1503",
       "name": "Relojeria",
-      "tags": [
-        "funciones",
-        "referencias",
-        "pairs"
-      ],
+      "tags": ["funciones", "referencias", "pairs"],
       "user": {
         "isOwner": false,
         "isManager": true,
@@ -3414,9 +3282,7 @@
       },
       "key": "P-1499",
       "name": "¿Camino o ciclo Euleriano?",
-      "tags": [
-        "graphs"
-      ],
+      "tags": ["graphs"],
       "user": {
         "isOwner": true,
         "isManager": true,

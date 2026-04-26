@@ -4,7 +4,7 @@ import { usePageStore } from '../../../stores/page/usePageStore';
 import { Select, T } from '../../atoms';
 import { classNames } from '../../helpers';
 import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '../../server';
-import { PaginationProps } from './types';
+import type { PaginationProps } from './types';
 
 const SIZE_PAGES = 3;
 
@@ -180,7 +180,7 @@ export const Pagination = (props: PaginationProps) => {
       </div>
       {!isOnToolbar && (
         <Select
-          options={pageSizeOptions.map((option) => ({ value: option, label: option + ' / ' + t('page') }))}
+          options={pageSizeOptions.map((option) => ({ value: option, label: `${option} / ${t('page')}` }))}
           selectedOption={{ value: pageSize }}
           onChange={initializing ? undefined : ({ value }) => onPageSizeChange(value)}
           optionsPlacement="top"

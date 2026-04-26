@@ -1,11 +1,10 @@
 import { getQuerySessionId } from './fetch';
 
-export const isIFrame = (input: Element): input is HTMLIFrameElement =>
-  input !== null && input.tagName === 'IFRAME';
+export const isIFrame = (input: Element): input is HTMLIFrameElement => input !== null && input.tagName === 'IFRAME';
 
 export const localStorageCrossDomains = {
   setItem: (key: string, value: string) => {
-    if (!!getQuerySessionId() || typeof document === 'undefined') {
+    if (getQuerySessionId() || typeof document === 'undefined') {
       return;
     }
     localStorage.setItem(key, value);
@@ -18,7 +17,7 @@ export const localStorageCrossDomains = {
     }
   },
   removeItem: (key: string) => {
-    if (!!getQuerySessionId() || typeof document === 'undefined') {
+    if (getQuerySessionId() || typeof document === 'undefined') {
       return;
     }
     localStorage.removeItem(key);

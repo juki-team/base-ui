@@ -1,13 +1,6 @@
-import {
-  CODE_LANGUAGE,
-  JUKI_APP_COMPANY_KEY,
-  Language,
-  PROBLEM_MODE,
-  PROBLEM_TYPE,
-  ProblemScoringMode,
-  ProblemSettings,
-  ProblemStatement,
-} from '@juki-team/commons';
+import { CODE_LANGUAGE, JUKI_APP_COMPANY_KEY, PROBLEM_MODE, PROBLEM_TYPE } from '@juki-team/commons/constants';
+import { Language, ProblemScoringMode } from '@juki-team/commons/enums';
+import type { ProblemSettings, ProblemStatement } from '@juki-team/commons/types';
 import type { TFunction } from 'i18next';
 import { isBrowser } from './commons';
 
@@ -21,31 +14,45 @@ export const getSettingsStoreKey = (useNickname: string) => `jk-code-editor-sett
 
 export const getTestCasesStoreKey = (useNickname: string) => `jk-test-cases-storage/${useNickname}`;
 
-export const getStatementData = (t: TFunction,
-                                 { statement, settings }: {
-                                   statement: ProblemStatement,
-                                   settings: ProblemSettings
-                                 }, preferredLanguage: Language, problemName: string) => {
-  
-  const statementDescription = (statement?.description?.[preferredLanguage] ||
+export const getStatementData = (
+  t: TFunction,
+  {
+    statement,
+    settings,
+  }: {
+    statement: ProblemStatement;
+    settings: ProblemSettings;
+  },
+  preferredLanguage: Language,
+  problemName: string,
+) => {
+  const statementDescription = (
+    statement?.description?.[preferredLanguage] ||
     statement?.description?.[Language.EN] ||
     statement?.description?.[Language.ES] ||
-    '').trim();
-  const statementInput = (statement?.input[preferredLanguage] ||
+    ''
+  ).trim();
+  const statementInput = (
+    statement?.input[preferredLanguage] ||
     statement?.input[Language.EN] ||
     statement?.input[Language.ES] ||
-    '').trim();
-  const statementOutput = (statement?.output[preferredLanguage] ||
+    ''
+  ).trim();
+  const statementOutput = (
+    statement?.output[preferredLanguage] ||
     statement?.output[Language.EN] ||
     statement?.output[Language.ES] ||
-    '').trim();
-  const statementNote = (statement?.note?.[preferredLanguage] ||
+    ''
+  ).trim();
+  const statementNote = (
+    statement?.note?.[preferredLanguage] ||
     statement?.note?.[Language.EN] ||
     statement?.note?.[Language.ES] ||
-    '').trim();
+    ''
+  ).trim();
   const statementSampleCases = statement?.sampleCases || [];
   const languages = Object.values(settings?.byProgrammingLanguage || {});
-  
+
   const mdStatement = `
 # \\textAlign=center ${problemName}
 
@@ -53,12 +60,17 @@ export const getStatementData = (t: TFunction,
 
 |${t('language')}|${t('time limit')}|${t('memory limit')}|
 |--|--|--|
-| ${t('general')} | ${(settings?.timeLimit / 1000).toFixed(1)} ${t('seconds')} | ${(settings?.memoryLimit /
-    1000).toFixed(1)} ${t('MB')} |
-${languages.map((language) => (
-    `| ${CODE_LANGUAGE[language.language]?.label} | ${(language?.timeLimit /
-      1000).toFixed(1)} ${t('seconds')} | ${(language?.memoryLimit / 1000).toFixed(1)} ${t('MB')}|`
-  )).join('\n')}
+| ${t('general')} | ${(settings?.timeLimit / 1000).toFixed(1)} ${t('seconds')} | ${(settings?.memoryLimit / 1000).toFixed(
+    1,
+  )} ${t('MB')} |
+${languages
+  .map(
+    (language) =>
+      `| ${CODE_LANGUAGE[language.language]?.label} | ${(language?.timeLimit / 1000).toFixed(
+        1,
+      )} ${t('seconds')} | ${(language?.memoryLimit / 1000).toFixed(1)} ${t('MB')}|`,
+  )
+  .join('\n')}
 
 # ${t('description')}
 
@@ -74,16 +86,22 @@ ${statementOutput}
 
 # ${t('subtasks description')}
 
-${settings.scoringMode === ProblemScoringMode.SUBTASK
-    ? Object.values(settings.pointsByGroups).map((pointsByGroup) => (
-      `### ${t('group')} ${pointsByGroup.group} (${pointsByGroup.points} ${t('points')})
+${
+  settings.scoringMode === ProblemScoringMode.SUBTASK
+    ? Object.values(settings.pointsByGroups)
+        .map(
+          (pointsByGroup) => `### ${t('group')} ${pointsByGroup.group} (${pointsByGroup.points} ${t('points')})
 
 ${pointsByGroup.description?.[preferredLanguage]}
-      `
-    )).join('\n') : ''}
+      `,
+        )
+        .join('\n')
+    : ''
+}
 
-${statementSampleCases.map((sample, index) => (
-    `### ${t('input sample')} ${index + 1}
+${statementSampleCases
+  .map(
+    (sample, index) => `### ${t('input sample')} ${index + 1}
 \`\`\`
 ${sample.input}
 \`\`\`
@@ -91,31 +109,36 @@ ${sample.input}
 \`\`\`
 ${sample.output}
 \`\`\`
-`)).join('')}
+`,
+  )
+  .join('')}
 
 # ${t('note')}
 
 ${statementNote}
 `;
-  
+
   return {
     statementDescription,
     statementInput,
     statementOutput,
     statementNote,
     mdStatement,
-    shouldViewPDF: statementDescription.trim() === ''
-      && statementInput.trim() === ''
-      && statementOutput.trim() === ''
-      && statementNote.trim() === '' && (!!statement.pdfUrl[Language.ES] || !!statement.pdfUrl[Language.EN]),
+    shouldViewPDF:
+      statementDescription.trim() === '' &&
+      statementInput.trim() === '' &&
+      statementOutput.trim() === '' &&
+      statementNote.trim() === '' &&
+      (!!statement.pdfUrl[Language.ES] || !!statement.pdfUrl[Language.EN]),
   };
 };
 
 export const isJudgeWindowLocation = () => {
-  return isBrowser() && (
-    window.location.origin === 'https://judge.juki.app'
-    || window.location.origin.endsWith('.jukijudge.com')
-    || window.location.origin === 'http://localhost:3070'
+  return (
+    isBrowser() &&
+    (window.location.origin === 'https://judge.juki.app' ||
+      window.location.origin.endsWith('.jukijudge.com') ||
+      window.location.origin === 'http://localhost:3070')
   );
 };
 

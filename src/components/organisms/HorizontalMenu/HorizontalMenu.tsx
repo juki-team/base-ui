@@ -9,7 +9,6 @@ import { ArrowBackIcon, ViewHeadlineIcon } from '../../server';
 import type { HorizontalMenuProps } from './types';
 
 export function HorizontalMenu(props: HorizontalMenuProps) {
-  
   const {
     className = '',
     leftSection,
@@ -21,9 +20,9 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
     centerMobile,
     onBack,
   } = props;
-  
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
-  
+
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
+
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
     const { selected, icon, label, onClick, menuItemWrapper } = menu[i]!;
@@ -37,52 +36,46 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
         onClick={() => onClick?.()}
         key={i}
       >
-        {icon && (
-          <div className="jk-menu-item-icon jk-row">
-            {renderReactNodeOrFunction(icon)}
-          </div>
-        )}
-        <div className="jk-menu-item-label tx-t">
-          {renderReactNodeOrFunction(label)}
-        </div>
+        {icon && <div className="jk-menu-item-icon jk-row">{renderReactNodeOrFunction(icon)}</div>}
+        <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(label)}</div>
       </div>
     );
     if (menuItemWrapper) {
-      menus.push(renderReactNodeOrFunctionP1(menuItemWrapper, {
-        selected,
-        icon,
-        label,
-        onClick,
-        children: menuItem,
-        index: i,
-        isOpenVerticalMenu: null,
-      }, i));
+      menus.push(
+        renderReactNodeOrFunctionP1(
+          menuItemWrapper,
+          {
+            selected,
+            icon,
+            label,
+            onClick,
+            children: menuItem,
+            index: i,
+            isOpenVerticalMenu: null,
+          },
+          i,
+        ),
+      );
     } else {
       menus.push(menuItem);
     }
   }
-  
+
   const drawerProps = {
     isOpen: false,
     onOpen: () => null,
     onClose: () => null,
     toggle: () => null,
   };
-  
+
   return (
     <div className={classNames('jk-horizontal-menu-layout-container ht-100 wh-100', className)}>
       <header className="jk-menu wh-100 jk-top-horizontal-menu sticky-top">
         {!isSmallScreen && (
           <section className="jk-row nowrap jk-menu-content wh-100 pn-re">
-            <div className="jk-menu-left-section jk-row stretch left nowrap">
-              {renderReactNodeOrFunction(leftSection)}
-            </div>
-            <div className="jk-menu-items flex-1 jk-row gap left nowrap">
-              {Children.toArray(menus)}
-            </div>
-            <div className="jk-menu-right-section jk-row stretch right nowrap">
-              {renderReactNodeOrFunction(rightSection)}
-            </div>
+            <div className="jk-menu-left-section jk-row stretch left nowrap">{renderReactNodeOrFunction(leftSection)}</div>
+            <div className="jk-menu-items flex-1 jk-row gap left nowrap">{Children.toArray(menus)}</div>
+            <div className="jk-menu-right-section jk-row stretch right nowrap">{renderReactNodeOrFunction(rightSection)}</div>
           </section>
         )}
         {isSmallScreen && (
@@ -90,7 +83,7 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
             <div className="jk-horizontal-menu-mobile-left jk-row stretch left">
               {drawerMenuMobile ? (
                 <Drawer
-                  content={props => renderReactNodeOrFunctionP1(drawerMenuMobile, { ...props, menu })}
+                  content={(props) => renderReactNodeOrFunctionP1(drawerMenuMobile, { ...props, menu })}
                   position="left"
                   triggerOn={TriggerAction.NONE}
                   closeOnOutside
@@ -106,21 +99,19 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
                     );
                   }}
                 </Drawer>
-              ) : onBack && (
-                <div className="jk-row sides-mobile-padding">
-                  <Button
-                    size="small"
-                    onClick={onBack}
-                    icon={<ArrowBackIcon />}
-                  />
-                </div>
+              ) : (
+                onBack && (
+                  <div className="jk-row sides-mobile-padding">
+                    <Button size="small" onClick={onBack} icon={<ArrowBackIcon />} />
+                  </div>
+                )
               )}
             </div>
             <div className="jk-horizontal-menu-mobile-center jk-row stretch">
-              {!!centerMobile && (
-                centerMobile.content ? (
+              {!!centerMobile &&
+                (centerMobile.content ? (
                   <Drawer
-                    content={props => renderReactNodeOrFunctionP1(centerMobile.content, props)}
+                    content={(props) => renderReactNodeOrFunctionP1(centerMobile.content, props)}
                     position="top"
                     closeOnOutside
                   >
@@ -128,14 +119,13 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
                   </Drawer>
                 ) : (
                   renderReactNodeOrFunctionP1(centerMobile.children, drawerProps)
-                )
-              )}
+                ))}
             </div>
             <div className="jk-horizontal-menu-mobile-right jk-row stretch right">
-              {!!rightMobile && (
-                rightMobile.content ? (
+              {!!rightMobile &&
+                (rightMobile.content ? (
                   <Drawer
-                    content={props => renderReactNodeOrFunctionP1(rightMobile.content, props)}
+                    content={(props) => renderReactNodeOrFunctionP1(rightMobile.content, props)}
                     position="right"
                     closeOnOutside
                   >
@@ -149,15 +139,12 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
                   <div className="jk-row sides-mobile-padding stretch">
                     {renderReactNodeOrFunctionP1(rightMobile.children, drawerProps)}
                   </div>
-                )
-              )}
+                ))}
             </div>
           </section>
         )}
       </header>
-      <section className="jk-menu-main-layout">
-        {children}
-      </section>
+      <section className="jk-menu-main-layout">{children}</section>
       {isSmallScreen && (
         <section className="jk-row nowrap jk-bottom-horizontal-menu elevation-1">
           <div

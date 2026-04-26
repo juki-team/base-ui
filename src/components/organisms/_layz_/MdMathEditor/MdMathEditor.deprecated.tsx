@@ -1,5 +1,5 @@
 import { NotificationType, Status } from '@juki-team/commons';
-import { ClipboardEventHandler, Dispatch, RefObject, useCallback, useEffect, useRef, useState } from 'react';
+import { type ClipboardEventHandler, type Dispatch, type RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { Button, Modal, T, TextArea } from '../../../atoms';
@@ -13,23 +13,22 @@ import { SAMPLE_MD_CONTENT } from '../../MdMathViewer/constants';
 import { MdFloatToolbar } from '../../MdMathViewer/MdFloatToolbar/MdFloatToolbar';
 import { MdMathViewer } from '../../MdMathViewer/MdMathViewer';
 import { MemoMdMathViewer } from '../../MdMathViewer/MemoMdMathViewer.deprecated';
-import { MdMathEditorDeprecatedProps } from '../../MdMathViewer/types';
+import type { MdMathEditorDeprecatedProps } from '../../MdMathViewer/types';
 
 interface InformationButtonProps {
-  open: boolean,
-  setOpen: Dispatch<boolean>,
-  isOpenRef?: RefObject<boolean>,
-  withLabel: boolean
+  open: boolean;
+  setOpen: Dispatch<boolean>;
+  isOpenRef?: RefObject<boolean>;
+  withLabel: boolean;
 }
 
 const InformationButton = ({ open, setOpen, isOpenRef, withLabel }: InformationButtonProps) => {
-  
-  const [ source, setSource ] = useState(SAMPLE_MD_CONTENT);
-  useEffect(() => setSource(SAMPLE_MD_CONTENT), [ open ]);
+  const [source, setSource] = useState(SAMPLE_MD_CONTENT);
+  useEffect(() => setSource(SAMPLE_MD_CONTENT), [open]);
   if (isOpenRef) {
     isOpenRef.current = open;
   }
-  
+
   return (
     <>
       <Button
@@ -43,10 +42,7 @@ const InformationButton = ({ open, setOpen, isOpenRef, withLabel }: InformationB
       >
         {withLabel && <T className="tt-se">information</T>}
       </Button>
-      <Modal
-        isOpen={open}
-        onClose={() => setOpen(false)}
-      >
+      <Modal isOpen={open} onClose={() => setOpen(false)}>
         <MdMathEditorDeprecated initialMd={source} onChange={setSource} />
       </Modal>
     </>
@@ -61,7 +57,6 @@ enum View {
 }
 
 export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
-  
   const {
     initialMd: source,
     onChange,
@@ -72,19 +67,22 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
     initEditMode = false,
     // onPickImageUrl,
   } = props;
-  
-  const [ view, setView ] = useState<View>(View.EDITOR_VIEWER_HORIZONTAL);
+
+  const [view, setView] = useState<View>(View.EDITOR_VIEWER_HORIZONTAL);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [ mdSource, setMdSource ] = useState(source);
-  const [ editing, setEditing ] = useState(initEditMode);
-  const [ loader, setLoader ] = useState(Status.NONE);
+  const [mdSource, setMdSource] = useState(source);
+  const [editing, setEditing] = useState(initEditMode);
+  const [loader, setLoader] = useState(Status.NONE);
   const layoutEditorRef = useRef<HTMLDivElement>(null);
   const { addNotification } = useJukiNotification();
-  const [ openUploadModal, setOpenUploadModal ] = useState(false);
-  const [ openInfoModal, setOpenInfoModal ] = useState(false);
+  const [openUploadModal, setOpenUploadModal] = useState(false);
+  const [openInfoModal, setOpenInfoModal] = useState(false);
   const changeSource = useCallback((newText: string, editing: boolean, view: View) => {
     const fun = () => {
-      if (editing && (view === View.ONLY_EDITOR || view === View.EDITOR_VIEWER_VERTICAL || view === View.EDITOR_VIEWER_HORIZONTAL)) {
+      if (
+        editing &&
+        (view === View.ONLY_EDITOR || view === View.EDITOR_VIEWER_VERTICAL || view === View.EDITOR_VIEWER_HORIZONTAL)
+      ) {
         if (textareaRef.current) {
           textareaRef.current.value = newText;
         } else {
@@ -95,31 +93,31 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
     fun();
     setMdSource(newText);
   }, []);
-  
+
   useEffect(() => {
     changeSource(source, editing, view);
-  }, [ changeSource, editing, source, view ]);
-  
+  }, [changeSource, editing, source, view]);
+
   const { width = 0 } = useResizeDetector({ targetRef: layoutEditorRef, ...RESIZE_DETECTOR_PROPS });
   const withLabels = width > 600;
-  
+
   const insertTextAtCursor = (insertText: string) => {
     const textarea = textareaRef.current;
     if (!textarea) return;
-    
+
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const text = textareaRef.current?.value ?? '';
     const newText = text.substring(0, start) + insertText + text.substring(end);
-    
+
     changeSource(newText, editing, view);
     onChange?.(newText);
-    
+
     setTimeout(() => {
       textarea.selectionStart = textarea.selectionEnd = start + insertText.length;
     }, 0);
   };
-  
+
   const handlePaste: ClipboardEventHandler = async (event) => {
     const items = event.clipboardData?.items;
     if (items) {
@@ -141,7 +139,7 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
           const { status, message, content } = await handleUploadImage(imageFile, false);
           if (status === Status.SUCCESS) {
             addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
-            extraText += (extraText ? '\n\n' : '') + `![image alt](${content!.imageUrl})`;
+            extraText += `${extraText ? '\n\n' : ''}![image alt](${content!.imageUrl})`;
           } else {
             addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
           }
@@ -151,16 +149,21 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
       }
     }
   };
-  
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (layoutEditorRef.current && !layoutEditorRef.current.contains(event.target as Node) && !openUploadModal && !openInfoModal) {
+      if (
+        layoutEditorRef.current &&
+        !layoutEditorRef.current.contains(event.target as Node) &&
+        !openUploadModal &&
+        !openInfoModal
+      ) {
         setTimeout(() => {
           setEditing(false);
         }, 0);
       }
     };
-    
+
     if (typeof document !== 'undefined') {
       document.addEventListener('mousedown', handleClickOutside);
     }
@@ -169,31 +172,19 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
         document.removeEventListener('mousedown', handleClickOutside);
       }
     };
-  }, [ openInfoModal, openUploadModal ]);
-  
+  }, [openInfoModal, openUploadModal]);
+
   return (
-    <div
-      ref={layoutEditorRef}
-      className={classNames('jk-md-math-editor-layout jk-br-ie', { editing })}
-    >
+    <div ref={layoutEditorRef} className={classNames('jk-md-math-editor-layout jk-br-ie', { editing })}>
       {editing ? (
         <>
           <div className="content-bar-options jk-row space-between jk-br-ie jk-pg-xsm sticky-top bc-sf-md">
             <div className={classNames('jk-row gap left', { gap: !withLabels })}>
               {informationButton && (
-                <InformationButton
-                  open={openInfoModal}
-                  setOpen={setOpenInfoModal}
-                  withLabel={withLabels}
-                />
+                <InformationButton open={openInfoModal} setOpen={setOpenInfoModal} withLabel={withLabels} />
               )}
               {uploadImageButton && (
-                <ImageUploaderButton
-                  open={openUploadModal}
-                  setOpen={setOpenUploadModal}
-                  withLabel={withLabels}
-                  copyButtons
-                />
+                <ImageUploaderButton open={openUploadModal} setOpen={setOpenUploadModal} withLabel={withLabels} copyButtons />
               )}
               {view === View.ONLY_EDITOR && (
                 <Button
@@ -207,8 +198,11 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
                   <div className="jk-row">
                     {withLabels && (
                       <>
-                        <T>editor</T>&nbsp;<EditIcon />&nbsp;
-                        |&nbsp;<PreviewIcon />&nbsp;<T>preview</T>
+                        <T>editor</T>&nbsp;
+                        <EditIcon />
+                        &nbsp; |&nbsp;
+                        <PreviewIcon />
+                        &nbsp;<T>preview</T>
                       </>
                     )}
                   </div>
@@ -241,38 +235,32 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
                 </Button>
               )}
             </div>
-            <Button
-              icon={<CloseIcon />}
-              type="ghost"
-              size="small"
-              onClick={() => setEditing(false)}
-            />
+            <Button icon={<CloseIcon />} type="ghost" size="small" onClick={() => setEditing(false)} />
           </div>
           <div
-            className={classNames('content-editor-preview', { 'editor-top-preview-bottom': view === View.EDITOR_VIEWER_VERTICAL })}
+            className={classNames('content-editor-preview', {
+              'editor-top-preview-bottom': view === View.EDITOR_VIEWER_VERTICAL,
+            })}
           >
             <SplitPane onlyFirstPane={view === View.ONLY_EDITOR} onlySecondPane={view === View.ONLY_VIEWER}>
               <div className="editor" onPaste={uploadImageButton ? handlePaste : undefined}>
                 <TextArea
                   ref={textareaRef}
-                  onChange={value => {
+                  onChange={(value) => {
                     onChange?.(value);
                     setMdSource(value);
                   }}
                 />
               </div>
-              <div className="preview"><MemoMdMathViewer className="jk-br-ie br-hl jk-pg-xsm" source={mdSource} /></div>
+              <div className="preview">
+                <MemoMdMathViewer className="jk-br-ie br-hl jk-pg-xsm" source={mdSource} />
+              </div>
             </SplitPane>
           </div>
         </>
       ) : (
         <div className="content-preview">
-          <MdFloatToolbar
-            source={mdSource}
-            edit
-            onEdit={() => setEditing(true)}
-            download={downloadButton}
-          />
+          <MdFloatToolbar source={mdSource} edit onEdit={() => setEditing(true)} download={downloadButton} />
           <div
             className="preview"
             onDoubleClick={() => {

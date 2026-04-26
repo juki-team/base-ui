@@ -1,6 +1,6 @@
-import { ParsedUrlQuery } from 'querystring';
+import type { ParsedUrlQuery } from 'querystring';
 import { create } from 'zustand';
-import {
+import type {
   AppendSearchParamsType,
   DeleteSearchParamsType,
   Href,
@@ -9,18 +9,18 @@ import {
 } from '../../components/types';
 
 interface RouterState {
-  searchParams: URLSearchParams,
-  appendSearchParams: AppendSearchParamsType,
-  setSearchParams: SetSearchParamsType,
-  deleteSearchParams: DeleteSearchParamsType,
-  routeParams: ParsedUrlQuery,
-  pushRoute: RouterFn<Href>,
-  replaceRoute: RouterFn<Href>,
-  reloadRoute: RouterFn<void>,
-  isLoadingRoute: boolean,
-  origin: string,
-  pathname: string,
-  replaceProps: (props: Partial<Omit<RouterState, 'replaceProps'>>) => void,
+  searchParams: URLSearchParams;
+  appendSearchParams: AppendSearchParamsType;
+  setSearchParams: SetSearchParamsType;
+  deleteSearchParams: DeleteSearchParamsType;
+  routeParams: ParsedUrlQuery;
+  pushRoute: RouterFn<Href>;
+  replaceRoute: RouterFn<Href>;
+  reloadRoute: RouterFn<void>;
+  isLoadingRoute: boolean;
+  origin: string;
+  pathname: string;
+  replaceProps: (props: Partial<Omit<RouterState, 'replaceProps'>>) => void;
 }
 
 export const useRouterStore = create<RouterState>((set) => ({

@@ -2,9 +2,8 @@ import { VoidIcon } from '../../atoms/server';
 import { classNames } from '../../helpers';
 
 export const NewlineInfo = ({ text }: { text: string }) => {
-  
   const withEndLine = text.lastIndexOf('\n') === text.length - 1;
-  
+
   return (
     <div
       className="jk-row"

@@ -5,34 +5,25 @@ import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useKeyDown } from '../../../hooks/useKeyDown';
 import { CloseIcon } from '../../../server';
 
-import { DrawerViewProps } from './types';
+import type { DrawerViewProps } from './types';
 
 function DrawerViewComponent(props: DrawerViewProps) {
-  
-  const {
-    children,
-    position = 'right',
-    isOpen,
-    onClose,
-    closeWhenKeyEscape,
-    closeWhenClickOutside,
-    closeIcon,
-  } = props;
-  
+  const { children, position = 'right', isOpen, onClose, closeWhenKeyEscape, closeWhenClickOutside, closeIcon } = props;
+
   const drawerLayoutRef = useRef(null);
-  
+
   const close = () => {
     if (isOpen) {
       onClose?.(false);
     }
   };
-  
+
   useKeyDown((event: KeyboardEvent) => {
     if (closeWhenKeyEscape && isOpen && event.code === 'Escape') {
       close();
     }
   });
-  
+
   return (
     <Portal>
       <AnimatePresence>
@@ -42,7 +33,8 @@ function DrawerViewComponent(props: DrawerViewProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="jk-drawer-overlay" onClick={closeWhenClickOutside ? close : undefined}
+            className="jk-drawer-overlay"
+            onClick={closeWhenClickOutside ? close : undefined}
           />
         )}
       </AnimatePresence>
@@ -57,12 +49,13 @@ function DrawerViewComponent(props: DrawerViewProps) {
             className={classNames('jk-drawer-layout elevation-2', position, { open: isOpen })}
           >
             {closeIcon === undefined ? (
-              <div className="jk-drawer-close-button" onClick={close}><Button icon={<CloseIcon />} type="secondary" />
+              <div className="jk-drawer-close-button" onClick={close}>
+                <Button icon={<CloseIcon />} type="secondary" />
               </div>
-            ) : renderReactNodeOrFunctionP1(closeIcon, { isOpen, close })}
-            <div className="jk-drawer-body">
-              {children}
-            </div>
+            ) : (
+              renderReactNodeOrFunctionP1(closeIcon, { isOpen, close })
+            )}
+            <div className="jk-drawer-body">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>

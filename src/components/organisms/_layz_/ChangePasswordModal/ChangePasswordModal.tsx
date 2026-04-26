@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Status } from '@juki-team/commons';
+import { Status } from '@juki-team/commons/enums';
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -13,20 +13,22 @@ import type { SetLoaderStatusOnClickType } from '../../../types';
 import type { ChangePasswordModalProps, ProfileChangePasswordInput } from './types';
 
 const profileSettingsChangePasswordSchema = yup.object().shape({
-  oldPassword: yup.string()
-    .required('required in order to update the password'),
-  newPassword: yup.string()
+  oldPassword: yup.string().required('required in order to update the password'),
+  newPassword: yup
+    .string()
     .required('cannot be empty')
     .min(8, 'password must be at least 8 characters')
-    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?"()-_]{8,}$/,
-      'must have at least one uppercase, one lowercase letter and one number'),
-  newPasswordConfirmation: yup.string()
+    .matches(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?"()-_]{8,}$/,
+      'must have at least one uppercase, one lowercase letter and one number',
+    ),
+  newPasswordConfirmation: yup
+    .string()
     .required('cannot be empty')
-    .oneOf([ yup.ref('newPassword'), '' ], 'both passwords must match'),
+    .oneOf([yup.ref('newPassword'), ''], 'both passwords must match'),
 });
 
 export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordModalProps) {
-  
   const {
     register,
     handleSubmit,
@@ -36,30 +38,28 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
     mode: 'all',
     reValidateMode: 'onBlur',
   });
-  
+
   const { updatePassword } = useJukiUser();
-  const nickname = useUserStore(state => state.user.nickname);
-  const companyKey = useUserStore(state => state.company.key);
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
+  const nickname = useUserStore((state) => state.user.nickname);
+  const companyKey = useUserStore((state) => state.company.key);
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
-  
+
   return (
-    <Modal
-      isOpen={isOpen}
-      className="wh-ao"
-      onClose={onClose}
-    >
+    <Modal isOpen={isOpen} className="wh-ao" onClose={onClose}>
       <div className="jk-pg-md jk-col gap stretch">
         <div className="jk-row extend">
           <h2 className="tt-se">update password</h2>
         </div>
         <form
-          onSubmit={handleSubmit((data: ProfileChangePasswordInput) => updatePassword({
-            params: { nickname, companyKey },
-            body: { newPassword: data.newPassword, oldPassword: data.oldPassword },
-            setLoader: setLoaderRef.current!,
-            onSuccess: () => onClose(() => () => Status.SUCCESS, Status.SUCCESS, {}),
-          }))}
+          onSubmit={handleSubmit((data: ProfileChangePasswordInput) =>
+            updatePassword({
+              params: { nickname, companyKey },
+              body: { newPassword: data.newPassword, oldPassword: data.oldPassword },
+              setLoader: setLoaderRef.current!,
+              onSuccess: () => onClose(() => () => Status.SUCCESS, Status.SUCCESS, {}),
+            }),
+          )}
         >
           <div className="jk-col stretch">
             <div className="jk-form-item">
@@ -74,7 +74,9 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                 })}
                 required
               />
-              <p><T>{errors.oldPassword?.message || ''}</T></p>
+              <p>
+                <T>{errors.oldPassword?.message || ''}</T>
+              </p>
             </div>
             <div className="jk-form-item">
               <InputPassword
@@ -88,7 +90,9 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                 })}
                 required
               />
-              <p><T>{errors.newPassword?.message || ''}</T></p>
+              <p>
+                <T>{errors.newPassword?.message || ''}</T>
+              </p>
             </div>
             <div className="jk-form-item">
               <InputPassword
@@ -102,7 +106,9 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                 })}
                 required
               />
-              <p><T>{errors.newPasswordConfirmation?.message || ''}</T></p>
+              <p>
+                <T>{errors.newPasswordConfirmation?.message || ''}</T>
+              </p>
             </div>
           </div>
           <div
@@ -115,7 +121,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
               <T className="tt-se">cancel</T>
             </ButtonLoader>
             <ButtonLoader
-              setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
+              setLoaderStatusRef={(setLoader) => (setLoaderRef.current = setLoader)}
               disabled={!isValid}
               submit
               expand

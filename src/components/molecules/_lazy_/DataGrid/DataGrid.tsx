@@ -1,41 +1,40 @@
-import { HotTable, HotTableProps } from '@handsontable/react-wrapper';
+import { HotTable, type HotTableProps } from '@handsontable/react-wrapper';
 import { registerAllModules } from 'handsontable/registry';
 import { registerRenderer, textRenderer } from 'handsontable/renderers';
+import type { CellMeta } from 'handsontable/settings';
 import { memo } from 'react';
 import { utils } from 'xlsx';
 import { classNames } from '../../../helpers';
-import { CellStyleType, DataGridProps } from './types';
+import type { CellStyleType, DataGridProps } from './types';
 
 registerAllModules();
 
 const alignment: { [key: string]: string } = {
-  'hleft': 'htLeft',
-  'hcenter': 'htCenter',
-  'hright': 'htRight',
-  'hjustify': 'htJustify',
-  'vtop': 'htTop',
-  'vmiddle': 'htMiddle',
-  'vbottom': 'htBottom',
+  hleft: 'htLeft',
+  hcenter: 'htCenter',
+  hright: 'htRight',
+  hjustify: 'htJustify',
+  vtop: 'htTop',
+  vmiddle: 'htMiddle',
+  vbottom: 'htBottom',
 };
 
 function DataGridComponent({ rows, cols, freeze, styles, autofilter, firstRowAsHeaders }: DataGridProps) {
-  const data: (string)[][] = [];
+  const data: string[][] = [];
   const dataStyles: CellStyleType[][] = [];
   const cell: HotTableProps['cell'] = [];
   const colHeaders: true | string[] = firstRowAsHeaders ? [] : true;
-  Object.entries(rows).forEach(([ i, rowData ]) => {
+  Object.entries(rows).forEach(([i, rowData]) => {
     let row = +i;
     if (firstRowAsHeaders) {
       if (row === 0) {
-        (colHeaders as string[]).push(
-          ...(Object.entries(rowData.cells).map(([ , cellData ]) => cellData.text as string)),
-        );
+        (colHeaders as string[]).push(...Object.entries(rowData.cells).map(([, cellData]) => cellData.text as string));
         return;
       }
       row -= 1;
     }
     data[row] = [] as string[];
-    Object.entries(rowData.cells).forEach(([ j, cellData ]) => {
+    Object.entries(rowData.cells).forEach(([j, cellData]) => {
       const col = +j;
       data[row]![col] = cellData.text as string;
       if (typeof cellData.style === 'number' && styles?.[cellData.style]) {
@@ -47,19 +46,22 @@ function DataGridComponent({ rows, cols, freeze, styles, autofilter, firstRowAsH
           row,
           col,
           renderer: 'customStylesRenderer',
-          className: classNames(alignment[`h${styles[cellData.style]!.align}`], alignment[`v${styles[cellData.style]!.valign}`]),
+          className: classNames(
+            alignment[`h${styles[cellData.style]!.align}`],
+            alignment[`v${styles[cellData.style]!.valign}`],
+          ),
         });
       }
     });
   });
-  
+
   const colWidths: number[] = [];
-  Object.entries(cols || {}).forEach(([ i, colProperty ]) => {
+  Object.entries(cols || {}).forEach(([i, colProperty]) => {
     if (typeof colProperty.width === 'number') {
       colWidths[+i] = colProperty.width;
     }
   });
-  
+
   const freezeCell = utils.decode_cell(freeze || '');
   const autofilterRange = utils.decode_range(autofilter?.ref || '');
   if (firstRowAsHeaders) {
@@ -67,34 +69,45 @@ function DataGridComponent({ rows, cols, freeze, styles, autofilter, firstRowAsH
       freezeCell.r -= 1;
     }
   }
-  
-  const removeColumnMenuButton: HotTableProps['afterGetColHeader'] = (col: number, TH) => {
+
+  const removeColumnMenuButton: HotTableProps['afterGetColHeader'] = (col: number, Th) => {
     if (!(autofilterRange.s.c <= col && col <= autofilterRange.e.c)) {
-      const button = TH.querySelector('.changeType');
-      
+      const button = Th.querySelector('.changeType');
+
       if (!button) {
         return;
       }
-      
+
       button.parentElement?.removeChild(button);
     }
   };
-  
-  registerRenderer('customStylesRenderer', (instance, td, row, col, prop, value, cellProperties: any & {
-    style: CellStyleType
-  }) => {
-    textRenderer(instance, td, row, col, prop, value, cellProperties);
-    if (cellProperties.style?.font?.bold) {
-      td.style.fontWeight = 'bold';
-    }
-    if (cellProperties.style?.color) {
-      td.style.color = cellProperties.style?.color;
-    }
-    if (cellProperties.style?.bgcolor) {
-      td.style.background = cellProperties.style?.bgcolor;
-    }
-  });
-  
+
+  registerRenderer(
+    'customStylesRenderer',
+    (
+      instance,
+      td,
+      row,
+      col,
+      prop,
+      value,
+      cellProperties: CellMeta & {
+        style: CellStyleType;
+      },
+    ) => {
+      textRenderer(instance, td, row, col, prop, value, cellProperties);
+      if (cellProperties.style?.font?.bold) {
+        td.style.fontWeight = 'bold';
+      }
+      if (cellProperties.style?.color) {
+        td.style.color = cellProperties.style?.color;
+      }
+      if (cellProperties.style?.bgcolor) {
+        td.style.background = cellProperties.style?.bgcolor;
+      }
+    },
+  );
+
   return (
     <HotTable
       // set `HotTable`'s props here
@@ -111,7 +124,7 @@ function DataGridComponent({ rows, cols, freeze, styles, autofilter, firstRowAsH
       style={{ width: '100%', height: '100%' }}
       afterGetColHeader={removeColumnMenuButton}
       cell={cell}
-      cells={function (row, col) {
+      cells={(row, col) => {
         const cellProperties: { style: CellStyleType } = { style: {} };
         if (dataStyles?.[row]?.[col]) {
           cellProperties.style = dataStyles[row][col];

@@ -1,24 +1,23 @@
-import { type JkmdSheet } from '@juki-team/commons';
+import type { JkmdSheet } from '@juki-team/commons';
 import { type Dispatch, useState } from 'react';
 import { Input, Modal, T } from '../../../../../atoms';
 import type { BasicModalProps } from '../../../../../atoms/Modal/types';
 import { MdMathEditor } from '../../../MdMathEditor';
 
 interface JkmdSheetSectionProps extends BasicModalProps {
-  sheet: JkmdSheet,
-  setSheet: Dispatch<JkmdSheet>,
-  onClose: () => void,
+  sheet: JkmdSheet;
+  setSheet: Dispatch<JkmdSheet>;
+  onClose: () => void;
 }
 
 export const JkmdSheetSectionEditorModal = ({
-                                              sheet: initialSheet,
-                                              setSheet: _setSheet,
-                                              isOpen,
-                                              onClose,
-                                            }: JkmdSheetSectionProps) => {
-  
-  const [ sheet, setSheet ] = useState(initialSheet);
-  
+  sheet: initialSheet,
+  setSheet: _setSheet,
+  isOpen,
+  onClose,
+}: JkmdSheetSectionProps) => {
+  const [sheet, setSheet] = useState(initialSheet);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -33,17 +32,16 @@ export const JkmdSheetSectionEditorModal = ({
         <div className="jk-row extend left">
           <Input
             label={<T className="tt-se">points</T>}
-            
             type="number"
             value={sheet.points}
-            onChange={points => setSheet(prevState => ({ ...prevState, points }))}
+            onChange={(points) => setSheet((prevState) => ({ ...prevState, points }))}
           />
         </div>
         <div className="flex-1 jk-md-math-editor-expanded">
           <MdMathEditor
             informationButton
             value={sheet.content}
-            onChange={content => setSheet(prevState => ({ ...prevState, content }))}
+            onChange={(content) => setSheet((prevState) => ({ ...prevState, content }))}
           />
         </div>
       </div>

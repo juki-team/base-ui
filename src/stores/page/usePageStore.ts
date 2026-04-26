@@ -3,28 +3,28 @@ import { getHandlerArgs } from '../../components/helpers/visibility';
 import type { ViewPortSizeType } from '../../components/types';
 
 type ViewPort = {
-  screen: ViewPortSizeType,
-  height: number,
-  width: number,
-  isSmallScreen: boolean,
-  isMediumScreen: boolean,
-  isLargeScreen: boolean,
-  isHugeScreen: boolean,
+  screen: ViewPortSizeType;
+  height: number;
+  width: number;
+  isSmallScreen: boolean;
+  isMediumScreen: boolean;
+  isLargeScreen: boolean;
+  isHugeScreen: boolean;
 };
 
 interface PageState {
-  isOnline: boolean,
-  setOnline: (isOnline: boolean) => void,
-  isVisible: boolean,
-  setIsVisible: (isVisible: boolean) => void,
-  isFocus: boolean,
-  setIsFocus: (isFocus: boolean) => void,
+  isOnline: boolean;
+  setOnline: (isOnline: boolean) => void;
+  isVisible: boolean;
+  setIsVisible: (isVisible: boolean) => void;
+  isFocus: boolean;
+  setIsFocus: (isFocus: boolean) => void;
   // isMouseInside: boolean,
   // setIsMouseInside: (isMouseInside: boolean) => void,
-  isFullscreen: boolean,
-  setIsFullscreen: (isFullscreen: boolean) => void,
-  viewPort: ViewPort,
-  setViewPort: (viewPort: ViewPort) => void,
+  isFullscreen: boolean;
+  setIsFullscreen: (isFullscreen: boolean) => void;
+  viewPort: ViewPort;
+  setViewPort: (viewPort: ViewPort) => void;
 }
 
 export const usePageStore = create<PageState>((set) => ({

@@ -23,7 +23,7 @@ function abbreviateFileName(name: string, maxNameLength = 16): string {
   const dotIndex = name.lastIndexOf('.');
   const ext = dotIndex > 0 ? name.slice(dotIndex) : '';
   const budget = maxNameLength - ext.length - 1;
-  return budget > 0 ? name.slice(0, budget) + '…' + ext : name.slice(0, maxNameLength - 1) + '…';
+  return budget > 0 ? `${name.slice(0, budget)}…${ext}` : `${name.slice(0, maxNameLength - 1)}…`;
 }
 
 type TreeFileItem = { key: string; name: string; folderPath: string; index: number; description: string };
@@ -58,7 +58,7 @@ function buildTree(entries: [string, { folderPath: string; index: number; name: 
     if (parts.length <= 1) {
       root.push(node);
     } else {
-      const parentPath = '/' + parts.slice(0, -1).join('/');
+      const parentPath = `/${parts.slice(0, -1).join('/')}`;
       const parent = getOrCreateFolder(parentPath);
       parent.children.push(node);
     }
@@ -74,7 +74,7 @@ function buildTree(entries: [string, { folderPath: string; index: number; name: 
     if (isRoot) {
       rootFiles.push({ key, name: file.name, folderPath: '', index: file.index, description });
     } else {
-      const folder = getOrCreateFolder(fp.startsWith('/') ? fp : '/' + fp);
+      const folder = getOrCreateFolder(fp.startsWith('/') ? fp : `/${fp}`);
       folder.files.push({ key, name: file.name, folderPath: fp, index: file.index, description });
     }
   }
@@ -141,7 +141,7 @@ function FileNode<T>({
         <>
           <div className="jk-row gap nowrap space-between">
             <div className="jk-row nowrap">
-              <DraftIcon letter={((globalIndex + 1) % 10) + ''} letterSize={12} size="tiny" />
+              <DraftIcon letter={`${(globalIndex + 1) % 10}`} letterSize={12} size="tiny" />
               <span
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content={name}
@@ -172,7 +172,7 @@ function FileNode<T>({
       ) : (
         <div className="jk-row gap nowrap space-between">
           <div className="jk-row nowrap">
-            <DraftIcon letter={((globalIndex + 1) % 10) + ''} letterSize={12} size="tiny" />
+            <DraftIcon letter={`${(globalIndex + 1) % 10}`} letterSize={12} size="tiny" />
             {/*<span*/}
             {/*  data-tooltip-id="jk-tooltip"*/}
             {/*  data-tooltip-content={name}*/}

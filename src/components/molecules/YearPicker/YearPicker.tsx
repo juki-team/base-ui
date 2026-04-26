@@ -1,16 +1,15 @@
 import { changeYear, decreaseYear, increaseYear } from '@juki-team/commons/date';
 import { useState } from 'react';
-import { classNames } from '../../helpers';
 import { Div } from '../../atoms';
+import { classNames } from '../../helpers';
 import type { YearPickerProps } from '../DatePicker/types';
 import { NextButton } from '../NextButton/NextButton';
 import { PreviousButton } from '../PreviousButton/PreviousButton';
 
 export function YearPicker({ date, onChange, isDisabled, isSelected }: YearPickerProps) {
-  
-  const [ viewDate, setViewDate ] = useState(date);
-  
-  const gridYears: (Date[])[] = [];
+  const [viewDate, setViewDate] = useState(date);
+
+  const gridYears: Date[][] = [];
   let dateCursor = new Date(viewDate);
   while (dateCursor.getFullYear() % 12) {
     dateCursor = decreaseYear(dateCursor);
@@ -22,7 +21,7 @@ export function YearPicker({ date, onChange, isDisabled, isSelected }: YearPicke
       dateCursor = increaseYear(dateCursor);
     }
   }
-  
+
   return (
     <>
       <div className="jk-row jk-year-picker-header">
@@ -37,7 +36,7 @@ export function YearPicker({ date, onChange, isDisabled, isSelected }: YearPicke
       <div className="jk-date-picker-grid-years">
         {gridYears.map((row, index) => (
           <div className="jk-row" key={index}>
-            {row.map(date => {
+            {row.map((date) => {
               const disabled = !!isDisabled?.(date).year;
               const selected = !!isSelected?.(date).year;
               return (

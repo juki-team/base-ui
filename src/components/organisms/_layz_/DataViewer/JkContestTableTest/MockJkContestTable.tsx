@@ -1,6 +1,5 @@
-import { type  ContestSummaryListResponseDTO } from '@juki-team/commons';
+import type { ContestSummaryListResponseDTO } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { DataViewer } from '../';
 import { T } from '../../../../atoms';
 import { ButtonLoader } from '../../../../molecules';
 import { RefreshIcon } from '../../../../server';
@@ -10,54 +9,56 @@ import {
   getContestNameHeader,
   getContestStatusHeader,
 } from '../../../../templates';
+import { DataViewer } from '../';
 import type { DataViewerHeadersType, DataViewerProps, DataViewerRequestType } from '../types';
 import contests from './data.json';
 
 export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryListResponseDTO>, 'data' | 'headers'>) => {
-  const [ data, setData ] = useState<ContestSummaryListResponseDTO[]>([]);
+  const [data, setData] = useState<ContestSummaryListResponseDTO[]>([]);
   useEffect(() => {
     setTimeout(() => {
       setData(contests.contents as unknown as ContestSummaryListResponseDTO[]);
       // setData([]);
     }, 2000);
   }, []);
-  const columns: DataViewerHeadersType<ContestSummaryListResponseDTO>[] = useMemo(() => [
-    getContestStatusHeader(),
-    getContestNameHeader(),
-    getContestDateHeader(),
-    getContestContestantsHeader(),
-  ], []);
-  
+  const columns: DataViewerHeadersType<ContestSummaryListResponseDTO>[] = useMemo(
+    () => [getContestStatusHeader(), getContestNameHeader(), getContestDateHeader(), getContestContestantsHeader()],
+    [],
+  );
+
   const request: DataViewerRequestType = useCallback(async ({ sort, filter, pagination }) => {
     console.info('request', { sort, filter, pagination });
     // setLoaderStatus(Status.LOADING);
-    await (new Promise((resolve) => setTimeout(() => resolve(true), 6000)));
+    await new Promise((resolve) => setTimeout(() => resolve(true), 6000));
     // setLoaderStatus(Status.SUCCESS);
   }, []);
-  
-  const extraNodes = useMemo(() => [
-    <ButtonLoader
-      key="click"
-      size="small"
-      type="secondary"
-      icon={<RefreshIcon />}
-      onClick={() => console.info('CLICK')}
-      responsiveMobile
-    >
-      <T>download</T>
-    </ButtonLoader>,
-    <ButtonLoader
-      key="click-2"
-      size="small"
-      type="secondary"
-      icon={<RefreshIcon />}
-      onClick={() => console.info('CLICK')}
-      responsiveMobile
-    >
-      <T>download</T>
-    </ButtonLoader>,
-  ], []);
-  
+
+  const extraNodes = useMemo(
+    () => [
+      <ButtonLoader
+        key="click"
+        size="small"
+        type="secondary"
+        icon={<RefreshIcon />}
+        onClick={() => console.info('CLICK')}
+        responsiveMobile
+      >
+        <T>download</T>
+      </ButtonLoader>,
+      <ButtonLoader
+        key="click-2"
+        size="small"
+        type="secondary"
+        icon={<RefreshIcon />}
+        onClick={() => console.info('CLICK')}
+        responsiveMobile
+      >
+        <T>download</T>
+      </ButtonLoader>,
+    ],
+    [],
+  );
+
   return (
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px' }}>
       <DataViewer<ContestSummaryListResponseDTO>
@@ -74,9 +75,9 @@ export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryLis
         name="problems"
         //extraNodesFloating
         extraNodes={extraNodes}
-        pageSizeOptions={[ 5, 10, 15, 20 ]}
+        pageSizeOptions={[5, 10, 15, 20]}
         totalData={data.length}
-        getRecordClassName={({ index }) => index + ''}
+        getRecordClassName={({ index }) => `${index}`}
         //getRecordStyle={({ index }) => ({ zIndex: index })}
         onRecordClick={(props) => console.info('click', props)}
         // pagination={{ total: data.length }}

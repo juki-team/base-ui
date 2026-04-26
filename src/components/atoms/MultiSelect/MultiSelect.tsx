@@ -92,7 +92,7 @@ export function MultiSelect<T, U extends ReactNode, V extends ReactNode>(props: 
                 <InputCheckbox
                   checked={selected}
                   onChange={
-                    !isDisabled && !option.disabled
+                    !(isDisabled || option.disabled)
                       ? () => {
                           onChange?.(
                             selected

@@ -27,9 +27,7 @@ export const UserProfileSettings = () => {
           familyName: '',
           givenName: '',
         }}
-        onClickUpdatePassword={() =>
-          console.info('click onClickUpdatePassword')
-        }
+        onClickUpdatePassword={() => console.info('click onClickUpdatePassword')}
       />
     </MockupJukiProvider>
   );

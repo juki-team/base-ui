@@ -1,10 +1,10 @@
-import { CodeEditorFiles, CodeEditorTestCases, SubmissionRunStatus, SubmissionTestCase } from '@juki-team/commons';
-import { Dispatch, ReactNode, RefObject, SetStateAction } from 'react';
-import { UseResizeDetectorReturn } from 'react-resize-detector';
-import { BasicModalProps } from '../../../../atoms/Modal/types';
-import { CodeEditorPropertiesType } from '../../../../molecules/types';
-import { MdMathEditorHandle } from '../../MdMathEditor/types';
-import { MermaidTheme } from './MermaidViewer/types';
+import type { CodeEditorFiles, CodeEditorTestCases, SubmissionRunStatus, SubmissionTestCase } from '@juki-team/commons';
+import type { Dispatch, ReactNode, RefObject, SetStateAction } from 'react';
+import type { UseResizeDetectorReturn } from 'react-resize-detector';
+import type { BasicModalProps } from '../../../../atoms/Modal/types';
+import type { CodeEditorPropertiesType } from '../../../../molecules/types';
+import type { MdMathEditorHandle } from '../../MdMathEditor/types';
+import type { MermaidTheme } from './MermaidViewer/types';
 
 export type RunState = { id: string; running: boolean };
 
@@ -110,7 +110,7 @@ export interface HeaderProps<T> {
   expanded: boolean | null;
   setExpanded: Dispatch<SetStateAction<boolean>>;
   readOnly: boolean;
-  headerRef: UseResizeDetectorReturn<any>['ref'];
+  headerRef: UseResizeDetectorReturn<HTMLElement>['ref'];
   headerWidthContainer: number;
   files: CodeEditorFiles<T>;
   currentFileName: string;

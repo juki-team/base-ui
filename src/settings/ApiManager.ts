@@ -1,33 +1,31 @@
-import { OrderedExcalidrawElement } from '@excalidraw/excalidraw/element/types';
-import { AppState } from '@excalidraw/excalidraw/types';
-import {
-  ClientId,
-  CodeEditorFiles,
+import type { OrderedExcalidrawElement } from '@excalidraw/excalidraw/element/types';
+import type { AppState } from '@excalidraw/excalidraw/types';
+import type {
   CodeEditorSubmissionDTO,
-  CodeLanguage,
   CodeRunDTO,
   EntityMembersDTO,
-  FilesJukiPub,
-  getUserKey,
   GroupByTimestampKey,
-  HTTPMethod,
   JkmdSubmissionDTO,
-  Judge,
-  JudgeLanguage,
-  Language,
-  OrganizationPlan,
   OrganizationStylesResponseDTO,
-  ProblemVerdict,
   QuizOptionsSubmissionDTO,
   QuizProblemSubmissionDTO,
-  Theme,
   UpsertWorksheetDTO,
-  UserRoles,
-  UserSettings,
-} from '@juki-team/commons';
-import type { ErrorInfo } from 'react';
-import { RowDataType } from '../components/molecules/_lazy_/DataGrid/types';
+} from '@juki-team/commons/dto';
 import {
+  type CodeLanguage,
+  type FilesJukiPub,
+  HTTPMethod,
+  type Judge,
+  type Language,
+  type OrganizationPlan,
+  type ProblemVerdict,
+  type Theme,
+} from '@juki-team/commons/enums';
+import { getUserKey } from '@juki-team/commons/helpers';
+import type { ClientId, CodeEditorFiles, JudgeLanguage, UserRoles, UserSettings } from '@juki-team/commons/types';
+import type { ErrorInfo } from 'react';
+import type { RowDataType } from '../components/molecules/_lazy_/DataGrid/types';
+import type {
   AuthorizedRequestType,
   SignInPayloadDTO,
   SignUpPayloadDTO,
@@ -37,15 +35,15 @@ import {
 import { JUKI_SERVICE_V2_URL } from '../constants/settings';
 
 const addQuery = (path: string) => {
-  return !path.includes('?') ? path + '?' : path;
+  return !path.includes('?') ? `${path}?` : path;
 };
 
 const addAnd = (path: string) => {
-  return path[path.length - 1] !== '?' ? path + '&' : path;
+  return path[path.length - 1] !== '?' ? `${path}&` : path;
 };
 
 const injectPage = (path: string, page: number, pageSize: number) => {
-  return addAnd(addQuery(path)) + `page=${page}&pageSize=${pageSize}`;
+  return `${addAnd(addQuery(path))}page=${page}&pageSize=${pageSize}`;
 };
 
 const injectSort = (path: string, sortUrl: string | undefined) => {
@@ -57,7 +55,7 @@ const injectFilter = (path: string, filterUrl: string | undefined) => {
 };
 
 const injectCompany = (path: string, companyKey: string | undefined) => {
-  return companyKey ? addAnd(addQuery(path)) + `companyKey=${companyKey}` : path;
+  return companyKey ? `${addAnd(addQuery(path))}companyKey=${companyKey}` : path;
 };
 
 type ResponseAPI<M extends HTTPMethod = HTTPMethod.GET> = { url: string } & AuthorizedRequestType<M>;
@@ -407,7 +405,7 @@ export class ApiManager {
             url: injectCompany(
               injectBaseUrl(
                 'contest',
-                `/${key}/data/scoreboard${unfrozen ? '?state=unfrozen' : ''}${official ? (unfrozen ? '&' : '?') + 'official=true' : ''}`,
+                `/${key}/data/scoreboard${unfrozen ? '?state=unfrozen' : ''}${official ? `${unfrozen ? '&' : '?'}official=true` : ''}`,
               ),
               companyKey,
             ),

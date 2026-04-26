@@ -1,9 +1,9 @@
-import { Children, ReactNode, useState } from 'react';
+import { Children, type ReactNode, useState } from 'react';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { MenuType } from '../../../organisms/types';
+import type { MenuType } from '../../../organisms/types';
 import { ArrowBackIcon, CloseIcon } from '../../../server';
 import { HelpSection } from '../../HelpSection/HelpSection';
 import { SettingsSection } from '../SettingsSection';

@@ -1,7 +1,7 @@
-import { ProblemScoringMode, ProblemVerdict, ProfileSetting, type TestCaseResult, Theme } from '@juki-team/commons';
+import { ProblemScoringMode, type ProblemVerdict, ProfileSetting, type TestCaseResult, Theme } from '@juki-team/commons';
 import * as Diff2Html from 'diff2html';
-import { LineMatchingType } from 'diff2html/lib-esm/types';
 import { ColorSchemeType } from 'diff2html/lib/types';
+import type { LineMatchingType } from 'diff2html/lib-esm/types';
 import { useCallback, useEffect, useState } from 'react';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { usePageStore } from '../../../../stores/page/usePageStore';
@@ -138,8 +138,8 @@ export function SubmissionGroupInfo(props: GroupInfoProps) {
               <DiffViewButton
                 croppedDiff={testCase.croppedDiff}
                 diffInput={testCase.diff
-                  .replaceAll(testCase.testCaseKey + '.judge.out', 'A')
-                  .replaceAll(testCase.testCaseKey + '.out', 'B')}
+                  .replaceAll(`${testCase.testCaseKey}.judge.out`, 'A')
+                  .replaceAll(`${testCase.testCaseKey}.out`, 'B')}
                 isProblemEditor={isProblemEditor}
               />
             )}

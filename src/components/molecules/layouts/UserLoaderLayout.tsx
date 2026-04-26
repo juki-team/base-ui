@@ -4,26 +4,24 @@ import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
 
 export const UserLoaderLayout = () => {
-  
-  const userSessionId = useUserStore(state => state.user.sessionId);
-  const userNickname = useUserStore(state => state.user.nickname);
-  const [ showLoader, setShowLoader ] = useState(true);
-  
+  const userSessionId = useUserStore((state) => state.user.sessionId);
+  const userNickname = useUserStore((state) => state.user.nickname);
+  const [showLoader, setShowLoader] = useState(true);
+
   useEffect(() => {
-    
     if (!userSessionId) {
       return;
     }
-    
+
     const timeout = setTimeout(() => {
       setShowLoader(false);
     }, 1000);
-    
+
     return () => {
       clearTimeout(timeout);
     };
-  }, [ userSessionId ]);
-  
+  }, [userSessionId]);
+
   return (
     <AnimatePresence>
       {showLoader && (
@@ -35,20 +33,19 @@ export const UserLoaderLayout = () => {
           className="expand-absolute pe-ne jk-col bc-tx-ht"
           style={{ zIndex: 999 }}
         >
-          <h1
-            className="jk-row cr-tx-ht-it"
-            style={{ alignItems: 'baseline' }}
-          >
+          <h1 className="jk-row cr-tx-ht-it" style={{ alignItems: 'baseline' }}>
             {!userSessionId ? (
               <>
                 <T className="tt-se">loading user</T>&nbsp;
                 <div
                   className="dot-flashing"
-                  style={{
-                    '--dot-flashing-color': 'var(--cr-tx-ht-it)',
-                    '--dot-flashing-color-light': 'var(--cr-tx-ht-lt)',
-                    '--dot-flashing-size': '10px',
-                  } as CSSProperties}
+                  style={
+                    {
+                      '--dot-flashing-color': 'var(--cr-tx-ht-it)',
+                      '--dot-flashing-color-light': 'var(--cr-tx-ht-lt)',
+                      '--dot-flashing-size': '10px',
+                    } as CSSProperties
+                  }
                 />
               </>
             ) : (

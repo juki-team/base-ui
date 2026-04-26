@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export interface SubmitViewProps {
-  submitId: string,
-  triggerFetch?: number,
-  header?: ReactNode,
-  className?: string,
+  submitId: string;
+  triggerFetch?: number;
+  header?: ReactNode;
+  className?: string;
 }

@@ -7,21 +7,20 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { CSSProperties, memo } from 'react';
-import { SortableItemsProps } from './types';
+import { type CSSProperties, memo } from 'react';
+import type { SortableItemsProps } from './types';
 
-interface SortableItemProps {
-  id: string,
-  index: number,
-  Cmp: SortableItemsProps<any, any>['Cmp'],
-  item: SortableItemsProps<any, any>['items'][number],
-  props: SortableItemsProps<any, any>['props'],
+interface SortableItemProps<T, U> {
+  id: string;
+  index: number;
+  Cmp: SortableItemsProps<T, U>['Cmp'];
+  item: SortableItemsProps<T, U>['items'][number];
+  props: SortableItemsProps<T, U>['props'];
 }
 
-function SortableItemCmp({ id, Cmp, item, props, index }: SortableItemProps) {
-  
+function SortableItemCmp<T, U>({ id, Cmp, item, props, index }: SortableItemProps<T, U>) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } = useSortable({ id });
-  
+
   const style: CSSProperties = {
     transform: CSS.Transform.toString({
       x: transform?.x ?? 0,
@@ -32,7 +31,7 @@ function SortableItemCmp({ id, Cmp, item, props, index }: SortableItemProps) {
     transition,
     zIndex: isDragging ? 1 : undefined,
   };
-  
+
   return (
     <Cmp
       setNodeRef={setNodeRef}
@@ -48,24 +47,21 @@ function SortableItemCmp({ id, Cmp, item, props, index }: SortableItemProps) {
   );
 }
 
-const SortableItem = memo(SortableItemCmp);
+const SortableItem = memo(SortableItemCmp) as typeof SortableItemCmp;
 
 export default function SortableItems<T, U = undefined>(properties: SortableItemsProps<T, U>) {
-  
   const { items, setItems, onChange, props, Cmp, horizontal } = properties;
-  
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-  );
-  
+
+  const sensors = useSensors(useSensor(PointerSensor));
+
   return (
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragEnd={({ active, over }) => {
         if (over && active.id !== over.id) {
-          const oldIndex = items.findIndex(a => a.key === active.id);
-          const newIndex = items.findIndex(a => a.key === over.id);
+          const oldIndex = items.findIndex((a) => a.key === active.id);
+          const newIndex = items.findIndex((a) => a.key === over.id);
           const newItems = arrayMove(items, oldIndex, newIndex);
           setItems?.(newItems);
           onChange?.(newItems, active.id as string);

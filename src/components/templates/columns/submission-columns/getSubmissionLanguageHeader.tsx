@@ -1,4 +1,4 @@
-import { type Judge, type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { Judge, SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer/types';
 import { SubmissionLanguageField } from '../../submission/SubmissionLanguageField';
 
@@ -16,22 +16,20 @@ export function getSubmissionLanguageHeader(
     sort: true,
     filter: {
       type: 'select',
-      options: Object.values(languagesByJudge)
-        .map(({ name, languages }) =>
-          Object.values(languages).map(({ label, value }) => ({
-            label:
-              Object.keys(languagesByJudge).length === 1 ? (
-                label
-              ) : (
-                <div className="jk-row">
-                  {label}&nbsp;
-                  <div className="jk-tag bc-ht-lt tx-t">{name}</div>
-                </div>
-              ),
-            value,
-          })),
-        )
-        .flat(),
+      options: Object.values(languagesByJudge).flatMap(({ name, languages }) =>
+        Object.values(languages).map(({ label, value }) => ({
+          label:
+            Object.keys(languagesByJudge).length === 1 ? (
+              label
+            ) : (
+              <div className="jk-row">
+                {label}&nbsp;
+                <div className="jk-tag bc-ht-lt tx-t">{name}</div>
+              </div>
+            ),
+          value,
+        })),
+      ),
     },
     cardPosition: 'bottom',
     minWidth: 180,

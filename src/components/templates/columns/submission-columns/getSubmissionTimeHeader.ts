@@ -1,4 +1,4 @@
-import { type  SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { SubmissionTimeField } from '../../submission/SubmissionTimeField';
 

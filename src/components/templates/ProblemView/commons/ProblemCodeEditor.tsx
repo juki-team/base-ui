@@ -1,21 +1,20 @@
 import { type CodeEditorTestCases, type ProblemDataResponseDTO, SubmissionRunStatus } from '@juki-team/commons';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useJudge } from '../../../hooks/useJudge';
 import { UserCodeEditor } from '../../../organisms/_layz_/UserCodeEditor';
 import type { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../../organisms/types';
 
 interface ProblemCodeEditorProps<T> {
-  problem: ProblemDataResponseDTO,
-  codeEditorLeftButtons?: UserCodeEditorProps<T>['leftButtons'],
-  codeEditorCenterButtons?: UserCodeEditorProps<T>['centerButtons'],
-  codeEditorRightButtons?: UserCodeEditorProps<T>['rightButtons'],
-  codeEditorStoreKey: string,
-  expandPosition?: CodeEditorExpandPositionType,
-  languages?: { value: T, label: ReactNode }[],
+  problem: ProblemDataResponseDTO;
+  codeEditorLeftButtons?: UserCodeEditorProps<T>['leftButtons'];
+  codeEditorCenterButtons?: UserCodeEditorProps<T>['centerButtons'];
+  codeEditorRightButtons?: UserCodeEditorProps<T>['rightButtons'];
+  codeEditorStoreKey: string;
+  expandPosition?: CodeEditorExpandPositionType;
+  languages?: { value: T; label: ReactNode }[];
 }
 
-export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
-  
+export const ProblemCodeEditor = <T,>(props: ProblemCodeEditorProps<T>) => {
   const {
     problem,
     codeEditorLeftButtons,
@@ -25,10 +24,10 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
     expandPosition,
     languages: validLanguages,
   } = props;
-  
+
   const initialTestCases: CodeEditorTestCases = {};
   problem.statement.sampleCases?.forEach((sample, index) => {
-    const key = 'sample-' + index;
+    const key = `sample-${index}`;
     initialTestCases[key] = {
       key,
       log: '',
@@ -44,12 +43,15 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       messageTimestamp: 0,
     };
   });
-  
-  const { languages } = useJudge<T>({
-    key: problem.judge.key,
-    isExternal: problem.judge.isExternal,
-  }, validLanguages || []);
-  
+
+  const { languages } = useJudge<T>(
+    {
+      key: problem.judge.key,
+      isExternal: problem.judge.isExternal,
+    },
+    validLanguages || [],
+  );
+
   return (
     <UserCodeEditor<T>
       languages={languages}
@@ -57,9 +59,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       leftButtons={codeEditorLeftButtons}
       centerButtons={codeEditorCenterButtons}
       rightButtons={codeEditorRightButtons}
-      initialTestCases={!problem.judge.isExternal
-        ? initialTestCases
-        : undefined}
+      initialTestCases={!problem.judge.isExternal ? initialTestCases : undefined}
       enableAddCustomSampleCases={!problem.judge.isExternal}
       expandPosition={expandPosition}
       withoutRunCodeButton={problem.judge.isExternal}

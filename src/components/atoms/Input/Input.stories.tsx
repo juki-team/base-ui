@@ -9,7 +9,7 @@ import { InputTextArea } from '../InputTextArea/InputTextArea';
 import { Input } from './Input';
 import type { InputPasswordProps, InputSelectProps, InputTextAreaProps } from './types';
 
-// @ts-ignore
+// @ts-expect-error
 Input.defaultProps = {
   type: 'text',
   extend: false,

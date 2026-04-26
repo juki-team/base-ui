@@ -1,4 +1,4 @@
-import { cleanRequest, type ContentResponse, Status, SubmissionRunStatus } from '@juki-team/commons';
+import { type ContentResponse, cleanRequest, Status, type SubmissionRunStatus } from '@juki-team/commons';
 import { JUKI_SERVICE_V2_URL } from '../../../constants/settings';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
@@ -11,18 +11,20 @@ import type { ButtonLoaderOnClickType } from '../../types';
 import type { SubmissionRetrieveButtonProps } from './types';
 
 export function SubmissionRetrieveButton({ submissionId }: SubmissionRetrieveButtonProps) {
-  
   const { notifyResponse } = useJukiNotification();
   const mutate = useMatchMutate();
-  const rejudgeSubmission = (submissionId: string): ButtonLoaderOnClickType => async (setLoaderStatus) => {
-    setLoaderStatus(Status.LOADING);
-    
-    const { url, ...options } = jukiApiManager.API_V2.submission.retrieve({ params: { id: submissionId } });
-    const response = cleanRequest<ContentResponse<{ listCount: number, status: typeof SubmissionRunStatus.RECEIVED }>>(
-      await authorizedRequest(url, options));
-    notifyResponse(response, setLoaderStatus);
-  };
-  
+  const rejudgeSubmission =
+    (submissionId: string): ButtonLoaderOnClickType =>
+    async (setLoaderStatus) => {
+      setLoaderStatus(Status.LOADING);
+
+      const { url, ...options } = jukiApiManager.API_V2.submission.retrieve({ params: { id: submissionId } });
+      const response = cleanRequest<ContentResponse<{ listCount: number; status: typeof SubmissionRunStatus.RECEIVED }>>(
+        await authorizedRequest(url, options),
+      );
+      notifyResponse(response, setLoaderStatus);
+    };
+
   return (
     <ButtonLoader
       onClick={async (...props) => {

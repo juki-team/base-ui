@@ -8,14 +8,11 @@ export default {
 };
 
 export const UserChangePasswordModal = () => {
-  const [ open, setOpen ] = useState(false);
-  
+  const [open, setOpen] = useState(false);
+
   return (
     <MockupJukiProvider>
-      <UserChangePasswordModalCmp
-        isOpen={open}
-        onClose={() => setOpen(false)}
-      />
+      <UserChangePasswordModalCmp isOpen={open} onClose={() => setOpen(false)} />
       <Button onClick={() => setOpen(true)}>open</Button>
     </MockupJukiProvider>
   );

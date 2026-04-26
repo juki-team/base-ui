@@ -19,7 +19,7 @@ import type { UserResultsType } from '../../../types';
 import { WorksheetContents } from '../WorksheetContents';
 import { TableOfContents } from '../WorksheetEditor/sheets/TableOfContents';
 import { WorksheetBodies } from '../WorksheetEditor/sheets/WorksheetBodies';
-import { OnPageChange, WorksheetViewerProps } from './types';
+import type { OnPageChange, WorksheetViewerProps } from './types';
 
 export default function WorksheetViewer(props: WorksheetViewerProps) {
   const {

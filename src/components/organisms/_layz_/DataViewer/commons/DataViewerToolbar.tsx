@@ -1,8 +1,8 @@
-import { cleanRequest, type ContentResponse, DataViewMode, Status } from '@juki-team/commons';
+import { type ContentResponse, cleanRequest, DataViewMode, Status } from '@juki-team/commons';
 import {
   type ElementType,
-  memo,
   type MouseEventHandler,
+  memo,
   type PropsWithChildren,
   useCallback,
   useEffect,
@@ -118,7 +118,7 @@ const DataViewerToolbarCmp = <T,>(props: DataViewerToolbarProps<T>) => {
     },
     [_setShowFilterDrawer],
   );
-  const viewViews = !(isSmallScreen && (!rowsView || !cardsView));
+  const viewViews = !(isSmallScreen && !(rowsView && cardsView));
   const viewFilterButton = !!headers.filter((head) => head.filter || head.sort).length;
 
   useEffect(() => {

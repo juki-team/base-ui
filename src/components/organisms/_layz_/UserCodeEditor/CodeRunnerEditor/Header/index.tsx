@@ -1,6 +1,6 @@
 import { CodeLanguage, RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES } from '@juki-team/commons';
 import domToImage from 'dom-to-image-more';
-import { ReactNode, useCallback } from 'react';
+import { type ReactNode, useCallback } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../../../constants';
 import { Button, Select, T } from '../../../../../atoms';
@@ -146,7 +146,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
     <div className="options-header-content jk-row jk-pg-xsm" ref={headerRef}>
       <div className={classNames('cr-tx-ht jk-row gap left')} ref={refLeftSection}>
         {readOnly || languages.length === 1 ? (
-          <div className="jk-tag bc-io">{(languages.find((lang) => lang.value === language)?.label || language) + ''}</div>
+          <div className="jk-tag bc-io">{`${languages.find((lang) => lang.value === language)?.label || language}`}</div>
         ) : (
           <Select
             className="languages-selector tx-s"

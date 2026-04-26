@@ -1,14 +1,13 @@
 import { useSpace } from '@ably/spaces/dist/mjs/react';
-import { consoleError, consoleWarn } from '@juki-team/commons';
-import { RefObject, useEffect, useState } from 'react';
+import { consoleError, consoleWarn } from '@juki-team/commons/helpers';
+import { type RefObject, useEffect, useState } from 'react';
 import { useUserStore } from '../../stores/user/useUserStore';
 
-export const useTrackCursor = (offsetRef: RefObject<{ x: number, y: number, zoom: number }>) => {
-  
+export const useTrackCursor = (offsetRef: RefObject<{ x: number; y: number; zoom: number }>) => {
   const { nickname, imageUrl } = useUserStore((state) => state.user);
   const { space } = useSpace();
-  const [ enteredSpace, setEnteredSpace ] = useState(false);
-  
+  const [enteredSpace, setEnteredSpace] = useState(false);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -51,8 +50,8 @@ export const useTrackCursor = (offsetRef: RefObject<{ x: number, y: number, zoom
       cancelled = true;
       void leaveSpace();
     };
-  }, [ imageUrl, nickname, space ]);
-  
+  }, [imageUrl, nickname, space]);
+
   useEffect(() => {
     if (space && enteredSpace) {
       let rafId: number | null = null;
@@ -82,5 +81,5 @@ export const useTrackCursor = (offsetRef: RefObject<{ x: number, y: number, zoom
     }
 
     return () => null;
-  }, [ space, enteredSpace, offsetRef ]);
+  }, [space, enteredSpace, offsetRef]);
 };

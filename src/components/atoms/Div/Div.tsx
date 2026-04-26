@@ -3,33 +3,25 @@ import { classNames } from '../../helpers';
 import type { DivProps } from './types';
 
 function DivComponent(_props: DivProps, ref: Ref<HTMLDivElement>) {
-  
-  const {
-    onClick,
-    children,
-    className,
-    transition,
-    onKeyDownClick,
-    ...props
-  } = _props;
-  
-  const [ show, setShow ] = useState(false);
+  const { onClick, children, className, transition, onKeyDownClick, ...props } = _props;
+
+  const [show, setShow] = useState(false);
   useEffect(() => {
     if (transition) {
       setShow(true);
     }
-  }, [ transition ]);
+  }, [transition]);
   const newProps = { ...props };
   if (onKeyDownClick) {
     newProps.tabIndex = 0;
   }
-  
+
   return (
     <div
       ref={ref}
       {...newProps}
-      onKeyDown={event => {
-        if (onClick && ((onKeyDownClick === true && event.code === 'Enter') || (event.code === onKeyDownClick))) {
+      onKeyDown={(event) => {
+        if (onClick && ((onKeyDownClick === true && event.code === 'Enter') || event.code === onKeyDownClick)) {
           event.preventDefault();
           event.stopPropagation();
           onClick();

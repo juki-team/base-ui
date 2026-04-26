@@ -3,10 +3,9 @@ import { useUserStore } from '../../../stores/user/useUserStore';
 import type { ProblemVerdictTagProps } from './types';
 
 export function ProblemVerdictTag({ verdict, small }: ProblemVerdictTagProps) {
-  
-  const userPreferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
+  const userPreferredTheme = useUserStore((state) => state.user.settings[ProfileSetting.THEME]);
   const addDark = userPreferredTheme === Theme.DARK ? 'CC' : '';
-  
+
   return (
     <div
       data-tooltip-id="jk-tooltip"

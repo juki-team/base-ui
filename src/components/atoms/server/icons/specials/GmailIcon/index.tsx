@@ -2,8 +2,13 @@ import { classNames } from '../../../../../helpers';
 import type { IconProps } from '../../types';
 import Gmail from './Gmail';
 
-export const GmailIcon = ({ size = 'regular', className = '', percent = 100, ...props }: IconProps & {
-  percent?: number
+export const GmailIcon = ({
+  size = 'regular',
+  className = '',
+  percent = 100,
+  ...props
+}: IconProps & {
+  percent?: number;
 }) => {
   return (
     <span {...props} className={classNames(className, 'jk-icon', size)} style={{ position: 'relative' }}>

@@ -1,4 +1,4 @@
-import { CODE_LANGUAGE } from '@juki-team/commons';
+import { CODE_LANGUAGE } from '@juki-team/commons/constants';
 import hljs from 'highlight.js';
 import bash from 'highlight.js/lib/languages/bash';
 import c from 'highlight.js/lib/languages/c';

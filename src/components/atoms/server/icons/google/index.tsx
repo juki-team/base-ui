@@ -1,5 +1,5 @@
-export { AcUnitIcon } from './AcUnitIcon';
 export { AccountCircleIcon } from './AccountCircleIcon';
+export { AcUnitIcon } from './AcUnitIcon';
 export { AcuteIcon } from './AcuteIcon';
 export { AddColumnLeftIcon } from './AddColumnLeftIcon';
 export { AddColumnRightIcon } from './AddColumnRightIcon';

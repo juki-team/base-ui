@@ -7,32 +7,22 @@ import type { ImageUploaderModalProps } from './types';
 import { UploadNewImageTab } from './UploadNewImageTab';
 
 export function ImageUploaderModal(props: ImageUploaderModalProps) {
-  
-  const {
-    isOpen,
-    onClose,
-    withPublicImagesTab = true,
-    copyButtons,
-    onPickImageUrl,
-  } = props;
-  
-  const [ count, setCount ] = useState(0);
-  
+  const { isOpen, onClose, withPublicImagesTab = true, copyButtons, onPickImageUrl } = props;
+
+  const [count, setCount] = useState(0);
+
   const tabHeaders = [];
   if (withPublicImagesTab) {
     tabHeaders.push({
       key: 'public-images',
-      header: <>
-        <T className="tt-se">public images</T>
-        <Button icon={<RefreshIcon />} size="small" type="secondary" onClick={() => setCount(count + 1)} />
-      </>,
+      header: (
+        <>
+          <T className="tt-se">public images</T>
+          <Button icon={<RefreshIcon />} size="small" type="secondary" onClick={() => setCount(count + 1)} />
+        </>
+      ),
       body: (
-        <PublicImagesTab
-          trigger={count}
-          key="public-images-tab"
-          copyButtons={copyButtons}
-          onPickImageUrl={onPickImageUrl}
-        />
+        <PublicImagesTab trigger={count} key="public-images-tab" copyButtons={copyButtons} onPickImageUrl={onPickImageUrl} />
       ),
     });
   }
@@ -48,13 +38,9 @@ export function ImageUploaderModal(props: ImageUploaderModalProps) {
       />
     ),
   });
-  
+
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      className="modal-upload-image"
-    >
+    <Modal isOpen={isOpen} onClose={onClose} className="modal-upload-image">
       <div>
         <Tabs tabs={tabHeaders} />
       </div>

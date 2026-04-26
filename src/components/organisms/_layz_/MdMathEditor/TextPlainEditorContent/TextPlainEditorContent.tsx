@@ -1,33 +1,32 @@
 import { NotificationType, Status } from '@juki-team/commons';
-import { ClipboardEventHandler, useRef } from 'react';
+import { type ClipboardEventHandler, useRef } from 'react';
 import { T, TextArea } from '../../../../atoms';
 import { handleUploadImage } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import type { TextPlainEditorContentProps } from '../../../MdMathViewer/types';
 
 export function TextPlainEditorContent(props: TextPlainEditorContentProps) {
-  
   const { value, onChange, setLoader, enableImageUpload } = props;
-  
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { addNotification } = useJukiNotification();
-  
+
   const insertTextAtCursor = (insertText: string) => {
     const textarea = textareaRef.current;
     if (!textarea) return;
-    
+
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const text = textareaRef.current?.value ?? '';
     const newText = text.substring(0, start) + insertText + text.substring(end);
-    
+
     onChange?.(newText);
-    
+
     setTimeout(() => {
       textarea.selectionStart = textarea.selectionEnd = start + insertText.length;
     }, 0);
   };
-  
+
   const handlePaste: ClipboardEventHandler = async (event) => {
     const items = event.clipboardData?.items;
     if (items) {
@@ -49,7 +48,7 @@ export function TextPlainEditorContent(props: TextPlainEditorContentProps) {
           const { status, message, content } = await handleUploadImage(imageFile, false);
           if (status === Status.SUCCESS) {
             addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
-            extraText += (extraText ? '\n\n' : '') + `![image alt](${content!.imageUrl})`;
+            extraText += `${extraText ? '\n\n' : ''}![image alt](${content!.imageUrl})`;
           } else {
             addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
           }
@@ -59,19 +58,16 @@ export function TextPlainEditorContent(props: TextPlainEditorContentProps) {
       }
     }
   };
-  
+
   return (
-    <div
-      className="jk-br-ie"
-      onPaste={enableImageUpload ? handlePaste : undefined}
-    >
+    <div className="jk-br-ie" onPaste={enableImageUpload ? handlePaste : undefined}>
       <TextArea
         ref={textareaRef}
         value={value}
-        onChange={value => {
+        onChange={(value) => {
           onChange?.(value);
         }}
       />
     </div>
   );
-};
+}

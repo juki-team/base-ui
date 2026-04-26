@@ -11,14 +11,16 @@ export function ProblemStatus({ solved, tried, size }: ProblemStatusProps) {
     >
       <CheckIcon size={size} filledCircle className="cr-ss" />
     </div>
-  ) : tried && (
-    <div
-      data-tooltip-id="jk-tooltip"
-      data-tooltip-content="you tried it"
-      data-tooltip-t-class-name="tt-se ws-np"
-      className="jk-row"
-    >
-      <PendingActionsIcon size={size} filledCircle className="cr-wg" />
-    </div>
+  ) : (
+    tried && (
+      <div
+        data-tooltip-id="jk-tooltip"
+        data-tooltip-content="you tried it"
+        data-tooltip-t-class-name="tt-se ws-np"
+        className="jk-row"
+      >
+        <PendingActionsIcon size={size} filledCircle className="cr-wg" />
+      </div>
+    )
   );
 }

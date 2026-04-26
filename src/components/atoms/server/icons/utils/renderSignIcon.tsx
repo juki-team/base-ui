@@ -1,13 +1,12 @@
-import { ComponentType } from 'react';
+import type { ComponentType } from 'react';
 import { classNames } from '../../../../helpers';
-import { RootIconProps, SignIconProps } from '../types';
+import type { RootIconProps, SignIconProps } from '../types';
 import { CircleFrame } from './CircleFrame';
 import { SquareFrame } from './SquareFrame';
 
 const width = 3;
 
 export const renderSignIcon = (_props: SignIconProps, Component: ComponentType<RootIconProps>, name?: string) => {
-  
   const {
     size = 'regular',
     color,
@@ -19,7 +18,7 @@ export const renderSignIcon = (_props: SignIconProps, Component: ComponentType<R
     filledSquare = false,
     ...props
   } = _props;
-  
+
   return (
     <span
       {...props}
@@ -34,9 +33,14 @@ export const renderSignIcon = (_props: SignIconProps, Component: ComponentType<R
           color={
             color
               ? color
-              : (filledCircle || filledSquare)
-                ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--cr-we)'))
-                : 'currentColor'}
+              : filledCircle || filledSquare
+                ? typeof filledCircle === 'string'
+                  ? filledCircle
+                  : typeof filledSquare === 'string'
+                    ? filledSquare
+                    : 'var(--cr-we)'
+                : 'currentColor'
+          }
           width={width}
         />
       </svg>

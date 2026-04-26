@@ -1,4 +1,4 @@
-import { stringToArrayBuffer } from '@juki-team/commons';
+import { stringToArrayBuffer } from '@juki-team/commons/helpers';
 import type { PropsWithChildren, ReactNode, RefObject } from 'react';
 import { Children, cloneElement, isValidElement } from 'react';
 import { NODE_ENV } from '../../constants/settings';
@@ -11,7 +11,7 @@ export const getTextContent = (elem: ReactNode | ReactNode[]): string => {
     return '';
   }
   if (typeof elem === 'string' || typeof elem === 'number') {
-    return elem + '';
+    return `${elem}`;
   }
 
   if (Array.isArray(elem)) {
@@ -19,7 +19,7 @@ export const getTextContent = (elem: ReactNode | ReactNode[]): string => {
     return elem.map(getTextContent).join('');
   }
 
-  if (isValidElement<PropsWithChildren>(elem) && !!elem.props.children) {
+  if (isValidElement<PropsWithChildren>(elem) && elem.props.children) {
     const children = elem.props.children;
     if (Array.isArray(children)) {
       return children.map(getTextContent).join('');
@@ -125,7 +125,12 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
         if (range.s.c > C) range.s.c = C;
         if (range.e.r < R) range.e.r = R;
         if (range.e.c < C) range.e.c = C;
-        const cell: { v: string | number | boolean | Date; t: string; z?: string; s?: any } = {
+        type CellStyle = {
+          fill?: { fgColor: { rgb: string } };
+          font?: { color?: { rgb: string }; bold?: boolean };
+          alignment?: { wrapText?: boolean; horizontal?: string; vertical?: string };
+        };
+        const cell: { v: string | number | boolean | Date; t: string; z?: string; s?: CellStyle } = {
           v: cellData.text,
           t: 's',
         };
@@ -217,34 +222,34 @@ export const downloadSheetDataAsXlsxFile = async (sheets: SheetDataType[], fileN
   downloadBlobAsFile(blob, fileName);
 };
 
-export const renderChildrenWithProps = (children: any, props: any) => {
+export const renderChildrenWithProps = <P extends object>(children: ReactNode | ((props: P) => ReactNode), props: P) => {
   if (typeof children === 'function') {
     // return renderChildrenWithProps(renderReactNodeOrFunctionP1(children, props), props);
     return children(props);
   }
   return Children.map(children, (child) => {
-    return !!child ? cloneElement(child, props) : child;
+    return child && isValidElement(child) ? cloneElement(child, props) : child;
   });
 };
 
-type classType = string | { [key: string]: boolean };
+type ClassType = string | { [key: string]: boolean };
 
 export const classNames = (
-  c1?: classType,
-  c2?: classType,
-  c3?: classType,
-  c4?: classType,
-  c5?: classType,
-  c6?: classType,
-  c7?: classType,
-  c8?: classType,
-  c9?: classType,
-  c10?: classType,
-  c11?: classType,
-  c12?: classType,
-  c13?: classType,
-  c14?: classType,
-  c15?: classType,
+  c1?: ClassType,
+  c2?: ClassType,
+  c3?: ClassType,
+  c4?: ClassType,
+  c5?: ClassType,
+  c6?: ClassType,
+  c7?: ClassType,
+  c8?: ClassType,
+  c9?: ClassType,
+  c10?: ClassType,
+  c11?: ClassType,
+  c12?: ClassType,
+  c13?: ClassType,
+  c14?: ClassType,
+  c15?: ClassType,
 ): string => {
   let classes = '';
   [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15].forEach((prop) => {
@@ -273,8 +278,8 @@ export function toBlob(canvas: HTMLCanvasElement): Promise<Blob | null> {
   });
 }
 
-export const isOverflowed = (ref: RefObject<any>) => {
-  return ref.current?.scrollWidth > ref.current?.clientWidth;
+export const isOverflowed = (ref: RefObject<HTMLElement | null>) => {
+  return (ref.current?.scrollWidth ?? 0) > (ref.current?.clientWidth ?? 0);
 };
 
 export function isDev() {

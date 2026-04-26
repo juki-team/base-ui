@@ -1,11 +1,10 @@
-import { ProfileSetting, Theme } from '@juki-team/commons';
+import { ProfileSetting, Theme } from '@juki-team/commons/enums';
 import { useEffect } from 'react';
 import { useUserStore } from '../../stores/user/useUserStore';
 
 export const useInjectTheme = (theme?: Theme) => {
-  
-  const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
-  
+  const userPreferredTheme = useUserStore((state) => state.user.settings?.[ProfileSetting.THEME]);
+
   useEffect(() => {
     document.body.classList.remove('jk-theme-dark');
     document.body.classList.remove('jk-theme-light');
@@ -18,5 +17,5 @@ export const useInjectTheme = (theme?: Theme) => {
       document.body.classList.remove('jk-theme-dark');
       document.body.classList.remove('jk-theme-light');
     };
-  }, [ userPreferredTheme, theme ]);
+  }, [userPreferredTheme, theme]);
 };

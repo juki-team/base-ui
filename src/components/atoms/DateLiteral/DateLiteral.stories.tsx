@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 // import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { MockupJukiProvider } from '../../mockup';
-import { DateDisplayType } from '../../types';
+import type { DateDisplayType } from '../../types';
 
 import { DateLiteral } from './DateLiteral';
 
-// @ts-ignore
+// @ts-expect-error
 DateLiteral.defaultProps = {
   show: 'year-month-day-hours-minutes-seconds' as DateDisplayType,
 };

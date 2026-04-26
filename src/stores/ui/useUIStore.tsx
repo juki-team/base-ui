@@ -1,13 +1,13 @@
-import { RefObject } from 'react';
+import type { RefObject } from 'react';
 import { create } from 'zustand';
 import { Image } from '../../components/providers/JukiUIProvider/Image';
 import { Link } from '../../components/providers/JukiUIProvider/Link';
-import { UIComponentsContextInterface } from '../../components/providers/JukiUIProvider/types';
+import type { UIComponentsContextInterface } from '../../components/providers/JukiUIProvider/types';
 
 interface UIStore {
-  jukiAppDivRef: RefObject<HTMLDivElement | null>,
-  components: UIComponentsContextInterface,
-  setProps: (props: Partial<Omit<UIStore, 'setProps'>>) => void,
+  jukiAppDivRef: RefObject<HTMLDivElement | null>;
+  components: UIComponentsContextInterface;
+  setProps: (props: Partial<Omit<UIStore, 'setProps'>>) => void;
 }
 
 export const useUIStore = create<UIStore>((set) => ({

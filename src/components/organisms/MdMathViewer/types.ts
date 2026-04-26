@@ -1,34 +1,34 @@
-import { Status } from '@juki-team/commons';
-import { CSSProperties, Dispatch, SetStateAction } from 'react';
+import type { Status } from '@juki-team/commons';
+import type { CSSProperties, Dispatch, SetStateAction } from 'react';
 
 export type TextPlainEditorContentProps = {
-  value: string,
-  onChange: (value: string) => void,
-  setLoader: Dispatch<SetStateAction<Status>>,
-  enableImageUpload: boolean,
-}
+  value: string;
+  onChange: (value: string) => void;
+  setLoader: Dispatch<SetStateAction<Status>>;
+  enableImageUpload: boolean;
+};
 
 export type MdMathEditorDeprecatedProps = {
-  initialMd: string,
-  onChange?: (value: string) => void,
-  informationButton?: boolean,
-  uploadImageButton?: boolean,
-  downloadButton?: boolean,
+  initialMd: string;
+  onChange?: (value: string) => void;
+  informationButton?: boolean;
+  uploadImageButton?: boolean;
+  downloadButton?: boolean;
   // sharedButton?: boolean,
-  initEditMode?: boolean,
+  initEditMode?: boolean;
   // onPickImageUrl?: onPickImageUrlType,
   // online?: boolean,
-}
+};
 
 export interface MdMathViewerProps {
-  source: string,
-  dark?: boolean,
+  source: string;
+  dark?: boolean;
   // sharedButton?: boolean,
-  downloadButton?: boolean,
-  className?: string,
-  blur?: boolean,
-  unBlur?: boolean,
-  style?: CSSProperties,
-  flatView?: boolean,
-  detectRequestAnimationFrame?: boolean,
+  downloadButton?: boolean;
+  className?: string;
+  blur?: boolean;
+  unBlur?: boolean;
+  style?: CSSProperties;
+  flatView?: boolean;
+  detectRequestAnimationFrame?: boolean;
 }

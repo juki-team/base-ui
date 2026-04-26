@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
-import { GraphvizEditorProps } from '../_layz_/GraphvizViewer/types';
+import type { GraphvizEditorProps } from '../_layz_/GraphvizViewer/types';
 import { GraphvizEditor } from './GraphvizEditor';
 
 const meta: Meta<typeof GraphvizEditor> = {
@@ -13,7 +13,7 @@ export default meta;
 type Story = StoryObj<typeof GraphvizEditor>;
 
 const Cmp = (_: GraphvizEditorProps) => {
-  const [ value, setValue ] = useState(`digraph {
+  const [value, setValue] = useState(`digraph {
     rankdir=LR
     a -> b
     b -> c
@@ -22,7 +22,7 @@ const Cmp = (_: GraphvizEditorProps) => {
     d -> e
     e -> a
 }`);
-  
+
   return (
     <div className="jk-col gap">
       <GraphvizEditor value={value} onSave={setValue} />

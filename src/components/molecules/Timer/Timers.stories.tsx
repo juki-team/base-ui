@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupJukiProvider } from '../../mockup';
 import { TimerLabeled } from '../TimerLabeled/TimerLabeled';
 import { Timer } from './Timer';
@@ -15,7 +15,7 @@ export const Regular: Story = {
   render: (args) => (
     <MockupJukiProvider>
       <h3>TimerClock</h3>
-      {[ 1.5 * 60 * 1000, 0, -30 * 1000 ].map((startTimestamp) => (
+      {[1.5 * 60 * 1000, 0, -30 * 1000].map((startTimestamp) => (
         <TimerLabeled
           key={startTimestamp}
           {...args}
@@ -34,7 +34,7 @@ export const Regular: Story = {
         abbreviated
       />
       <h3>laps 4</h3>
-      {[ 15 * 1000, 0, -30 * 1000 ].map((startTimestamp) => (
+      {[15 * 1000, 0, -30 * 1000].map((startTimestamp) => (
         <TimerLabeled
           startDate={new Date(Date.now() + startTimestamp)}
           endDate={new Date(Date.now() + startTimestamp + 15 * 1000)}
@@ -42,25 +42,13 @@ export const Regular: Story = {
           literal
         />
       ))}
-      <TimerLabeled
-        endDate={new Date(Date.now() - 15 * 1000)}
-        startDate={new Date(Date.now() + 15 * 1000)}
-        type="seconds"
-      />
+      <TimerLabeled endDate={new Date(Date.now() - 15 * 1000)} startDate={new Date(Date.now() + 15 * 1000)} type="seconds" />
       <h3>Timer</h3>
       <Timer interval={-1} remaining={10 * 1000} type="weeks-days-hours-minutes-seconds-milliseconds" />
       <Timer interval={-1000} remaining={10 * 60 * 1000} type="weeks-days-hours-minutes" />
       <Timer interval={-1} remaining={60 * 1000} type="days" abbreviated />
-      <Timer
-        interval={-1}
-        remaining={300 * 365 * 24 * 60 * 60 * 1000}
-        type="weeks-days-hours-minutes-seconds-milliseconds"
-      />
-      <Timer
-        interval={1}
-        remaining={300 * 365 * 24 * 60 * 60 * 1000}
-        type="weeks-days-hours-minutes-seconds-milliseconds"
-      />
+      <Timer interval={-1} remaining={300 * 365 * 24 * 60 * 60 * 1000} type="weeks-days-hours-minutes-seconds-milliseconds" />
+      <Timer interval={1} remaining={300 * 365 * 24 * 60 * 60 * 1000} type="weeks-days-hours-minutes-seconds-milliseconds" />
       <Timer
         interval={-1}
         remaining={10 * 1000}
@@ -68,14 +56,11 @@ export const Regular: Story = {
         onTimeout={() => {
           alert('timeout!');
         }}
-        
         ignoreTrailingZeros
         ignoreLeadingZeros
       />
-      
-      <Timer
-        interval={-1} remaining={10 * 60 * 1000} literal type="seconds-milliseconds"
-      />
+
+      <Timer interval={-1} remaining={10 * 60 * 1000} literal type="seconds-milliseconds" />
     </MockupJukiProvider>
   ),
 };

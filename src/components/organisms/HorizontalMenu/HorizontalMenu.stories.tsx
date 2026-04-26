@@ -1,11 +1,11 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { action, configureActions } from 'storybook/actions';
 import { TriggerAction } from '../../../enums';
 import { Button, Popover, T } from '../../atoms';
 
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { MockupJukiProvider } from '../../mockup';
-import { DrawerActionsType } from '../../molecules/Drawer/types';
+import type { DrawerActionsType } from '../../molecules/Drawer/types';
 import { AppsIcon, FilterListIcon, SettingsIcon, ViewHeadlineIcon } from '../../server';
 import { HorizontalMenu as HorizontalMenuCmp, MdMathEditor, VerticalMenu } from '../index';
 import { SAMPLE_MD_CONTENT } from '../MdMathViewer/constants';

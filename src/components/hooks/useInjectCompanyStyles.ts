@@ -1,4 +1,4 @@
-import { ProfileSetting } from '@juki-team/commons';
+import { ProfileSetting } from '@juki-team/commons/enums';
 import { useEffect } from 'react';
 import { useUserStore } from '../../stores/user/useUserStore';
 

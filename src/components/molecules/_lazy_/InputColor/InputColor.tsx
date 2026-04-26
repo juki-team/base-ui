@@ -1,4 +1,4 @@
-import { PALLETE } from '@juki-team/commons';
+import { PALETTE } from '@juki-team/commons/constants';
 import { type ColorResult, SketchPicker } from 'react-color';
 import { TriggerAction } from '../../../../enums';
 import { Input, Popover } from '../../../atoms';
@@ -99,7 +99,7 @@ export default function InputColor({ value, children, onChange, ...inputProps }:
             <SketchPicker
               color={newColor}
               onChangeComplete={(colorResult) => onChange?.(valueToColorResult(colorResult))}
-              presetColors={[...PALLETE.claros, ...PALLETE.vivos, ...PALLETE.agrisados, ...PALLETE.oscuros]}
+              presetColors={[...PALETTE.claros, ...PALETTE.vivos, ...PALETTE.agrisados, ...PALETTE.oscuros]}
             />
             {/*<Button*/}
             {/*  onClick={() => {*/}

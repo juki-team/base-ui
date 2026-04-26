@@ -15,7 +15,6 @@ const DEFAULT_LABELS: { [key in Period]: string } = {
 };
 
 export function TimerLabeled(props: TimerLabeledProps) {
-  
   const {
     startDate,
     endDate,
@@ -30,9 +29,9 @@ export function TimerLabeled(props: TimerLabeledProps) {
     maxSplit = 6,
     minSplit = 1,
   } = props;
-  
-  const [ time, setTime ] = useState({ period: Period.CALC, remaining: 0, interval: 0 });
-  
+
+  const [time, setTime] = useState({ period: Period.CALC, remaining: 0, interval: 0 });
+
   useEffect(() => {
     const current: Date = currentDate || new Date();
     let period = Period.CALC;
@@ -68,12 +67,12 @@ export function TimerLabeled(props: TimerLabeledProps) {
     return () => {
       clearTimeout(timeout);
     };
-  }, [ currentDate, endDate, startDate ]);
-  
+  }, [currentDate, endDate, startDate]);
+
   const myLabels = { ...DEFAULT_LABELS, ...labels };
   const timeSplit = cutTimeSplit(Math.max(time.remaining, 0), type, false, false, maxSplit, minSplit);
   const timeInterval = Math.max(timeSplit[timeSplit.length - 1]?.milliseconds ?? 0, 1);
-  
+
   return (
     <div
       className={classNames(`jk-timer-labeled-container period-${time.period.toLowerCase()}`, {

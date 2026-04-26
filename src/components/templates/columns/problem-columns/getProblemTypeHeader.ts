@@ -10,7 +10,7 @@ export function getProblemTypeHeader(): DataViewerHeadersType<ProblemSummaryList
     sort: true,
     filter: {
       type: 'select',
-      options: [ ProblemType.STANDARD, ProblemType.DYNAMIC ].map((problemType) => ({
+      options: [ProblemType.STANDARD, ProblemType.DYNAMIC].map((problemType) => ({
         value: problemType,
         label: PROBLEM_TYPE[problemType].label,
       })),

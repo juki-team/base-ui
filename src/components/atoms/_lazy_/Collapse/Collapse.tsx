@@ -5,7 +5,6 @@ import { ExpandLessIcon, ExpandMoreIcon } from '../../server';
 import type { CollapseProps } from './types';
 
 export default function Collapse(props: CollapseProps) {
-  
   const {
     children,
     header,
@@ -15,13 +14,13 @@ export default function Collapse(props: CollapseProps) {
     startsShowing = false,
     direction = 'column',
   } = props;
-  
-  const [ isOpen, setIsOpen ] = useHandleState(startsShowing, _showContent, _onChangeShowContent);
-  
+
+  const [isOpen, setIsOpen] = useHandleState(startsShowing, _showContent, _onChangeShowContent);
+
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
-  const toggle = () => setIsOpen(prevState => !prevState);
-  
+  const toggle = () => setIsOpen((prevState) => !prevState);
+
   return (
     // <div
     //   className={classNames('jk-collapse-container jk-col stretch', className, {
@@ -64,4 +63,4 @@ export default function Collapse(props: CollapseProps) {
       </AnimatePresence>
     </>
   );
-};
+}

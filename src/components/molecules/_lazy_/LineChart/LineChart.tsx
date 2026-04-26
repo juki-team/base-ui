@@ -1,16 +1,7 @@
-import {
-  CartesianGrid,
-  Line,
-  LineChart as RechartsLineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import { CartesianGrid, Line, LineChart as RechartsLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import type { LineChartProps } from './types';
 
 export default function LineChart(props: LineChartProps) {
-  
   const {
     data,
     margin,
@@ -26,7 +17,7 @@ export default function LineChart(props: LineChartProps) {
     yTickCount,
     lineDataKeys = 'value',
   } = props;
-  
+
   return (
     <ResponsiveContainer height={containerHeight} onResize={containerOnResize}>
       <RechartsLineChart data={data} margin={margin}>
@@ -34,15 +25,8 @@ export default function LineChart(props: LineChartProps) {
         <XAxis dataKey="label" tick={xAxisTick} includeHidden interval={xAxisInterval} tickCount={xTickCount} />
         <YAxis tick={yAxisTick} interval={yAxisInterval} tickCount={yTickCount} />
         <Tooltip content={tooltipContent} active={tooltipActive} />
-        {(Array.isArray(lineDataKeys) ? lineDataKeys : [ lineDataKeys ]).map(key => (
-          <Line
-            key={key}
-            type="monotone"
-            dataKey={key}
-            stroke="var(--cr-tx-ht-lt)"
-            dot={false}
-            strokeWidth={2}
-          />
+        {(Array.isArray(lineDataKeys) ? lineDataKeys : [lineDataKeys]).map((key) => (
+          <Line key={key} type="monotone" dataKey={key} stroke="var(--cr-tx-ht-lt)" dot={false} strokeWidth={2} />
         ))}
       </RechartsLineChart>
     </ResponsiveContainer>

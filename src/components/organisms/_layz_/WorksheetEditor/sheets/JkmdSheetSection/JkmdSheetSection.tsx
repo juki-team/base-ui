@@ -1,10 +1,10 @@
 import {
+  type ContentResponse,
   cleanRequest,
-  ContentResponse,
   isJkmdSheet,
   isStringJson,
-  JkmdSheet,
-  JkmdSubmissionDTO,
+  type JkmdSheet,
+  type JkmdSubmissionDTO,
   Status,
   WorksheetType,
 } from '@juki-team/commons';
@@ -19,7 +19,7 @@ import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { ResultHeader } from '../ResultHeader';
-import { SheetSection } from '../types';
+import type { SheetSection } from '../types';
 import { JkmdSheetSectionEditor } from './JkmdSheetSectionEditor';
 
 export const JkmdSheetSection = (props: SheetSection<JkmdSheet>) => {

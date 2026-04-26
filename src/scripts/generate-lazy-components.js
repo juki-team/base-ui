@@ -81,36 +81,111 @@ const componentDirs = [
 ];
 
 const withGenericity = [
-  [ `export const Modal = (props: ModalProps) => (`, "export const Modal = <T extends ModalButtonLoaderEventType = () => void>(props: ModalProps<T>) => (" ],
-  [ `export const MultiSelect = (props: MultiSelectProps) => (`, `export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: MultiSelectProps<T, U, V>) => (` ],
-  [ `export const Select = (props: SelectProps) => (`, `export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: SelectProps<T, U, V>) => (` ],
-  [ `export const Input = (props: InputProps) => (`, `export const Input = <T extends string | number | FileList, >(props: InputProps<T>) => (` ],
-  [ `export const InputSelect = (props: InputSelectProps) => (`, `export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) => (` ],
+  [
+    `export const Modal = (props: ModalProps) => (`,
+    'export const Modal = <T extends ModalButtonLoaderEventType = () => void>(props: ModalProps<T>) => (',
+  ],
+  [
+    `export const MultiSelect = (props: MultiSelectProps) => (`,
+    `export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: MultiSelectProps<T, U, V>) => (`,
+  ],
+  [
+    `export const Select = (props: SelectProps) => (`,
+    `export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: SelectProps<T, U, V>) => (`,
+  ],
+  [
+    `export const Input = (props: InputProps) => (`,
+    `export const Input = <T extends string | number | FileList, >(props: InputProps<T>) => (`,
+  ],
+  [
+    `export const InputSelect = (props: InputSelectProps) => (`,
+    `export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) => (`,
+  ],
   // molecules
-  [ `export const CheckboxList = (props: CheckboxListProps) => (`, `export const CheckboxList = <T, >(props: CheckboxListProps<T>) => (` ],
-  [ `export const CodeEditor = (props: CodeEditorProps) => (`, `export const CodeEditor = <T, >(props: CodeEditorProps<T>) => (` ],
-  [ `export const FetcherLayer = (props: FetcherLayerProps) => (`, `export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsResponseType<U>), U = any>(props: FetcherLayerProps<T, U>) => (` ],
-  [ `export const MultiSelectSearchable = (props: MultiSelectSearchableProps) => (`, `export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNode>(props: MultiSelectSearchableProps<T, U, V>) => (` ],
-  [ `export const SortableItems = (props: SortableItemsProps) => (`, `export const SortableItems = <T, U = undefined>(props: SortableItemsProps<T, U>) => (` ],
-  [ `export const SplitModal = (props: SplitModalProps) => (`, `export const SplitModal = <T extends ModalButtonLoaderEventType, >(props: SplitModalProps<T>) => (` ],
-  [ `export const TabsInline = (props: TabsInlineProps) => (`, `export const TabsInline = <T, >(props: TabsInlineProps<T>) => (` ],
-  [ `export const Tabs = (props: TabsProps) => (`, `export const Tabs = <T extends string, >(props: TabsProps<T>) => (` ],
-  [ `export const TabsInlineBody = (props: TabsInlineBodyProps) => (`, `export const TabsInlineBody = <T, >(props: TabsInlineBodyProps<T>) => (` ],
-  [ `export const TwoContentCardsLayout = (props: TwoContentCardsLayoutProps) => (`, `export const TwoContentCardsLayout = <T, >(props: TwoContentCardsLayoutProps<T>) => (` ],
-  [ `export const TwoContentLayout = (props: TwoContentLayoutProps) => (`, `export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => (` ],
-  [ `export const BarChart = (props: BarChartProps) => (`, `export const BarChart = <T extends ValueType, U extends NameType>(props: BarChartProps<T, U>) => (` ],
-  [ `export const LineChart = (props: LineChartProps) => (`, `export const LineChart = <T extends ValueType, U extends NameType>(props: LineChartProps<T, U>) => (` ],
+  [
+    `export const CheckboxList = (props: CheckboxListProps) => (`,
+    `export const CheckboxList = <T, >(props: CheckboxListProps<T>) => (`,
+  ],
+  [
+    `export const CodeEditor = (props: CodeEditorProps) => (`,
+    `export const CodeEditor = <T, >(props: CodeEditorProps<T>) => (`,
+  ],
+  [
+    `export const FetcherLayer = (props: FetcherLayerProps) => (`,
+    `export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsResponseType<U>), U = any>(props: FetcherLayerProps<T, U>) => (`,
+  ],
+  [
+    `export const MultiSelectSearchable = (props: MultiSelectSearchableProps) => (`,
+    `export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNode>(props: MultiSelectSearchableProps<T, U, V>) => (`,
+  ],
+  [
+    `export const SortableItems = (props: SortableItemsProps) => (`,
+    `export const SortableItems = <T, U = undefined>(props: SortableItemsProps<T, U>) => (`,
+  ],
+  [
+    `export const SplitModal = (props: SplitModalProps) => (`,
+    `export const SplitModal = <T extends ModalButtonLoaderEventType, >(props: SplitModalProps<T>) => (`,
+  ],
+  [
+    `export const TabsInline = (props: TabsInlineProps) => (`,
+    `export const TabsInline = <T, >(props: TabsInlineProps<T>) => (`,
+  ],
+  [`export const Tabs = (props: TabsProps) => (`, `export const Tabs = <T extends string, >(props: TabsProps<T>) => (`],
+  [
+    `export const TabsInlineBody = (props: TabsInlineBodyProps) => (`,
+    `export const TabsInlineBody = <T, >(props: TabsInlineBodyProps<T>) => (`,
+  ],
+  [
+    `export const TwoContentCardsLayout = (props: TwoContentCardsLayoutProps) => (`,
+    `export const TwoContentCardsLayout = <T, >(props: TwoContentCardsLayoutProps<T>) => (`,
+  ],
+  [
+    `export const TwoContentLayout = (props: TwoContentLayoutProps) => (`,
+    `export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => (`,
+  ],
+  [
+    `export const BarChart = (props: BarChartProps) => (`,
+    `export const BarChart = <T extends ValueType, U extends NameType>(props: BarChartProps<T, U>) => (`,
+  ],
+  [
+    `export const LineChart = (props: LineChartProps) => (`,
+    `export const LineChart = <T extends ValueType, U extends NameType>(props: LineChartProps<T, U>) => (`,
+  ],
   // organisms
-  [ `export const CheckUnsavedChanges = (props: CheckUnsavedChangesProps) => (`, `export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChangesProps<T>) => (` ],
-  [ `export const CodeRunnerEditor = (props: CodeRunnerEditorProps) => (`, `export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => (` ],
-  [ `export const DataViewer = (props: DataViewerProps) => (`, `export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => (` ],
-  [ `export const PagedDataViewer = (props: PagedDataViewerProps) => (`, `export const PagedDataViewer = <T extends { [key: string]: any }, V = "T">(props: PagedDataViewerProps<T, V>) => (` ],
-  [ `export const UserCodeEditor = (props: UserCodeEditorProps) => (`, `export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => (` ],
+  [
+    `export const CheckUnsavedChanges = (props: CheckUnsavedChangesProps) => (`,
+    `export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChangesProps<T>) => (`,
+  ],
+  [
+    `export const CodeRunnerEditor = (props: CodeRunnerEditorProps) => (`,
+    `export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => (`,
+  ],
+  [
+    `export const DataViewer = (props: DataViewerProps) => (`,
+    `export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => (`,
+  ],
+  [
+    `export const PagedDataViewer = (props: PagedDataViewerProps) => (`,
+    `export const PagedDataViewer = <T extends { [key: string]: any }, V = "T">(props: PagedDataViewerProps<T, V>) => (`,
+  ],
+  [
+    `export const UserCodeEditor = (props: UserCodeEditorProps) => (`,
+    `export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => (`,
+  ],
   // templates
-  [ 'export const ProblemView = (props: ProblemViewProps) => (', 'export const ProblemView = <T, >(props: ProblemViewProps<T>) => (' ],
-  [ 'export const CreateEntityLayout = (props: CreateEntityLayoutProps) => (', 'export const CreateEntityLayout = <T, U, V>(props: CreateEntityLayoutProps<T, U, V>) => (' ],
-  [ 'export const UpdateEntityLayout = (props: UpdateEntityLayoutProps) => (', 'export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U, V>) => (' ],
-]
+  [
+    'export const ProblemView = (props: ProblemViewProps) => (',
+    'export const ProblemView = <T, >(props: ProblemViewProps<T>) => (',
+  ],
+  [
+    'export const CreateEntityLayout = (props: CreateEntityLayoutProps) => (',
+    'export const CreateEntityLayout = <T, U, V>(props: CreateEntityLayoutProps<T, U, V>) => (',
+  ],
+  [
+    'export const UpdateEntityLayout = (props: UpdateEntityLayoutProps) => (',
+    'export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U, V>) => (',
+  ],
+];
 
 const preloadNames = [];
 
@@ -127,64 +202,57 @@ for (let {
   withLazy,
   withGroup,
 } of componentDirs) {
-  
   console.info(`Generating ${dir}`);
   if (!fs.existsSync(dir)) continue;
-  
-  const folders = depth === 0 ?
-    [ dir.split('/').slice(-1) ] :
-    fs.readdirSync(dir)
-      .filter(name => fs.statSync(path.join(dir, name)).isDirectory())
-      .filter(name => !name.includes('.deprecated.'));
+
+  const folders =
+    depth === 0
+      ? [dir.split('/').slice(-1)]
+      : fs
+          .readdirSync(dir)
+          .filter((name) => fs.statSync(path.join(dir, name)).isDirectory())
+          .filter((name) => !name.includes('.deprecated.'));
   if (depth === 0) {
-    dir = dir.replace('/' + folders[0], '');
+    dir = dir.replace(`/${folders[0]}`, '');
   }
-  
-  const files = (cmpIndex ? folders.map(folder => ({ path: '.', file: folder }))
-      : (folders
-        .map(baseFolder => fs.readdirSync(dir + '/' + baseFolder)
-          .map(folder => ({ path: `./${baseFolder}/${folder}`, file: folder }))
-        )
-        .flat()
-        .filter(({ file }) => /^[A-Z]/.test(file) && file.endsWith('.tsx') && !file.endsWith('.stories.tsx') && !file.includes('.deprecated.')))
-  )
-    .map(({ path: _path, file }) => {
-      const name = path.basename(file, path.extname(file));
-      return { basePath: (depth === 0 || cmpIndex) ? '.' : _path.replace('/' + name + '.tsx', ''), path: _path, name };
-    })
-  
+
+  const files = (
+    cmpIndex
+      ? folders.map((folder) => ({ path: '.', file: folder }))
+      : folders
+          .flatMap((baseFolder) =>
+            fs.readdirSync(`${dir}/${baseFolder}`).map((folder) => ({ path: `./${baseFolder}/${folder}`, file: folder })),
+          )
+          .filter(
+            ({ file }) =>
+              /^[A-Z]/.test(file) && file.endsWith('.tsx') && !file.endsWith('.stories.tsx') && !file.includes('.deprecated.'),
+          )
+  ).map(({ path: _path, file }) => {
+    const name = path.basename(file, path.extname(file));
+    return { basePath: depth === 0 || cmpIndex ? '.' : _path.replace(`/${name}.tsx`, ''), path: _path, name };
+  });
+
   console.info({ foldersSize: folders.length, filesSize: files.length });
-  
+
   let groupContent = [];
   let indexContent = [];
   if (withGroup) {
-    groupContent = [
-      ...files.map(({
-                      basePath,
-                      name
-                    }) => `export { ${name} } from './${name}';`),
-      '',
-    ].join('\n');
+    groupContent = [...files.map(({ basePath, name }) => `export { ${name} } from './${name}';`), ''].join('\n');
     indexContent.push(`const GroupImport = () => import('./_group');\n`);
     indexContent.push(
-      ...files.map(({ name }) => `export const ${name} = lazy(() => GroupImport().then(m => ({ default: m.${name} })));\n`)
+      ...files.map(({ name }) => `export const ${name} = lazy(() => GroupImport().then(m => ({ default: m.${name} })));\n`),
     );
-    indexContent.push(
-      `export const preload${chunkName} = async () => {`,
-      '  await GroupImport();',
-      '};'
-    );
+    indexContent.push(`export const preload${chunkName} = async () => {`, '  await GroupImport();', '};');
   } else {
     indexContent = [
-      ...(headerLines && withLazy ? [ headerLines ] : []),
-      ...(!!withProps && !commonProp && groupContent && withLazy
+      ...(headerLines && withLazy ? [headerLines] : []),
+      ...(withProps && !commonProp && groupContent && withLazy
         ? [
-          ...files.map(({
-                          basePath,
-                          name
-                        }) => `import type { ${name}Props } from '${cmpIndex ? `./${name}` : basePath}/types';`),
-          '',
-        ]
+            ...files.map(
+              ({ basePath, name }) => `import type { ${name}Props } from '${cmpIndex ? `./${name}` : basePath}/types';`,
+            ),
+            '',
+          ]
         : []),
       ...files.map(({ basePath, name }) => {
         const lines = [];
@@ -193,67 +261,62 @@ for (let {
             `const ${name}Import = () => import('${basePath}/${name}');`,
             `const Lazy${name} = lazy(() => ${name}Import().then(module => ({ default: module.${name} })));`,
           );
-          
-          let exportLine = `export const ${name} = (${withProps ? (`props: ${commonProp ? commonProp : `${name}Props`}`) : ''}) => (`;
-          const index = withGenericity.findIndex(([ line ]) => {
+
+          let exportLine = `export const ${name} = (${withProps ? `props: ${commonProp ? commonProp : `${name}Props`}` : ''}) => (`;
+          const index = withGenericity.findIndex(([line]) => {
             return exportLine === line;
-          })
+          });
           if (index !== -1) {
             exportLine = withGenericity[index][1];
           }
-          
-          lines.push(exportLine, `  <Suspense fallback={<SpinIcon size="tiny" />}>`,);
+
+          lines.push(exportLine, `  <Suspense fallback={<SpinIcon size="tiny" />}>`);
           // lines.push(exportLine, `  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="${name}">`,);
-          
+
           if (index !== -1) {
             lines.push(`    {/*@ts-ignore*/}`);
           }
-          
+
           lines.push(
             `    <Lazy${name} ${withProps ? '{...props} ' : ''}/>`,
             // `  </SuspenseWithTracking>`,
             `  </Suspense>`,
             `);`,
-            ``
+            ``,
           );
         } else {
           lines.push(`export { ${name} } from '${basePath}/${name}';`);
         }
-        
+
         return lines.join('\n');
       }),
-      ...(withLazy ? [
-        `export const preload${chunkName} = async () => {`,
-        ...files.map(({ name }) => `  await ${name}Import();`),
-        '};',
-        ''
-      ] : []),
+      ...(withLazy
+        ? [`export const preload${chunkName} = async () => {`, ...files.map(({ name }) => `  await ${name}Import();`), '};', '']
+        : []),
     ];
   }
-  
+
   const reactImports = [];
-  if (indexContent.some(content => content.includes('lazy'))) {
-    reactImports.push('lazy')
+  if (indexContent.some((content) => content.includes('lazy'))) {
+    reactImports.push('lazy');
   }
-  if (indexContent.some(content => content.includes('Suspense'))) {
-    reactImports.push('Suspense')
+  if (indexContent.some((content) => content.includes('Suspense'))) {
+    reactImports.push('Suspense');
   }
-  if (indexContent.some(content => content.includes('ReactNode'))) {
+  if (indexContent.some((content) => content.includes('ReactNode'))) {
     reactImports.push('ReactNode');
   }
-  
+
   if (reactImports.length > 0) {
-    indexContent = [ `import { ${reactImports.join(', ')} } from 'react';`, ...indexContent ];
+    indexContent = [`import { ${reactImports.join(', ')} } from 'react';`, ...indexContent];
   }
-  
+
   if (footerLines) {
     indexContent.push(footerLines);
   }
-  
-  const indexTypesContent = [
-    ...files.map(({ basePath }) => `export type * from '${basePath}/types';`),
-  ].join('\n')
-  const folderName = dir + (depth === 0 ? ('/' + folders[0]) : '');
+
+  const indexTypesContent = [...files.map(({ basePath }) => `export type * from '${basePath}/types';`)].join('\n');
+  const folderName = dir + (depth === 0 ? `/${folders[0]}` : '');
   fs.rmSync(path.join(folderName, 'index.ts'), { force: true });
   fs.rmSync(path.join(folderName, 'index.tsx'), { force: true });
   fs.writeFileSync(path.join(folderName, withGroup ? 'index.ts' : 'index.tsx'), indexContent.join('\n'));
@@ -263,9 +326,9 @@ for (let {
   if (withGroup) {
     fs.writeFileSync(path.join(folderName, '_group.tsx'), groupContent);
   }
-  
-  console.info(`✅ Generated: ${path.join(dir + '/' + folders[0], 'index.tsx')}`);
-  
+
+  console.info(`✅ Generated: ${path.join(`${dir}/${folders[0]}`, 'index.tsx')}`);
+
   if (withLazy) {
     preloadNames.push(`void preload${chunkName}();`);
   }

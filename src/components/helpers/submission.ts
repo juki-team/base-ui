@@ -1,8 +1,10 @@
-import { ProblemVerdict } from '@juki-team/commons';
+import { ProblemVerdict } from '@juki-team/commons/enums';
 
 export const hasTimeHasMemory = (verdict: ProblemVerdict) => {
-  return !(verdict === ProblemVerdict.CE
-    || verdict === ProblemVerdict.HIDDEN
-    || verdict === ProblemVerdict.NONE
-    || verdict === ProblemVerdict.PENDING);
+  return !(
+    verdict === ProblemVerdict.CE ||
+    verdict === ProblemVerdict.HIDDEN ||
+    verdict === ProblemVerdict.NONE ||
+    verdict === ProblemVerdict.PENDING
+  );
 };

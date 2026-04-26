@@ -1,5 +1,5 @@
 import { ProfileSetting } from '@juki-team/commons';
-import { PropsWithChildren, useState } from 'react';
+import { type PropsWithChildren, useState } from 'react';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useUserStore } from '../../../stores/user/useUserStore';

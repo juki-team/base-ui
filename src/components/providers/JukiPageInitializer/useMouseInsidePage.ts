@@ -1,5 +1,4 @@
 export function useMouseInsidePage() {
-  
   // const setIsMouseInside = usePageStore(store => store.setIsMouseInside);
   //
   // useEffect(() => {
@@ -19,5 +18,4 @@ export function useMouseInsidePage() {
   //     document.removeEventListener('mouseover', handleMouseOver);
   //   };
   // }, [ setIsMouseInside ]);
-  
 }

@@ -1,4 +1,4 @@
-import { CodeLanguage } from '@juki-team/commons';
+import { CodeLanguage } from '@juki-team/commons/enums';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupJukiProvider, MockupToggleThemeButton } from '../../../mockup';
 import { CodeViewer } from './';
@@ -48,7 +48,7 @@ const meta: Meta<typeof CodeViewer> = {
   },
   argTypes: {
     language: {
-      options: Object.values(CodeLanguage),   // convierte el enum en array de valores
+      options: Object.values(CodeLanguage), // convierte el enum en array de valores
       control: { type: 'select' },
     },
     code: {

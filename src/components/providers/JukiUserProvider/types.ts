@@ -1,7 +1,7 @@
 import type { ClientId, CompanyPingResponseDTO, Device, UserPing } from '@juki-team/commons';
-import { KeyedMutator } from 'swr';
+import type { KeyedMutator } from 'swr';
 
-export interface JukiUserProviderProps {}
+export type JukiUserProviderProps = {};
 
 export interface UserState {
   uiId: string;

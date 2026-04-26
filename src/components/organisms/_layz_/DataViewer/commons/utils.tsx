@@ -1,6 +1,32 @@
-import { join, split } from '@juki-team/commons';
-import { type TFunction } from 'i18next';
-import { type RefObject } from 'react';
+import {
+  isDayAfter,
+  isDayBefore,
+  isHoursAfter,
+  isHoursBefore,
+  isMillisecondsAfter,
+  isMillisecondsBefore,
+  isMinutesAfter,
+  isMinutesBefore,
+  isMonthAfter,
+  isMonthBefore,
+  isSameDay,
+  isSameHour,
+  isSameMillisecond,
+  isSameMinute,
+  isSameMonth,
+  isSameSecond,
+  isSameYear,
+  isSecondsAfter,
+  isSecondsBefore,
+  isValidDate,
+  isWithinInterval,
+  isYearAfter,
+  isYearBefore,
+  join,
+  split,
+} from '@juki-team/commons/helpers';
+import type { TFunction } from 'i18next';
+import type { RefObject } from 'react';
 import { renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import type { DatePickerDateFunType } from '../../../../molecules/types';
 import type { RequestFilterType } from '../../../../types';
@@ -43,64 +69,68 @@ import type {
   TableHeadersType,
 } from '../types';
 
-export const isSortOffline = <T, >(sort?: DataViewerHeaderSortType<T>): sort is DataViewerHeaderSortOfflineType<T> => {
+export const isSortOffline = <T,>(sort?: DataViewerHeaderSortType<T>): sort is DataViewerHeaderSortOfflineType<T> => {
   return !!(typeof sort === 'object' && sort?.compareFn);
 };
 
-export const isSortOnline = <T, >(sort?: DataViewerHeaderSortType<T>): sort is DataViewerHeaderSortOnlineType => {
+export const isSortOnline = <T,>(sort?: DataViewerHeaderSortType<T>): sort is DataViewerHeaderSortOnlineType => {
   return sort === true;
 };
 
 // Text
-export const isFilterTextOnline = <T, >(filter?: JkTableHeaderFilterType<T>): filter is FilterTextOnlineType => {
-  return !(filter?.hasOwnProperty('callbackFn')) && filter?.type === FILTER_TEXT;
+export const isFilterTextOnline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterTextOnlineType => {
+  return !(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_TEXT;
 };
 
-export const isFilterTextOffline = <T, >(filter?: JkTableHeaderFilterType<T>): filter is FilterTextOfflineType<T> => {
-  return !!(filter?.hasOwnProperty('callbackFn')) && filter?.type === FILTER_TEXT;
+export const isFilterTextOffline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterTextOfflineType<T> => {
+  return !!(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_TEXT;
 };
 
-export const isFilterTextAutoOffline = <T, >(filter?: JkTableHeaderFilterType<T>): filter is FilterTextAutoOfflineType<T> => {
+export const isFilterTextAutoOffline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterTextAutoOfflineType<T> => {
   return filter?.type === FILTER_TEXT_AUTO;
 };
 
 // Select
-export const isFilterSelectOnline = <T, >(filter?: JkTableHeaderFilterType<T>): filter is FilterSelectOnlineType => {
-  return !(filter?.hasOwnProperty('callbackFn')) && filter?.type === FILTER_SELECT;
+export const isFilterSelectOnline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterSelectOnlineType => {
+  return !(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_SELECT;
 };
 
-export const isFilterSelectOffline = <T, >(filter?: JkTableHeaderFilterType<T>): filter is FilterSelectOfflineType<T> => {
-  return !!(filter?.hasOwnProperty('callbackFn')) && filter?.type === FILTER_SELECT;
+export const isFilterSelectOffline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterSelectOfflineType<T> => {
+  return !!(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_SELECT;
 };
 
-export const isFilterSelectAutoOffline = <T, >(filter?: JkTableHeaderFilterType<T>): filter is FilterSelectAutoOfflineType<T> => {
+export const isFilterSelectAutoOffline = <T,>(
+  filter?: JkTableHeaderFilterType<T>,
+): filter is FilterSelectAutoOfflineType<T> => {
   return filter?.type === FILTER_SELECT_AUTO;
 };
 
 // Date
-export const isFilterDateOnline = <T, >(filter?: JkTableHeaderFilterType<T>): filter is FilterDateOnlineType => {
-  return !(filter?.hasOwnProperty('callbackFn')) && filter?.type === FILTER_DATE;
+export const isFilterDateOnline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterDateOnlineType => {
+  return !(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_DATE;
 };
 
-export const isFilterDateOffline = <T, >(filter?: JkTableHeaderFilterType<T>): filter is FilterDateOfflineType<T> => {
-  return !!(filter?.hasOwnProperty('callbackFn')) && filter?.type === FILTER_DATE;
+export const isFilterDateOffline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterDateOfflineType<T> => {
+  return !!(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_DATE;
 };
 
-export const isFilterDateAutoOffline = <T, >(filter?: JkTableHeaderFilterType<T>): filter is FilterDateAutoOfflineType<T> => {
-  return !(filter?.hasOwnProperty('callbackFn')) && filter?.type === FILTER_DATE_AUTO;
+export const isFilterDateAutoOffline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterDateAutoOfflineType<T> => {
+  return !(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_DATE_AUTO;
 };
 
 // Date range
-export const isFilterDateRangeOnline = <T, >(filter?: JkTableHeaderFilterType<T>): filter is FilterDateRangeOnlineType => {
-  return !(filter?.hasOwnProperty('callbackFn')) && filter?.type === FILTER_DATE_RANGE;
+export const isFilterDateRangeOnline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterDateRangeOnlineType => {
+  return !(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_DATE_RANGE;
 };
 
-export const isFilterDateRangeOffline = <T, >(filter?: JkTableHeaderFilterType<T>): filter is FilterDateRangeOfflineType<T> => {
-  return !!(filter?.hasOwnProperty('callbackFn')) && filter?.type === FILTER_DATE_RANGE;
+export const isFilterDateRangeOffline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterDateRangeOfflineType<T> => {
+  return !!(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_DATE_RANGE;
 };
 
-export const isFilterDateRangeAutoOffline = <T, >(filter?: JkTableHeaderFilterType<T>): filter is FilterDateRangeAutoOfflineType<T> => {
-  return !(filter?.hasOwnProperty('callbackFn')) && filter?.type === FILTER_DATE_RANGE_AUTO;
+export const isFilterDateRangeAutoOffline = <T,>(
+  filter?: JkTableHeaderFilterType<T>,
+): filter is FilterDateRangeAutoOfflineType<T> => {
+  return !(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_DATE_RANGE_AUTO;
 };
 
 // Simple filters
@@ -120,68 +150,89 @@ export const isFilterDateRange = (filter?: TableHeaderFilterType): filter is Tab
   return filter?.type === FILTER_DATE_RANGE;
 };
 
-interface renderHeadProps<T> {
-  header: DataViewerTableHeadersType<T>,
-  columnIndex: string,
-  className?: string,
+interface RenderHeadProps<T> {
+  header: DataViewerTableHeadersType<T>;
+  columnIndex: string;
+  className?: string;
 }
 
-export const renderHead = <T, >({ header, columnIndex, className }: renderHeadProps<T>) => {
-  
+export const renderHead = <T,>({ header, columnIndex, className }: RenderHeadProps<T>) => {
   if (typeof header.head === 'string') {
     return <TextHeadCell text={header.head} className={className} />;
   }
-  
+
   if (header.head) {
     return renderReactNodeOrFunctionP1(header.head, { header, data: [] });
   }
-  
+
   return <TextHeadCell text={columnIndex} className={className} />;
 };
 
 export const isSelected = (start: Date | null) => (date: Date) => ({
-  year: !!start && date.isSameYear(start),
-  month: !!start && date.isSameMonth(start),
-  day: !!start && date.isSameDay(start),
-  hours: !!start && date.isSameHour(start),
-  minutes: !!start && date.isSameMinute(start),
-  seconds: !!start && date.isSameSecond(start),
-  milliseconds: !!start && date.isSameMillisecond(start),
+  year: !!start && isSameYear(date, start),
+  month: !!start && isSameMonth(date, start),
+  day: !!start && isSameDay(date, start),
+  hours: !!start && isSameHour(date, start),
+  minutes: !!start && isSameMinute(date, start),
+  seconds: !!start && isSameSecond(date, start),
+  milliseconds: !!start && isSameMillisecond(date, start),
 });
 
 export const isRangeSelected = (start: Date | null, end: Date | null) => (date: Date) => ({
-  year: !!start && !!end && (date.isSameYear(start) || date.isSameYear(end) || date.isWithinInterval({ start, end })),
-  month: !!start && !!end && (date.isSameMonth(start) || date.isSameMonth(end) || date.isWithinInterval({
-    start,
-    end,
-  })),
-  day: !!start && !!end && (date.isSameDay(start) || date.isSameDay(end) || date.isWithinInterval({ start, end })),
-  hours: !!start && !!end && (date.isSameHour(start) || date.isSameHour(end) || date.isWithinInterval({ start, end })),
-  minutes: !!start && !!end && (date.isSameMinute(start) || date.isSameMinute(end) || date.isWithinInterval({
-    start,
-    end,
-  })),
-  seconds: !!start && !!end && (date.isSameSecond(start) || date.isSameSecond(end) || date.isWithinInterval({
-    start,
-    end,
-  })),
-  milliseconds: !!start && !!end && (date.isSameMillisecond(start) || date.isSameMillisecond(end) || date.isWithinInterval({
-    start,
-    end,
-  })),
+  year: !!start && !!end && (isSameYear(date, start) || isSameYear(date, end) || isWithinInterval(date, { start, end })),
+  month:
+    !!start &&
+    !!end &&
+    (isSameMonth(date, start) ||
+      isSameMonth(date, end) ||
+      isWithinInterval(date, {
+        start,
+        end,
+      })),
+  day: !!start && !!end && (isSameDay(date, start) || isSameDay(date, end) || isWithinInterval(date, { start, end })),
+  hours: !!start && !!end && (isSameHour(date, start) || isSameHour(date, end) || isWithinInterval(date, { start, end })),
+  minutes:
+    !!start &&
+    !!end &&
+    (isSameMinute(date, start) ||
+      isSameMinute(date, end) ||
+      isWithinInterval(date, {
+        start,
+        end,
+      })),
+  seconds:
+    !!start &&
+    !!end &&
+    (isSameSecond(date, start) ||
+      isSameSecond(date, end) ||
+      isWithinInterval(date, {
+        start,
+        end,
+      })),
+  milliseconds:
+    !!start &&
+    !!end &&
+    (isSameMillisecond(date, start) ||
+      isSameMillisecond(date, end) ||
+      isWithinInterval(date, {
+        start,
+        end,
+      })),
 });
 
-export const isDisabledEnd = (start: Date | null): DatePickerDateFunType => (date) => {
-  return {
-    year: !!start && date.isYearBefore(start),
-    month: !!start && date.isMonthBefore(start),
-    day: !!start && date.isDayBefore(start),
-    hours: !!start && date.isHoursBefore(start),
-    minutes: !!start && date.isMinutesBefore(start),
-    seconds: !!start && date.isSecondsBefore(start),
-    milliseconds: !!start && date.isMillisecondsBefore(start),
+export const isDisabledEnd =
+  (start: Date | null): DatePickerDateFunType =>
+  (date) => {
+    return {
+      year: !!start && isYearBefore(date, start),
+      month: !!start && isMonthBefore(date, start),
+      day: !!start && isDayBefore(date, start),
+      hours: !!start && isHoursBefore(date, start),
+      minutes: !!start && isMinutesBefore(date, start),
+      seconds: !!start && isSecondsBefore(date, start),
+      milliseconds: !!start && isMillisecondsBefore(date, start),
+    };
   };
-};
 
 export const orDatePickerDateFun = (fun1: DatePickerDateFunType, fun2: DatePickerDateFunType) => (date: Date) => {
   const result1 = fun1(date);
@@ -197,19 +248,21 @@ export const orDatePickerDateFun = (fun1: DatePickerDateFunType, fun2: DatePicke
   };
 };
 
-export const isDisabledStart = (end: Date | null): DatePickerDateFunType => (date) => {
-  return {
-    year: !!end && date.isYearAfter(end),
-    month: !!end && date.isMonthAfter(end),
-    day: !!end && date.isDayAfter(end),
-    hours: !!end && date.isHoursAfter(end),
-    minutes: !!end && date.isMinutesAfter(end),
-    seconds: !!end && date.isSecondsAfter(end),
-    milliseconds: !!end && date.isMillisecondsAfter(end),
+export const isDisabledStart =
+  (end: Date | null): DatePickerDateFunType =>
+  (date) => {
+    return {
+      year: !!end && isYearAfter(date, end),
+      month: !!end && isMonthAfter(date, end),
+      day: !!end && isDayAfter(date, end),
+      hours: !!end && isHoursAfter(date, end),
+      minutes: !!end && isMinutesAfter(date, end),
+      seconds: !!end && isSecondsAfter(date, end),
+      milliseconds: !!end && isMillisecondsAfter(date, end),
+    };
   };
-};
 
-export const isSomethingFiltered = <T, >(headers: TableHeadersType<T>[]) => {
+export const isSomethingFiltered = <T,>(headers: TableHeadersType<T>[]) => {
   let filtered = false;
   const values: FilterValuesType = {};
   headers.forEach(({ index, filter }) => {
@@ -224,13 +277,14 @@ export const isSomethingFiltered = <T, >(headers: TableHeadersType<T>[]) => {
         filtered = true;
       }
     } else if (isFilterDate(filter)) {
-      if (filter.getFilter?.()?.isValidDate()) {
-        values[index] = filter.getFilter() as Date;
+      const f = filter.getFilter?.();
+      if (f && isValidDate(f)) {
+        values[index] = f;
         filtered = true;
       }
     } else if (isFilterDateRange(filter)) {
       const dates = filter.getFilter?.();
-      if (dates?.[0]?.isValidDate() && dates?.[1]?.isValidDate()) {
+      if (dates?.[0] && isValidDate(dates[0]) && dates?.[1] && isValidDate(dates[1])) {
         values[index] = dates;
         filtered = true;
       }
@@ -239,23 +293,23 @@ export const isSomethingFiltered = <T, >(headers: TableHeadersType<T>[]) => {
   return { filtered, values };
 };
 
-export const getPageKey = (name: string) => name ? name + '.page' : 'page';
+export const getPageKey = (name: string) => (name ? `${name}.page` : 'page');
 
-export const getPageSizeKey = (name: string) => name ? name + '.pageSize' : 'pageSize';
+export const getPageSizeKey = (name: string) => (name ? `${name}.pageSize` : 'pageSize');
 
-export const getSortKey = (name: string) => name ? name + '.sort' : 'sort';
+export const getSortKey = (name: string) => (name ? `${name}.sort` : 'sort');
 
-export const getFilterKey = (name: string) => name ? name + '.filter' : 'filter';
+export const getFilterKey = (name: string) => (name ? `${name}.filter` : 'filter');
 
-export const getViewModeKey = (name: string) => name ? name + '.viewMode' : 'viewMode';
+export const getViewModeKey = (name: string) => (name ? `${name}.viewMode` : 'viewMode');
 
-export const getShowFilterDrawerKey = (name: string) => name ? name + '.showFilterDrawer' : 'showFilterDrawer';
+export const getShowFilterDrawerKey = (name: string) => (name ? `${name}.showFilterDrawer` : 'showFilterDrawer');
 
-export const getVisiblesKey = (name: string) => name ? name + '.visibles' : 'visibles';
+export const getVisiblesKey = (name: string) => (name ? `${name}.visibles` : 'visibles');
 
-export const fixHeaders = <T, >(headers: DataViewerTableHeadersType<T>[]) => {
+export const fixHeaders = <T,>(headers: DataViewerTableHeadersType<T>[]) => {
   let accumulatedWidth = 0;
-  const newHeaderWidths = [ ...headers ];
+  const newHeaderWidths = [...headers];
   headers.forEach((head, index) => {
     if (head.visible?.getVisible()) {
       newHeaderWidths[index] = { ...head, accumulatedWidth };
@@ -268,10 +322,9 @@ export const fixHeaders = <T, >(headers: DataViewerTableHeadersType<T>[]) => {
 const widthCache = new Map();
 
 export function getTextWidth(text: string, font: string) {
-  
   const cacheKey = `${text}-${font}`;
   if (widthCache.has(cacheKey)) return widthCache.get(cacheKey);
-  
+
   if (typeof document !== 'undefined') {
     // @ts-expect-error adding canvas element
     const canvas: HTMLCanvasElement = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
@@ -288,24 +341,30 @@ export function getTextWidth(text: string, font: string) {
 
 export const DEFAULT_PICKER_TYPE = 'year-month-day-hours-minutes-seconds';
 
-export const isSomethingSearchFiltered = (newSearchFilter: RequestFilterType) => (
-  !!Object.values(newSearchFilter).filter(search => !!search && (Array.isArray(search) ? search.length : true)).length
-);
+export const isSomethingSearchFiltered = (newSearchFilter: RequestFilterType) =>
+  !!Object.values(newSearchFilter).filter((search) => !!search && (Array.isArray(search) ? search.length : true)).length;
 
-type SetFn = (value: (string | number)) => void;
+type SetFn = (value: string | number) => void;
 type DeleteFn = () => void;
 
-const onResetFilter = (filterIndex: string, filtersRef: RefObject<RequestFilterType>, setFilter: SetFn, deleteFilter: DeleteFn) => () => {
-  const newSearchFilter: RequestFilterType = { ...filtersRef.current };
-  newSearchFilter[filterIndex] = '';
-  if (isSomethingSearchFiltered(newSearchFilter)) {
-    setFilter(JSON.stringify(newSearchFilter));
-  } else {
-    deleteFilter();
-  }
-};
+const onResetFilter =
+  (filterIndex: string, filtersRef: RefObject<RequestFilterType>, setFilter: SetFn, deleteFilter: DeleteFn) => () => {
+    const newSearchFilter: RequestFilterType = { ...filtersRef.current };
+    newSearchFilter[filterIndex] = '';
+    if (isSomethingSearchFiltered(newSearchFilter)) {
+      setFilter(JSON.stringify(newSearchFilter));
+    } else {
+      deleteFilter();
+    }
+  };
 
-const onFilter = (filterIndex: string, newFilter: string, filtersRef: RefObject<RequestFilterType>, setFilter: SetFn, deleteFilter: DeleteFn) => {
+const onFilter = (
+  filterIndex: string,
+  newFilter: string,
+  filtersRef: RefObject<RequestFilterType>,
+  setFilter: SetFn,
+  deleteFilter: DeleteFn,
+) => {
   const newSearchFilter = { ...filtersRef.current };
   if (JSON.stringify(newSearchFilter[filterIndex]) !== JSON.stringify(newFilter)) {
     newSearchFilter[filterIndex] = newFilter;
@@ -317,8 +376,18 @@ const onFilter = (filterIndex: string, newFilter: string, filtersRef: RefObject<
   }
 };
 
-export const buildHeaders = <T, >(headers: DataViewerHeadersType<T>[], searchVisibles: string, t: TFunction<[ 'translation', ...string[] ], undefined>, filtersRef: RefObject<RequestFilterType>, searchSortsRef: RefObject<string>, setVisibles: SetFn, setSort: SetFn, deleteSort: DeleteFn, setFilter: SetFn, deleteFilter: DeleteFn) => {
-  
+export const buildHeaders = <T,>(
+  headers: DataViewerHeadersType<T>[],
+  searchVisibles: string,
+  t: TFunction<['translation', ...string[]], undefined>,
+  filtersRef: RefObject<RequestFilterType>,
+  searchSortsRef: RefObject<string>,
+  setVisibles: SetFn,
+  setSort: SetFn,
+  deleteSort: DeleteFn,
+  setFilter: SetFn,
+  deleteFilter: DeleteFn,
+) => {
   const baseHeaders = headers.map(({ sort, filter, ...props }, index) => {
     const getVisible = () => split(searchVisibles).includes(props.index);
     const newHead: DataViewerTableHeadersType<T> = {
@@ -332,22 +401,24 @@ export const buildHeaders = <T, >(headers: DataViewerHeadersType<T>[], searchVis
         onToggle() {
           const isVisible = getVisible();
           if (isVisible) {
-            setVisibles(join(split(searchVisibles).filter(i => i !== props.index)));
+            setVisibles(join(split(searchVisibles).filter((i) => i !== props.index)));
           } else {
-            setVisibles(join([ ...split(searchVisibles), props.index ]));
+            setVisibles(join([...split(searchVisibles), props.index]));
           }
         },
       },
     };
     const headIndex = props.index;
     // let iconsWidth = filter ? 34 : 0;
-    let iconsWidth = filter ? (26 + 2) : 0; // size of icon // 2px separation
-    if (sort) { // online or offline
+    let iconsWidth = filter ? 26 + 2 : 0; // size of icon // 2px separation
+    if (sort) {
+      // online or offline
       // iconsWidth += iconsWidth ? (34 + 4) : 34; // size of icon // 4px separation
       iconsWidth += 26 + 2; // size of icon // 2px separation
       const up = props.index;
-      const down = '-' + props.index;
-      const getOrder = () => split(searchSortsRef.current).includes(up) ? 1 : split(searchSortsRef.current).includes(down) ? -1 : 0;
+      const down = `-${props.index}`;
+      const getOrder = () =>
+        split(searchSortsRef.current).includes(up) ? 1 : split(searchSortsRef.current).includes(down) ? -1 : 0;
       newHead.sort = {
         getOrder,
         onSort: () => {
@@ -376,9 +447,11 @@ export const buildHeaders = <T, >(headers: DataViewerHeadersType<T>[], searchVis
         onFilter: ({ selectedOptions }) => {
           onFilter(
             headIndex,
-            join(selectedOptions
-              .filter(({ value }) => !!filter.options.find(option => option.value === value))
-              .map(({ value }) => value)),
+            join(
+              selectedOptions
+                .filter(({ value }) => !!filter.options.find((option) => option.value === value))
+                .map(({ value }) => value),
+            ),
             filtersRef,
             setFilter,
             deleteFilter,
@@ -386,24 +459,27 @@ export const buildHeaders = <T, >(headers: DataViewerHeadersType<T>[], searchVis
         },
         onReset: onResetFilter(headIndex, filtersRef, setFilter, deleteFilter),
         options: filter.options,
-        getFilter: () => filtersRef.current[headIndex] ? split(filtersRef.current[headIndex]).map(value => ({
-          value,
-          label: '',
-        })) : [],
+        getFilter: () =>
+          filtersRef.current[headIndex]
+            ? split(filtersRef.current[headIndex]).map((value) => ({
+                value,
+                label: '',
+              }))
+            : [],
         // selectedOptions: [
         online: isFilterSelectOnline(filter),
       };
     } else if (filter?.type === FILTER_DATE || filter?.type === FILTER_DATE_AUTO) {
-      
       newHead.filter = {
         type: FILTER_DATE,
         pickerType: filter.pickerType || DEFAULT_PICKER_TYPE,
-        onFilter: ({ selectedDate }) => onFilter(headIndex, selectedDate.getTime() + '', filtersRef, setFilter, deleteFilter),
+        onFilter: ({ selectedDate }) => onFilter(headIndex, `${selectedDate.getTime()}`, filtersRef, setFilter, deleteFilter),
         isDisabled: filter.isDisabled || (() => ({})),
         onReset: onResetFilter(headIndex, filtersRef, setFilter, deleteFilter),
         getFilter: () => {
-          return filtersRef.current[headIndex]
-          && new Date(+filtersRef.current[headIndex]).isValidDate() ? new Date(+filtersRef.current[headIndex]) : null;
+          return filtersRef.current[headIndex] && isValidDate(new Date(+filtersRef.current[headIndex]))
+            ? new Date(+filtersRef.current[headIndex])
+            : null;
         },
         // selectedDate,
         baseDate: /* TODO: newHead.filter?.getFilter() as Date ||*/ filter.baseDate || new Date(),
@@ -413,36 +489,40 @@ export const buildHeaders = <T, >(headers: DataViewerHeadersType<T>[], searchVis
       newHead.filter = {
         type: FILTER_DATE_RANGE,
         pickerType: filter.pickerType || DEFAULT_PICKER_TYPE,
-        onFilter: ({
-                     startSelectedDate,
-                     endSelectedDate,
-                   }) => onFilter(headIndex, join([ startSelectedDate.getTime() + '', endSelectedDate.getTime() + '' ]), filtersRef, setFilter, deleteFilter),
+        onFilter: ({ startSelectedDate, endSelectedDate }) =>
+          onFilter(
+            headIndex,
+            join([`${startSelectedDate.getTime()}`, `${endSelectedDate.getTime()}`]),
+            filtersRef,
+            setFilter,
+            deleteFilter,
+          ),
         onReset: onResetFilter(headIndex, filtersRef, setFilter, deleteFilter),
         isDisabled: filter.isDisabled || (() => ({})),
         getFilter: () => {
-          const [ start, end ] = filtersRef.current[headIndex] ? split(filtersRef.current[headIndex]) : [];
-          const startSelectedDate = start && new Date(+start).isValidDate() ? new Date(+start) : null;
-          const endSelectedDate = end && new Date(+end).isValidDate() ? new Date(+end) : null;
-          return [ startSelectedDate, endSelectedDate ];
+          const [start, end] = filtersRef.current[headIndex] ? split(filtersRef.current[headIndex]) : [];
+          const startSelectedDate = start && isValidDate(new Date(+start)) ? new Date(+start) : null;
+          const endSelectedDate = end && isValidDate(new Date(+end)) ? new Date(+end) : null;
+          return [startSelectedDate, endSelectedDate];
         },
         baseStartDate: /* TODO: newHead.filter?.getFilter()?.[0] as Date ||*/ filter.baseStartDate || new Date(),
         baseEndDate: /* TODO: newHead.filter?.getFilter()?.[1] as Date  ||*/ filter.baseEndDate || new Date(),
         online: isFilterDateRangeOnline(filter),
       };
     }
-    
+
     const head = props.head || props.index;
     if (typeof head === 'string') {
       const width = Math.ceil(getTextWidth(t(head.toUpperCase()), '400 14px / 14px Inter, sans-serif')) + 4;
       // newHead.minWidth = Math.max(props.minWidth || 0, iconsWidth + width + 36 /* padding head cell */);
       newHead.minWidth = Math.max(
         props.minWidth || 0,
-        iconsWidth + width + 8 * 2 /* padding head cell left - right */ + 4, /* extra padding */
+        iconsWidth + width + 8 * 2 /* padding head cell left - right */ + 4 /* extra padding */,
       );
     }
-    
+
     return newHead;
   });
-  
+
   return fixHeaders(baseHeaders);
 };

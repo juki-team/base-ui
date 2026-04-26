@@ -5,10 +5,10 @@ import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
 import { useJukiUser } from '../../../hooks/useJukiUser';
-import { SetLoaderStatusOnClickType } from '../../../types';
+import type { SetLoaderStatusOnClickType } from '../../../types';
 import { ForgotPasswordModal, LoginModalTemplate } from './LoginModalTemplate';
-import { LoginFormType } from './LoginModalTemplate/types';
-import { LoginModalProps } from './types';
+import type { LoginFormType } from './LoginModalTemplate/types';
+import type { LoginModalProps } from './types';
 
 const ContentForgotPassword = () => {
   return (

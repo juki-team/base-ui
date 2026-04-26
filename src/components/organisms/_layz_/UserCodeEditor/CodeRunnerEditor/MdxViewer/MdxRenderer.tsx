@@ -6,7 +6,7 @@ import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: MDX accepts components with arbitrary prop shapes
 type MDXComponents = Record<string, ComponentType<any>>;
 
 type MDXContentComponent = ComponentType<{ components?: MDXComponents }>;
@@ -25,7 +25,7 @@ export function MdxRenderer({ source, components }: MdxRendererProps) {
     async function prepare() {
       try {
         const { default: Content } = await evaluate(source, {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // biome-ignore lint/suspicious/noExplicitAny: react/jsx-runtime types differ from @mdx-js/mdx EvaluateOptions
           ...(runtime as any),
           baseUrl: import.meta.url,
           remarkPlugins: [remarkGfm, remarkMath],

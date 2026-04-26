@@ -1,5 +1,5 @@
 import type { Placement } from '@floating-ui/react';
-import { OnSeeMyProfileType } from '../../providers/JukiUIProvider/types';
+import type { OnSeeMyProfileType } from '../../providers/JukiUIProvider/types';
 
 export interface LoginUserProps {
   withLabel?: boolean;

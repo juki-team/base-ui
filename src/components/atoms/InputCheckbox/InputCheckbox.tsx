@@ -2,17 +2,16 @@ import { classNames } from '../../helpers';
 import type { InputCheckboxProps } from '../Input/types';
 
 export function InputCheckbox({
-                                className,
-                                checked,
-                                disabled,
-                                onChange,
-                                label,
-                                size = 'regular',
-                                ...props
-                              }: InputCheckboxProps) {
-  
+  className,
+  checked,
+  disabled,
+  onChange,
+  label,
+  size = 'regular',
+  ...props
+}: InputCheckboxProps) {
   const isDisabled = disabled || !onChange;
-  
+
   return (
     <label className={classNames('jk-wrapper-input jk-wrapper-input-checkbox jk-row nowrap left jk-br-ie', className)}>
       <input
@@ -26,4 +25,4 @@ export function InputCheckbox({
       {label}
     </label>
   );
-};
+}

@@ -1,17 +1,16 @@
 import { T } from '../../../../atoms';
 import { ArrowDownwardIcon, ArrowUpwardIcon, DeleteIcon } from '../../../../atoms/server';
-import { ButtonSizeType } from '../../../../types';
+import type { ButtonSizeType } from '../../../../types';
 
 interface UpRemoveDownButtonsProps<T> {
-  index: number,
-  length: number,
-  onChange: (callback: ((newList: T[]) => T[])) => void,
+  index: number;
+  length: number;
+  onChange: (callback: (newList: T[]) => T[]) => void;
 }
 
-export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDownButtonsProps<T>) => {
-  
+export const upRemoveDownButtons = <T,>({ index, length, onChange }: UpRemoveDownButtonsProps<T>) => {
   const actionButtons = [];
-  
+
   if (index !== 0) {
     actionButtons.push({
       icon: <ArrowUpwardIcon />,
@@ -19,10 +18,10 @@ export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
       label: <T className="tt-se">move up</T>,
       onClick: () => {
         onChange((list) => {
-          const newSheets = [ ...list ];
+          const newSheets = [...list];
           const next = newSheets[index - 1];
           if (newSheets[index] && next) {
-            [ newSheets[index], newSheets[index - 1] ] = [ next, newSheets[index] ];
+            [newSheets[index], newSheets[index - 1]] = [next, newSheets[index]];
           }
           return newSheets;
         });
@@ -30,7 +29,7 @@ export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
       disabled: index === 0,
     });
   }
-  
+
   actionButtons.push({
     icon: <DeleteIcon />,
     size: 'tiny' as ButtonSizeType,
@@ -39,7 +38,7 @@ export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
       onChange((list) => list.filter((_, i) => i !== index));
     },
   });
-  
+
   if (index !== length - 1) {
     actionButtons.push({
       icon: <ArrowDownwardIcon />,
@@ -47,10 +46,10 @@ export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
       label: <T className="tt-se">move down</T>,
       onClick: () => {
         onChange((list) => {
-          const newSheets = [ ...list ];
+          const newSheets = [...list];
           const next = newSheets[index + 1];
           if (newSheets[index] && next) {
-            [ newSheets[index], newSheets[index + 1] ] = [ next, newSheets[index] ];
+            [newSheets[index], newSheets[index + 1]] = [next, newSheets[index]];
           }
           return newSheets;
         });
@@ -58,6 +57,6 @@ export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
       disabled: index === length - 1,
     });
   }
-  
+
   return actionButtons;
 };

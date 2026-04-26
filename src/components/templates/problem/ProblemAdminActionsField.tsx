@@ -6,9 +6,8 @@ import { EntityLogsModal } from '../EntityLogsModal/EntityLogsModal';
 import type { ProblemAdminActionsFieldProps } from './types';
 
 export function ProblemAdminActionsField({ record: { key } }: ProblemAdminActionsFieldProps) {
-  
-  const [ modal, setModal ] = useState<ReactNode>(null);
-  
+  const [modal, setModal] = useState<ReactNode>(null);
+
   return (
     <Field className="jk-row">
       {modal}

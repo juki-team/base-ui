@@ -1,6 +1,6 @@
-import { CodeEditorFile, CodeEditorFiles, CodeEditorTestCases, SubmissionRunStatus } from '@juki-team/commons';
-import { MdMathEditorHandle } from '../MdMathEditor/types';
-import { CodeEditorExpandPositionType, CodeRunnerEditorProps } from './CodeRunnerEditor/types';
+import type { CodeEditorFile, CodeEditorFiles, CodeEditorTestCases, SubmissionRunStatus } from '@juki-team/commons';
+import type { MdMathEditorHandle } from '../MdMathEditor/types';
+import type { CodeEditorExpandPositionType, CodeRunnerEditorProps } from './CodeRunnerEditor/types';
 
 export interface UserCodeEditorHandle<T> {
   setFile: (file: CodeEditorFile<T>) => void;
@@ -11,17 +11,18 @@ export interface UserCodeEditorHandle<T> {
   markdownClearHighlight: MdMathEditorHandle['clearHighlight'];
 }
 
-export interface UserCodeEditorProps<T> extends Pick<
-  CodeRunnerEditorProps<T>,
-  | 'languages'
-  | 'leftButtons'
-  | 'centerButtons'
-  | 'rightButtons'
-  | 'withoutRunCodeButton'
-  | 'mermaidTheme'
-  | 'mermaidConfigJson'
-  | 'mermaidFileName'
-> {
+export interface UserCodeEditorProps<T>
+  extends Pick<
+    CodeRunnerEditorProps<T>,
+    | 'languages'
+    | 'leftButtons'
+    | 'centerButtons'
+    | 'rightButtons'
+    | 'withoutRunCodeButton'
+    | 'mermaidTheme'
+    | 'mermaidConfigJson'
+    | 'mermaidFileName'
+  > {
   className?: string;
   expandPosition?: CodeEditorExpandPositionType;
   initialTestCases?: CodeEditorTestCases;

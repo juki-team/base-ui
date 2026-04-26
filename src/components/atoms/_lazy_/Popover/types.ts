@@ -1,19 +1,19 @@
-import { type Placement } from '@floating-ui/react';
-import { type ReactNode } from 'react';
+import type { Placement } from '@floating-ui/react';
+import type { ReactNode } from 'react';
 import type { ReactNodeOrFunctionP1Type, TriggerOnActionsType } from '../../../types';
 
 export interface PopoverProps {
-  content: ReactNodeOrFunctionP1Type<{ isOpen: boolean, onClose: () => void }>,
-  placement?: Placement,
-  open?: boolean,
-  onOpenChange?: (visible: boolean) => void,
-  triggerOn?: TriggerOnActionsType | TriggerOnActionsType[],
-  popoverClassName?: string,
+  content: ReactNodeOrFunctionP1Type<{ isOpen: boolean; onClose: () => void }>;
+  placement?: Placement;
+  open?: boolean;
+  onOpenChange?: (visible: boolean) => void;
+  triggerOn?: TriggerOnActionsType | TriggerOnActionsType[];
+  popoverClassName?: string;
   // popoverContentClassName?: string,
-  children: ReactNode,
+  children: ReactNode;
   // marginOfChildren?: number,
-  offset?: number,
-  modal?: boolean,
+  offset?: number;
+  modal?: boolean;
 }
 
 export type PlacementType = Placement;

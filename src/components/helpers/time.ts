@@ -1,8 +1,15 @@
-import { splitTime } from '@juki-team/commons';
+import { splitTime } from '@juki-team/commons/helpers';
 import type { TimeDisplayType } from '../types';
 import { showOfTimeDisplayType } from './date';
 
-export const cutTimeSplit = (remaining: number, type: TimeDisplayType, ignoreLeadingZeros: boolean, ignoreTrailingZeros: boolean, maxSplit: number, minSplit: number) => {
+export const cutTimeSplit = (
+  remaining: number,
+  type: TimeDisplayType,
+  ignoreLeadingZeros: boolean,
+  ignoreTrailingZeros: boolean,
+  maxSplit: number,
+  minSplit: number,
+) => {
   const timeSplit = splitTime(Math.max(remaining, 0));
   const { showWeeks, showDays, showHours, showMinutes, showSeconds, showMilliseconds } = showOfTimeDisplayType(type);
   if (!showWeeks) {
@@ -21,7 +28,7 @@ export const cutTimeSplit = (remaining: number, type: TimeDisplayType, ignoreLea
           timeSplit[1].remaining += (timeSplit[0].milliseconds * timeSplit[0].remaining) / timeSplit[1].milliseconds;
           timeSplit[1].label = timeSplit[1].remaining === 1 ? 'second' : 'seconds';
           timeSplit.shift();
-          
+
           if (!showSeconds) {
             timeSplit[1].remaining += (timeSplit[0].milliseconds * timeSplit[0].remaining) / timeSplit[1].milliseconds;
             timeSplit[1].label = timeSplit[1].remaining === 1 ? 'millisecond' : 'milliseconds';
@@ -46,11 +53,21 @@ export const cutTimeSplit = (remaining: number, type: TimeDisplayType, ignoreLea
       }
     }
   }
-  
-  while (timeSplit.length > minSplit && (ignoreLeadingZeros || timeSplit.length > maxSplit) && timeSplit.length && timeSplit[0].remaining === 0) {
+
+  while (
+    timeSplit.length > minSplit &&
+    (ignoreLeadingZeros || timeSplit.length > maxSplit) &&
+    timeSplit.length &&
+    timeSplit[0].remaining === 0
+  ) {
     timeSplit.shift();
   }
-  while (timeSplit.length > minSplit && (ignoreTrailingZeros || timeSplit.length > maxSplit) && timeSplit.length && timeSplit[timeSplit.length - 1]?.remaining === 0) {
+  while (
+    timeSplit.length > minSplit &&
+    (ignoreTrailingZeros || timeSplit.length > maxSplit) &&
+    timeSplit.length &&
+    timeSplit[timeSplit.length - 1]?.remaining === 0
+  ) {
     timeSplit.pop();
   }
   while (timeSplit.length > minSplit && timeSplit.length > maxSplit) {

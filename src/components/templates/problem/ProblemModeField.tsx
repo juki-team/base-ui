@@ -3,7 +3,11 @@ import { T } from '../../atoms';
 import { FieldText } from '../../organisms';
 import type { ProblemModeFieldProps } from './types';
 
-export function ProblemModeField({ record: { settings: { scoringMode } } }: ProblemModeFieldProps) {
+export function ProblemModeField({
+  record: {
+    settings: { scoringMode },
+  },
+}: ProblemModeFieldProps) {
   return (
     <FieldText
       className="jk-row"

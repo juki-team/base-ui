@@ -18,16 +18,15 @@ import { ProfileSubmissions } from './ProfileSubmissions';
 import type { UserViewLayoutProps } from './types';
 
 export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutProps) {
-  
-  const mutatePing = useUserStore(state => state.mutate);
-  const userNickname = useUserStore(state => state.user.nickname);
-  const replaceRoute = useRouterStore(state => state.replaceRoute);
-  const searchParams = useRouterStore(state => state.searchParams);
-  const [ openModal, setOpenModal ] = useState('');
-  
+  const mutatePing = useUserStore((state) => state.mutate);
+  const userNickname = useUserStore((state) => state.user.nickname);
+  const replaceRoute = useRouterStore((state) => state.replaceRoute);
+  const searchParams = useRouterStore((state) => state.searchParams);
+  const [openModal, setOpenModal] = useState('');
+
   const onClose = () => setOpenModal('');
-  const tab = searchParams.get('tab') as ProfileTab || ProfileTab.OVERVIEW;
-  
+  const tab = (searchParams.get('tab') as ProfileTab) || ProfileTab.OVERVIEW;
+
   let tabHeaders: TabsType<ProfileTab> = {
     [ProfileTab.OVERVIEW]: {
       key: ProfileTab.OVERVIEW,
@@ -35,17 +34,12 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
       body: <UserProfile user={user} />,
     },
   };
-  
+
   if (user.nickname === userNickname) {
     tabHeaders[ProfileTab.SETTINGS] = {
       key: ProfileTab.SETTINGS,
       header: <T className="tt-ce ws-np">settings</T>,
-      body: (
-        <UserProfileSettings
-          user={user}
-          onClickUpdatePassword={() => setOpenModal('UPDATE_PASSWORD')}
-        />
-      ),
+      body: <UserProfileSettings user={user} onClickUpdatePassword={() => setOpenModal('UPDATE_PASSWORD')} />,
     };
     tabHeaders[ProfileTab.MY_SESSIONS] = {
       key: ProfileTab.MY_SESSIONS,
@@ -53,44 +47,51 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
       body: <UserMyActiveSessions />,
     };
   }
-  
+
   if (isJudgeWindowLocation()) {
     tabHeaders[ProfileTab.SUBMISSIONS] = {
       key: ProfileTab.SUBMISSIONS,
-      header: userNickname === user.nickname
-        ? <T className="tt-ce ws-np">my submissions</T>
-        : <T className="tt-ce ws-np">submissions</T>,
+      header:
+        userNickname === user.nickname ? (
+          <T className="tt-ce ws-np">my submissions</T>
+        ) : (
+          <T className="tt-ce ws-np">submissions</T>
+        ),
       body: <ProfileSubmissions />,
     };
   }
-  
+
   if (extraTabs) {
     tabHeaders = {
       ...tabHeaders,
       ...extraTabs,
     };
   }
-  
+
   const extraNodes = [
-    ...(user.canResetPassword ? [
-      <TabsInlineButton
-        key="reset-password"
-        icon={<LockIcon />}
-        onClick={() => setOpenModal('RESET_PASSWORD')}
-        type="secondary"
-        label="reset password"
-      />,
-    ] : []),
-    ...(user.canEditProfileData ? [
-      <TabsInlineButton
-        key="update-profile"
-        icon={<LockIcon />}
-        onClick={() => setOpenModal('DATA')}
-        label="update profile"
-      />,
-    ] : []),
+    ...(user.canResetPassword
+      ? [
+          <TabsInlineButton
+            key="reset-password"
+            icon={<LockIcon />}
+            onClick={() => setOpenModal('RESET_PASSWORD')}
+            type="secondary"
+            label="reset password"
+          />,
+        ]
+      : []),
+    ...(user.canEditProfileData
+      ? [
+          <TabsInlineButton
+            key="update-profile"
+            icon={<LockIcon />}
+            onClick={() => setOpenModal('DATA')}
+            label="update profile"
+          />,
+        ]
+      : []),
   ];
-  
+
   return (
     <>
       <ChangePasswordModal isOpen={openModal === 'UPDATE_PASSWORD'} onClose={onClose} />
@@ -106,11 +107,13 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
         user={user}
         onSuccess={async ({ body: { nickname } }) => {
           if (nickname !== user.nickname) {
-            replaceRoute(jukiAppRoutes.JUDGE().profiles.view({
-              nickname: nickname as string,
-              companyKey: user.company.key,
-              tab: ProfileTab.OVERVIEW,
-            }));
+            replaceRoute(
+              jukiAppRoutes.JUDGE().profiles.view({
+                nickname: nickname as string,
+                companyKey: user.company.key,
+                tab: ProfileTab.OVERVIEW,
+              }),
+            );
           } else {
             await reloadUser();
             await mutatePing();
@@ -122,11 +125,13 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
         tabs={tabHeaders}
         tabButtons={extraNodes}
         selectedTabKey={tab}
-        getHrefOnTabChange={(tab) => jukiAppRoutes.JUDGE().profiles.view({
-          nickname: user.nickname,
-          companyKey: user.company.key,
-          tab,
-        })}
+        getHrefOnTabChange={(tab) =>
+          jukiAppRoutes.JUDGE().profiles.view({
+            nickname: user.nickname,
+            companyKey: user.company.key,
+            tab,
+          })
+        }
       >
         <h1>{user.nickname}</h1>
       </TwoContentLayout>

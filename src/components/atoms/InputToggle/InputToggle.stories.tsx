@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 // import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { MockupJukiProvider } from '../../mockup';
-import { InputToggleProps } from '../Input/types';
+import type { InputToggleProps } from '../Input/types';
 import { InputToggle } from './InputToggle';
 
-// @ts-ignore
+// @ts-expect-error
 InputToggle.defaultProps = {
   type: 'rounded' as InputToggleProps['type'],
   size: 'regular' as InputToggleProps['size'],

@@ -1,29 +1,31 @@
-import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent, PropsWithChildren } from 'react';
-import { ButtonLoaderOnClickType, LoaderStatusOnClickType, SetLoaderStatusOnClickType } from '../../types';
+import type { MouseEvent, PropsWithChildren, KeyboardEvent as ReactKeyboardEvent } from 'react';
+import type { ButtonLoaderOnClickType, LoaderStatusOnClickType, SetLoaderStatusOnClickType } from '../../types';
 
 export type OnClickModalEventType = {
-  overlayOnClickEvent?: MouseEvent<HTMLDivElement>,
-  closeButtonOnClickEvent?: MouseEvent<HTMLDivElement | HTMLButtonElement>,
-  onKeyDownEvent?: KeyboardEvent | ReactKeyboardEvent,
-  fetcherLayerErrorEvent?: any,
+  overlayOnClickEvent?: MouseEvent<HTMLDivElement>;
+  closeButtonOnClickEvent?: MouseEvent<HTMLDivElement | HTMLButtonElement>;
+  onKeyDownEvent?: KeyboardEvent | ReactKeyboardEvent;
+  fetcherLayerErrorEvent?: unknown;
 };
 
 export type ModalButtonLoaderEventType = ButtonLoaderOnClickType<OnClickModalEventType>;
 
 export interface BasicModalProps<T extends ModalButtonLoaderEventType = () => void> {
-  isOpen: boolean,
-  onClose: T,
+  isOpen: boolean;
+  onClose: T;
 }
 
-export type ModalProps<T extends ModalButtonLoaderEventType = () => void> = PropsWithChildren<BasicModalProps<T> & {
-  className?: string,
-  containerClassName?: string,
-  closeIcon?: boolean,
-  expand?: boolean,
-  closeOnKeyEscape?: boolean,
-  closeOnClickOverlay?: boolean,
-  ariaLabelledBy?: string,
-  ariaDescribedBy?: string,
-  setLoaderStatusRef?: (setLoader: SetLoaderStatusOnClickType) => void,
-  onLoaderStatusChange?: (status: LoaderStatusOnClickType) => void,
-}>
+export type ModalProps<T extends ModalButtonLoaderEventType = () => void> = PropsWithChildren<
+  BasicModalProps<T> & {
+    className?: string;
+    containerClassName?: string;
+    closeIcon?: boolean;
+    expand?: boolean;
+    closeOnKeyEscape?: boolean;
+    closeOnClickOverlay?: boolean;
+    ariaLabelledBy?: string;
+    ariaDescribedBy?: string;
+    setLoaderStatusRef?: (setLoader: SetLoaderStatusOnClickType) => void;
+    onLoaderStatusChange?: (status: LoaderStatusOnClickType) => void;
+  }
+>;

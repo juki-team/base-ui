@@ -1,9 +1,9 @@
 import { ONE_MINUTE } from '@juki-team/commons';
-import { CSSProperties, useCallback, useState } from 'react';
+import { type CSSProperties, useCallback, useState } from 'react';
 import { useSoundStore } from '../../../../stores/sound/useSoundStore';
 import { useTimer } from '../../../../stores/timer/useTimer';
 import { Button, InputToggle, Portal, T } from '../../../atoms';
-import { ButtonProps } from '../../../atoms/Button/Button';
+import type { ButtonProps } from '../../../atoms/Button/Button';
 import {
   AlarmIcon,
   FullscreenExitIcon,
@@ -191,7 +191,7 @@ export function FullscreenTimerButton() {
           {isActive && !fullscreen ? (
             <div
               className={classNames({
-                'jk-overlay-backdrop jk-br-ie cr-ss-lt jk-pg-xsm-rl': !timerCountdown.isStopped && !fullscreen,
+                'jk-overlay-backdrop jk-br-ie cr-ss-lt jk-pg-xsm-rl': !(timerCountdown.isStopped || fullscreen),
               })}
             >
               {timerDisplay}

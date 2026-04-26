@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupJukiProvider } from '../../mockup';
 import { JudgeTabs } from '../Tabs/mocks/JudgeTabs';
 import { SplitPane as SplitPaneComponent } from './SplitPane';
@@ -27,7 +27,9 @@ export const Regular: Story = {
                 toggleable
               >
                 <div style={{ background: 'yellow' }}>
-                  A1<br />A1
+                  A1
+                  <br />
+                  A1
                 </div>
                 <div style={{ background: 'blueviolet' }}>
                   <JudgeTabs />

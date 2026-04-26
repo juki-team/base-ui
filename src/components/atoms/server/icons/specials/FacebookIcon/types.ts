@@ -1,4 +1,4 @@
-import { ComponentPropsWithRef } from 'react';
-import { FacebookIcon } from './index';
+import type { ComponentPropsWithRef } from 'react';
+import type { FacebookIcon } from './index';
 
 export type FacebookIconProps = ComponentPropsWithRef<typeof FacebookIcon>;

@@ -1,9 +1,7 @@
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-export type DivProps =
-  DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
-  & {
-  onClick?: () => void,
-  transition?: boolean,
-  onKeyDownClick?: boolean | 'Enter'
+export type DivProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
+  onClick?: () => void;
+  transition?: boolean;
+  onKeyDownClick?: boolean | 'Enter';
 };

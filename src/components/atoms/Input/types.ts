@@ -1,9 +1,9 @@
-import { type ReactNode } from 'react';
-import { type UseFormRegisterReturn, type UseFormSetValue } from 'react-hook-form';
+import type { ReactNode } from 'react';
+import type { FieldValues, UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import type { ButtonSizeType, ButtonType, ReactNodeOrFunctionType } from '../../types';
 import type { SelectOption2Type, SelectProps } from '../Select/types';
 import type { TextAreaProps } from '../TextArea/types';
-import { InputProps } from './Input';
+import type { InputProps } from './Input';
 
 // export interface InputFileProps<T> extends InputCommonsProps<T> {
 //   type?: 'file',
@@ -34,43 +34,45 @@ import { InputProps } from './Input';
 // }
 
 export interface InputCheckboxProps {
-  name?: string,
-  onChange?: (newValue: boolean) => void,
-  checked: boolean,
-  className?: string,
-  label?: ReactNode,
-  disabled?: boolean,
-  size?: ButtonSizeType,
+  name?: string;
+  onChange?: (newValue: boolean) => void;
+  checked: boolean;
+  className?: string;
+  label?: ReactNode;
+  disabled?: boolean;
+  size?: ButtonSizeType;
 }
 
 export interface InputToggleProps {
-  onChange?: (newValue: boolean) => void,
-  checked: boolean,
-  type?: 'rounded' | 'square',
-  className?: string,
-  leftLabel?: ReactNode,
-  rightLabel?: ReactNode,
-  size?: ButtonSizeType,
-  disabled?: boolean,
+  onChange?: (newValue: boolean) => void;
+  checked: boolean;
+  type?: 'rounded' | 'square';
+  className?: string;
+  leftLabel?: ReactNode;
+  rightLabel?: ReactNode;
+  size?: ButtonSizeType;
+  disabled?: boolean;
 }
 
 export type InputPasswordProps = Omit<InputProps<string>, 'type'>;
 
-export type InputSelectProps<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> =
-  Omit<InputProps<T>, 'type' | 'onChange' | 'value' | 'register'>
-  & Omit<SelectProps<T, U, V>, 'selectedOption'> & { selectedOption?: SelectOption2Type<T, U, V>, }
-  & { register?: UseFormRegisterReturn & { setValue: UseFormSetValue<any> } };
+export type InputSelectProps<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> = Omit<
+  InputProps<T>,
+  'type' | 'onChange' | 'value' | 'register'
+> &
+  Omit<SelectProps<T, U, V>, 'selectedOption'> & { selectedOption?: SelectOption2Type<T, U, V> } & {
+    register?: UseFormRegisterReturn & { setValue: UseFormSetValue<FieldValues> };
+  };
 
 export type InputTextAreaProps = Omit<InputProps<string>, 'type'> & TextAreaProps;
 
 export interface InputSubmitProps {
-  name?: string,
-  className?: string,
-  extend?: boolean,
-  type?: ButtonType,
-  disabled?: boolean,
-  value?: string,
+  name?: string;
+  className?: string;
+  extend?: boolean;
+  type?: ButtonType;
+  disabled?: boolean;
+  value?: string;
 }
 
-export interface InputRadioProps extends InputCheckboxProps {
-}
+export interface InputRadioProps extends InputCheckboxProps {}

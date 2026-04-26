@@ -4,8 +4,8 @@ import { Button, CopyToClipboard, InputToggle, T } from '../../../../atoms';
 import { classNames, handleUploadImage, toBlob } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { ButtonLoader, ImageLoaderCropper } from '../../../../molecules';
-import { CropImageType } from '../../../../molecules/types';
-import { onPickImageUrlType } from '../types';
+import type { CropImageType } from '../../../../molecules/types';
+import type { onPickImageUrlType } from '../types';
 
 export interface UploadNewImageTabProps {
   copyButtons?: boolean;
@@ -88,7 +88,7 @@ export const UploadNewImageTab = memo(function UploadNewImageTabCmp({
             }
           }
         }}
-        disabled={!cropImage || !cropImage?.previewCanvasRef.current}
+        disabled={!(cropImage && cropImage?.previewCanvasRef.current)}
         size="small"
       >
         <T>upload image</T>

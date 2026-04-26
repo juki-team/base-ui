@@ -1,15 +1,16 @@
-import { Vector } from './Vector';
+import type { Vector } from './Vector';
 
 interface CirclePathProps {
-  center: Vector | { x: number, y: number },
-  radio: number,
-  fill?: string,
-  stroke?: string,
-  strokeWidth?: number
+  center: Vector | { x: number; y: number };
+  radio: number;
+  fill?: string;
+  stroke?: string;
+  strokeWidth?: number;
 }
 
 // https://www.smashingmagazine.com/2019/03/svg-circle-decomposition-paths/
-export const CirclePath = ({ center: { x: cx, y: cy }, radio, fill, stroke, strokeWidth }: CirclePathProps) => { // width = 2
+export const CirclePath = ({ center: { x: cx, y: cy }, radio, fill, stroke, strokeWidth }: CirclePathProps) => {
+  // width = 2
   return (
     <path
       fill={fill}

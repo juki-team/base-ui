@@ -3,19 +3,17 @@ import { QueryParamKey } from '../../enums';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 
 export const usePageFocus = () => {
-  
-  const searchParams = useRouterStore(state => state.searchParams);
+  const searchParams = useRouterStore((state) => state.searchParams);
   const pageFocus = searchParams.get(QueryParamKey.PAGE_FOCUS);
   const scrolled = useRef(false);
-  
+
   useEffect(() => {
     let timeoutId: NodeJS.Timeout | null = null;
     let render = 0;
-    
+
     if (pageFocus) {
-      
       scrolled.current = false;
-      
+
       const go = () => {
         render++;
         const element = document.getElementById(pageFocus);
@@ -29,17 +27,16 @@ export const usePageFocus = () => {
           }
         }
       };
-      
+
       if (!scrolled.current) {
         go();
       }
     }
-    
+
     return () => {
       if (timeoutId !== null) {
         clearTimeout(timeoutId);
       }
     };
-  }, [ pageFocus ]);
-  
+  }, [pageFocus]);
 };

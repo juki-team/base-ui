@@ -4,38 +4,32 @@ import { useStableRef } from '../../../hooks/useStableRef';
 import type { VirtualizedRowsFixedProps } from './types';
 
 export function VirtualizedRowsFixed(props: VirtualizedRowsFixedProps) {
-  
-  const {
-    rowHeight,
-    size,
-    renderRow,
-    classNameContainer,
-    classNameRows,
-    classNameRow,
-    getRowKey,
-  } = props;
-  
+  const { rowHeight, size, renderRow, classNameContainer, classNameRows, classNameRow, getRowKey } = props;
+
   const parentRef = useRef<HTMLDivElement>(null);
-  
+
   const getRowKeyRef = useStableRef(getRowKey);
   const rowVirtualizer = useVirtualizer({
     count: size,
-    estimateSize: useCallback(() => rowHeight, [ rowHeight ]),
+    estimateSize: useCallback(() => rowHeight, [rowHeight]),
     overscan: 5,
     getScrollElement: useCallback(() => parentRef.current, []),
-    getItemKey: useCallback((index: number) => {
-      const fn = getRowKeyRef.current;
-      return fn ? fn(index) : index;
-    }, [ getRowKeyRef ]),
+    getItemKey: useCallback(
+      (index: number) => {
+        const fn = getRowKeyRef.current;
+        return fn ? fn(index) : index;
+      },
+      [getRowKeyRef],
+    ),
   });
-  
+
   return (
     <div ref={parentRef} style={{ height: '100%', width: '100%', overflow: 'auto' }} className={classNameContainer}>
       <div
         className={classNameRows}
         style={{ height: `${rowVirtualizer.getTotalSize()}px`, width: '100%', position: 'relative' }}
       >
-        {rowVirtualizer.getVirtualItems().map(virtualRow => (
+        {rowVirtualizer.getVirtualItems().map((virtualRow) => (
           <div
             key={virtualRow.key}
             style={{

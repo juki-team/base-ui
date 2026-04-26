@@ -7,25 +7,23 @@ import { getHandlerArgs, isSupported, visibility } from '../../helpers/visibilit
 const isSupportedLocal = isSupported && !!visibility;
 
 export const usePageVisibility = () => {
-  
-  const setIsVisible = usePageStore(store => store.setIsVisible);
-  
+  const setIsVisible = usePageStore((store) => store.setIsVisible);
+
   useEffect(() => {
     if (!isSupportedLocal) {
       return;
     }
     const handler = () => {
-      const [ currentlyVisible ] = getHandlerArgs();
+      const [currentlyVisible] = getHandlerArgs();
       setIsVisible(currentlyVisible);
     };
-    
+
     handler();
-    
+
     document.addEventListener(visibility!.event, handler);
-    
+
     return () => {
       document.removeEventListener(visibility!.event, handler);
     };
-  }, [ setIsVisible ]);
-  
+  }, [setIsVisible]);
 };

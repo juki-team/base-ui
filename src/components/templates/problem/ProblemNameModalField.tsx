@@ -1,4 +1,4 @@
-import { type  ContentResponse, type ProblemDataResponseDTO } from '@juki-team/commons';
+import type { ContentResponse, ProblemDataResponseDTO } from '@juki-team/commons';
 import { type ReactNode, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Modal } from '../../atoms';
@@ -11,11 +11,13 @@ import { ProblemStatus } from './ProblemStatus';
 import type { ProblemNameModalFieldProps } from './types';
 
 export function ProblemNameModalField(props: ProblemNameModalFieldProps) {
-  
-  const { record: { name, user, key, shortname }, isCard } = props;
-  
-  const [ modal, setModal ] = useState<ReactNode>(null);
-  
+  const {
+    record: { name, user, key, shortname },
+    isCard,
+  } = props;
+
+  const [modal, setModal] = useState<ReactNode>(null);
+
   return (
     <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
       {modal}
@@ -32,12 +34,8 @@ export function ProblemNameModalField(props: ProblemNameModalFieldProps) {
                 <FetcherLayer<ContentResponse<ProblemDataResponseDTO>>
                   url={jukiApiManager.API_V2.problem.getData({ params: { key } }).url}
                 >
-                  {data => (
-                    <ProblemView
-                      problem={data.data.content}
-                      infoPlacement="name"
-                      codeEditorStoreKey={data.data.content.key}
-                    />
+                  {(data) => (
+                    <ProblemView problem={data.data.content} infoPlacement="name" codeEditorStoreKey={data.data.content.key} />
                   )}
                 </FetcherLayer>
               </Modal>,

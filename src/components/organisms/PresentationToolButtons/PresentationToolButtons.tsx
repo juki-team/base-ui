@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 import { Portal } from '../../atoms';
 import { DesignServicesIcon } from '../../atoms/server';
 import { ExcalidrawButton } from '../_layz_/ExcalidrawButton';
@@ -11,11 +11,7 @@ export function PresentationToolButtons({ style }: { style?: CSSProperties }) {
     <Portal>
       <div style={style} className="jk-col gap stretch right presentation-tool-buttons opacity-hover-4">
         <div className="jk-row right">
-          <DesignServicesIcon
-            size="tiny"
-            data-tooltip-id="jk-tooltip"
-            data-tooltip-content="page tools"
-          />
+          <DesignServicesIcon size="tiny" data-tooltip-id="jk-tooltip" data-tooltip-content="page tools" />
         </div>
         <FullscreenTimerButton />
         <ExcalidrawButton />

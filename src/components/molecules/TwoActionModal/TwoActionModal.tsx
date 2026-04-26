@@ -1,4 +1,4 @@
-import { Status } from '@juki-team/commons';
+import { Status } from '@juki-team/commons/enums';
 import { type PropsWithChildren, useRef, useState } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { Modal, T } from '../../atoms';
@@ -9,31 +9,26 @@ import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import type { TwoActionModalProps } from './types';
 
 export function TwoActionModal(props: PropsWithChildren<TwoActionModalProps>) {
-  
   const { isOpen, secondary, primary, title, children, onClose, containerClassName, ...rest } = props;
-  const [ loader, setLoader ] = useState<Status>(Status.NONE);
+  const [loader, setLoader] = useState<Status>(Status.NONE);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
-  
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
+
   return (
     <Modal
       isOpen={isOpen}
       containerClassName={containerClassName}
       onClose={onClose}
-      setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
+      setLoaderStatusRef={(setLoader) => (setLoaderRef.current = setLoader)}
       onLoaderStatusChange={setLoader}
       {...rest}
     >
       <div className="jk-col stretch jk-pg gap">
         <div className="jk-col gap">
           <ExclamationIcon filledCircle className="cr-er" size="large" />
-          <h3 className="cr-er">
-            {title}
-          </h3>
+          <h3 className="cr-er">{title}</h3>
         </div>
-        <div className="wh-100">
-          {children}
-        </div>
+        <div className="wh-100">{children}</div>
         <div className={classNames('jk-row-col gap right wh-100', { nowrap: !isSmallScreen })}>
           {secondary && (
             <ButtonLoader
@@ -45,11 +40,7 @@ export function TwoActionModal(props: PropsWithChildren<TwoActionModalProps>) {
               {secondary.label || <T className="tt-se">cancel</T>}
             </ButtonLoader>
           )}
-          <ButtonLoader
-            onClick={primary.onClick}
-            disabled={primary.disabled || loader === Status.LOADING}
-            expand
-          >
+          <ButtonLoader onClick={primary.onClick} disabled={primary.disabled || loader === Status.LOADING} expand>
             {primary.label || <T className="tt-se">ok</T>}
           </ButtonLoader>
         </div>

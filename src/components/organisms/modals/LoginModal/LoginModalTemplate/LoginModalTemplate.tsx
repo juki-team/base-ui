@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ContentResponse, OrganizationTrustedCompanyResponseDTO } from '@juki-team/commons';
+import type { ContentResponse, OrganizationTrustedCompanyResponseDTO } from '@juki-team/commons';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -11,7 +11,7 @@ import { InfoIIcon } from '../../../../atoms/server';
 import { classNames } from '../../../../helpers';
 import { useFetcher } from '../../../../hooks/useFetcher';
 import { ButtonLoader, SplitModal } from '../../../../molecules';
-import { SetLoaderStatusOnClickType } from '../../../../types';
+import type { SetLoaderStatusOnClickType } from '../../../../types';
 import type { LoginFormType, LoginModalTemplateProps } from './types';
 
 const loginMultiCompaniesSchema = yup.object().shape({

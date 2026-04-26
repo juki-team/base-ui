@@ -1,13 +1,13 @@
-import { BodyWorksheet, WorksheetType } from '@juki-team/commons';
+import type { BodyWorksheet, WorksheetType } from '@juki-team/commons';
 import { Button, T } from '../../../../atoms';
 import { CloseIcon, EditIcon, SaveIcon, SettingsIcon, SortIcon, VisibilityIcon } from '../../../../atoms/server';
-import { ButtonActionProps } from '../../../../molecules/FloatToolbar/types';
-import { ButtonSizeType } from '../../../../types';
-import { SetSheetType } from '../types';
+import type { ButtonActionProps } from '../../../../molecules/FloatToolbar/types';
+import type { ButtonSizeType } from '../../../../types';
+import type { SetSheetType } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';
 import { upRemoveDownButtons } from './upRemoveDownActions';
 
-interface getActionButtonsProps {
+interface GetActionButtonsProps {
   type: WorksheetType;
   edit: boolean;
   setModal: (modal: boolean) => void;
@@ -18,7 +18,7 @@ interface getActionButtonsProps {
   onCancel?: () => void;
 }
 
-export const getActionButtons = (props: getActionButtonsProps): ButtonActionProps[] => {
+export const getActionButtons = (props: GetActionButtonsProps): ButtonActionProps[] => {
   const { type, edit, index, sheetLength, setSheet, setModal, onSaveEdit, onCancel } = props;
 
   return [

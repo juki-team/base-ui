@@ -1,17 +1,12 @@
-import {
-  type ContentResponse,
-  type ContentsResponse,
-  type ErrorResponse,
-  NotificationType,
-  Status,
-} from '@juki-team/commons';
+import { NotificationType, Status } from '@juki-team/commons/enums';
+import type { ContentResponse, ContentsResponse, ErrorResponse } from '@juki-team/commons/types';
 import { Children, type ReactNode, useCallback, useContext } from 'react';
 import { T } from '../atoms/T/T';
 import { NotificationContext } from '../organisms/CardNotification/context';
 import type { NewNotificationType } from '../organisms/CardNotification/types';
 import { NotificationAction } from '../organisms/CardNotification/types';
 
-import type { SetStatusType } from '../types';
+import type { SetStatusType } from '../types'; // export const notifyError = (response: ErrorResponse, addErrorNotification: (message: ReactNode) => void) => {
 
 // export const notifyError = (response: ErrorResponse, addErrorNotification: (message: ReactNode) => void) => {
 //   addErrorNotification(
@@ -37,90 +32,122 @@ import type { SetStatusType } from '../types';
 // };
 
 export const useJukiNotification = () => {
-  
   const { dispatch } = useContext(NotificationContext);
-  const addNotification = useCallback((props: NewNotificationType) => dispatch({
-    type: NotificationAction.ADD_NOTIFICATION,
-    payload: {
-      id: globalThis.crypto.randomUUID(),
-      ...props,
-      silent: !!props.silent,
+  const addNotification = useCallback(
+    (props: NewNotificationType) =>
+      dispatch({
+        type: NotificationAction.ADD_NOTIFICATION,
+        payload: {
+          id: globalThis.crypto.randomUUID(),
+          ...props,
+          silent: !!props.silent,
+        },
+      }),
+    [dispatch],
+  );
+
+  const notifyResponse = useCallback(
+    <T,>(
+      response: ErrorResponse | ContentResponse<T> | ContentsResponse<T>,
+      setStatus?: SetStatusType,
+    ): response is ContentResponse<T> | ContentsResponse<T> => {
+      if (response.success === false) {
+        addNotification({
+          type: NotificationType.ERROR,
+          message: (
+            <div className="jk-col stretch" style={{ width: '100%' }}>
+              <span className="tt-se">
+                <T>{response.message}</T>
+              </span>
+              {(response.errors[0]?.message !== response.message || response.errors.length > 1) && (
+                <ul>
+                  {Children.toArray(
+                    response.errors.map((error, index) => (
+                      <li key={index + error.message}>
+                        <T className="tt-se">{error.message}</T>
+                      </li>
+                    )),
+                  )}
+                </ul>
+              )}
+            </div>
+          ),
+        });
+        setStatus?.(Status.ERROR);
+      }
+      if (response.success === true) {
+        addNotification({
+          type: NotificationType.INFO,
+          message: (
+            <div className="jk-col stretch" style={{ width: '100%' }}>
+              <span className="tt-se">
+                <T>{response.message}</T>
+              </span>
+            </div>
+          ),
+        });
+        setStatus?.(Status.SUCCESS);
+      }
+      return !!response.success;
     },
-  }), [ dispatch ]);
-  
-  const notifyResponse = useCallback(<T, >(
-    response: ErrorResponse | ContentResponse<T> | ContentsResponse<T>,
-    setStatus?: SetStatusType,
-  ): response is ContentResponse<T> | ContentsResponse<T> => {
-    if (response.success === false) {
-      addNotification({
-        type: NotificationType.ERROR,
-        message: (
-          <div className="jk-col stretch" style={{ width: '100%' }}>
-            <span className="tt-se">
-              <T>{response.message}</T>
-            </span>
-            {(response.errors[0]?.message !== response.message || response.errors.length > 1) && (
-              <ul>
-                {Children.toArray(response.errors.map((error, index) => (
-                  <li key={index + error.message}>
-                    <T className="tt-se">{error.message}</T>
-                  </li>
-                )))}
-              </ul>
-            )}
-          </div>
-        ),
-      });
-      setStatus?.(Status.ERROR);
-    }
-    if (response.success === true) {
-      addNotification({
-        type: NotificationType.INFO,
-        message: (
-          <div className="jk-col stretch" style={{ width: '100%' }}>
-            <span className="tt-se">
-              <T>{response.message}</T>
-            </span>
-          </div>
-        ),
-      });
-      setStatus?.(Status.SUCCESS);
-    }
-    return !!response.success;
-  }, [ addNotification ]);
-  
+    [addNotification],
+  );
+
   return {
     addNotification,
-    addInfoNotification: useCallback((message: ReactNode, silent?: boolean) => addNotification({
-      type: NotificationType.INFO,
-      message,
-      silent,
-    }), [ addNotification ]),
-    addSuccessNotification: useCallback((message: ReactNode, silent?: boolean) => addNotification({
-      type: NotificationType.SUCCESS,
-      message,
-      silent,
-    }), [ addNotification ]),
-    addWarningNotification: useCallback((message: ReactNode, silent?: boolean) => addNotification({
-      type: NotificationType.WARNING,
-      message,
-      silent,
-    }), [ addNotification ]),
-    addErrorNotification: useCallback((message: ReactNode, silent?: boolean) => addNotification({
-      type: NotificationType.ERROR,
-      message,
-      silent,
-    }), [ addNotification ]),
-    addQuietNotification: useCallback((message: ReactNode, silent?: boolean) => addNotification({
-      type: NotificationType.QUIET,
-      message,
-      silent,
-    }), [ addNotification ]),
-    removeNotification: useCallback((notificationId: string) => dispatch({
-      type: NotificationAction.REMOVE_NOTIFICATION,
-      notificationId,
-    }), [ dispatch ]),
+    addInfoNotification: useCallback(
+      (message: ReactNode, silent?: boolean) =>
+        addNotification({
+          type: NotificationType.INFO,
+          message,
+          silent,
+        }),
+      [addNotification],
+    ),
+    addSuccessNotification: useCallback(
+      (message: ReactNode, silent?: boolean) =>
+        addNotification({
+          type: NotificationType.SUCCESS,
+          message,
+          silent,
+        }),
+      [addNotification],
+    ),
+    addWarningNotification: useCallback(
+      (message: ReactNode, silent?: boolean) =>
+        addNotification({
+          type: NotificationType.WARNING,
+          message,
+          silent,
+        }),
+      [addNotification],
+    ),
+    addErrorNotification: useCallback(
+      (message: ReactNode, silent?: boolean) =>
+        addNotification({
+          type: NotificationType.ERROR,
+          message,
+          silent,
+        }),
+      [addNotification],
+    ),
+    addQuietNotification: useCallback(
+      (message: ReactNode, silent?: boolean) =>
+        addNotification({
+          type: NotificationType.QUIET,
+          message,
+          silent,
+        }),
+      [addNotification],
+    ),
+    removeNotification: useCallback(
+      (notificationId: string) =>
+        dispatch({
+          type: NotificationAction.REMOVE_NOTIFICATION,
+          notificationId,
+        }),
+      [dispatch],
+    ),
     notifyResponse,
   };
 };

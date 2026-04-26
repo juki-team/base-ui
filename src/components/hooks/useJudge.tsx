@@ -1,11 +1,8 @@
-import {
-  CODE_LANGUAGE,
-  CodeLanguage,
-  type ContentResponse,
-  type JudgeDataResponseDTO,
-  RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
-} from '@juki-team/commons';
-import { ReactNode, useMemo } from 'react';
+import { CODE_LANGUAGE, RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES } from '@juki-team/commons/constants';
+import type { JudgeDataResponseDTO } from '@juki-team/commons/dto';
+import { CodeLanguage } from '@juki-team/commons/enums';
+import type { ContentResponse } from '@juki-team/commons/types';
+import { type ReactNode, useMemo } from 'react';
 import { jukiApiManager } from '../../settings';
 import { useFetcher } from './useFetcher';
 

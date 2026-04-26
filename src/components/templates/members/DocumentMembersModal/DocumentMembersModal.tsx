@@ -7,13 +7,17 @@ import { ButtonLoader } from '../../../molecules';
 import { DocumentMembersContent } from '../DocumentMembersContent';
 import type { DocumentCustomMembersContentProps } from '../types';
 
-export interface DocumentMembersModalProps extends BasicModalProps, Pick<DocumentCustomMembersContentProps, 'entityAccess' | 'documentOwner' | 'members' | 'administrators' | 'managers' | 'participants' | 'guests' | 'spectators'> {
-  documentName: ReactNode,
-  onSave: (members: EntityMembersResponseDTO, close: () => void) => Promise<void>,
+export interface DocumentMembersModalProps
+  extends BasicModalProps,
+    Pick<
+      DocumentCustomMembersContentProps,
+      'entityAccess' | 'documentOwner' | 'members' | 'administrators' | 'managers' | 'participants' | 'guests' | 'spectators'
+    > {
+  documentName: ReactNode;
+  onSave: (members: EntityMembersResponseDTO, close: () => void) => Promise<void>;
 }
 
 export function DocumentMembersModal(props: DocumentMembersModalProps) {
-  
   const {
     documentName,
     members: initialMembers,
@@ -28,12 +32,12 @@ export function DocumentMembersModal(props: DocumentMembersModalProps) {
     onSave,
     isOpen,
   } = props;
-  
-  const [ members, setMembers ] = useSyncedState(initialMembers);
-  const [ loading, setLoading ] = useState(false);
-  
+
+  const [members, setMembers] = useSyncedState(initialMembers);
+  const [loading, setLoading] = useState(false);
+
   const done = JSON.stringify(members) === JSON.stringify(initialMembers);
-  
+
   return (
     <Modal
       isOpen={isOpen}
@@ -44,7 +48,9 @@ export function DocumentMembersModal(props: DocumentMembersModalProps) {
     >
       <div className="jk-col stretch gap jk-pg-md">
         <div className="jk-row left extend">
-          <h3><T className="tt-se">share</T>&nbsp;{documentName}</h3>
+          <h3>
+            <T className="tt-se">share</T>&nbsp;{documentName}
+          </h3>
         </div>
         <DocumentMembersContent
           {...{

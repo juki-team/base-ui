@@ -1,4 +1,4 @@
-import { WebSocketResponseEventDTO, WebSocketSubscribeEventDTO } from '@juki-team/commons';
+import type { WebSocketResponseEventDTO, WebSocketSubscribeEventDTO } from '@juki-team/commons/dto';
 import { useEffect } from 'react';
 import { useUserStore } from '../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
@@ -6,15 +6,18 @@ import { safeReportError } from '../helpers';
 import { useStableRef } from './useStableRef';
 import { useSyncedState } from './useSyncedState';
 
-export const useSubscribe = (event: Omit<WebSocketSubscribeEventDTO, 'clientId'>, cb: (response: WebSocketResponseEventDTO) => (void | Promise<void>), isValid = () => true) => {
-  
-  const clientId = useUserStore(store => store.clientId);
-  const subscribeToEvent = useWebsocketStore(store => store.subscribeToEvent);
-  
-  const [ stableEvent ] = useSyncedState(event);
+export const useSubscribe = (
+  event: Omit<WebSocketSubscribeEventDTO, 'clientId'>,
+  cb: (response: WebSocketResponseEventDTO) => void | Promise<void>,
+  isValid = () => true,
+) => {
+  const clientId = useUserStore((store) => store.clientId);
+  const subscribeToEvent = useWebsocketStore((store) => store.subscribeToEvent);
+
+  const [stableEvent] = useSyncedState(event);
   const cbRef = useStableRef(cb);
   const isValidRef = useStableRef(isValid);
-  
+
   useEffect(() => {
     if (!isValidRef.current()) {
       return;
@@ -31,5 +34,5 @@ export const useSubscribe = (event: Omit<WebSocketSubscribeEventDTO, 'clientId'>
         await safeReportError(error as Error, null, { message: 'Error on callback useSubscribe', data, event });
       }
     });
-  }, [ cbRef, clientId, isValidRef, stableEvent, subscribeToEvent ]);
+  }, [cbRef, clientId, isValidRef, stableEvent, subscribeToEvent]);
 };

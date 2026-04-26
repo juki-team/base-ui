@@ -1,32 +1,17 @@
-import {
-  cleanRequest,
-  consoleError,
-  consoleInfo,
-  consoleWarn,
-  ContentResponse,
-  type ContentsResponse,
-  ErrorCode,
-  ErrorResponse,
-  FilesJukiPub,
-  HEADER_JUKI_FORWARDED_HOST,
-  HEADER_JUKI_METADATA,
-  HEADER_JUKI_VISITOR_SESSION_ID,
-  HTTPMethod,
-  isObjectJson,
-  JkError,
-  Status,
-  Theme,
-} from '@juki-team/commons';
+import { HEADER_JUKI_FORWARDED_HOST, HEADER_JUKI_METADATA, HEADER_JUKI_VISITOR_SESSION_ID } from '@juki-team/commons/constants';
+import { ErrorCode, type FilesJukiPub, HTTPMethod, JkError, Status, type Theme } from '@juki-team/commons/enums';
+import { cleanRequest, consoleError, consoleInfo, consoleWarn, isObjectJson } from '@juki-team/commons/helpers';
+import type { ContentResponse, ContentsResponse, ErrorResponse } from '@juki-team/commons/types';
 import type { ErrorInfo } from 'react';
 import { JUKI_TOKEN_NAME } from '../../constants/settings';
 import { QueryParamKey } from '../../enums';
 import { jukiApiManager } from '../../settings';
-import { AuthorizedRequestType } from '../types';
-import { downloadBlobAsFile, downloadUrlAsFile, isBrowser } from './commons';
+import type { AuthorizedRequestType } from '../types';
+import { downloadBlobAsFile, downloadUrlAsFile, isBrowser } from './commons'; // const UUID_WITHOUT_DASHES = /^[0-9A-F]{32}$/i;
 
 // const UUID_WITHOUT_DASHES = /^[0-9A-F]{32}$/i;
 // const UUID_WITH_DASHES = /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i;
-const checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
+const checkForHexRegExp = /^[0-9a-fA-F]{24}$/;
 const validate = (representation: string) => {
   return representation.length === 24 && checkForHexRegExp.test(representation);
   // return UUID_WITHOUT_DASHES.test(representation) || UUID_WITH_DASHES.test(representation)
@@ -135,7 +120,7 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
       errors: [
         {
           code: ErrorCode.ERROR_ON_RESPONSE,
-          detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }),
+          detail: `FETCH CATCH ERROR : ${JSON.stringify({ method, url, body, error })}`,
         },
       ],
     } as ErrorResponse) as N;
@@ -144,14 +129,14 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
 
 export const getHeaders = (jukiVisitorSessionId: string): HeadersInit => ({
   origin: isBrowser() ? window.location.origin : 'https://juki.app',
-  referer: isBrowser() ? window.location.origin + '/' : 'https://juki.app/',
+  referer: isBrowser() ? `${window.location.origin}/` : 'https://juki.app/',
   [HEADER_JUKI_VISITOR_SESSION_ID]: jukiVisitorSessionId,
   [HEADER_JUKI_FORWARDED_HOST]: 'juki.app',
 });
 
 export const getMetaHeaders = (): HeadersInit => ({
   origin: isBrowser() ? window.location.origin : 'https://juki.app',
-  referer: isBrowser() ? window.location.origin + '/' : 'https://juki.app/',
+  referer: isBrowser() ? `${window.location.origin}/` : 'https://juki.app/',
   [HEADER_JUKI_METADATA]: 'true',
   [HEADER_JUKI_FORWARDED_HOST]: 'juki.app',
 });
@@ -297,7 +282,7 @@ export const downloadWebsiteAsPdf = async (
   const response = cleanRequest<ContentResponse<{ urlExportedPDF: string }>>(await authorizedRequest(url, options));
 
   if (response.success) {
-    await downloadUrlAsFile('https://' + response.content.urlExportedPDF, name);
+    await downloadUrlAsFile(`https://${response.content.urlExportedPDF}`, name);
   } else {
     throw new Error('error on download pdf');
   }

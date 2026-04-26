@@ -1,7 +1,7 @@
 import { T } from '../../atoms';
 import { FitnessCenterIcon } from '../../atoms/server';
 import { InformationPopover } from './InformationPopover';
-import { InformationPopoverProps } from './types';
+import type { InformationPopoverProps } from './types';
 
 export const UpsolvingInformation = (props: InformationPopoverProps) => {
   return (

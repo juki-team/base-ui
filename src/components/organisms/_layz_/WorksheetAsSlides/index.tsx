@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { SpinIcon } from '../../../atoms/server';
-import { WorksheetAsSlidesProps } from './types';
+import type { WorksheetAsSlidesProps } from './types';
 
 export const WorksheetAsSlidesImport = () => import('./WorksheetAsSlides');
 

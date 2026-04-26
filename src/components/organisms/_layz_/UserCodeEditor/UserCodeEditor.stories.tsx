@@ -1,19 +1,19 @@
 import {
   CODE_LANGUAGE,
-  CodeEditorFiles,
+  type CodeEditorFiles,
   CodeLanguage,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import { UIMessage } from 'ai';
+import type { UIMessage } from 'ai';
 import { useRef, useState } from 'react';
 import { Button } from '../../../atoms';
 import { CheckIcon, ErrorIcon, ExclamationIcon, SpinIcon } from '../../../atoms/server';
 import { MockupJukiProvider } from '../../../mockup';
 import { AiChatPanel } from '../../AiChatPanel/AiChatPanel';
-import { AiChatSuggestion, AiChatToolStateUI } from '../../AiChatPanel/types';
+import type { AiChatSuggestion, AiChatToolStateUI } from '../../AiChatPanel/types';
 import { UserCodeEditor as UserCodeEditorCmp } from './';
-import { UserCodeEditorHandle } from './types';
+import type { UserCodeEditorHandle } from './types';
 
 export default {
   component: UserCodeEditorCmp,

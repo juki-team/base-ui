@@ -1,4 +1,4 @@
-import { type ContestTimeData } from '@juki-team/commons';
+import type { ContestTimeData } from '@juki-team/commons/types';
 
 export const getContestState = (contest: ContestTimeData) => {
   if (contest.isGlobal) {

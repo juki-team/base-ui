@@ -1,16 +1,16 @@
-import { MenuViewMode } from '@juki-team/commons';
-import { ReactNode } from 'react';
-import { MenuType } from '../../organisms/types';
-import { OnSeeMyProfileType } from '../../providers/JukiUIProvider/types';
+import type { MenuViewMode } from '@juki-team/commons/enums';
+import type { ReactNode } from 'react';
+import type { MenuType } from '../../organisms/types';
+import type { OnSeeMyProfileType } from '../../providers/JukiUIProvider/types';
 
 export interface MainMenuProps {
-  onSeeMyProfile: OnSeeMyProfileType,
-  menu: MenuType[],
-  menuViewMode?: MenuViewMode,
-  profileSelected?: boolean,
-  moreApps?: ReactNode,
-  children: ReactNode,
-  multiCompanies?: boolean,
-  topImageUrl?: string,
-  onBack?: () => void,
+  onSeeMyProfile: OnSeeMyProfileType;
+  menu: MenuType[];
+  menuViewMode?: MenuViewMode;
+  profileSelected?: boolean;
+  moreApps?: ReactNode;
+  children: ReactNode;
+  multiCompanies?: boolean;
+  topImageUrl?: string;
+  onBack?: () => void;
 }

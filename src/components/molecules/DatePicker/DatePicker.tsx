@@ -1,6 +1,6 @@
 import { forwardRef, type Ref } from 'react';
-import { classNames, showOfDateDisplayType } from '../../helpers';
 import { Button, T } from '../../atoms';
+import { classNames, showOfDateDisplayType } from '../../helpers';
 import { DayPicker } from '../DayPicker/DayPicker';
 import { MonthPicker } from '../MonthPicker/MonthPicker';
 import { TimePicker } from '../TimePicker/TimePicker';
@@ -8,7 +8,6 @@ import { YearPicker } from '../YearPicker/YearPicker';
 import type { DatePickerProps } from './types';
 
 function DatePickerComponent(props: DatePickerProps, ref: Ref<HTMLDivElement>) {
-  
   const {
     todayButton = false,
     date = new Date(),
@@ -17,17 +16,10 @@ function DatePickerComponent(props: DatePickerProps, ref: Ref<HTMLDivElement>) {
     type = 'year-month-day-hours-minutes-seconds',
     onChange,
   } = props;
-  
-  const {
-    showYears,
-    showMonths,
-    showDays,
-    showHours,
-    showMinutes,
-    showSeconds,
-    showMilliseconds,
-  } = showOfDateDisplayType(type);
-  
+
+  const { showYears, showMonths, showDays, showHours, showMinutes, showSeconds, showMilliseconds } =
+    showOfDateDisplayType(type);
+
   return (
     <div className="jk-date-picker-layout jk-col jk-pg-sm" ref={ref}>
       {showYears && !showMonths && !showDays && (
@@ -43,7 +35,11 @@ function DatePickerComponent(props: DatePickerProps, ref: Ref<HTMLDivElement>) {
         <>
           {showYears && <div className="jk-divider tiny" style={{ marginTop: -6 }} />}
           <div className={classNames('jk-row center jk-date-picker-time', { 'only-time': !showYears })}>
-            {showYears && <div className="label-time fw-bd tt-se"><T>time</T>:&nbsp;</div>}
+            {showYears && (
+              <div className="label-time fw-bd tt-se">
+                <T>time</T>:&nbsp;
+              </div>
+            )}
             <TimePicker
               date={date}
               onChange={onChange}

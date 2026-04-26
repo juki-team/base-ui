@@ -1,9 +1,9 @@
 import { type SyntheticEvent, useEffect, useRef, useState } from 'react';
 import ReactCrop, {
+  type Crop,
   centerCrop,
   convertToPercentCrop,
   convertToPixelCrop,
-  type Crop,
   makeAspectCrop,
   type PixelCrop,
 } from 'react-image-crop';
@@ -32,7 +32,6 @@ function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: numbe
 }
 
 export default function ImageLoaderCropper(props: ImageLoaderCropperProps) {
-  
   const {
     defaultCrop,
     onCropChange,
@@ -44,17 +43,17 @@ export default function ImageLoaderCropper(props: ImageLoaderCropperProps) {
     withRotate,
     withScale,
   } = props;
-  
-  const [ imgSrc, setImgSrc ] = useState('');
+
+  const [imgSrc, setImgSrc] = useState('');
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
-  const [ crop, setCrop ] = useState<Crop | undefined>(defaultCrop);
-  const [ completedCrop, setCompletedCrop ] = useState<PixelCrop>();
-  const [ scale, setScale ] = useHandleState(1, initialScale);
-  const [ rotate, setRotate ] = useHandleState(0, initialRotate);
-  const [ aspect, setAspect ] = useState<number | undefined>(initialAspect || undefined);
-  const [ aspectText, setAspectText ] = useState<string>((aspect || '') + '');
-  
+  const [crop, setCrop] = useState<Crop | undefined>(defaultCrop);
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
+  const [scale, setScale] = useHandleState(1, initialScale);
+  const [rotate, setRotate] = useHandleState(0, initialRotate);
+  const [aspect, setAspect] = useState<number | undefined>(initialAspect || undefined);
+  const [aspectText, setAspectText] = useState<string>(`${aspect || ''}`);
+
   const updateAspect = (aspect: number | undefined) => {
     if (!aspect) {
       setAspect(undefined);
@@ -68,21 +67,19 @@ export default function ImageLoaderCropper(props: ImageLoaderCropperProps) {
   };
   useEffect(() => {
     updateAspect(initialAspect);
-    setAspectText((initialAspect || '') + '');
-  }, [ initialAspect ]);
-  useEffect(() => updateAspect(aspect), [ aspect ]);
-  
+    setAspectText(`${initialAspect || ''}`);
+  }, [initialAspect]);
+  useEffect(() => updateAspect(aspect), [aspect]);
+
   function onSelectFile(files: FileList) {
     if (files?.length > 0 && files[0]) {
       setCrop(undefined); // Makes crop preview update between images.
       const reader = new FileReader();
-      reader.addEventListener('load', () =>
-        setImgSrc(reader.result?.toString() || ''),
-      );
+      reader.addEventListener('load', () => setImgSrc(reader.result?.toString() || ''));
       reader.readAsDataURL(files[0]);
     }
   }
-  
+
   function onImageLoad(e: SyntheticEvent<HTMLImageElement>) {
     const { width, height } = e.currentTarget;
     if (aspect) {
@@ -91,25 +88,18 @@ export default function ImageLoaderCropper(props: ImageLoaderCropperProps) {
       setCrop({ width: 100, height: 100, y: 0, x: 0, unit: '%' });
     }
   }
-  
-  useDebounceEffect(async () => {
-    if (
-      completedCrop?.width &&
-      completedCrop?.height &&
-      imgRef.current &&
-      previewCanvasRef.current
-    ) {
-      // We use canvasPreview as it's much faster than imgPreview.
-      await canvasPreview(
-        imgRef.current,
-        previewCanvasRef.current,
-        completedCrop,
-        scale,
-        rotate,
-      );
-    }
-  }, 100, [ completedCrop, scale, rotate ]);
-  
+
+  useDebounceEffect(
+    async () => {
+      if (completedCrop?.width && completedCrop?.height && imgRef.current && previewCanvasRef.current) {
+        // We use canvasPreview as it's much faster than imgPreview.
+        await canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop, scale, rotate);
+      }
+    },
+    100,
+    [completedCrop, scale, rotate],
+  );
+
   useEffect(() => {
     if (previewCanvasRef.current && completedCrop && imgRef.current) {
       const { width, height } = imgRef.current;
@@ -123,8 +113,8 @@ export default function ImageLoaderCropper(props: ImageLoaderCropperProps) {
         aspect,
       });
     }
-  }, [ completedCrop, scale, rotate, onCropChange, circularCrop, aspect ]);
-  
+  }, [completedCrop, scale, rotate, onCropChange, circularCrop, aspect]);
+
   return (
     <div className="image-loader-cropper-layout jk-col gap">
       <div className="jk-row space-between gap nowrap">
@@ -149,7 +139,7 @@ export default function ImageLoaderCropper(props: ImageLoaderCropperProps) {
             value={rotate}
             disabled={!imgSrc}
             size="auto"
-            onChange={value => setRotate(Math.min(180, Math.max(-180, value)))}
+            onChange={(value) => setRotate(Math.min(180, Math.max(-180, value)))}
           />
         )}
         {withAspect && (
@@ -160,7 +150,7 @@ export default function ImageLoaderCropper(props: ImageLoaderCropperProps) {
             value={aspectText}
             disabled={!imgSrc}
             size="auto"
-            onChange={value => {
+            onChange={(value) => {
               setAspectText(value);
               const values = value?.split('/');
               const aspect = +(values[0] ?? 0) / +(values[1] ?? 1);
@@ -188,9 +178,7 @@ export default function ImageLoaderCropper(props: ImageLoaderCropperProps) {
           />
         </ReactCrop>
       )}
-      <div style={{ display: 'none' }}>
-        {!!completedCrop && (<canvas ref={previewCanvasRef} />)}
-      </div>
+      <div style={{ display: 'none' }}>{!!completedCrop && <canvas ref={previewCanvasRef} />}</div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import { SubmissionRejudgeButton } from '../../../molecules';
 import { Field } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer/types';
@@ -11,9 +11,11 @@ export function getSubmissionRejudgeHeader(): DataViewerHeadersType<SubmissionSu
     Field: ({ record: { submitId, problem } }) => (
       <Field>
         <div className="jk-col nowrap extend" style={{ padding: '4px 0', boxSizing: 'border-box' }}>
-          {problem.judge.isSubmitSupported
-            ? <SubmissionRejudgeButton submissionId={submitId} />
-            : <SubmissionRetrieveButton submissionId={submitId} />}
+          {problem.judge.isSubmitSupported ? (
+            <SubmissionRejudgeButton submissionId={submitId} />
+          ) : (
+            <SubmissionRetrieveButton submissionId={submitId} />
+          )}
         </div>
       </Field>
     ),

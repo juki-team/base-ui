@@ -3,7 +3,11 @@ import { T } from '../../atoms';
 import { FieldText } from '../../organisms';
 import type { ProblemTypeFieldProps } from './types';
 
-export function ProblemTypeField({ record: { settings: { type } } }: ProblemTypeFieldProps) {
+export function ProblemTypeField({
+  record: {
+    settings: { type },
+  },
+}: ProblemTypeFieldProps) {
   return (
     <FieldText
       className="jk-row"

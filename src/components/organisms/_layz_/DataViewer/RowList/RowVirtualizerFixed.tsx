@@ -49,7 +49,7 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
 
   useEffect(() => {
     const fn = getRecordKeyRef.current;
-    if (!focusRowKey || !fn) {
+    if (!(focusRowKey && fn)) {
       return;
     }
 
@@ -219,7 +219,7 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
           >
             {visibleHeaders.map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, index) => (
               <div
-                key={virtualRow.key + '_' + columnIndex}
+                key={`${virtualRow.key}_${columnIndex}`}
                 style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
                 className={classNames(
                   {
@@ -228,7 +228,7 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
                   },
                   'jk-table-row-field bc-sf-md',
                 )}
-                data-testid={virtualRow.key + '_' + columnIndex}
+                data-testid={`${virtualRow.key}_${columnIndex}`}
               >
                 {data[virtualRow.index] && (
                   <Field

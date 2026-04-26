@@ -19,15 +19,14 @@ export default meta;
 type Story = StoryObj<typeof DataViewer>;
 
 const Pag = () => {
-  
-  const [ page, setPage ] = useState(0);
-  
+  const [page, setPage] = useState(0);
+
   return (
     <Pagination
       dataLength={1}
       loading={false}
       initializing={false}
-      pageSizeOptions={[ 1 ]}
+      pageSizeOptions={[1]}
       total={145}
       page={page}
       pageSize={1}

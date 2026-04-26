@@ -1,8 +1,8 @@
-import { Children, memo, MouseEvent, ReactElement, useCallback, useRef, useState } from 'react';
+import { Children, type MouseEvent, memo, type ReactElement, useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../../helpers';
 import { ArrowDownwardIcon, ArrowUpwardIcon, SortIcon } from '../../../../../server';
 import { fixHeaders, renderHead } from '../../commons/utils';
-import { DataViewerTableHeadersType, TableHeadProps, TableSortType } from '../../types';
+import type { DataViewerTableHeadersType, TableHeadProps, TableSortType } from '../../types';
 import { Filter } from './Filter';
 
 const fillWidth = true;
@@ -43,7 +43,7 @@ const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
 
   return (
     <div
-      key={columnIndex + '_head'}
+      key={`${columnIndex}_head`}
       style={{
         width: width,
         minWidth: width,
@@ -56,7 +56,7 @@ const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
         borderBottomRightRadius: borderBottomRightRadius ? 'var(--border-radius-inline)' : undefined,
       }}
       className={classNames({ 'with-right-border': withRightBorder }, 'sticky jk-table-row-head')}
-      data-testid={columnIndex + '_head'}
+      data-testid={`${columnIndex}_head`}
     >
       <div
         className={classNames('jk-row nowrap jk-table-head-cell jk-pg-sm', {
@@ -66,7 +66,7 @@ const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
         })}
         onMouseUp={onMouseHoldUp}
         key={columnIndex}
-        style={{ width: width + 'px', ...header.style }}
+        style={{ width: `${width}px`, ...header.style }}
       >
         <div className="jk-table-head-field flex-1 ht-100">{renderHead({ header, columnIndex, className: headClassName })}</div>
         {withTools && (

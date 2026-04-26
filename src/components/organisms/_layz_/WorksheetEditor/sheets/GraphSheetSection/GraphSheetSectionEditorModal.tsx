@@ -1,7 +1,7 @@
-import { GraphSheet } from '@juki-team/commons';
-import { Dispatch, useEffect, useState } from 'react';
+import type { GraphSheet } from '@juki-team/commons';
+import { type Dispatch, useEffect, useState } from 'react';
 import { Button, Modal } from '../../../../../atoms';
-import { BasicModalProps } from '../../../../../atoms/Modal/types';
+import type { BasicModalProps } from '../../../../../atoms/Modal/types';
 import { AddIcon, ArrowBackIcon, ArrowForwardIcon, DeleteIcon } from '../../../../../atoms/server';
 import { GraphSheetSectionView } from './GraphSheetSectionView';
 

@@ -2959,9 +2959,7 @@
         "endTimestamp": 1743134400000,
         "penalty": 20
       },
-      "tags": [
-        ""
-      ],
+      "tags": [""],
       "totalContestants": 11,
       "isLive": false,
       "isPast": true,

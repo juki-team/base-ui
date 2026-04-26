@@ -3,20 +3,9 @@ import { classNames } from '../../../../helpers';
 import type { TableHeadersType } from '../types';
 import type { DataViewerCardProps } from './types';
 
-export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
-  
-  const {
-    cardWidth,
-    index,
-    data,
-    headers,
-    fake,
-    cardStyle,
-    cardClassName,
-    onCardClick,
-    onCardHover,
-  } = props;
-  
+export const DataViewerCard = <T,>(props: DataViewerCardProps<T>) => {
+  const { cardWidth, index, data, headers, fake, cardStyle, cardClassName, onCardClick, onCardHover } = props;
+
   const { height: topLeftHeight, ref: topLeftRef } = useResizeDetector();
   const { height: topHeight, ref: topRef } = useResizeDetector();
   const { height: topRightHeight, ref: topRightRef } = useResizeDetector();
@@ -37,7 +26,7 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
   const { height: bottomHeight, ref: bottomRef } = useResizeDetector();
   const { height: bottomRightHeight, ref: bottomRightRef } = useResizeDetector();
   const bottomContainerHeight = Math.max(bottomLeftHeight || 0, bottomHeight || 0, bottomRightHeight || 0);
-  
+
   if (fake) {
     return <div className="jk-list-card" style={{ width: cardWidth, opacity: 0 }} />;
   }
@@ -49,13 +38,13 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
     }
     positionsList[key].push(head);
   }
-  
+
   const renderField = ({ index: columnIndex, Field }: TableHeadersType<T>) => (
     <div key={columnIndex}>
       {data[index] && <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />}
     </div>
   );
-  
+
   return (
     <div
       className={classNames('jk-list-card jk-br', cardClassName)}

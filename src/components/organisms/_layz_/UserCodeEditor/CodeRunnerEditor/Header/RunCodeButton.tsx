@@ -1,18 +1,18 @@
 import {
-  cleanRequest,
-  CodeEditorFiles,
-  CodeEditorTestCase,
-  CodeEditorTestCases,
+  type CodeEditorFiles,
+  type CodeEditorTestCase,
+  type CodeEditorTestCases,
   CodeLanguage,
+  type ContentResponse,
+  cleanRequest,
   consoleWarn,
-  ContentResponse,
   isCodeRunStatusMessageWebSocketResponseEventDTO,
   Status,
   SubmissionRunStatus,
-  SubscribeCodeRunStatusWebSocketEventDTO,
+  type SubscribeCodeRunStatusWebSocketEventDTO,
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
-import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useRef } from 'react';
+import { type Dispatch, type RefObject, type SetStateAction, useCallback, useEffect, useRef } from 'react';
 import { v4 } from 'uuid';
 import { jukiApiManager } from '../../../../../../settings';
 import { T } from '../../../../../atoms';
@@ -23,8 +23,8 @@ import { useKeyDown } from '../../../../../hooks/useKeyDown';
 import { useStableRef } from '../../../../../hooks/useStableRef';
 import { useSubscribe } from '../../../../../hooks/useSubscribe';
 import { ButtonLoader } from '../../../../../molecules';
-import { SetLoaderStatusOnClickType } from '../../../../../types';
-import { CodeRunnerEditorOnChangeType, Runner, RunState } from '../types';
+import type { SetLoaderStatusOnClickType } from '../../../../../types';
+import type { CodeRunnerEditorOnChangeType, Runner, RunState } from '../types';
 
 interface RunCodeButtonProps<T> extends Runner {
   onRunStart: (id: string) => void;
@@ -211,7 +211,7 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (!e.shiftKey && !e.altKey && e.key === 'Enter') {
+      if (!(e.shiftKey || e.altKey) && e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
         if (setLoaderRef.current) {

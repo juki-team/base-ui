@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { T } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { DownloadIcon, OpenInNewIcon } from '../../server';
@@ -46,7 +46,7 @@ export const Regular: Story = {
         ],
       },
     ];
-    
+
     return (
       <MockupJukiProvider>
         <div

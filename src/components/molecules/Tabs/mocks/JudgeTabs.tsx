@@ -5,7 +5,7 @@ import { MockJkContestTable } from '../../../organisms/_layz_/DataViewer/JkConte
 import { MockJkProblemTable } from '../../../organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkSubmissionTable } from '../../../organisms/_layz_/DataViewer/JkSubmissionsTableTest/MockJkSubmissionTable';
 import { MockJkUserTable } from '../../../organisms/_layz_/DataViewer/JkUserTableTest/MockJkUserTable';
-import { TabsType } from '../../../types';
+import type { TabsType } from '../../../types';
 import { TabsInline } from '../../index';
 import { TabsInlineBody } from '../../TabsInlineBody/TabsInlineBody';
 

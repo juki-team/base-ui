@@ -7,10 +7,8 @@ export default {
 };
 
 export const SelectSearchable = () => {
-  const [ values, setValues ] = useState<
-    { label: any; value: { nickname: string } }[]
-  >([]);
-  
+  const [values, setValues] = useState<{ label: any; value: { nickname: string } }[]>([]);
+
   return (
     <MockupJukiProvider>
       <div className="jk-pg-md">
@@ -48,11 +46,7 @@ export const SelectSearchable = () => {
             }))}
             selectedOptions={values}
             onChange={(options) => setValues(options)}
-            onFilter={({ search, option }) =>
-              option.value.nickname
-                .toLowerCase()
-                .indexOf(search.toLowerCase()) > -1
-            }
+            onFilter={({ search, option }) => option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) > -1}
           />
         </div>
         Searchable
@@ -71,10 +65,7 @@ export const SelectSearchable = () => {
           selectedOptions={values}
           onChange={(options) => setValues(options)}
           expand
-          onFilter={({ search, option }) =>
-            option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) >
-            -1
-          }
+          onFilter={({ search, option }) => option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) > -1}
         />
         Searchable multiselect=false
         <MultiSelectSearchable
@@ -92,10 +83,7 @@ export const SelectSearchable = () => {
           selectedOptions={values}
           onChange={(options) => setValues(options)}
           expand
-          onFilter={({ search, option }) =>
-            option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) >
-            -1
-          }
+          onFilter={({ search, option }) => option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) > -1}
           multiselect={false}
         />
         end

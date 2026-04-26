@@ -1,9 +1,9 @@
-import { SEPARATOR_TOKEN } from '@juki-team/commons';
-import { Href, RequestFilterType, RequestSortType } from '../types';
+import { SEPARATOR_TOKEN } from '@juki-team/commons/constants';
+import type { Href, RequestFilterType, RequestSortType } from '../types';
 
 export const toFilterUrl = (filter: RequestFilterType) => {
   let filterUrl = '';
-  Object.entries(filter).forEach(([ key, value ]) => {
+  Object.entries(filter).forEach(([key, value]) => {
     if (value) {
       if (filterUrl) {
         filterUrl += '&';
@@ -16,7 +16,7 @@ export const toFilterUrl = (filter: RequestFilterType) => {
 
 export const toSortUrl = (sort: RequestSortType) => {
   let filterUrl = '';
-  Object.entries(sort).forEach(([ key, value ]) => {
+  Object.entries(sort).forEach(([key, value]) => {
     if (filterUrl && (value === -1 || value === 1)) {
       filterUrl += SEPARATOR_TOKEN;
     }
@@ -27,27 +27,26 @@ export const toSortUrl = (sort: RequestSortType) => {
       filterUrl += encodeURIComponent(`+${key}`);
     }
   });
-  return filterUrl ? 'sort=' + filterUrl : '';
+  return filterUrl ? `sort=${filterUrl}` : '';
 };
 
 export const getHref = (href: Href) => {
-  
   let pathname;
   let searchParams;
   if (typeof href === 'string') {
-    const [ p, s ] = href.split('?');
+    const [p, s] = href.split('?');
     pathname = p || '';
     searchParams = new URLSearchParams(s || '');
   } else {
     pathname = href?.pathname || '';
     searchParams = href?.searchParams || new URLSearchParams();
   }
-  
+
   const search = searchParams.toString();
-  
+
   return {
     pathname,
     searchParams,
-    path: `${pathname}${search ? '?' + search : ''}`,
+    path: `${pathname}${search ? `?${search}` : ''}`,
   };
 };

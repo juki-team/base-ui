@@ -50,7 +50,7 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
           ${
             initialVerdict === ProblemVerdict.PENDING &&
             processedCases &&
-            !!(processedCases.samples.total + processedCases.tests.total)
+            (processedCases.samples.total + processedCases.tests.total)
               ? `&nbsp;(${processedCases.samples.processed + processedCases.tests.processed}&nbsp;/&nbsp;${processedCases.samples.total + processedCases.tests.total})`
               : ''
           }

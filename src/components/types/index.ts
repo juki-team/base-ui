@@ -1,19 +1,21 @@
-import { HTTPMethod, Status, UserHandles, WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons';
-import { ParsedUrlQuery } from 'querystring';
+import type { WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons/dto';
+import type { HTTPMethod, Status } from '@juki-team/commons/enums';
+import type { UserHandles } from '@juki-team/commons/types';
+import type { ParsedUrlQuery } from 'querystring';
 import type {
   ChangeEvent,
   CSSProperties,
   Dispatch,
-  KeyboardEvent as ReactKeyboardEvent,
   KeyboardEventHandler,
   MouseEvent,
   MouseEventHandler,
+  KeyboardEvent as ReactKeyboardEvent,
   ReactNode,
   SetStateAction,
 } from 'react';
-import { type UseFormRegisterReturn } from 'react-hook-form';
-import { KeyedMutator } from 'swr';
-import { Sound, TriggerAction } from '../../enums';
+import type { UseFormRegisterReturn } from 'react-hook-form';
+import type { KeyedMutator } from 'swr';
+import type { Sound, TriggerAction } from '../../enums';
 
 export type ReactNodeOrFunctionP1Type<T, U = ReactNode> = U | ((prop1: T) => U);
 
@@ -49,7 +51,7 @@ export type DataViewerRequestPropsType = {
 export type OnClickButtonEventType = {
   onClickEvent?: MouseEvent<HTMLButtonElement>;
   onKeyDownEvent?: KeyboardEvent | ReactKeyboardEvent;
-  fetcherLayerErrorEvent?: any;
+  fetcherLayerErrorEvent?: unknown;
 };
 
 export type ButtonLoaderOnClickType<T = OnClickButtonEventType> =
@@ -179,7 +181,7 @@ export type UserResultsType = {
   data?: WorksheetUserSubmissionsResponseDTO;
   isLoading?: boolean;
   validating?: boolean;
-  mutate?: KeyedMutator<any>;
+  mutate?: KeyedMutator<WorksheetUserSubmissionsResponseDTO>;
 };
 
 export interface UpsertComponentEntityProps<EntityUI, Tab> {

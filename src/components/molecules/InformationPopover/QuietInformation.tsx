@@ -1,7 +1,7 @@
 import { T } from '../../atoms';
 import { LockIcon } from '../../atoms/server';
 import { InformationPopover } from './InformationPopover';
-import { InformationPopoverProps } from './types';
+import type { InformationPopoverProps } from './types';
 
 export const QuietInformation = (props: InformationPopoverProps) => {
   return (

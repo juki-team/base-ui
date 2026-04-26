@@ -1,7 +1,7 @@
-// import { Status } from '@juki-team/commons';
+// import { Status } from '@juki-team/commons/enums';
 // import { Extension } from '@tiptap/core';
 // import MarkdownIt from 'markdown-it';
-// // @ts-ignore
+// // @ts-expect-error
 // import markdownItMark from 'markdown-it-mark';
 // import { DOMParser as ProseMirrorDOMParser } from 'prosemirror-model';
 // import { Plugin } from 'prosemirror-state';

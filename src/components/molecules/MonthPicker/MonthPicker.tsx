@@ -1,17 +1,16 @@
-import { MONTH_NAMES, YEARS } from '@juki-team/commons';
-import { changeMonth, changeYear, decreaseYear, increaseMonth, increaseYear, startOfYear } from '@juki-team/commons/date';
+import { MONTH_NAMES, YEARS } from '@juki-team/commons/constants';
+import { changeMonth, changeYear, decreaseYear, increaseMonth, increaseYear, startOfYear } from '@juki-team/commons/helpers';
 import { useState } from 'react';
-import { classNames } from '../../helpers';
 import { Div, Select, T } from '../../atoms';
+import { classNames } from '../../helpers';
 import type { MonthPickerProps } from '../DatePicker/types';
 import { NextButton } from '../NextButton/NextButton';
 import { PreviousButton } from '../PreviousButton/PreviousButton';
 
 export function MonthPicker({ date, onChange, isDisabled, isSelected }: MonthPickerProps) {
-  
-  const [ viewDate, setViewDate ] = useState(date);
-  
-  const gridMonths: (Date[])[] = [];
+  const [viewDate, setViewDate] = useState(date);
+
+  const gridMonths: Date[][] = [];
   let dateCursor = new Date(startOfYear(viewDate));
   for (let i = 0; i < 4; i++) {
     gridMonths.push([]);
@@ -20,16 +19,16 @@ export function MonthPicker({ date, onChange, isDisabled, isSelected }: MonthPic
       dateCursor = increaseMonth(dateCursor);
     }
   }
-  
+
   return (
     <>
       <div className="jk-row jk-month-picker-header">
         <PreviousButton onClick={() => setViewDate(decreaseYear(viewDate))} />
         <Select
-          options={YEARS.map(year => ({
+          options={YEARS.map((year) => ({
             value: year,
             label: year,
-            disabled: !!(isDisabled?.(changeYear(new Date(), year)).year),
+            disabled: !!isDisabled?.(changeYear(new Date(), year)).year,
           }))}
           selectedOption={{ value: viewDate.getFullYear(), label: viewDate.getFullYear() }}
           onChange={({ value }) => setViewDate(changeYear(viewDate, value))}
@@ -39,7 +38,7 @@ export function MonthPicker({ date, onChange, isDisabled, isSelected }: MonthPic
       <div className="jk-date-picker-grid-months">
         {gridMonths.map((row, index) => (
           <div className="jk-row" key={index}>
-            {row.map(date => {
+            {row.map((date) => {
               const disabled = !!isDisabled?.(date).month;
               const selected = !!isSelected?.(date).month;
               return (
@@ -49,7 +48,9 @@ export function MonthPicker({ date, onChange, isDisabled, isSelected }: MonthPic
                   onClick={() => !disabled && onChange(changeMonth(changeYear(date, date.getFullYear()), date.getMonth()))}
                   onKeyDownClick
                 >
-                  <div><T>{MONTH_NAMES[date.getMonth()] ?? date.getMonth().toString()}</T></div>
+                  <div>
+                    <T>{MONTH_NAMES[date.getMonth()] ?? date.getMonth().toString()}</T>
+                  </div>
                 </Div>
               );
             })}

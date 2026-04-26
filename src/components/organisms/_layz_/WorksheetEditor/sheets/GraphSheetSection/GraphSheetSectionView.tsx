@@ -1,5 +1,5 @@
-import { GraphSheet } from '@juki-team/commons';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import type { GraphSheet } from '@juki-team/commons';
+import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
 import { Button } from '../../../../../atoms';
 import { ArrowBackIcon, ArrowForwardIcon } from '../../../../../atoms/server';
 import { classNames } from '../../../../../helpers';

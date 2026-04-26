@@ -7,19 +7,19 @@ export class TimeoutLatch {
   private isCancelled = false;
   private isTimeExhausted = false;
   private callbacks: Function[] = [];
-  
+
   constructor(callback: Function, timeoutMS: number) {
     this.timeLeftMS = timeoutMS;
     this.timeoutMS = timeoutMS;
     this.callbacks.push(callback);
   }
-  
+
   get isDone(): boolean {
     return this.isCancelled || this.isTimeExhausted;
   }
-  
+
   tick(): void {
-    if (!this.isCancelled && !this.isTimeExhausted) {
+    if (!(this.isCancelled || this.isTimeExhausted)) {
       this.timeLeftMS--;
       if (this.timeLeftMS <= 0) {
         this.isTimeExhausted = true;
@@ -35,12 +35,12 @@ export class TimeoutLatch {
       }
     }
   }
-  
+
   cancel(): void {
     this.isCancelled = true;
     this.callbacks.length = 0;
   }
-  
+
   reset(): void {
     this.timeLeftMS = this.timeoutMS;
     this.isCancelled = false;
@@ -51,19 +51,19 @@ export class TimeoutLatch {
 class Scheduler {
   private interval: NodeJS.Timeout | null = null;
   private latches = new Set<TimeoutLatch>();
-  
+
   add(latch: TimeoutLatch): void {
     this.latches.add(latch);
     this.start();
   }
-  
+
   remove(latch: TimeoutLatch): void {
     this.latches.delete(latch);
     if (this.latches.size === 0) {
       this.stop();
     }
   }
-  
+
   private start(): void {
     if (this.interval === null) {
       this.interval = setInterval(() => {
@@ -76,7 +76,7 @@ class Scheduler {
       }, 1);
     }
   }
-  
+
   private stop(): void {
     if (this.interval !== null) {
       clearInterval(this.interval);

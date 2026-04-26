@@ -1,4 +1,4 @@
-import { type CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 import type { CircularProgressProps } from '../ProgressMultiBar/types';
 
 export function CircularProgress({ progress, size = 96 }: CircularProgressProps) {
@@ -12,7 +12,9 @@ export function CircularProgress({ progress, size = 96 }: CircularProgressProps)
     >
       <circle className="bg"></circle>
       <circle className="fg"></circle>
-      <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">{progress} %</text>
+      <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
+        {progress} %
+      </text>
     </svg>
   );
 }

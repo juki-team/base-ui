@@ -1,6 +1,6 @@
 import {
-  CodeEditorTestCase,
-  CodeEditorTestCases,
+  type CodeEditorTestCase,
+  type CodeEditorTestCases,
   getDataOfTestCase,
   getVerdictFromTestCase,
   mex,
@@ -16,7 +16,7 @@ import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../../../molecules';
 import { NewlineInfo } from '../../../../../molecules/InformationPopover/NewlineInfo';
 import { AddIcon, CheckIcon, DeleteIcon, DraftIcon, InfoIIcon, SpinIcon } from '../../../../../server';
-import { TabsType } from '../../../../../types';
+import type { TabsType } from '../../../../../types';
 import { ProblemVerdictTag } from '../../../../ProblemVerdictTag/ProblemVerdictTag';
 import type { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
 import { LogInfo } from './LogInfo';
@@ -348,7 +348,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
                   <DraftIcon size="small" />
                 ) : (
                   <DraftIcon
-                    letter={((testCase.index + 1) % 10) + ''}
+                    letter={`${(testCase.index + 1) % 10}`}
                     letterSize={12}
                     size="small"
                     className={classNames({ 'cr-io-lt': testCase.sample })}
@@ -388,7 +388,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
                     &nbsp;
                     <SpinIcon size="tiny" />
                   </>
-                ) : !!testCase.testOut ||
+                ) : testCase.testOut ||
                   verdict === ProblemVerdict.CE ||
                   verdict === ProblemVerdict.MLE ||
                   verdict === ProblemVerdict.TLE ||
@@ -453,7 +453,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
                             <div className="dot-flashing" />
                           </div>
                         )}
-                        {!!test && !isLoadingState && test.status !== SubmissionRunStatus.NONE ? (
+                        {test && !isLoadingState && test.status !== SubmissionRunStatus.NONE ? (
                           <LogInfo testCase={test} timeLimit={timeLimit} memoryLimit={memoryLimit} />
                         ) : (
                           !!test &&

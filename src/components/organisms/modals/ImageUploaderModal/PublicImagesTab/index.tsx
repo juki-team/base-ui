@@ -1,13 +1,13 @@
-import { ContentsResponse, ImageSummaryResponseDTO } from '@juki-team/commons';
+import type { ContentsResponse, ImageSummaryResponseDTO } from '@juki-team/commons';
 import { jukiApiManager } from '../../../../../settings';
 import { FetcherLayer } from '../../../../molecules';
-import { onPickImageUrlType } from '../types';
+import type { onPickImageUrlType } from '../types';
 import { PublicImages } from './PublicImages';
 
 interface PublicImagesTabProps {
-  trigger: number,
-  copyButtons?: boolean,
-  onPickImageUrl?: onPickImageUrlType,
+  trigger: number;
+  copyButtons?: boolean;
+  onPickImageUrl?: onPickImageUrlType;
 }
 
 export const PublicImagesTab = (props: PublicImagesTabProps) => (

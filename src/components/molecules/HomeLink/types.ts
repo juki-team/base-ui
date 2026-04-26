@@ -1,2 +1,1 @@
-export interface HomeLinkProps {
-}
+export type HomeLinkProps = {};

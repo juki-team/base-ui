@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 // import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { Input, InputPassword, Select as SelectComponent, TextArea } from '../index';
-import { InputProps } from './Input';
+import type { InputProps } from './Input';
 
 const meta: Meta<typeof Input> = {
   component: Input,
@@ -14,42 +14,28 @@ export default meta;
 type Story = StoryObj<typeof Input>;
 
 const Cmp = (_: InputProps<any>) => {
-  const [ text, setText ] = useState('');
-  
+  const [text, setText] = useState('');
+
   return (
     <MockupJukiProvider>
       <div style={{ width: '90%' }} className="jk-pg-md">
         <div className="jk-form-item">
           <label>
             label input
-            <Input
-              name="nickname"
-              onChange={(value) => setText(value)}
-              value={text}
-            />
+            <Input name="nickname" onChange={(value) => setText(value)} value={text} />
           </label>
         </div>
         <div className="jk-form-item">
           <label>
             label input with error label
-            <Input
-              name="nickname"
-              onChange={(value) => setText(value)}
-              value={text}
-              className="error"
-            />
+            <Input name="nickname" onChange={(value) => setText(value)} value={text} className="error" />
           </label>
           <p>error label</p>
         </div>
         <div className="jk-form-item">
           <label>
             label input with success label
-            <Input
-              name="nickname"
-              onChange={(value) => setText(value)}
-              value={text}
-              className="success"
-            />
+            <Input name="nickname" onChange={(value) => setText(value)} value={text} className="success" />
           </label>
         </div>
         <div className="jk-form-item">
@@ -67,11 +53,7 @@ const Cmp = (_: InputProps<any>) => {
         <div className="jk-form-item">
           <label>
             Password
-            <InputPassword
-              name="password"
-              onChange={(value) => setText(value)}
-              value={text}
-            />
+            <InputPassword name="password" onChange={(value) => setText(value)} value={text} />
           </label>
           <p>error label</p>
         </div>

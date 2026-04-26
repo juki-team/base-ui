@@ -1,3 +1,3 @@
 export interface LoaderLayerProps {
-  loading: boolean,
+  loading: boolean;
 }

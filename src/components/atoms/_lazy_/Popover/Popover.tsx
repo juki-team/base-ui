@@ -1,22 +1,22 @@
 import {
   autoUpdate,
-  flip,
   FloatingFocusManager,
   FloatingPortal,
+  flip,
   offset,
   type Placement,
   safePolygon,
   shift,
+  type UseFloatingReturn,
+  type UseInteractionsReturn,
   useClick,
   useDismiss,
   useFloating,
-  type UseFloatingReturn,
   useHover,
   useInteractions,
-  type UseInteractionsReturn,
   useRole,
 } from '@floating-ui/react';
-import { type Transition, type Variants } from 'motion';
+import type { Transition, Variants } from 'motion';
 import { AnimatePresence, motion } from 'motion/react';
 import { cloneElement, isValidElement, useEffect, useMemo, useRef, useState } from 'react';
 import { Duration, TriggerAction } from '../../../../enums';
@@ -266,7 +266,7 @@ export default function Popover(props: PopoverProps) {
     <>
       {isValidElement(children) &&
         cloneElement(children, {
-          // @ts-ignore
+          // @ts-expect-error
           ref: refs.setReference,
           ...getReferenceProps(),
         })}

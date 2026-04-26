@@ -12,34 +12,25 @@ const FileAccessIcons = {
 };
 
 export function DocumentMembersContent(props: DocumentMembersContentProps) {
-  
-  const {
-    members,
-    setMembers,
-    documentOwner,
-    administrators,
-    managers,
-    participants,
-    guests,
-    spectators,
-    entityAccess,
-  } = props;
-  
+  const { members, setMembers, documentOwner, administrators, managers, participants, guests, spectators, entityAccess } =
+    props;
+
   const documentAccess = getDocumentAccess({ members });
-  
+
   return (
     <div className="jk-col gap stretch gap">
       <div>
         <T className="fw-bd tt-se">access type</T>
         <div>
           <Select
-            options={Object.values(ENTITY_ACCESS).map(fileAccess => ({
+            options={Object.values(ENTITY_ACCESS).map((fileAccess) => ({
               value: fileAccess.value,
               label: (
                 <div className="jk-row gap left jk-pg-sm">
                   <div className="jk-col left stretch">
                     <div className="jk-row gap left">
-                      {FileAccessIcons[fileAccess.value]}<T className="tt-se fw-bd">{entityAccess?.[fileAccess.value]?.name ?? fileAccess.label}</T>
+                      {FileAccessIcons[fileAccess.value]}
+                      <T className="tt-se fw-bd">{entityAccess?.[fileAccess.value]?.name ?? fileAccess.label}</T>
                     </div>
                     <T className="tt-se">{entityAccess?.[fileAccess.value]?.description ?? fileAccess.description}</T>
                   </div>
@@ -48,60 +39,70 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
             }))}
             selectedOption={{ value: documentAccess }}
             expand
-            onChange={setMembers ? ({ value }) => {
-              setMembers(prevState => {
-                const currentMembers = { ...prevState };
-                currentMembers.rankAdministrators = administrators?.closeable ? EntityMembersRank.CLOSE : EntityMembersRank.NONE;
-                currentMembers.rankGuests = guests?.closeable
-                  ? (currentMembers.rankGuests === EntityMembersRank.CLOSE ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN)
-                  : EntityMembersRank.NONE;
-                currentMembers.rankParticipants = participants?.closeable
-                  ? (currentMembers.rankParticipants === EntityMembersRank.CLOSE ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN)
-                  : EntityMembersRank.NONE;
-                switch (value) {
-                  case EntityAccess.EXPOSED:
-                    currentMembers.rankManagers = EntityMembersRank.OPEN;
-                    currentMembers.rankSpectators = EntityMembersRank.OPEN;
-                    break;
-                  case EntityAccess.PUBLIC:
-                    currentMembers.rankManagers = EntityMembersRank.CLOSE;
-                    currentMembers.rankSpectators = EntityMembersRank.OPEN;
-                    // for (const userId of managersIds) {
-                    //   managers[userId] = {
-                    //     joinedAtTimestamp: members.managers?.[userId]?.joinedAtTimestamp ?? now,
-                    //     lastVisitTimestamp: members.managers?.[userId]?.lastVisitTimestamp ?? null,
-                    //     userId,
-                    //   };
-                    // }
-                    break;
-                  case EntityAccess.RESTRICTED:
-                    currentMembers.rankManagers = EntityMembersRank.CLOSE;
-                    currentMembers.rankSpectators = EntityMembersRank.CLOSE;
-                    // for (const userId of managersIds) {
-                    //   managers[userId] = {
-                    //     joinedAtTimestamp: members.managers?.[userId]?.joinedAtTimestamp ?? now,
-                    //     lastVisitTimestamp: members.managers?.[userId]?.lastVisitTimestamp ?? null,
-                    //     userId,
-                    //   };
-                    // }
-                    // for (const userId of spectatorsIds) {
-                    //   spectators[userId] = {
-                    //     joinedAtTimestamp: members.spectators?.[userId]?.joinedAtTimestamp ?? now,
-                    //     lastVisitTimestamp: members.spectators?.[userId]?.lastVisitTimestamp ?? null,
-                    //     userId,
-                    //   };
-                    // }
-                    break;
-                  case EntityAccess.PRIVATE:
-                    currentMembers.rankAdministrators = EntityMembersRank.NONE;
-                    currentMembers.rankManagers = EntityMembersRank.NONE; // <-
-                    currentMembers.rankGuests = EntityMembersRank.NONE;
-                    currentMembers.rankSpectators = EntityMembersRank.NONE; // <-
-                    currentMembers.rankParticipants = EntityMembersRank.NONE;
-                }
-                return currentMembers;
-              });
-            } : undefined}
+            onChange={
+              setMembers
+                ? ({ value }) => {
+                    setMembers((prevState) => {
+                      const currentMembers = { ...prevState };
+                      currentMembers.rankAdministrators = administrators?.closeable
+                        ? EntityMembersRank.CLOSE
+                        : EntityMembersRank.NONE;
+                      currentMembers.rankGuests = guests?.closeable
+                        ? currentMembers.rankGuests === EntityMembersRank.CLOSE
+                          ? EntityMembersRank.CLOSE
+                          : EntityMembersRank.OPEN
+                        : EntityMembersRank.NONE;
+                      currentMembers.rankParticipants = participants?.closeable
+                        ? currentMembers.rankParticipants === EntityMembersRank.CLOSE
+                          ? EntityMembersRank.CLOSE
+                          : EntityMembersRank.OPEN
+                        : EntityMembersRank.NONE;
+                      switch (value) {
+                        case EntityAccess.EXPOSED:
+                          currentMembers.rankManagers = EntityMembersRank.OPEN;
+                          currentMembers.rankSpectators = EntityMembersRank.OPEN;
+                          break;
+                        case EntityAccess.PUBLIC:
+                          currentMembers.rankManagers = EntityMembersRank.CLOSE;
+                          currentMembers.rankSpectators = EntityMembersRank.OPEN;
+                          // for (const userId of managersIds) {
+                          //   managers[userId] = {
+                          //     joinedAtTimestamp: members.managers?.[userId]?.joinedAtTimestamp ?? now,
+                          //     lastVisitTimestamp: members.managers?.[userId]?.lastVisitTimestamp ?? null,
+                          //     userId,
+                          //   };
+                          // }
+                          break;
+                        case EntityAccess.RESTRICTED:
+                          currentMembers.rankManagers = EntityMembersRank.CLOSE;
+                          currentMembers.rankSpectators = EntityMembersRank.CLOSE;
+                          // for (const userId of managersIds) {
+                          //   managers[userId] = {
+                          //     joinedAtTimestamp: members.managers?.[userId]?.joinedAtTimestamp ?? now,
+                          //     lastVisitTimestamp: members.managers?.[userId]?.lastVisitTimestamp ?? null,
+                          //     userId,
+                          //   };
+                          // }
+                          // for (const userId of spectatorsIds) {
+                          //   spectators[userId] = {
+                          //     joinedAtTimestamp: members.spectators?.[userId]?.joinedAtTimestamp ?? now,
+                          //     lastVisitTimestamp: members.spectators?.[userId]?.lastVisitTimestamp ?? null,
+                          //     userId,
+                          //   };
+                          // }
+                          break;
+                        case EntityAccess.PRIVATE:
+                          currentMembers.rankAdministrators = EntityMembersRank.NONE;
+                          currentMembers.rankManagers = EntityMembersRank.NONE; // <-
+                          currentMembers.rankGuests = EntityMembersRank.NONE;
+                          currentMembers.rankSpectators = EntityMembersRank.NONE; // <-
+                          currentMembers.rankParticipants = EntityMembersRank.NONE;
+                      }
+                      return currentMembers;
+                    });
+                  }
+                : undefined
+            }
           />
         </div>
       </div>

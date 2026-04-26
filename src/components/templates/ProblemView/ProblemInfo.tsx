@@ -181,13 +181,12 @@ const timeFixed = (milliseconds: number) => {
         {milliseconds}&nbsp;{label}
       </>
     );
-  } else {
-    return (
-      <>
-        {milliseconds.toFixed(1)}&nbsp;{label}
-      </>
-    );
   }
+  return (
+    <>
+      {milliseconds.toFixed(1)}&nbsp;{label}
+    </>
+  );
 };
 
 export function ProblemTimeLimitInfo({
@@ -214,13 +213,13 @@ export function ProblemTimeLimitInfo({
 
   return (
     <ContentInfo
-      label={!!limitsLanguages.length ? 'time limit general' : 'time limit'}
+      label={limitsLanguages.length ? 'time limit general' : 'time limit'}
       value={timeFixed(settings?.timeLimit)}
       expand={expand}
       centered={centered}
       withoutPadding={withoutPadding}
     >
-      {!!limitsLanguages.length ? body : null}
+      {limitsLanguages.length ? body : null}
     </ContentInfo>
   );
 }
@@ -234,13 +233,12 @@ const memoryFixed = (kbs: number) => {
         {kbs}&nbsp;{label}
       </>
     );
-  } else {
-    return (
-      <>
-        {kbs.toFixed(1)}&nbsp;{label}
-      </>
-    );
   }
+  return (
+    <>
+      {kbs.toFixed(1)}&nbsp;{label}
+    </>
+  );
 };
 
 export function ProblemMemoryLimitInfo({
@@ -267,13 +265,13 @@ export function ProblemMemoryLimitInfo({
 
   return (
     <ContentInfo
-      label={!!limitsLanguages.length ? 'memory limit general' : 'memory limit'}
+      label={limitsLanguages.length ? 'memory limit general' : 'memory limit'}
       value={memoryFixed(settings?.memoryLimit)}
       expand={expand}
       centered={centered}
       withoutPadding={withoutPadding}
     >
-      {!!limitsLanguages.length ? body : null}
+      {limitsLanguages.length ? body : null}
     </ContentInfo>
   );
 }

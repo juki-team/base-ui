@@ -1,7 +1,7 @@
-import { JkmdSheet } from '@juki-team/commons';
+import type { JkmdSheet } from '@juki-team/commons';
 import { Input, T } from '../../../../../atoms';
 import { MdMathEditor } from '../../../MdMathEditor';
-import { SetContentType } from '../../types';
+import type { SetContentType } from '../../types';
 
 interface JkmdSheetSectionProps {
   content: JkmdSheet;

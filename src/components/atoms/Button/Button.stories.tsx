@@ -5,7 +5,7 @@ import { LockIcon } from '../server';
 import { T } from '../T/T';
 import { Button } from './Button';
 
-// @ts-ignore
+// @ts-expect-error
 Button.defaultProps = {
   submit: false,
   type: 'primary',

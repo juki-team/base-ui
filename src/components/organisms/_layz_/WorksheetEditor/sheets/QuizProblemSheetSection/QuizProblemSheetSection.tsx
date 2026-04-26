@@ -1,4 +1,4 @@
-import { isQuizProblemSheet, isStringJson, QuizProblemSheet, WorksheetType } from '@juki-team/commons';
+import { isQuizProblemSheet, isStringJson, type QuizProblemSheet, WorksheetType } from '@juki-team/commons';
 import { useRef, useState } from 'react';
 import { T } from '../../../../../atoms';
 import { CheckIcon } from '../../../../../atoms/server';
@@ -8,7 +8,7 @@ import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { ResultHeader } from '../ResultHeader';
-import { SheetSection } from '../types';
+import type { SheetSection } from '../types';
 import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { QuizProblemSheetSectionEditor } from './QuizProblemSheetSectionEditor';
 import { QuizProblemSheetSectionView } from './QuizProblemSheetSectionView';

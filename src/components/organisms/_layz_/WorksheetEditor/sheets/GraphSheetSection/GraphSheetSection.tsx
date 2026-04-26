@@ -1,11 +1,11 @@
-import { GraphSheet, isStringJson, WorksheetType } from '@juki-team/commons';
+import { type GraphSheet, isStringJson, WorksheetType } from '@juki-team/commons';
 import { useRef, useState } from 'react';
 import { useSyncedState } from '../../../../../hooks/useSyncedState';
 import { FloatToolbar } from '../../../../../molecules';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
-import { SheetSection } from '../types';
+import type { SheetSection } from '../types';
 import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { GraphSheetSectionEditor } from './GraphSheetSectionEditor';
 import { GraphSheetSectionView } from './GraphSheetSectionView';

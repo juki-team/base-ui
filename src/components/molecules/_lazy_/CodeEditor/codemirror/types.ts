@@ -1,6 +1,6 @@
 import type { EditorState, EditorStateConfig, Extension, StateField } from '@codemirror/state';
 import type { EditorView, ViewUpdate } from '@codemirror/view';
-import React from 'react';
+import type React from 'react';
 import type { BasicSetupOptions } from './extensions/basic-setup';
 import type { Statistics } from './utils';
 
@@ -61,19 +61,21 @@ export interface ReactCodeMirrorProps
    * Create a state from its JSON representation serialized with [toJSON](https://codemirror.net/docs/ref/#state.EditorState.toJSON) function
    */
   initialState?: {
+    // biome-ignore lint/suspicious/noExplicitAny: codemirror's EditorState.toJSON() returns an arbitrary serialized shape
     json: any;
+    // biome-ignore lint/suspicious/noExplicitAny: StateField<T> generic is not surfaced — fields can hold any state value
     fields?: Record<string, StateField<any>>;
   };
-  
+
   /** Fired whenever a change occurs to the document. */
   onChange?(value: string, viewUpdate: ViewUpdate): void;
-  
+
   /** Some data on the statistics editor. */
   onStatistics?(data: Statistics): void;
-  
+
   /** Fired whenever any state change occurs within the editor, including non-document changes like lint results. */
   onUpdate?(viewUpdate: ViewUpdate): void;
-  
+
   /** The first time the editor executes the event. */
   onCreateEditor?(view: EditorView, state: EditorState): void;
 }

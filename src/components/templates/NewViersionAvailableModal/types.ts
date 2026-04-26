@@ -1,3 +1,3 @@
 export interface NewVersionAvailableProps {
-  apiVersionUrl: string,
+  apiVersionUrl: string;
 }

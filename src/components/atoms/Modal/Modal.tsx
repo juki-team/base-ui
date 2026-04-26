@@ -1,6 +1,6 @@
-import { Status } from '@juki-team/commons';
+import { Status } from '@juki-team/commons/enums';
 import { AnimatePresence, motion } from 'motion/react';
-import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { type MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames } from '../../helpers';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useLoaderStatusSync } from '../../hooks/useLoaderStatusSync';
@@ -67,7 +67,7 @@ export function Modal<T extends ModalButtonLoaderEventType>(props: ModalProps<T>
   }, [isOpen]);
 
   useEffect(() => {
-    if (!isOpen || !closeOnKeyEscape) return;
+    if (!(isOpen && closeOnKeyEscape)) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {

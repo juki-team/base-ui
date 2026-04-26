@@ -1,15 +1,13 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { action } from 'storybook/actions';
 import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
-import {
-  NewVersionAvailableModal as NewVersionAvailableModalCmp,
-} from './NewVersionAvailableModal/NewVersionAvailableModal';
+import { NewVersionAvailableModal as NewVersionAvailableModalCmp } from './NewVersionAvailableModal/NewVersionAvailableModal';
 
 export const NewVersionAvailableModal = () => {
-  const [ open, setOpen ] = useState(false);
-  
+  const [open, setOpen] = useState(false);
+
   return (
     <MockupJukiProvider>
       <NewVersionAvailableModalCmp

@@ -1,17 +1,20 @@
 const Balloon = ({ percent = 80 }: { percent?: number }) => {
-  
   const ellipseHeight = 16.54;
   const height = 42;
-  let x = ellipseHeight * 42 / 24;
-  x *= 1 - (percent / 100);
-  const y = 24 * (1 - (percent / 100));
-  const pD = 2.68 * (100 - percent) / 100;
+  let x = (ellipseHeight * 42) / 24;
+  x *= 1 - percent / 100;
+  const y = 24 * (1 - percent / 100);
+  const pD = (2.68 * (100 - percent)) / 100;
   const inc = 6.56 / (6.56 - pD);
-  
+
   return (
     <>
       <svg
-        width="23" height={height} viewBox={`0 ${x} 23 ${42 + x}`} fill="none" xmlns="http://www.w3.org/2000/svg"
+        width="23"
+        height={height}
+        viewBox={`0 ${x} 23 ${42 + x}`}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
         transform={`translate(0 ${y}) scale(${inc} ${inc})`}
       >
         <path
@@ -29,7 +32,8 @@ const Balloon = ({ percent = 80 }: { percent?: number }) => {
         />
         <path
           d="M9.19208 25.5861C7.505 24.2529 6.04209 22.6248 4.80333 20.867C3.62356 19.1799 2.54996 17.3512 1.87749 15.4046C0.898276 12.5968 0.709518 9.61193 1.08705 6.6861C0.473564 8.00744 0.0960321 9.48216 0.013448 11.0395C-0.352281 18.2951 6.83253 29.5029 10.4898 29.5029C11.3275 29.5029 12.3775 28.9012 13.4982 27.863C11.9409 27.4265 10.478 26.6125 9.19208 25.5861Z"
-          fill="black" fillOpacity="0.2"
+          fill="black"
+          fillOpacity="0.2"
         />
         <path
           d="M11.9055 1.9908C12.519 1.62507 13.8286 2.13238 14.3831 2.33294C16.0701 2.97002 17.769 4.66889 18.6656 6.23799C19.9162 8.43236 20.6123 11.2756 19.8218 13.7885C19.751 14.0127 19.5859 13.5408 19.5859 13.529C19.3853 13.1397 19.3263 12.5852 19.2201 12.1604C18.2881 8.70371 16.6482 5.89585 13.8522 3.64249C13.4628 3.34754 11.4454 2.26215 11.9055 1.9908Z"
@@ -37,7 +41,11 @@ const Balloon = ({ percent = 80 }: { percent?: number }) => {
         />
       </svg>
       <svg
-        width="23" height={height} viewBox={`0 0 23 42`} fill="none" xmlns="http://www.w3.org/2000/svg"
+        width="23"
+        height={height}
+        viewBox={`0 0 23 42`}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
         style={{ position: 'absolute', opacity: 0.2, right: 0, top: 0 }}
       >
         <path

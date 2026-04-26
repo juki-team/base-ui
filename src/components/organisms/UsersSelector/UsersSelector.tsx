@@ -9,35 +9,32 @@ import { UserChip } from '../UserChip/UserChip';
 import type { UsersSelectorProps } from './types';
 
 export function UsersSelector(props: UsersSelectorProps) {
-  
-  const {
-    selectedUsers,
-    onChangeSelectedUsers: _onChangeSelectedUsers,
-    maxUsersSelection = -1,
-    companyKey,
-  } = props;
-  
+  const { selectedUsers, onChangeSelectedUsers: _onChangeSelectedUsers, maxUsersSelection = -1, companyKey } = props;
+
   const { isLoading, data, mutate } = useFetcher<ContentsResponse<UserSummaryListResponseDTO>>(
     jukiApiManager.API_V2.user.getSummaryList({ params: { companyKey } }).url,
   );
-  const [ show, setShow ] = useState(false);
-  const [ text, setText ] = useState('');
-  const [ textNicknames, setTextNicknames ] = useState<string[]>([]);
-  const [ error, setError ] = useState('');
+  const [show, setShow] = useState(false);
+  const [text, setText] = useState('');
+  const [textNicknames, setTextNicknames] = useState<string[]>([]);
+  const [error, setError] = useState('');
   const users = useMemo(() => {
     const users: { [key: string]: UserSummaryListResponseDTO } = {};
-    const dataUsers = (data?.success ? data?.contents : []);
-    dataUsers.forEach(user => {
+    const dataUsers = data?.success ? data?.contents : [];
+    dataUsers.forEach((user) => {
       users[getUserKey(user.nickname, user.company.key)] = user;
     });
     return users;
-  }, [ data ]);
+  }, [data]);
   const dataUsers = Object.values(users);
   useEffect(() => {
-    const nicknames = text.split(',').map(text => text.trim()).filter(Boolean);
+    const nicknames = text
+      .split(',')
+      .map((text) => text.trim())
+      .filter(Boolean);
     let error = '';
     const validNicknames: string[] = [];
-    nicknames.forEach(nickname => {
+    nicknames.forEach((nickname) => {
       const userKey = getUserKey(nickname, companyKey);
       if (users[userKey]) {
         validNicknames.push(userKey);
@@ -47,49 +44,46 @@ export function UsersSelector(props: UsersSelectorProps) {
     });
     setError(error);
     setTextNicknames(validNicknames);
-  }, [ companyKey, text, users ]);
-  
+  }, [companyKey, text, users]);
+
   const resetText = () => {
     setText(selectedUsers.join(','));
   };
   if (isLoading) {
-    return <div><SpinIcon /></div>;
+    return (
+      <div>
+        <SpinIcon />
+      </div>
+    );
   }
-  
+
   const onChangeSelectedUsers = (userKeys: string[]) => {
-    const selectedUsers = userKeys.map(userKey => users[userKey]).filter(Boolean) as UserSummaryListResponseDTO[];
+    const selectedUsers = userKeys.map((userKey) => users[userKey]).filter(Boolean) as UserSummaryListResponseDTO[];
     if (maxUsersSelection > 0) {
       _onChangeSelectedUsers(selectedUsers.slice(-maxUsersSelection));
     } else {
       _onChangeSelectedUsers(selectedUsers);
     }
   };
-  
+
   return (
     <div className="jk-row left gap nowrap extend">
       {show && (
         <Modal isOpen={true} onClose={() => setShow(false)}>
           <div className="jk-col stretch left gap jk-pg-md">
             <div className="jk-row left">
-              <T className="tt-se">write the nicknames separated by commas</T>&nbsp;
-              (<T>the nicknames are case sensitive</T>)
+              <T className="tt-se">write the nicknames separated by commas</T>&nbsp; (<T>the nicknames are case sensitive</T>)
             </div>
-            <TextArea
-              value={text}
-              onChange={setText}
-            />
+            <TextArea value={text} onChange={setText} />
             <p className="cr-er">{error}</p>
             <div className="jk-row right gap">
-              <Button
-                type="secondary"
-                onClick={() => setShow(false)}
-              >
+              <Button type="secondary" onClick={() => setShow(false)}>
                 <T>cancel</T>
               </Button>
               <Button
                 disabled={!textNicknames.length}
                 onClick={() => {
-                  onChangeSelectedUsers(Array.from(new Set([ ...textNicknames ])));
+                  onChangeSelectedUsers(Array.from(new Set([...textNicknames])));
                   setShow(false);
                 }}
               >
@@ -100,7 +94,7 @@ export function UsersSelector(props: UsersSelectorProps) {
         </Modal>
       )}
       <MultiSelectSearchable
-        options={dataUsers.map(user => ({
+        options={dataUsers.map((user) => ({
           label: (
             <UserChip
               nickname={user.nickname}
@@ -115,8 +109,8 @@ export function UsersSelector(props: UsersSelectorProps) {
           inputLabel: user.nickname,
           value: getUserKey(user.nickname, user.company.key),
         }))}
-        selectedOptions={selectedUsers.map(user => ({ value: user }))}
-        onChange={options => onChangeSelectedUsers(options.map(option => option.value))}
+        selectedOptions={selectedUsers.map((user) => ({ value: user }))}
+        onChange={(options) => onChangeSelectedUsers(options.map((option) => option.value))}
         optionsPlacement="bottom"
         expand
         rowHeightOption={72}
@@ -125,12 +119,10 @@ export function UsersSelector(props: UsersSelectorProps) {
           const user = users[option.value];
           return (
             !!user &&
-            (
-              user.nickname.toLowerCase().indexOf(text) > -1 ||
+            (user.nickname.toLowerCase().indexOf(text) > -1 ||
               user.familyName.toLowerCase().indexOf(text) > -1 ||
               user.givenName.toLowerCase().indexOf(text) > -1 ||
-              user.email.toLowerCase().indexOf(text) > -1
-            )
+              user.email.toLowerCase().indexOf(text) > -1)
           );
         }}
         multiselect={maxUsersSelection !== 1}

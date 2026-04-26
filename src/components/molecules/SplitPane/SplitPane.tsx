@@ -1,4 +1,4 @@
-import { memo, type MouseEvent, useEffect, useRef, useState } from 'react';
+import { type MouseEvent, memo, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { T } from '../../atoms';
@@ -75,7 +75,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
         ),
         (paneRef.current?.[clientDirection] || 0) - minSize - 10,
       );
-      const size = (clientSizeRef.current * 100) / (paneRef.current?.[clientDirection] || 1) + '%';
+      const size = `${(clientSizeRef.current * 100) / (paneRef.current?.[clientDirection] || 1)}%`;
       firstChildSizeRef.current = size;
       firstChildRef.current.style[direction === 'row' ? 'minWidth' : 'minHeight'] = size;
       firstChildRef.current.style[direction === 'row' ? 'maxWidth' : 'maxHeight'] = size;

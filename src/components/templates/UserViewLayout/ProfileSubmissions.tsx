@@ -1,8 +1,4 @@
-import {
-  type ContentsResponse,
-  type JudgeSummaryListResponseDTO,
-  type SubmissionSummaryListResponseDTO,
-} from '@juki-team/commons';
+import type { ContentsResponse, JudgeSummaryListResponseDTO, SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { QueryParamKey } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
@@ -18,43 +14,47 @@ import {
   getSubmissionProblemHeader,
   getSubmissionTimeHeader,
   getSubmissionVerdictHeader,
-  LanguagesByJudge,
+  type LanguagesByJudge,
 } from '../columns';
 import type { ProfileSubmissionsProps } from './types';
 
 export function ProfileSubmissions(_: ProfileSubmissionsProps) {
-  
-  const nickname = useRouterStore(state => state.routeParams.nickname);
-  const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
+  const nickname = useRouterStore((state) => state.routeParams.nickname);
+  const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDTO>>(
+    jukiApiManager.API_V2.judge.getSummaryList().url,
+  );
   // const preload = usePreload();
   const languages = useMemo(() => {
     const result: LanguagesByJudge = {};
     const judges = judgePublicList?.success ? judgePublicList.contents : [];
     for (const { name, languages, key } of judges) {
       const languagesResult: LanguagesByJudge[string]['languages'] = {};
-      for (const { value, label } of languages.filter(lang => lang.enabled)) {
+      for (const { value, label } of languages.filter((lang) => lang.enabled)) {
         languagesResult[value] = { label, value };
       }
       result[key] = { key, languages: languagesResult, name };
     }
     return result;
-  }, [ judgePublicList ]);
-  
-  const columns: DataViewerHeadersType<SubmissionSummaryListResponseDTO>[] = useMemo(() => [
-    getSubmissionProblemHeader(),
-    getSubmissionDateHeader(),
-    getSubmissionVerdictHeader(),
-    getSubmissionLanguageHeader(languages),
-    getSubmissionTimeHeader(),
-    getSubmissionMemoryHeader(),
-  ], [ languages ]);
-  
+  }, [judgePublicList]);
+
+  const columns: DataViewerHeadersType<SubmissionSummaryListResponseDTO>[] = useMemo(
+    () => [
+      getSubmissionProblemHeader(),
+      getSubmissionDateHeader(),
+      getSubmissionVerdictHeader(),
+      getSubmissionLanguageHeader(languages),
+      getSubmissionTimeHeader(),
+      getSubmissionMemoryHeader(),
+    ],
+    [languages],
+  );
+
   return (
     <PagedDataViewer<SubmissionSummaryListResponseDTO, SubmissionSummaryListResponseDTO>
       rows={{ height: 80 }}
       cards={{ expanded: true }}
       headers={columns}
-      getUrl={({ pagination: { page, pageSize }, filter, sort }) => (
+      getUrl={({ pagination: { page, pageSize }, filter, sort }) =>
         jukiApiManager.API_V2.submission.getSummaryList({
           params: {
             page,
@@ -63,9 +63,9 @@ export function ProfileSubmissions(_: ProfileSubmissionsProps) {
             sortUrl: toSortUrl(sort),
           },
         }).url
-      )}
+      }
       name={QueryParamKey.PROFILE_SUBMISSIONS_TABLE}
-      toRow={submission => submission}
+      toRow={(submission) => submission}
       refreshInterval={60000}
       // onRecordRender={({ data, index }) => {
       //   if (data[index]) {

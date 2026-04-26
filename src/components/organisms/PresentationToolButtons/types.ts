@@ -1,2 +1,1 @@
-export interface PresentationToolButtonsProps {
-}
+export type PresentationToolButtonsProps = {};

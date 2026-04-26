@@ -8,43 +8,42 @@ import { GraphvizViewer } from '../_layz_/GraphvizViewer';
 import type { GraphvizViewerProps } from '../_layz_/GraphvizViewer/types';
 
 interface GraphvizViewersProps extends GraphvizViewerProps {
-  viewSourceButton?: boolean,
+  viewSourceButton?: boolean;
 }
 
 export function GraphvizViewers({ dot, className, viewSourceButton = true }: GraphvizViewersProps) {
-  
   const graphs = dot.split('---');
-  const [ index, setIndex ] = useState(0);
-  const [ delay, setDelay ] = useState(400);
-  const [ isOpen, setIsOpen ] = useState(false);
-  const [ isPlaying, setIsPlaying ] = useState(true);
-  
+  const [index, setIndex] = useState(0);
+  const [delay, setDelay] = useState(400);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+
   const togglePlay = () => {
-    setIsPlaying(prev => !prev);
+    setIsPlaying((prev) => !prev);
   };
-  
+
   const next = () => {
-    setIndex(prevIndex => (prevIndex + 1) % graphs.length);
+    setIndex((prevIndex) => (prevIndex + 1) % graphs.length);
   };
-  
+
   const prev = () => {
-    setIndex(prevIndex => (prevIndex - 1 + graphs.length) % graphs.length);
+    setIndex((prevIndex) => (prevIndex - 1 + graphs.length) % graphs.length);
   };
-  
+
   const reset = () => {
     setIndex(0);
   };
-  
+
   useEffect(() => {
     if (!isPlaying) return;
     const interval = setInterval(() => {
-      setIndex(prevIndex => (prevIndex + 1) % graphs.length);
+      setIndex((prevIndex) => (prevIndex + 1) % graphs.length);
     }, delay);
     return () => {
       clearInterval(interval);
     };
-  }, [ delay, graphs.length, isPlaying ]);
-  
+  }, [delay, graphs.length, isPlaying]);
+
   return (
     <div className={classNames('jk-graphviz-viewers-container jk-pg-xsm jk-br-ie jk-col gap', className)}>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -79,28 +78,12 @@ export function GraphvizViewers({ dot, className, viewSourceButton = true }: Gra
               onClick={togglePlay}
               icon={isPlaying ? <StopCircleIcon /> : <PlayCircleIcon />}
             />
-            <Button
-              size="tiny"
-              type="secondary"
-              tooltipContent="prev"
-              onClick={prev}
-              icon={<ArrowLeftIcon />}
-            />
-            <div><T className="tt-se">frame</T> {index + 1} / {graphs.length}</div>
-            <Button
-              size="tiny"
-              type="secondary"
-              tooltipContent="next"
-              onClick={next}
-              icon={<ArrowRightIcon />}
-            />
-            <Button
-              size="tiny"
-              type="secondary"
-              tooltipContent="return start"
-              onClick={reset}
-              icon={<ReplyIcon />}
-            />
+            <Button size="tiny" type="secondary" tooltipContent="prev" onClick={prev} icon={<ArrowLeftIcon />} />
+            <div>
+              <T className="tt-se">frame</T> {index + 1} / {graphs.length}
+            </div>
+            <Button size="tiny" type="secondary" tooltipContent="next" onClick={next} icon={<ArrowRightIcon />} />
+            <Button size="tiny" type="secondary" tooltipContent="return start" onClick={reset} icon={<ReplyIcon />} />
           </div>
           <Input
             label={<T className="tt-se">delay</T>}

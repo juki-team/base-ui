@@ -1,0 +1,18 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.13/schema.json",
+  "extends": ["@juki-team/commons/biome.shared.json"],
+  "files": {
+    "includes": ["src/**/*.{js,jsx,ts,tsx,mjs,cjs,mts,cts,json}", "!**/dist", "!**/node_modules", "!src/vendor"]
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.stories.{js,jsx,ts,tsx}", "**/*.d.ts"],
+      "linter": {
+        "rules": {
+          "style": { "noDefaultExport": "off" },
+          "suspicious": { "noExplicitAny": "off" }
+        }
+      }
+    }
+  ]
+}

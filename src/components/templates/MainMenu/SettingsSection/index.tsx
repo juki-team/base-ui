@@ -1,5 +1,5 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
-import { type Dispatch, type KeyboardEventHandler, type ReactNode, type SyntheticEvent } from 'react';
+import type { Dispatch, KeyboardEventHandler, ReactNode, SyntheticEvent } from 'react';
 import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';

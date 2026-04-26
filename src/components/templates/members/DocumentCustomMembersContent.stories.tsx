@@ -16,7 +16,7 @@ export default meta;
 type Story = StoryObj<typeof DocumentCustomMembersContent>;
 
 const Cmp = (args: DocumentCustomMembersContentProps) => {
-  const [ members, setMembers ] = useState(EMPTY_ENTITY_MEMBERS());
+  const [members, setMembers] = useState(EMPTY_ENTITY_MEMBERS());
   const dummyOwner = { nickname: 'OscarGauss', imageUrl: '', company: { key: 'juki-app' } };
   const documentAccess = getDocumentAccess({ members });
   console.info({ args, members, documentAccess });
@@ -75,7 +75,7 @@ const Cmp = (args: DocumentCustomMembersContentProps) => {
 export const Regular: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <Cmp  {...args} />
+      <Cmp {...args} />
     </MockupJukiProvider>
   ),
 };

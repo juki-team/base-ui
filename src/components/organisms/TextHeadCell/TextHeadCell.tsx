@@ -1,5 +1,5 @@
-import { classNames } from '../../helpers';
 import { T } from '../../atoms';
+import { classNames } from '../../helpers';
 import type { TextHeadCellProps } from '../_layz_/DataViewer/types';
 
 export function TextHeadCell({ text, className }: TextHeadCellProps) {

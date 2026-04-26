@@ -1,22 +1,21 @@
-import { memo, PropsWithChildren } from 'react';
+import { memo, type PropsWithChildren } from 'react';
 import { useClientTrackLocation } from '../hooks/useClientTrackLocation';
 import { JukiAblyInitializer, JukiAblySpaceProvider } from './JukiAblyInitializer';
 import { JukiLastPathInitializer } from './JukiLastPathInitializer';
 import { JukiPageInitializer } from './JukiPageInitializer';
 import { JukiRouterInitializer } from './JukiRouterInitializer';
-import { JukiRouterBaseProps, JukiRouterInitializerProps } from './JukiRouterInitializer/types';
+import type { JukiRouterBaseProps, JukiRouterInitializerProps } from './JukiRouterInitializer/types';
 import { JukiUIProvider } from './JukiUIProvider';
 import { JukiUserProvider } from './JukiUserProvider';
 import { SoundInitializer } from './SoundInitializer';
-import { JukiProvidersProps } from './types';
+import type { JukiProvidersProps } from './types';
 
 const ClientTrackLocation = memo(function UserTrack() {
   useClientTrackLocation();
   return null;
 });
 
-export const JukiProviders = <T extends string | number, >(props: PropsWithChildren<JukiProvidersProps<T>>) => {
-  
+export const JukiProviders = <T extends string | number>(props: PropsWithChildren<JukiProvidersProps<T>>) => {
   const {
     children,
     components,
@@ -36,7 +35,7 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
     },
     initialLastPath,
   } = props;
-  
+
   const baseProps: JukiRouterBaseProps = {
     routeParams,
     pushRoute,
@@ -45,25 +44,23 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
     pathname,
     isLoadingRoute,
   };
-  
+
   const hasSearch = !!searchParams && !!appendSearchParams && !!setSearchParams && !!deleteSearchParams;
-  
+
   const routerProps: JukiRouterInitializerProps = hasSearch
     ? {
-      ...baseProps,
-      searchParams,
-      appendSearchParams,
-      setSearchParams,
-      deleteSearchParams,
-    }
+        ...baseProps,
+        searchParams,
+        appendSearchParams,
+        setSearchParams,
+        deleteSearchParams,
+      }
     : baseProps;
-  
+
   return (
     <>
       <JukiUIProvider components={components} multiCompanies={multiCompanies} onSeeMyProfile={onSeeMyProfile}>
-        <JukiAblySpaceProvider>
-          {children}
-        </JukiAblySpaceProvider>
+        <JukiAblySpaceProvider>{children}</JukiAblySpaceProvider>
       </JukiUIProvider>
       <ClientTrackLocation />
       <JukiUserProvider />

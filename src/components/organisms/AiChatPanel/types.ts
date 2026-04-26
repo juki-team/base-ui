@@ -1,5 +1,5 @@
-import { type UIDataTypes, type UIMessage, type UITools } from 'ai';
-import { Dispatch, type ReactNode, type RefObject, SetStateAction } from 'react';
+import type { UIDataTypes, UIMessage, UITools } from 'ai';
+import type { Dispatch, ReactNode, RefObject, SetStateAction } from 'react';
 
 export type AiChatToolStateUI = Record<string, { label: string; icon: ReactNode }>;
 

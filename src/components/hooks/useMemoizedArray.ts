@@ -1,4 +1,4 @@
-import { areArraysDifferent } from '@juki-team/commons';
+import { areArraysDifferent } from '@juki-team/commons/helpers';
 import { useMemo, useRef } from 'react';
 
 export const useMemoizedArray = <T>(externalArray: T[]) => {
@@ -9,5 +9,5 @@ export const useMemoizedArray = <T>(externalArray: T[]) => {
       return externalArray;
     }
     return prevArrayRef.current;
-  }, [ externalArray ]);
+  }, [externalArray]);
 };

@@ -3,11 +3,17 @@ import { SpinIcon } from '../server';
 import type { ClientProps } from './types';
 
 export function Client({ children }: ClientProps) {
-  const [ rendered, setRendered ] = useState(false);
-  
+  const [rendered, setRendered] = useState(false);
+
   useEffect(() => {
     setRendered(true);
   }, []);
-  
-  return rendered ? children : <div className="jk-loader-layer jk-overlay"><SpinIcon /></div>;
+
+  return rendered ? (
+    children
+  ) : (
+    <div className="jk-loader-layer jk-overlay">
+      <SpinIcon />
+    </div>
+  );
 }

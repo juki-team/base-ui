@@ -1,4 +1,4 @@
-import { ProblemSampleCases } from '@juki-team/commons';
+import type { ProblemSampleCases } from '@juki-team/commons';
 import { CopyToClipboard } from '../../../atoms';
 import { NewlineInfo } from '../../../molecules/InformationPopover/NewlineInfo';
 

@@ -1,8 +1,8 @@
-import { ContentResponse, UserBasicResponseDTO } from '@juki-team/commons';
+import type { ContentResponse, UserBasicResponseDTO } from '@juki-team/commons';
 import { jukiApiManager } from '../../../../settings';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { Button, Modal, T } from '../../../atoms';
-import { BasicModalProps } from '../../../atoms/Modal/types';
+import type { BasicModalProps } from '../../../atoms/Modal/types';
 import { ButtonLoader, FetcherLayer } from '../../../molecules';
 import { OpenInNewIcon } from '../../../server';
 import { UserProfileDataContent } from '../../../templates/UserProfile/UserProfileDataContent';

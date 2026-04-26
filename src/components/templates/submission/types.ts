@@ -1,4 +1,4 @@
-import { Judge, type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { Judge, SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import type { TableHeadFieldProps } from '../../organisms/_layz_/DataViewer/types';
 
 type TableHeadFieldSubmissionSummaryListResponseDTOProps = TableHeadFieldProps<SubmissionSummaryListResponseDTO>;
@@ -8,20 +8,20 @@ export type SubmissionContestFieldProps = TableHeadFieldSubmissionSummaryListRes
 export type SubmissionContestProblemFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps & {
   contest?: {
     key: string;
-  }
+  };
 };
 
 export type SubmissionDateFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps;
 
 type LanguagesByJudge = {
-  [key: string]: { key: string | Judge, name: string, languages: { [key: string]: { label: string, value: string } } },
+  [key: string]: { key: string | Judge; name: string; languages: { [key: string]: { label: string; value: string } } };
 };
 
 export type SubmissionLanguageFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps & {
-  languagesByJudge: LanguagesByJudge
+  languagesByJudge: LanguagesByJudge;
 };
 
-export type SubmissionModalProps = {}
+export type SubmissionModalProps = {};
 
 export type SubmissionNicknameFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps;
 

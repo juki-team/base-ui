@@ -1,4 +1,4 @@
-import { consoleInfo } from '@juki-team/commons';
+import { consoleInfo } from '@juki-team/commons/helpers';
 
 let XLSXInstance: typeof import('xlsx') | null = null; // Variable para almacenar el módulo cargado
 
@@ -7,6 +7,6 @@ export const getXLSX = async () => {
     consoleInfo('loading XLSX...');
     XLSXInstance = await import('xlsx');
   }
-  
+
   return XLSXInstance;
 };

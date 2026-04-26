@@ -1,5 +1,5 @@
 // https://github.com/McShelby/reveal-pdfexport/tree/master
-import { type RevealApi, type RevealPluginFactory } from 'reveal.js';
+import type { RevealApi, RevealPluginFactory } from 'reveal.js';
 import { isBrowser } from '../../../helpers';
 
 export function isPrintingPDF() {
@@ -11,15 +11,15 @@ export function isPrintingPDF() {
 
 function togglePdfExport() {
   if (isBrowser() && typeof document !== 'undefined') {
-    const url_doc = new URL(document.URL);
-    const query_doc = new URLSearchParams(url_doc.searchParams);
+    const urlDoc = new URL(document.URL);
+    const queryDoc = new URLSearchParams(urlDoc.searchParams);
     if (isPrintingPDF()) {
-      query_doc.delete('print-pdf');
+      queryDoc.delete('print-pdf');
     } else {
-      query_doc.set('print-pdf', '');
+      queryDoc.set('print-pdf', '');
     }
-    url_doc.search = query_doc.toString() ? '?' + query_doc.toString() : '';
-    window.location.href = url_doc.toString();
+    urlDoc.search = queryDoc.toString() ? `?${queryDoc.toString()}` : '';
+    window.location.href = urlDoc.toString();
   }
 }
 

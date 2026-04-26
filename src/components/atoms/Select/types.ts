@@ -3,38 +3,38 @@ import type { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../t
 import type { PlacementType } from '../_lazy_/Popover/types';
 
 export type SelectOptionType<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> = {
-  value: T,
-  key?: string,
-  label: U,
-  inputLabel?: V,
-  disabled?: boolean
+  value: T;
+  key?: string;
+  label: U;
+  inputLabel?: V;
+  disabled?: boolean;
 };
 export type SelectOption2Type<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> = {
-  value: T,
-  key?: string,
-  label?: U,
-  inputLabel?: V,
-  disabled?: boolean
+  value: T;
+  key?: string;
+  label?: U;
+  inputLabel?: V;
+  disabled?: boolean;
 };
 
 export interface SelectProps<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> {
-  className?: string,
-  popoverClassName?: string,
-  options: SelectOptionType<T, U, V>[],
-  selectedOption: SelectOption2Type<T, U, V>,
-  onChange?: (option: SelectOptionType<T, U, V>) => void,
+  className?: string;
+  popoverClassName?: string;
+  options: SelectOptionType<T, U, V>[];
+  selectedOption: SelectOption2Type<T, U, V>;
+  onChange?: (option: SelectOptionType<T, U, V>) => void;
   // onBlur?: (event: { target: Ref<HTMLDivElement> }) => void,
   // showOptions?: boolean,
   // onChangeShowOptions?: (value: boolean) => void,
-  disabled?: boolean,
-  optionsPlacement?: PlacementType,
-  expand?: boolean,
+  disabled?: boolean;
+  optionsPlacement?: PlacementType;
+  expand?: boolean;
   children?: ReactNodeOrFunctionP1Type<{
-    options: SelectOptionType<T, U, V>[],
-    isOpen: boolean,
-    disabled: boolean,
-    optionSelected: SelectOptionType<T, U, V>,
-    expandIcon: ReactNode,
-  }>,
-  style?: CSSProperties,
+    options: SelectOptionType<T, U, V>[];
+    isOpen: boolean;
+    disabled: boolean;
+    optionSelected: SelectOptionType<T, U, V>;
+    expandIcon: ReactNode;
+  }>;
+  style?: CSSProperties;
 }

@@ -1,23 +1,22 @@
 import { create } from 'zustand';
-import { LastPathType } from '../../components/providers/JukiLastPathInitializer/types';
+import type { LastPathType } from '../../components/providers/JukiLastPathInitializer/types';
 
 interface LastPathState {
-  lastPath: LastPathType,
-  pushPath: (props: { key: string, pathname: string, searchParams: URLSearchParams }) => void,
-  setInitialLastPath: (lastPath: LastPathType) => void,
+  lastPath: LastPathType;
+  pushPath: (props: { key: string; pathname: string; searchParams: URLSearchParams }) => void;
+  setInitialLastPath: (lastPath: LastPathType) => void;
 }
 
 export const useLastPathStore = create<LastPathState>()((set, get) => ({
-    lastPath: {},
-    pushPath: ({ key, pathname, searchParams }) => {
-      const newLastPath = {
-        ...get().lastPath,
-        [key]: { pathname, searchParams },
-      };
-      set({ lastPath: newLastPath });
-    },
-    setInitialLastPath: (lastPath) => {
-      set({ lastPath });
-    },
-  }),
-);
+  lastPath: {},
+  pushPath: ({ key, pathname, searchParams }) => {
+    const newLastPath = {
+      ...get().lastPath,
+      [key]: { pathname, searchParams },
+    };
+    set({ lastPath: newLastPath });
+  },
+  setInitialLastPath: (lastPath) => {
+    set({ lastPath });
+  },
+}));

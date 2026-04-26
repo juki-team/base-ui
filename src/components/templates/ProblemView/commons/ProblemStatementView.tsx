@@ -1,6 +1,6 @@
 import {
-  cleanRequest,
   type ContentResponse,
+  cleanRequest,
   Judge,
   Language,
   ProblemScoringMode,
@@ -134,7 +134,7 @@ export const ProblemStatementView = <T,>({
           </div>,
         );
       }
-      await downloadUrlAsFile('https://' + response.content.urlExportedPDF, `${judgeName} - ${problemName}`);
+      await downloadUrlAsFile(`https://${response.content.urlExportedPDF}`, `${judgeName} - ${problemName}`);
     } else {
       throw new Error('error on download pdf');
     }

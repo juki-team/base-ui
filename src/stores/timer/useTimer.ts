@@ -6,40 +6,43 @@ export const useTimer = (key: string, initialInterval: number, onTimeout?: () =>
   const counter = useTimerStore((state) => state.timers[key]?.counter ?? 0);
   const nowRef = useTimerStore((state) => state.timers[key]?.nowRef ?? 0);
   const interval = useTimerStore((state) => state.timers[key]?.interval ?? 0);
-  
+
   const setTimer = useTimerStore((state) => state.setTimer);
   const startTimer = useTimerStore((state) => state.startTimer);
   const pauseTimer = useTimerStore((state) => state.pauseTimer);
   const resetTimer = useTimerStore((state) => state.resetTimer);
   const clearTimer = useTimerStore((state) => state.clearTimer);
-  
+
   const clear = useCallback(() => {
     clearTimer(key);
-  }, [ key, clearTimer ]);
-  
+  }, [key, clearTimer]);
+
   const reset = useCallback(() => {
     resetTimer(key);
-  }, [ key, resetTimer ]);
-  
+  }, [key, resetTimer]);
+
   const start = useCallback(() => {
     startTimer(key, Math.abs(initialInterval));
-  }, [ key, initialInterval, startTimer ]);
-  
+  }, [key, initialInterval, startTimer]);
+
   const pause = useCallback(() => {
     pauseTimer(key);
-  }, [ key, pauseTimer ]);
+  }, [key, pauseTimer]);
   const isRunning = nowRef !== 0 && interval !== 0;
   useEffect(() => {
     if (initialInterval < 0 && isRunning && remaining - counter <= 0) {
       onTimeout?.();
       clearTimer(key);
     }
-  }, [ initialInterval, counter, onTimeout, remaining, clearTimer, key, isRunning ]);
-  
-  const setCountdownFrom = useCallback((remaining: number) => {
-    setTimer(key, { remaining });
-  }, [ key, setTimer ]);
-  
+  }, [initialInterval, counter, onTimeout, remaining, clearTimer, key, isRunning]);
+
+  const setCountdownFrom = useCallback(
+    (remaining: number) => {
+      setTimer(key, { remaining });
+    },
+    [key, setTimer],
+  );
+
   return {
     counter: initialInterval < 0 ? remaining - counter : remaining + counter,
     currentCounter: counter,

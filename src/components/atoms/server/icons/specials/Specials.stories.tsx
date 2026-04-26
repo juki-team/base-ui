@@ -1,12 +1,12 @@
-import { Meta } from '@storybook/react-vite';
-import { FC, useState } from 'react';
-import { ColorResult } from 'react-color';
+import type { Meta } from '@storybook/react-vite';
+import { type FC, useState } from 'react';
+import type { ColorResult } from 'react-color';
 import { MockupJukiProvider } from '../../../../mockup';
 import { InputColor } from '../../../../molecules';
 import { Input } from '../../../Input/Input';
 import { Select } from '../../../Select/Select';
 import { SpinIcon } from '../SpinIcon';
-import { SpinIconProps } from '../SpinIcon/types';
+import type { SpinIconProps } from '../SpinIcon/types';
 import type { BasicIconProps } from '../types';
 import { BalloonIcon, GmailIcon, TelegramIcon } from './index';
 import { SortIcon } from './SortIcon';

@@ -3,14 +3,14 @@ import { FieldText, UserChip } from '../../organisms';
 import type { ProblemOwnerFieldProps } from './types';
 
 export function ProblemOwnerField({
-                                    record: {
-                                      owner: {
-                                        imageUrl,
-                                        nickname,
-                                        company: { key: companyKey },
-                                      },
-                                    },
-                                  }: ProblemOwnerFieldProps) {
+  record: {
+    owner: {
+      imageUrl,
+      nickname,
+      company: { key: companyKey },
+    },
+  },
+}: ProblemOwnerFieldProps) {
   return (
     <FieldText
       className="jk-row"

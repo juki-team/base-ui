@@ -1,6 +1,6 @@
-import { BasicModalProps } from '../../atoms/Modal/types';
+import type { BasicModalProps } from '../../atoms/Modal/types';
 
 export interface ResetPasswordModalProps extends BasicModalProps {
-  nickname: string,
-  companyKey: string,
+  nickname: string;
+  companyKey: string;
 }

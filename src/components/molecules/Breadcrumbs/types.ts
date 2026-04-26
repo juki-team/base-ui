@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export interface BreadcrumbsProps {
-  breadcrumbs: ReactNode[],
-  withoutHomeLink?: boolean,
+  breadcrumbs: ReactNode[];
+  withoutHomeLink?: boolean;
 }

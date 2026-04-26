@@ -2,12 +2,12 @@ import { Button } from '../../../../atoms';
 import { ArrowDownwardIcon, ArrowUpwardIcon, DeleteIcon } from '../../../../atoms/server';
 
 interface UpRemoveDownButtonsProps<T> {
-  index: number,
-  length: number,
-  onChange: (callback: ((newList: T[]) => T[])) => void,
+  index: number;
+  length: number;
+  onChange: (callback: (newList: T[]) => T[]) => void;
 }
 
-export const UpRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDownButtonsProps<T>) => {
+export const UpRemoveDownButtons = <T,>({ index, length, onChange }: UpRemoveDownButtonsProps<T>) => {
   return (
     <div className="jk-col gap">
       <Button
@@ -16,10 +16,10 @@ export const UpRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
         disabled={index === 0}
         onClick={() => {
           onChange((list) => {
-            const newSheets = [ ...list ];
+            const newSheets = [...list];
             const previous = newSheets[index - 1];
             if (newSheets[index] && previous) {
-              [ newSheets[index], newSheets[index - 1] ] = [ previous, newSheets[index] ];
+              [newSheets[index], newSheets[index - 1]] = [previous, newSheets[index]];
             }
             return newSheets;
           });
@@ -38,10 +38,10 @@ export const UpRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
         disabled={index === length - 1}
         onClick={() => {
           onChange((list) => {
-            const newSheets = [ ...list ];
+            const newSheets = [...list];
             const next = newSheets[index + 1];
             if (newSheets[index] && next) {
-              [ newSheets[index], newSheets[index + 1] ] = [ next, newSheets[index] ];
+              [newSheets[index], newSheets[index + 1]] = [next, newSheets[index]];
             }
             return newSheets;
           });

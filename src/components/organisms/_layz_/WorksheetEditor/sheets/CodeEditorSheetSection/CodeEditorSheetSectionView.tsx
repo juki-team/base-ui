@@ -1,12 +1,12 @@
 import {
-  cleanRequest,
   CODE_LANGUAGE,
-  CodeEditorFiles,
-  CodeEditorSheet,
-  CodeEditorSubmissionDTO,
-  CodeEditorTestCases,
-  CodeLanguage,
-  ContentResponse,
+  type CodeEditorFiles,
+  type CodeEditorSheet,
+  type CodeEditorSubmissionDTO,
+  type CodeEditorTestCases,
+  type CodeLanguage,
+  type ContentResponse,
+  cleanRequest,
   Status,
   SubmissionRunStatus,
   WorksheetType,
@@ -21,7 +21,7 @@ import { authorizedRequest, classNames, getHeight } from '../../../../../helpers
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { ButtonLoader } from '../../../../../molecules';
-import { SetLoaderStatusOnClickType, UserResultsType } from '../../../../../types';
+import type { SetLoaderStatusOnClickType, UserResultsType } from '../../../../../types';
 import { UserCodeEditor } from '../../../UserCodeEditor';
 
 interface RunnerSheetSectionProps {
@@ -79,7 +79,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
           // onSourceChange={setSourceCode}
           initialTestCases={submissions[submissionIndex]?.testCases ?? content.testCases}
           languages={content.languages.map((lang) => ({ value: lang, label: CODE_LANGUAGE[lang]?.label || lang }))}
-          storeKey={content.id + '_view'}
+          storeKey={`${content.id}_view`}
           enableAddCustomSampleCases
           onCodeRunStatusChange={(status, { files, testCases }) => {
             if (status === SubmissionRunStatus.COMPLETED && isSolvable) {

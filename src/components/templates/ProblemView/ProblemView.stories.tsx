@@ -1,10 +1,10 @@
 import {
   CodeLanguage,
-  ContentResponse,
+  type ContentResponse,
   EMPTY_ENTITY_MEMBERS,
   EntityState,
   Judge,
-  ProblemDataResponseDTO,
+  type ProblemDataResponseDTO,
   ProblemScoringMode,
   ProblemType,
 } from '@juki-team/commons';
@@ -30,13 +30,13 @@ export const Regular: Story = {
           <FetcherLayer<ContentResponse<ProblemDataResponseDTO>>
             url={jukiApiManager.API_V2.problem.getData({ params: { key: 'P-1000' } }).url}
           >
-            {data => (
+            {(data) => (
               <ProblemView
                 {...args}
                 problem={data.data.content}
                 infoPlacement="name"
                 codeEditorStoreKey={data.data.content.key}
-                languages={[ { value: CodeLanguage.CPP_11, label: 'test' } ]}
+                languages={[{ value: CodeLanguage.CPP_11, label: 'test' }]}
               />
             )}
           </FetcherLayer>
@@ -46,7 +46,7 @@ export const Regular: Story = {
   ),
 };
 
-// @ts-ignore
+// @ts-expect-error
 Regular.args = {
   codeEditorStoreKey: 'testing-P-1000',
   problem: {
@@ -65,32 +65,32 @@ Regular.args = {
     author: '',
     key: 'P-1000',
     ownerNickname: 'OscarGauss',
-    // @ts-ignore for testing
+    // @ts-expect-error for testing
     statement1: {
-      'description': {
-        'ES': '',
-        'EN': '',
+      description: {
+        ES: '',
+        EN: '',
       },
-      'input': {
-        'ES': '',
-        'EN': '',
+      input: {
+        ES: '',
+        EN: '',
       },
-      'output': {
-        'ES': '',
-        'EN': '',
+      output: {
+        ES: '',
+        EN: '',
       },
-      'sampleCases': [],
-      'note': {
-        'ES': '',
-        'EN': '',
+      sampleCases: [],
+      note: {
+        ES: '',
+        EN: '',
       },
-      'html': {
-        'ES': '',
-        'EN': '',
+      html: {
+        ES: '',
+        EN: '',
       },
-      'pdfUrl': {
-        'ES': 'https://files.juki.pub/shared//statements/36ced12c-6c03-4444-9f82-ae5d1c2f9b77.pdf',
-        'EN': '',
+      pdfUrl: {
+        ES: 'https://files.juki.pub/shared//statements/36ced12c-6c03-4444-9f82-ae5d1c2f9b77.pdf',
+        EN: '',
       },
     },
     // @ts-expect-error for testing
@@ -134,7 +134,7 @@ Regular.args = {
       ES: '  ',
       EN: '',
     },
-    tags: [ 'new' ],
+    tags: ['new'],
     settings: {
       timeLimit: 10000,
       memoryLimit: 512000,
@@ -178,7 +178,6 @@ Regular.args = {
       nickname: 'OscarGauss',
       imageUrl: '',
     },
-    
   },
 };
 
@@ -190,7 +189,7 @@ export const RegularCustom: Story = {
           <FetcherLayer<ContentResponse<ProblemDataResponseDTO>>
             url={jukiApiManager.API_V2.problem.getData({ params: { key: 'PL-two-sum' } }).url}
           >
-            {data => (
+            {(data) => (
               <ProblemView
                 {...args}
                 problem={data.data.content}

@@ -13,10 +13,10 @@ const startTimestamp = new Date(Date.now() - ONE_DAY);
 const endTimestamp = new Date();
 
 export const DatePicker = () => {
-  const [ date, setDate ] = useState(new Date());
-  
+  const [date, setDate] = useState(new Date());
+
   console.info({ startTimestamp, endTimestamp });
-  
+
   return (
     <MockupJukiProvider>
       <div className="jk-col gap nowrap jk-pg-lg" style={{ height: '100%', overflow: 'auto' }}>
@@ -136,12 +136,7 @@ export const DatePicker = () => {
           inline
         />
         <div className="jk-divider" />
-        <DateLiteral
-          date={date}
-          twoLines={false}
-          show="year-month-day-hours-minutes-seconds-milliseconds"
-          withDayName={true}
-        />
+        <DateLiteral date={date} twoLines={false} show="year-month-day-hours-minutes-seconds-milliseconds" withDayName={true} />
       </div>
     </MockupJukiProvider>
   );

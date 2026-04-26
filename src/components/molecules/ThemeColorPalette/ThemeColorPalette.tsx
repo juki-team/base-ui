@@ -3,7 +3,7 @@ export function ThemeColorPalette() {
   return (
     <div className="jk-row gap jk-pg">
       {['light', 'dark'].map((theme) => (
-        <div key={theme} className={'jk-pg-lg jk-col gap jk-theme-' + theme} style={{ backgroundColor: 'var(--cr-we)' }}>
+        <div key={theme} className={`jk-pg-lg jk-col gap jk-theme-${theme}`} style={{ backgroundColor: 'var(--cr-we)' }}>
           <h3>Theme {theme}</h3>
           <div className="jk-row color-cells">
             <div style={{ backgroundColor: 'var(--base-white)' }} />

@@ -1,14 +1,14 @@
 import {
   CODE_LANGUAGE,
-  CodeLanguage,
-  Judge,
-  QuizProblemSheet,
+  type CodeLanguage,
+  type Judge,
+  type QuizProblemSheet,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 } from '@juki-team/commons';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../../constants';
 import { Input, InputCheckbox, MultiSelect, T } from '../../../../../atoms';
 import { ProblemSelector } from '../../../../ProblemSelector/ProblemSelector';
-import { SetContentType } from '../../types';
+import type { SetContentType } from '../../types';
 import { ProblemSummary } from './ProblemSummary';
 
 interface RunnerSheetSectionProps {

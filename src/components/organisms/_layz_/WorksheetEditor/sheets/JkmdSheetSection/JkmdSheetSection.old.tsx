@@ -1,10 +1,10 @@
 import {
+  type ContentResponse,
   cleanRequest,
-  ContentResponse,
   isJkmdSheet,
   isStringJson,
-  JkmdSheet,
-  JkmdSubmissionDTO,
+  type JkmdSheet,
+  type JkmdSubmissionDTO,
   Status,
   WorksheetType,
 } from '@juki-team/commons';
@@ -20,7 +20,7 @@ import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { ResultHeader } from '../ResultHeader';
-import { SheetSection } from '../types';
+import type { SheetSection } from '../types';
 import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { JkmdSheetSectionEditor } from './JkmdSheetSectionEditor';
 
@@ -88,7 +88,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
                   expand
                   size="small"
                   data-tooltip-id="jk-tooltip"
-                  data-tooltip-content={!!lastSubmission?.read ? 'mark as unread' : 'mark as read'}
+                  data-tooltip-content={lastSubmission?.read ? 'mark as unread' : 'mark as read'}
                   onClick={async (setLoaderStatus) => {
                     setLoaderStatus(Status.LOADING);
                     const jkMdSubmissionDTO: JkmdSubmissionDTO = {
@@ -106,7 +106,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
                   }}
                   icon={<InputCheckbox checked={!!lastSubmission?.read} onChange={() => null} />}
                 >
-                  <T className="tt-se">{!!lastSubmission?.read ? '_read' : 'unread'}</T>
+                  <T className="tt-se">{lastSubmission?.read ? '_read' : 'unread'}</T>
                 </ButtonLoader>
               )}
             </ResultHeader>

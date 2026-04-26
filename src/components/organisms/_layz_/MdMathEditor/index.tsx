@@ -1,6 +1,6 @@
 import { forwardRef, lazy, Suspense } from 'react';
 import { SpinIcon } from '../../../atoms/server';
-import { MdMathEditorHandle, MdMathEditorProps } from './types';
+import type { MdMathEditorHandle, MdMathEditorProps } from './types';
 
 export const MdMathEditorImport = () => import('./MdMathEditor');
 

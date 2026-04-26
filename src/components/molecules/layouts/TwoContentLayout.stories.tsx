@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { EMPTY_USER } from '../../../constants';
 import { useUserStore } from '../../../stores/user/useUserStore';
@@ -8,10 +8,10 @@ import { MockupJukiProvider } from '../../mockup';
 import { MockJkContestTable } from '../../organisms/_layz_/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkUserTable } from '../../organisms/_layz_/DataViewer/JkUserTableTest/MockJkUserTable';
-import { TabsType } from '../../types';
+import type { TabsType } from '../../types';
 import { ApplicationLoaderLayout } from './ApplicationLoaderLayout';
 import { TwoContentLayout as TwoContentLayoutComponent } from './TwoContentLayout';
-import { TwoContentLayoutProps } from './types';
+import type { TwoContentLayoutProps } from './types';
 import { UserLoaderLayout } from './UserLoaderLayout';
 
 const meta: Meta<typeof TwoContentLayoutComponent> = {

@@ -1,10 +1,10 @@
 import {
+  type ContentResponse,
   cleanRequest,
-  ContentResponse,
   isQuizOptionsSheet,
   isStringJson,
-  QuizOptionsSheet,
-  QuizOptionsSubmissionDTO,
+  type QuizOptionsSheet,
+  type QuizOptionsSubmissionDTO,
   Status,
   WorksheetType,
 } from '@juki-team/commons';
@@ -20,13 +20,12 @@ import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { ResultHeaders } from '../ResultHeader';
-import { SheetSection } from '../types';
+import type { SheetSection } from '../types';
 import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { QuizOptionsSheetSectionEditor } from './QuizOptionsSheetSectionEditor';
 import { QuizOptionsSheetSectionView } from './QuizOptionsSheetSectionView';
 
 export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheet>) => {
-  
   const {
     content: initialContent,
     setContent: saveContent,
@@ -39,11 +38,11 @@ export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheet>) =
     userResults,
     readOnly,
   } = props;
-  
+
   const { notifyResponse } = useJukiNotification();
-  const [ edit, setEdit ] = useState(false);
-  const [ modal, setModal ] = useState(false);
-  const [ content, _setContent ] = useSyncedState(initialContent);
+  const [edit, setEdit] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [content, _setContent] = useSyncedState(initialContent);
   const setContent = saveContent ? _setContent : undefined;
   const sectionRef = useRef<HTMLDivElement>(null);
   const onSaveEdit = () => {
@@ -51,18 +50,14 @@ export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheet>) =
     saveContent?.(content);
   };
   useOnSaveSheetSection(sectionRef, edit, onSaveEdit);
-  
+
   const submissions = userResults?.data?.submissions[WorksheetType.QUIZ_OPTIONS]?.[chunkId] ?? [];
-  const [ selectedIndex, setSelectedIndex ] = useSyncedState(submissions.length - 1);
+  const [selectedIndex, setSelectedIndex] = useSyncedState(submissions.length - 1);
   const lastSubmission = submissions.at(selectedIndex);
-  const [ checkedOptions, setCheckedOptions ] = useSyncedState<string[]>(lastSubmission?.checkedOptions ?? []);
-  
+  const [checkedOptions, setCheckedOptions] = useSyncedState<string[]>(lastSubmission?.checkedOptions ?? []);
+
   return (
-    <div
-      ref={sectionRef}
-      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100"
-      onDoubleClick={() => setEdit(true)}
-    >
+    <div ref={sectionRef} className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100" onDoubleClick={() => setEdit(true)}>
       {setContent && (
         <EditSheetModal
           isOpen={modal}
@@ -73,11 +68,7 @@ export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheet>) =
         />
       )}
       {setContent && edit ? (
-        <QuizOptionsSheetSectionEditor
-          content={content}
-          setContent={setContent}
-          isSolvable={isSolvable}
-        />
+        <QuizOptionsSheetSectionEditor content={content} setContent={setContent} isSolvable={isSolvable} />
       ) : (
         <div className="jk-col stretch gap quiz-options-sheet-section-view wh-100 pn-re">
           {isSolvable && !setSheet && (

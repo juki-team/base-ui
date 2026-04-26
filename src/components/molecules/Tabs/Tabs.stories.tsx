@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { configureActions } from 'storybook/actions';
 import { Button, T } from '../../atoms';
 import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';
-import { TabsType } from '../../types';
+import type { TabsType } from '../../types';
 import { TabsInline } from '../index';
 import { JudgeTabs } from './mocks/JudgeTabs';
 import type { TabsInlineProps } from './types';
@@ -35,15 +35,13 @@ const Component = (args: TabsInlineProps) => {
     },
     '3': {
       key: '3',
-      header: (
-        <div className="ws-np">content 3 content 3 content 3 content 3</div>
-      ),
+      header: <div className="ws-np">content 3 content 3 content 3 content 3</div>,
       body: <div> CONTENT 3 CONTENT 3</div>,
     },
     '4': { key: '4', header: <div className="ws-np">tab 4 4 4 4 4 </div> },
     '5': { key: '5', header: <div className="ws-np">tabtabtabtab</div> },
   };
-  
+
   return (
     <MockupJukiProvider>
       {/*<div style={{ height: '200px' }}>*/}
@@ -83,7 +81,9 @@ const Component = (args: TabsInlineProps) => {
             <Button className="ws-np" key="button-1">
               <T>button 1</T>
             </Button>,
-            <Button className="ws-np" key="button-2">button button 2</Button>,
+            <Button className="ws-np" key="button-2">
+              button button 2
+            </Button>,
           ]}
           onChange={() => null}
           selectedTabKey={'2'}

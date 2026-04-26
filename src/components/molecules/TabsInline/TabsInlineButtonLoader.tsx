@@ -1,16 +1,19 @@
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { T } from '../../atoms';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
-import { ButtonLoaderProps } from '../ButtonLoader/types';
+import type { ButtonLoaderProps } from '../ButtonLoader/types';
 
-export const TabsInlineButtonLoader = ({ size, label, ...props }: Omit<ButtonLoaderProps, 'children'> & {
-  label: string
+export const TabsInlineButtonLoader = ({
+  size,
+  label,
+  ...props
+}: Omit<ButtonLoaderProps, 'children'> & {
+  label: string;
 }) => {
-  
-  const { isSmallScreen, isMediumScreen, isHugeScreen } = usePageStore(store => store.viewPort);
-  
+  const { isSmallScreen, isMediumScreen, isHugeScreen } = usePageStore((store) => store.viewPort);
+
   const isSmallMediumScreen = isSmallScreen || isMediumScreen;
-  
+
   return (
     <ButtonLoader
       data-tooltip-id="jk-tooltip"

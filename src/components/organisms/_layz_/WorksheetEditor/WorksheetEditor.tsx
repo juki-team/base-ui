@@ -3,14 +3,18 @@ import { useMemo } from 'react';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useSyncedState } from '../../../hooks/useSyncedState';
 import { WorksheetContents } from '../WorksheetContents';
-import { OnPageChange } from '../WorksheetViewer/types';
+import type { OnPageChange } from '../WorksheetViewer/types';
 import { WorksheetBodies } from './sheets/WorksheetBodies';
 import type { WorksheetEditorProps } from './types';
 
 export default function WorksheetEditor(props: WorksheetEditorProps) {
-  
   const {
-    worksheet: { content, quiz: { enable: quizEnable }, key: worksheetKey, user: { isManager } },
+    worksheet: {
+      content,
+      quiz: { enable: quizEnable },
+      key: worksheetKey,
+      user: { isManager },
+    },
     setContent,
     page: initialPage,
     subPage: initialSubPage,
@@ -18,27 +22,24 @@ export default function WorksheetEditor(props: WorksheetEditorProps) {
     lastPageChildren,
     readOnly = false,
   } = props;
-  
-  const setSearchParams = useRouterStore(state => state.setSearchParams);
-  const [ page, _setPage ] = useSyncedState(initialPage ?? 1);
-  const [ subPage, _setSubPage ] = useSyncedState(initialSubPage ?? 1);
-  const onPageChange: OnPageChange = initialOnPageChange ?? ((page, subPage, entries) => {
-    _setPage(page);
-    _setSubPage(subPage);
-    setSearchParams(entries);
-  });
-  
-  const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [ content ]);
-  
+
+  const setSearchParams = useRouterStore((state) => state.setSearchParams);
+  const [page, _setPage] = useSyncedState(initialPage ?? 1);
+  const [subPage, _setSubPage] = useSyncedState(initialSubPage ?? 1);
+  const onPageChange: OnPageChange =
+    initialOnPageChange ??
+    ((page, subPage, entries) => {
+      _setPage(page);
+      _setSubPage(subPage);
+      setSearchParams(entries);
+    });
+
+  const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [content]);
+
   return (
     <div className="jk-col gap nowrap worksheet-editor-container center top">
       <div className="jk-row">
-        <WorksheetContents
-          page={page}
-          subPage={subPage}
-          onPageChange={onPageChange}
-          sheetsInPages={sheetsInPages}
-        />
+        <WorksheetContents page={page} subPage={subPage} onPageChange={onPageChange} sheetsInPages={sheetsInPages} />
       </div>
       <WorksheetBodies
         sheetsInPages={sheetsInPages}

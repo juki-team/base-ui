@@ -1,36 +1,21 @@
-import { CodeEditorSheet, isCodeEditorSheet, isStringJson, WorksheetType } from '@juki-team/commons';
+import { type CodeEditorSheet, isCodeEditorSheet, isStringJson, WorksheetType } from '@juki-team/commons';
 import { useRef, useState } from 'react';
 import { FloatToolbar } from '../../../../../molecules';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
-import { SheetSection } from '../types';
+import type { SheetSection } from '../types';
 import { CodeEditorSheetSectionEditor } from './CodeEditorSheetSectionEditor';
 import { CodeEditorSheetSectionView } from './CodeEditorSheetSectionView';
 
 export const CodeEditorSheetSection = (props: SheetSection<CodeEditorSheet>) => {
-  
-  const {
-    content,
-    setContent,
-    index,
-    chunkId,
-    sheetLength,
-    setSheet,
-    worksheetKey,
-    isSolvable,
-    userResults,
-    readOnly,
-  } = props;
-  
-  const [ modal, setModal ] = useState(false);
+  const { content, setContent, index, chunkId, sheetLength, setSheet, worksheetKey, isSolvable, userResults, readOnly } = props;
+
+  const [modal, setModal] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-  
+
   return (
-    <div
-      ref={sectionRef}
-      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100"
-    >
+    <div ref={sectionRef} className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100">
       {setContent && (
         <EditSheetModal
           isOpen={modal}
@@ -41,11 +26,7 @@ export const CodeEditorSheetSection = (props: SheetSection<CodeEditorSheet>) => 
         />
       )}
       {setContent ? (
-        <CodeEditorSheetSectionEditor
-          content={content}
-          setContent={setContent}
-          isSolvable={isSolvable}
-        />
+        <CodeEditorSheetSectionEditor content={content} setContent={setContent} isSolvable={isSolvable} />
       ) : (
         <div className="jk-col stretch gap nowrap code-editor-sheet-section-view wh-100">
           <ChunkTitle content={content} />

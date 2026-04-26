@@ -1,4 +1,4 @@
-import { Status } from '@juki-team/commons';
+import { Status } from '@juki-team/commons/enums';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '../../atoms';
 import { classNames } from '../../helpers';
@@ -7,21 +7,12 @@ import { CheckIcon, ErrorIcon, SpinIcon } from '../../server';
 import type { ButtonLoaderProps } from './types';
 
 export function ButtonLoader(props: ButtonLoaderProps) {
-  
-  const {
-    className = '',
-    onClick,
-    children,
-    setLoaderStatusRef,
-    disabled,
-    icon,
-    ...restProps
-  } = props;
-  
-  const [ loader, setLoader ] = useState<Status>(Status.NONE);
+  const { className = '', onClick, children, setLoaderStatusRef, disabled, icon, ...restProps } = props;
+
+  const [loader, setLoader] = useState<Status>(Status.NONE);
   useLoaderStatusSync(loader, setLoader, setLoaderStatusRef);
   const refTimeOut = useRef<ReturnType<typeof setTimeout>>(null);
-  
+
   useEffect(() => {
     if (loader === Status.SUCCESS || loader === Status.ERROR) {
       refTimeOut.current = setTimeout(() => setLoader(Status.NONE), 1200);
@@ -31,8 +22,8 @@ export function ButtonLoader(props: ButtonLoaderProps) {
         clearTimeout(refTimeOut.current);
       }
     };
-  }, [ loader ]);
-  
+  }, [loader]);
+
   return (
     <Button
       className={classNames(className, 'jk-button-loader', {
@@ -42,23 +33,31 @@ export function ButtonLoader(props: ButtonLoaderProps) {
         loading: loader === Status.LOADING,
         'only-icon': (typeof children === 'undefined' || children === false) && !!icon,
       })}
-      onClick={event => onClick?.((status) => {
-        if (typeof status === 'function') {
-          setLoader(status(loader));
-        } else {
-          setLoader(status);
-        }
-      }, loader, event)}
+      onClick={(event) =>
+        onClick?.(
+          (status) => {
+            if (typeof status === 'function') {
+              setLoader(status(loader));
+            } else {
+              setLoader(status);
+            }
+          },
+          loader,
+          event,
+        )
+      }
       disabled={disabled || loader !== Status.NONE}
       // icon={!children && loader !== Status.NONE ? null : icon}
       icon={
-        loader === Status.ERROR
-          ? <ErrorIcon />
-          : loader === Status.SUCCESS
-            ? <CheckIcon />
-            : loader === Status.LOADING
-              ? <SpinIcon />
-              : icon
+        loader === Status.ERROR ? (
+          <ErrorIcon />
+        ) : loader === Status.SUCCESS ? (
+          <CheckIcon />
+        ) : loader === Status.LOADING ? (
+          <SpinIcon />
+        ) : (
+          icon
+        )
       }
       {...restProps}
     >

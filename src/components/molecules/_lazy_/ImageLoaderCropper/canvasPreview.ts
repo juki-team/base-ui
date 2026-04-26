@@ -11,11 +11,11 @@ export async function canvasPreview(
   rotate = 0,
 ) {
   const ctx = canvas.getContext('2d');
-  
+
   if (!ctx) {
     throw new Error('No 2d context');
   }
-  
+
   const scaleX = image.naturalWidth / image.width;
   const scaleY = image.naturalHeight / image.height;
   // devicePixelRatio slightly increases sharpness on retina devices
@@ -24,22 +24,22 @@ export async function canvasPreview(
   // true to the images natural size.
   const pixelRatio = isBrowser() ? window.devicePixelRatio : 1;
   // const pixelRatio = 1
-  
+
   canvas.width = Math.floor(crop.width * scaleX * pixelRatio);
   canvas.height = Math.floor(crop.height * scaleY * pixelRatio);
-  
+
   ctx.scale(pixelRatio, pixelRatio);
   ctx.imageSmoothingQuality = 'high';
-  
+
   const cropX = crop.x * scaleX;
   const cropY = crop.y * scaleY;
-  
+
   const rotateRads = rotate * TO_RADIANS;
   const centerX = image.naturalWidth / 2;
   const centerY = image.naturalHeight / 2;
-  
+
   ctx.save();
-  
+
   // 5) Move the crop origin to the canvas origin (0,0)
   ctx.translate(-cropX, -cropY);
   // 4) Move the origin to the center of the original position
@@ -50,18 +50,8 @@ export async function canvasPreview(
   ctx.scale(scale, scale);
   // 1) Move the center of the image to the origin (0,0)
   ctx.translate(-centerX, -centerY);
-  ctx.drawImage(
-    image,
-    0,
-    0,
-    image.naturalWidth,
-    image.naturalHeight,
-    0,
-    0,
-    image.naturalWidth,
-    image.naturalHeight,
-  );
-  
+  ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight, 0, 0, image.naturalWidth, image.naturalHeight);
+
   ctx.globalCompositeOperation = 'destination-in';
   ctx.beginPath();
   // ctx.arc(image.naturalWidth / 2, image.naturalHeight / 2, image.naturalHeight / 2, 0, Math.PI * 2);
@@ -83,6 +73,6 @@ export async function canvasPreview(
   //   centerX, centerY - height/2);
   // ctx.closePath();
   // ctx.fill();
-  
+
   ctx.restore();
 }

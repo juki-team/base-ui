@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { SpinIcon } from '../../../atoms/server';
-import { WorksheetEditorProps } from './types';
+import type { WorksheetEditorProps } from './types';
 
 export const WorksheetEditorImport = () => import('./WorksheetEditor');
 

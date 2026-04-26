@@ -1,11 +1,11 @@
 import {
-  DocumentMemberResponseDTO,
+  type DocumentMemberResponseDTO,
   EntityAccess,
-  EntityMembersResponseDTO,
-  UserOrganizationBasicInfoResponseDTO,
+  type EntityMembersResponseDTO,
+  type UserOrganizationBasicInfoResponseDTO,
 } from '@juki-team/commons';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { ButtonSizeType } from '../../types';
+import type { Dispatch, ReactNode, SetStateAction } from 'react';
+import type { ButtonSizeType } from '../../types';
 
 type MemberObj = {
   name?: string;
@@ -32,10 +32,11 @@ export interface DocumentCustomMembersContentProps {
   };
 }
 
-interface DocCommon extends Pick<
-  DocumentCustomMembersContentProps,
-  'entityAccess' | 'documentOwner' | 'members' | 'administrators' | 'managers' | 'participants' | 'guests' | 'spectators'
-> {
+interface DocCommon
+  extends Pick<
+    DocumentCustomMembersContentProps,
+    'entityAccess' | 'documentOwner' | 'members' | 'administrators' | 'managers' | 'participants' | 'guests' | 'spectators'
+  > {
   isAdministrator: boolean;
   documentName: ReactNode;
   copyLink?: () => string;

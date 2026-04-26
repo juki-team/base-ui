@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupJukiProvider } from '../../mockup';
 import { Breadcrumbs } from './Breadcrumbs';
 
@@ -23,7 +23,7 @@ export const Regular: Story = {
       <div>1</div>,
       // <div>2</div>,
     ];
-    
+
     return (
       <MockupJukiProvider>
         <div>

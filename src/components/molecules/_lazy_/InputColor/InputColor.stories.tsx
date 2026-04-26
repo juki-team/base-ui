@@ -7,9 +7,8 @@ export default {
 };
 
 export const InputColor = () => {
-  
-  const [ color, setColor ] = useState<string>();
-  
+  const [color, setColor] = useState<string>();
+
   return (
     <MockupJukiProvider>
       <div className="jk-row">

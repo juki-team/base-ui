@@ -15,45 +15,56 @@ import { WorksheetNode } from '../WorksheetEditor/sheets/WorksheetNode';
 import type { WorksheetAsSlidesProps } from './types';
 
 export default function WorksheetAsSlides(props: WorksheetAsSlidesProps) {
-  
   const {
-    worksheet: { content, quiz: { enable: quizEnable }, key: worksheetKey, slides },
+    worksheet: {
+      content,
+      quiz: { enable: quizEnable },
+      key: worksheetKey,
+      slides,
+    },
     resultsUserKey,
     readOnly = false,
     page,
   } = props;
-  
-  const userNickname = useUserStore(state => state.user.nickname);
-  const companyKey = useUserStore(state => state.company.key);
-  const userIsLogged = useUserStore(state => state.user.isLogged);
+
+  const userNickname = useUserStore((state) => state.user.nickname);
+  const companyKey = useUserStore((state) => state.company.key);
+  const userIsLogged = useUserStore((state) => state.user.isLogged);
   const {
     data: userResultsData,
     mutate: userResultsMutate,
     isLoading: userResultsIsLoading,
     isValidating: userResultsIsValidating,
-  } = useFetcher<ContentResponse<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && quizEnable && userIsLogged ? jukiApiManager.API_V2.worksheet.getSubmissionsUser({
-    params: {
-      key: worksheetKey,
-      userKey: resultsUserKey || getUserKey(userNickname, companyKey),
-    },
-  }).url : null);
-  
-  const userResults: UserResultsType = useMemo(() => ({
-    data: userResultsData?.success ? userResultsData.content : undefined,
-    isLoading: userResultsIsLoading,
-    isValidating: userResultsIsValidating,
-    mutate: userResultsMutate,
-  }), [ userResultsData, userResultsIsLoading, userResultsIsValidating, userResultsMutate ]);
-  
-  let sheetsInPages = useMemo(() => getWorksheetsInPages(content), [ content ]);
-  
+  } = useFetcher<ContentResponse<WorksheetUserSubmissionsResponseDTO>>(
+    worksheetKey && quizEnable && userIsLogged
+      ? jukiApiManager.API_V2.worksheet.getSubmissionsUser({
+          params: {
+            key: worksheetKey,
+            userKey: resultsUserKey || getUserKey(userNickname, companyKey),
+          },
+        }).url
+      : null,
+  );
+
+  const userResults: UserResultsType = useMemo(
+    () => ({
+      data: userResultsData?.success ? userResultsData.content : undefined,
+      isLoading: userResultsIsLoading,
+      isValidating: userResultsIsValidating,
+      mutate: userResultsMutate,
+    }),
+    [userResultsData, userResultsIsLoading, userResultsIsValidating, userResultsMutate],
+  );
+
+  let sheetsInPages = useMemo(() => getWorksheetsInPages(content), [content]);
+
   if (typeof page === 'number' && page >= 0 && page < sheetsInPages.length && sheetsInPages[page]) {
     const sheet = sheetsInPages[page];
-    sheetsInPages = [ sheet ];
+    sheetsInPages = [sheet];
   }
-  
-  return sheetsInPages.map((sheet) => (
-    [
+
+  return sheetsInPages
+    .map((sheet) => [
       [
         <section
           key={sheet.header.id + sheet.header.title}
@@ -84,6 +95,6 @@ export default function WorksheetAsSlides(props: WorksheetAsSlidesProps) {
           />
         </section>
       )),
-    ]
-  )).flat(2);
+    ])
+    .flat(2);
 }

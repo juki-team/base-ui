@@ -1,10 +1,10 @@
 import {
-  cleanRequest,
   CodeLanguage,
-  ContentResponse,
-  ProblemDataResponseDTO,
-  QuizProblemSheet,
-  QuizProblemSubmissionDTO,
+  type ContentResponse,
+  cleanRequest,
+  type ProblemDataResponseDTO,
+  type QuizProblemSheet,
+  type QuizProblemSubmissionDTO,
   Status,
   WorksheetType,
 } from '@juki-team/commons';
@@ -16,16 +16,15 @@ import { ButtonLoader, FetcherLayer, FirstLoginWrapper } from '../../../../../mo
 import { ProblemView } from '../../../../../templates/ProblemView/ProblemView';
 
 interface RunnerSheetSectionProps {
-  content: QuizProblemSheet,
-  worksheetKey: string,
+  content: QuizProblemSheet;
+  worksheetKey: string;
 }
 
 export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerSheetSectionProps) => {
-  
   const { notifyResponse } = useJukiNotification();
-  
+
   const validHeight = !Number.isNaN(+content.height) && +content.height > 0;
-  
+
   return (
     <div
       className="jk-col nowrap gap wh-100"
@@ -52,14 +51,13 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
                 infoPlacement="name"
                 codeEditorStoreKey={`${worksheetKey}/${content.id}`}
                 codeEditorCenterButtons={({ files, currentFileName }) => {
-                  
                   const { source = '', language = CodeLanguage.TEXT } = files[currentFileName] || {};
-                  
+
                   return [
                     <FirstLoginWrapper key="submit">
                       <ButtonLoader
                         size="small"
-                        onClick={async setLoaderStatus => {
+                        onClick={async (setLoaderStatus) => {
                           setLoaderStatus(Status.LOADING);
                           const quizProblem: QuizProblemSubmissionDTO = {
                             id: content.id,
@@ -67,15 +65,12 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
                             language,
                             source,
                           };
-                          const {
-                            url,
-                            ...options
-                          } = jukiApiManager.API_V2.worksheet.submitQuizProblem({
+                          const { url, ...options } = jukiApiManager.API_V2.worksheet.submitQuizProblem({
                             params: { worksheetKey },
                             body: quizProblem,
                           });
-                          const response = cleanRequest<ContentResponse<any>>(await authorizedRequest(url, options));
-                          
+                          const response = cleanRequest<ContentResponse<unknown>>(await authorizedRequest(url, options));
+
                           notifyResponse(response, setLoaderStatus);
                         }}
                       >

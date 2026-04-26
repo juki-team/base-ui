@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupJukiProvider } from '../../mockup';
 import { SAMPLE_MD_CONTENT } from './constants';
 import { MdMathViewer } from './MdMathViewer';

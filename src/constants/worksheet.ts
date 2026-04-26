@@ -1,14 +1,13 @@
-import {
+import { RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES } from '@juki-team/commons/constants';
+import { QuizScoringMode, WorksheetType } from '@juki-team/commons/enums';
+import type {
   CodeEditorSheet,
   GraphSheet,
   JkmdSheet,
   ListSheet,
   QuizOptionsSheet,
   QuizProblemSheet,
-  QuizScoringMode,
-  RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
-  WorksheetType,
-} from '@juki-team/commons';
+} from '@juki-team/commons/types';
 import { v4 } from 'uuid';
 
 export const WORKSHEET_CODE_EDITOR_MIN_HEIGHT = 320;
@@ -37,7 +36,7 @@ export const EMPTY_GRAPH_SHEET = (): GraphSheet => ({
   type: WorksheetType.GRAPH,
   title: '',
   points: 0,
-  dots: [ DEFAULT_GRAPH ],
+  dots: [DEFAULT_GRAPH],
 });
 
 export const EMPTY_QUIZ_PROBLEM_SHEET = (): QuizProblemSheet => ({
@@ -67,7 +66,7 @@ export const EMPTY_LIST_SHEET = (): ListSheet => ({
   title: '',
   points: 0,
   header: '# header of list',
-  content: [ { id: v4(), type: WorksheetType.JK_MD, title: '', points: 0, content: 'First content of list' } ],
+  content: [{ id: v4(), type: WorksheetType.JK_MD, title: '', points: 0, content: 'First content of list' }],
   children: [],
 });
 

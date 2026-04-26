@@ -13,14 +13,13 @@ import { QueryParamKey } from '../../../../../enums';
 import { Button, T } from '../../../../atoms';
 import { DeleteIcon, SettingsIcon } from '../../../../atoms/server';
 import { classNames } from '../../../../helpers';
-import { NotUndefined } from '../../../../types';
+import type { NotUndefined } from '../../../../types';
 import { MdMathEditor } from '../../MdMathEditor';
 import type { WorksheetBodiesProps, WorksheetBodyProps } from '../types';
 import { EditSheetModal } from './EditSheetModal';
 import { WorksheetBody } from './WorksheetBody';
 
 export const WorksheetBodies = (props: WorksheetBodiesProps) => {
-  
   const {
     sheetsInPages,
     isEditor,
@@ -33,34 +32,40 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
     lastPageChildren,
     readOnly,
   } = props;
-  
+
   const containerRef = useRef<HTMLDivElement>(null);
-  const [ modal, setModal ] = useState(false);
-  const setPageSheets = useCallback((newPageHeader: NewPageSheet | null, newPageSheetContent: BodyWorksheet[]) => {
-    const newSheetsInPages = [ ...sheetsInPages ];
-    newSheetsInPages[page - 1] = {
-      header: newPageHeader ?? newSheetsInPages[page - 1]?.header ?? NEW_PAGE_SHEET(),
-      content: newPageSheetContent,
-    };
-    const newSheets = [];
-    for (const { header, content } of newSheetsInPages) {
-      newSheets.push(header, ...content);
-    }
-    setSheets?.(newSheets);
-  }, [ page, setSheets, sheetsInPages ]);
-  
-  const setSheet: NotUndefined<WorksheetBodyProps['setSheet']> = useCallback((value) => {
-    const newPageSheetContent = typeof value === 'function' ? value(sheetsInPages[page - 1]?.content ?? []) : value;
-    setPageSheets(null, newPageSheetContent);
-  }, [ page, setPageSheets, sheetsInPages ]);
-  
+  const [modal, setModal] = useState(false);
+  const setPageSheets = useCallback(
+    (newPageHeader: NewPageSheet | null, newPageSheetContent: BodyWorksheet[]) => {
+      const newSheetsInPages = [...sheetsInPages];
+      newSheetsInPages[page - 1] = {
+        header: newPageHeader ?? newSheetsInPages[page - 1]?.header ?? NEW_PAGE_SHEET(),
+        content: newPageSheetContent,
+      };
+      const newSheets = [];
+      for (const { header, content } of newSheetsInPages) {
+        newSheets.push(header, ...content);
+      }
+      setSheets?.(newSheets);
+    },
+    [page, setSheets, sheetsInPages],
+  );
+
+  const setSheet: NotUndefined<WorksheetBodyProps['setSheet']> = useCallback(
+    (value) => {
+      const newPageSheetContent = typeof value === 'function' ? value(sheetsInPages[page - 1]?.content ?? []) : value;
+      setPageSheets(null, newPageSheetContent);
+    },
+    [page, setPageSheets, sheetsInPages],
+  );
+
   const pages = sheetsInPages.length;
-  
+
   const sheetPage = sheetsInPages[page - 1];
   if (!sheetPage) {
     return null;
   }
-  
+
   return (
     <div className={classNames('jk-col gap nowrap top stretch extend worksheet-bodies wh-100', { 'is-solvable': isSolvable })}>
       {setSheets && (
@@ -77,7 +82,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
             data-tooltip-content="remove page divider"
             icon={<DeleteIcon />}
             onClick={() => {
-              const newSheetsInPages = [ ...sheetsInPages ];
+              const newSheetsInPages = [...sheetsInPages];
               const newSheets = [];
               if (page === pages) {
                 let i = 0;
@@ -108,21 +113,12 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
                 setSheets(newSheets);
               }
               if (page > 1 && page === pages) {
-                onPageChange(
-                  Math.max(page, 1),
-                  1,
-                  { name: QueryParamKey.PAGE_FOCUS, value: 'jk-worksheet-viewer-container' },
-                );
+                onPageChange(Math.max(page, 1), 1, { name: QueryParamKey.PAGE_FOCUS, value: 'jk-worksheet-viewer-container' });
               }
             }}
             disabled={pages <= 1}
           />
-          <Button
-            icon={<SettingsIcon size="small" />}
-            onClick={() => setModal(true)}
-          >
-          
-          </Button>
+          <Button icon={<SettingsIcon size="small" />} onClick={() => setModal(true)}></Button>
         </div>
       )}
       {setSheets && (
@@ -135,7 +131,10 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
             if (isStringJson(value)) {
               const values = JSON.parse(value);
               if (Array.isArray(values)) {
-                return values.every(value => isCodeEditorSheet(value) || isJkmdSheet(value) || isQuizOptionsSheet(value) || isQuizProblemSheet(value));
+                return values.every(
+                  (value) =>
+                    isCodeEditorSheet(value) || isJkmdSheet(value) || isQuizOptionsSheet(value) || isQuizProblemSheet(value),
+                );
               }
             }
             return false;
@@ -151,22 +150,19 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         isEditor={isEditor}
         worksheetKey={worksheetKey}
         ref={containerRef}
-      >
-      </WorksheetBody>
+      ></WorksheetBody>
       {page < pages ? (
         <Button
           className="next-button"
           type="secondary"
-          onClick={() => onPageChange(
-            page + 1,
-            1,
-            { name: QueryParamKey.PAGE_FOCUS, value: 'jk-worksheet-viewer-container' },
-          )}
+          onClick={() => onPageChange(page + 1, 1, { name: QueryParamKey.PAGE_FOCUS, value: 'jk-worksheet-viewer-container' })}
           expand
         >
           <T className="tt-se">next page</T>
         </Button>
-      ) : lastPageChildren}
+      ) : (
+        lastPageChildren
+      )}
     </div>
   );
 };

@@ -5,7 +5,7 @@ export const MermaidInline = ({ value }: { value: string }) => {
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || !value) return;
+    if (!(el && value)) return;
 
     el.removeAttribute('data-processed');
     el.innerHTML = value;

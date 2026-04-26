@@ -6,8 +6,7 @@ import type { CardRowVirtualizerFixedProps } from './types';
 
 const gap = 16;
 
-export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps<T>) => {
-  
+export const CardRowVirtualizerFixed = <T,>(props: CardRowVirtualizerFixedProps<T>) => {
   const {
     headers,
     data,
@@ -21,19 +20,19 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
     getRecordClassName,
     expandedCards,
   } = props;
-  
+
   const parentRef = useRef<HTMLDivElement>(null);
-  const [ borderTop, setBorderTop ] = useState(false);
-  const [ borderBottom, setBorderBottom ] = useState(false);
+  const [borderTop, setBorderTop] = useState(false);
+  const [borderBottom, setBorderBottom] = useState(false);
   const cardsByRow = Math.max(Math.floor((rowWidth - gap) / (cardWidth + gap)), 1);
-  
+
   const rowVirtualizer = useVirtualizer({
     count: Math.ceil(data.length / cardsByRow),
     getScrollElement: useCallback(() => parentRef.current, []),
-    estimateSize: useCallback(() => cardHeight + 40, [ cardHeight ]),
+    estimateSize: useCallback(() => cardHeight + 40, [cardHeight]),
     overscan: 2,
   });
-  
+
   // const onRecordRenderRef = useRef(onRecordRender);
   // onRecordRenderRef.current = onRecordRender;
   // useEffect(() => {
@@ -41,18 +40,16 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
   //     onRecordRenderRef.current?.({ data, index: virtualRow.index, isCard: false })
   //   ));
   // }, [ data, rowVirtualizer ]);
-  
+
   let finalWidth = Math.min(cardWidth, rowWidth - gap - gap);
   if (expandedCards) {
-    finalWidth = (rowWidth - ((cardsByRow + 1) * gap)) / cardsByRow;
+    finalWidth = (rowWidth - (cardsByRow + 1) * gap) / cardsByRow;
   }
-  
+
   return (
     <div
       ref={parentRef}
-      className={
-        classNames('jk-list-card-rows-container', { 'scroll-on-top': !borderTop, 'scroll-on-bottom': !borderBottom })
-      }
+      className={classNames('jk-list-card-rows-container', { 'scroll-on-top': !borderTop, 'scroll-on-bottom': !borderBottom })}
       onScroll={({ currentTarget }: SyntheticEvent<HTMLDivElement>) => {
         const scrollTop = currentTarget.scrollTop || 0;
         setBorderBottom(!!(currentTarget.scrollHeight - currentTarget.clientHeight - scrollTop));
@@ -60,7 +57,7 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
       }}
     >
       <div className="jk-list-card-rows-box" style={{ height: `${rowVirtualizer.getTotalSize()}px`, zIndex: 0 }}>
-        {rowVirtualizer.getVirtualItems().map(virtualRow => (
+        {rowVirtualizer.getVirtualItems().map((virtualRow) => (
           <div
             key={virtualRow.index}
             style={{
@@ -69,33 +66,39 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
             }}
             className="jk-row jk-list-card-row"
           >
-            {Children.toArray(new Array(cardsByRow).fill('').map((_, index) => {
-              const cardIndex = virtualRow.index * cardsByRow + index;
-              return (
-                <DataViewerCard
-                  key={virtualRow.index * cardsByRow + index}
-                  fake={virtualRow.index * cardsByRow + index >= data.length}
-                  cardWidth={finalWidth}
-                  headers={headers}
-                  data={data}
-                  index={cardIndex}
-                  cardClassName={getRecordClassName?.({
-                    data,
-                    index: cardIndex,
-                    isCard: true,
-                    isStickySection: false,
-                  }) || ''}
-                  cardStyle={getRecordStyle?.({
-                    data,
-                    index: cardIndex,
-                    isCard: true,
-                    isStickySection: false,
-                  }) || {}}
-                  onCardClick={() => onRecordClick?.({ data, index: cardIndex, isCard: true })}
-                  onCardHover={() => onRecordHover?.({ data, index: cardIndex, isCard: true })}
-                />
-              );
-            }))}
+            {Children.toArray(
+              new Array(cardsByRow).fill('').map((_, index) => {
+                const cardIndex = virtualRow.index * cardsByRow + index;
+                return (
+                  <DataViewerCard
+                    key={virtualRow.index * cardsByRow + index}
+                    fake={virtualRow.index * cardsByRow + index >= data.length}
+                    cardWidth={finalWidth}
+                    headers={headers}
+                    data={data}
+                    index={cardIndex}
+                    cardClassName={
+                      getRecordClassName?.({
+                        data,
+                        index: cardIndex,
+                        isCard: true,
+                        isStickySection: false,
+                      }) || ''
+                    }
+                    cardStyle={
+                      getRecordStyle?.({
+                        data,
+                        index: cardIndex,
+                        isCard: true,
+                        isStickySection: false,
+                      }) || {}
+                    }
+                    onCardClick={() => onRecordClick?.({ data, index: cardIndex, isCard: true })}
+                    onCardHover={() => onRecordHover?.({ data, index: cardIndex, isCard: true })}
+                  />
+                );
+              }),
+            )}
           </div>
         ))}
       </div>

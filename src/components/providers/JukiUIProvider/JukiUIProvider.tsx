@@ -15,57 +15,63 @@ import { Link } from './Link';
 import type { JukiUIProviderProps, LinkCmpProps } from './types';
 
 export const JukiUIProvider = ({
-                                 children,
-                                 components,
-                                 multiCompanies,
-                                 onSeeMyProfile,
-                               }: PropsWithChildren<JukiUIProviderProps>) => {
-  
+  children,
+  components,
+  multiCompanies,
+  onSeeMyProfile,
+}: PropsWithChildren<JukiUIProviderProps>) => {
   const { Image: ImageCmp = Image, Link: LinkCMP = Link } = components || { Image, Link };
-  const isLoadingRoute = useRouterStore(state => state.isLoadingRoute);
+  const isLoadingRoute = useRouterStore((state) => state.isLoadingRoute);
   const ref = useRef<HTMLDivElement>(null);
-  const setProps = useUIStore(store => store.setProps);
-  const isLoaded = useUIStore(store => store.components.loaded);
-  const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
-  const searchParams = useRouterStore(state => state.searchParams);
-  const { isLogged } = useUserStore(state => state.user);
-  const LinkCmp: FC<LinkCmpProps> = useCallback(({ href, ...restProps }) => {
-    let pathname;
-    let sp;
-    if (typeof href === 'string') {
-      const [ p, s ] = href.split('?');
-      pathname = p;
-      sp = new URLSearchParams(s);
-    } else {
-      pathname = href?.pathname ?? '';
-      sp = new URLSearchParams('?' + (href?.query || ''));
-    }
-    
-    const query = persistGlobalURLSearchParams(sp);
-    
-    return <LinkCMP href={{ pathname, query }} {...restProps} />;
-  }, [ LinkCMP ]);
-  
+  const setProps = useUIStore((store) => store.setProps);
+  const isLoaded = useUIStore((store) => store.components.loaded);
+  const deleteSearchParams = useRouterStore((state) => state.deleteSearchParams);
+  const searchParams = useRouterStore((state) => state.searchParams);
+  const { isLogged } = useUserStore((state) => state.user);
+  const LinkCmp: FC<LinkCmpProps> = useCallback(
+    ({ href, ...restProps }) => {
+      let pathname;
+      let sp;
+      if (typeof href === 'string') {
+        const [p, s] = href.split('?');
+        pathname = p;
+        sp = new URLSearchParams(s);
+      } else {
+        pathname = href?.pathname ?? '';
+        sp = new URLSearchParams(`?${href?.query || ''}`);
+      }
+
+      const query = persistGlobalURLSearchParams(sp);
+
+      return <LinkCMP href={{ pathname, query }} {...restProps} />;
+    },
+    [LinkCMP],
+  );
+
   useEffect(() => {
     setProps({ components: { Image: ImageCmp, Link: LinkCmp, loaded: true } });
-  }, [ ImageCmp, LinkCmp, setProps ]);
+  }, [ImageCmp, LinkCmp, setProps]);
   useEffect(() => {
     setProps({ jukiAppDivRef: ref });
-  }, [ ref, setProps ]);
-  
+  }, [ref, setProps]);
+
   useEffect(() => {
-    if (isLogged && (searchParams.has(QueryParamKey.SIGN_IN))) {
+    if (isLogged && searchParams.has(QueryParamKey.SIGN_IN)) {
       deleteSearchParams({ name: QueryParamKey.SIGN_IN });
     }
-    if (isLogged && (searchParams.has(QueryParamKey.SIGN_UP))) {
+    if (isLogged && searchParams.has(QueryParamKey.SIGN_UP)) {
       deleteSearchParams({ name: QueryParamKey.SIGN_UP });
     }
-  }, [ isLogged, searchParams, deleteSearchParams ]);
-  
+  }, [isLogged, searchParams, deleteSearchParams]);
+
   return (
     <MotionConfig transition={{ duration: Duration.NORMAL }}>
       <NotificationProvider>
-        {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={2} /></div>}
+        {isLoadingRoute && (
+          <div className="page-line-loader">
+            <LineLoader delay={2} />
+          </div>
+        )}
         <div id="juki-app" translate="no" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
           {/*<div className="loading-route-overlay" />*/}
           {isLoaded && (

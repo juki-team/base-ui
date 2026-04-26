@@ -13,13 +13,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const ButtonWithHooks = () => {
-  const {
-    addSuccessNotification,
-    addErrorNotification,
-    addInfoNotification,
-    addWarningNotification,
-    addQuietNotification,
-  } = useJukiNotification();
+  const { addSuccessNotification, addErrorNotification, addInfoNotification, addWarningNotification, addQuietNotification } =
+    useJukiNotification();
   return (
     <>
       <Button onClick={() => addSuccessNotification('success 1234')}>success</Button>
@@ -32,5 +27,10 @@ const ButtonWithHooks = () => {
 };
 
 export const Primary = {
-  render: () => <MockupJukiProvider> <ButtonWithHooks /></MockupJukiProvider>,
+  render: () => (
+    <MockupJukiProvider>
+      {' '}
+      <ButtonWithHooks />
+    </MockupJukiProvider>
+  ),
 } satisfies Story;

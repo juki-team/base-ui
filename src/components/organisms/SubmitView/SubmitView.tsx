@@ -1,10 +1,10 @@
-import { type ContentResponse, type SubmissionDataResponseDTO } from '@juki-team/commons';
+import type { ContentResponse, SubmissionDataResponseDTO } from '@juki-team/commons';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
 import { PageNotFound } from '../PageNotFound/PageNotFound';
 import { SubmitViewContent } from './commons/SubmitViewContent';
-import { SubmitViewProps } from './types';
+import type { SubmitViewProps } from './types';
 
 export function SubmitView({ submitId, triggerFetch, header, className }: SubmitViewProps) {
   return (
@@ -13,7 +13,9 @@ export function SubmitView({ submitId, triggerFetch, header, className }: Submit
       errorView={() => {
         return (
           <PageNotFound>
-            <h3><T className="tt-se">submission not found</T></h3>
+            <h3>
+              <T className="tt-se">submission not found</T>
+            </h3>
             <p>
               <T className="tt-se">the submission does not exist or you do not have permissions to view it</T>
             </p>

@@ -17,7 +17,7 @@ export const Regular: Story = {
       <div>
         <Collapse
           {...args}
-          header={({ isOpen, toggle/* isFullyOpened, isFullyClosed*/ }) => (
+          header={({ isOpen, toggle /* isFullyOpened, isFullyClosed*/ }) => (
             <div className="jk-row center gap bc-ss">
               Collapse Header
               <div>
@@ -44,7 +44,7 @@ export const Regular: Story = {
       <div className="jk-row left">
         <Collapse
           {...args}
-          header={({ isOpen, toggle/* isFullyOpened, isFullyClosed*/ }) => (
+          header={({ isOpen, toggle /* isFullyOpened, isFullyClosed*/ }) => (
             <div className="jk-row center gap bc-ss">
               Collapse ROW Header
               <div>

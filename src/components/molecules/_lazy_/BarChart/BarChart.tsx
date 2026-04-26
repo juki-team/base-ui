@@ -1,18 +1,9 @@
-import {
-  Bar,
-  BarChart as RechartsBarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import { Bar, CartesianGrid, BarChart as RechartsBarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import type { BarChartProps } from './types';
 
 export default function BarChart(props: BarChartProps) {
-  
   const { data, margin, tooltipContent, xAxisTick } = props;
-  
+
   return (
     <ResponsiveContainer minHeight={256}>
       <RechartsBarChart data={data} margin={margin}>

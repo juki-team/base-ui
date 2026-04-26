@@ -1,4 +1,4 @@
-import { ProblemVerdict } from '@juki-team/commons';
+import type { ProblemVerdict } from '@juki-team/commons';
 import { T } from '../../../atoms';
 import { hasTimeHasMemory } from '../../../helpers/submission';
 

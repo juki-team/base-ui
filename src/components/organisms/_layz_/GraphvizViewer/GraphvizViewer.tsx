@@ -1,10 +1,10 @@
-import { consoleWarn } from '@juki-team/commons';
+import { consoleWarn } from '@juki-team/commons/helpers';
 import { instance } from '@viz-js/viz';
 import { useEffect, useRef } from 'react';
 import { create } from 'zustand';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { classNames } from '../../../helpers';
-import { GraphvizViewerProps } from './types';
+import type { GraphvizViewerProps } from './types';
 
 interface GraphvizState {
   shouldRerender: number;
@@ -13,21 +13,19 @@ interface GraphvizState {
 
 export const useGraphvizStore = create<GraphvizState>((set) => ({
   shouldRerender: 0,
-  triggerRerender: () =>
-    set(() => ({ shouldRerender: Date.now() })),
+  triggerRerender: () => set(() => ({ shouldRerender: Date.now() })),
 }));
 
 export default function GraphvizViewer({ dot, className }: GraphvizViewerProps) {
-  
   const containerRef = useRef<HTMLDivElement>(null);
-  const t = useI18nStore(store => store.i18n.t);
-  const shouldRerender = useGraphvizStore(store => store.shouldRerender);
-  
+  const t = useI18nStore((store) => store.i18n.t);
+  const shouldRerender = useGraphvizStore((store) => store.shouldRerender);
+
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    
-    instance().then(viz => {
+
+    instance().then((viz) => {
       const prevHeight = el.getBoundingClientRect().height;
       el.innerHTML = '';
       el.style.minHeight = prevHeight ? `${prevHeight}px` : '';
@@ -40,14 +38,14 @@ export default function GraphvizViewer({ dot, className }: GraphvizViewerProps) 
         el.innerHTML = '';
         el.style.minHeight = '';
         const errorDiv = document.createElement('div');
-        errorDiv.textContent = t('error rendering graph') + `: ${(e as Error)?.message || String(e)}`;
+        errorDiv.textContent = `${t('error rendering graph')}: ${(e as Error)?.message || String(e)}`;
         errorDiv.style.color = 'red';
         errorDiv.style.whiteSpace = 'pre-wrap';
         el.appendChild(errorDiv);
       }
     });
-  }, [ dot, shouldRerender, t ]);
-  
+  }, [dot, shouldRerender, t]);
+
   return (
     <div className={classNames('jk-graphviz-viewer-container', className)}>
       <div className="jk-graphviz-viewer" ref={containerRef} />

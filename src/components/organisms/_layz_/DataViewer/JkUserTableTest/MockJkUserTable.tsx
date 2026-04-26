@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { SelectOptionType } from '../../../../atoms/Select/types';
+import type { SelectOptionType } from '../../../../atoms/Select/types';
 import {
   ButtonLoader,
   DataViewer,
@@ -12,7 +12,7 @@ import {
   TextHeadCell,
 } from '../../../../index';
 import { RefreshIcon } from '../../../../server';
-import { DataViewerHeadersType, DataViewerProps, type DataViewerRequestType } from '../types';
+import type { DataViewerHeadersType, DataViewerProps, DataViewerRequestType } from '../types';
 import users from './data.json';
 
 export interface JkUserTableProps {
@@ -40,7 +40,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
         users.list.map(
           (user) =>
             ({
-              key: `nickname-(${user.nickname + ')-' + user.status}`,
+              key: `nickname-(${`${user.nickname})-${user.status}`}`,
               givenName: user.givenName,
               familyName: user.familyName,
               email: user.email,
@@ -131,8 +131,8 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
               options={['1', '2', '3'].map(
                 (option) =>
                   ({
-                    label: 'label ' + option,
-                    value: 'value ' + option,
+                    label: `label ${option}`,
+                    value: `value ${option}`,
                     disabled: Math.round(Math.random() * 10) > 7,
                   }) as SelectOptionType<string, string, string>,
               )}
@@ -310,7 +310,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
         extraNodes={extraNodes}
         pageSizeOptions={[5, 10, 15, 20]}
         totalData={data.length}
-        getRecordClassName={({ index }) => index + ''}
+        getRecordClassName={({ index }) => `${index}`}
         //getRecordStyle={({ index }) => ({ zIndex: index })}
         onRecordClick={(props) => console.info('click', props)}
         // pagination={{ total: data.length }}

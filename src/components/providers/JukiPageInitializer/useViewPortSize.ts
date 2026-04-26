@@ -3,9 +3,8 @@ import { usePageStore } from '../../../stores/page/usePageStore';
 import type { ViewPortSizeType } from '../../types';
 
 export const useViewPortSize = () => {
-  
-  const setViewPort = usePageStore(store => store.setViewPort);
-  
+  const setViewPort = usePageStore((store) => store.setViewPort);
+
   useEffect(() => {
     const listener = () => {
       // First we get the viewport height and multiply it by 1% to get a value for a vh unit
@@ -14,7 +13,7 @@ export const useViewPortSize = () => {
       document?.documentElement.style.setProperty('--vh', `${vh}px`);
       const width = window.innerWidth;
       const height = window.innerHeight;
-      
+
       let size: ViewPortSizeType;
       if (width >= 1920) {
         size = 'hg';
@@ -40,5 +39,5 @@ export const useViewPortSize = () => {
     return () => {
       window.removeEventListener('resize', listener);
     };
-  }, [ setViewPort ]);
+  }, [setViewPort]);
 };

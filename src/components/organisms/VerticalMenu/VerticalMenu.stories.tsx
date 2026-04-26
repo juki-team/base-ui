@@ -2,7 +2,7 @@ import { action, configureActions } from 'storybook/actions';
 import { TriggerAction } from '../../../enums';
 import { Button, Popover, T } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
-import { DrawerActionsType } from '../../molecules/Drawer/types';
+import type { DrawerActionsType } from '../../molecules/Drawer/types';
 import { AppsIcon, FilterListIcon, PlusIcon, SettingsIcon, ViewHeadlineIcon } from '../../server';
 import { MdMathEditor } from '../index';
 import { SAMPLE_MD_CONTENT } from '../MdMathViewer/constants';

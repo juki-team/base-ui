@@ -1,5 +1,5 @@
-import { NotificationType } from '@juki-team/commons';
-import { PropsWithChildren, ReactNode } from 'react';
+import type { NotificationType } from '@juki-team/commons';
+import type { PropsWithChildren, ReactNode } from 'react';
 
 export enum NotificationAction {
   ADD_NOTIFICATION = 'ADD_NOTIFICATION',
@@ -7,38 +7,36 @@ export enum NotificationAction {
 }
 
 export type NewNotificationType = {
-  type: NotificationType,
-  message: ReactNode,
+  type: NotificationType;
+  message: ReactNode;
   silent?: boolean;
-}
+};
 
 export interface CardNotificationProps {
-  ids: string[],
-  type: NotificationType,
-  message: ReactNode,
+  ids: string[];
+  type: NotificationType;
+  message: ReactNode;
 }
 
 export interface NotificationProps {
-  id: string,
-  type: NotificationType,
-  silent: boolean,
-  message: ReactNode,
+  id: string;
+  type: NotificationType;
+  silent: boolean;
+  message: ReactNode;
 }
 
 export type AddNotificationActionType = {
-  type: NotificationAction.ADD_NOTIFICATION,
-  payload: NotificationProps,
+  type: NotificationAction.ADD_NOTIFICATION;
+  payload: NotificationProps;
 };
 
 export type RemoveNotificationActionType = {
-  type: NotificationAction.REMOVE_NOTIFICATION,
-  notificationId: string,
-}
+  type: NotificationAction.REMOVE_NOTIFICATION;
+  notificationId: string;
+};
 
 export type NotificationActionsTypes = AddNotificationActionType | RemoveNotificationActionType;
 
-export interface NotificationProviderProps extends PropsWithChildren {
-}
+export interface NotificationProviderProps extends PropsWithChildren {}
 
-export interface SoundProviderProps extends PropsWithChildren {
-}
+export interface SoundProviderProps extends PropsWithChildren {}

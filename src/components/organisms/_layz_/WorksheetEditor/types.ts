@@ -1,43 +1,44 @@
 import type { BodyWorksheet, WorksheetsInPages } from '@juki-team/commons';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
-import { UserResultsType } from '../../../types';
-import { OnPageChange, WorksheetViewerProps } from '../WorksheetViewer/types';
+import type { UserResultsType } from '../../../types';
+import type { OnPageChange, WorksheetViewerProps } from '../WorksheetViewer/types';
 
 export interface WorksheetBodiesProps {
-  sheetsInPages: WorksheetsInPages,
-  setSheets?: Dispatch<BodyWorksheet[]>,
-  userResults?: UserResultsType,
-  isSolvable: boolean,
-  isEditor: boolean,
-  worksheetKey: string,
-  page: number, // [1, pages]
-  subPage: number, // [1, pages]
-  onPageChange: OnPageChange,
-  lastPageChildren?: ReactNode,
-  readOnly: boolean,
+  sheetsInPages: WorksheetsInPages;
+  setSheets?: Dispatch<BodyWorksheet[]>;
+  userResults?: UserResultsType;
+  isSolvable: boolean;
+  isEditor: boolean;
+  worksheetKey: string;
+  page: number; // [1, pages]
+  subPage: number; // [1, pages]
+  onPageChange: OnPageChange;
+  lastPageChildren?: ReactNode;
+  readOnly: boolean;
 }
 
-export type SetSheetType<T extends BodyWorksheet> = Dispatch<SetStateAction<T[]>>
+export type SetSheetType<T extends BodyWorksheet> = Dispatch<SetStateAction<T[]>>;
 
 export type SetContentType<T extends BodyWorksheet> = Dispatch<SetStateAction<T>>;
 
 export interface WorksheetBodyProps {
-  sheetPage: WorksheetsInPages[number],
-  setSheet?: SetSheetType<BodyWorksheet>,
-  userResults?: UserResultsType,
-  readOnly: boolean,
-  isSolvable: boolean,
-  isEditor?: boolean,
-  worksheetKey: string,
-  asSlides?: boolean,
+  sheetPage: WorksheetsInPages[number];
+  setSheet?: SetSheetType<BodyWorksheet>;
+  userResults?: UserResultsType;
+  readOnly: boolean;
+  isSolvable: boolean;
+  isEditor?: boolean;
+  worksheetKey: string;
+  asSlides?: boolean;
 }
 
-export interface WorksheetNodeProps extends Pick<WorksheetBodyProps, 'setSheet' | 'userResults' | 'readOnly' | 'isSolvable' | 'worksheetKey' | 'asSlides'> {
-  sheet: BodyWorksheet[],
-  index: number,
-  length: number,
+export interface WorksheetNodeProps
+  extends Pick<WorksheetBodyProps, 'setSheet' | 'userResults' | 'readOnly' | 'isSolvable' | 'worksheetKey' | 'asSlides'> {
+  sheet: BodyWorksheet[];
+  index: number;
+  length: number;
 }
 
 export interface WorksheetEditorProps extends Omit<WorksheetViewerProps, 'resultsUserKey' | 'withoutTableOfContents'> {
-  setContent: (content: BodyWorksheet[]) => void,
+  setContent: (content: BodyWorksheet[]) => void;
 }

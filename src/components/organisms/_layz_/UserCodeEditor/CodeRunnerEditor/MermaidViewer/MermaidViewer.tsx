@@ -4,7 +4,7 @@ import { Button, CopyToClipboard, T } from '../../../../../atoms';
 import { ContentCopyIcon, DownloadIcon, LoadingIcon, PlayArrowIcon, WarningIcon } from '../../../../../atoms/server';
 import { downloadBlobAsFile } from '../../../../../helpers';
 import { GraphicToolbar } from './GraphicToolbar';
-import { MermaidTheme, MermaidViewerProps } from './types';
+import type { MermaidTheme, MermaidViewerProps } from './types';
 
 const DEFAULT_CONFIG = `{
   "logLevel": "error",
@@ -272,7 +272,7 @@ export const MermaidViewer = (props: MermaidViewerProps) => {
                   dangerouslySetInnerHTML={{ __html: renderedSvg }}
                   style={{ maxWidth: '100%', lineHeight: 0 }}
                 />
-              ) : !isRendering && !error ? (
+              ) : !(isRendering || error) ? (
                 <div
                   style={{
                     display: 'flex',

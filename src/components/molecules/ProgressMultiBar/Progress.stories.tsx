@@ -35,16 +35,17 @@ export const Regular: Story = {
               { label: 'test1', percentage: 10, color: 'red' },
               { label: <div className="jk-pg-xsm">test 2</div>, percentage: 20, color: 'green' },
             ]}
-            points={[
-              { label: <div className="jk-pg-xsm">test1</div>, percentage: 10, color: 'var(--cr-ss)' },
-            ]}
+            points={[{ label: <div className="jk-pg-xsm">test1</div>, percentage: 10, color: 'var(--cr-ss)' }]}
             tooltipPlacement="bottom"
           />
           <ProgressSlide progress={80} className="expand-absolute pe-ne" />
         </div>
         <div>with label:</div>
         <ProgressMultiBar
-          progress={[ { label: 'test1', percentage: 10 }, { label: 'test2', percentage: 20 } ]}
+          progress={[
+            { label: 'test1', percentage: 10 },
+            { label: 'test2', percentage: 20 },
+          ]}
           label="TESTING..."
         />
         <ProgressSlide />

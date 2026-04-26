@@ -1,9 +1,9 @@
 interface SquareFrameProps {
-  strokeWidth?: number,
-  cx?: number,
-  cy?: number,
-  sizeBox?: number,
-  filled?: boolean,
+  strokeWidth?: number;
+  cx?: number;
+  cy?: number;
+  sizeBox?: number;
+  filled?: boolean;
 }
 
 export const SquareFrame = ({ strokeWidth = 2, sizeBox = 24, cy = 0, cx = 0, filled }: SquareFrameProps) => {

@@ -1,8 +1,8 @@
-import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE, CodeEditorSheet, CodeLanguage } from '@juki-team/commons';
-import { Dispatch, useState } from 'react';
+import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE, type CodeEditorSheet, type CodeLanguage } from '@juki-team/commons';
+import { type Dispatch, useState } from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../../constants';
 import { Input, InputCheckbox, Modal, MultiSelect, T } from '../../../../../atoms';
-import { BasicModalProps } from '../../../../../atoms/Modal/types';
+import type { BasicModalProps } from '../../../../../atoms/Modal/types';
 import { getHeight } from '../../../../../helpers';
 import { UserCodeEditor } from '../../../UserCodeEditor';
 
@@ -86,7 +86,7 @@ export const CodeEditorSheetSectionEditorModal = ({
           </div>
           <div style={{ height: getHeight(sheet.height, '') }} className="jk-row">
             <UserCodeEditor<CodeLanguage>
-              storeKey={sheet.id + '_edit'}
+              storeKey={`${sheet.id}_edit`}
               initialFiles={sheet.files}
               onTestCasesChange={(testCases) => setSheet((prevState) => ({ ...prevState, testCases }))}
               onFilesChange={(files) =>

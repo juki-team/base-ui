@@ -1,7 +1,7 @@
-import { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 
 export interface TProps {
-  className?: string,
-  children: string,
-  style?: CSSProperties,
+  className?: string;
+  children: string;
+  style?: CSSProperties;
 }

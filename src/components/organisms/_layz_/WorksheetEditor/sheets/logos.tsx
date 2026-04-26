@@ -1,13 +1,13 @@
 import { WorksheetType } from '@juki-team/commons';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { ArticleIcon, BubbleChartIcon, CodeIcon, EventListIcon, ExtensionIcon } from '../../../../atoms/server';
-import { BasicIconProps } from '../../../../atoms/server/icons/types';
+import type { BasicIconProps } from '../../../../atoms/server/icons/types';
 
 export const LOGO_WORKSHEET_TYPE: (size?: BasicIconProps['size']) => {
   [key in WorksheetType]: {
-    icon: ReactNode,
-    label: string
-  }
+    icon: ReactNode;
+    label: string;
+  };
 } = (size) => ({
   [WorksheetType.JK_MD]: { icon: <ArticleIcon size={size} />, label: 'jk md' },
   [WorksheetType.QUIZ_PROBLEM]: { icon: <ExtensionIcon size={size} />, label: 'quiz problem' },

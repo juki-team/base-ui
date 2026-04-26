@@ -7,11 +7,13 @@ import { ProblemStatus } from './ProblemStatus';
 import type { ProblemNameLinkFieldProps } from './types';
 
 export function ProblemNameLinkField(props: ProblemNameLinkFieldProps) {
-  
-  const { record: { name, shortname, user, key }, isCard } = props;
-  
-  const { Link } = useUIStore(store => store.components);
-  
+  const {
+    record: { name, shortname, user, key },
+    isCard,
+  } = props;
+
+  const { Link } = useUIStore((store) => store.components);
+
   return (
     <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
       <div className="jk-row nowrap">

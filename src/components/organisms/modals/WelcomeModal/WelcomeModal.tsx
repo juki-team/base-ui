@@ -1,4 +1,4 @@
-import { Status } from '@juki-team/commons';
+import { Status } from '@juki-team/commons/enums';
 import { QueryParamKey } from '../../../../enums';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../../stores/ui/useUIStore';

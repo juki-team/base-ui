@@ -173,7 +173,7 @@
 //     injectCSS: false,
 //     //
 //     onUpdate({ editor }) {
-//       // @ts-ignore
+//       // @ts-expect-error
 //       const rawMd = editor?.storage.markdown.getMarkdown() as string ?? '';
 //       const cleanedMd = rawMd
 //         .replace(/!\[.*?\]\(.*?\)(?=\S)/g, match => `${match}\n\n`)
@@ -280,7 +280,7 @@
 //                   {
 //                     icon: <OpenInNewIcon />,
 //                     label: <T>md</T>,
-//                     // @ts-ignore
+//                     // @ts-expect-error
 //                     onClick: () => downloadBlobAsFile(new Blob([ editor.storage.markdown.getMarkdown() as string ?? '' ], { type: 'text/plain' }), 'file.md'),
 //                   },
 //                 ],

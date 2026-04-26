@@ -4,10 +4,9 @@ import { StylusLaserPointerIcon } from '../../../atoms/server';
 import { classNames } from '../../../helpers';
 
 export function PointerButton() {
-  
   const laserRef = useRef<HTMLDivElement | null>(null);
-  const [ isActive, setIsActive ] = useState(false);
-  
+  const [isActive, setIsActive] = useState(false);
+
   useEffect(() => {
     const move = (e: MouseEvent) => {
       if (laserRef.current) {
@@ -15,11 +14,11 @@ export function PointerButton() {
         laserRef.current.style.top = `${e.clientY}px`;
       }
     };
-    
+
     if (isActive) {
       const laser = document.createElement('div');
       laser.className = 'laser-pointer';
-      
+
       document.body.appendChild(laser);
       laserRef.current = laser;
       window.addEventListener('mousemove', move);
@@ -28,15 +27,15 @@ export function PointerButton() {
         laserRef.current.remove();
       }
     }
-    
+
     return () => {
       window.removeEventListener('mousemove', move);
       if (laserRef.current) {
         laserRef.current.remove();
       }
     };
-  }, [ isActive ]);
-  
+  }, [isActive]);
+
   return (
     <div className={classNames('jk-row right', { 'is-active': isActive })}>
       <Button

@@ -1,10 +1,6 @@
-import {
-  type ContentsResponse,
-  MenuViewMode,
-  type OrganizationUserPermissionsResponseDTO,
-  ProfileSetting,
-  Theme,
-} from '@juki-team/commons';
+import type { OrganizationUserPermissionsResponseDTO } from '@juki-team/commons/dto';
+import { MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons/enums';
+import type { ContentsResponse } from '@juki-team/commons/types';
 import { useMemo, useState } from 'react';
 import { QueryParamKey, TriggerAction } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
@@ -60,7 +56,7 @@ export function MainMenu(props: MainMenuProps) {
     multiCompanies && isLogged ? jukiApiManager.API_V2.company.getPermissionList().url : null,
   );
   const companyKey = searchParams.get(QueryParamKey.COMPANY) as string;
-  const companies = useMemo(() => (data?.success ? data.contents : []), [data]);
+  const companies: OrganizationUserPermissionsResponseDTO[] = useMemo(() => (data?.success ? data.contents : []), [data]);
   const company = useMemo(() => companies.find((company) => company.key === companyKey), [companyKey, companies]);
   const isSmall = viewPortSize === 'sm';
   const isMedium = viewPortSize === 'md';
@@ -68,9 +64,9 @@ export function MainMenu(props: MainMenuProps) {
 
   const content = useMemo(() => (isLoading ? <JukiLoadingLayout /> : children), [isLoading, children]);
 
-  const enabled = false;
   const menu = useMemo(() => {
     const menu: MenuType[] = [];
+    const enabled = false;
     if (multiCompanies && isLogged && enabled) {
       const select = (
         <Select
@@ -123,7 +119,7 @@ export function MainMenu(props: MainMenuProps) {
     }
     menu.push(...initialMenu);
     return menu;
-  }, [multiCompanies, isLogged, enabled, initialMenu, companies, company, setSearchParams, isSmall, preferredTheme, Image]);
+  }, [multiCompanies, isLogged, initialMenu, companies, company, setSearchParams, isSmall, preferredTheme, Image]);
 
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode;
 

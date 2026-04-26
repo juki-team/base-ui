@@ -1,4 +1,4 @@
-import { Children, PropsWithChildren } from 'react';
+import { Children, type PropsWithChildren } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
@@ -29,7 +29,7 @@ interface HeaderTabProps<T> {
   setSelectedTabKey: (key: T | undefined, force: boolean) => void;
 }
 
-const HeaderTab = <T = string,>(props: HeaderTabProps<T>) => {
+const HeaderTab = <T = string>(props: HeaderTabProps<T>) => {
   const {
     tab: { key, header },
     selectedTabKey,

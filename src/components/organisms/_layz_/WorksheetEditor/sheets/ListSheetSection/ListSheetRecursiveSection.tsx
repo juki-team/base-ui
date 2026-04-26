@@ -1,11 +1,11 @@
-import {
-  type CodeEditorSheet,
-  type GraphSheet,
-  type JkmdSheet,
-  type ListSheet,
-  type QuizOptionsSheet,
-  type QuizProblemSheet,
-  type QuizTextSheet,
+import type {
+  CodeEditorSheet,
+  GraphSheet,
+  JkmdSheet,
+  ListSheet,
+  QuizOptionsSheet,
+  QuizProblemSheet,
+  QuizTextSheet,
 } from '@juki-team/commons';
 import { Children, type Dispatch } from 'react';
 import { EMPTY_LIST_SHEET } from '../../../../../../constants';
@@ -28,7 +28,7 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
 
   const { header, content, children } = sheet;
 
-  const renderHeader = !!setSheet ? (
+  const renderHeader = setSheet ? (
     <MdMathEditor value={header} onChange={(header) => setSheet({ ...sheet, header })} informationButton />
   ) : (
     <div className="jk-pg-rl">

@@ -1,2 +1,2 @@
 export * from '../components/helpers';
-export { persistGlobalURLSearchParams, cloneURLSearchParams } from '../settings/AppRoutes';
+export { cloneURLSearchParams, persistGlobalURLSearchParams } from '../settings/AppRoutes';

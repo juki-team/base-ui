@@ -1,12 +1,12 @@
 import {
-  cleanRequest,
   type ContentResponse,
+  cleanRequest,
   ENTITY_ACCESS,
   type EntityMembersDTO,
   getDocumentAccess,
   HTTPMethod,
 } from '@juki-team/commons';
-import { PropsWithChildren, useState } from 'react';
+import { type PropsWithChildren, useState } from 'react';
 import { Button, CopyToClipboard, T } from '../../atoms';
 import { EditIcon, ShareIcon } from '../../atoms/server';
 import { authorizedRequest } from '../../helpers';

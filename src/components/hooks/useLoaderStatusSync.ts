@@ -1,8 +1,13 @@
-import { Status } from '@juki-team/commons';
+import type { Status } from '@juki-team/commons/enums';
 import { type Dispatch, type SetStateAction, useEffect, useRef } from 'react';
 import type { LoaderStatusOnClickType, SetLoaderStatusOnClickType } from '../types';
 
-export function useLoaderStatusSync(loader: Status, setLoader: Dispatch<SetStateAction<Status>>, setLoaderStatusRef?: (setLoader: SetLoaderStatusOnClickType) => void, onLoaderStatusChange?: (status: LoaderStatusOnClickType) => void) {
+export function useLoaderStatusSync(
+  loader: Status,
+  setLoader: Dispatch<SetStateAction<Status>>,
+  setLoaderStatusRef?: (setLoader: SetLoaderStatusOnClickType) => void,
+  onLoaderStatusChange?: (status: LoaderStatusOnClickType) => void,
+) {
   const _refLoader = useRef(loader);
   _refLoader.current = loader;
   useEffect(() => {
@@ -13,11 +18,11 @@ export function useLoaderStatusSync(loader: Status, setLoader: Dispatch<SetState
         setLoader(status);
       }
     });
-  }, [ setLoaderStatusRef, setLoader ]);
-  
+  }, [setLoaderStatusRef, setLoader]);
+
   useEffect(() => {
     onLoaderStatusChange?.(loader);
-  }, [ onLoaderStatusChange, loader ]);
-  
+  }, [onLoaderStatusChange, loader]);
+
   return _refLoader;
 }

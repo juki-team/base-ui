@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { Select } from './Select';
-import { SelectProps } from './types';
+import type { SelectProps } from './types';
 
-// @ts-ignore
+// @ts-expect-error
 Select.defaultProps = {
   disabled: false,
   optionsPlacement: 'bottom' as SelectProps<any, any, any>['optionsPlacement'],
@@ -25,7 +25,7 @@ const Cmp = (args: SelectProps<any, any, any>) => {
 
   const numbers = new Array(40).fill(0);
   const options: { label: string; value: number; disabled: boolean }[] = numbers.map((_, option) => ({
-    label: 'label ' + option,
+    label: `label ${option}`,
     inputLabel: Math.round(Math.random() * 10) > 7 ? 'L' : undefined,
     value: option,
     disabled: Math.round(Math.random() * 10) > 7,

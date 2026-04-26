@@ -200,7 +200,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
             <T className="tt-se">cancel</T>
           </Button>
           <ButtonLoader
-            disabled={!validLengthNickname || !validCharNickname}
+            disabled={!(validLengthNickname && validCharNickname)}
             onClick={(setLoader) => {
               const body = {
                 nickname: userState.nickname,

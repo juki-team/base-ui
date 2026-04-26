@@ -12,7 +12,7 @@ import {
 
 import { lintKeymap } from '@codemirror/lint';
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search';
-import { EditorState, Extension } from '@codemirror/state';
+import { EditorState, type Extension } from '@codemirror/state';
 import {
   crosshairCursor,
   drawSelection,
@@ -20,7 +20,7 @@ import {
   highlightActiveLine,
   highlightActiveLineGutter,
   highlightSpecialChars,
-  KeyBinding,
+  type KeyBinding,
   keymap,
   lineNumbers,
   rectangularSelection,
@@ -40,7 +40,7 @@ export interface BasicSetupOptions extends MinimalSetupOptions {
   crosshairCursor?: boolean;
   highlightActiveLine?: boolean;
   highlightSelectionMatches?: boolean;
-  
+
   closeBracketsKeymap?: boolean;
   searchKeymap?: boolean;
   foldKeymap?: boolean;
@@ -93,7 +93,7 @@ export interface BasicSetupOptions extends MinimalSetupOptions {
  */
 export const basicSetup = (options: BasicSetupOptions = {}): Extension[] => {
   const { crosshairCursor: initCrosshairCursor = false } = options;
-  
+
   let keymaps: KeyBinding[] = [];
   if (options.closeBracketsKeymap !== false) {
     keymaps = keymaps.concat(closeBracketsKeymap);
@@ -126,8 +126,7 @@ export const basicSetup = (options: BasicSetupOptions = {}): Extension[] => {
   if (options.dropCursor !== false) extensions.push(dropCursor());
   if (options.allowMultipleSelections !== false) extensions.push(EditorState.allowMultipleSelections.of(true));
   if (options.indentOnInput !== false) extensions.push(indentOnInput());
-  if (options.syntaxHighlighting !== false)
-    extensions.push(syntaxHighlighting(defaultHighlightStyle, { fallback: true }));
+  if (options.syntaxHighlighting !== false) extensions.push(syntaxHighlighting(defaultHighlightStyle, { fallback: true }));
   if (options.bracketMatching !== false) extensions.push(bracketMatching());
   if (options.closeBrackets !== false) extensions.push(closeBrackets());
   if (options.autocompletion !== false) extensions.push(autocompletion());
@@ -135,10 +134,9 @@ export const basicSetup = (options: BasicSetupOptions = {}): Extension[] => {
   if (initCrosshairCursor !== false) extensions.push(crosshairCursor());
   if (options.highlightActiveLine !== false) extensions.push(highlightActiveLine());
   if (options.highlightSelectionMatches !== false) extensions.push(highlightSelectionMatches());
-  if (options.tabSize && typeof options.tabSize === 'number')
-    extensions.push(indentUnit.of(' '.repeat(options.tabSize)));
-  
-  return extensions.concat([ keymap.of(keymaps.flat()) ]).filter(Boolean);
+  if (options.tabSize && typeof options.tabSize === 'number') extensions.push(indentUnit.of(' '.repeat(options.tabSize)));
+
+  return extensions.concat([keymap.of(keymaps.flat())]).filter(Boolean);
 };
 
 export interface MinimalSetupOptions {
@@ -146,7 +144,7 @@ export interface MinimalSetupOptions {
   history?: boolean;
   drawSelection?: boolean;
   syntaxHighlighting?: boolean;
-  
+
   defaultKeymap?: boolean;
   historyKeymap?: boolean;
 }
@@ -171,7 +169,6 @@ export const minimalSetup = (options: MinimalSetupOptions = {}) => {
   if (options.highlightSpecialChars !== false) extensions.push(highlightSpecialChars());
   if (options.history !== false) extensions.push(history());
   if (options.drawSelection !== false) extensions.push(drawSelection());
-  if (options.syntaxHighlighting !== false)
-    extensions.push(syntaxHighlighting(defaultHighlightStyle, { fallback: true }));
-  return extensions.concat([ keymap.of(keymaps.flat()) ]).filter(Boolean);
+  if (options.syntaxHighlighting !== false) extensions.push(syntaxHighlighting(defaultHighlightStyle, { fallback: true }));
+  return extensions.concat([keymap.of(keymaps.flat())]).filter(Boolean);
 };

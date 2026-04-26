@@ -7,14 +7,14 @@ import { T } from '../../atoms';
 import { CodeViewer, TwoActionModal } from '../../molecules';
 import type { CheckUnsavedChangesProps } from './types';
 
-function objectDiffAsBash(objA: any, objB: any): string {
+function objectDiffAsBash(objA: object, objB: object): string {
   const changes = microDiff(objA, objB);
   let output = '';
-  
+
   for (const change of changes) {
     const path = change.path.join('.');
     output += `  ${path}:\n`;
-    
+
     if (change.type === 'CHANGE') {
       if (typeof change.oldValue === 'string' && typeof change.value === 'string') {
         const lineDiff = diffLines(change.oldValue, change.value);
@@ -41,28 +41,27 @@ function objectDiffAsBash(objA: any, objB: any): string {
         output += `+ ${JSON.stringify(change.value)}\n`;
       }
     }
-    
+
     if (change.type === 'CREATE') {
       output += `+ ${JSON.stringify(change.value)}\n`;
     }
-    
+
     if (change.type === 'REMOVE') {
       output += `- ${JSON.stringify(change.oldValue)}\n`;
     }
     output += '\n';
   }
-  
+
   return output;
 }
 
-export function CheckUnsavedChanges<T extends object, >(props: CheckUnsavedChangesProps<T>) {
-  
+export function CheckUnsavedChanges<T extends object>(props: CheckUnsavedChangesProps<T>) {
   const { children, onClickContinue, value } = props;
-  
+
   const originalValueRef = useRef(value);
-  const [ modal, setModal ] = useState<ReactNode>(null);
-  const playWarning = useSoundStore(state => state.playWarning);
-  
+  const [modal, setModal] = useState<ReactNode>(null);
+  const playWarning = useSoundStore((state) => state.playWarning);
+
   const handleOnClick = () => {
     const differences = microDiff(originalValueRef.current, value);
     if (JSON.stringify(originalValueRef.current) === JSON.stringify(value) || Object.keys(differences).length === 0) {
@@ -91,7 +90,7 @@ export function CheckUnsavedChanges<T extends object, >(props: CheckUnsavedChang
       );
     }
   };
-  
+
   return (
     <>
       {modal}

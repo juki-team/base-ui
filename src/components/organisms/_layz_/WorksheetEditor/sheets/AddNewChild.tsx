@@ -1,4 +1,4 @@
-import { BodyWorksheet, NEW_PAGE_SHEET, WorksheetType } from '@juki-team/commons';
+import { type BodyWorksheet, NEW_PAGE_SHEET, WorksheetType } from '@juki-team/commons';
 import {
   EMPTY_CODE_EDITOR_SHEET,
   EMPTY_GRAPH_SHEET,
@@ -8,28 +8,27 @@ import {
   EMPTY_QUIZ_PROBLEM_SHEET,
 } from '../../../../../constants';
 import { Button, Popover, T } from '../../../../atoms';
-import { PopoverProps } from '../../../../atoms/_lazy_/Popover/types';
+import type { PopoverProps } from '../../../../atoms/_lazy_/Popover/types';
 import { PlusIcon } from '../../../../atoms/server';
 import { ButtonLoader } from '../../../../molecules';
-import { SetSheetType } from '../types';
+import type { SetSheetType } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';
 
 interface AddNewChildProps<T extends BodyWorksheet> {
-  index: number,
-  setSheet: SetSheetType<T>,
-  mdSheet?: boolean,
-  codeEditorSheet?: boolean,
-  graphSheet?: boolean,
-  listSheet?: boolean,
-  quizProblemSheet?: boolean,
-  quizOptionsSheetType?: boolean,
-  pageDivider?: boolean,
-  compacted?: boolean,
-  floatToolbarPlacement?: PopoverProps['placement'],
+  index: number;
+  setSheet: SetSheetType<T>;
+  mdSheet?: boolean;
+  codeEditorSheet?: boolean;
+  graphSheet?: boolean;
+  listSheet?: boolean;
+  quizProblemSheet?: boolean;
+  quizOptionsSheetType?: boolean;
+  pageDivider?: boolean;
+  compacted?: boolean;
+  floatToolbarPlacement?: PopoverProps['placement'];
 }
 
-export const AddNewChild = <T extends BodyWorksheet, >(props: AddNewChildProps<T>) => {
-  
+export const AddNewChild = <T extends BodyWorksheet>(props: AddNewChildProps<T>) => {
   const {
     index,
     setSheet,
@@ -43,12 +42,12 @@ export const AddNewChild = <T extends BodyWorksheet, >(props: AddNewChildProps<T
     quizOptionsSheetType,
     floatToolbarPlacement,
   } = props;
-  
+
   const actionButtons = [];
   if (mdSheet) {
     const onClick = () => {
       setSheet((sheet) => {
-        const newSheet = [ ...sheet ];
+        const newSheet = [...sheet];
         newSheet.splice(index + 1, 0, EMPTY_JK_MD_SHEET() as T);
         return newSheet;
       });
@@ -58,7 +57,7 @@ export const AddNewChild = <T extends BodyWorksheet, >(props: AddNewChildProps<T
   if (codeEditorSheet) {
     const onClick = () => {
       setSheet((sheet) => {
-        const newSheet = [ ...sheet ];
+        const newSheet = [...sheet];
         newSheet.splice(index + 1, 0, EMPTY_CODE_EDITOR_SHEET() as T);
         return newSheet;
       });
@@ -68,7 +67,7 @@ export const AddNewChild = <T extends BodyWorksheet, >(props: AddNewChildProps<T
   if (graphSheet) {
     const onClick = () => {
       setSheet((sheet) => {
-        const newSheet = [ ...sheet ];
+        const newSheet = [...sheet];
         newSheet.splice(index + 1, 0, EMPTY_GRAPH_SHEET() as T);
         return newSheet;
       });
@@ -78,7 +77,7 @@ export const AddNewChild = <T extends BodyWorksheet, >(props: AddNewChildProps<T
   if (listSheet) {
     const onClick = () => {
       setSheet((sheet) => {
-        const newSheet = [ ...sheet ];
+        const newSheet = [...sheet];
         newSheet.splice(index + 1, 0, EMPTY_LIST_SHEET() as T);
         return newSheet;
       });
@@ -88,7 +87,7 @@ export const AddNewChild = <T extends BodyWorksheet, >(props: AddNewChildProps<T
   if (quizProblemSheet) {
     const onClick = () => {
       setSheet((sheet) => {
-        const newSheet = [ ...sheet ];
+        const newSheet = [...sheet];
         newSheet.splice(index + 1, 0, EMPTY_QUIZ_PROBLEM_SHEET() as T);
         return newSheet;
       });
@@ -98,7 +97,7 @@ export const AddNewChild = <T extends BodyWorksheet, >(props: AddNewChildProps<T
   if (quizOptionsSheetType) {
     const onClick = () => {
       setSheet((sheet) => {
-        const newSheet = [ ...sheet ];
+        const newSheet = [...sheet];
         newSheet.splice(index + 1, 0, EMPTY_QUIZ_OPTIONS_SHEET() as T);
         return newSheet;
       });
@@ -108,14 +107,14 @@ export const AddNewChild = <T extends BodyWorksheet, >(props: AddNewChildProps<T
   if (pageDivider) {
     const onClick = () => {
       setSheet((sheet) => {
-        const newSheet = [ ...sheet ];
+        const newSheet = [...sheet];
         newSheet.splice(index + 1, 0, NEW_PAGE_SHEET() as T);
         return newSheet;
       });
     };
     actionButtons.push({ ...LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.NEW_PAGE], onClick });
   }
-  
+
   return (
     <div className="jk-row gap">
       {compacted && (
@@ -123,13 +122,7 @@ export const AddNewChild = <T extends BodyWorksheet, >(props: AddNewChildProps<T
           content={
             <div className="jk-col gap">
               {actionButtons.map(({ icon, onClick, label }, index) => (
-                <ButtonLoader
-                  icon={icon}
-                  key={index}
-                  size="tiny"
-                  expand
-                  onClick={onClick}
-                >
+                <ButtonLoader icon={icon} key={index} size="tiny" expand onClick={onClick}>
                   <T>{label}</T>
                 </ButtonLoader>
               ))}
@@ -141,11 +134,12 @@ export const AddNewChild = <T extends BodyWorksheet, >(props: AddNewChildProps<T
           <Button icon={<PlusIcon />} size="small" />
         </Popover>
       )}
-      {!compacted && (
+      {!compacted &&
         actionButtons.map(({ icon, label, onClick }, index) => (
-          <Button key={index} size="small" icon={icon} onClick={onClick}>{label}</Button>
-        ))
-      )}
+          <Button key={index} size="small" icon={icon} onClick={onClick}>
+            {label}
+          </Button>
+        ))}
     </div>
   );
 };

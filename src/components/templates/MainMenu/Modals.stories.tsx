@@ -9,8 +9,8 @@ export default {
 };
 
 export const DrawerViewMenuMobile = () => {
-  const [ open, setOpen ] = useState(false);
-  
+  const [open, setOpen] = useState(false);
+
   return (
     <MockupJukiProvider>
       {open && (
@@ -27,7 +27,7 @@ export const DrawerViewMenuMobile = () => {
               label: 'calendar menu',
               selected: false,
               menuItemWrapper: ({ children }) => (
-                <a href="/" target="_blank">
+                <a href="/" target="_blank" rel="noopener">
                   {children}
                 </a>
               ),

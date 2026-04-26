@@ -1,4 +1,4 @@
-import { type CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 import { Popover } from '../../atoms';
 import type { MultiProgressBarProps } from './types';
 
@@ -15,7 +15,7 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
               data-tooltip-content={label}
               style={
                 {
-                  width: percentage + '%',
+                  width: `${percentage}%`,
                   background: color,
                   height,
                   '--color': color,
@@ -46,7 +46,7 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
               <div
                 style={
                   {
-                    width: percentage + '%',
+                    width: `${percentage}%`,
                     background: color,
                     height,
                     '--color': color,

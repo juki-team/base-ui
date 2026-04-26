@@ -5,13 +5,12 @@ import { usePageVisibility } from './usePageVisibility';
 import { useViewPortSize } from './useViewPortSize';
 
 export const JukiPageInitializer = () => {
-  
   useOnline();
   usePageVisibility();
   usePageFocus();
   // useMouseInsidePage();
   useFullscreen();
   useViewPortSize();
-  
+
   return null;
 };

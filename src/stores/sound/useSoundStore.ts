@@ -1,18 +1,18 @@
 import { create } from 'zustand';
-import { Sounds } from '../../components/types';
+import type { Sounds } from '../../components/types';
 import { Sound } from '../../enums';
 
 interface SoundStore {
-  sounds: Sounds | null,
-  setSounds: (sounds: Sounds) => void,
-  playClick: () => void,
-  playSuccess: () => void,
-  playError: (volume?: number) => void,
-  playNotification: () => void,
-  playWarning: () => void,
-  playMessage: () => void,
-  playPop: () => void,
-  playBell: () => void,
+  sounds: Sounds | null;
+  setSounds: (sounds: Sounds) => void;
+  playClick: () => void;
+  playSuccess: () => void;
+  playError: (volume?: number) => void;
+  playNotification: () => void;
+  playWarning: () => void;
+  playMessage: () => void;
+  playPop: () => void;
+  playBell: () => void;
 }
 
 const playSound = async (sound: HTMLAudioElement | undefined, volume = 0.3) => {

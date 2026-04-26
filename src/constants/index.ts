@@ -1,16 +1,7 @@
-import {
-  CodeLanguage,
-  type CompanyPingResponseDTO,
-  DataViewMode,
-  DAY_NAMES,
-  EMPTY_USER_PERMISSIONS,
-  Language,
-  MenuViewMode,
-  ProfileSetting,
-  type RecordId,
-  Theme,
-  UserPing,
-} from '@juki-team/commons';
+import { DAY_NAMES, EMPTY_USER_PERMISSIONS } from '@juki-team/commons/constants';
+import type { CompanyPingResponseDTO, UserPing } from '@juki-team/commons/dto';
+import { CodeLanguage, DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons/enums';
+import type { RecordId } from '@juki-team/commons/types';
 import type { useResizeDetectorProps } from 'react-resize-detector';
 import { QueryParamKey } from '../enums';
 
@@ -98,13 +89,13 @@ export const EMPTY_USER: UserPing = {
 export const PAGE_SIZE_OPTIONS = [25, 50, 100];
 
 export const DEFAULT_DATA_VIEWER_PROPS = {
-  getPageQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.PAGE_TABLE,
-  getPageSizeQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.PAGE_SIZE_TABLE,
-  getSortQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.SORT_TABLE,
-  getFilterQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.FILTER_TABLE,
-  getViewModeQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.VIEW_MODE_TABLE,
-  getShowFilterDrawerQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.SHOW_FILTER_DRAWER,
-  getVisiblesQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.VISIBLES,
+  getPageQueryParam: (name: string) => (name ? `${name}.` : name) + QueryParamKey.PAGE_TABLE,
+  getPageSizeQueryParam: (name: string) => (name ? `${name}.` : name) + QueryParamKey.PAGE_SIZE_TABLE,
+  getSortQueryParam: (name: string) => (name ? `${name}.` : name) + QueryParamKey.SORT_TABLE,
+  getFilterQueryParam: (name: string) => (name ? `${name}.` : name) + QueryParamKey.FILTER_TABLE,
+  getViewModeQueryParam: (name: string) => (name ? `${name}.` : name) + QueryParamKey.VIEW_MODE_TABLE,
+  getShowFilterDrawerQueryParam: (name: string) => (name ? `${name}.` : name) + QueryParamKey.SHOW_FILTER_DRAWER,
+  getVisiblesQueryParam: (name: string) => (name ? `${name}.` : name) + QueryParamKey.VISIBLES,
 };
 
 export const CODE_EDIT0R_TAB_SIZES = [1, 2, 3, 4, 8];

@@ -1,11 +1,11 @@
-import { GraphSheet } from '@juki-team/commons';
+import type { GraphSheet } from '@juki-team/commons';
 import { useState } from 'react';
 import { DEFAULT_GRAPH } from '../../../../../../constants';
 import { Button, Input, T } from '../../../../../atoms';
 import { AddIcon, ArrowBackIcon, ArrowForwardIcon, DeleteIcon } from '../../../../../atoms/server';
 import { classNames } from '../../../../../helpers';
 import { GraphvizEditor } from '../../../../GraphvizEditor/GraphvizEditor';
-import { SetContentType } from '../../types';
+import type { SetContentType } from '../../types';
 
 interface GraphSheetSectionProps {
   content: GraphSheet;

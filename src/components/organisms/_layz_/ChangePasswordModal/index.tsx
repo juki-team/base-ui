@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { SpinIcon } from '../../../atoms/server';
-import { ChangePasswordModalProps } from './types';
+import type { ChangePasswordModalProps } from './types';
 
 export const ChangePasswordModalImport = () => import('./ChangePasswordModal');
 

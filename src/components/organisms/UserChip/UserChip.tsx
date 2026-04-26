@@ -3,7 +3,7 @@ import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { classNames } from '../../helpers';
 import { UserNicknameLink } from '../UserNicknameLink/UserNicknameLink';
-import { UserChipProps, UserMockChipProps } from './types';
+import type { UserChipProps, UserMockChipProps } from './types';
 
 export function UserMockChip(props: UserMockChipProps) {
   const { className } = props;
@@ -34,7 +34,7 @@ export const UserChip = forwardRef<HTMLDivElement, UserChipProps>(function UserC
   const { Image } = useUIStore((store) => store.components);
   const userCompanyKey = useUserStore((store) => store.company.key);
 
-  const onlyNickname = !givenName && !familyName && !email;
+  const onlyNickname = !(givenName || familyName || email);
 
   const image = (
     <span className={classNames('jk-user-profile-img pn-re', { large: !onlyNickname })}>

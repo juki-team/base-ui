@@ -1,4 +1,4 @@
-import { FC, lazy, Suspense } from 'react';
+import { type FC, lazy, Suspense } from 'react';
 import { SpinIcon } from '../../../atoms/server';
 import type { BarChartProps } from './types';
 

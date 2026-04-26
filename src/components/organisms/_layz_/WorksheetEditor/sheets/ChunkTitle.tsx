@@ -1,4 +1,4 @@
-import { BasicWorksheet } from '@juki-team/commons';
+import type { BasicWorksheet } from '@juki-team/commons';
 import { MdMathViewer } from '../../../MdMathViewer/MdMathViewer';
 
 export const ChunkTitle = ({ content }: { content: BasicWorksheet }) => {

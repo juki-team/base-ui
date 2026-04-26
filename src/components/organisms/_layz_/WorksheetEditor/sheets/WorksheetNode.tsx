@@ -1,10 +1,10 @@
 import {
-  BodyWorksheet,
-  CodeEditorSheet,
-  GraphSheet,
-  JkmdSheet,
-  QuizOptionsSheet,
-  QuizProblemSheet,
+  type BodyWorksheet,
+  type CodeEditorSheet,
+  type GraphSheet,
+  type JkmdSheet,
+  type QuizOptionsSheet,
+  type QuizProblemSheet,
   WorksheetType,
 } from '@juki-team/commons';
 import { Fragment } from 'react';
@@ -14,48 +14,39 @@ import { DetectRequestAnimationFrame } from '../../../../atoms/DetectRequestAnim
 // import 'reveal.js/dist/theme/white.css';
 import { classNames } from '../../../../helpers';
 import { MdMathViewer } from '../../../MdMathViewer/MdMathViewer';
-import { SetContentType, WorksheetNodeProps } from '../types';
+import type { SetContentType, WorksheetNodeProps } from '../types';
 import { AddNewChild } from './AddNewChild';
 import { CodeEditorSheetSection } from './CodeEditorSheetSection';
 import { GraphSheetSection } from './GraphSheetSection';
 import { JkmdSheetSection } from './JkmdSheetSection';
 import { QuizOptionsSheetSection } from './QuizOptionsSheetSection';
 import { QuizProblemSheetSection } from './QuizProblemSheetSection';
-import { SheetSection } from './types';
+import type { SheetSection } from './types';
 
 export const WorksheetNode = (props: WorksheetNodeProps) => {
-  
-  const {
-    sheet,
-    setSheet,
-    userResults,
-    readOnly,
-    isSolvable,
-    worksheetKey,
-    asSlides,
-    index,
-    length,
-  } = props;
-  
+  const { sheet, setSheet, userResults, readOnly, isSolvable, worksheetKey, asSlides, index, length } = props;
+
   const chunk = sheet[index];
-  
+
   if (!chunk) {
     return null;
   }
-  
-  const setContent: SetContentType<BodyWorksheet> | undefined = setSheet ? (value) => {
-    setSheet((sheet) => {
-      const newSheet = [ ...sheet ];
-      if (newSheet[index]) {
-        const newContent = typeof value === 'function' ? value(newSheet[index]) : value;
-        newSheet.splice(index, 1, structuredClone(newContent));
+
+  const setContent: SetContentType<BodyWorksheet> | undefined = setSheet
+    ? (value) => {
+        setSheet((sheet) => {
+          const newSheet = [...sheet];
+          if (newSheet[index]) {
+            const newContent = typeof value === 'function' ? value(newSheet[index]) : value;
+            newSheet.splice(index, 1, structuredClone(newContent));
+          }
+          return newSheet;
+        });
       }
-      return newSheet;
-    });
-  } : undefined;
-  
+    : undefined;
+
   const isNextJkmd = sheet[index + 1]?.type === WorksheetType.JK_MD;
-  
+
   const sectionProps = {
     content: chunk,
     setContent: asSlides ? undefined : setContent,
@@ -68,7 +59,7 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
     userResults,
     readOnly,
   };
-  
+
   if (asSlides && chunk.type === WorksheetType.JK_MD) {
     return (
       <>
@@ -77,7 +68,7 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
       </>
     );
   }
-  
+
   return (
     <Fragment key={chunk.id}>
       <div
@@ -87,23 +78,19 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
           'next-jkmd': isNextJkmd,
         })}
       >
-        {chunk.type === WorksheetType.JK_MD && (
-          <JkmdSheetSection {...sectionProps as SheetSection<JkmdSheet>} />
-        )}
+        {chunk.type === WorksheetType.JK_MD && <JkmdSheetSection {...(sectionProps as SheetSection<JkmdSheet>)} />}
         {chunk.type === WorksheetType.CODE_EDITOR && (
-          <CodeEditorSheetSection {...sectionProps as SheetSection<CodeEditorSheet>} />
+          <CodeEditorSheetSection {...(sectionProps as SheetSection<CodeEditorSheet>)} />
         )}
         {/*{chunk.type === WorksheetType.LIST && (*/}
         {/*  <ListSheetSection sheet={sheet} setSheet={setSheet} actionButtons={actionButtons} />*/}
         {/*)}*/}
-        {chunk.type === WorksheetType.GRAPH && (
-          <GraphSheetSection {...sectionProps as SheetSection<GraphSheet>} />
-        )}
+        {chunk.type === WorksheetType.GRAPH && <GraphSheetSection {...(sectionProps as SheetSection<GraphSheet>)} />}
         {chunk.type === WorksheetType.QUIZ_PROBLEM && (
-          <QuizProblemSheetSection {...sectionProps as SheetSection<QuizProblemSheet>} />
+          <QuizProblemSheetSection {...(sectionProps as SheetSection<QuizProblemSheet>)} />
         )}
         {chunk.type === WorksheetType.QUIZ_OPTIONS && (
-          <QuizOptionsSheetSection {...sectionProps as SheetSection<QuizOptionsSheet>} />
+          <QuizOptionsSheetSection {...(sectionProps as SheetSection<QuizOptionsSheet>)} />
         )}
       </div>
       {setSheet && !asSlides && (

@@ -1,6 +1,8 @@
-import { ASPECT_RATIO, isStringJson, Theme } from '@juki-team/commons';
+import { ASPECT_RATIO } from '@juki-team/commons/constants';
+import { Theme } from '@juki-team/commons/enums';
+import { isStringJson } from '@juki-team/commons/helpers';
 import { Children, useEffect, useRef, useState } from 'react';
-import Reveal, { type RevealApi, RevealState } from 'reveal.js';
+import Reveal, { type RevealApi, type RevealState } from 'reveal.js';
 import RevealNotes from 'reveal.js/plugin/notes';
 import RevealSearch from 'reveal.js/plugin/search';
 import RevealZoom from 'reveal.js/plugin/zoom';
@@ -13,6 +15,7 @@ import { useInjectTheme } from '../../../hooks/useInjectTheme';
 import { useGraphvizStore } from '../../../organisms/_layz_/GraphvizViewer/GraphvizViewer';
 import { isPrintingPDF, PdfExport } from './pdfexport';
 import type { SlideDeckProps } from './types';
+
 // import 'reveal.js/dist/reveal.css';
 // import 'reveal.js/dist/theme/black.css';
 // import 'reveal.js/dist/theme/white.css';
