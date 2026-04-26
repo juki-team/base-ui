@@ -1,4 +1,4 @@
-import type { Status } from '@juki-team/commons';
+import type { Status } from '@juki-team/commons/enums';
 import type { CSSProperties, Dispatch, SetStateAction } from 'react';
 
 export type TextPlainEditorContentProps = {

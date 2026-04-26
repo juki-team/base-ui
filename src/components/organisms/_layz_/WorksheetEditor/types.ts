@@ -1,4 +1,4 @@
-import type { BodyWorksheet, WorksheetsInPages } from '@juki-team/commons';
+import type { BodyWorksheet, WorksheetsInPages } from '@juki-team/commons/types';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import type { UserResultsType } from '../../../types';
 import type { OnPageChange, WorksheetViewerProps } from '../WorksheetViewer/types';

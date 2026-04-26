@@ -1,11 +1,8 @@
-import {
-  type ContentResponse,
-  cleanRequest,
-  ENTITY_ACCESS,
-  type EntityMembersDTO,
-  getDocumentAccess,
-  HTTPMethod,
-} from '@juki-team/commons';
+import { ENTITY_ACCESS } from '@juki-team/commons/constants';
+import type { EntityMembersDTO } from '@juki-team/commons/dto';
+import { HTTPMethod } from '@juki-team/commons/enums';
+import { cleanRequest, getDocumentAccess } from '@juki-team/commons/helpers';
+import type { ContentResponse } from '@juki-team/commons/types';
 import { type PropsWithChildren, useState } from 'react';
 import { Button, CopyToClipboard, T } from '../../atoms';
 import { EditIcon, ShareIcon } from '../../atoms/server';

@@ -1,4 +1,4 @@
-import { isValidDate } from '@juki-team/commons/date';
+import { isValidDate } from '@juki-team/commons/helpers';
 import { useEffect, useState } from 'react';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
 import { Button, Input, T } from '../../../../atoms';

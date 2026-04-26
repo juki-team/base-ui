@@ -1,4 +1,4 @@
-import type { WorksheetDataResponseDTO } from '@juki-team/commons';
+import type { WorksheetDataResponseDTO } from '@juki-team/commons/dto';
 import type { ReactNode } from 'react';
 import type { SetSearchParamsType } from '../../../types';
 

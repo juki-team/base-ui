@@ -1,4 +1,5 @@
-import { PROBLEM_VERDICT, ProfileSetting, Theme } from '@juki-team/commons';
+import { PROBLEM_VERDICT } from '@juki-team/commons/constants';
+import { ProfileSetting, Theme } from '@juki-team/commons/enums';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import type { ProblemVerdictTagProps } from './types';
 

@@ -1,6 +1,6 @@
 import type { WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons/dto';
 import type { HTTPMethod, Status } from '@juki-team/commons/enums';
-import type { UserHandles } from '@juki-team/commons/types';
+import type { ContentResponse, UserHandles } from '@juki-team/commons/types';
 import type { ParsedUrlQuery } from 'querystring';
 import type {
   ChangeEvent,
@@ -181,7 +181,7 @@ export type UserResultsType = {
   data?: WorksheetUserSubmissionsResponseDTO;
   isLoading?: boolean;
   validating?: boolean;
-  mutate?: KeyedMutator<WorksheetUserSubmissionsResponseDTO>;
+  mutate?: KeyedMutator<ContentResponse<WorksheetUserSubmissionsResponseDTO>>;
 };
 
 export interface UpsertComponentEntityProps<EntityUI, Tab> {
@@ -228,7 +228,7 @@ interface NextFetchRequestConfig {
   tags?: string[];
 }
 
-export interface AuthorizedRequestType<Method extends HTTPMethod = HTTPMethod.GET> extends RequestInit {
+export interface AuthorizedRequestType<Method extends HTTPMethod = 'GET'> extends RequestInit {
   method: Method;
   body?: string | BodyInit;
   responseType?: 'text' | 'blob';

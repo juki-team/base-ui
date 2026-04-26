@@ -1,4 +1,7 @@
-import { type ContentsResponse, JUDGE, type Judge, type JudgeDataResponseDTO } from '@juki-team/commons';
+import { JUDGE } from '@juki-team/commons/constants';
+import type { JudgeDataResponseDTO } from '@juki-team/commons/dto';
+import type { Judge } from '@juki-team/commons/enums';
+import type { ContentsResponse } from '@juki-team/commons/types';
 import { jukiApiManager } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { CopyToClipboard } from '../../atoms';

@@ -1,13 +1,7 @@
-import {
-  CODE_LANGUAGE,
-  type ContentsResponse,
-  Judge,
-  type JudgeDataResponseDTO,
-  ProblemScoringMode,
-  ProblemVerdict,
-  type SubmissionDataResponseDTO,
-  type TestCaseResult,
-} from '@juki-team/commons';
+import { CODE_LANGUAGE } from '@juki-team/commons/constants';
+import type { JudgeDataResponseDTO, SubmissionDataResponseDTO, TestCaseResult } from '@juki-team/commons/dto';
+import { Judge, ProblemScoringMode, ProblemVerdict } from '@juki-team/commons/enums';
+import type { ContentsResponse } from '@juki-team/commons/types';
 import type { ReactNode } from 'react';
 import { ContestTab } from '../../../../enums';
 import { jukiApiManager, jukiAppRoutes } from '../../../../settings';

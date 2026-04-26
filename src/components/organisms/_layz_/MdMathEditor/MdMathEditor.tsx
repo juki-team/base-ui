@@ -151,7 +151,7 @@ const MdMathEditor = forwardRef<MdMathEditorHandle, MdMathEditorProps>(function 
     onBlur,
   } = props;
 
-  const [loader, setLoader] = useState(Status.NONE);
+  const [loader, setLoader] = useState<Status>(Status.NONE);
   const [mode, setMode] = useState(Mode.WYSIWYG);
   const editorRef = useRef<MilkdownEditorContentHandle>(null);
 

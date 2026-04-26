@@ -1,4 +1,4 @@
-import { WorksheetType } from '@juki-team/commons';
+import { WorksheetType } from '@juki-team/commons/enums';
 import { Children, forwardRef, type PropsWithChildren } from 'react';
 import { classNames } from '../../../../helpers';
 import type { WorksheetBodyProps } from '../types';

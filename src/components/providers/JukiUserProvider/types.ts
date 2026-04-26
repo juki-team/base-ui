@@ -1,4 +1,5 @@
-import type { ClientId, CompanyPingResponseDTO, Device, UserPing } from '@juki-team/commons';
+import type { CompanyPingResponseDTO, PingResponseDTO, UserPing } from '@juki-team/commons/dto';
+import type { ClientId, ContentResponse, Device } from '@juki-team/commons/types';
 import type { KeyedMutator } from 'swr';
 
 export type JukiUserProviderProps = {};
@@ -11,8 +12,8 @@ export interface UserState {
   company: CompanyPingResponseDTO;
   setCompany: (company: CompanyPingResponseDTO) => void;
   isLoading: boolean;
-  mutate: KeyedMutator<string>;
-  setMutate: (mutate: KeyedMutator<string>) => void;
+  mutate: KeyedMutator<ContentResponse<PingResponseDTO>>;
+  setMutate: (mutate: KeyedMutator<ContentResponse<PingResponseDTO>>) => void;
   device: Device;
   setDevice: (user: Device) => void;
 }

@@ -21,10 +21,10 @@ export const useFetcher = <T extends ContentResponse<unknown> | ContentsResponse
 
   const swrKey = getUrlKey(url, userSessionId);
 
-  const { data, error, mutate, isValidating, isLoading } = useSWR(swrKey, fetcher, config);
+  const { data, error, mutate, isValidating, isLoading } = useSWR<T>(swrKey, fetcher as unknown as () => Promise<T>, config);
 
   return {
-    data: useMemo(() => (data ? cleanRequest<T>(data) : undefined), [data]),
+    data: useMemo(() => (data ? cleanRequest<T>(data as unknown as string) : undefined), [data]),
     error,
     isLoading,
     mutate,

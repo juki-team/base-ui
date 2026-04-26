@@ -1,4 +1,6 @@
-import { type BodyWorksheet, NEW_PAGE_SHEET, WorksheetType } from '@juki-team/commons';
+import { NEW_PAGE_SHEET } from '@juki-team/commons/constants';
+import { WorksheetType } from '@juki-team/commons/enums';
+import type { BodyWorksheet } from '@juki-team/commons/types';
 import {
   EMPTY_CODE_EDITOR_SHEET,
   EMPTY_GRAPH_SHEET,

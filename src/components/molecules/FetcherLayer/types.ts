@@ -1,4 +1,4 @@
-import type { ContentResponse, ContentsResponse, ErrorResponse } from '@juki-team/commons';
+import type { ContentResponse, ContentsResponse, ErrorResponse } from '@juki-team/commons/types';
 import type { KeyedMutator, SWRConfiguration } from 'swr';
 import type { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';
 

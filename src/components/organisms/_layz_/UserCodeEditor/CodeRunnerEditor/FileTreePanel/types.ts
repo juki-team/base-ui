@@ -1,4 +1,4 @@
-import type { CodeEditorFiles } from '@juki-team/commons';
+import type { CodeEditorFiles } from '@juki-team/commons/types';
 import type { Ref, RefObject } from 'react';
 import type { CodeRunnerEditorOnChangeType } from '../types';
 

@@ -1,5 +1,4 @@
-import type { ProblemBasicSummaryListResponseDTO } from '@juki-team/commons';
-
+import type { ProblemBasicSummaryListResponseDTO } from '@juki-team/commons/dto';
 export type JudgeDataType = {
   [key: string]: { problems: ProblemBasicSummaryListResponseDTO[]; loading: boolean };
 };

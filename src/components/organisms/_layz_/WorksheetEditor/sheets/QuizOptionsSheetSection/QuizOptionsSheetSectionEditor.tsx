@@ -1,4 +1,5 @@
-import { type QuizOptionsSheet, QuizScoringMode } from '@juki-team/commons';
+import { QuizScoringMode } from '@juki-team/commons/enums';
+import type { QuizOptionsSheet } from '@juki-team/commons/types';
 import { v4 } from 'uuid';
 import { Button, Input, InputCheckbox, InputRadio, InputToggle, T } from '../../../../../atoms';
 import { AddIcon } from '../../../../../atoms/server';

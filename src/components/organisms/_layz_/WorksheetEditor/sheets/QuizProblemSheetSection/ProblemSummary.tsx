@@ -1,4 +1,6 @@
-import { type ContentResponse, PROBLEM_MODE, PROBLEM_TYPE, type ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import { PROBLEM_MODE, PROBLEM_TYPE } from '@juki-team/commons/constants';
+import type { ProblemSummaryListResponseDTO } from '@juki-team/commons/dto';
+import type { ContentResponse } from '@juki-team/commons/types';
 import { jukiApiManager } from '../../../../../../settings';
 import { T } from '../../../../../atoms';
 import { FetcherLayer } from '../../../../../molecules';

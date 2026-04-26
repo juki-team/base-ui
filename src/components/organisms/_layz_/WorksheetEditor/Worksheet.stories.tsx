@@ -1,4 +1,6 @@
-import { type ContentResponse, Status, Theme, type WorksheetDataResponseDTO } from '@juki-team/commons';
+import type { WorksheetDataResponseDTO } from '@juki-team/commons/dto';
+import { Status, Theme } from '@juki-team/commons/enums';
+import type { ContentResponse } from '@juki-team/commons/types';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { jukiApiManager } from '../../../../settings';
 import { T } from '../../../atoms';

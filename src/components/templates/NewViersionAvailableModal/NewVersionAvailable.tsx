@@ -1,4 +1,4 @@
-import type { ContentResponse } from '@juki-team/commons';
+import type { ContentResponse } from '@juki-team/commons/types';
 import { useEffect, useState } from 'react';
 import { useFetcher } from '../../hooks/useFetcher';
 import { NewVersionAvailableModal } from './NewVersionAvailableModal/NewVersionAvailableModal';

@@ -1,4 +1,4 @@
-import type { GraphSheet } from '@juki-team/commons';
+import type { GraphSheet } from '@juki-team/commons/types';
 import { type Dispatch, useEffect, useState } from 'react';
 import { Button, Modal } from '../../../../../atoms';
 import type { BasicModalProps } from '../../../../../atoms/Modal/types';

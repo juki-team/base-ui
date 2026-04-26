@@ -1,4 +1,5 @@
-import { EMPTY_ENTITY_MEMBERS, getDocumentAccess } from '@juki-team/commons';
+import { EMPTY_ENTITY_MEMBERS } from '@juki-team/commons/constants';
+import { getDocumentAccess } from '@juki-team/commons/helpers';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';

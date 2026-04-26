@@ -1,7 +1,7 @@
 import { HotTable, type HotTableProps } from '@handsontable/react-wrapper';
 import { registerAllModules } from 'handsontable/registry';
 import { registerRenderer, textRenderer } from 'handsontable/renderers';
-import type { CellMeta } from 'handsontable/settings';
+import type { CellProperties } from 'handsontable/settings';
 import { memo } from 'react';
 import { utils } from 'xlsx';
 import { classNames } from '../../../helpers';
@@ -82,31 +82,19 @@ function DataGridComponent({ rows, cols, freeze, styles, autofilter, firstRowAsH
     }
   };
 
-  registerRenderer(
-    'customStylesRenderer',
-    (
-      instance,
-      td,
-      row,
-      col,
-      prop,
-      value,
-      cellProperties: CellMeta & {
-        style: CellStyleType;
-      },
-    ) => {
-      textRenderer(instance, td, row, col, prop, value, cellProperties);
-      if (cellProperties.style?.font?.bold) {
-        td.style.fontWeight = 'bold';
-      }
-      if (cellProperties.style?.color) {
-        td.style.color = cellProperties.style?.color;
-      }
-      if (cellProperties.style?.bgcolor) {
-        td.style.background = cellProperties.style?.bgcolor;
-      }
-    },
-  );
+  registerRenderer('customStylesRenderer', (instance, td, row, col, prop, value, cellProperties: CellProperties) => {
+    textRenderer(instance, td, row, col, prop, value, cellProperties);
+    const { style } = cellProperties as CellProperties & { style?: CellStyleType };
+    if (style?.font?.bold) {
+      td.style.fontWeight = 'bold';
+    }
+    if (style?.color) {
+      td.style.color = style.color;
+    }
+    if (style?.bgcolor) {
+      td.style.background = style.bgcolor;
+    }
+  });
 
   return (
     <HotTable

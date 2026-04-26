@@ -1,4 +1,4 @@
-import { isValidDate } from '@juki-team/commons/date';
+import { isValidDate } from '@juki-team/commons/helpers';
 import { useEffect, useRef, useState } from 'react';
 import { Button, T } from '../../../../../atoms';
 import { InputDate } from '../../../../../molecules';

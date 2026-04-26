@@ -1,4 +1,5 @@
-import type { ContentResponse, UserProfileResponseDTO } from '@juki-team/commons';
+import type { UserProfileResponseDTO } from '@juki-team/commons/dto';
+import type { ContentResponse } from '@juki-team/commons/types';
 import type { BasicModalProps } from '../../atoms/types';
 import type { UpdateUserProfileDataPayloadDTO } from '../../types';
 

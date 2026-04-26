@@ -1,4 +1,5 @@
-import type { ContentResponse, UserBasicResponseDTO } from '@juki-team/commons';
+import type { UserBasicResponseDTO } from '@juki-team/commons/dto';
+import type { ContentResponse } from '@juki-team/commons/types';
 import { jukiApiManager } from '../../../../settings';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { Button, Modal, T } from '../../../atoms';

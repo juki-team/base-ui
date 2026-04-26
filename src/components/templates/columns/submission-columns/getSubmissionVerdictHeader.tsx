@@ -1,4 +1,5 @@
-import { PROBLEM_VERDICT, type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import { PROBLEM_VERDICT } from '@juki-team/commons/constants';
+import type { SubmissionSummaryListResponseDTO } from '@juki-team/commons/dto';
 import { T } from '../../../atoms';
 import { AcUnitIcon, FitnessCenterIcon, LockClockIcon } from '../../../atoms/server';
 import { FieldText } from '../../../organisms';

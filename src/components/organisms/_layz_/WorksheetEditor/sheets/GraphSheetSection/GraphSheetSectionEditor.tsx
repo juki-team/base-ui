@@ -1,4 +1,4 @@
-import type { GraphSheet } from '@juki-team/commons';
+import type { GraphSheet } from '@juki-team/commons/types';
 import { useState } from 'react';
 import { DEFAULT_GRAPH } from '../../../../../../constants';
 import { Button, Input, T } from '../../../../../atoms';

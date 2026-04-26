@@ -1,4 +1,5 @@
-import type { CodeEditorFiles, CodeEditorTestCases, SubmissionRunStatus, SubmissionTestCase } from '@juki-team/commons';
+import type { SubmissionRunStatus } from '@juki-team/commons/enums';
+import type { CodeEditorFiles, CodeEditorTestCases, SubmissionTestCase } from '@juki-team/commons/types';
 import type { Dispatch, ReactNode, RefObject, SetStateAction } from 'react';
 import type { UseResizeDetectorReturn } from 'react-resize-detector';
 import type { BasicModalProps } from '../../../../atoms/Modal/types';

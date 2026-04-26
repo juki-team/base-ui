@@ -1,4 +1,5 @@
-import type { ContentsResponse, JudgeSummaryListResponseDTO, SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { JudgeSummaryListResponseDTO, SubmissionSummaryListResponseDTO } from '@juki-team/commons/dto';
+import type { ContentsResponse } from '@juki-team/commons/types';
 import { useMemo } from 'react';
 import { QueryParamKey } from '../../../enums';
 import { jukiApiManager } from '../../../settings';

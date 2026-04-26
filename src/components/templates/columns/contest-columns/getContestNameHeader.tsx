@@ -1,4 +1,4 @@
-import type { ContestSummaryListResponseDTO } from '@juki-team/commons';
+import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { ContestNameLinkField } from '../../ContestNameLinkField/ContestNameLinkField';
 

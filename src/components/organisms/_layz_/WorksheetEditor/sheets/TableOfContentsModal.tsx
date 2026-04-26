@@ -1,4 +1,4 @@
-import type { WorksheetsInPages } from '@juki-team/commons';
+import type { WorksheetsInPages } from '@juki-team/commons/types';
 import { Modal, T } from '../../../../atoms';
 import type { BasicModalProps } from '../../../../atoms/Modal/types';
 import type { OnPageChange } from '../../WorksheetViewer/types';

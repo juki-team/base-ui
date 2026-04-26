@@ -1,13 +1,6 @@
-import {
-  PROBLEM_VERDICT,
-  ProblemVerdict,
-  ProfileSetting,
-  SUBMISSION_RUN_STATUS,
-  type SubmissionDataResponseDTO,
-  SubmissionRunStatus,
-  type SubmissionRunStatusWebSocketResponseEventDTO,
-  Theme,
-} from '@juki-team/commons';
+import { PROBLEM_VERDICT, SUBMISSION_RUN_STATUS } from '@juki-team/commons/constants';
+import type { SubmissionDataResponseDTO, SubmissionRunStatusWebSocketResponseEventDTO } from '@juki-team/commons/dto';
+import { ProblemVerdict, ProfileSetting, SubmissionRunStatus, Theme } from '@juki-team/commons/enums';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';

@@ -1,13 +1,6 @@
-import {
-  type DocumentMemberResponseDTO,
-  EntityAccess,
-  EntityMembersRank,
-  type EntityMembersResponseDTO,
-  getDocumentAccess,
-  getUserKey,
-  MemberType,
-  type UserSummaryListResponseDTO,
-} from '@juki-team/commons';
+import type { DocumentMemberResponseDTO, EntityMembersResponseDTO, UserSummaryListResponseDTO } from '@juki-team/commons/dto';
+import { EntityAccess, EntityMembersRank, MemberType } from '@juki-team/commons/enums';
+import { getDocumentAccess, getUserKey } from '@juki-team/commons/helpers';
 import type { ReactNode } from 'react';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { InputToggle, Popover, T } from '../../atoms';

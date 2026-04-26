@@ -1,4 +1,4 @@
-import type { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { SubmissionSummaryListResponseDTO } from '@juki-team/commons/dto';
 import { SubmissionRejudgeButton } from '../../../molecules';
 import { Field } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer/types';

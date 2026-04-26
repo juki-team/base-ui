@@ -1,4 +1,4 @@
-import type { JkmdSheet } from '@juki-team/commons';
+import type { JkmdSheet } from '@juki-team/commons/types';
 import { type Dispatch, useState } from 'react';
 import { Input, Modal, T } from '../../../../../atoms';
 import type { BasicModalProps } from '../../../../../atoms/Modal/types';

@@ -1,4 +1,6 @@
-import { JUDGE, Judge, Status, type UserProfileResponseDTO } from '@juki-team/commons';
+import { JUDGE } from '@juki-team/commons/constants';
+import type { UserProfileResponseDTO } from '@juki-team/commons/dto';
+import { Judge, Status } from '@juki-team/commons/enums';
 import { type Dispatch, useRef, useState } from 'react';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
 import { useUIStore } from '../../../stores/ui/useUIStore';

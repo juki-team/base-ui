@@ -1,4 +1,5 @@
-import { getDays, getHours, getMinutes, getMonths, getYears, ONE_DAY } from '@juki-team/commons';
+import { ONE_DAY } from '@juki-team/commons/constants';
+import { getDays, getHours, getMinutes, getMonths, getYears } from '@juki-team/commons/helpers';
 import { useState } from 'react';
 import { DateLiteral } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';

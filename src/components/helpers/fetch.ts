@@ -1,6 +1,6 @@
 import { HEADER_JUKI_FORWARDED_HOST, HEADER_JUKI_METADATA, HEADER_JUKI_VISITOR_SESSION_ID } from '@juki-team/commons/constants';
-import { ErrorCode, type FilesJukiPub, HTTPMethod, JkError, Status, type Theme } from '@juki-team/commons/enums';
-import { cleanRequest, consoleError, consoleInfo, consoleWarn, isObjectJson } from '@juki-team/commons/helpers';
+import { ErrorCode, type FilesJukiPub, HTTPMethod, Status, type Theme } from '@juki-team/commons/enums';
+import { cleanRequest, consoleError, consoleInfo, consoleWarn, isObjectJson, JkError } from '@juki-team/commons/helpers';
 import type { ContentResponse, ContentsResponse, ErrorResponse } from '@juki-team/commons/types';
 import type { ErrorInfo } from 'react';
 import { JUKI_TOKEN_NAME } from '../../constants/settings';
@@ -32,10 +32,7 @@ export function getVisitorSessionId(): string {
   return getQuerySessionId() || '';
 }
 
-export const authorizedRequest = async <
-  M extends Exclude<HTTPMethod, HTTPMethod.GET> = HTTPMethod.POST,
-  N extends Blob | string = string,
->(
+export const authorizedRequest = async <M extends Exclude<HTTPMethod, 'GET'> = 'POST', N extends Blob | string = string>(
   url: string,
   options?: AuthorizedRequestType<M>,
   safe?: boolean,
@@ -51,7 +48,7 @@ export const getAuthorizedRequest = async <N extends Blob | string = string>(
   return _authorizedRequest(url, options, safe);
 };
 
-const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N extends Blob | string = string>(
+const _authorizedRequest = async <M extends HTTPMethod = 'GET', N extends Blob | string = string>(
   url: string,
   options?: Partial<AuthorizedRequestType<M>>,
   safe?: boolean,
@@ -175,12 +172,12 @@ export const handleUploadImage = async (
   isPublic: boolean,
 ): Promise<
   | {
-      status: Status.ERROR;
+      status: 'ERROR';
       message: string;
       content: null;
     }
   | {
-      status: Status.SUCCESS;
+      status: 'SUCCESS';
       message: string;
       content: { imageUrl: string; signedUrl: string };
     }
@@ -220,12 +217,12 @@ export const handleUploadFile = async (
   folder: FilesJukiPub,
 ): Promise<
   | {
-      status: Status.ERROR;
+      status: 'ERROR';
       message: string;
       content: null;
     }
   | {
-      status: Status.SUCCESS;
+      status: 'SUCCESS';
       message: string;
       content: { imageUrl: string; signedUrl: string };
     }

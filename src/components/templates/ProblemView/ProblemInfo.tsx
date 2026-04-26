@@ -1,12 +1,6 @@
-import {
-  CODE_LANGUAGE,
-  Judge,
-  Language,
-  PROBLEM_MODE,
-  PROBLEM_TYPE,
-  ProblemScoringMode,
-  type ProblemSettings,
-} from '@juki-team/commons';
+import { CODE_LANGUAGE, PROBLEM_MODE, PROBLEM_TYPE } from '@juki-team/commons/constants';
+import { Judge, Language, ProblemScoringMode } from '@juki-team/commons/enums';
+import type { ProblemSettings } from '@juki-team/commons/types';
 import { Children, Fragment, type PropsWithChildren, type ReactNode } from 'react';
 import { Popover, T } from '../../atoms';
 import { classNames } from '../../helpers';

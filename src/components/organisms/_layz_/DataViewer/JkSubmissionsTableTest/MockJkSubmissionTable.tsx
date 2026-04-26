@@ -1,10 +1,10 @@
 import type {
-  ContentsResponse,
   JudgeSummaryListResponseDTO,
   JudgeSystemSummaryListResponseDTO,
   ProblemSummaryListResponseDTO,
   SubmissionSummaryListResponseDTO,
-} from '@juki-team/commons';
+} from '@juki-team/commons/dto';
+import type { ContentsResponse } from '@juki-team/commons/types';
 import { useMemo } from 'react';
 import { jukiApiManager } from '../../../../../settings';
 import { toFilterUrl, toSortUrl } from '../../../../helpers';

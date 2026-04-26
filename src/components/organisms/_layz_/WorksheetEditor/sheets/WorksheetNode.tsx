@@ -1,12 +1,12 @@
-import {
-  type BodyWorksheet,
-  type CodeEditorSheet,
-  type GraphSheet,
-  type JkmdSheet,
-  type QuizOptionsSheet,
-  type QuizProblemSheet,
-  WorksheetType,
-} from '@juki-team/commons';
+import { WorksheetType } from '@juki-team/commons/enums';
+import type {
+  BodyWorksheet,
+  CodeEditorSheet,
+  GraphSheet,
+  JkmdSheet,
+  QuizOptionsSheet,
+  QuizProblemSheet,
+} from '@juki-team/commons/types';
 import { Fragment } from 'react';
 import { DetectRequestAnimationFrame } from '../../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
 // import 'reveal.js/dist/reveal.css';

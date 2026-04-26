@@ -1,4 +1,6 @@
-import { type ContentResponse, cleanRequest, DataViewMode, Status } from '@juki-team/commons';
+import { DataViewMode, Status } from '@juki-team/commons/enums';
+import { cleanRequest } from '@juki-team/commons/helpers';
+import type { ContentResponse } from '@juki-team/commons/types';
 import {
   type ElementType,
   type MouseEventHandler,

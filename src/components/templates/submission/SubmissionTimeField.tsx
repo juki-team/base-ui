@@ -1,4 +1,4 @@
-import { CODE_LANGUAGE } from '@juki-team/commons';
+import { CODE_LANGUAGE } from '@juki-team/commons/constants';
 import { classNames } from '../../helpers';
 import { Field, FieldText } from '../../organisms';
 import { SubmissionMemory } from '../../organisms/SubmitView/commons/SubmissionMemory';

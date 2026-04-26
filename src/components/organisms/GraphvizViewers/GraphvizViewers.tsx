@@ -1,4 +1,4 @@
-import { CodeLanguage } from '@juki-team/commons';
+import { CodeLanguage } from '@juki-team/commons/enums';
 import { useEffect, useState } from 'react';
 import { Button, Input, Modal, T } from '../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, CodeIcon, PlayCircleIcon, ReplyIcon, StopCircleIcon } from '../../atoms/server';

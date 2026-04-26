@@ -1,4 +1,4 @@
-import { getWorksheetsInPages } from '@juki-team/commons';
+import { getWorksheetsInPages } from '@juki-team/commons/helpers';
 import { useMemo } from 'react';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useSyncedState } from '../../../hooks/useSyncedState';

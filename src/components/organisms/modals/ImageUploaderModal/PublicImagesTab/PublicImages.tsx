@@ -1,4 +1,5 @@
-import { type ImageSummaryResponseDTO, NotificationType } from '@juki-team/commons';
+import type { ImageSummaryResponseDTO } from '@juki-team/commons/dto';
+import { NotificationType } from '@juki-team/commons/enums';
 import { T } from '../../../../atoms';
 import { copy } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';

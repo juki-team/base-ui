@@ -1,10 +1,5 @@
-import {
-  CODE_LANGUAGE,
-  CodeLanguage,
-  ONE_SECOND,
-  ProfileSetting,
-  RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
-} from '@juki-team/commons';
+import { CODE_LANGUAGE, ONE_SECOND, RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES } from '@juki-team/commons/constants';
+import { CodeLanguage, ProfileSetting } from '@juki-team/commons/enums';
 import { type ReactNode, useMemo, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES } from '../../../../../constants';

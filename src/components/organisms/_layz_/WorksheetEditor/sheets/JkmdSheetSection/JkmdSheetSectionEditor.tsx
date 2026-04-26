@@ -1,4 +1,4 @@
-import type { JkmdSheet } from '@juki-team/commons';
+import type { JkmdSheet } from '@juki-team/commons/types';
 import { Input, T } from '../../../../../atoms';
 import { MdMathEditor } from '../../../MdMathEditor';
 import type { SetContentType } from '../../types';

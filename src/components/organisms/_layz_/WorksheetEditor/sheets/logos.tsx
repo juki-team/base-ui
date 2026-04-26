@@ -1,4 +1,4 @@
-import { WorksheetType } from '@juki-team/commons';
+import { WorksheetType } from '@juki-team/commons/enums';
 import type { ReactNode } from 'react';
 import { ArticleIcon, BubbleChartIcon, CodeIcon, EventListIcon, ExtensionIcon } from '../../../../atoms/server';
 import type { BasicIconProps } from '../../../../atoms/server/icons/types';

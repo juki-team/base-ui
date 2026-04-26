@@ -1,4 +1,4 @@
-import { padStart } from '@juki-team/commons/number';
+import { padStart } from '@juki-team/commons/helpers';
 import { Fragment } from 'react';
 import { T } from '../../atoms';
 import { classNames, cutTimeSplit } from '../../helpers';

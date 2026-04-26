@@ -1,4 +1,4 @@
-import type { CodeLanguage } from '@juki-team/commons';
+import type { CodeLanguage } from '@juki-team/commons/enums';
 import type { CSSProperties } from 'react';
 
 export interface CodeViewerProps {

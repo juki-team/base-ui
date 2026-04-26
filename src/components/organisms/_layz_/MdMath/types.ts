@@ -1,5 +1,4 @@
-import type { Theme } from '@juki-team/commons';
-
+import type { Theme } from '@juki-team/commons/enums';
 export type CommandsObjectType = {
   textAlign?: string;
   imgAlign?: string;

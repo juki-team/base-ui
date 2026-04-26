@@ -1,4 +1,4 @@
-import type { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { SubmissionSummaryListResponseDTO } from '@juki-team/commons/dto';
 import { classNames } from '../../../helpers';
 import { FieldText } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer/types';

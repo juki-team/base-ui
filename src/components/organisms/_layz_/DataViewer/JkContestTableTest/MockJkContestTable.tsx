@@ -1,4 +1,4 @@
-import type { ContestSummaryListResponseDTO } from '@juki-team/commons';
+import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { T } from '../../../../atoms';
 import { ButtonLoader } from '../../../../molecules';

@@ -1,4 +1,6 @@
-import { isQuizProblemSheet, isStringJson, type QuizProblemSheet, WorksheetType } from '@juki-team/commons';
+import { WorksheetType } from '@juki-team/commons/enums';
+import { isQuizProblemSheet, isStringJson } from '@juki-team/commons/helpers';
+import type { QuizProblemSheet } from '@juki-team/commons/types';
 import { useRef, useState } from 'react';
 import { T } from '../../../../../atoms';
 import { CheckIcon } from '../../../../../atoms/server';

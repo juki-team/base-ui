@@ -1,4 +1,6 @@
-import { type CodeEditorSheet, isCodeEditorSheet, isStringJson, WorksheetType } from '@juki-team/commons';
+import { WorksheetType } from '@juki-team/commons/enums';
+import { isCodeEditorSheet, isStringJson } from '@juki-team/commons/helpers';
+import type { CodeEditorSheet } from '@juki-team/commons/types';
 import { useRef, useState } from 'react';
 import { FloatToolbar } from '../../../../../molecules';
 import { ChunkTitle } from '../ChunkTitle';

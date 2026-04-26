@@ -1,4 +1,4 @@
-import { consoleError } from '@juki-team/commons';
+import { consoleError } from '@juki-team/commons/helpers';
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { Button, T } from '../../atoms';

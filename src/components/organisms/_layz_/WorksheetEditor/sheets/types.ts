@@ -1,5 +1,4 @@
-import type { BodyWorksheet } from '@juki-team/commons';
-
+import type { BodyWorksheet } from '@juki-team/commons/types';
 import type { UserResultsType } from '../../../../types';
 import type { SetContentType, SetSheetType } from '../types';
 

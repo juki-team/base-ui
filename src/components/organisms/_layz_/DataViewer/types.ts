@@ -1,4 +1,4 @@
-import type { DataViewMode } from '@juki-team/commons';
+import type { DataViewMode } from '@juki-team/commons/enums';
 import type { CSSProperties, Dispatch, FC, PropsWithChildren, ReactNode, RefObject, SetStateAction } from 'react';
 import type { UseResizeDetectorReturn } from 'react-resize-detector';
 import type { DatePickerDateFunType, OptionType } from '../../../molecules/types';

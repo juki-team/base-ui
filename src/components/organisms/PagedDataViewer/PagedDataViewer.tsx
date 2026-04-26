@@ -1,4 +1,4 @@
-import type { ContentsResponse } from '@juki-team/commons';
+import type { ContentsResponse } from '@juki-team/commons/types';
 import { useMemo, useRef } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS, PAGE_SIZE_OPTIONS } from '../../../constants';
 import { usePageStore } from '../../../stores/page/usePageStore';

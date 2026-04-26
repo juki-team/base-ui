@@ -1,4 +1,4 @@
-import { Judge } from '@juki-team/commons';
+import { Judge } from '@juki-team/commons/enums';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupJukiProvider } from '../../mockup';
 import { UserProfile } from './UserProfile';

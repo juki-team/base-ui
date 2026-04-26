@@ -1,4 +1,4 @@
-import { NotificationType, Status } from '@juki-team/commons';
+import { NotificationType, Status } from '@juki-team/commons/enums';
 import { type ClipboardEventHandler, type Dispatch, type RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
@@ -72,7 +72,7 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [mdSource, setMdSource] = useState(source);
   const [editing, setEditing] = useState(initEditMode);
-  const [loader, setLoader] = useState(Status.NONE);
+  const [loader, setLoader] = useState<Status>(Status.NONE);
   const layoutEditorRef = useRef<HTMLDivElement>(null);
   const { addNotification } = useJukiNotification();
   const [openUploadModal, setOpenUploadModal] = useState(false);

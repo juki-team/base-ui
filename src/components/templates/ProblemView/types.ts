@@ -1,4 +1,4 @@
-import type { ProblemDataResponseDTO } from '@juki-team/commons';
+import type { ProblemDataResponseDTO } from '@juki-team/commons/dto';
 import type { ReactNode } from 'react';
 import type { IconProps } from '../../atoms/server/icons/types';
 import type { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../organisms/types';

@@ -1,14 +1,7 @@
-import {
-  CODE_LANGUAGE,
-  type CodeEditorFile,
-  type CodeEditorFiles,
-  type CodeEditorTestCases,
-  CodeLanguage,
-  isStringJson,
-  removeExtension,
-  SubmissionRunStatus,
-  Theme,
-} from '@juki-team/commons';
+import { CODE_LANGUAGE } from '@juki-team/commons/constants';
+import { CodeLanguage, SubmissionRunStatus, Theme } from '@juki-team/commons/enums';
+import { isStringJson, removeExtension } from '@juki-team/commons/helpers';
+import type { CodeEditorFile, CodeEditorFiles, CodeEditorTestCases } from '@juki-team/commons/types';
 import type { RefAttributes } from 'react';
 import {
   type Dispatch,

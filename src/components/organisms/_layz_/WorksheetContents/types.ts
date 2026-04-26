@@ -1,5 +1,4 @@
-import type { WorksheetsInPages } from '@juki-team/commons';
-
+import type { WorksheetsInPages } from '@juki-team/commons/types';
 import type { OnPageChange } from '../WorksheetViewer/types';
 
 export interface WorksheetContentsProps {

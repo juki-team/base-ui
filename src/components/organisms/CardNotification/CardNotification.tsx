@@ -1,4 +1,4 @@
-import { NotificationType } from '@juki-team/commons';
+import { NotificationType } from '@juki-team/commons/enums';
 import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { classNames, getTextContent } from '../../helpers';

@@ -51,7 +51,7 @@ export const useJukiUser = () => {
   const userMutate = useUserStore((state) => state.mutate);
 
   const doRequest = useCallback(
-    async <T, M extends Exclude<HTTPMethod, HTTPMethod.GET>>({
+    async <T, M extends Exclude<HTTPMethod, 'GET'>>({
       url,
       options,
       setLoader,
@@ -93,7 +93,7 @@ export const useJukiUser = () => {
         await userMutate();
         await onSuccess?.(response);
       };
-      await doRequest<PingResponseDTO, HTTPMethod.POST>({ url, options, onSuccess: onSuccessWrap, ...props });
+      await doRequest<PingResponseDTO, 'POST'>({ url, options, onSuccess: onSuccessWrap, ...props });
     },
     [doRequest, userMutate],
   );
@@ -115,7 +115,7 @@ export const useJukiUser = () => {
         await userMutate();
         await onSuccess?.(response);
       };
-      await doRequest<PingResponseDTO, HTTPMethod.POST>({ url, options, onSuccess: onSuccessWrap, ...props });
+      await doRequest<PingResponseDTO, 'POST'>({ url, options, onSuccess: onSuccessWrap, ...props });
     },
     [doRequest, userMutate],
   );
@@ -134,7 +134,7 @@ export const useJukiUser = () => {
       PingResponseDTO
     >) => {
       const { url, ...options } = jukiApiManager.API_V2.auth.createUser({ params, body });
-      await doRequest<PingResponseDTO, HTTPMethod.POST>({ url, options, ...props });
+      await doRequest<PingResponseDTO, 'POST'>({ url, options, ...props });
     },
     [doRequest],
   );
@@ -153,7 +153,7 @@ export const useJukiUser = () => {
       string
     >) => {
       const { url, ...options } = jukiApiManager.API_V2.user.updateProfileData({ params, body });
-      await doRequest<string, HTTPMethod.PUT>({ url, options, ...props });
+      await doRequest<string, 'PUT'>({ url, options, ...props });
     },
     [doRequest],
   );
@@ -233,7 +233,7 @@ export const useJukiUser = () => {
         params,
         body,
       });
-      await doRequest<string, HTTPMethod.POST>({ url, options, ...props });
+      await doRequest<string, 'POST'>({ url, options, ...props });
     },
     [doRequest],
   );
@@ -241,7 +241,7 @@ export const useJukiUser = () => {
   const resetUserPassword = useCallback(
     async ({ params: { companyKey, nickname }, ...props }: ApiParamsType<{ companyKey: string; nickname: string }, string>) => {
       const { url, ...options } = jukiApiManager.API_V2.auth.resetPassword({ params: { companyKey, nickname } });
-      await doRequest<string, HTTPMethod.POST>({ url, options, ...props });
+      await doRequest<string, 'POST'>({ url, options, ...props });
     },
     [doRequest],
   );
@@ -260,7 +260,7 @@ export const useJukiUser = () => {
         await onError?.(response);
       };
 
-      await doRequest<string, HTTPMethod.POST>({
+      await doRequest<string, 'POST'>({
         url,
         options,
         onError: onErrorWrap,
@@ -274,7 +274,7 @@ export const useJukiUser = () => {
   const deleteUserSession = useCallback(
     async ({ params, ...props }: ApiParamsType<{ sessionId: string }, string>) => {
       const { url, ...options } = jukiApiManager.API_V2.user.deleteSession({ params });
-      await doRequest<string, HTTPMethod.DELETE>({ url, options, ...props });
+      await doRequest<string, 'DELETE'>({ url, options, ...props });
     },
     [doRequest],
   );
@@ -282,7 +282,7 @@ export const useJukiUser = () => {
   const updateUserPreferences = useCallback(
     async ({ params, body, ...props }: ApiParamsBodyType<{ nickname: string; companyKey: string }, UserSettings, string>) => {
       const { url, ...options } = jukiApiManager.API_V2.user.updatePreferences({ params, body });
-      await doRequest<string, HTTPMethod.PUT>({ url, options, ...props });
+      await doRequest<string, 'PUT'>({ url, options, ...props });
     },
     [doRequest],
   );

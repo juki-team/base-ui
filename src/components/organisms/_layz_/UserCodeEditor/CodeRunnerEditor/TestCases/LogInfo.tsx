@@ -1,4 +1,6 @@
-import { getDataOfTestCase, ONE_SECOND, SubmissionRunStatus } from '@juki-team/commons';
+import { ONE_SECOND } from '@juki-team/commons/constants';
+import { SubmissionRunStatus } from '@juki-team/commons/enums';
+import { getDataOfTestCase } from '@juki-team/commons/helpers';
 import { T } from '../../../../../atoms';
 import { classNames } from '../../../../../helpers';
 import type { LogInfoProps } from '../types';

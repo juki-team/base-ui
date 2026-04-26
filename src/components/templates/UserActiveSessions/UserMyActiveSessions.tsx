@@ -1,4 +1,6 @@
-import { type ContentsResponse, type SessionBasicResponseDTO, Status } from '@juki-team/commons';
+import type { SessionBasicResponseDTO } from '@juki-team/commons/dto';
+import { Status } from '@juki-team/commons/enums';
+import type { ContentsResponse } from '@juki-team/commons/types';
 import { useMemo } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS } from '../../../constants';
 import { QueryParamKey } from '../../../enums';

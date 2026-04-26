@@ -1,5 +1,5 @@
 import { useChat } from '@ai-sdk/react';
-import { getUserKey } from '@juki-team/commons';
+import { getUserKey } from '@juki-team/commons/helpers';
 import { DefaultChatTransport } from 'ai';
 import { type CSSProperties, type DragEvent, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';

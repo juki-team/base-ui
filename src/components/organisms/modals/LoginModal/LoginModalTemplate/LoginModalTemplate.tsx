@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import type { ContentResponse, OrganizationTrustedCompanyResponseDTO } from '@juki-team/commons';
+import type { OrganizationTrustedCompanyResponseDTO } from '@juki-team/commons/dto';
+import type { ContentResponse } from '@juki-team/commons/types';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';

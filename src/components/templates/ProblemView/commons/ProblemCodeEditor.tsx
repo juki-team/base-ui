@@ -1,4 +1,6 @@
-import { type CodeEditorTestCases, type ProblemDataResponseDTO, SubmissionRunStatus } from '@juki-team/commons';
+import type { ProblemDataResponseDTO } from '@juki-team/commons/dto';
+import { SubmissionRunStatus } from '@juki-team/commons/enums';
+import type { CodeEditorTestCases } from '@juki-team/commons/types';
 import type { ReactNode } from 'react';
 import { useJudge } from '../../../hooks/useJudge';
 import { UserCodeEditor } from '../../../organisms/_layz_/UserCodeEditor';

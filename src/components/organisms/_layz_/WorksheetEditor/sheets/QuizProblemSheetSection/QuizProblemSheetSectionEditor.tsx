@@ -1,10 +1,6 @@
-import {
-  CODE_LANGUAGE,
-  type CodeLanguage,
-  type Judge,
-  type QuizProblemSheet,
-  RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
-} from '@juki-team/commons';
+import { CODE_LANGUAGE, RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES } from '@juki-team/commons/constants';
+import type { CodeLanguage, Judge } from '@juki-team/commons/enums';
+import type { QuizProblemSheet } from '@juki-team/commons/types';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../../constants';
 import { Input, InputCheckbox, MultiSelect, T } from '../../../../../atoms';
 import { ProblemSelector } from '../../../../ProblemSelector/ProblemSelector';

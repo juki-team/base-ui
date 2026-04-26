@@ -1,5 +1,5 @@
 import type { WebSocketSubscribeEventDTO, WebSocketUnsubscribeEventDTO } from '@juki-team/commons/dto';
-import { WebSocketResponseEvent } from '@juki-team/commons/enums';
+import { WebSocketResponseEvent, WebSocketSubscriptionEvent } from '@juki-team/commons/enums';
 import {
   getWebSocketResponseEventKey,
   isSubscribeClientTrackWebSocketEventDTO,
@@ -20,7 +20,7 @@ import {
   isUnsubscribeUserNotificationWebSocketEventDTO,
   join,
 } from '@juki-team/commons/helpers';
-import { type WebSocketResponseEventKey, WebSocketSubscriptionEvent } from '@juki-team/commons/types';
+import type { WebSocketResponseEventKey } from '@juki-team/commons/types';
 
 export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebSocketUnsubscribeEventDTO) {
   if (isSubscribeCodeRunStatusWebSocketEventDTO(event) || isUnsubscribeCodeRunStatusWebSocketEventDTO(event)) {

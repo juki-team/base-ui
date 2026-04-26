@@ -1,4 +1,5 @@
-import type { ContentResponse, ProblemDataResponseDTO } from '@juki-team/commons';
+import type { ProblemDataResponseDTO } from '@juki-team/commons/dto';
+import type { ContentResponse } from '@juki-team/commons/types';
 import { type ReactNode, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Modal } from '../../atoms';

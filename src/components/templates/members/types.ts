@@ -1,9 +1,9 @@
-import {
-  type DocumentMemberResponseDTO,
-  EntityAccess,
-  type EntityMembersResponseDTO,
-  type UserOrganizationBasicInfoResponseDTO,
-} from '@juki-team/commons';
+import type {
+  DocumentMemberResponseDTO,
+  EntityMembersResponseDTO,
+  UserOrganizationBasicInfoResponseDTO,
+} from '@juki-team/commons/dto';
+import { EntityAccess } from '@juki-team/commons/enums';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import type { ButtonSizeType } from '../../types';
 

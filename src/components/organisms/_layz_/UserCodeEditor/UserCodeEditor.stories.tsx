@@ -1,10 +1,6 @@
-import {
-  CODE_LANGUAGE,
-  type CodeEditorFiles,
-  CodeLanguage,
-  RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
-  SubmissionRunStatus,
-} from '@juki-team/commons';
+import { CODE_LANGUAGE, RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES } from '@juki-team/commons/constants';
+import { CodeLanguage, SubmissionRunStatus } from '@juki-team/commons/enums';
+import type { CodeEditorFiles } from '@juki-team/commons/types';
 import type { UIMessage } from 'ai';
 import { useRef, useState } from 'react';
 import { Button } from '../../../atoms';

@@ -1,4 +1,4 @@
-import { ONE_MINUTE } from '@juki-team/commons';
+import { ONE_MINUTE } from '@juki-team/commons/constants';
 import { type CSSProperties, useCallback, useState } from 'react';
 import { useSoundStore } from '../../../../stores/sound/useSoundStore';
 import { useTimer } from '../../../../stores/timer/useTimer';

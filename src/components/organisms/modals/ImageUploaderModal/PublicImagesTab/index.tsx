@@ -1,4 +1,5 @@
-import type { ContentsResponse, ImageSummaryResponseDTO } from '@juki-team/commons';
+import type { ImageSummaryResponseDTO } from '@juki-team/commons/dto';
+import type { ContentsResponse } from '@juki-team/commons/types';
 import { jukiApiManager } from '../../../../../settings';
 import { FetcherLayer } from '../../../../molecules';
 import type { onPickImageUrlType } from '../types';

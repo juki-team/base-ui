@@ -1,13 +1,7 @@
-import {
-  CodeLanguage,
-  type ContentResponse,
-  EMPTY_ENTITY_MEMBERS,
-  EntityState,
-  Judge,
-  type ProblemDataResponseDTO,
-  ProblemScoringMode,
-  ProblemType,
-} from '@juki-team/commons';
+import { EMPTY_ENTITY_MEMBERS } from '@juki-team/commons/constants';
+import type { ProblemDataResponseDTO } from '@juki-team/commons/dto';
+import { CodeLanguage, EntityState, Judge, ProblemScoringMode, ProblemType } from '@juki-team/commons/enums';
+import type { ContentResponse } from '@juki-team/commons/types';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { jukiApiManager } from '../../../settings';
 import { MockupJukiProvider } from '../../mockup';

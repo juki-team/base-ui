@@ -1,4 +1,4 @@
-import { CODE_LANGUAGE } from '@juki-team/commons';
+import { CODE_LANGUAGE } from '@juki-team/commons/constants';
 import { Field } from '../../organisms';
 import { SubmissionInfo } from './commons/SubmissionInfo';
 import type { SubmissionLanguageFieldProps } from './types';

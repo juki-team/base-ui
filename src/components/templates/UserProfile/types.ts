@@ -1,5 +1,4 @@
-import type { UserBasicResponseDTO, UserProfileResponseDTO } from '@juki-team/commons';
-
+import type { UserBasicResponseDTO, UserProfileResponseDTO } from '@juki-team/commons/dto';
 export interface UserProfileProps {
   user: UserProfileResponseDTO;
 }

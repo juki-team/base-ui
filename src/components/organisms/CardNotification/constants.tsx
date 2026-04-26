@@ -1,4 +1,4 @@
-import { NotificationType } from '@juki-team/commons';
+import { NotificationType } from '@juki-team/commons/enums';
 import { CheckIcon, ErrorIcon, InfoIIcon, WarningIcon } from '../../server';
 
 export const LAPS = 200;

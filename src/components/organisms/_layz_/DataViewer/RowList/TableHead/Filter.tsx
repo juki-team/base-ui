@@ -1,4 +1,4 @@
-import { isValidDate } from '@juki-team/commons/date';
+import { isValidDate } from '@juki-team/commons/helpers';
 import { useState } from 'react';
 import { TriggerAction } from '../../../../../../enums';
 import { Popover } from '../../../../../atoms';

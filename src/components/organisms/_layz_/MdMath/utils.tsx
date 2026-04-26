@@ -1,4 +1,4 @@
-import { Theme } from '@juki-team/commons';
+import { Theme } from '@juki-team/commons/enums';
 import type { Element } from 'hast';
 import type { CSSProperties, ReactNode } from 'react';
 import { QueryParamKey } from '../../../../enums';

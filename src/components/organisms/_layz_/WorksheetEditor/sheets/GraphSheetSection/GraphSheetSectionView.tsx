@@ -1,4 +1,4 @@
-import type { GraphSheet } from '@juki-team/commons';
+import type { GraphSheet } from '@juki-team/commons/types';
 import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
 import { Button } from '../../../../../atoms';
 import { ArrowBackIcon, ArrowForwardIcon } from '../../../../../atoms/server';

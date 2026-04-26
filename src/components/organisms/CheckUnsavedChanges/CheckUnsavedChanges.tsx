@@ -1,4 +1,4 @@
-import { CodeLanguage } from '@juki-team/commons';
+import { CodeLanguage } from '@juki-team/commons/enums';
 import { diffLines, diffWords } from 'diff';
 import microDiff from 'microdiff';
 import { cloneElement, type ReactElement, type ReactNode, useRef, useState } from 'react';

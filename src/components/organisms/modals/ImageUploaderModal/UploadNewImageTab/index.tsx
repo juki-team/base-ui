@@ -1,4 +1,4 @@
-import { NotificationType, Status } from '@juki-team/commons';
+import { NotificationType, Status } from '@juki-team/commons/enums';
 import { memo, useState } from 'react';
 import { Button, CopyToClipboard, InputToggle, T } from '../../../../atoms';
 import { classNames, handleUploadImage, toBlob } from '../../../../helpers';

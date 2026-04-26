@@ -1,4 +1,4 @@
-import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons';
+import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons/enums';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { Button, InputRadio, InputToggle, Select, T } from '../../atoms';
 import { classNames } from '../../helpers';

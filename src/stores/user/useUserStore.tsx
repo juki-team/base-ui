@@ -1,4 +1,6 @@
+import type { PingResponseDTO } from '@juki-team/commons/dto';
 import { getClientId } from '@juki-team/commons/helpers';
+import type { ContentResponse } from '@juki-team/commons/types';
 import { createContext, type PropsWithChildren, useContext, useRef } from 'react';
 import type { KeyedMutator } from 'swr';
 import { v4 } from 'uuid';
@@ -36,7 +38,7 @@ const createUserStore = (initState: InitUserState) =>
           }
         },
         isLoading: initState.isLoading,
-        mutate: null as unknown as KeyedMutator<string>,
+        mutate: null as unknown as KeyedMutator<ContentResponse<PingResponseDTO>>,
         setMutate: (mutate) => set({ mutate }),
         device: { label: '', isMobile: false, isBrowser: false, type: '', osLabel: '' },
         setDevice: (device) => set({ device }),

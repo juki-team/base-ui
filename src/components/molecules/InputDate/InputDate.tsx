@@ -1,4 +1,4 @@
-import { isValidDate } from '@juki-team/commons/date';
+import { isValidDate } from '@juki-team/commons/helpers';
 import { TriggerAction } from '../../../enums';
 import { Button, DateLiteral, Popover, T } from '../../atoms';
 import { classNames } from '../../helpers';

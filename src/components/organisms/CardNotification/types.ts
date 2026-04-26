@@ -1,4 +1,4 @@
-import type { NotificationType } from '@juki-team/commons';
+import type { NotificationType } from '@juki-team/commons/enums';
 import type { PropsWithChildren, ReactNode } from 'react';
 
 export enum NotificationAction {

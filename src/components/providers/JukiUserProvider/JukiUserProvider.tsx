@@ -1,13 +1,7 @@
-import {
-  type ContentResponse,
-  DataViewMode,
-  Language,
-  MenuViewMode,
-  ONE_MINUTE,
-  type PingResponseDTO,
-  ProfileSetting,
-  Theme,
-} from '@juki-team/commons';
+import { ONE_MINUTE } from '@juki-team/commons/constants';
+import type { PingResponseDTO } from '@juki-team/commons/dto';
+import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons/enums';
+import type { ContentResponse } from '@juki-team/commons/types';
 import { useCallback, useEffect, useRef } from 'react';
 import { JUKI_SERVICE_V2_URL } from '../../../constants/settings';
 import { jukiApiManager } from '../../../settings';

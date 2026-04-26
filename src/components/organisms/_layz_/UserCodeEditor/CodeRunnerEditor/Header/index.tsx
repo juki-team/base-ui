@@ -1,4 +1,5 @@
-import { CodeLanguage, RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES } from '@juki-team/commons';
+import { RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES } from '@juki-team/commons/constants';
+import { CodeLanguage } from '@juki-team/commons/enums';
 import domToImage from 'dom-to-image-more';
 import { type ReactNode, useCallback } from 'react';
 import { useResizeDetector } from 'react-resize-detector';

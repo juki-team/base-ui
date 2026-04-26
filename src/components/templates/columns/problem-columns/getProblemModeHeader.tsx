@@ -1,4 +1,5 @@
-import { PROBLEM_MODE, PROBLEM_MODES, type ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import { PROBLEM_MODE, PROBLEM_MODES } from '@juki-team/commons/constants';
+import type { ProblemSummaryListResponseDTO } from '@juki-team/commons/dto';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { ProblemModeField } from '../../problem/ProblemModeField';
 

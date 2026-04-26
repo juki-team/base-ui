@@ -1,14 +1,12 @@
-import {
-  type ContentResponse,
-  type ContentsResponse,
-  cleanRequest,
-  Judge,
-  type JudgeDataResponseDTO,
-  PROBLEM_TYPE,
-  type ProblemBasicSummaryListResponseDTO,
-  type ProblemSummaryListResponseDTO,
-  Status,
-} from '@juki-team/commons';
+import { PROBLEM_TYPE } from '@juki-team/commons/constants';
+import type {
+  JudgeDataResponseDTO,
+  ProblemBasicSummaryListResponseDTO,
+  ProblemSummaryListResponseDTO,
+} from '@juki-team/commons/dto';
+import { Judge, Status } from '@juki-team/commons/enums';
+import { cleanRequest } from '@juki-team/commons/helpers';
+import type { ContentResponse, ContentsResponse } from '@juki-team/commons/types';
 import { useEffect, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Input, Select, T } from '../../atoms';

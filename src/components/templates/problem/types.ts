@@ -1,4 +1,4 @@
-import type { ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import type { ProblemSummaryListResponseDTO } from '@juki-team/commons/dto';
 import type { IconProps } from '../../atoms/server/icons/types';
 import type { TableHeadFieldProps } from '../../organisms/_layz_/DataViewer/types';
 

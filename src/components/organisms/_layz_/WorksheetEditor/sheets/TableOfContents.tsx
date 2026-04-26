@@ -1,4 +1,4 @@
-import type { WorksheetsInPages } from '@juki-team/commons';
+import type { WorksheetsInPages } from '@juki-team/commons/types';
 import { QueryParamKey } from '../../../../../enums';
 import { Collapse } from '../../../../atoms';
 import { classNames } from '../../../../helpers';

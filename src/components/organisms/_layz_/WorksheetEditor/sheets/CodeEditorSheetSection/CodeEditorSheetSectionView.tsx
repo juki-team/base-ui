@@ -1,16 +1,8 @@
-import {
-  CODE_LANGUAGE,
-  type CodeEditorFiles,
-  type CodeEditorSheet,
-  type CodeEditorSubmissionDTO,
-  type CodeEditorTestCases,
-  type CodeLanguage,
-  type ContentResponse,
-  cleanRequest,
-  Status,
-  SubmissionRunStatus,
-  WorksheetType,
-} from '@juki-team/commons';
+import { CODE_LANGUAGE } from '@juki-team/commons/constants';
+import type { CodeEditorSubmissionDTO } from '@juki-team/commons/dto';
+import { type CodeLanguage, Status, SubmissionRunStatus, WorksheetType } from '@juki-team/commons/enums';
+import { cleanRequest } from '@juki-team/commons/helpers';
+import type { CodeEditorFiles, CodeEditorSheet, CodeEditorTestCases, ContentResponse } from '@juki-team/commons/types';
 import { Children, useEffect, useRef, useState } from 'react';
 import { QueryParamKey } from '../../../../../../enums';
 import { jukiApiManager } from '../../../../../../settings';

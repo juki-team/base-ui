@@ -1,4 +1,4 @@
-import { DataViewMode } from '@juki-team/commons';
+import { DataViewMode } from '@juki-team/commons/enums';
 import { Children, type CSSProperties, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../../../constants';

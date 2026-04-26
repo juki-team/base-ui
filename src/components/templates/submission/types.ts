@@ -1,4 +1,5 @@
-import type { Judge, SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { SubmissionSummaryListResponseDTO } from '@juki-team/commons/dto';
+import type { Judge } from '@juki-team/commons/enums';
 import type { TableHeadFieldProps } from '../../organisms/_layz_/DataViewer/types';
 
 type TableHeadFieldSubmissionSummaryListResponseDTOProps = TableHeadFieldProps<SubmissionSummaryListResponseDTO>;

@@ -6,7 +6,7 @@ import type {
   QuizOptionsSheet,
   QuizProblemSheet,
   QuizTextSheet,
-} from '@juki-team/commons';
+} from '@juki-team/commons/types';
 import { Children, type Dispatch } from 'react';
 import { EMPTY_LIST_SHEET } from '../../../../../../constants';
 import { Button, Collapse, T } from '../../../../../atoms';

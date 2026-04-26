@@ -1,4 +1,5 @@
-import { ProblemScoringMode, type ProblemVerdict, ProfileSetting, type TestCaseResult, Theme } from '@juki-team/commons';
+import type { TestCaseResult } from '@juki-team/commons/dto';
+import { ProblemScoringMode, type ProblemVerdict, ProfileSetting, Theme } from '@juki-team/commons/enums';
 import * as Diff2Html from 'diff2html';
 import { ColorSchemeType } from 'diff2html/lib/types';
 import type { LineMatchingType } from 'diff2html/lib-esm/types';

@@ -1,4 +1,6 @@
-import { type ContentsResponse, getUserKey, type UserSummaryListResponseDTO } from '@juki-team/commons';
+import type { UserSummaryListResponseDTO } from '@juki-team/commons/dto';
+import { getUserKey } from '@juki-team/commons/helpers';
+import type { ContentsResponse } from '@juki-team/commons/types';
 import { useEffect, useMemo, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Button, Modal, T, TextArea } from '../../atoms';

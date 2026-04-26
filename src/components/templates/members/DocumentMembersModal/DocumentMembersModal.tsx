@@ -1,4 +1,5 @@
-import { type EntityMembersResponseDTO, Status } from '@juki-team/commons';
+import type { EntityMembersResponseDTO } from '@juki-team/commons/dto';
+import { Status } from '@juki-team/commons/enums';
 import { type ReactNode, useState } from 'react';
 import { Modal, T } from '../../../atoms';
 import type { BasicModalProps } from '../../../atoms/Modal/types';

@@ -1,4 +1,4 @@
-import type { QuizOptionsSheet } from '@juki-team/commons';
+import type { QuizOptionsSheet } from '@juki-team/commons/types';
 import { type Dispatch, useState } from 'react';
 import { v4 } from 'uuid';
 import { Input, InputCheckbox, InputRadio, Modal, T } from '../../../../../atoms';

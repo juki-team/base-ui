@@ -1,16 +1,13 @@
-import type { MouseEvent, Ref } from 'react';
-import { useState } from 'react';
+import { isValidElement, type MouseEvent, type ReactNode, type Ref, useState } from 'react';
 import { TriggerAction } from '../../../enums';
 import { isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { DrawerView } from '../_lazy_/DrawerView';
 import type { DrawerProps } from './types';
 
-type DrawerChildElement = {
-  props?: {
-    ref?: Ref<HTMLElement>;
-    onMouseEnter?: (event: MouseEvent<HTMLElement>) => void;
-    onClick?: (event: MouseEvent<HTMLElement>) => void;
-  };
+type DrawerChildProps = {
+  ref?: Ref<HTMLElement>;
+  onMouseEnter?: (event: MouseEvent<HTMLElement>) => void;
+  onClick?: (event: MouseEvent<HTMLElement>) => void;
 };
 
 export function Drawer(props: DrawerProps) {
@@ -39,32 +36,29 @@ export function Drawer(props: DrawerProps) {
   const open = () => setIsOpen(true);
   const toggle = isOpen ? close : open;
 
-  const childProps = ({
-    props: {
-      ref = undefined,
-      onMouseEnter = undefined,
-      // onMouseLeave = undefined,
-      onClick = undefined,
-    } = {},
-  }: DrawerChildElement) => ({
-    ref: (e: HTMLElement | null) => {
-      if (typeof ref === 'function') {
-        ref(e);
-      }
-    },
-    onMouseEnter: (e: MouseEvent<HTMLElement>) => {
-      if (isTrigger(triggerOn, TriggerAction.HOVER)) {
-        setIsOpen(true);
-      }
-      onMouseEnter?.(e);
-    },
-    onClick: (e: MouseEvent<HTMLElement>) => {
-      if (isTrigger(triggerOn, TriggerAction.CLICK)) {
-        setIsOpen((prevState) => !prevState);
-      }
-      onClick?.(e);
-    },
-  });
+  const childProps = (node: ReactNode) => {
+    const inherited: DrawerChildProps = isValidElement(node) ? (node.props as DrawerChildProps) : {};
+    const { ref, onMouseEnter, onClick } = inherited;
+    return {
+      ref: (e: HTMLElement | null) => {
+        if (typeof ref === 'function') {
+          ref(e);
+        }
+      },
+      onMouseEnter: (e: MouseEvent<HTMLElement>) => {
+        if (isTrigger(triggerOn, TriggerAction.HOVER)) {
+          setIsOpen(true);
+        }
+        onMouseEnter?.(e);
+      },
+      onClick: (e: MouseEvent<HTMLElement>) => {
+        if (isTrigger(triggerOn, TriggerAction.CLICK)) {
+          setIsOpen((prevState) => !prevState);
+        }
+        onClick?.(e);
+      },
+    };
+  };
 
   return (
     <>
