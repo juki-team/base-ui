@@ -3,7 +3,7 @@ import { NotificationType, ProblemVerdict, SubmissionRunStatus } from '@juki-tea
 import { getDataOfTestCase, getVerdictFromTestCase, mex } from '@juki-team/commons/helpers';
 import type { CodeEditorTestCase, CodeEditorTestCases } from '@juki-team/commons/types';
 import { useEffect, useState } from 'react';
-import { InputToggle, Popover, T, TextArea } from '../../../../../atoms';
+import { Div, InputToggle, Popover, T, TextArea } from '../../../../../atoms';
 import { classNames } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../../../molecules';
@@ -327,12 +327,13 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
           const verdict = getVerdictFromTestCase(testCase, timeLimit, memoryLimit).verdict;
 
           return (
-            <div
+            <Div
               key={testCase.key}
               data-tooltip-id="jk-tooltip"
               data-tooltip-content={`${testCase.sample ? 'sample' : 'custom sample'} case`}
               data-tooltip-place="left"
               onClick={() => setTestCaseKey(testCase.key)}
+              onKeyDownClick
               className={classNames('jk-row hoverable jk-pg-xsm space-between', { 'bc-ht-lt': testCase.key === testCaseKey })}
               style={{ minWidth: 80 }}
             >
@@ -400,7 +401,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
                     <CheckIcon size="tiny" filledCircle />
                   </div>
                 ))}
-            </div>
+            </Div>
           );
         })}
         {/*TODO: add character inside de buttons to distinguish the buttons*/}

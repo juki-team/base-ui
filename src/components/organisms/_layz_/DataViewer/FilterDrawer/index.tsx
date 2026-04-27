@@ -1,7 +1,7 @@
 import { isValidDate } from '@juki-team/commons/helpers';
 import { useEffect, useState } from 'react';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
-import { Button, Input, T } from '../../../../atoms';
+import { Button, Div, Input, T } from '../../../../atoms';
 import { classNames, upperFirst } from '../../../../helpers';
 import { CheckboxList, DrawerView, InputDate } from '../../../../molecules';
 import type { OptionType } from '../../../../molecules/types';
@@ -57,14 +57,15 @@ const RenderFilterTitle = <T,>({
         <div className="fw-bd">{renderHead({ header, columnIndex })}</div>
       </div>
       {onSort ? (
-        <div
+        <Div
           className={classNames('jk-row nowrap jk-tag tx-s cr-pr', { 'bc-at-lt cr-at-it': !!order, 'bc-ht-lt': !order })}
           onClick={() => onSort({ columnIndex })}
+          onKeyDownClick
         >
           <T className="tt-se">sort</T>
           &nbsp;
           {order === 0 ? <SortIcon /> : order > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
-        </div>
+        </Div>
       ) : (
         <div />
       )}

@@ -2,6 +2,7 @@ import { Theme } from '@juki-team/commons/enums';
 import type { Element } from 'hast';
 import type { CSSProperties, ReactNode } from 'react';
 import { QueryParamKey } from '../../../../enums';
+import { Div } from '../../../atoms';
 import { classNames } from '../../../helpers';
 import type { SetSearchParamsType } from '../../../types';
 import type { CommandsFunctionsType, CommandsObjectType } from './types';
@@ -78,13 +79,14 @@ const wrapPageFocus = (children: ReactNode, setSearchParams: SetSearchParamsType
     const id = encodeURI(`${children.trim().toLowerCase().split(' ').join('-')}`);
 
     return (
-      <div
+      <Div
         className="jk-md-math-link-container jk-row left cr-pr"
         id={id}
         onClick={() => setSearchParams({ name: QueryParamKey.PAGE_FOCUS, value: id })}
+        onKeyDownClick
       >
         <div className="jk-md-math-link">{children}</div>
-      </div>
+      </Div>
     );
   }
 

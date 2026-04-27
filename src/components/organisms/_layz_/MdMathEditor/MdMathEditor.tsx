@@ -186,6 +186,7 @@ function MdMathEditor(props: MdMathEditorProps & { ref?: Ref<MdMathEditorHandle>
 
   return (
     <MilkdownProvider>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: onBlur tracks focus loss outside the editor; not a clickable element */}
       <div ref={wrapperRef} className={classNames('jk-md-math-editor wh-100 pn-re', className)} onBlur={onBlur}>
         {!!onBlur && <Focus />}
         {loader === Status.LOADING && <LineLoader />}

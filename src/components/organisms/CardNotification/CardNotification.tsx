@@ -67,6 +67,7 @@ export function CardNotification({ ids, type, message }: CardNotificationProps) 
   }, [exit, idsString, removeNotification]);
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: hover-only handlers to pause auto-dismiss timer; not a clickable element
     <div
       // onMouseEnter={type !== NotificationType.QUIET ? handleStopTimer : undefined}
       // onMouseLeave={type !== NotificationType.QUIET ? handleStartTimer : undefined}

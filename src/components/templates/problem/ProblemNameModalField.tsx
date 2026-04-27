@@ -2,7 +2,7 @@ import type { ProblemDataResponseDTO } from '@juki-team/commons/dto';
 import type { ContentResponse } from '@juki-team/commons/types';
 import { type ReactNode, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
-import { Modal } from '../../atoms';
+import { Div, Modal } from '../../atoms';
 import { classNames } from '../../helpers';
 import { FetcherLayer } from '../../molecules';
 import { Field } from '../../organisms';
@@ -23,7 +23,7 @@ export function ProblemNameModalField(props: ProblemNameModalFieldProps) {
     <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
       {modal}
       <div className="jk-row nowrap">
-        <div
+        <Div
           className={classNames('jk-row link', { 'ta-lt': !isCard })}
           onClick={() => {
             setModal(
@@ -42,9 +42,10 @@ export function ProblemNameModalField(props: ProblemNameModalFieldProps) {
               </Modal>,
             );
           }}
+          onKeyDownClick
         >
           {(shortname ? `[${shortname}] ` : '') + name}
-        </div>
+        </Div>
         {(user.tried || user.solved) && <>&nbsp;</>}
         <ProblemStatus {...user} size="small" />
         {user.isManager && (

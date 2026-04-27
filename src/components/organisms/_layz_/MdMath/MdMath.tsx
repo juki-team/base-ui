@@ -16,7 +16,7 @@ import { jukiApiManager } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { Button, DetectRequestAnimationFrame } from '../../../atoms';
+import { Button, DetectRequestAnimationFrame, Div } from '../../../atoms';
 import { VisibilityIcon, VisibilityOffIcon } from '../../../atoms/server';
 import { classNames } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
@@ -241,13 +241,14 @@ function MdMathComponent(props: MdMathProps) {
             if (href?.startsWith('#')) {
               const id = encodeURI(href.replace('#', ''));
               return (
-                <div
+                <Div
                   className="jk-md-math-link-container jk-row left cr-pr"
                   id={id}
                   onClick={() => setSearchParams({ name: QueryParamKey.PAGE_FOCUS, value: id })}
+                  onKeyDownClick
                 >
                   <div className="jk-md-math-link">{children as ReactNode}</div>
-                </div>
+                </Div>
               );
             }
 

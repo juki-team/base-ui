@@ -1,7 +1,7 @@
 import type { GraphSheet } from '@juki-team/commons/types';
 import { useState } from 'react';
 import { DEFAULT_GRAPH } from '../../../../../../constants';
-import { Button, Input, T } from '../../../../../atoms';
+import { Button, Div, Input, T } from '../../../../../atoms';
 import { AddIcon, ArrowBackIcon, ArrowForwardIcon, DeleteIcon } from '../../../../../atoms/server';
 import { classNames } from '../../../../../helpers';
 import { GraphvizEditor } from '../../../../GraphvizEditor/GraphvizEditor';
@@ -42,13 +42,14 @@ export const GraphSheetSectionEditor = ({ content, setContent }: GraphSheetSecti
           size="small"
         />
         {new Array(content.dots.length).fill(1).map((_, index) => (
-          <div
+          <Div
             className={classNames('jk-tag clickable', { 'bc-sf-hi': index !== frame })}
             onClick={() => setFrame(index)}
+            onKeyDownClick
             key={index}
           >
             {index + 1}
-          </div>
+          </Div>
         ))}
         <Button
           icon={<ArrowForwardIcon />}

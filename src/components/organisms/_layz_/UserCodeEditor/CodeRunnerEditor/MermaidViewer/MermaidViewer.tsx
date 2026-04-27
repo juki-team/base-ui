@@ -241,6 +241,7 @@ export const MermaidViewer = (props: MermaidViewerProps) => {
               )}
             </div>
           )}
+          {/* biome-ignore lint/a11y/noStaticElementInteractions: pan/zoom container with mouse-only drag interactions */}
           <div
             ref={wheelContainerRef}
             className="wh-100"

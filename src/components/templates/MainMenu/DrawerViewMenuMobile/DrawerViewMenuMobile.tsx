@@ -1,7 +1,7 @@
 import { Children, type ReactNode, useState } from 'react';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { T } from '../../../atoms';
+import { Div, T } from '../../../atoms';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import type { MenuType } from '../../../organisms/types';
 import { ArrowBackIcon, CloseIcon } from '../../../server';
@@ -53,16 +53,17 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: 
             {Children.toArray(
               menu.map(({ selected, icon, label, menuItemWrapper }, index) => {
                 const menuItem = (
-                  <div
+                  <Div
                     className={classNames('jk-menu-item jk-row extend gap nowrap left jk-br-ie bc-pd cr-tx-ht-it', {
                       selected: !!selected,
                     })}
                     key={index}
                     onClick={onClose}
+                    onKeyDownClick
                   >
                     {icon && <div>{renderReactNodeOrFunction(icon)}</div>}
                     <div className="jk-menu-item-label">{renderReactNodeOrFunction(label)}</div>
-                  </div>
+                  </Div>
                 );
 
                 if (menuItemWrapper) {

@@ -261,6 +261,7 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
       ) : (
         <div className="content-preview">
           <MdFloatToolbar source={mdSource} edit onEdit={() => setEditing(true)} download={downloadButton} />
+          {/* biome-ignore lint/a11y/noStaticElementInteractions: double-click on preview enters edit mode; mouse-only quick-edit affordance */}
           <div
             className="preview"
             onDoubleClick={() => {

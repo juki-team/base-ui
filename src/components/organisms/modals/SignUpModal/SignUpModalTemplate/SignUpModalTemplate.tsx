@@ -215,9 +215,9 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
             <div className="jk-pg-b">
               <p className="label">
                 <T className="tt-se">are you already a member?</T>,&nbsp;
-                <span className="link" onClick={onSignInButton}>
+                <button type="button" className="link" onClick={onSignInButton}>
                   <T>sign in now</T>
-                </span>
+                </button>
               </p>
             </div>
             <div className="jk-row-col gap block">

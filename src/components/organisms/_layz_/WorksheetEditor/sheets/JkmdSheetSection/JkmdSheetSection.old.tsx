@@ -51,6 +51,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
   const text = content.content.trim();
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: double-click enters edit mode; mouse-only quick-edit affordance
     <div
       ref={sectionRef}
       className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100 jk-md-sheet-section hr-e1"

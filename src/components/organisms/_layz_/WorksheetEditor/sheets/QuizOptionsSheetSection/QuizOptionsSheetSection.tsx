@@ -51,6 +51,7 @@ export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheet>) =
   const [checkedOptions, setCheckedOptions] = useSyncedState<string[]>(lastSubmission?.checkedOptions ?? []);
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: double-click enters edit mode; mouse-only quick-edit affordance
     <div ref={sectionRef} className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100" onDoubleClick={() => setEdit(true)}>
       {setContent && (
         <EditSheetModal

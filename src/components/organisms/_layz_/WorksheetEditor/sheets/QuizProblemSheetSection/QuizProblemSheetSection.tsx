@@ -43,6 +43,7 @@ export const QuizProblemSheetSection = (props: SheetSection<QuizProblemSheet>) =
   const lastSubmission = submissions.at(-1);
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: double-click enters edit mode; mouse-only quick-edit affordance
     <div className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100" onDoubleClick={() => setEdit(true)}>
       {setContent && (
         <EditSheetModal

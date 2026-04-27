@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { jukiApiManager } from '../../../../../settings';
 import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
-import { Input, InputPassword, InputSelect, T } from '../../../../atoms';
+import { Div, Input, InputPassword, InputSelect, T } from '../../../../atoms';
 import { InfoIIcon } from '../../../../atoms/server';
 import { classNames } from '../../../../helpers';
 import { useFetcher } from '../../../../hooks/useFetcher';
@@ -178,17 +178,22 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
             </div>
             <div className="jk-col gap stretch">
               <div className="jk-row left">
-                <div className="link" data-tour-key="forgot-password" onClick={() => setOpenForgotPasswordModal(true)}>
+                <Div
+                  className="link"
+                  data-tour-key="forgot-password"
+                  onClick={() => setOpenForgotPasswordModal(true)}
+                  onKeyDownClick
+                >
                   <T className="tt-se">forgot password?</T>
-                </div>
+                </Div>
               </div>
               {!multiOrganizations && (
                 <div>
                   <p className="label">
                     <T className="tt-se">not a member?</T>,&nbsp;
-                    <span className="link" onClick={onSignUpButton}>
+                    <button type="button" className="link" onClick={onSignUpButton}>
                       <T>sign up now</T>
-                    </span>
+                    </button>
                   </p>
                 </div>
               )}

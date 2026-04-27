@@ -64,6 +64,8 @@ const ToolbarButtonIcon = ({
   rotate,
   disabled = false,
 }: PropsWithChildren<ToolbarButtonIconProps>) => (
+  // biome-ignore lint/a11y/noStaticElementInteractions: ToolbarButtonIcon uses MouseEvent in onClick (not compatible with <Div>); keyboard not yet implemented
+  // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard handler not yet implemented for toolbar icon buttons
   <div
     data-tooltip-id="jk-tooltip"
     data-tooltip-content={tooltipContent}

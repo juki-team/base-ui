@@ -1,7 +1,7 @@
 import { Children, type ReactNode } from 'react';
 import { TriggerAction } from '../../../enums';
 import { usePageStore } from '../../../stores/page/usePageStore';
-import { Button } from '../../atoms';
+import { Button, Div } from '../../atoms';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { Drawer } from '../../molecules';
 import type { DrawerActionsType } from '../../molecules/Drawer/types';
@@ -29,18 +29,19 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
     if (!item) continue;
     const { selected, icon, label, onClick, menuItemWrapper } = item;
     const menuItem = (
-      <div
+      <Div
         className={classNames('jk-menu-item pn-re jk-pg-xsm jk-br-ie nowrap cr-pr', {
           'selected cr-tx-ht-it': !!selected,
           'jk-row gap cr-tx-ht-it': !isSmallScreen,
           'jk-col flex-1 bottom': isSmallScreen,
         })}
         onClick={() => onClick?.()}
+        onKeyDownClick
         key={i}
       >
         {icon && <div className="jk-menu-item-icon jk-row">{renderReactNodeOrFunction(icon)}</div>}
         <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(label)}</div>
-      </div>
+      </Div>
     );
     if (menuItemWrapper) {
       menus.push(

@@ -1,6 +1,6 @@
 import type { GraphSheet } from '@juki-team/commons/types';
 import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
-import { Button } from '../../../../../atoms';
+import { Button, Div } from '../../../../../atoms';
 import { ArrowBackIcon, ArrowForwardIcon } from '../../../../../atoms/server';
 import { classNames } from '../../../../../helpers';
 import { GraphvizViewer } from '../../../GraphvizViewer';
@@ -39,13 +39,14 @@ export const GraphSheetSectionView = ({ content, setSheet }: GraphSheetSectionPr
           size="small"
         />
         {new Array(content.dots.length).fill(1).map((_, index) => (
-          <div
+          <Div
             className={classNames('jk-tag clickable', { 'bc-sf-hi': index !== frame })}
             onClick={() => setFrame(index)}
+            onKeyDownClick
             key={index}
           >
             {index + 1}
-          </div>
+          </Div>
         ))}
         <Button
           icon={<ArrowForwardIcon />}

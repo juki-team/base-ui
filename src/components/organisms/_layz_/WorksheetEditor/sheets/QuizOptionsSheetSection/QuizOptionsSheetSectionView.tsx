@@ -1,6 +1,6 @@
 import type { QuizOptionsSheet } from '@juki-team/commons/types';
 import type { Dispatch, SetStateAction } from 'react';
-import { InputCheckbox, InputRadio, T } from '../../../../../atoms';
+import { Div, InputCheckbox, InputRadio, T } from '../../../../../atoms';
 import { classNames } from '../../../../../helpers';
 import { MdMathViewer } from '../../../../MdMathViewer/MdMathViewer';
 
@@ -20,7 +20,7 @@ export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
       <T className="tt-se fw-bd cr-tx-ht">{content.multiple ? 'select one or more options' : 'select one option'}</T>
       <div className="jk-col stretch left gap">
         {content.options.map((option) => (
-          <div
+          <Div
             className={classNames('jk-row gap nowrap extend left jk-br-ie option jk-br-ie jk-pg-xsm-rl', {
               'bc-ht-lt': checkedOptions.includes(option.id),
             })}
@@ -40,6 +40,7 @@ export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
                     }
                   }
             }
+            onKeyDownClick
           >
             {content.multiple ? (
               <InputCheckbox
@@ -57,7 +58,7 @@ export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
             <div>
               <MdMathViewer source={option.label} />
             </div>
-          </div>
+          </Div>
         ))}
       </div>
     </div>

@@ -1,7 +1,7 @@
 import type { QuizOptionsSheet } from '@juki-team/commons/types';
 import { type Dispatch, useState } from 'react';
 import { v4 } from 'uuid';
-import { Input, InputCheckbox, InputRadio, Modal, T } from '../../../../../atoms';
+import { Div, Input, InputCheckbox, InputRadio, Modal, T } from '../../../../../atoms';
 import type { BasicModalProps } from '../../../../../atoms/Modal/types';
 import { AddIcon } from '../../../../../atoms/server';
 import { MdMathEditor } from '../../../MdMathEditor';
@@ -62,7 +62,7 @@ export const QuizOptionsSheetSectionEditorModal = ({
                 />
               </div>
             ))}
-            <div
+            <Div
               className="jk-row gap"
               onClick={() =>
                 setSheet((prevState) => ({
@@ -70,9 +70,10 @@ export const QuizOptionsSheetSectionEditorModal = ({
                   options: [...prevState.options, { label: '', correct: false, id: v4() }],
                 }))
               }
+              onKeyDownClick
             >
               <AddIcon /> <T className="tt-se">add option</T>
-            </div>
+            </Div>
           </div>
         </div>
       </div>

@@ -14,6 +14,7 @@ export const TableHeadFilterText = (props: TableHeadFilterTextProps) => {
   }, [visible]);
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: keyboard-only handler captures Enter from the inner Input to apply filter
     <div
       className="jk-col gap stretch jk-table-head-cell-filter-text jk-pg-sm"
       onKeyDown={(event) => {

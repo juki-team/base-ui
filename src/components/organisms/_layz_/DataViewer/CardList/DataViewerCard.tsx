@@ -46,6 +46,8 @@ export const DataViewerCard = <T,>(props: DataViewerCardProps<T>) => {
   );
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: card uses both onClick and onMouseEnter; mouse-only interactions
+    // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard handler not yet implemented for card row selection
     <div
       className={classNames('jk-list-card jk-br', cardClassName)}
       style={{ ...cardStyle, width: cardWidth }}
