@@ -1,12 +1,12 @@
 import { WorksheetType } from '@juki-team/commons/enums';
-import { Children, forwardRef, type PropsWithChildren } from 'react';
+import { Children, type PropsWithChildren, type Ref } from 'react';
 import { classNames } from '../../../../helpers';
 import type { WorksheetBodyProps } from '../types';
 import { AddNewChild } from './AddNewChild';
 import { WorksheetNode } from './WorksheetNode';
 
-export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<WorksheetBodyProps>>(function Cmp(props, ref) {
-  const { sheetPage, setSheet, userResults, readOnly, isSolvable, worksheetKey, children, asSlides } = props;
+export function WorksheetBody(props: PropsWithChildren<WorksheetBodyProps> & { ref?: Ref<HTMLDivElement> }) {
+  const { ref, sheetPage, setSheet, userResults, readOnly, isSolvable, worksheetKey, children, asSlides } = props;
 
   return (
     <div
@@ -67,4 +67,4 @@ export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<Worksh
       {children}
     </div>
   );
-});
+}

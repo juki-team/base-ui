@@ -5,8 +5,8 @@ import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
 import {
   type Dispatch,
-  forwardRef,
   memo,
+  type Ref,
   type SetStateAction,
   useEffect,
   useImperativeHandle,
@@ -140,8 +140,9 @@ const Focus = () => {
   return null;
 };
 
-const MdMathEditor = forwardRef<MdMathEditorHandle, MdMathEditorProps>(function MdMathEditor(props, ref) {
+function MdMathEditor(props: MdMathEditorProps & { ref?: Ref<MdMathEditorHandle> }) {
   const {
+    ref,
     value,
     onChange,
     className,
@@ -231,6 +232,6 @@ const MdMathEditor = forwardRef<MdMathEditorHandle, MdMathEditorProps>(function 
       </div>
     </MilkdownProvider>
   );
-});
+}
 
 export default MdMathEditor;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { QueryParamKey } from '../../../../enums';
-import { T } from '../../../atoms';
+import { Div, T } from '../../../atoms';
 import { ArrowBackIcon, ArrowForwardIcon, ViewHeadlineIcon } from '../../../atoms/server';
 import { classNames } from '../../../helpers';
 import { TableOfContentsModal } from '../WorksheetEditor/sheets/TableOfContentsModal';
@@ -24,7 +24,7 @@ export default function WorksheetContents(props: WorksheetContentsProps) {
         sheetsInPages={sheetsInPages}
       />
       <div className="jk-row gap center">
-        <div
+        <Div
           onClick={
             page <= 1
               ? undefined
@@ -38,15 +38,16 @@ export default function WorksheetContents(props: WorksheetContentsProps) {
             'cr-tx-ds': page <= 1,
             'cr-pr hoverable': !(page <= 1),
           })}
+          onKeyDownClick
         >
           <ArrowBackIcon />
           <T className="tt-se">previous</T>
-        </div>
-        <div className="jk-row cr-pr hoverable jk-br-ie jk-pg-xsm" onClick={() => setIsOpen(true)}>
+        </Div>
+        <Div className="jk-row cr-pr hoverable jk-br-ie jk-pg-xsm" onClick={() => setIsOpen(true)} onKeyDownClick>
           <ViewHeadlineIcon />
           <T className="tt-se">table of contents</T>
-        </div>
-        <div
+        </Div>
+        <Div
           onClick={
             page === totalPages
               ? undefined
@@ -60,10 +61,11 @@ export default function WorksheetContents(props: WorksheetContentsProps) {
             'cr-tx-ds': page === totalPages,
             'cr-pr hoverable': !(page === totalPages),
           })}
+          onKeyDownClick
         >
           <T className="tt-se">next</T>
           <ArrowForwardIcon />
-        </div>
+        </Div>
       </div>
     </div>
   );

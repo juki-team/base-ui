@@ -23,7 +23,7 @@ export function EntityLogsModal({ url, ...restProps }: EntityLogsModalProps) {
                     <UserChip
                       imageUrl={customerUser.imageUrl}
                       nickname={customerUser.nickname}
-                      companyKey={customerUser.company.key}
+                      organizationKey={customerUser.organization.key}
                     />
                   </div>
                   <div className="jk-col gap stretch">

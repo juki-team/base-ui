@@ -3,7 +3,7 @@ import type { Dispatch, KeyboardEventHandler, ReactNode, SyntheticEvent } from '
 import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { Modal, Popover, T } from '../../../atoms';
+import { Div, Modal, Popover, T } from '../../../atoms';
 import { AppsIcon, HelpIcon, LoadingIcon, SpinIcon } from '../../../atoms/server';
 import { classNames } from '../../../helpers';
 import { useJukiUserSettings } from '../../../hooks/useJukiUser';
@@ -23,7 +23,7 @@ export const LanguageSetting = ({
   const isEs = preferredLanguage === Language.ES;
 
   return (
-    <div
+    <Div
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={isEs ? 'switch to english' : 'cambiar a español'}
       data-tooltip-place={popoverPlacement}
@@ -39,6 +39,7 @@ export const LanguageSetting = ({
                 },
               ])
       }
+      onKeyDownClick
     >
       {loading ? (
         <LoadingIcon />
@@ -56,7 +57,7 @@ export const LanguageSetting = ({
           <T className="tt-se">{isEs ? 'español' : 'english'}</T>
         </div>
       )}
-    </div>
+    </Div>
   );
 };
 
@@ -92,6 +93,8 @@ export const ThemeSetting = ({
   };
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: keyboard interaction is handled by the inner <input role="switch"> via handleKeypress
+    // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard handled by inner <input role="switch">
     <div
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={isDark ? 'switch to light mode' : 'switch to dark mode'}
@@ -152,12 +155,13 @@ export const SettingsSection = (props: SettingsSectionProps) => {
   const margin = (popoverPlacement === 'right' && isOpen) || !(viewPortSize === 'md' && popoverPlacement === 'bottom');
 
   const helpContent = (
-    <div
+    <Div
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={isOpen ? '' : 'help'}
       data-tooltip-place={popoverPlacement}
       className="jk-row gap center extend"
       onClick={() => setHelpOpen(true)}
+      onKeyDownClick
     >
       <HelpIcon />
       {isOpen && (
@@ -165,7 +169,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
           <T className="tt-se">help</T>
         </div>
       )}
-    </div>
+    </Div>
   );
 
   return (

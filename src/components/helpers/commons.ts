@@ -112,12 +112,14 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
   for (const { name, autofilter, cols, rows, styles } of sheets) {
     const range = { s: { c: 10000000, r: 10000000 }, e: { c: 0, r: 0 } };
     workBook.SheetNames.push(name);
-    workBook.Sheets[name] = {};
-    workBook.Sheets[name]['!rows'] = [];
+    const sheet: NonNullable<(typeof workBook.Sheets)[string]> = {};
+    workBook.Sheets[name] = sheet;
+    const sheetRows: NonNullable<(typeof sheet)['!rows']> = [];
+    sheet['!rows'] = sheetRows;
     Object.entries(rows).forEach(([i, rowData]) => {
       const R = +i;
       if (rowData.height) {
-        workBook.Sheets[name]!['!rows']![R] = { hpx: rowData.height };
+        sheetRows[R] = { hpx: rowData.height };
       }
       Object.entries(rowData.cells).forEach(([i, cellData]) => {
         const C = +i;
@@ -153,61 +155,55 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
           cell.s.alignment = { wrapText: true };
         }
 
-        if (typeof cellData.style === 'number' && styles?.[cellData.style]) {
-          const bgcolor = styles[cellData.style]!.bgcolor;
+        const cellStyle = typeof cellData.style === 'number' ? styles?.[cellData.style] : undefined;
+        if (cellStyle) {
+          const { bgcolor, color, font, align, valign } = cellStyle;
           if (typeof bgcolor === 'string') {
             cell.s.fill = { fgColor: { rgb: bgcolor.replace('#', '') } };
           }
-          const color = styles[cellData.style]!.color;
           if (typeof color === 'string') {
             if (!cell.s.font) {
               cell.s.font = {};
             }
             cell.s.font.color = { rgb: color.replace('#', '') };
           }
-          if (styles[cellData.style]!.font?.bold) {
+          if (font?.bold) {
             if (!cell.s.font) {
               cell.s.font = {};
             }
             cell.s.font.bold = true;
           }
-          const alignment = styles[cellData.style]!.align;
-          if (typeof alignment === 'string') {
+          if (typeof align === 'string') {
             if (!cell.s.alignment) {
               cell.s.alignment = {};
             }
-            cell.s.alignment.horizontal = alignment;
+            cell.s.alignment.horizontal = align;
           }
-          const alignmentVertical = styles[cellData.style]!.valign;
-          if (typeof alignmentVertical === 'string') {
+          if (typeof valign === 'string') {
             if (!cell.s.alignment) {
               cell.s.alignment = {};
             }
-            cell.s.alignment.vertical = alignmentVertical;
+            cell.s.alignment.vertical = valign;
           }
         }
-        workBook.Sheets[name]![cellRef] = cell;
+        sheet[cellRef] = cell;
       });
     });
     if (range.s.c < 10000000) {
-      workBook.Sheets[name]['!ref'] = utils.encode_range(range);
+      sheet['!ref'] = utils.encode_range(range);
     }
     if (autofilter?.ref) {
-      workBook.Sheets[name]['!autofilter'] = { ref: autofilter?.ref };
+      sheet['!autofilter'] = { ref: autofilter?.ref };
     }
 
-    if (!workBook.Sheets[name]['!cols']) {
-      workBook.Sheets[name]['!cols'] = [];
-    }
-    // const c = cols || { len: 0 };
-    // const { .columns } = c;
+    const sheetCols: NonNullable<(typeof sheet)['!cols']> = sheet['!cols'] ?? [];
+    sheet['!cols'] = sheetCols;
     Object.entries(cols || {}).forEach(([i, property]) => {
       const index = +i;
-      if (!workBook.Sheets[name]!['!cols']![index]) {
-        workBook.Sheets[name]!['!cols']![index] = {};
-      }
+      const colDef = sheetCols[index] ?? {};
+      sheetCols[index] = colDef;
       if (property.width) {
-        workBook.Sheets[name]!['!cols']![index].wpx = property.width;
+        colDef.wpx = property.width;
       }
     });
   }

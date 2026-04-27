@@ -84,7 +84,7 @@ export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheet>) =
                       id: content.id,
                       checkedOptions,
                     };
-                    const { url, ...options } = jukiApiManager.API_V2.worksheet.submitQuizOptions({
+                    const { url, ...options } = jukiApiManager.apiV2.worksheet.submitQuizOptions({
                       params: { worksheetKey },
                       body: jkMdSubmissionDTO,
                     });

@@ -60,8 +60,16 @@ export class AppRoutes {
         return igu('/');
       },
       profiles: {
-        view({ nickname, companyKey, tab = ProfileTab.OVERVIEW }: { nickname: string; companyKey: string; tab?: ProfileTab }) {
-          return injectOrigin(origin, igu(`/profiles/${getUserKey(nickname, companyKey)}${tab ? `?tab=${tab}` : ''}`));
+        view({
+          nickname,
+          organizationKey,
+          tab = ProfileTab.OVERVIEW,
+        }: {
+          nickname: string;
+          organizationKey: string;
+          tab?: ProfileTab;
+        }) {
+          return injectOrigin(origin, igu(`/profiles/${getUserKey(nickname, organizationKey)}${tab ? `?tab=${tab}` : ''}`));
         },
       },
       problems: {

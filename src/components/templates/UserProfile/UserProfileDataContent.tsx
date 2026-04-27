@@ -12,7 +12,7 @@ import type { UserProfileDataContentProps } from './types';
 
 export function UserProfileDataContent({ user, className }: UserProfileDataContentProps) {
   const { Image, Link } = useUIStore((store) => store.components);
-  const { data } = useFetcher<ContentsResponse<JudgeDataResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
+  const { data } = useFetcher<ContentsResponse<JudgeDataResponseDTO>>(jukiApiManager.apiV2.judge.getSummaryList().url);
 
   return (
     <div className={classNames('jk-col stretch', className)}>

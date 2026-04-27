@@ -16,6 +16,8 @@ export function CopyToClipboard(props: CopyToClipboardProps) {
   };
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: handler stops propagation of the click event; keyboard not yet supported
+    // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard handler not yet implemented for copy-to-clipboard
     <div
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={isOpen ? 'copied' : (tooltipContent ?? 'copy')}

@@ -1,7 +1,7 @@
 // Copy of https://github.com/uiwjs/react-codemirror
 import type { EditorState } from '@codemirror/state';
 import type { EditorView } from '@codemirror/view';
-import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import { type Ref, useCallback, useImperativeHandle, useRef } from 'react';
 import type { ReactCodeMirrorProps } from './types';
 import { useCodeMirror } from './useCodeMirror';
 
@@ -19,8 +19,9 @@ export interface ReactCodeMirrorRef {
   view?: EditorView;
 }
 
-const ReactCodeMirror = forwardRef<ReactCodeMirrorRef, ReactCodeMirrorProps>((props, ref) => {
+function ReactCodeMirror(props: ReactCodeMirrorProps & { ref?: Ref<ReactCodeMirrorRef> }) {
   const {
+    ref,
     className,
     value = '',
     selection,
@@ -89,7 +90,7 @@ const ReactCodeMirror = forwardRef<ReactCodeMirrorRef, ReactCodeMirrorProps>((pr
 
   const defaultClassNames = typeof theme === 'string' ? `cm-theme-${theme}` : 'cm-theme';
   return <div ref={setEditorRef} className={`${defaultClassNames}${className ? ` ${className}` : ''}`} {...other}></div>;
-});
+}
 
 ReactCodeMirror.displayName = 'CodeMirror';
 

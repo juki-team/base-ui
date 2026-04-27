@@ -139,7 +139,7 @@ export function ProblemModeInfo({
                 <T>subtask</T> {key}:{' '}
               </span>
             )}
-            &nbsp;{settings?.pointsByGroups[+key]!.points}&nbsp;<T>points</T>
+            &nbsp;{settings?.pointsByGroups[+key]?.points}&nbsp;<T>points</T>
           </div>
         ),
       )}

@@ -8,7 +8,7 @@ import type { LastPathType } from '../../providers/JukiLastPathInitializer/types
 import type { LinkLastPathProps } from './types';
 
 export function LinkLastPath<T extends string | number = string>(props: LinkLastPathProps<T>) {
-  const { children, lastPathKey, overwriteCompanyKey } = props;
+  const { children, lastPathKey, overwriteOrganizationKey } = props;
 
   const { Link } = useUIStore((store) => store.components);
 
@@ -16,14 +16,14 @@ export function LinkLastPath<T extends string | number = string>(props: LinkLast
 
   const searchParams = useMemo(() => {
     const { searchParams } = getHref(lastPath?.[lastPathKey] ?? '');
-    if (overwriteCompanyKey) {
+    if (overwriteOrganizationKey) {
       const clonedSearchParams = cloneURLSearchParams(searchParams);
-      clonedSearchParams.set(QueryParamKey.COMPANY, overwriteCompanyKey || '');
+      clonedSearchParams.set(QueryParamKey.COMPANY, overwriteOrganizationKey || '');
       return clonedSearchParams;
     }
 
     return searchParams;
-  }, [lastPath, lastPathKey, overwriteCompanyKey]);
+  }, [lastPath, lastPathKey, overwriteOrganizationKey]);
 
   const pathname = getHref(lastPath?.[lastPathKey])?.pathname;
 

@@ -26,7 +26,7 @@ const meta: Meta<typeof MainMenuCmp> = {
           menu={menu}
           onSeeMyProfile={() => console.info('onSeeMyProfile')}
           menuViewMode={menuViewMode}
-          multiCompanies
+          multiOrganizations
           profileSelected={true}
           moreApps={
             <>
@@ -108,7 +108,7 @@ const Cmp = ({ menuViewMode }: { menuViewMode?: MenuViewMode }) => {
           menu={menu.map((item, i) => ({ ...item, selected: i === index }))}
           onSeeMyProfile={() => console.info('onSeeMyProfile')}
           menuViewMode={menuViewMode}
-          multiCompanies
+          multiOrganizations
           moreApps={
             <>
               <div className="jk-row">

@@ -1,4 +1,4 @@
-import { CODE_LANGUAGE, JUKI_APP_COMPANY_KEY, PROBLEM_MODE, PROBLEM_TYPE } from '@juki-team/commons/constants';
+import { CODE_LANGUAGE, JUKI_APP_ORGANIZATION_KEY, PROBLEM_MODE, PROBLEM_TYPE } from '@juki-team/commons/constants';
 import { Language, ProblemScoringMode } from '@juki-team/commons/enums';
 import type { ProblemSettings, ProblemStatement } from '@juki-team/commons/types';
 import type { TFunction } from 'i18next';
@@ -142,12 +142,12 @@ export const isJudgeWindowLocation = () => {
   );
 };
 
-export const getJudgeOrigin = (companyKey: string, userCompanyKey?: string) => {
-  if (isJudgeWindowLocation() || userCompanyKey === companyKey) {
+export const getJudgeOrigin = (organizationKey: string, userOrganizationKey?: string) => {
+  if (isJudgeWindowLocation() || userOrganizationKey === organizationKey) {
     return '';
   }
-  let origin = `https://${companyKey}.jukijudge.com`;
-  if (companyKey === JUKI_APP_COMPANY_KEY) {
+  let origin = `https://${organizationKey}.jukijudge.com`;
+  if (organizationKey === JUKI_APP_ORGANIZATION_KEY) {
     origin = 'https://judge.juki.app';
   }
   return origin;

@@ -12,15 +12,15 @@ export function ContestNameLinkField(props: ContestNameLinkFieldProps) {
       name,
       key,
       user,
-      company: { key: companyKey },
+      organization: { key: organizationKey },
     },
     isCard,
   } = props;
 
   const { Link } = useUIStore((store) => store.components);
-  const userCompanyKey = useUserStore((state) => state.company.key);
+  const userOrganizationKey = useUserStore((state) => state.organization.key);
 
-  const origin = getJudgeOrigin(companyKey, userCompanyKey);
+  const origin = getJudgeOrigin(organizationKey, userOrganizationKey);
 
   return (
     <Field className="jk-row left block">

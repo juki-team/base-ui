@@ -88,8 +88,8 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.72.1(react@19.2.5))
       '@juki-team/commons':
-        specifier: ^0.2.4
-        version: 0.2.4
+        specifier: ^0.2.6
+        version: 0.2.6
       '@mdx-js/mdx':
         specifier: ^3.1.1
         version: 3.1.1
@@ -1116,8 +1116,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@juki-team/commons@0.2.4':
-    resolution: {integrity: sha512-NsYjBeG5ctaMF9R6cfh9hm7rhldPLcbWhwAeprkODF5XGRSbbNsi+bg6zVNpgUeGPkR0+Ew679NKo7E3B3WIWQ==}
+  '@juki-team/commons@0.2.6':
+    resolution: {integrity: sha512-qtD5YLzUHlW+LCBFyuBzTd++wpzkxHFtAwwQP5EZfTJ7Ct5Q3eHYhhDSpx79hWHPC+3Xh7sWVSj6/73XDWoemQ==}
 
   '@lezer/common@1.5.1':
     resolution: {integrity: sha512-6YRVG9vBkaY7p1IVxL4s44n5nUnaNnGM2/AckNgYOnxTG2kWh1vR8BMxPseWPjRNpb5VtXnMpeYAEAADoRV1Iw==}
@@ -8153,7 +8153,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@juki-team/commons@0.2.4': {}
+  '@juki-team/commons@0.2.6': {}
 
   '@lezer/common@1.5.1': {}
 

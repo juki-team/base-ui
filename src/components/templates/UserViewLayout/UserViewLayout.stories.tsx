@@ -23,7 +23,7 @@ export const Regular: Story = {
 
 Regular.args = {
   user: {
-    company: { key: 'juki-app' },
+    organization: { key: 'juki-app' },
     email: 'me@oscargauss.com',
     familyName: 'family name',
     givenName: 'given name',

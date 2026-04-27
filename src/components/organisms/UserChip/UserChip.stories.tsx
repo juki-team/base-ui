@@ -19,7 +19,7 @@ export const Default: Story = {
   args: {
     imageUrl: 'https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png',
     nickname: 'johndoe',
-    companyKey: 'juki',
+    organizationKey: 'juki',
   },
 };
 
@@ -34,7 +34,7 @@ export const WithFullName: Story = {
     nickname: 'johndoe',
     givenName: 'John',
     familyName: 'Doe',
-    companyKey: 'juki',
+    organizationKey: 'juki',
   },
 };
 
@@ -50,7 +50,7 @@ export const WithEmail: Story = {
     givenName: 'John',
     familyName: 'Doe',
     email: 'john.doe@example.com',
-    companyKey: 'juki',
+    organizationKey: 'juki',
   },
 };
 
@@ -65,7 +65,7 @@ export const WithoutLink: Story = {
     nickname: 'johndoe',
     givenName: 'John',
     familyName: 'Doe',
-    companyKey: 'juki',
+    organizationKey: 'juki',
     withoutLink: true,
   },
 };

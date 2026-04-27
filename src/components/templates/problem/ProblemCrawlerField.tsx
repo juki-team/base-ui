@@ -5,7 +5,7 @@ import type { ProblemCrawlerFieldProps } from './types';
 export function ProblemCrawlerField({
   record: {
     owner: {
-      company: { key: companyKey },
+      organization: { key: organizationKey },
       imageUrl,
       nickname,
     },
@@ -14,7 +14,7 @@ export function ProblemCrawlerField({
   return (
     <FieldText
       className="jk-row"
-      text={<UserChip nickname={nickname} imageUrl={imageUrl} companyKey={companyKey} />}
+      text={<UserChip nickname={nickname} imageUrl={imageUrl} organizationKey={organizationKey} />}
       label={<T className="tt-se">crawler</T>}
     />
   );

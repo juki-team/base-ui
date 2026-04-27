@@ -141,7 +141,7 @@ export const getMetaHeaders = (): HeadersInit => ({
 // Customs:
 
 export const publishNote = async (source: string) => {
-  const { url, ...options } = jukiApiManager.API_V2.note.publish({ body: { source: source.trim() } });
+  const { url, ...options } = jukiApiManager.apiV2.note.publish({ body: { source: source.trim() } });
   const request = cleanRequest<ContentResponse<{ sourceUrl: string }>>(await authorizedRequest(url, options));
   if (request?.success && request?.content.sourceUrl) {
     return request.content.sourceUrl;
@@ -183,7 +183,7 @@ export const handleUploadImage = async (
     }
 > => {
   try {
-    const { url, ...options } = jukiApiManager.API_V2.image.publish({
+    const { url, ...options } = jukiApiManager.apiV2.image.publish({
       body: {
         contentType: image.type,
         isPublic,
@@ -228,7 +228,7 @@ export const handleUploadFile = async (
     }
 > => {
   try {
-    const { url, ...options } = jukiApiManager.API_V2.file.publish({
+    const { url, ...options } = jukiApiManager.apiV2.file.publish({
       body: {
         contentType: image.type,
         folder,
@@ -267,7 +267,7 @@ export const downloadWebsiteAsPdf = async (
     format?: string;
   },
 ) => {
-  const { url, ...options } = jukiApiManager.API_V2.export.websiteToPdf({
+  const { url, ...options } = jukiApiManager.apiV2.export.websiteToPdf({
     params: {
       url: websiteUrl,
       footerTemplate: exportOptions?.footerTemplate?.split('\n').join(''),
@@ -286,13 +286,14 @@ export const downloadWebsiteAsPdf = async (
 };
 
 export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fileName: string) => {
-  const { url, ...options } = jukiApiManager.API_V2.note.createPdf({ body: { source, theme } });
+  const { url, ...options } = jukiApiManager.apiV2.note.createPdf({ body: { source, theme } });
   const result = await authorizedRequest(url, { responseType: 'blob', ...options });
   if (typeof result === 'string') {
     if (isObjectJson(result)) {
       const response = JSON.parse(result) as ErrorResponse;
-      if (response.errors.length) {
-        throw new JkError(response.errors[0]!.code, { message: response.errors[0]!.detail });
+      const firstError = response.errors[0];
+      if (firstError) {
+        throw new JkError(firstError.code, { message: firstError.detail });
       }
     }
     throw new JkError(ErrorCode.ABORTED_REQUEST, { message: 'error generating the pdf' });
@@ -305,7 +306,7 @@ export const safeReportError = async (error: Error, errorInfo: ErrorInfo | null,
   const location = isBrowser() ? window.location : new Location();
   consoleError('Error to report', { error, errorInfo, location, visitorSessionId, data });
   try {
-    const { url, ...options } = jukiApiManager.API_V2.log.error({
+    const { url, ...options } = jukiApiManager.apiV2.log.error({
       body: {
         location,
         visitorSessionId,

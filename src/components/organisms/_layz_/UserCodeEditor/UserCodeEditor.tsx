@@ -2,12 +2,9 @@ import { CODE_LANGUAGE } from '@juki-team/commons/constants';
 import { CodeLanguage, SubmissionRunStatus, Theme } from '@juki-team/commons/enums';
 import { isStringJson, removeExtension } from '@juki-team/commons/helpers';
 import type { CodeEditorFile, CodeEditorFiles, CodeEditorTestCases } from '@juki-team/commons/types';
-import type { RefAttributes } from 'react';
 import {
   type Dispatch,
-  type ForwardedRef,
-  forwardRef,
-  type ReactElement,
+  type Ref,
   type SetStateAction,
   useCallback,
   useEffect,
@@ -293,9 +290,10 @@ const formatTestCasesStoreRecover = (recovered: unknown): StorageType<CodeEditor
 };
 
 const getNewInitialTestCases = (testCaseStoreKey: string, initialTestCases: CodeEditorTestCases) => {
-  const response: StorageType<CodeEditorTestCases> = { [testCaseStoreKey]: { ...initialTestCases } };
+  const initial: CodeEditorTestCases = { ...initialTestCases };
+  const response: StorageType<CodeEditorTestCases> = { [testCaseStoreKey]: initial };
   if (Object.keys(initialTestCases).length === 0) {
-    response[testCaseStoreKey]!['*'] = {
+    initial['*'] = {
       key: '*',
       in: '',
       testOut: '',
@@ -313,8 +311,9 @@ const getNewInitialTestCases = (testCaseStoreKey: string, initialTestCases: Code
   return response;
 };
 
-function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef<UserCodeEditorHandle<T>>) {
+function UserCodeEditor<T>(props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeEditorHandle<T>> }) {
   const {
+    ref,
     className,
     expandPosition,
     initialTestCases = {},
@@ -412,7 +411,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
     formatTestCasesStoreRecover,
   );
   const onTestCasesChangeRef = useStableRef(onTestCasesChange);
-  const testCases = testCasesStore[testCaseStoreKey]!;
+  const testCases = testCasesStore[testCaseStoreKey] ?? newInitialTestCases[testCaseStoreKey] ?? {};
   useEffect(() => {
     onTestCasesChangeRef.current?.(testCases);
   }, [onTestCasesChangeRef, testCases]);
@@ -653,6 +652,4 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
   );
 }
 
-export default forwardRef(UserCodeEditorInner) as <T>(
-  props: UserCodeEditorProps<T> & RefAttributes<UserCodeEditorHandle<T>>,
-) => ReactElement | null;
+export default UserCodeEditor;

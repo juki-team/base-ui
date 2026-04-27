@@ -43,12 +43,13 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
 
   const notifications = isSmallScreen ? [...notificationsFiltered].reverse() : notificationsFiltered;
 
-  const chunkStates = notifications.length ? [[notifications[0]!]] : [];
-  for (let i = 1; i < notifications.length; i++) {
-    if (chunkStates[chunkStates.length - 1]![0]?.type === notifications[i]!.type) {
-      chunkStates[chunkStates.length - 1]!.push(notifications[i]!);
+  const chunkStates: (typeof notifications)[] = [];
+  for (const note of notifications) {
+    const lastChunk = chunkStates[chunkStates.length - 1];
+    if (lastChunk && lastChunk[0]?.type === note.type) {
+      lastChunk.push(note);
     } else {
-      chunkStates.push([notifications[i]!]);
+      chunkStates.push([note]);
     }
   }
 
@@ -56,20 +57,24 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
     <NotificationContext.Provider value={{ dispatch }}>
       {children}
       <div className="notification-wrapper">
-        {chunkStates.map((chunk) => (
-          <CardNotification
-            key={chunk[0]!.id}
-            ids={chunk.map(({ id }) => id)}
-            message={
-              <div className="jk-col gap">
-                {chunk.map((note) => (
-                  <div key={note.id}>{note.message}</div>
-                ))}
-              </div>
-            }
-            type={chunk[0]!.type}
-          />
-        ))}
+        {chunkStates.map((chunk) => {
+          const head = chunk[0];
+          if (!head) return null;
+          return (
+            <CardNotification
+              key={head.id}
+              ids={chunk.map(({ id }) => id)}
+              message={
+                <div className="jk-col gap">
+                  {chunk.map((note) => (
+                    <div key={note.id}>{note.message}</div>
+                  ))}
+                </div>
+              }
+              type={head.type}
+            />
+          );
+        })}
       </div>
       <div className="notification-wrapper-quiet">
         {state

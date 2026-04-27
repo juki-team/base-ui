@@ -5,7 +5,7 @@ import { type CSSProperties, type DragEvent, useEffect, useRef, useState } from 
 import { useResizeDetector } from 'react-resize-detector';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { Button, T, TextArea } from '../../atoms';
+import { Button, Div, T, TextArea } from '../../atoms';
 import { ArrowDownwardIcon, CheckIcon, CloseIcon, ErrorIcon, SendIcon, SmartToyIcon, StopCircleIcon } from '../../atoms/server';
 import { classNames, upperFirst } from '../../helpers';
 import { useStableRef } from '../../hooks/useStableRef';
@@ -33,11 +33,11 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
   const t = useI18nStore((store) => store.i18n.t);
 
   const {
-    company: { key: companyKey },
+    organization: { key: organizationKey },
     nickname,
   } = useUserStore((store) => store.user);
 
-  const storageKey = storeKey ? `jk-ai-chat/${getUserKey(nickname, companyKey)}/${storeKey}` : '';
+  const storageKey = storeKey ? `jk-ai-chat/${getUserKey(nickname, organizationKey)}/${storeKey}` : '';
 
   const { messages, sendMessage, status, setMessages, stop } = useChat({
     transport: new DefaultChatTransport({ api }),
@@ -155,9 +155,10 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
       className={classNames('chat-right-panel jk-br-ie jk-col gap nowrap stretch ht-100', { 'bc-sf-md': isOpen })}
       style={{ width, minWidth: width }}
     >
-      <div
+      <Div
         className={classNames('jk-row center cr-we bc-io jk-pg-xsm jk-br-ie hr-e1', { 'vertical-text': !isOpen })}
         onClick={() => setIsOpen(!isOpen)}
+        onKeyDownClick
         style={{
           position: 'sticky',
           top: 0,
@@ -168,7 +169,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
         <SmartToyIcon />
         &nbsp;
         <T className="fw-bd tt-se">{title || 'Juki AI Editor'}</T>
-      </div>
+      </Div>
 
       {isOpen && (
         <div className="jk-col gap stretch ai-chat-messages tx-s flex-1 jk-pg-xsm">
@@ -198,14 +199,17 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
                     return (
                       <div key={`${message.id}-${i}`} className="jk-col gap-sm">
                         <div className="jk-row left fw-lr">
-                          {toolStateUI?.[part?.state] ? (
-                            <>
-                              <T className="tt-se">{toolStateUI[part.state]!.label}</T>&nbsp;
-                              {toolStateUI[part.state]!.icon}
-                            </>
-                          ) : (
-                            <CheckIcon filledCircle size="tiny" />
-                          )}
+                          {(() => {
+                            const ui = toolStateUI?.[part?.state];
+                            return ui ? (
+                              <>
+                                <T className="tt-se">{ui.label}</T>&nbsp;
+                                {ui.icon}
+                              </>
+                            ) : (
+                              <CheckIcon filledCircle size="tiny" />
+                            );
+                          })()}
                         </div>
                       </div>
                     );
@@ -280,6 +284,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
               if (status === 'ready') void send();
             }}
           >
+            {/* biome-ignore lint/a11y/noStaticElementInteractions: drag-and-drop zone for file uploads, not a clickable element */}
             <div
               className={classNames('jk-col gap-sm jk-br-ie', { 'bc-at-lt': isDragging })}
               style={{ border: isDragging ? '2px dashed var(--cr-io)' : '2px dashed transparent', padding: 4 }}

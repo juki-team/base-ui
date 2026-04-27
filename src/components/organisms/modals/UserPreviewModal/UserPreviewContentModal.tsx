@@ -44,15 +44,21 @@ export const UserPreview = ({
 
 export interface UserPreviewContentModalProps extends BasicModalProps {
   nickname: string;
-  companyKey: string;
+  organizationKey: string;
   userHref: string;
 }
 
-export const UserPreviewContentModal = ({ isOpen, nickname, companyKey, onClose, userHref }: UserPreviewContentModalProps) => {
+export const UserPreviewContentModal = ({
+  isOpen,
+  nickname,
+  organizationKey,
+  onClose,
+  userHref,
+}: UserPreviewContentModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="modal-user-preview">
       <FetcherLayer<ContentResponse<UserBasicResponseDTO>>
-        url={jukiApiManager.API_V2.user.getSummary({ params: { nickname, companyKey } }).url}
+        url={jukiApiManager.apiV2.user.getSummary({ params: { nickname, organizationKey: organizationKey } }).url}
         onError={onClose}
       >
         {({ data }) => <UserPreview user={data?.content} onClose={onClose} userHref={userHref} />}

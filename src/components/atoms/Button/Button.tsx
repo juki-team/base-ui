@@ -1,11 +1,12 @@
-import { type ComponentPropsWithRef, forwardRef, type ReactElement, type Ref } from 'react';
+import type { ComponentPropsWithRef, Ref } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { classNames } from '../../helpers';
 import type { ButtonBasicProps, OnClickButtonEventType } from '../../types';
 
-function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
+export function Button(props: ButtonCmpProps & { ref?: Ref<HTMLButtonElement> }) {
   const {
+    ref,
     submit = false,
     type = 'primary',
     className,
@@ -72,12 +73,6 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
     </button>
   );
 }
-
-export const Button = forwardRef(ButtonComponent) as (
-  p: ButtonCmpProps & {
-    ref?: Ref<HTMLButtonElement>;
-  },
-) => ReactElement;
 
 interface ButtonCmpProps extends ButtonBasicProps {
   withIconTransition?: boolean;

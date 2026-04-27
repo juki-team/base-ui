@@ -15,10 +15,11 @@ const hexToRgb = (hex: string): { r: number; g: number; b: number; a: number } =
   if (!result) {
     return { r: 0, g: 0, b: 0, a: 1 };
   }
+  const [, r, g, b] = result;
   return {
-    r: parseInt(result[1]!, 16),
-    g: parseInt(result[2]!, 16),
-    b: parseInt(result[3]!, 16),
+    r: parseInt(r ?? '0', 16),
+    g: parseInt(g ?? '0', 16),
+    b: parseInt(b ?? '0', 16),
     a: 1,
   };
 };

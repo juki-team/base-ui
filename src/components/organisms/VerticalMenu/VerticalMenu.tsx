@@ -1,5 +1,6 @@
 import { Children, useEffect } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
+import { Div } from '../../atoms';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useSyncedState } from '../../hooks/useSyncedState';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
@@ -36,9 +37,11 @@ export function VerticalMenu(props: VerticalMenuProps) {
 
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
-    const { selected, icon, label, tooltipLabel, onClick, menuItemWrapper } = menu[i]!;
+    const item = menu[i];
+    if (!item) continue;
+    const { selected, icon, label, tooltipLabel, onClick, menuItemWrapper } = item;
     const menuItem = (
-      <div
+      <Div
         className={classNames('jk-menu-item jk-pg-xsm jk-br-ie cr-pr jk-row gap left', {
           selected: !!selected,
         })}
@@ -46,6 +49,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
           margin: open ? '0 var(--pad-xt)' : undefined,
         }}
         onClick={() => onClick?.(open)}
+        onKeyDownClick
         key={i}
         data-tooltip-id="jk-tooltip"
         data-tooltip-content={!open ? tooltipLabel : ''}
@@ -53,7 +57,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
       >
         <div className="jk-menu-item-icon jk-row">{renderReactNodeOrFunction(icon)}</div>
         <div className="jk-menu-item-label">{renderReactNodeOrFunction(label)}</div>
-      </div>
+      </Div>
     );
     if (menuItemWrapper) {
       menus.push(
@@ -101,9 +105,9 @@ export function VerticalMenu(props: VerticalMenuProps) {
       <header className="jk-menu ht-100">
         <section className="jk-menu-content ht-100">
           <div className="jk-row right jk-menu-collapse-section">
-            <div className="jk-row jk-menu-collapse" onClick={handleCollapse}>
+            <Div className="jk-row jk-menu-collapse" onClick={handleCollapse} onKeyDownClick>
               {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
-            </div>
+            </Div>
           </div>
           <div className="flex-2">{typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}</div>
           <div className={classNames('jk-menu-items jk-col gap nowrap flex-8', { stretch: open })}>

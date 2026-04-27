@@ -82,13 +82,13 @@ export const useJukiUser = () => {
       ...props
     }: ApiParamsBodyType<
       | {
-          companyKey: string;
+          organizationKey: string;
         }
       | undefined,
       SignInPayloadDTO,
       PingResponseDTO
     >) => {
-      const { url, ...options } = jukiApiManager.API_V2.auth.signIn({ body, params });
+      const { url, ...options } = jukiApiManager.apiV2.auth.signIn({ body, params });
       const onSuccessWrap = async (response: ContentResponse<PingResponseDTO>) => {
         await userMutate();
         await onSuccess?.(response);
@@ -110,7 +110,7 @@ export const useJukiUser = () => {
       },
       PingResponseDTO
     >) => {
-      const { url, ...options } = jukiApiManager.API_V2.auth.signUp({ body });
+      const { url, ...options } = jukiApiManager.apiV2.auth.signUp({ body });
       const onSuccessWrap = async (response: ContentResponse<PingResponseDTO>) => {
         await userMutate();
         await onSuccess?.(response);
@@ -127,13 +127,13 @@ export const useJukiUser = () => {
       ...props
     }: ApiParamsBodyType<
       | {
-          companyKey: string;
+          organizationKey: string;
         }
       | undefined,
       SignUpPayloadDTO & { overwrite: boolean },
       PingResponseDTO
     >) => {
-      const { url, ...options } = jukiApiManager.API_V2.auth.createUser({ params, body });
+      const { url, ...options } = jukiApiManager.apiV2.auth.createUser({ params, body });
       await doRequest<PingResponseDTO, 'POST'>({ url, options, ...props });
     },
     [doRequest],
@@ -147,12 +147,12 @@ export const useJukiUser = () => {
     }: ApiParamsBodyType<
       {
         nickname: string;
-        companyKey: string;
+        organizationKey: string;
       },
       UpdateUserProfileDataPayloadDTO,
       string
     >) => {
-      const { url, ...options } = jukiApiManager.API_V2.user.updateProfileData({ params, body });
+      const { url, ...options } = jukiApiManager.apiV2.user.updateProfileData({ params, body });
       await doRequest<string, 'PUT'>({ url, options, ...props });
     },
     [doRequest],
@@ -169,12 +169,12 @@ export const useJukiUser = () => {
     }: ApiParamsBodyType<
       {
         nickname: string;
-        companyKey: string;
+        organizationKey: string;
       },
       Blob,
       { signedUrl: string }
     >) => {
-      const { url, ...options } = jukiApiManager.API_V2.user.updateProfileImage({
+      const { url, ...options } = jukiApiManager.apiV2.user.updateProfileImage({
         params,
         body: { contentType: body.type },
       });
@@ -223,13 +223,13 @@ export const useJukiUser = () => {
       ...props
     }: ApiParamsBodyType<
       {
-        companyKey: string;
+        organizationKey: string;
         nickname: string;
       },
       UpdatePasswordPayloadDTO,
       string
     >) => {
-      const { url, ...options } = jukiApiManager.API_V2.auth.updatePassword({
+      const { url, ...options } = jukiApiManager.apiV2.auth.updatePassword({
         params,
         body,
       });
@@ -239,8 +239,13 @@ export const useJukiUser = () => {
   );
 
   const resetUserPassword = useCallback(
-    async ({ params: { companyKey, nickname }, ...props }: ApiParamsType<{ companyKey: string; nickname: string }, string>) => {
-      const { url, ...options } = jukiApiManager.API_V2.auth.resetPassword({ params: { companyKey, nickname } });
+    async ({
+      params: { organizationKey, nickname },
+      ...props
+    }: ApiParamsType<{ organizationKey: string; nickname: string }, string>) => {
+      const { url, ...options } = jukiApiManager.apiV2.auth.resetPassword({
+        params: { organizationKey, nickname },
+      });
       await doRequest<string, 'POST'>({ url, options, ...props });
     },
     [doRequest],
@@ -248,7 +253,7 @@ export const useJukiUser = () => {
 
   const logout = useCallback(
     async ({ onError, onFinally, ...props }: ApiType<string>) => {
-      const { url, ...options } = jukiApiManager.API_V2.auth.signOut();
+      const { url, ...options } = jukiApiManager.apiV2.auth.signOut();
 
       const onFinallyWrap = async (response: ErrorResponse | ContentResponse<string>) => {
         await userMutate();
@@ -273,15 +278,19 @@ export const useJukiUser = () => {
 
   const deleteUserSession = useCallback(
     async ({ params, ...props }: ApiParamsType<{ sessionId: string }, string>) => {
-      const { url, ...options } = jukiApiManager.API_V2.user.deleteSession({ params });
+      const { url, ...options } = jukiApiManager.apiV2.user.deleteSession({ params });
       await doRequest<string, 'DELETE'>({ url, options, ...props });
     },
     [doRequest],
   );
 
   const updateUserPreferences = useCallback(
-    async ({ params, body, ...props }: ApiParamsBodyType<{ nickname: string; companyKey: string }, UserSettings, string>) => {
-      const { url, ...options } = jukiApiManager.API_V2.user.updatePreferences({ params, body });
+    async ({
+      params,
+      body,
+      ...props
+    }: ApiParamsBodyType<{ nickname: string; organizationKey: string }, UserSettings, string>) => {
+      const { url, ...options } = jukiApiManager.apiV2.user.updatePreferences({ params, body });
       await doRequest<string, 'PUT'>({ url, options, ...props });
     },
     [doRequest],
@@ -309,7 +318,7 @@ export const useJukiUserSettings = () => {
     isLogged,
     settings,
     nickname,
-    company: { key: companyKey },
+    organization: { key: organizationKey },
   } = useUserStore((state) => state.user);
   const mutatePing = useUserStore((state) => state.mutate);
   const { updateUserPreferences } = useJukiUser();
@@ -348,7 +357,7 @@ export const useJukiUserSettings = () => {
 
       if (isLogged) {
         await updateUserPreferences({
-          params: { nickname, companyKey },
+          params: { nickname, organizationKey },
           body: { ...newSettings },
           setLoader,
           onSuccess: async () => {
@@ -362,7 +371,7 @@ export const useJukiUserSettings = () => {
       }
       i18nChangeLanguage(newSettings[ProfileSetting.LANGUAGE]);
     },
-    [i18nChangeLanguage, isLogged, mutatePing, nickname, setUser, settings, updateUserPreferences, companyKey],
+    [i18nChangeLanguage, isLogged, mutatePing, nickname, setUser, settings, updateUserPreferences, organizationKey],
   );
 
   const loading = loader === Status.LOADING;

@@ -20,7 +20,7 @@ export function SubmissionRetrieveButton({ submissionId }: SubmissionRetrieveBut
     async (setLoaderStatus) => {
       setLoaderStatus(Status.LOADING);
 
-      const { url, ...options } = jukiApiManager.API_V2.submission.retrieve({ params: { id: submissionId } });
+      const { url, ...options } = jukiApiManager.apiV2.submission.retrieve({ params: { id: submissionId } });
       const response = cleanRequest<ContentResponse<{ listCount: number; status: typeof SubmissionRunStatus.RECEIVED }>>(
         await authorizedRequest(url, options),
       );

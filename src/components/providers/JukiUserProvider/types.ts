@@ -1,4 +1,4 @@
-import type { CompanyPingResponseDTO, PingResponseDTO, UserPing } from '@juki-team/commons/dto';
+import type { OrganizationPingResponseDTO, PingResponseDTO, UserPing } from '@juki-team/commons/dto';
 import type { ClientId, ContentResponse, Device } from '@juki-team/commons/types';
 import type { KeyedMutator } from 'swr';
 
@@ -9,8 +9,8 @@ export interface UserState {
   clientId: ClientId;
   user: UserPing;
   setUser: (user: Partial<UserPing>) => void;
-  company: CompanyPingResponseDTO;
-  setCompany: (company: CompanyPingResponseDTO) => void;
+  organization: OrganizationPingResponseDTO;
+  setOrganization: (organization: OrganizationPingResponseDTO) => void;
   isLoading: boolean;
   mutate: KeyedMutator<ContentResponse<PingResponseDTO>>;
   setMutate: (mutate: KeyedMutator<ContentResponse<PingResponseDTO>>) => void;
@@ -20,6 +20,6 @@ export interface UserState {
 
 export interface InitUserState {
   user: UserState['user'];
-  company: UserState['company'];
+  organization: UserState['organization'];
   isLoading: UserState['isLoading'];
 }

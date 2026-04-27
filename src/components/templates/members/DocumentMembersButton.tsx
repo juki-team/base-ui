@@ -53,8 +53,9 @@ export function DocumentMembersButton(props: PropsWithChildren<DocumentMembersBu
           participants: Object.keys(members.participants),
         },
       };
+      if (!saveUrl) return;
       const response = cleanRequest<ContentResponse<string>>(
-        await authorizedRequest(saveUrl!, {
+        await authorizedRequest(saveUrl, {
           method: HTTPMethod.PUT,
           body: JSON.stringify(worksheetToPatch),
         }),

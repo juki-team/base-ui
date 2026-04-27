@@ -19,7 +19,7 @@ export const JukiProviders = <T extends string | number>(props: PropsWithChildre
   const {
     children,
     components,
-    multiCompanies,
+    multiOrganizations,
     onSeeMyProfile,
     router: {
       routeParams,
@@ -59,7 +59,7 @@ export const JukiProviders = <T extends string | number>(props: PropsWithChildre
 
   return (
     <>
-      <JukiUIProvider components={components} multiCompanies={multiCompanies} onSeeMyProfile={onSeeMyProfile}>
+      <JukiUIProvider components={components} multiOrganizations={multiOrganizations} onSeeMyProfile={onSeeMyProfile}>
         <JukiAblySpaceProvider>{children}</JukiAblySpaceProvider>
       </JukiUIProvider>
       <ClientTrackLocation />

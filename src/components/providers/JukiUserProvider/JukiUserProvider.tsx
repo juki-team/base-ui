@@ -17,12 +17,12 @@ import { useMatchMutate } from '../../hooks/useMatchMutate';
 
 export const JukiUserProvider = () => {
   const setUser = useUserStore((state) => state.setUser);
-  const setCompany = useUserStore((state) => state.setCompany);
+  const setOrganization = useUserStore((state) => state.setOrganization);
   const setDevice = useUserStore((state) => state.setDevice);
   const setMutate = useUserStore((state) => state.setMutate);
   const isLoading = useUserStore((state) => state.isLoading);
   const userNickname = useUserStore((state) => state.user.nickname);
-  const companyKey = useUserStore((state) => state.company.key);
+  const organizationKey = useUserStore((state) => state.organization.key);
   const userSessionId = useUserStore((state) => state.user.sessionId);
   const userPreferredLanguage = useUserStore((state) => state.user.settings?.[ProfileSetting.LANGUAGE]);
   const i18nChangeLanguage = useI18nStore((state) => state.changeLanguage);
@@ -38,7 +38,7 @@ export const JukiUserProvider = () => {
     // isLoading: isLoadingPing,
     // isValidating: isValidatingPing,
     mutate,
-  } = useFetcher<ContentResponse<PingResponseDTO>>(jukiApiManager.API_V2.auth.ping().url, { refreshInterval: ONE_MINUTE * 5 });
+  } = useFetcher<ContentResponse<PingResponseDTO>>(jukiApiManager.apiV2.auth.ping().url, { refreshInterval: ONE_MINUTE * 5 });
 
   const matchMutate = useMatchMutate();
 
@@ -55,7 +55,7 @@ export const JukiUserProvider = () => {
       return;
     }
     void refreshAllRequest();
-  }, [userNickname, companyKey, userSessionId, refreshAllRequest, isLoading]);
+  }, [userNickname, organizationKey, userSessionId, refreshAllRequest, isLoading]);
 
   useEffect(() => {
     i18nChangeLanguage(userPreferredLanguage);
@@ -81,7 +81,7 @@ export const JukiUserProvider = () => {
     }
 
     if (data?.success) {
-      setCompany(data.content.company);
+      setOrganization(data.content.organization);
       if (data.content.user.isLogged) {
         setUser(data.content.user);
       } else {
@@ -110,7 +110,7 @@ export const JukiUserProvider = () => {
 
       // localStorageCrossDomains.setItem(JUKI_TOKEN_NAME, data?.content.user.sessionId); // With new cookies integration is useless
     }
-  }, [data, setCompany, setUser]);
+  }, [data, setOrganization, setUser]);
 
   useEffect(() => {
     if (isBrowser()) {

@@ -11,10 +11,10 @@ import { UserChip } from '../UserChip/UserChip';
 import type { UsersSelectorProps } from './types';
 
 export function UsersSelector(props: UsersSelectorProps) {
-  const { selectedUsers, onChangeSelectedUsers: _onChangeSelectedUsers, maxUsersSelection = -1, companyKey } = props;
+  const { selectedUsers, onChangeSelectedUsers: _onChangeSelectedUsers, maxUsersSelection = -1, organizationKey } = props;
 
   const { isLoading, data, mutate } = useFetcher<ContentsResponse<UserSummaryListResponseDTO>>(
-    jukiApiManager.API_V2.user.getSummaryList({ params: { companyKey } }).url,
+    jukiApiManager.apiV2.user.getSummaryList({ params: { organizationKey: organizationKey } }).url,
   );
   const [show, setShow] = useState(false);
   const [text, setText] = useState('');
@@ -24,7 +24,7 @@ export function UsersSelector(props: UsersSelectorProps) {
     const users: { [key: string]: UserSummaryListResponseDTO } = {};
     const dataUsers = data?.success ? data?.contents : [];
     dataUsers.forEach((user) => {
-      users[getUserKey(user.nickname, user.company.key)] = user;
+      users[getUserKey(user.nickname, user.organization.key)] = user;
     });
     return users;
   }, [data]);
@@ -37,7 +37,7 @@ export function UsersSelector(props: UsersSelectorProps) {
     let error = '';
     const validNicknames: string[] = [];
     nicknames.forEach((nickname) => {
-      const userKey = getUserKey(nickname, companyKey);
+      const userKey = getUserKey(nickname, organizationKey);
       if (users[userKey]) {
         validNicknames.push(userKey);
       } else {
@@ -46,7 +46,7 @@ export function UsersSelector(props: UsersSelectorProps) {
     });
     setError(error);
     setTextNicknames(validNicknames);
-  }, [companyKey, text, users]);
+  }, [organizationKey, text, users]);
 
   const resetText = () => {
     setText(selectedUsers.join(','));
@@ -100,7 +100,7 @@ export function UsersSelector(props: UsersSelectorProps) {
           label: (
             <UserChip
               nickname={user.nickname}
-              companyKey={user.company.key}
+              organizationKey={user.organization.key}
               imageUrl={user.imageUrl}
               email={user.email}
               familyName={user.familyName}
@@ -109,7 +109,7 @@ export function UsersSelector(props: UsersSelectorProps) {
             />
           ),
           inputLabel: user.nickname,
-          value: getUserKey(user.nickname, user.company.key),
+          value: getUserKey(user.nickname, user.organization.key),
         }))}
         selectedOptions={selectedUsers.map((user) => ({ value: user }))}
         onChange={(options) => onChangeSelectedUsers(options.map((option) => option.value))}

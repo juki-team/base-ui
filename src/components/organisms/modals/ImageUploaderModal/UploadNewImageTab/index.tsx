@@ -5,11 +5,11 @@ import { classNames, handleUploadImage, toBlob } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { ButtonLoader, ImageLoaderCropper } from '../../../../molecules';
 import type { CropImageType } from '../../../../molecules/types';
-import type { onPickImageUrlType } from '../types';
+import type { OnPickImageUrlType } from '../types';
 
 export interface UploadNewImageTabProps {
   copyButtons?: boolean;
-  onPickImageUrl?: onPickImageUrlType;
+  onPickImageUrl?: OnPickImageUrlType;
   onUploadedImage: () => void;
 }
 
@@ -75,14 +75,14 @@ export const UploadNewImageTab = memo(function UploadNewImageTabCmp({
             const blob = await toBlob(cropImage.previewCanvasRef.current);
             if (blob) {
               setLoader?.(Status.LOADING);
-              const { status, message, content } = await handleUploadImage(blob, isPublic);
-              if (status === Status.SUCCESS) {
-                addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
+              const result = await handleUploadImage(blob, isPublic);
+              if (result.status === Status.SUCCESS) {
+                addNotification({ type: NotificationType.SUCCESS, message: <T>{result.message}</T> });
                 setLoader?.(Status.SUCCESS);
-                setImagePublicUrl(content!.imageUrl);
+                setImagePublicUrl(result.content.imageUrl);
                 onUploadedImage();
               } else {
-                addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
+                addNotification({ type: NotificationType.ERROR, message: <T>{result.message}</T> });
                 setLoader?.(Status.ERROR);
               }
             }

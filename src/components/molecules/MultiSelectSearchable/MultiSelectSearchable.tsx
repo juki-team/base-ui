@@ -1,7 +1,7 @@
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { TriggerAction } from '../../../enums';
-import { Input, InputCheckbox, Popover, VirtualizedRowsFixed } from '../../atoms';
+import { Div, Input, InputCheckbox, Popover, VirtualizedRowsFixed } from '../../atoms';
 import type { SelectOptionType } from '../../atoms/types';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
 import { useHandleState } from '../../hooks/useHandleState';
@@ -97,7 +97,7 @@ export function MultiSelectSearchable<T, U extends ReactNode, V extends ReactNod
         : undefined;
 
       return (
-        <div
+        <Div
           className={classNames('jk-select-option', { selected, disabled, multiselect })}
           key={JSON.stringify(option.value)}
           ref={(e) => {
@@ -106,6 +106,7 @@ export function MultiSelectSearchable<T, U extends ReactNode, V extends ReactNod
             }
           }}
           onClick={multiselect ? undefined : onChange}
+          onKeyDownClick
         >
           {multiselect ? (
             <InputCheckbox
@@ -117,7 +118,7 @@ export function MultiSelectSearchable<T, U extends ReactNode, V extends ReactNod
           ) : (
             renderReactNodeOrFunction(option.label)
           )}
-        </div>
+        </Div>
       );
     },
     [filteredOptions, multiselect, selectedOptions],

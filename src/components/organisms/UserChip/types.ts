@@ -11,7 +11,7 @@ export interface UserChipProps {
   familyName?: string;
   email?: string;
   className?: string;
-  companyKey: string;
+  organizationKey: string;
   withoutLink?: boolean;
   children?: ReactNode;
   onlyImage?: boolean;
@@ -19,6 +19,6 @@ export interface UserChipProps {
 
 export interface UserNicknameLinkProps {
   nickname: string;
-  companyKey: string;
+  organizationKey: string;
   children: ReactElement;
 }

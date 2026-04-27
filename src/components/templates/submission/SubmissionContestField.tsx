@@ -14,9 +14,9 @@ export function SubmissionContestField(props: SubmissionContestFieldProps) {
   } = props;
 
   const { Link } = useUIStore((store) => store.components);
-  const userCompanyKey = useUserStore((state) => state.company.key);
+  const userOrganizationKey = useUserStore((state) => state.organization.key);
 
-  const origin = contest ? getJudgeOrigin(contest.company.key, userCompanyKey) : '';
+  const origin = contest ? getJudgeOrigin(contest.organization.key, userOrganizationKey) : '';
 
   return (
     <FieldText

@@ -13,9 +13,10 @@ export function MonthPicker({ date, onChange, isDisabled, isSelected }: MonthPic
   const gridMonths: Date[][] = [];
   let dateCursor = new Date(startOfYear(viewDate));
   for (let i = 0; i < 4; i++) {
-    gridMonths.push([]);
+    const row: Date[] = [];
+    gridMonths.push(row);
     for (let j = 0; j < 3; j++) {
-      gridMonths[i]!.push(new Date(dateCursor));
+      row.push(new Date(dateCursor));
       dateCursor = increaseMonth(dateCursor);
     }
   }
@@ -36,8 +37,8 @@ export function MonthPicker({ date, onChange, isDisabled, isSelected }: MonthPic
         <NextButton onClick={() => setViewDate(increaseYear(viewDate))} />
       </div>
       <div className="jk-date-picker-grid-months">
-        {gridMonths.map((row, index) => (
-          <div className="jk-row" key={index}>
+        {gridMonths.map((row) => (
+          <div className="jk-row" key={row[0]?.getTime()}>
             {row.map((date) => {
               const disabled = !!isDisabled?.(date).month;
               const selected = !!isSelected?.(date).month;

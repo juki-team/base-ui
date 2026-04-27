@@ -26,10 +26,10 @@ import type { DataViewerHeadersType, DataViewerProps } from '../types';
 
 export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data' | 'headers'>) => {
   const { data: judgeSystemList } = useFetcher<ContentsResponse<JudgeSystemSummaryListResponseDTO>>(
-    jukiApiManager.API_V2.judge.getSystemList().url,
+    jukiApiManager.apiV2.judge.getSystemList().url,
   );
   const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDTO>>(
-    jukiApiManager.API_V2.judge.getSummaryList().url,
+    jukiApiManager.apiV2.judge.getSummaryList().url,
   );
   const allJudges = useMemo(
     () => (judgeSystemList?.success ? judgeSystemList.contents : judgePublicList?.success ? judgePublicList.contents : []),
@@ -74,7 +74,7 @@ export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryList
         cards={{ expanded: true }}
         headers={columns}
         getUrl={({ pagination: { page, pageSize }, filter, sort }) =>
-          jukiApiManager.API_V2.submission.getSystemList({
+          jukiApiManager.apiV2.submission.getSystemList({
             params: {
               page,
               pageSize,

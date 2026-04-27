@@ -103,12 +103,12 @@ const hx =
   };
 
 function UserInlineChip({ nickname }: { nickname: string }) {
-  const companyKey = useUserStore((store) => store.company.key);
+  const organizationKey = useUserStore((store) => store.organization.key);
   const { isLoading, data } = useFetcher<ContentResponse<UserBasicResponseDTO>>(
-    jukiApiManager.API_V2.user.getSummary({
+    jukiApiManager.apiV2.user.getSummary({
       params: {
         nickname,
-        companyKey,
+        organizationKey: organizationKey,
       },
     }).url,
   );
@@ -124,7 +124,7 @@ function UserInlineChip({ nickname }: { nickname: string }) {
   return (
     <UserChip
       nickname={nickname}
-      companyKey={companyKey}
+      organizationKey={organizationKey}
       imageUrl={data.content.imageUrl}
       className="jk-tag bc-ht-lt dy-if- va-tp nowrap"
     />
@@ -291,7 +291,7 @@ function MdMathComponent(props: MdMathProps) {
           }
           const [commands, newClassName] = getCommands(text);
           const [languageRaw, flag] = (commands.lang || commands.rest || newClassName || CodeLanguage.TEXT).split('/');
-          const language = languageRaw!.toUpperCase() as CodeLanguage;
+          const language = (languageRaw ?? CodeLanguage.TEXT).toUpperCase() as CodeLanguage;
 
           if (typeof children === 'string') {
             if (language === CodeLanguage.DOT && flag === CodeRenderMode.IMAGE) {

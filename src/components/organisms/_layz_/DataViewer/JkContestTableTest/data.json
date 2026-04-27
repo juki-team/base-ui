@@ -8,12 +8,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/dfcac6e7-29f7-4ba0-afea-cdf1a521b27d.png",
         "nickname": "LeonelCheems",
-        "company": {
+        "organization": {
           "key": "uajms"
         },
         "id": "664b899fbe3d505a34b6ae74"
       },
-      "company": {
+      "organization": {
         "id": "664b81af4711fe667b2f83cd",
         "key": "uajms",
         "name": "Cheems"
@@ -53,12 +53,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "RikiSabe",
-        "company": {
+        "organization": {
           "key": "uajms"
         },
         "id": "664bbb20be3d505a34b6b0c8"
       },
-      "company": {
+      "organization": {
         "id": "664b81af4711fe667b2f83cd",
         "key": "uajms",
         "name": "Cheems"
@@ -99,12 +99,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/dfcac6e7-29f7-4ba0-afea-cdf1a521b27d.png",
         "nickname": "LeonelCheems",
-        "company": {
+        "organization": {
           "key": "uajms"
         },
         "id": "664b899fbe3d505a34b6ae74"
       },
-      "company": {
+      "organization": {
         "id": "664b81af4711fe667b2f83cd",
         "key": "uajms",
         "name": "Cheems"
@@ -144,12 +144,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/dfcac6e7-29f7-4ba0-afea-cdf1a521b27d.png",
         "nickname": "LeonelCheems",
-        "company": {
+        "organization": {
           "key": "uajms"
         },
         "id": "664b899fbe3d505a34b6ae74"
       },
-      "company": {
+      "organization": {
         "id": "664b81af4711fe667b2f83cd",
         "key": "uajms",
         "name": "Cheems"
@@ -189,12 +189,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "RikiSabe",
-        "company": {
+        "organization": {
           "key": "uajms"
         },
         "id": "664bbb20be3d505a34b6b0c8"
       },
-      "company": {
+      "organization": {
         "id": "664b81af4711fe667b2f83cd",
         "key": "uajms",
         "name": "Cheems"
@@ -234,12 +234,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -279,12 +279,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "pacha2880",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f7b5200bb30980d46c01c61"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -324,12 +324,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "clubalgoritmos",
-        "company": {
+        "organization": {
           "key": "udabol"
         },
         "id": "673692872ebc33db5e07338b"
       },
-      "company": {
+      "organization": {
         "id": "67360a86d7f0fdb8817f5edb",
         "key": "udabol",
         "name": "Universidad de Aquino Bolivia"
@@ -369,12 +369,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/dfcac6e7-29f7-4ba0-afea-cdf1a521b27d.png",
         "nickname": "LeonelCheems",
-        "company": {
+        "organization": {
           "key": "uajms"
         },
         "id": "664b899fbe3d505a34b6ae74"
       },
-      "company": {
+      "organization": {
         "id": "664b81af4711fe667b2f83cd",
         "key": "uajms",
         "name": "Cheems"
@@ -414,12 +414,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -459,12 +459,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -504,12 +504,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -549,12 +549,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -594,12 +594,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -639,12 +639,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -684,12 +684,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -729,12 +729,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -774,12 +774,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -819,12 +819,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -864,12 +864,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -909,12 +909,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -954,12 +954,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "Camilo",
-        "company": {
+        "organization": {
           "key": "sanagustin"
         },
         "id": "66f20c9c69d83ce0860bc297"
       },
-      "company": {
+      "organization": {
         "id": "66f1fb370b05d73123e80bb1",
         "key": "sanagustin",
         "name": "San Agustin"
@@ -999,12 +999,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "Camilo",
-        "company": {
+        "organization": {
           "key": "sanagustin"
         },
         "id": "66f20c9c69d83ce0860bc297"
       },
-      "company": {
+      "organization": {
         "id": "66f1fb370b05d73123e80bb1",
         "key": "sanagustin",
         "name": "San Agustin"
@@ -1044,12 +1044,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "Camilo",
-        "company": {
+        "organization": {
           "key": "sanagustin"
         },
         "id": "66f20c9c69d83ce0860bc297"
       },
-      "company": {
+      "organization": {
         "id": "66f1fb370b05d73123e80bb1",
         "key": "sanagustin",
         "name": "San Agustin"
@@ -1089,12 +1089,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/b19ba75e-6829-4a19-9c8b-656d5c308104.png",
         "nickname": "Abraham",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "623e4852c03a423d811f27ac"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -1134,12 +1134,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "clubalgoritmos",
-        "company": {
+        "organization": {
           "key": "udabol"
         },
         "id": "673692872ebc33db5e07338b"
       },
-      "company": {
+      "organization": {
         "id": "67360a86d7f0fdb8817f5edb",
         "key": "udabol",
         "name": "Universidad de Aquino Bolivia"
@@ -1179,12 +1179,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "LuchxDD",
-        "company": {
+        "organization": {
           "key": "umsa"
         },
         "id": "655c21f309034970313ad6b8"
       },
-      "company": {
+      "organization": {
         "id": "655b90a8e425edb94e16aee5",
         "key": "umsa",
         "name": "UMSA"
@@ -1224,12 +1224,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "LuchxDD",
-        "company": {
+        "organization": {
           "key": "umsa"
         },
         "id": "655c21f309034970313ad6b8"
       },
-      "company": {
+      "organization": {
         "id": "655b90a8e425edb94e16aee5",
         "key": "umsa",
         "name": "UMSA"
@@ -1269,12 +1269,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "LuchxDD",
-        "company": {
+        "organization": {
           "key": "umsa"
         },
         "id": "655c21f309034970313ad6b8"
       },
-      "company": {
+      "organization": {
         "id": "655b90a8e425edb94e16aee5",
         "key": "umsa",
         "name": "UMSA"
@@ -1314,12 +1314,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "LuchxDD",
-        "company": {
+        "organization": {
           "key": "umsa"
         },
         "id": "655c21f309034970313ad6b8"
       },
-      "company": {
+      "organization": {
         "id": "655b90a8e425edb94e16aee5",
         "key": "umsa",
         "name": "UMSA"
@@ -1359,12 +1359,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "mijaelTola",
-        "company": {
+        "organization": {
           "key": "umsa"
         },
         "id": "66cde6de814ebc025d2fb3cf"
       },
-      "company": {
+      "organization": {
         "id": "655b90a8e425edb94e16aee5",
         "key": "umsa",
         "name": "UMSA"
@@ -1404,12 +1404,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -1449,12 +1449,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
         "nickname": "chuby",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f7b1cd30b1c10653050431b"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -1494,12 +1494,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -1539,12 +1539,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "mause1308",
-        "company": {
+        "organization": {
           "key": "sanagustin"
         },
         "id": "66f2b21169d83ce0860bc611"
       },
-      "company": {
+      "organization": {
         "id": "66f1fb370b05d73123e80bb1",
         "key": "sanagustin",
         "name": "San Agustin"
@@ -1584,12 +1584,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
         "nickname": "chuby",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f7b1cd30b1c10653050431b"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -1629,12 +1629,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "bladycondor",
-        "company": {
+        "organization": {
           "key": "uabjb"
         },
         "id": "68c335590ea60ea58f26f853"
       },
-      "company": {
+      "organization": {
         "id": "68c32b07804ed419099a70fb",
         "key": "uabjb",
         "name": "UABJB"
@@ -1674,12 +1674,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "RikiSabe",
-        "company": {
+        "organization": {
           "key": "uajms"
         },
         "id": "664bbb20be3d505a34b6b0c8"
       },
-      "company": {
+      "organization": {
         "id": "664b81af4711fe667b2f83cd",
         "key": "uajms",
         "name": "Cheems"
@@ -1719,12 +1719,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "mijatolaxd",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f68a4872319b1689a06333b"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -1764,12 +1764,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
         "nickname": "chuby",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f7b1cd30b1c10653050431b"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -1809,12 +1809,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -1854,12 +1854,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "TL343V3R",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f860c6396ef2d6b4154d6e6"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -1899,12 +1899,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "mijaelTola",
-        "company": {
+        "organization": {
           "key": "umsa"
         },
         "id": "66cde6de814ebc025d2fb3cf"
       },
-      "company": {
+      "organization": {
         "id": "655b90a8e425edb94e16aee5",
         "key": "umsa",
         "name": "UMSA"
@@ -1944,12 +1944,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "manager",
-        "company": {
+        "organization": {
           "key": "ohsansi"
         },
         "id": "6834dfbfc27d56bda4d7441c"
       },
-      "company": {
+      "organization": {
         "id": "6834ddf0089325a25d3cfc3e",
         "key": "ohsansi",
         "name": "O!SanSi"
@@ -1989,12 +1989,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "manager",
-        "company": {
+        "organization": {
           "key": "ohsansi"
         },
         "id": "6834dfbfc27d56bda4d7441c"
       },
-      "company": {
+      "organization": {
         "id": "6834ddf0089325a25d3cfc3e",
         "key": "ohsansi",
         "name": "O!SanSi"
@@ -2034,12 +2034,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2079,12 +2079,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/dfcac6e7-29f7-4ba0-afea-cdf1a521b27d.png",
         "nickname": "LeonelCheems",
-        "company": {
+        "organization": {
           "key": "uajms"
         },
         "id": "664b899fbe3d505a34b6ae74"
       },
-      "company": {
+      "organization": {
         "id": "664b81af4711fe667b2f83cd",
         "key": "uajms",
         "name": "Cheems"
@@ -2124,12 +2124,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2169,12 +2169,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2214,12 +2214,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
         "nickname": "chuby",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f7b1cd30b1c10653050431b"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2259,12 +2259,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "manager",
-        "company": {
+        "organization": {
           "key": "ohsansi"
         },
         "id": "6834dfbfc27d56bda4d7441c"
       },
-      "company": {
+      "organization": {
         "id": "6834ddf0089325a25d3cfc3e",
         "key": "ohsansi",
         "name": "O!SanSi"
@@ -2304,12 +2304,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "manager",
-        "company": {
+        "organization": {
           "key": "ohsansi"
         },
         "id": "6834dfbfc27d56bda4d7441c"
       },
-      "company": {
+      "organization": {
         "id": "6834ddf0089325a25d3cfc3e",
         "key": "ohsansi",
         "name": "O!SanSi"
@@ -2349,12 +2349,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "manager",
-        "company": {
+        "organization": {
           "key": "ohsansi"
         },
         "id": "6834dfbfc27d56bda4d7441c"
       },
-      "company": {
+      "organization": {
         "id": "6834ddf0089325a25d3cfc3e",
         "key": "ohsansi",
         "name": "O!SanSi"
@@ -2394,12 +2394,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "manager",
-        "company": {
+        "organization": {
           "key": "ohsansi"
         },
         "id": "6834dfbfc27d56bda4d7441c"
       },
-      "company": {
+      "organization": {
         "id": "6834ddf0089325a25d3cfc3e",
         "key": "ohsansi",
         "name": "O!SanSi"
@@ -2439,12 +2439,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "puma-alisonvb",
-        "company": {
+        "organization": {
           "key": "ohsansi"
         },
         "id": "68367b17b5ec8ee6be438a08"
       },
-      "company": {
+      "organization": {
         "id": "6834ddf0089325a25d3cfc3e",
         "key": "ohsansi",
         "name": "O!SanSi"
@@ -2484,12 +2484,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "puma-sharonrp",
-        "company": {
+        "organization": {
           "key": "ohsansi"
         },
         "id": "68367b17b5ec8ee6be438a07"
       },
-      "company": {
+      "organization": {
         "id": "6834ddf0089325a25d3cfc3e",
         "key": "ohsansi",
         "name": "O!SanSi"
@@ -2529,12 +2529,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
         "nickname": "chuby",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f7b1cd30b1c10653050431b"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2574,12 +2574,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2619,12 +2619,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
         "nickname": "chuby",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f7b1cd30b1c10653050431b"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2664,12 +2664,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
         "nickname": "chuby",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f7b1cd30b1c10653050431b"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2709,12 +2709,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/48d02bdc-8903-4b28-95e0-c724b78e99c5.png",
         "nickname": "romerproblem",
-        "company": {
+        "organization": {
           "key": "umsa"
         },
         "id": "6663391decbdacdba2d6636a"
       },
-      "company": {
+      "organization": {
         "id": "655b90a8e425edb94e16aee5",
         "key": "umsa",
         "name": "UMSA"
@@ -2754,12 +2754,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
         "nickname": "chuby",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f7b1cd30b1c10653050431b"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2799,12 +2799,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
         "nickname": "chuby",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f7b1cd30b1c10653050431b"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2844,12 +2844,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2889,12 +2889,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/39be7994-21f8-4a02-8ff2-e69066fed73c.png",
         "nickname": "rzeballos",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "629a220228e522783b71c5df"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2934,12 +2934,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/415bfcc7-c981-4a8a-86a4-e264d5d2e1c9.png",
         "nickname": "BrossoICPC3",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "624cf274121a8d232fe3f8b9"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -2979,12 +2979,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/39be7994-21f8-4a02-8ff2-e69066fed73c.png",
         "nickname": "rzeballos",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "629a220228e522783b71c5df"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -3024,12 +3024,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "jjsmm",
-        "company": {
+        "organization": {
           "key": "digitalharbor"
         },
         "id": "65bad89ef6288f3ade5465c2"
       },
-      "company": {
+      "organization": {
         "id": "65bad728472d3e4336d658f6",
         "key": "digitalharbor",
         "name": "Digital Harbor"
@@ -3069,12 +3069,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "jjsmm",
-        "company": {
+        "organization": {
           "key": "digitalharbor"
         },
         "id": "65bad89ef6288f3ade5465c2"
       },
-      "company": {
+      "organization": {
         "id": "65bad728472d3e4336d658f6",
         "key": "digitalharbor",
         "name": "Digital Harbor"
@@ -3114,12 +3114,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f6b4f0deed17632e7683841.",
         "nickname": "Micky",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6b4f0deed17632e7683841"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -3159,12 +3159,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "nubol23",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f9e10df4c83767bbd56fb70"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -3204,12 +3204,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -3249,12 +3249,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f6b4f0deed17632e7683841.",
         "nickname": "Micky",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6b4f0deed17632e7683841"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -3294,12 +3294,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f6b4f0deed17632e7683841.",
         "nickname": "Micky",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6b4f0deed17632e7683841"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -3339,12 +3339,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/48d02bdc-8903-4b28-95e0-c724b78e99c5.png",
         "nickname": "romerproblem",
-        "company": {
+        "organization": {
           "key": "umsa"
         },
         "id": "6663391decbdacdba2d6636a"
       },
-      "company": {
+      "organization": {
         "id": "655b90a8e425edb94e16aee5",
         "key": "umsa",
         "name": "UMSA"
@@ -3384,12 +3384,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/48d02bdc-8903-4b28-95e0-c724b78e99c5.png",
         "nickname": "romerproblem",
-        "company": {
+        "organization": {
           "key": "umsa"
         },
         "id": "6663391decbdacdba2d6636a"
       },
-      "company": {
+      "organization": {
         "id": "655b90a8e425edb94e16aee5",
         "key": "umsa",
         "name": "UMSA"
@@ -3429,12 +3429,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "JMCDO",
-        "company": {
+        "organization": {
           "key": "umsa"
         },
         "id": "67375f7a07f5bd5428f3aa4c"
       },
-      "company": {
+      "organization": {
         "id": "655b90a8e425edb94e16aee5",
         "key": "umsa",
         "name": "UMSA"
@@ -3474,12 +3474,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
         "nickname": "chuby",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f7b1cd30b1c10653050431b"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -3519,12 +3519,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
         "nickname": "lordofmont",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f88b3b3a552db7e9359ba49"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -3564,12 +3564,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
         "nickname": "chuby",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f7b1cd30b1c10653050431b"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -3609,12 +3609,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "Camilo",
-        "company": {
+        "organization": {
           "key": "sanagustin"
         },
         "id": "66f20c9c69d83ce0860bc297"
       },
-      "company": {
+      "organization": {
         "id": "66f1fb370b05d73123e80bb1",
         "key": "sanagustin",
         "name": "San Agustin"
@@ -3654,12 +3654,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/dfcac6e7-29f7-4ba0-afea-cdf1a521b27d.png",
         "nickname": "LeonelCheems",
-        "company": {
+        "organization": {
           "key": "uajms"
         },
         "id": "664b899fbe3d505a34b6ae74"
       },
-      "company": {
+      "organization": {
         "id": "664b81af4711fe667b2f83cd",
         "key": "uajms",
         "name": "Cheems"
@@ -3699,12 +3699,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/dfcac6e7-29f7-4ba0-afea-cdf1a521b27d.png",
         "nickname": "LeonelCheems",
-        "company": {
+        "organization": {
           "key": "uajms"
         },
         "id": "664b899fbe3d505a34b6ae74"
       },
-      "company": {
+      "organization": {
         "id": "664b81af4711fe667b2f83cd",
         "key": "uajms",
         "name": "Cheems"
@@ -3744,12 +3744,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "upea"
         },
         "id": "64621163a0f9bac501059443"
       },
-      "company": {
+      "organization": {
         "id": "64618fc3e296ed570d79d3dd",
         "key": "upea",
         "name": "UPEA"
@@ -3789,12 +3789,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
         "nickname": "lordofmont",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f88b3b3a552db7e9359ba49"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -3834,12 +3834,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -3879,12 +3879,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/dfcac6e7-29f7-4ba0-afea-cdf1a521b27d.png",
         "nickname": "LeonelCheems",
-        "company": {
+        "organization": {
           "key": "uajms"
         },
         "id": "664b899fbe3d505a34b6ae74"
       },
-      "company": {
+      "organization": {
         "id": "664b81af4711fe667b2f83cd",
         "key": "uajms",
         "name": "Cheems"
@@ -3924,12 +3924,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "jjsmm",
-        "company": {
+        "organization": {
           "key": "digitalharbor"
         },
         "id": "65bad89ef6288f3ade5465c2"
       },
-      "company": {
+      "organization": {
         "id": "65bad728472d3e4336d658f6",
         "key": "digitalharbor",
         "name": "Digital Harbor"
@@ -3969,12 +3969,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f6b4f0deed17632e7683841.",
         "nickname": "Micky",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6b4f0deed17632e7683841"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -4014,12 +4014,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
         "nickname": "lordofmont",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f88b3b3a552db7e9359ba49"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -4059,12 +4059,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
         "nickname": "lordofmont",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f88b3b3a552db7e9359ba49"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -4104,12 +4104,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f6b4f0deed17632e7683841.",
         "nickname": "Micky",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6b4f0deed17632e7683841"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -4149,12 +4149,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png",
         "nickname": "OscarGauss",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6ad8ae7541da31d74be9c8"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -4194,12 +4194,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "jjsmm",
-        "company": {
+        "organization": {
           "key": "digitalharbor"
         },
         "id": "65bad89ef6288f3ade5465c2"
       },
-      "company": {
+      "organization": {
         "id": "65bad728472d3e4336d658f6",
         "key": "digitalharbor",
         "name": "Digital Harbor"
@@ -4239,12 +4239,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "jjsmm",
-        "company": {
+        "organization": {
           "key": "digitalharbor"
         },
         "id": "65bad89ef6288f3ade5465c2"
       },
-      "company": {
+      "organization": {
         "id": "65bad728472d3e4336d658f6",
         "key": "digitalharbor",
         "name": "Digital Harbor"
@@ -4284,12 +4284,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "jjsmm",
-        "company": {
+        "organization": {
           "key": "digitalharbor"
         },
         "id": "65bad89ef6288f3ade5465c2"
       },
-      "company": {
+      "organization": {
         "id": "65bad728472d3e4336d658f6",
         "key": "digitalharbor",
         "name": "Digital Harbor"
@@ -4329,12 +4329,12 @@
       "owner": {
         "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
         "nickname": "jjsmm",
-        "company": {
+        "organization": {
           "key": "digitalharbor"
         },
         "id": "65bad89ef6288f3ade5465c2"
       },
-      "company": {
+      "organization": {
         "id": "65bad728472d3e4336d658f6",
         "key": "digitalharbor",
         "name": "Digital Harbor"
@@ -4374,12 +4374,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
         "nickname": "lordofmont",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f88b3b3a552db7e9359ba49"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -4419,12 +4419,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f6b4f0deed17632e7683841.",
         "nickname": "Micky",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f6b4f0deed17632e7683841"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"
@@ -4464,12 +4464,12 @@
       "owner": {
         "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
         "nickname": "lordofmont",
-        "company": {
+        "organization": {
           "key": "juki-app"
         },
         "id": "5f88b3b3a552db7e9359ba49"
       },
-      "company": {
+      "organization": {
         "id": "637281bad64e8d46a8ca5be9",
         "key": "juki-app",
         "name": "Juki"

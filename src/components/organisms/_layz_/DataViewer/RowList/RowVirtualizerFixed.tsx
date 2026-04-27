@@ -230,9 +230,9 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
                 )}
                 data-testid={`${virtualRow.key}_${columnIndex}`}
               >
-                {data[virtualRow.index] && (
+                {data[virtualRow.index] != null && (
                   <Field
-                    record={data[virtualRow.index]!}
+                    record={data[virtualRow.index] as (typeof data)[number]}
                     columnIndex={columnIndex}
                     recordIndex={virtualRow.index}
                     isCard={false}

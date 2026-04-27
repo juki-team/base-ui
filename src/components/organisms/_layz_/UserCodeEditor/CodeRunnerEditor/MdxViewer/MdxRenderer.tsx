@@ -52,7 +52,7 @@ export function MdxRenderer({ source, components }: MdxRendererProps) {
   if (!Component) return null;
 
   const base: MDXComponents = { ...defaultMdxComponents, ...components };
-  const usedNames = [...source.matchAll(/<([A-Z][a-zA-Z0-9]*)\b/g)].map((m) => m[1]!);
+  const usedNames = [...source.matchAll(/<([A-Z][a-zA-Z0-9]*)\b/g)].map((m) => m[1]).filter((n): n is string => !!n);
   for (const name of usedNames) {
     if (!(name in base)) {
       const n = name;

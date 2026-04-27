@@ -1,7 +1,7 @@
 import type { QuizOptionsSubmissionResponseDTO } from '@juki-team/commons/dto';
 import type { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
-import { T } from '../../../../atoms';
+import { Div, T } from '../../../../atoms';
 import { classNames } from '../../../../helpers';
 
 interface ResultHeaderProps {
@@ -73,34 +73,37 @@ export const ResultHeaders = (props: PropsWithChildren<ResultHeadersProps>) => {
       isResolved={!!lastSubmission?.isCompleted}
       childrenTop={
         <div className="jk-row tx-s">
-          <div
+          <Div
             className="jk-row jk-br-ie hoverable"
             onClick={() => {
               setSelectedIndex((prevState) => (prevState - 1 + submissions.length) % submissions.length);
             }}
+            onKeyDownClick
           >
             ←
-          </div>
+          </Div>
           <div className="jk-row">
             {selectedIndex + 1} (
-            <div
+            <Div
               className="jk-row jk-br-ie hoverable"
               onClick={() => {
                 setSelectedIndex(submissions.length - 1);
               }}
+              onKeyDownClick
             >
               {submissions.length}
-            </div>
+            </Div>
             )
           </div>
-          <div
+          <Div
             className="jk-row jk-br-ie hoverable"
             onClick={() => {
               setSelectedIndex((prevState) => (prevState + 1) % submissions.length);
             }}
+            onKeyDownClick
           >
             →
-          </div>
+          </Div>
         </div>
       }
     >

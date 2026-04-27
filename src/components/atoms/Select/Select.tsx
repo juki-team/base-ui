@@ -8,7 +8,7 @@ import type { PlacementType } from '../_lazy_/Popover/types';
 import { ArrowDropDownIcon, ArrowDropUpIcon, ArrowLeftIcon, ArrowRightIcon } from '../server';
 import type { SelectOptionType, SelectProps } from './types';
 
-const expandIcons: { [key in PlacementType]: ReactNode } = {
+const expandIcons: { [Key in PlacementType]: ReactNode } = {
   'top-start': <ArrowDropUpIcon className="input-icon" />,
   top: <ArrowDropUpIcon className="input-icon" />,
   'top-end': <ArrowDropUpIcon className="input-icon" />,
@@ -163,6 +163,8 @@ export function Select<T, U extends ReactNode, V extends ReactNodeOrFunctionType
         </div>
       }
     >
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: select trigger; native <select> alternative would lose custom styling */}
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: keyboard handled by inner option list (arrow keys/enter) */}
       <div
         className={classNames('jk-select-layout', className, optionsPlacement, { open: isOpen, disabled: isDisabled })}
         style={{

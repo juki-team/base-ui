@@ -31,12 +31,12 @@ export const useI18nStore = create<I18nState>((set) => ({
     try {
       const [dataEN, dataES] = await Promise.all([
         getAuthorizedRequest(
-          jukiApiManager.API_V2.locale.get({
+          jukiApiManager.apiV2.locale.get({
             params: { locale: Language.EN, namespace },
           }).url,
         ),
         getAuthorizedRequest(
-          jukiApiManager.API_V2.locale.get({
+          jukiApiManager.apiV2.locale.get({
             params: { locale: Language.ES, namespace },
           }).url,
         ),

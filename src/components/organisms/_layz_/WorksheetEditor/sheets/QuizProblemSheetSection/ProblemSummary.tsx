@@ -11,7 +11,7 @@ export const ProblemSummary = ({ problemKey }: { problemKey: string }) => {
     <div style={{}}>
       <FetcherLayer<ContentResponse<ProblemSummaryListResponseDTO>>
         url={
-          jukiApiManager.API_V2.problem.getSummary({
+          jukiApiManager.apiV2.problem.getSummary({
             params: {
               key: problemKey,
             },

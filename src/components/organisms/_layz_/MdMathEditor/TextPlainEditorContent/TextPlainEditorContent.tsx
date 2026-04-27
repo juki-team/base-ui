@@ -45,12 +45,12 @@ export function TextPlainEditorContent(props: TextPlainEditorContentProps) {
         let extraText = '';
         setLoader(Status.LOADING);
         for (const imageFile of imageFiles) {
-          const { status, message, content } = await handleUploadImage(imageFile, false);
-          if (status === Status.SUCCESS) {
-            addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
-            extraText += `${extraText ? '\n\n' : ''}![image alt](${content!.imageUrl})`;
+          const result = await handleUploadImage(imageFile, false);
+          if (result.status === Status.SUCCESS) {
+            addNotification({ type: NotificationType.SUCCESS, message: <T>{result.message}</T> });
+            extraText += `${extraText ? '\n\n' : ''}![image alt](${result.content.imageUrl})`;
           } else {
-            addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
+            addNotification({ type: NotificationType.ERROR, message: <T>{result.message}</T> });
           }
         }
         setLoader(Status.NONE);

@@ -17,7 +17,7 @@ export function InputToggle(props: InputToggleProps) {
 
   const isDisabled = disabled || !onChange;
   const handleClick =
-    (value: boolean): MouseEventHandler<HTMLParagraphElement> =>
+    (value: boolean): MouseEventHandler<HTMLButtonElement> =>
     (event) => {
       if (!isDisabled) {
         onChange?.(value);
@@ -27,9 +27,9 @@ export function InputToggle(props: InputToggleProps) {
 
   return (
     <label className={classNames('jk-wrapper-input-toggle', type, className, size, { disabled: isDisabled })} {...restProps}>
-      <div className="jk-row" onClick={handleClick(false)}>
+      <button type="button" className="jk-row" onClick={handleClick(false)}>
         {leftLabel}
-      </div>
+      </button>
       <input
         className="jk-input-toggle"
         type="checkbox"
@@ -43,9 +43,9 @@ export function InputToggle(props: InputToggleProps) {
           marginRight: rightLabel ? 'calc(var(--pad-xt) / 2)' : undefined,
         }}
       />
-      <div className="jk-row" onClick={handleClick(true)}>
+      <button type="button" className="jk-row" onClick={handleClick(true)}>
         {rightLabel}
-      </div>
+      </button>
     </label>
   );
 }

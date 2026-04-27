@@ -10,9 +10,10 @@ export const usePageVisibility = () => {
   const setIsVisible = usePageStore((store) => store.setIsVisible);
 
   useEffect(() => {
-    if (!isSupportedLocal) {
+    if (!(isSupportedLocal && visibility)) {
       return;
     }
+    const { event } = visibility;
     const handler = () => {
       const [currentlyVisible] = getHandlerArgs();
       setIsVisible(currentlyVisible);
@@ -20,10 +21,10 @@ export const usePageVisibility = () => {
 
     handler();
 
-    document.addEventListener(visibility!.event, handler);
+    document.addEventListener(event, handler);
 
     return () => {
-      document.removeEventListener(visibility!.event, handler);
+      document.removeEventListener(event, handler);
     };
   }, [setIsVisible]);
 };

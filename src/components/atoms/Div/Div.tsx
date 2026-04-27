@@ -1,9 +1,9 @@
-import { forwardRef, type Ref, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { classNames } from '../../helpers';
 import type { DivProps } from './types';
 
-function DivComponent(_props: DivProps, ref: Ref<HTMLDivElement>) {
-  const { onClick, children, className, transition, onKeyDownClick, ...props } = _props;
+export function Div(props: DivProps) {
+  const { ref, onClick, children, className, transition, onKeyDownClick, ...newProps } = props;
 
   const [show, setShow] = useState(false);
   useEffect(() => {
@@ -11,12 +11,13 @@ function DivComponent(_props: DivProps, ref: Ref<HTMLDivElement>) {
       setShow(true);
     }
   }, [transition]);
-  const newProps = { ...props };
+
   if (onKeyDownClick) {
     newProps.tabIndex = 0;
   }
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: <explanation>
     <div
       ref={ref}
       {...newProps}
@@ -34,5 +35,3 @@ function DivComponent(_props: DivProps, ref: Ref<HTMLDivElement>) {
     </div>
   );
 }
-
-export const Div = forwardRef(DivComponent);

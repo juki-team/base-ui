@@ -22,9 +22,10 @@ export function DayPicker({ date, onChange, isDisabled, isSelected }: DayPickerP
   const gridDays: Date[][] = [];
   let dateCursor = new Date(startOfWeek(startOfMonth(viewDate)));
   for (let i = 0; i < 6; i++) {
-    gridDays.push([]);
+    const row: Date[] = [];
+    gridDays.push(row);
     for (let j = 0; j < 7; j++) {
-      gridDays[i]!.push(new Date(dateCursor));
+      row.push(new Date(dateCursor));
       dateCursor = increaseDay(dateCursor);
     }
   }

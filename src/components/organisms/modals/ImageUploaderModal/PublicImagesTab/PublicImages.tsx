@@ -5,11 +5,11 @@ import { copy } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { FloatToolbar } from '../../../../molecules';
 import { CheckIcon, ContentCopyIcon } from '../../../../server';
-import type { onPickImageUrlType } from '../types';
+import type { OnPickImageUrlType } from '../types';
 
 interface PublicImagesTabProps {
   copyButtons?: boolean;
-  onPickImageUrl?: onPickImageUrlType;
+  onPickImageUrl?: OnPickImageUrlType;
   publicImages: ImageSummaryResponseDTO[];
 }
 

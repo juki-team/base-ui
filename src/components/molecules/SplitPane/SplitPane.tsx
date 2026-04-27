@@ -1,7 +1,7 @@
 import { type MouseEvent, memo, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
-import { T } from '../../atoms';
+import { Div, T } from '../../atoms';
 import { classNames } from '../../helpers';
 import { useHandleState } from '../../hooks/useHandleState';
 import { ExpandLessIcon, ExpandMoreIcon, NavigateBeforeIcon, NavigateNextIcon, SideNavigationIcon } from '../../server';
@@ -110,6 +110,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
   }, [direction, displaySecondPane, displayFirstPane, onlyFirstPane, onlySecondPane]);
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: split pane container tracks mouse for divider drag, not a clickable element
     <div
       className={classNames('jk-split-pane', className, direction, { dragging })}
       onMouseMove={onMouseHoldMove}
@@ -131,7 +132,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
               left: direction === 'column' && closableSecondPane?.align === 'left',
             })}
           >
-            <div
+            <Div
               className={classNames('notch opacity-hover bc-at-lt cr-at-it', {
                 'jk-row': direction === 'column',
                 'jk-col': direction === 'row',
@@ -149,6 +150,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
                   setDisplaySecondPane((prevState) => !prevState);
                 }
               }}
+              onKeyDownClick
             >
               {displaySecondPane ? (
                 direction === 'row' ? (
@@ -165,10 +167,11 @@ function SplitPaneComponent(props: SplitPaneProps) {
               {displaySecondPane
                 ? (closableSecondPane?.hideLabel ?? <T className="label tx-t">hide</T>)
                 : (closableSecondPane?.expandLabel ?? <T className="label tx-t">expand</T>)}
-            </div>
+            </Div>
           </div>
         )}
       </div>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: divider drag handle, mouse-only */}
       <div
         className="jk-split-pane-divider"
         style={onlyFirstPane || onlySecondPane || !displaySecondPane || !displayFirstPane ? { display: 'none' } : undefined}
@@ -178,7 +181,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
         <div className="jk-split-pane-divider-line">
           {toggleable && (
             <div className={classNames('extend', { 'jk-row': direction === 'column', 'jk-col': direction === 'row' })}>
-              <div
+              <Div
                 className={classNames('notch opacity-hover bc-at-lt cr-at-it toggle-button nowrap', {
                   'jk-row': direction === 'column',
                   'jk-col': direction === 'row',
@@ -186,11 +189,12 @@ function SplitPaneComponent(props: SplitPaneProps) {
                 onClick={() => {
                   setDirection((prevState) => (prevState === 'row' ? 'column' : 'row'));
                 }}
+                onKeyDownClick
               >
                 <SideNavigationIcon size="tiny" rotate={direction === 'column' ? 90 : 0} />
                 <span className="label tx-t">&nbsp;</span>
                 <T className="label tx-t">rotate</T>
-              </div>
+              </Div>
             </div>
           )}
         </div>
@@ -208,7 +212,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
               left: direction === 'column' && closableFirstPane?.align === 'left',
             })}
           >
-            <div
+            <Div
               className={classNames('notch opacity-hover bc-at-lt cr-at-it', {
                 'jk-row': direction === 'column',
                 'jk-col': direction === 'row',
@@ -226,6 +230,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
                   setDisplayFirstPane((prevState) => !prevState);
                 }
               }}
+              onKeyDownClick
             >
               {displaySecondPane ? (
                 direction === 'row' ? (
@@ -242,7 +247,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
               {displayFirstPane
                 ? (closableFirstPane?.hideLabel ?? <T className="label tx-t">hide</T>)
                 : (closableFirstPane?.expandLabel ?? <T className="label tx-t">expand</T>)}
-            </div>
+            </Div>
           </div>
         )}
       </div>

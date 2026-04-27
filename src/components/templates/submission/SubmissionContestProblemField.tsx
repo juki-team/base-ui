@@ -13,7 +13,7 @@ export function SubmissionContestProblemField(props: SubmissionContestProblemFie
       problem: {
         key: problemKey,
         name: problemName,
-        company: { key: problemCompanyKey },
+        organization: { key: problemOrganizationKey },
       },
       contest,
     },
@@ -22,9 +22,9 @@ export function SubmissionContestProblemField(props: SubmissionContestProblemFie
   } = props;
 
   const { Link } = useUIStore((store) => store.components);
-  const userCompanyKey = useUserStore((state) => state.company.key);
+  const userOrganizationKey = useUserStore((state) => state.organization.key);
 
-  const origin = getJudgeOrigin(contest ? contest.company.key : problemCompanyKey, userCompanyKey);
+  const origin = getJudgeOrigin(contest ? contest.organization.key : problemOrganizationKey, userOrganizationKey);
 
   return (
     <FieldText

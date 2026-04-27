@@ -70,7 +70,7 @@ const newAblyClient = (uiId: string) => {
           let tokenRequest;
           try {
             const response = cleanRequest<ContentResponse<TokenDetails | TokenRequest | string | null>>(
-              await authorizedRequest(`${jukiApiManager.API_V2.websocket.auth().url}?uiId=${uiId}`),
+              await authorizedRequest(`${jukiApiManager.apiV2.websocket.auth().url}?uiId=${uiId}`),
             );
             tokenRequest = response.success ? response.content : null;
           } catch (error) {

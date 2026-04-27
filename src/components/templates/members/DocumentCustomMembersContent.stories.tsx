@@ -18,7 +18,7 @@ type Story = StoryObj<typeof DocumentCustomMembersContent>;
 
 const Cmp = (args: DocumentCustomMembersContentProps) => {
   const [members, setMembers] = useState(EMPTY_ENTITY_MEMBERS());
-  const dummyOwner = { nickname: 'OscarGauss', imageUrl: '', company: { key: 'juki-app' } };
+  const dummyOwner = { nickname: 'OscarGauss', imageUrl: '', organization: { key: 'juki-app' } };
   const documentAccess = getDocumentAccess({ members });
   console.info({ args, members, documentAccess });
   return (
@@ -34,7 +34,7 @@ const Cmp = (args: DocumentCustomMembersContentProps) => {
       {/*<DocumentCustomMembersContent*/}
       {/*  members={members}*/}
       {/*  setMembers={setMembers}*/}
-      {/*  documentOwner={{ nickname: 'OscarGauss', imageUrl: '', company: { key: 'juki-app' } }}*/}
+      {/*  documentOwner={{ nickname: 'OscarGauss', imageUrl: '', organization: { key: 'juki-app' } }}*/}
       {/*  administrators={{}}*/}
       {/*  managers={{}}*/}
       {/*  participants={{ closeable: true }}*/}

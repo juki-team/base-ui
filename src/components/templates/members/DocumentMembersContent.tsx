@@ -187,7 +187,7 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
       {/*      <div>*/}
       {/*        <T className="fw-bd tt-se">add people</T>*/}
       {/*        <UsersSelector*/}
-      {/*          companyKey={companyKey}*/}
+      {/*          organizationKey={organizationKey}*/}
       {/*          selectedUsers={[]}*/}
       {/*          onChangeSelectedUsers={([ user ]) => {*/}
       {/*            if (user && !members.managers[user.nickname] && !members.spectators[user.nickname]) {*/}

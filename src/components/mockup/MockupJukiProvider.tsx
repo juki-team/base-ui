@@ -2,7 +2,7 @@ import { Language } from '@juki-team/commons/enums';
 import { createInstance, type i18n } from 'i18next';
 import type { PropsWithChildren } from 'react';
 import { SWRConfig } from 'swr';
-import { EMPTY_COMPANY, EMPTY_USER, SWR_CONFIG } from '../../constants';
+import { EMPTY_ORGANIZATION, EMPTY_USER, SWR_CONFIG } from '../../constants';
 import { UserStoreProvider } from '../../stores/user/useUserStore';
 import { JukiI18nInitializer, JukiProviders } from '../providers';
 import { MockupLoginButton } from './MockupLoginButton';
@@ -46,13 +46,13 @@ await i18nInstance.init({
 
 export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   return (
-    <UserStoreProvider initialUser={{ user: EMPTY_USER, company: EMPTY_COMPANY, isLoading: true }}>
+    <UserStoreProvider initialUser={{ user: EMPTY_USER, organization: EMPTY_ORGANIZATION, isLoading: true }}>
       <JukiProviders<TestPath>
         // serviceApiUrl={serviceUrl + '/api/v1'}
         // serviceApiV2Url={serviceV2Url}
         // tokenName="juki-token"
         // socketServiceUrl={socketServiceUrl}
-        multiCompanies={false}
+        multiOrganizations={false}
         onSeeMyProfile={() => {}}
         router={{
           pathname: '',

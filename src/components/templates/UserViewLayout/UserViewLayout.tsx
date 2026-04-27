@@ -99,7 +99,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
         isOpen={openModal === 'RESET_PASSWORD'}
         onClose={onClose}
         nickname={user.nickname}
-        companyKey={user.company.key}
+        organizationKey={user.organization.key}
       />
       <EditProfileModal
         isOpen={openModal === 'DATA'}
@@ -110,7 +110,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
             replaceRoute(
               jukiAppRoutes.JUDGE().profiles.view({
                 nickname: nickname as string,
-                companyKey: user.company.key,
+                organizationKey: user.organization.key,
                 tab: ProfileTab.OVERVIEW,
               }),
             );
@@ -128,7 +128,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
         getHrefOnTabChange={(tab) =>
           jukiAppRoutes.JUDGE().profiles.view({
             nickname: user.nickname,
-            companyKey: user.company.key,
+            organizationKey: user.organization.key,
             tab,
           })
         }

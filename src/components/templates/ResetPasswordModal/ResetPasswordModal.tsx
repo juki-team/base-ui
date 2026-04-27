@@ -4,7 +4,7 @@ import { ButtonLoader } from '../../molecules';
 import { UserNicknameLink } from '../../organisms';
 import type { ResetPasswordModalProps } from './types';
 
-export function ResetPasswordModal({ nickname, companyKey, ...modalProps }: ResetPasswordModalProps) {
+export function ResetPasswordModal({ nickname, organizationKey, ...modalProps }: ResetPasswordModalProps) {
   const { resetUserPassword } = useJukiUser();
 
   return (
@@ -15,7 +15,7 @@ export function ResetPasswordModal({ nickname, companyKey, ...modalProps }: Rese
         </h2>
         <div className="jk-row left">
           <T className="tt-se">the password for</T>&nbsp;
-          <UserNicknameLink nickname={nickname} companyKey={companyKey}>
+          <UserNicknameLink nickname={nickname} organizationKey={organizationKey}>
             <div className="link">{nickname}</div>
           </UserNicknameLink>
           &nbsp;
@@ -31,7 +31,7 @@ export function ResetPasswordModal({ nickname, companyKey, ...modalProps }: Rese
           <ButtonLoader
             onClick={(setLoader) =>
               resetUserPassword({
-                params: { nickname, companyKey },
+                params: { nickname, organizationKey: organizationKey },
                 setLoader,
                 onSuccess: modalProps.onClose,
               })

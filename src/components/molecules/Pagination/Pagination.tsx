@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { usePageStore } from '../../../stores/page/usePageStore';
-import { Select, T } from '../../atoms';
+import { Div, Select, T } from '../../atoms';
 import { classNames } from '../../helpers';
 import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '../../server';
 import type { PaginationProps } from './types';
@@ -75,14 +75,15 @@ export const Pagination = (props: PaginationProps) => {
         {isOnToolbar ? (
           <div className="jk-row gap nowrap">
             <div className="jk-row nowrap jk-br-ie tx-s ws-np bc-sf-md">
-              <div
+              <Div
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content="previous"
                 className={classNames('cr-pr jk-row jk-br-ie jk-input-', { disabled: page === startPage || initializing })}
                 onClick={prev}
+                onKeyDownClick
               >
                 <NavigateBeforeIcon />
-              </div>
+              </Div>
               <div
                 style={{
                   // borderRight: '1px solid var(--cr-ht-lt)',
@@ -93,14 +94,15 @@ export const Pagination = (props: PaginationProps) => {
                 {dataLength ? (firstItem === lastItem ? firstItem : `${firstItem} - ${lastItem}`) : '0'}
                 &nbsp;<T>of</T>&nbsp;{total}
               </div>
-              <div
+              <Div
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content="next"
                 className={classNames('cr-pr jk-row jk-br-ie jk-input-', { disabled: page === endPage || initializing })}
                 onClick={next}
+                onKeyDownClick
               >
                 <NavigateNextIcon />
-              </div>
+              </Div>
             </div>
             {pageSizeOptions.length > 1 && (
               <Select
@@ -122,58 +124,69 @@ export const Pagination = (props: PaginationProps) => {
         ) : (
           <>
             {!isSmallScreen && (
-              <div className={classNames('page-item cr-pr jk-row jk-br', { disabled: page === startPage })} onClick={prev}>
+              <Div
+                className={classNames('page-item cr-pr jk-row jk-br', { disabled: page === startPage })}
+                onClick={prev}
+                onKeyDownClick
+              >
                 <NavigateBeforeIcon />
-              </div>
+              </Div>
             )}
             <div className="jk-row jk-br center page-items">
               {startPage < (pages[0] ?? 0) && (
                 <>
-                  <div
+                  <Div
                     className={classNames('page-item cr-pr jk-row jk-br cr-tx-sc', { selected: startPage === page })}
                     onClick={() => jumpToPage(startPage)}
+                    onKeyDownClick
                   >
                     {loading && startPage === page ? <SpinIcon /> : startPage}
-                  </div>
+                  </Div>
                   {startPage + 1 < (pages[0] ?? 0) && (
-                    <div className="jk-row" onClick={() => jumpToPage(Math.max(page - SIZE_PAGES, startPage))}>
+                    <Div className="jk-row" onClick={() => jumpToPage(Math.max(page - SIZE_PAGES, startPage))} onKeyDownClick>
                       <DoubleUpIcon rotate={-90} />
-                    </div>
+                    </Div>
                   )}
                 </>
               )}
               {pages.map((index) => (
-                <div
+                <Div
                   key={index}
                   className={classNames('page-item cr-pr jk-row jk-br fw-bd', {
                     selected: index === page,
                     'fw-br': index === page,
                   })}
                   onClick={() => jumpToPage(index)}
+                  onKeyDownClick
                 >
                   {loading && index === page ? <SpinIcon /> : index}
-                </div>
+                </Div>
               ))}
               {(pages[pages.length - 1] ?? 0) < endPage && (
                 <>
                   {endPage - 1 > (pages[pages.length - 1] ?? 0) && (
-                    <div className="jk-row" onClick={() => jumpToPage(Math.min(page + SIZE_PAGES, endPage))}>
+                    <Div className="jk-row" onClick={() => jumpToPage(Math.min(page + SIZE_PAGES, endPage))} onKeyDownClick>
                       <DoubleUpIcon rotate={90} />
-                    </div>
+                    </Div>
                   )}
-                  <div
+                  <Div
                     className={classNames('page-item cr-pr jk-row jk-br-ie cr-tx-sc', { selected: endPage === page })}
                     onClick={() => jumpToPage(endPage)}
+                    onKeyDownClick
                   >
                     {loading && endPage === page ? <SpinIcon /> : endPage}
-                  </div>
+                  </Div>
                 </>
               )}
             </div>
             {!isSmallScreen && (
-              <div className={classNames('page-item cr-pr jk-row jk-br-ie', { disabled: page === endPage })} onClick={next}>
+              <Div
+                className={classNames('page-item cr-pr jk-row jk-br-ie', { disabled: page === endPage })}
+                onClick={next}
+                onKeyDownClick
+              >
                 <NavigateNextIcon />
-              </div>
+              </Div>
             )}
           </>
         )}

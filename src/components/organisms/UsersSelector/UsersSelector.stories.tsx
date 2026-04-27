@@ -15,12 +15,12 @@ export const UsersSelector = () => {
     <MockupJukiProvider>
       <div className="jk-pg-lg">
         <UsersSelectorComponent
-          selectedUsers={users.map((user) => getUserKey(user.nickname, user.company.key))}
+          selectedUsers={users.map((user) => getUserKey(user.nickname, user.organization.key))}
           onChangeSelectedUsers={(selectedUsers) => {
             setUsers(selectedUsers);
           }}
-          // companyKey="juki-judge-dev"
-          companyKey="juki-app"
+          // organizationKey="juki-judge-dev"
+          organizationKey="juki-app"
         />
       </div>
     </MockupJukiProvider>

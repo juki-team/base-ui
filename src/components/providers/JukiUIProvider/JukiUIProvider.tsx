@@ -17,7 +17,7 @@ import type { JukiUIProviderProps, LinkCmpProps } from './types';
 export const JukiUIProvider = ({
   children,
   components,
-  multiCompanies,
+  multiOrganizations,
   onSeeMyProfile,
 }: PropsWithChildren<JukiUIProviderProps>) => {
   const { Image: ImageCmp = Image, Link: LinkCMP = Link } = components || { Image, Link };
@@ -79,7 +79,7 @@ export const JukiUIProvider = ({
               {children}
               <Tooltip />
               <SignUpModal />
-              <LoginModal multiCompanies={multiCompanies} />
+              <LoginModal multiOrganizations={multiOrganizations} />
               <WelcomeModal onSeeMyProfile={onSeeMyProfile} />
               <UserPreviewModal />
               <SubmissionModal />

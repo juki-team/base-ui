@@ -25,7 +25,7 @@ export default function WorksheetAsSlides(props: WorksheetAsSlidesProps) {
   } = props;
 
   const userNickname = useUserStore((state) => state.user.nickname);
-  const companyKey = useUserStore((state) => state.company.key);
+  const organizationKey = useUserStore((state) => state.organization.key);
   const userIsLogged = useUserStore((state) => state.user.isLogged);
   const {
     data: userResultsData,
@@ -34,10 +34,10 @@ export default function WorksheetAsSlides(props: WorksheetAsSlidesProps) {
     isValidating: userResultsIsValidating,
   } = useFetcher<ContentResponse<WorksheetUserSubmissionsResponseDTO>>(
     worksheetKey && quizEnable && userIsLogged
-      ? jukiApiManager.API_V2.worksheet.getSubmissionsUser({
+      ? jukiApiManager.apiV2.worksheet.getSubmissionsUser({
           params: {
             key: worksheetKey,
-            userKey: resultsUserKey || getUserKey(userNickname, companyKey),
+            userKey: resultsUserKey || getUserKey(userNickname, organizationKey),
           },
         }).url
       : null,

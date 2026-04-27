@@ -1,6 +1,6 @@
 import type { WorksheetsInPages } from '@juki-team/commons/types';
 import { QueryParamKey } from '../../../../../enums';
-import { Collapse } from '../../../../atoms';
+import { Collapse, Div } from '../../../../atoms';
 import { classNames } from '../../../../helpers';
 import { MdMath } from '../../MdMath';
 import type { OnPageChange } from '../../WorksheetViewer/types';
@@ -32,7 +32,7 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
           >
             <Collapse
               header={({ toggle, Icon }) => (
-                <div
+                <Div
                   className={classNames('jk-row gap nowrap space-between stretch jk-br-ie ', {
                     hoverable: !!onPageChange && page !== index + 1,
                     'cr-pr': !isHeaderSelected,
@@ -48,9 +48,12 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                           })
                       : undefined
                   }
+                  onKeyDownClick
                 >
                   <MdMath source={header.title} flatView className="jk-col" />
                   {!!subTitles.length && (
+                    // biome-ignore lint/a11y/noStaticElementInteractions: collapse toggle inside a clickable header; keyboard handled by parent
+                    // biome-ignore lint/a11y/useKeyWithClickEvents: handler stops propagation; outer Div handles keyboard
                     <div
                       onClick={(event) => {
                         event.stopPropagation();
@@ -61,7 +64,7 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                       <Icon size="small" />
                     </div>
                   )}
-                </div>
+                </Div>
               )}
               startsShowing
             >
@@ -70,7 +73,7 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                   {subTitles.map((chunk, subIndex) => {
                     const subTitleSelected = page === index + 1 && subPage === subIndex + 1;
                     return (
-                      <div
+                      <Div
                         className={classNames('jk-row nowrap gap left stretch jk-pg-xsm', {
                           'fw-bd': subTitleSelected,
                           'hoverable jk-br-ie': !subTitleSelected && !!onPageChange,
@@ -88,10 +91,11 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                             value: chunk.id,
                           })
                         }
+                        onKeyDownClick
                       >
                         {LOGO_WORKSHEET_TYPE('small')[chunk?.type]?.icon || null}
                         <MdMath source={chunk.title} flatView />
-                      </div>
+                      </Div>
                     );
                   })}
                 </div>

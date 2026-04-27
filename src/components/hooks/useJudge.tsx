@@ -14,7 +14,7 @@ export const useJudge = <T,>(
   }[],
 ) => {
   const { data: virtualJudgeData } = useFetcher<ContentResponse<JudgeDataResponseDTO>>(
-    isExternal ? jukiApiManager.API_V2.judge.getData({ params: { key } }).url : null,
+    isExternal ? jukiApiManager.apiV2.judge.getData({ params: { key } }).url : null,
   );
 
   const languagesValuesString = JSON.stringify(validLanguages.map(({ value }) => value));

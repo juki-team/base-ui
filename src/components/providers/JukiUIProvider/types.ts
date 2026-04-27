@@ -44,10 +44,10 @@ export interface UIComponentsContextInterface {
   loaded: boolean;
 }
 
-export type OnSeeMyProfileType = (nickname: string, companyKey: string) => Promise<void> | void;
+export type OnSeeMyProfileType = (nickname: string, organizationKey: string) => Promise<void> | void;
 
 export interface JukiUIProviderProps {
   components?: Partial<UIComponentsContextInterface>;
-  multiCompanies: boolean;
+  multiOrganizations: boolean;
   onSeeMyProfile: OnSeeMyProfileType;
 }

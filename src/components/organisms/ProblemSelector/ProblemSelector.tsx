@@ -17,14 +17,14 @@ import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
 import { DownloadIcon, RefreshIcon, SpinIcon } from '../../server';
 import type { JudgeDataType, ProblemSelectorProps } from './types';
 
-export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: ProblemSelectorProps) {
+export function ProblemSelector({ onSelect, extend = false, organizationKey = '' }: ProblemSelectorProps) {
   const [judge, setJudge] = useState<JudgeDataResponseDTO | null>(null);
   const [key, setKey] = useState('');
   const [data, setData] = useState<JudgeDataType>({} as JudgeDataType);
   const { notifyResponse } = useJukiNotification();
   const [timestampTrigger, setTimestampTrigger] = useState(0);
   const { data: judgesData } = useFetcher<ContentResponse<JudgeDataResponseDTO[]>>(
-    jukiApiManager.API_V2.company.getJudgeList({ params: { companyKey } }).url,
+    jukiApiManager.apiV2.organization.getJudgeList({ params: { organizationKey: organizationKey } }).url,
   );
   const judges = judgesData?.success ? judgesData.content : [];
   const firstJudge = judges[0];
@@ -42,7 +42,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
           ...prevState,
           [judge.key]: { problems: prevState[judge.key]?.problems || [], loading: true },
         }));
-        const { url } = jukiApiManager.API_V2.problem.getBasicSummaryList({
+        const { url } = jukiApiManager.apiV2.problem.getBasicSummaryList({
           params: {
             page: 1,
             pageSize: 100000,
@@ -79,7 +79,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
     <ButtonLoader
       onClick={async (setLoaderStatus) => {
         setLoaderStatus(Status.LOADING);
-        const { url } = jukiApiManager.API_V2.problem.getSummary({ params: { key } });
+        const { url } = jukiApiManager.apiV2.problem.getSummary({ params: { key } });
         const response = cleanRequest<ContentResponse<ProblemSummaryListResponseDTO>>(await authorizedRequest(url));
         if (response.success) {
           onSelect(response.content);

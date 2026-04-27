@@ -68,7 +68,11 @@ export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword
           <ButtonLoader type="secondary" onClick={onClose}>
             <T className="tt-se">cancel</T>
           </ButtonLoader>
-          <ButtonLoader onClick={(setLoading) => onForgotPassword(email, setLoading!)} disabled={disabled} submit>
+          <ButtonLoader
+            onClick={(setLoading) => onForgotPassword(email, setLoading ?? (() => undefined))}
+            disabled={disabled}
+            submit
+          >
             <T className="ws-np tt-se">send me</T>
           </ButtonLoader>
         </div>

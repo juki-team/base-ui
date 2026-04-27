@@ -3,5 +3,5 @@ export interface UsersSelectorProps {
   selectedUsers: string[];
   onChangeSelectedUsers: (selectedUsers: UserSummaryListResponseDTO[]) => void;
   maxUsersSelection?: number;
-  companyKey: string;
+  organizationKey: string;
 }

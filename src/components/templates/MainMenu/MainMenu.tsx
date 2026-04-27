@@ -33,7 +33,7 @@ export function MainMenu(props: MainMenuProps) {
     menuViewMode,
     profileSelected,
     moreApps,
-    multiCompanies,
+    multiOrganizations,
     children,
     topImageUrl,
     onBack,
@@ -44,7 +44,7 @@ export function MainMenu(props: MainMenuProps) {
   const searchParams = useRouterStore((state) => state.searchParams);
   const setSearchParams = useRouterStore((state) => state.setSearchParams);
   const isLoading = useUserStore((state) => state.isLoading);
-  const { imageUrl: companyImageUrl, name, styles } = useUserStore((state) => state.company);
+  const { imageUrl: companyImageUrl, name, styles } = useUserStore((state) => state.organization);
   const {
     isLogged,
     settings: { [ProfileSetting.THEME]: preferredTheme, [ProfileSetting.MENU_VIEW_MODE]: userPreferredMenuViewMode },
@@ -53,11 +53,11 @@ export function MainMenu(props: MainMenuProps) {
   const imageUrl = topImageUrl || companyImageUrl;
 
   const { data } = useFetcher<ContentsResponse<OrganizationUserPermissionsResponseDTO>>(
-    multiCompanies && isLogged ? jukiApiManager.API_V2.company.getPermissionList().url : null,
+    multiOrganizations && isLogged ? jukiApiManager.apiV2.organization.getPermissionList().url : null,
   );
-  const companyKey = searchParams.get(QueryParamKey.COMPANY) as string;
+  const organizationKey = searchParams.get(QueryParamKey.COMPANY) as string;
   const companies: OrganizationUserPermissionsResponseDTO[] = useMemo(() => (data?.success ? data.contents : []), [data]);
-  const company = useMemo(() => companies.find((company) => company.key === companyKey), [companyKey, companies]);
+  const company = useMemo(() => companies.find((company) => company.key === organizationKey), [organizationKey, companies]);
   const isSmall = viewPortSize === 'sm';
   const isMedium = viewPortSize === 'md';
   const [helpOpen, setHelpOpen] = useState(false);
@@ -67,7 +67,7 @@ export function MainMenu(props: MainMenuProps) {
   const menu = useMemo(() => {
     const menu: MenuType[] = [];
     const enabled = false;
-    if (multiCompanies && isLogged && enabled) {
+    if (multiOrganizations && isLogged && enabled) {
       const select = (
         <Select
           options={companies.map((company) => ({
@@ -119,7 +119,7 @@ export function MainMenu(props: MainMenuProps) {
     }
     menu.push(...initialMenu);
     return menu;
-  }, [multiCompanies, isLogged, initialMenu, companies, company, setSearchParams, isSmall, preferredTheme, Image]);
+  }, [multiOrganizations, isLogged, initialMenu, companies, company, setSearchParams, isSmall, preferredTheme, Image]);
 
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode;
 

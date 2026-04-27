@@ -128,6 +128,7 @@ function SlideDeckComponent(props: SlideDeckProps) {
 
   const framePending = useAnimationFrameStore((store) => store.framePending);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setLoading(true);
     if (!framePending && deckRef.current && deckRef.current.isReady()) {
@@ -138,19 +139,24 @@ function SlideDeckComponent(props: SlideDeckProps) {
           Array.from(children),
         );
         for (let i = 0; i < parents.length; i++) {
+          const parent = parents[i];
+          if (!parent) continue;
+          const previousParent = parents[i - 1];
           let fragmentAdded = false;
-          for (let j = 0; j < parents[i]!.length; j++) {
-            if (parents[i]![j]!.tagName === 'OL' || parents[i]![j]!.tagName === 'UL') {
-              for (const li of Array.from(parents[i]![j]!.children)) {
+          for (let j = 0; j < parent.length; j++) {
+            const child = parent[j];
+            if (!child) continue;
+            if (child.tagName === 'OL' || child.tagName === 'UL') {
+              for (const li of Array.from(child.children)) {
                 if (li.classList?.add) {
                   li.classList.add('fragment');
                   fragmentAdded = true;
                 }
               }
             }
-            if (fragmentAdded || parents[i]![j]!.textContent !== parents[i - 1]?.[j]?.textContent) {
-              if (parents[i]![j]?.classList?.add) {
-                parents[i]![j]!.classList.add('fragment');
+            if (fragmentAdded || child.textContent !== previousParent?.[j]?.textContent) {
+              if (child.classList?.add) {
+                child.classList.add('fragment');
                 fragmentAdded = true;
               }
             }

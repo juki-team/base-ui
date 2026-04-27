@@ -10,7 +10,7 @@ export interface MainMenuProps {
   profileSelected?: boolean;
   moreApps?: ReactNode;
   children: ReactNode;
-  multiCompanies?: boolean;
+  multiOrganizations?: boolean;
   topImageUrl?: string;
   onBack?: () => void;
 }

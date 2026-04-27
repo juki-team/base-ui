@@ -25,7 +25,7 @@ const steps = [
   },
 ];
 
-export function LoginModalCmp({ multiCompanies, openForgotPasswordModal, setOpenForgotPasswordModal }: LoginModalProps) {
+export function LoginModalCmp({ multiOrganizations, openForgotPasswordModal, setOpenForgotPasswordModal }: LoginModalProps) {
   const { signIn } = useJukiUser();
   const { osLabel, label } = useUserStore((state) => state.device);
   const searchParams = useRouterStore((state) => state.searchParams);
@@ -40,9 +40,9 @@ export function LoginModalCmp({ multiCompanies, openForgotPasswordModal, setOpen
   };
   const { setIsOpen } = useTour();
 
-  const onSubmit = ({ companyKey, ...data }: LoginFormType, setLoader: SetLoaderStatusOnClickType) =>
+  const onSubmit = ({ organizationKey, ...data }: LoginFormType, setLoader: SetLoaderStatusOnClickType) =>
     signIn({
-      params: companyKey ? { companyKey } : undefined,
+      params: organizationKey ? { organizationKey: organizationKey } : undefined,
       body: { ...data, osName: osLabel, deviceName: label },
       setLoader,
       onError,
@@ -59,7 +59,7 @@ export function LoginModalCmp({ multiCompanies, openForgotPasswordModal, setOpen
       onSubmit={onSubmit}
       openForgotPasswordModal={openForgotPasswordModal}
       setOpenForgotPasswordModal={setOpenForgotPasswordModal}
-      multiCompanies={multiCompanies}
+      multiOrganizations={multiOrganizations}
     />
   );
 }

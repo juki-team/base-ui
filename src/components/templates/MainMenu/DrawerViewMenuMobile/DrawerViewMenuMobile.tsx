@@ -17,7 +17,7 @@ export interface DrawerViewMenuMobileProps {
 
 export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: DrawerViewMenuMobileProps) => {
   const { Image } = useUIStore((store) => store.components);
-  const companyName = useUserStore((state) => state.company.name);
+  const companyName = useUserStore((state) => state.organization.name);
   const [helpOpen, setHelpOpen] = useState(false);
 
   return (

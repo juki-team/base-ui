@@ -13,7 +13,7 @@ export const ForgotPasswordModal = ({ isOpen, onClose }: BasicModalProps) => {
   const { notifyResponse } = useJukiNotification();
   const onForgotPassword: OnForgotPasswordType = async (email, setStatus) => {
     setStatus?.(Status.LOADING);
-    const { url, ...options } = jukiApiManager.API_V2.auth.initiateResetPassword({ body: { email } });
+    const { url, ...options } = jukiApiManager.apiV2.auth.initiateResetPassword({ body: { email } });
     const response = cleanRequest<ContentResponse<unknown>>(await authorizedRequest(url, options));
     notifyResponse(response, setStatus);
   };

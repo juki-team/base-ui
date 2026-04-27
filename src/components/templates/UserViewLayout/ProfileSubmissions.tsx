@@ -22,7 +22,7 @@ import type { ProfileSubmissionsProps } from './types';
 export function ProfileSubmissions(_: ProfileSubmissionsProps) {
   const nickname = useRouterStore((state) => state.routeParams.nickname);
   const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDTO>>(
-    jukiApiManager.API_V2.judge.getSummaryList().url,
+    jukiApiManager.apiV2.judge.getSummaryList().url,
   );
   // const preload = usePreload();
   const languages = useMemo(() => {
@@ -56,7 +56,7 @@ export function ProfileSubmissions(_: ProfileSubmissionsProps) {
       cards={{ expanded: true }}
       headers={columns}
       getUrl={({ pagination: { page, pageSize }, filter, sort }) =>
-        jukiApiManager.API_V2.submission.getSummaryList({
+        jukiApiManager.apiV2.submission.getSummaryList({
           params: {
             page,
             pageSize,

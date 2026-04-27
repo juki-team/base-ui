@@ -16,7 +16,7 @@ export type MdMathEditorDeprecatedProps = {
   downloadButton?: boolean;
   // sharedButton?: boolean,
   initEditMode?: boolean;
-  // onPickImageUrl?: onPickImageUrlType,
+  // onPickImageUrl?: OnPickImageUrlType,
   // online?: boolean,
 };
 

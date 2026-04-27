@@ -1,17 +1,18 @@
-import { type ComponentPropsWithRef, forwardRef, type ReactElement, type Ref, useEffect, useId } from 'react';
+import { type ReactElement, type Ref, useEffect, useId } from 'react';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import { classNames } from '../../helpers';
 import type { InputCommonsProps } from '../../types';
 
 export type CmpInputProps<T> = InputCommonsProps<T>;
 
-function InputBaseComponent<T extends string | number | FileList>(
+export function InputBase<T extends string | number | FileList>(
   _props: InputProps<T> & {
     inputId: string;
+    ref?: Ref<HTMLInputElement>;
   },
-  ref: Ref<HTMLInputElement>,
-) {
+): ReactElement {
   const {
+    ref,
     className,
     onChange,
     onBlur,
@@ -37,14 +38,18 @@ function InputBaseComponent<T extends string | number | FileList>(
     ...restRegister
   } = register
     ? typeof register === 'function'
-      ? register((v) => (type === 'number' ? +v : v) as T)
+      ? register((v: T) => (type === 'number' ? +v : v) as T)
       : register
     : ({} as Partial<UseFormRegisterReturn>);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (autoFocus) {
-      // @ts-expect-error
-      setTimeout(() => ref?.current?.focus(), 10);
+      setTimeout(() => {
+        if (ref && typeof ref === 'object' && 'current' in ref) {
+          ref.current?.focus();
+        }
+      }, 10);
     }
   }, [autoFocus, registerRef, ref]);
 
@@ -104,15 +109,11 @@ function InputBaseComponent<T extends string | number | FileList>(
   );
 }
 
-export const InputBase = forwardRef(InputBaseComponent) as <T>(
-  p: InputProps<T> & {
-    inputId: string;
-    ref?: Ref<HTMLInputElement>;
-  },
-) => ReactElement;
-
-function InputComponent<T extends string | number | FileList>(_props: CmpInputProps<T>, ref: Ref<HTMLInputElement>) {
+export function Input<T extends string | number | FileList>(
+  _props: CmpInputProps<T> & { ref?: Ref<HTMLInputElement> },
+): ReactElement {
   const {
+    ref,
     type = 'text',
     expand = false,
     label: inputLabel,
@@ -138,7 +139,7 @@ function InputComponent<T extends string | number | FileList>(_props: CmpInputPr
       })}
     >
       {children}
-      <InputBase {...props} className={inputClassName} inputId={id} type={type} required={required} ref={ref} />
+      <InputBase<T> {...props} className={inputClassName} inputId={id} type={type} required={required} ref={ref} />
       <label htmlFor={`input-${id}`} className={labelClassName}>
         {inputLabel}
         {labelPlacement === 'left' ? <>:&nbsp;</> : ''}
@@ -148,11 +149,4 @@ function InputComponent<T extends string | number | FileList>(_props: CmpInputPr
   );
 }
 
-// https://stackoverflow.com/questions/58469229/react-with-typescript-generics-while-using-react-forwardref/58473012
-export const Input = forwardRef(InputComponent) as <T>(
-  p: CmpInputProps<T> & {
-    ref?: Ref<HTMLInputElement>;
-  },
-) => ReactElement;
-
-export type InputProps<T> = ComponentPropsWithRef<typeof Input<T>>;
+export type InputProps<T> = CmpInputProps<T> & { ref?: Ref<HTMLInputElement> };

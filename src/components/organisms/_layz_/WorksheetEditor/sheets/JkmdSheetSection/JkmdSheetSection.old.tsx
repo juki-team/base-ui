@@ -90,7 +90,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
                       id: content.id,
                       read: !lastSubmission?.read,
                     };
-                    const { url, ...options } = jukiApiManager.API_V2.worksheet.submitJkMd({
+                    const { url, ...options } = jukiApiManager.apiV2.worksheet.submitJkMd({
                       params: { worksheetKey },
                       body: jkMdSubmissionDTO,
                     });

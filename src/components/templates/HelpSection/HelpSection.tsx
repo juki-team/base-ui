@@ -3,7 +3,7 @@ import { T } from '../../atoms';
 import { ContactPhoneIcon, MailIcon, TelegramIcon } from '../../atoms/server';
 
 export function HelpSection() {
-  const { contactEmail, contactTelegram, contactCellPhoneNumber } = useUserStore((state) => state.company);
+  const { contactEmail, contactTelegram, contactCellPhoneNumber } = useUserStore((state) => state.organization);
 
   return (
     <div className="jk-col gap left stretch extend">

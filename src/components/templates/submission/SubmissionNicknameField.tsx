@@ -7,7 +7,7 @@ export function SubmissionNicknameField({
     user: {
       imageUrl,
       nickname,
-      company: { key: companyKey },
+      organization: { key: organizationKey },
     },
     hiddenSubmission,
   },
@@ -15,7 +15,13 @@ export function SubmissionNicknameField({
   return (
     <FieldText
       className="gap"
-      text={hiddenSubmission ? <UserMockChip /> : <UserChip imageUrl={imageUrl} nickname={nickname} companyKey={companyKey} />}
+      text={
+        hiddenSubmission ? (
+          <UserMockChip />
+        ) : (
+          <UserChip imageUrl={imageUrl} nickname={nickname} organizationKey={organizationKey} />
+        )
+      }
       label="user nickname"
     />
   );

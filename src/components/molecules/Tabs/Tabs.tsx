@@ -2,7 +2,7 @@ import { Children, type CSSProperties, type ReactNode, useEffect, useMemo, useRe
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { TriggerAction } from '../../../enums';
-import { Popover, Select } from '../../atoms';
+import { Div, Popover, Select } from '../../atoms';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { useHandleState } from '../../hooks/useHandleState';
@@ -92,24 +92,27 @@ export function Tabs<T extends string>(props: TabsProps<T>) {
       ref={refContainer}
     >
       <div className="jk-tabs-header jk-row space-between nowrap" ref={refTabsContainer}>
-        <div
+        <Div
           className="jk-tabs-tabs jk-row left"
-          onClick={() => (tabsHeaderFocus.current = true)}
+          onClick={() => {
+            tabsHeaderFocus.current = true;
+          }}
           ref={tabsHeaderRef}
           style={isExtend ? {} : hiddenStyle}
         >
           <div className="jk-row nowrap" ref={refTabs}>
             {tabs.map(({ clickable = true, key }) => (
-              <div
+              <Div
                 key={key}
                 className={classNames('jk-tab', { selected: tabKey === key })}
                 onClick={() => clickable && setTabKey(key as NotUndefined<T>)}
+                onKeyDownClick
               >
                 {tabHeaders[key]}
-              </div>
+              </Div>
             ))}
           </div>
-        </div>
+        </Div>
         {!isExtend && (
           <Select
             options={tabs.map(({ key }) => ({ value: key, label: tabHeaders[key] }))}

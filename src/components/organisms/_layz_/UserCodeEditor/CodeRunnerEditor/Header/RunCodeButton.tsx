@@ -153,7 +153,7 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
       const runId = v4();
       onRunStart(runId);
       activeRunIdRef.current = runId;
-      const { url, ...options } = jukiApiManager.API_V2.code.run({
+      const { url, ...options } = jukiApiManager.apiV2.code.run({
         body: {
           runId,
           files: [

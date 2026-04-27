@@ -17,7 +17,7 @@ export function ProblemAdminActionsField({ record: { key } }: ProblemAdminAction
         onClick={() => {
           setModal(
             <EntityLogsModal
-              url={jukiApiManager.API_V2.problem.getLogs({ params: { key } }).url}
+              url={jukiApiManager.apiV2.problem.getLogs({ params: { key } }).url}
               isOpen
               onClose={() => setModal(null)}
             />,

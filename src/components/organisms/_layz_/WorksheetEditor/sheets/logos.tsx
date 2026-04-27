@@ -4,7 +4,7 @@ import { ArticleIcon, BubbleChartIcon, CodeIcon, EventListIcon, ExtensionIcon } 
 import type { BasicIconProps } from '../../../../atoms/server/icons/types';
 
 export const LOGO_WORKSHEET_TYPE: (size?: BasicIconProps['size']) => {
-  [key in WorksheetType]: {
+  [Key in WorksheetType]: {
     icon: ReactNode;
     label: string;
   };

@@ -36,7 +36,7 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
         }}
       >
         <FetcherLayer<ContentResponse<ProblemDataResponseDTO>>
-          url={content.problemKey ? jukiApiManager.API_V2.problem.getData({ params: { key: content.problemKey } }).url : null}
+          url={content.problemKey ? jukiApiManager.apiV2.problem.getData({ params: { key: content.problemKey } }).url : null}
         >
           {({ data }) => {
             return (
@@ -59,7 +59,7 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
                             language,
                             source,
                           };
-                          const { url, ...options } = jukiApiManager.API_V2.worksheet.submitQuizProblem({
+                          const { url, ...options } = jukiApiManager.apiV2.worksheet.submitQuizProblem({
                             params: { worksheetKey },
                             body: quizProblem,
                           });

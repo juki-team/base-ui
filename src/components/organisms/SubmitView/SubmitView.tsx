@@ -10,7 +10,7 @@ import type { SubmitViewProps } from './types';
 export function SubmitView({ submitId, triggerFetch, header, className }: SubmitViewProps) {
   return (
     <FetcherLayer<ContentResponse<SubmissionDataResponseDTO>>
-      url={jukiApiManager.API_V2.submission.getData({ params: { id: submitId } }).url}
+      url={jukiApiManager.apiV2.submission.getData({ params: { id: submitId } }).url}
       errorView={() => {
         return (
           <PageNotFound>

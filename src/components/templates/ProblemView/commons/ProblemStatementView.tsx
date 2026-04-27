@@ -110,7 +110,7 @@ export const ProblemStatementView = <T,>({
   }
 
   const handleDownloadPdf = async () => {
-    const { url, ...options } = jukiApiManager.API_V2.export.problem.statementToPdf({
+    const { url, ...options } = jukiApiManager.apiV2.export.problem.statementToPdf({
       params: {
         key: problemKey,
         language: userPreferredLanguage,

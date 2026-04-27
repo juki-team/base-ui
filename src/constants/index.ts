@@ -1,5 +1,5 @@
 import { DAY_NAMES, EMPTY_USER_PERMISSIONS } from '@juki-team/commons/constants';
-import type { CompanyPingResponseDTO, UserPing } from '@juki-team/commons/dto';
+import type { OrganizationPingResponseDTO, UserPing } from '@juki-team/commons/dto';
 import { CodeLanguage, DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons/enums';
 import type { RecordId } from '@juki-team/commons/types';
 import type { useResizeDetectorProps } from 'react-resize-detector';
@@ -16,7 +16,7 @@ export const ALPHANUMERIC_DASH_UNDERSCORE_REGEX = /^[a-z0-9\-_]+$/i;
 
 export const LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?"()-_]{8,}$/;
 
-export const EMPTY_COMPANY: CompanyPingResponseDTO = {
+export const EMPTY_ORGANIZATION: OrganizationPingResponseDTO = {
   name: '',
   imageUrl: '',
   contactEmail: 'contact@juki.app',
@@ -81,7 +81,7 @@ export const EMPTY_USER: UserPing = {
   permissions: { ...EMPTY_USER_PERMISSIONS },
   isLogged: false,
   sessionId: '' as RecordId,
-  company: {
+  organization: {
     key: '',
   },
 };

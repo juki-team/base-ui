@@ -137,7 +137,7 @@ export type SetStatusType = (status: Status) => void;
 
 export type ViewPortSizeType = 'hg' | 'lg' | 'md' | 'sm' | '';
 
-export type Sounds = { [key in Sound]: HTMLAudioElement };
+export type Sounds = { [Key in Sound]: HTMLAudioElement };
 
 export type DataViewerRequesterGetUrlType = (props: Omit<DataViewerRequestPropsType, 'setLoaderStatus'>) => string | null;
 

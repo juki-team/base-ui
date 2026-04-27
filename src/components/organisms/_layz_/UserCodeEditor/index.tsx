@@ -1,4 +1,4 @@
-import { forwardRef, lazy, type ReactElement, type Ref, type RefAttributes, Suspense } from 'react';
+import { lazy, type ReactElement, type Ref, Suspense } from 'react';
 import { SpinIcon } from '../../../atoms/server';
 import type { UserCodeEditorHandle, UserCodeEditorProps } from './types';
 
@@ -8,13 +8,11 @@ const UserCodeEditorGen = lazy(() => UserCodeEditorImport()) as <T>(
   props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeEditorHandle<T>> },
 ) => ReactElement | null;
 
-export const UserCodeEditor = forwardRef(function UserCodeEditor<T>(
-  props: UserCodeEditorProps<T>,
-  ref: Ref<UserCodeEditorHandle<T>>,
-) {
+export function UserCodeEditor<T>(props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeEditorHandle<T>> }) {
+  const { ref, ...rest } = props;
   return (
     <Suspense fallback={<SpinIcon />}>
-      <UserCodeEditorGen {...props} ref={ref} />
+      <UserCodeEditorGen {...(rest as UserCodeEditorProps<T>)} ref={ref} />
     </Suspense>
   );
-}) as <T>(props: UserCodeEditorProps<T> & RefAttributes<UserCodeEditorHandle<T>>) => ReactElement | null;
+}

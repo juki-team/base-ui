@@ -27,7 +27,8 @@ export const getCommands = (text: string): [CommandsObjectType, string] => {
   let i = 0;
   if (commands[0] === '') {
     for (i++; i < commands.length; i++) {
-      const command = commands[i]!;
+      const command = commands[i];
+      if (command === undefined) continue;
       const [key = '', value = ''] = command.trim().split('=');
       if (key === 'textAlign') {
         // commandsObject[key] = keys[key](value);

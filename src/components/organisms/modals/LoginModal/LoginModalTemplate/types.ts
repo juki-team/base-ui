@@ -5,7 +5,7 @@ import type { SetLoaderStatusOnClickType } from '../../../../types';
 export type LoginFormType = {
   nickname: string;
   password: string;
-  companyKey: string;
+  organizationKey: string;
 };
 
 export interface LoginModalTemplateProps extends BasicModalProps {
@@ -14,7 +14,7 @@ export interface LoginModalTemplateProps extends BasicModalProps {
   onSubmit: (data: LoginFormType, setStatus: SetLoaderStatusOnClickType) => void;
   loginWithGoogle?: (setStatus?: SetLoaderStatusOnClickType) => (response: never) => void;
   reactAppGoogleClientId?: string;
-  multiCompanies?: boolean;
+  multiOrganizations?: boolean;
   openForgotPasswordModal: boolean;
   setOpenForgotPasswordModal: Dispatch<SetStateAction<boolean>>;
 }

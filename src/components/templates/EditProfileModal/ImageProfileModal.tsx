@@ -10,7 +10,7 @@ import { ButtonLoader, ImageLoaderCropper } from '../../molecules';
 import type { CropImageType } from '../../molecules/types';
 import type { ImageProfileModalProps } from './types';
 
-export function ImageProfileModal({ isOpen, onClose, nickname, companyKey }: ImageProfileModalProps) {
+export function ImageProfileModal({ isOpen, onClose, nickname, organizationKey }: ImageProfileModalProps) {
   const { updateUserProfileImage } = useJukiUser();
   const mutateUser = useUserStore((state) => state.mutate);
   const mutate = useMatchMutate();
@@ -30,13 +30,15 @@ export function ImageProfileModal({ isOpen, onClose, nickname, companyKey }: Ima
                 const blob = await toBlob(cropImage.previewCanvasRef.current);
                 if (blob) {
                   await updateUserProfileImage({
-                    params: { nickname, companyKey },
+                    params: { nickname, organizationKey: organizationKey },
                     setLoader,
                     body: blob,
                     onSuccess: async () => {
                       setLoader?.(Status.LOADING);
                       await mutateUser();
-                      await mutate(jukiApiManager.API_V2.user.getProfile({ params: { nickname, companyKey } }).url);
+                      await mutate(
+                        jukiApiManager.apiV2.user.getProfile({ params: { nickname, organizationKey: organizationKey } }).url,
+                      );
                       setLoader?.(Status.SUCCESS);
                       onClose();
                     },

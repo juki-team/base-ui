@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Input, InputTextArea, Modal, T } from '../../../../../atoms';
+import { Button, Div, Input, InputTextArea, Modal, T } from '../../../../../atoms';
 import {
   AddIcon,
   ArrowDropDownIcon,
@@ -50,7 +50,8 @@ function buildTree(entries: [string, { folderPath: string; index: number; name: 
   const folderMap = new Map<string, TreeNode & { type: 'folder' }>();
 
   const getOrCreateFolder = (path: string): TreeNode & { type: 'folder' } => {
-    if (folderMap.has(path)) return folderMap.get(path)!;
+    const existing = folderMap.get(path);
+    if (existing) return existing;
     const parts = path.split('/').filter(Boolean);
     const name = parts[parts.length - 1] ?? path;
     const node: TreeNode & { type: 'folder' } = { type: 'folder', name, path, children: [], files: [] };
@@ -123,6 +124,8 @@ function FileNode<T>({
   setFileNameDelete,
 }: FileNodeProps<T>) {
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: file row, onClick stops propagation to avoid re-triggering parent folder; keyboard not yet supported
+    // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard handler not yet implemented for file selection
     <div
       className={classNames('tx-t jk-pg-xsm jk-col nowrap left stretch', {
         'bc-ht-lt': fileKey === currentFileName,
@@ -225,6 +228,8 @@ function FolderNode<T>({
 
   return (
     <div style={{ paddingLeft: depth > 0 ? 0 : 0 }}>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: folder header, onClick stops propagation to avoid bubbling to parent file rows */}
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: keyboard handler not yet implemented for folder toggle */}
       <div
         className="jk-row left gap hoverable jk-pg-xsm tx-t fw-bd nowrap"
         style={{ cursor: 'pointer' }}
@@ -384,14 +389,15 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
         </div>
       </Modal>
       <div className="jk-col top stretch nowrap" style={{ borderRight: '1px solid var(--cr-ht-lt)' }} ref={fileTreePanelRef}>
-        <div
+        <Div
           className="jk-row fw-bd jk-pg-xsm-tb bc-ht-lt left hoverable"
           onClick={() => setViewFiles(!viewFiles)}
           style={{ paddingLeft: 4 }}
+          onKeyDownClick
         >
           {viewFiles ? <ArrowLeftIcon /> : <ArrowRightIcon />}
           {viewFiles && <T className="tt-se">files</T>}
-        </div>
+        </Div>
         <div className="jk-divider vertical tiny" style={{ height: 1 }} />
         <div className="jk-col top stretch gap nowrap ow-ao">
           <div className="jk-col stretch">

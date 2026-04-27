@@ -2,7 +2,7 @@ import { Children, type PropsWithChildren } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
-import { Button, Select } from '../../atoms';
+import { Button, Div, Select } from '../../atoms';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState } from '../../hooks/useHandleState';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
@@ -123,7 +123,11 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
               getHrefOnTabChange={getHrefOnTabChange}
               routerReplace={routerReplace}
             >
-              <div className="jk-row jk-pg-xsm" onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex - 1]?.key)}>
+              <Div
+                className="jk-row jk-pg-xsm"
+                onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex - 1]?.key)}
+                onKeyDownClick
+              >
                 <NavigateBeforeIcon
                   className={classNames('br-50-pc bc-at-lt cr-at-it elevation-1', {
                     activated: selectedTabIndex - 1 >= 0,
@@ -131,7 +135,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
                   })}
                   size="small"
                 />
-              </div>
+              </Div>
             </TabWithLink>
           )}
           {isSmallScreen ? (
@@ -189,7 +193,11 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
               getHrefOnTabChange={getHrefOnTabChange}
               routerReplace={routerReplace}
             >
-              <div className="jk-row jk-pg-xsm" onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex + 1]?.key)}>
+              <Div
+                className="jk-row jk-pg-xsm"
+                onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex + 1]?.key)}
+                onKeyDownClick
+              >
                 <NavigateNextIcon
                   className={classNames('br-50-pc bc-at-lt cr-at-it elevation-1', {
                     activated: selectedTabIndex + 1 < tabsLength,
@@ -197,7 +205,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
                   })}
                   size="small"
                 />
-              </div>
+              </Div>
             </TabWithLink>
           )}
         </div>

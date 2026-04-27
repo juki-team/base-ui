@@ -1,4 +1,4 @@
-import { forwardRef, type Ref } from 'react';
+import type { Ref } from 'react';
 import { Button, T } from '../../atoms';
 import { classNames, showOfDateDisplayType } from '../../helpers';
 import { DayPicker } from '../DayPicker/DayPicker';
@@ -7,8 +7,9 @@ import { TimePicker } from '../TimePicker/TimePicker';
 import { YearPicker } from '../YearPicker/YearPicker';
 import type { DatePickerProps } from './types';
 
-function DatePickerComponent(props: DatePickerProps, ref: Ref<HTMLDivElement>) {
+export function DatePicker(props: DatePickerProps & { ref?: Ref<HTMLDivElement> }) {
   const {
+    ref,
     todayButton = false,
     date = new Date(),
     isDisabled,
@@ -63,5 +64,3 @@ function DatePickerComponent(props: DatePickerProps, ref: Ref<HTMLDivElement>) {
     </div>
   );
 }
-
-export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(DatePickerComponent);

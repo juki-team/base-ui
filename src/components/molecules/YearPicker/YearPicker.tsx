@@ -15,21 +15,24 @@ export function YearPicker({ date, onChange, isDisabled, isSelected }: YearPicke
     dateCursor = decreaseYear(dateCursor);
   }
   for (let i = 0; i < 4; i++) {
-    gridYears.push([]);
+    const row: Date[] = [];
+    gridYears.push(row);
     for (let j = 0; j < 3; j++) {
-      gridYears[i]!.push(new Date(dateCursor));
+      row.push(new Date(dateCursor));
       dateCursor = increaseYear(dateCursor);
     }
   }
+  const firstYear = gridYears[0]?.[0];
+  const lastYear = gridYears[3]?.[2];
 
   return (
     <>
       <div className="jk-row jk-year-picker-header">
         <PreviousButton onClick={() => setViewDate(decreaseYear(viewDate, 12))} />
         <div className="jk-row space-between years-label">
-          <div>{gridYears[0]![0]!.getFullYear()}</div>
+          <div>{firstYear?.getFullYear()}</div>
           &nbsp;-&nbsp;
-          <div>{gridYears[3]![2]!.getFullYear()}</div>
+          <div>{lastYear?.getFullYear()}</div>
         </div>
         <NextButton onClick={() => setViewDate(increaseYear(viewDate, 12))} />
       </div>

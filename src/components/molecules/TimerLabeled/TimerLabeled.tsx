@@ -5,7 +5,7 @@ import { classNames, cutTimeSplit } from '../../helpers';
 import { Timer } from '../Timer/Timer';
 import type { TimerLabeledProps } from './types';
 
-const DEFAULT_LABELS: { [key in Period]: string } = {
+const DEFAULT_LABELS: { [Key in Period]: string } = {
   [Period.FUTURE]: 'stars in',
   [Period.LIVE_START]: 'starts ago',
   [Period.LIVE_END]: 'ends in',

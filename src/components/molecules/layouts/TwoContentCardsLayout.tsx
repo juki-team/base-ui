@@ -19,8 +19,9 @@ export function TwoContentCardsLayout<T>(props: TwoContentCardsLayoutProps<T>) {
   const preferredMenuViewMode = useUserStore((state) => state.user.settings[ProfileSetting.MENU_VIEW_MODE]);
   const pushRoute = useRouterStore((state) => state.pushRoute);
   const tabKeys = Object.keys(tabs);
+  const firstTabKey = tabKeys[0];
   const [tab, setTab] = useHandleState<T>(
-    (tabs[tabKeys[0]!]?.key ?? '') as NotUndefined<T>,
+    ((firstTabKey ? tabs[firstTabKey]?.key : undefined) ?? '') as NotUndefined<T>,
     selectedTabKey as NotUndefined<T> | undefined,
   );
 

@@ -7,7 +7,7 @@ import { Children, useEffect, useRef, useState } from 'react';
 import { QueryParamKey } from '../../../../../../enums';
 import { jukiApiManager } from '../../../../../../settings';
 import { useRouterStore } from '../../../../../../stores/router/useRouterStore';
-import { T } from '../../../../../atoms';
+import { Div, T } from '../../../../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, SpinIcon } from '../../../../../atoms/server';
 import { authorizedRequest, classNames, getHeight } from '../../../../../helpers';
 
@@ -52,7 +52,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
       testCases,
     };
     const assignmentId = searchParams.get(QueryParamKey.ASSIGNMENT);
-    const { url, ...options } = jukiApiManager.API_V2.worksheet.submitCodeEditor({
+    const { url, ...options } = jukiApiManager.apiV2.worksheet.submitCodeEditor({
       params: { worksheetKey, secondaryKey: assignmentId ?? '' },
       body: codeEditorSubmissionDTO,
     });
@@ -94,14 +94,15 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
             }
             buttons.push(
               <div className="jk-row bc-ht-lt jk-br-ie" key="buttons">
-                <div
+                <Div
                   className={classNames('clickable br-50-pc jk-row', { 'cr-ht': totalSubmissions === 0 })}
                   onClick={
                     totalSubmissions ? () => setSubmissionIndex((prevState) => (prevState + 1) % totalSubmissions) : undefined
                   }
+                  onKeyDownClick
                 >
                   <ArrowLeftIcon />
-                </div>
+                </Div>
                 {userResults?.isLoading ? (
                   <SpinIcon />
                 ) : (
@@ -111,16 +112,17 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
                   </>
                 )}
                 {/*{result.isValidating && <SpinIcon />}*/}
-                <div
+                <Div
                   className={classNames('clickable br-50-pc jk-row', { 'cr-ht': totalSubmissions === 0 })}
                   onClick={
                     totalSubmissions
                       ? () => setSubmissionIndex((prevState) => (prevState - 1 + totalSubmissions) % totalSubmissions)
                       : undefined
                   }
+                  onKeyDownClick
                 >
                   <ArrowRightIcon />
-                </div>
+                </Div>
               </div>,
             );
             return <div className="jk-row gap">{Children.toArray(buttons)}</div>;

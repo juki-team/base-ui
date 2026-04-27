@@ -1,4 +1,5 @@
 import { Children, type MouseEvent, memo, type ReactElement, useCallback, useRef, useState } from 'react';
+import { Div } from '../../../../../atoms';
 import { classNames } from '../../../../../helpers';
 import { ArrowDownwardIcon, ArrowUpwardIcon, SortIcon } from '../../../../../server';
 import { fixHeaders, renderHead } from '../../commons/utils';
@@ -58,6 +59,7 @@ const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
       className={classNames({ 'with-right-border': withRightBorder }, 'sticky jk-table-row-head')}
       data-testid={`${columnIndex}_head`}
     >
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: drag-end handler on table head cell, not a clickable element */}
       <div
         className={classNames('jk-row nowrap jk-table-head-cell jk-pg-sm', {
           'with-sort': !!sort,
@@ -72,12 +74,13 @@ const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
         {withTools && (
           <div className="jk-row jk-table-head-tools">
             {sort && (
-              <div
+              <Div
                 className={classNames('tool jk-row jk-br-ie', {
                   'bc-at-lt cr-at-it active': !!order,
                   'cr-hd': !order,
                 })}
                 onClick={() => onSort({ columnIndex })}
+                onKeyDownClick
               >
                 {order ? (
                   order > 0 ? (
@@ -88,12 +91,14 @@ const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
                 ) : (
                   <SortIcon up down size="small" />
                 )}
-              </div>
+              </Div>
             )}
             {filter?.onFilter && <Filter columnIndex={columnIndex} filter={filter} disabled={loading} />}
           </div>
         )}
         {withTools && (!fillWidth || headIndex < headers.length) && (
+          // biome-ignore lint/a11y/noStaticElementInteractions: column resize drag handle, not a button
+          // biome-ignore lint/a11y/useKeyWithClickEvents: onClick only stops propagation; drag interaction is mouse-only
           <div
             className="jk-table-head-drag"
             onMouseDown={onMouseHoldDown(headIndex)}
@@ -168,6 +173,7 @@ const TableHeadCmp = <T,>(props: TableHeadProps<T>) => {
   const headersWidth = headers.reduce((sum, head) => sum + (head.visible?.getVisible?.() ? head.width : 0), 0);
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: container tracks mouse for column drag, not a clickable element
     <div className="jk-table-head-container" ref={headerRef} onMouseMove={onMouseHoldMove} style={{ paddingBottom: gap }}>
       {displayTopHeader && (
         <div className={classNames('jk-table-head', { 'elevation-1': hasScrollTop })} style={{ width: headersWidth }}>
@@ -190,6 +196,7 @@ const TableHeadCmp = <T,>(props: TableHeadProps<T>) => {
           )}
         </div>
       )}
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: row tracks mouse-leave to end column drag, not a clickable element */}
       <div
         className={classNames('jk-table-head jk-br-ie', { 'elevation-1': hasScrollTop })}
         onMouseLeave={onMouseHoldUp}

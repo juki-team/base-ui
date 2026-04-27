@@ -17,7 +17,7 @@ const CSS_PROPS = [
 
 export const useInjectCompanyStyles = () => {
   const userPreferredTheme = useUserStore((state) => state.user.settings?.[ProfileSetting.THEME]);
-  const companyStyles = useUserStore((store) => store.company?.styles);
+  const companyStyles = useUserStore((store) => store.organization?.styles);
 
   useEffect(() => {
     const body = document.body;

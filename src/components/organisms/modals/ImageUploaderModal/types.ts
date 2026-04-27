@@ -4,10 +4,10 @@ import type { ModalProps } from '../../../atoms/types';
 export interface ImageUploaderModalProps extends ModalProps {
   withPublicImagesTab?: boolean;
   copyButtons?: boolean;
-  onPickImageUrl?: onPickImageUrlType;
+  onPickImageUrl?: OnPickImageUrlType;
 }
 
-export type onPickImageUrlType = (props: { imageThumbnailUrl: string; imageUrl: string }) => void;
+export type OnPickImageUrlType = (props: { imageThumbnailUrl: string; imageUrl: string }) => void;
 
 export type UploadImageButtonChildrenProps = { open: boolean; setOpen: Dispatch<boolean>; withLabel: boolean };
 
@@ -17,6 +17,6 @@ export interface ImageUploaderButtonProps {
   isOpenRef?: RefObject<boolean>;
   withLabel?: boolean;
   copyButtons?: boolean;
-  onPickImageUrl?: onPickImageUrlType;
+  onPickImageUrl?: OnPickImageUrlType;
   children?: (props: UploadImageButtonChildrenProps) => ReactNode;
 }
