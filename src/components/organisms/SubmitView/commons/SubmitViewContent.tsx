@@ -23,7 +23,8 @@ const DisplayGridData = ({ data }: { data: { title: ReactNode; content: ReactNod
   return (
     <div className="jk-table-grid wh-100">
       {data.map(({ title, content }, index) => (
-        <div className="jk-col bc-sf-hi jk-pg-xsm jk-br-ie" key={index}>
+        // biome-ignore lint/suspicious/noArrayIndexKey: grid cells are a fixed positional list per render; no dynamic reordering
+        <div key={index} className="jk-col bc-sf-hi jk-pg-xsm jk-br-ie">
           <div>{title}</div>
           <div>{content}</div>
         </div>

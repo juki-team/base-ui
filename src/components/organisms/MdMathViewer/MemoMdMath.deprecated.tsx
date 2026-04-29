@@ -67,5 +67,8 @@ function splitMarkdownIntoChunks(md: string): string[] {
 export const MemoMdMath = memo(({ source }: { source: string }) => {
   const chunks = splitMarkdownIntoChunks(source);
 
-  return chunks.map((chunk, index) => <MdMath key={chunk + index} source={chunk} />);
+  return chunks.map((chunk, index) => (
+    // biome-ignore lint/suspicious/noArrayIndexKey: deprecated component; chunks may repeat so index disambiguates positionally
+    <MdMath key={chunk + index} source={chunk} />
+  ));
 });

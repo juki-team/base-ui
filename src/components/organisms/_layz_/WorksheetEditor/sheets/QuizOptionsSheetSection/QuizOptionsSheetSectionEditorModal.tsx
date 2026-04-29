@@ -45,7 +45,7 @@ export const QuizOptionsSheetSectionEditorModal = ({
           />
           <div className="jk-col stretch left gap">
             {sheet.options.map((option, index) => (
-              <div className="jk-row gap nowrap extend" key={`${index}`}>
+              <div className="jk-row gap nowrap extend" key={option.id}>
                 {sheet.multiple ? <InputCheckbox checked={false} /> : <InputRadio checked={false} />}
                 <Input
                   value={option.label}

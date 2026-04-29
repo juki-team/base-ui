@@ -17,6 +17,7 @@ export function EntityLogsModal({ url, ...restProps }: EntityLogsModalProps) {
           {({ data }) => (
             <div>
               {data.content.map(({ timestamp, changes, customerUser }, index) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: read-only fetched logs in chronological order
                 <div key={index} className="jk-col stretch jk-pg-sm-tb">
                   <div className="jk-row gap center">
                     <DateLiteral date={new Date(timestamp)} />
@@ -28,6 +29,7 @@ export function EntityLogsModal({ url, ...restProps }: EntityLogsModalProps) {
                   </div>
                   <div className="jk-col gap stretch">
                     {changes.map(({ type, valueType, oldValue, value, path }, index) => (
+                      // biome-ignore lint/suspicious/noArrayIndexKey: changes within a single log entry are immutable
                       <div key={index} className="jk-row gap nowrap left">
                         <div
                           className={classNames('jk-tag tx-t', {

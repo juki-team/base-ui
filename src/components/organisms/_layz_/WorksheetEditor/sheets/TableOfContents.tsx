@@ -22,7 +22,7 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
 
         return (
           <div
-            key={index}
+            key={header.id}
             className={classNames('jk-col stretch', { 'bc-ht-lt': page === index + 1 })}
             style={{
               borderLeft: page === index + 1 ? '3px solid var(--cr-tx-ht-lt)' : '3px solid transparent',
@@ -38,7 +38,6 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                     'cr-pr': !isHeaderSelected,
                   })}
                   style={{ padding: '2px 8px' }}
-                  key={index}
                   onClick={
                     !isHeaderSelected
                       ? () =>
@@ -84,7 +83,7 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                               ? '3px solid var(--cr-tx-ht-lt)'
                               : '3px solid transparent',
                         }}
-                        key={`${chunk.title}-${subIndex}`}
+                        key={chunk.id}
                         onClick={() =>
                           onPageChange?.(index + 1, subIndex + 1, {
                             name: QueryParamKey.PAGE_FOCUS,

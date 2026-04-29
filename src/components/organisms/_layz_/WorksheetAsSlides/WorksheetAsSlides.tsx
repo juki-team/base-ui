@@ -75,7 +75,7 @@ export default function WorksheetAsSlides(props: WorksheetAsSlidesProps) {
       ],
       sheet.content.map((chunk, index) => (
         <section
-          key={chunk.id + index}
+          key={chunk.id}
           data-auto-animate
           style={{ overflow: 'hidden auto', maxHeight: '100%' }}
           data-background-image={slides.backgroundImage}

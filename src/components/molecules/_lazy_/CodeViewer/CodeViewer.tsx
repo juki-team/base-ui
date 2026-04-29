@@ -44,6 +44,7 @@ export default function CodeViewer(props: CodeViewerProps) {
         {lineNumbers && (
           <div className="jk-code-viewer-line-numbers bc-sf-hi jk-pg-sm-tb jk-pg-xsm-rl">
             {lines.map((_, i) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: line numbers; index IS the identity
               <div key={i} style={{ '--line-index': i } as CSSProperties}>
                 {i + 1}
               </div>

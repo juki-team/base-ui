@@ -182,8 +182,8 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
                 switch (part.type) {
                   case 'file':
                     return part.mediaType?.startsWith('image/') ? (
-                      <img
-                        key={`${message.id}-${i}`}
+                      // biome-ignore lint/suspicious/noArrayIndexKey: parts of an immutable chat message; index is stable per message
+                      <img key={`${message.id}-${i}`}
                         src={part.url as string}
                         alt="attachment"
                         style={{ maxWidth: '100%', maxHeight: 200, borderRadius: 4, objectFit: 'contain' }}
@@ -192,6 +192,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
 
                   case 'text':
                     return (
+                      // biome-ignore lint/suspicious/noArrayIndexKey: parts of an immutable chat message
                       <div key={`${message.id}-${i}`}>
                         <MdMathViewer source={part.text} flatView />
                       </div>
@@ -199,6 +200,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
 
                   case 'tool-editMarkdown':
                     return (
+                      // biome-ignore lint/suspicious/noArrayIndexKey: parts of an immutable chat message
                       <div key={`${message.id}-${i}`} className="jk-col gap-sm">
                         <div className="jk-row left fw-lr">
                           {(() => {
@@ -297,6 +299,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
               {pendingParts.length > 0 && (
                 <div className="jk-row gap left" style={{ flexWrap: 'wrap' }}>
                   {pendingParts.map((part, idx) => (
+                    // biome-ignore lint/suspicious/noArrayIndexKey: pendingParts is a draft attachment list edited by appending/removing
                     <div key={idx} style={{ position: 'relative', display: 'inline-block' }}>
                       {part.mediaType?.startsWith('image/') ? (
                         <img

@@ -123,8 +123,8 @@ export const AddNewChild = <T extends BodyWorksheet>(props: AddNewChildProps<T>)
         <Popover
           content={
             <div className="jk-col gap">
-              {actionButtons.map(({ icon, onClick, label }, index) => (
-                <ButtonLoader icon={icon} key={index} size="tiny" expand onClick={onClick}>
+              {actionButtons.map(({ icon, onClick, label }) => (
+                <ButtonLoader icon={icon} key={label} size="tiny" expand onClick={onClick}>
                   <T>{label}</T>
                 </ButtonLoader>
               ))}
@@ -137,8 +137,8 @@ export const AddNewChild = <T extends BodyWorksheet>(props: AddNewChildProps<T>)
         </Popover>
       )}
       {!compacted &&
-        actionButtons.map(({ icon, label, onClick }, index) => (
-          <Button key={index} size="small" icon={icon} onClick={onClick}>
+        actionButtons.map(({ icon, label, onClick }) => (
+          <Button key={label} size="small" icon={icon} onClick={onClick}>
             {label}
           </Button>
         ))}

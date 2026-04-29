@@ -8,8 +8,8 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
       <div className="jk-row left jk-br-ie" style={{ width: '100%', background: 'var(--cr-ht-lt)' }}>
         {progress.map(({ label, percentage, color }, index) =>
           typeof label === 'string' ? (
-            <div
-              key={index}
+            // biome-ignore lint/suspicious/noArrayIndexKey: progress segments are ordered and stable; key changes would re-trigger CSS transitions
+            <div key={index}
               data-tooltip-id="jk-tooltip"
               data-tooltip-place={tooltipPlacement}
               data-tooltip-content={label}
@@ -36,9 +36,9 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
               className="outline-hover"
             />
           ) : (
-            <Popover
+            // biome-ignore lint/suspicious/noArrayIndexKey: progress segments are ordered and stable
+            <Popover key={index}
               content={label}
-              key={index}
               popoverClassName="bc-sf-hi jk-br-ie elevation-1"
               offset={4}
               placement={tooltipPlacement}
@@ -65,8 +65,8 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
         <div className="jk-row left jk-br-ie" style={{ width: '100%', top: 0, left: 0 }}>
           {points.map(({ label, percentage, color }, index) =>
             typeof label === 'string' ? (
-              <div
-                key={index}
+              // biome-ignore lint/suspicious/noArrayIndexKey: point markers are ordered and stable
+              <div key={index}
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-place={tooltipPlacement}
                 data-tooltip-content={label}
@@ -84,9 +84,9 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
                 }
               />
             ) : (
-              <Popover
+              // biome-ignore lint/suspicious/noArrayIndexKey: point markers are ordered and stable
+              <Popover key={index}
                 content={label}
-                key={index}
                 popoverClassName="bc-sf-hi jk-br-ie elevation-1"
                 offset={6}
                 placement={tooltipPlacement}

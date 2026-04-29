@@ -70,8 +70,7 @@ export const CardRowVirtualizerFixed = <T,>(props: CardRowVirtualizerFixedProps<
               new Array(cardsByRow).fill('').map((_, index) => {
                 const cardIndex = virtualRow.index * cardsByRow + index;
                 return (
-                  <DataViewerCard
-                    key={virtualRow.index * cardsByRow + index}
+                  <DataViewerCard key={cardIndex}
                     fake={virtualRow.index * cardsByRow + index >= data.length}
                     cardWidth={finalWidth}
                     headers={headers}

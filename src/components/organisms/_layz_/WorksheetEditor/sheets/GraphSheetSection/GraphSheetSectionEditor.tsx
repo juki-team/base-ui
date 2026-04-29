@@ -42,11 +42,11 @@ export const GraphSheetSectionEditor = ({ content, setContent }: GraphSheetSecti
           size="small"
         />
         {new Array(content.dots.length).fill(1).map((_, index) => (
-          <Div
+          // biome-ignore lint/suspicious/noArrayIndexKey: numeric pagination tags; index IS the identity
+          <Div key={index}
             className={classNames('jk-tag clickable', { 'bc-sf-hi': index !== frame })}
             onClick={() => setFrame(index)}
             onKeyDownClick
-            key={index}
           >
             {index + 1}
           </Div>

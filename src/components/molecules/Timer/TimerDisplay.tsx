@@ -24,7 +24,7 @@ export function TimerDisplay(props: TimerDisplayProps) {
     <div className={classNames('jk-timer-layout jk-row nowrap', className, { literal: !!literal, inline: !!inline })}>
       {literal
         ? timeSplit.map((remaining, index) => (
-            <Fragment key={remaining.label + index}>
+            <Fragment key={remaining.label}>
               {index > 0 && <T>and</T>}
               <span>{remaining.remaining}</span>
               <T>{abbreviated ? remaining.abbreviatedLabel : remaining.label}</T>
@@ -32,7 +32,7 @@ export function TimerDisplay(props: TimerDisplayProps) {
           ))
         : inline
           ? timeSplit.map((remaining, index) => (
-              <div key={remaining.label + index}>
+              <div key={remaining.label}>
                 <span className="ff-me">{padStart(remaining.remaining, remaining.digits, '0')}</span>
                 {index !== timeSplit.length - 1 && ['h', 'm'].includes(remaining.abbreviatedLabel) && (
                   <span className="fw-bd">:</span>
@@ -48,7 +48,7 @@ export function TimerDisplay(props: TimerDisplayProps) {
               </div>
             ))
           : timeSplit.map((remaining, index) => (
-              <Fragment key={remaining.label + index}>
+              <Fragment key={remaining.label}>
                 <div className="content-stamp">
                   <div className="jk-row ff-me">{padStart(remaining.remaining, remaining.digits, '0')}</div>
                   <div className="content-label jk-row">

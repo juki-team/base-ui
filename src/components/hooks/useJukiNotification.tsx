@@ -63,6 +63,7 @@ export const useJukiNotification = () => {
                 <ul>
                   {Children.toArray(
                     response.errors.map((error, index) => (
+                      // biome-ignore lint/suspicious/noArrayIndexKey: error messages may repeat; index disambiguates and Children.toArray wraps with stable keys
                       <li key={index + error.message}>
                         <T className="tt-se">{error.message}</T>
                       </li>

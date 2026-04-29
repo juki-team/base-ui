@@ -42,6 +42,7 @@ export function Breadcrumbs({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
       {/*<div className="separator">|</div>*/}
       {Children.toArray(
         startBreadcrumbs.map((breadcrumb, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: breadcrumbs are an ordered, append-only list; index is stable
           <Fragment key={index}>
             {/*{!!index && <div className="separator">/</div>}*/}
             {!!index && <NavigateNextIcon className="cr-tx-ds" />}
@@ -57,7 +58,12 @@ export function Breadcrumbs({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
             popoverClassName="bc-sf-hi jk-br-ie elevation-1"
             content={
               <div className="jk-pg-xsm">
-                {Children.toArray(middleBreadcrumbs.map((breadcrumb, index) => <div key={index}>{breadcrumb}</div>))}
+                {Children.toArray(
+                  middleBreadcrumbs.map((breadcrumb, index) => (
+                    // biome-ignore lint/suspicious/noArrayIndexKey: middle breadcrumbs are a stable ordered slice
+                    <div key={index}>{breadcrumb}</div>
+                  )),
+                )}
               </div>
             }
             triggerOn={TriggerAction.CLICK}
@@ -69,6 +75,7 @@ export function Breadcrumbs({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
       )}
       {Children.toArray(
         endBreadcrumbs.map((breadcrumb, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: end breadcrumbs are a stable ordered slice
           <Fragment key={index}>
             {/*<div className="separator">/</div>*/}
             <NavigateNextIcon className="cr-tx-ds" />

@@ -37,8 +37,8 @@ export function YearPicker({ date, onChange, isDisabled, isSelected }: YearPicke
         <NextButton onClick={() => setViewDate(increaseYear(viewDate, 12))} />
       </div>
       <div className="jk-date-picker-grid-years">
-        {gridYears.map((row, index) => (
-          <div className="jk-row" key={index}>
+        {gridYears.map((row) => (
+          <div className="jk-row" key={row[0]?.getTime() ?? 0}>
             {row.map((date) => {
               const disabled = !!isDisabled?.(date).year;
               const selected = !!isSelected?.(date).year;

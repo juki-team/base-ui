@@ -23,6 +23,7 @@ function FloatToolbarCmp(props: FloatToolbarProps) {
       >
         <div className="jk-float-toolbar-container jk-col gap stretch right" ref={ref}>
           {actionButtons.map((props, index) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: action buttons list is fixed per toolbar instance
             <ButtonAction {...props} key={index} />
           ))}
         </div>

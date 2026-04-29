@@ -68,8 +68,8 @@ export function DayPicker({ date, onChange, isDisabled, isSelected }: DayPickerP
       </div>
       <div className="jk-divider tiny" style={{ marginBottom: -6 }} />
       <div className="jk-date-picker-grid-dates">
-        {gridDays.map((row, index) => (
-          <div className="jk-row" key={index}>
+        {gridDays.map((row) => (
+          <div className="jk-row" key={row[0]?.getTime() ?? 0}>
             {row.map((date) => {
               const disabled = !!isDisabled?.(date).day;
               const selected = !!isSelected?.(date).day;

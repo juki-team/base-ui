@@ -83,7 +83,7 @@ export const QuizOptionsSheetSectionEditor = ({ content, setContent, isSolvable 
       <div className="jk-col stretch left gap">
         <T className="tt-se cr-tx-ht-lt">select the correct options</T>
         {content.options.map((option, index) => (
-          <div className="jk-row gap nowrap extend" key={`${index}`}>
+          <div className="jk-row gap nowrap extend" key={option.id}>
             {content.multiple ? (
               <InputCheckbox
                 checked={option.correct}
