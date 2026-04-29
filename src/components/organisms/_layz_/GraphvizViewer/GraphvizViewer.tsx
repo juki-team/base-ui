@@ -21,6 +21,7 @@ export default function GraphvizViewer({ dot, className }: GraphvizViewerProps) 
   const t = useI18nStore((store) => store.i18n.t);
   const shouldRerender = useGraphvizStore((store) => store.shouldRerender);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: shouldRerender is a trigger to re-render the SVG when the global flag toggles
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;

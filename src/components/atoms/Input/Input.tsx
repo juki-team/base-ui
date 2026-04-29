@@ -42,7 +42,7 @@ export function InputBase<T extends string | number | FileList>(
       : register
     : ({} as Partial<UseFormRegisterReturn>);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: registerRef is a change trigger to re-run focus after register attaches
   useEffect(() => {
     if (autoFocus) {
       setTimeout(() => {

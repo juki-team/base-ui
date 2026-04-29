@@ -30,6 +30,7 @@ export default function ExcalidrawButton() {
   });
   const [excalidrawAPI, setExcalidrawAPI] = useState<ExcalidrawImperativeAPI | null>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: isActive is a trigger to reload from sessionStorage on each open
   useEffect(() => {
     const stored = sessionStorage.getItem(LOCAL_STORAGE_KEY);
     if (stored) {

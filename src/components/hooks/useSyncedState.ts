@@ -15,12 +15,12 @@ export const useSyncedState = <T>(externalValue: T, deps?: (string | number | bo
   const externalValueStr = useDeepCompare(externalValue);
   const lastSyncedValueRef = useRef<string>(externalValueStr);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: sync is gated by externalValueStr (deep-compared); externalValue itself is read but only when the string changes
   useEffect(() => {
     if (externalValueStr !== lastSyncedValueRef.current) {
       setInternalState(externalValue);
       lastSyncedValueRef.current = externalValueStr;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [externalValueStr, ...(deps || [])]);
 
   return [internalState, setInternalState];

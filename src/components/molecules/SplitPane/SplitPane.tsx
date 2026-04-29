@@ -83,6 +83,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
     }
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: layout-related deps are tracked to recompute clientSize after settle
   useEffect(() => {
     const timeout = setTimeout(() => {
       clientSizeRef.current = firstChildRef.current?.[clientDirection] || 0;

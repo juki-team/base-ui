@@ -16,6 +16,7 @@ export function SubmissionContentModal({ submitId, ...modalProps }: SubmissionMo
   const { Link } = useUIStore((store) => store.components);
   const [triggerFetch, setTriggerFetch] = useState(0);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: modalProps.isOpen is the trigger to refresh on each open
   useEffect(() => {
     setTriggerFetch(Date.now());
   }, [modalProps.isOpen]);

@@ -54,6 +54,7 @@ function useSaveStorage<T extends Record<string, unknown>>(
   const storeRecoveredRef = useRef(storeRecovered);
   storeRecoveredRef.current = storeRecovered;
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: storeKey is the trigger to re-hydrate value when the storage key changes; refs are read at runtime
   useEffect(() => {
     setValue({ ...defaultValueRef.current, ...storeRecoveredRef.current });
   }, [storeKey]);

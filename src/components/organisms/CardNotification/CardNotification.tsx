@@ -41,6 +41,7 @@ export function CardNotification({ ids, type, message }: CardNotificationProps) 
   const isPageFocus = usePageStore((state) => state.isFocus);
   const isPageVisible = usePageStore((state) => state.isVisible);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: handleStopTimer is recreated each render but only mutates a ref; keeping it out of deps avoids extra timer churn
   useEffect(() => {
     if (isPageVisible && isPageFocus) {
       handleStartTimer();

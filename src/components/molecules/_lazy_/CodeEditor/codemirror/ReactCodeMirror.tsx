@@ -48,7 +48,7 @@ function ReactCodeMirror(props: ReactCodeMirrorProps & { ref?: Ref<ReactCodeMirr
     ...other
   } = props;
   const editor = useRef<HTMLDivElement | null>(null);
-  const { state, view, container, setContainer } = useCodeMirror({
+  const { state, view, setContainer } = useCodeMirror({
     root,
     value,
     autoFocus,
@@ -73,7 +73,7 @@ function ReactCodeMirror(props: ReactCodeMirrorProps & { ref?: Ref<ReactCodeMirr
     initialState,
   });
 
-  useImperativeHandle(ref, () => ({ editor: editor.current, state: state, view: view }), [editor, container, state, view]);
+  useImperativeHandle(ref, () => ({ editor: editor.current, state: state, view: view }), [state, view]);
 
   const setEditorRef = useCallback(
     (el: HTMLDivElement) => {

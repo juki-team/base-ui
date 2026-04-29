@@ -51,6 +51,7 @@ export const JukiUIProvider = ({
   useEffect(() => {
     setProps({ components: { Image: ImageCmp, Link: LinkCmp, loaded: true } });
   }, [ImageCmp, LinkCmp, setProps]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: ref is stable; effect runs once on mount to publish the div ref to the UI store
   useEffect(() => {
     setProps({ jukiAppDivRef: ref });
   }, [ref, setProps]);

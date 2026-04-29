@@ -24,6 +24,7 @@ interface InformationButtonProps {
 
 const InformationButton = ({ open, setOpen, isOpenRef, withLabel }: InformationButtonProps) => {
   const [source, setSource] = useState(SAMPLE_MD_CONTENT);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: open is a trigger to reset the sample on every reopen
   useEffect(() => setSource(SAMPLE_MD_CONTENT), [open]);
   if (isOpenRef) {
     isOpenRef.current = open;

@@ -411,6 +411,7 @@ export default function DataViewer<T extends object>(props: DataViewerProps<T>) 
   const depsKey = JSON.stringify(deps);
   const requestRef = useStableRef(_requestRef);
   const onReload = useCallback(() => requestRef.current?.(requestProps), [requestRef, requestProps]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: depsKey is a serialized trigger to re-fetch when external deps change
   useEffect(() => {
     onReload();
   }, [onReload, depsKey]);
@@ -534,7 +535,7 @@ export default function DataViewer<T extends object>(props: DataViewerProps<T>) 
       setViewMode(DataViewMode.CARDS);
     }
     oldViewPortSizeRef.current = viewPortSize;
-  }, [viewPortSize, cardsView, rowsView, setViewMode]);
+  }, [viewPortSize, cardsView, setViewMode]);
 
   const total = initialTotalData ?? data.length;
 

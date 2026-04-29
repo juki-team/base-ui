@@ -32,6 +32,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
   const searchParams = useRouterStore((state) => state.searchParams);
   const [_submissionIndex, setSubmissionIndex] = useState(0);
   const submissions = userResults?.data?.submissions[WorksheetType.CODE_EDITOR]?.[chunkId] ?? [];
+  // biome-ignore lint/correctness/useExhaustiveDependencies: trigger to reset index when user changes
   useEffect(() => {
     setSubmissionIndex(0);
   }, [userResults?.data?.user.nickname]);

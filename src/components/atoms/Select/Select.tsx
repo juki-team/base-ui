@@ -74,6 +74,7 @@ export function Select<T, U extends ReactNode, V extends ReactNodeOrFunctionType
     options,
   ]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: optionIndex is a trigger to re-scroll when the selected option changes
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (isOpen && (optionRef.current?.scrollHeight || 0) > (optionRef.current?.clientHeight || 0)) {

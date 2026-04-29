@@ -182,7 +182,7 @@ function MdMathEditor(props: MdMathEditorProps & { ref?: Ref<MdMathEditorHandle>
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [wrapperRef, onBlurRef]);
+  }, [onBlurRef]);
 
   return (
     <MilkdownProvider>

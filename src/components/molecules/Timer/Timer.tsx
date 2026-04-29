@@ -12,6 +12,7 @@ export function Timer(props: TimerProps) {
   useEffect(() => {
     setCountdownFrom(remaining);
   }, [remaining, setCountdownFrom]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: resetTrigger is the manual restart signal
   useEffect(() => {
     reset();
     start();

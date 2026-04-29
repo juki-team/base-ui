@@ -73,6 +73,15 @@ const RenderFilterTitle = <T,>({
   );
 };
 
+const onlyValues = (obj: FilterValuesType) => {
+  return Object.values(obj).map((val) => {
+    if (Array.isArray(val)) {
+      return (val as OptionType<string>[]).map((v) => v?.value || v);
+    }
+    return val;
+  });
+};
+
 export const FilterDrawer = <T,>(props: FilterDrawerProps<T>) => {
   const { headers, /*setHeaders,*/ isOpen, onClose, onFilter, onResetFilters } = props;
 
@@ -80,15 +89,7 @@ export const FilterDrawer = <T,>(props: FilterDrawerProps<T>) => {
   const [values, setValues] = useState<FilterValuesType>({});
   const [isFiltered, setIsFiltered] = useState(false);
 
-  const onlyValues = (obj: FilterValuesType) => {
-    return Object.values(obj).map((val) => {
-      if (Array.isArray(val)) {
-        return (val as OptionType<string>[]).map((v) => v?.value || v);
-      }
-      return val;
-    });
-  };
-
+  // biome-ignore lint/correctness/useExhaustiveDependencies: isOpen is a change trigger to re-sync filter values when drawer reopens
   useEffect(() => {
     const { filtered, values } = isSomethingFiltered(headers);
     setInitialValues(onlyValues(values));

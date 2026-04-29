@@ -52,13 +52,13 @@ export function FetcherLayer<T extends ContentResponse<U> | ContentsResponse<U>,
     }
   }, [notifyResponse, isError]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: children is intentionally excluded to avoid re-rendering on every render of the parent (children is a function reference recreated each render)
   const validChild = useMemo(() => {
     if (isContentResponseType<U>(data) || isContentsResponseType<U>(data)) {
       return renderReactNodeOrFunctionP1(children, { data, isLoading, error, mutate });
     }
     return null;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, error, isLoading, mutate]); // [ children ]
+  }, [data, error, isLoading, mutate]);
 
   if (isLoading) {
     if (loadingView) {

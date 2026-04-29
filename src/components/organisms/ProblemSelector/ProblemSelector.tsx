@@ -35,6 +35,7 @@ export function ProblemSelector({ onSelect, extend = false, organizationKey = ''
     }
   }, [firstJudge, judge]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: timestampTrigger is a manual refresh trigger
   useEffect(() => {
     const getData = async () => {
       if (judge) {

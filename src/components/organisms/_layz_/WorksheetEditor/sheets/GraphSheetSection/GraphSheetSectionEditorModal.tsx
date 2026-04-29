@@ -33,7 +33,7 @@ export const GraphSheetSectionEditorModal = ({
     if (!sheet.dots.length) {
       setSheet({ ...sheet, dots: [DEFAULT_GRAPH] });
     }
-  }, [frame, sheet, sheet.dots.length]);
+  }, [sheet, sheet.dots.length]);
 
   return (
     <Modal

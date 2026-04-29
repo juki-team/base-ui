@@ -65,10 +65,12 @@ export default function ImageLoaderCropper(props: ImageLoaderCropperProps) {
       setCompletedCrop(convertToPixelCrop(crop, width, height));
     }
   };
+  // biome-ignore lint/correctness/useExhaustiveDependencies: updateAspect depends on imgRef which is a ref (read at runtime); only initialAspect should trigger
   useEffect(() => {
     updateAspect(initialAspect);
     setAspectText(`${initialAspect || ''}`);
   }, [initialAspect]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: updateAspect reads imgRef at runtime; only aspect should trigger
   useEffect(() => updateAspect(aspect), [aspect]);
 
   function onSelectFile(files: FileList) {

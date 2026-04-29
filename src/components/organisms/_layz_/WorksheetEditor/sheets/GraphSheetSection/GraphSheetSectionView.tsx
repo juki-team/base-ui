@@ -26,7 +26,7 @@ export const GraphSheetSectionView = ({ content, setSheet }: GraphSheetSectionPr
     if (!content.dots.length) {
       setSheet?.((sheet) => ({ ...sheet, dots: [DEFAULT_GRAPH] }));
     }
-  }, [frame, setSheet, content.dots.length]);
+  }, [setSheet, content.dots.length]);
 
   return (
     <div className="jk-col gap">

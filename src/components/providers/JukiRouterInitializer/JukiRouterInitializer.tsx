@@ -154,6 +154,7 @@ export const JukiRouterInitializer = (props: JukiRouterInitializerProps) => {
             setSearchParams,
           },
     );
+    // biome-ignore lint/correctness/useExhaustiveDependencies: router prop is intentionally tracked even though it changes per render; consumer is expected to memoize it
   }, [_searchParams, appendSearchParams, deleteSearchParams, replaceProps, router, setSearchParams]);
 
   useEffect(() => {
@@ -174,7 +175,7 @@ export const JukiRouterInitializer = (props: JukiRouterInitializerProps) => {
 
   useEffect(() => {
     replaceProps({ isLoadingRoute: isLoadingRoute || !!loaderCounter });
-  }, [isLoadingRoute, loaderCounter, replaceProps, routeParams]);
+  }, [isLoadingRoute, loaderCounter, replaceProps]);
 
   return null;
 };

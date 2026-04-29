@@ -25,15 +25,15 @@ export function MultiSelectSearchable<T, U extends ReactNode, V extends ReactNod
   } = props;
 
   const optionValues = JSON.stringify(_options.map((option) => option.value));
+  // biome-ignore lint/correctness/useExhaustiveDependencies: cache _options by serialized values to keep referential stability across renders
   const options = useMemo(() => {
     return _options;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [optionValues]);
 
   const initialSelectedOptionValues = JSON.stringify(_initialSelectedOptions.map((option) => option.value));
+  // biome-ignore lint/correctness/useExhaustiveDependencies: cache _initialSelectedOptions by serialized values to keep referential stability
   const initialSelectedOptions = useMemo(() => {
     return _initialSelectedOptions;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialSelectedOptionValues]);
 
   const onChangeRef = useRef(_onChange);

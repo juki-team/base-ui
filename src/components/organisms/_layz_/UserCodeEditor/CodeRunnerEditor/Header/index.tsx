@@ -48,7 +48,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
     }
   }, [addQuietNotification, currentFileName, files]);
 
-  const toPng = async () => {
+  const toPng = useCallback(async () => {
     const cmThemeNode = document.querySelector('.code-viewer-to-print');
     if (!cmThemeNode) {
       return;
@@ -59,7 +59,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
       console.error('Error al capturar imagen:', error);
     }
     return;
-  };
+  }, []);
 
   const downloadAsPng = useCallback(async () => {
     const currentFile = files[currentFileName];
@@ -70,7 +70,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
         addQuietNotification(<T className="tt-se">downloaded</T>);
       }
     }
-  }, [addQuietNotification, currentFileName, files]);
+  }, [addQuietNotification, currentFileName, files, toPng]);
 
   const copyAsText = useCallback(async () => {
     const currentFile = files[currentFileName];
@@ -94,7 +94,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
     } catch (err) {
       console.error('Failed to copy image:', err);
     }
-  }, [addQuietNotification]);
+  }, [addQuietNotification, toPng]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {

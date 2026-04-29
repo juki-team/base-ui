@@ -14,7 +14,7 @@ export const TabsInlineBody = <T = string>({ tabs, selectedTabKey }: TabsInlineB
       return Object.values(tabs).map((tab) => renderReactNodeOrFunctionP1(tab.body, { selectedTabKey: tab.key }));
     }
     return [];
-  }, [preload, loadPreload, tabs]);
+  }, [loadPreload, tabs]);
 
   useEffect(() => {
     setTimeout(() => {

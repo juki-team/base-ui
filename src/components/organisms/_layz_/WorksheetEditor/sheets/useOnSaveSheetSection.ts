@@ -3,6 +3,7 @@ import { useStableRef } from '../../../../hooks/useStableRef';
 
 export const useOnSaveSheetSection = (sectionRef: RefObject<HTMLDivElement | null>, edit: boolean, onSave: () => void) => {
   const onSaveRef = useStableRef(onSave);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: refs are read at event time, not on each render
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (edit && sectionRef.current && !sectionRef.current.contains(event.target as Node)) {

@@ -46,6 +46,7 @@ export const JukiUserProvider = () => {
     await matchMutate(new RegExp(`${JUKI_SERVICE_V2_URL}`));
   }, [matchMutate]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: userNickname/organizationKey/userSessionId are change triggers (not read inside) to refresh SWR cache when user identity changes
   useEffect(() => {
     if (isLoading) {
       return;
@@ -61,6 +62,7 @@ export const JukiUserProvider = () => {
     i18nChangeLanguage(userPreferredLanguage);
   }, [i18nChangeLanguage, userPreferredLanguage]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: isOnline is a change trigger to re-run when connectivity returns
   useEffect(() => {
     if (isLoading) {
       return;

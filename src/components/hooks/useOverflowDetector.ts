@@ -13,6 +13,7 @@ export interface WidthResizerProps {
 export const useOverflowDetector = ({ onOverflow, unOverflow, trigger, targetRef }: WidthResizerProps) => {
   const { width = 0 } = useResizeDetector({ targetRef, ...RESIZE_DETECTOR_PROPS });
   const widthRef = useRef(0);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: trigger is a custom render trigger from the consumer
   useEffect(() => {
     const handleEvent = () => {
       if (width && targetRef.current) {

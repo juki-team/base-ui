@@ -75,6 +75,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
       localStorage.setItem(storageKey, JSON.stringify(messages));
     }
   }, [storageKey, messages]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: isOpen triggers re-attaching the scroll listener when the panel toggles
   useEffect(() => {
     const el = scrollContainerRef.current;
     if (!el) {
@@ -91,6 +92,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
     };
   }, [isOpen]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: messages is a change trigger to scroll on every new message
   useEffect(() => {
     if (!shouldAutoScrollRef.current) {
       return;

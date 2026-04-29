@@ -8,6 +8,7 @@ export const JukiLastPathInitializer = <T extends string | number>({ initialLast
   const userNickname = useUserStore((state) => state.user.nickname);
   const initialLastPathString = JSON.stringify(initialLastPath);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: userNickname is a change trigger to re-init when user changes
   useEffect(() => {
     const initialLastPath = JSON.parse(initialLastPathString);
     setInitialLastPath(initialLastPath);

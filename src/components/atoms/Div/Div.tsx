@@ -17,7 +17,7 @@ export function Div(props: DivProps) {
   }
 
   return (
-    // biome-ignore lint/a11y/noStaticElementInteractions: <explanation>
+    // biome-ignore lint/a11y/noStaticElementInteractions: <Div> is the keyboard-aware wrapper used across the app; tabIndex+onKeyDown are added when onKeyDownClick is true
     <div
       ref={ref}
       {...newProps}

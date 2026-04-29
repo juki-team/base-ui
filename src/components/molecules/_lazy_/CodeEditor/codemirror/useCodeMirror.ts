@@ -103,6 +103,7 @@ export function useCodeMirror(props: UseCodeMirror) {
   }
   getExtensions = getExtensions.concat(extensions);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: editor must be created only when container mounts; re-running on value/extensions/etc. changes would recreate the editor and lose state
   useLayoutEffect(() => {
     if (container && !state) {
       const config = {
@@ -138,6 +139,7 @@ export function useCodeMirror(props: UseCodeMirror) {
     }
   }, [props.container]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: cleanup-only effect to destroy editor on unmount; typingLatch ref read at cleanup time
   useEffect(
     () => () => {
       if (view) {
@@ -158,11 +160,11 @@ export function useCodeMirror(props: UseCodeMirror) {
     }
   }, [autoFocus, view]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: deps are option props that should reconfigure extensions; getExtensions is recomputed each render and intentionally not listed
   useEffect(() => {
     if (view) {
       view.dispatch({ effects: StateEffect.reconfigure.of(getExtensions) });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     theme,
     extensions,
@@ -181,6 +183,7 @@ export function useCodeMirror(props: UseCodeMirror) {
     onUpdate,
   ]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: typingLatch and pendingUpdate are refs read at runtime; only value/view trigger reconciliation
   useEffect(() => {
     if (value === undefined) {
       return;

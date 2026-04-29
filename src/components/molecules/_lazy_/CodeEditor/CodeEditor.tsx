@@ -22,6 +22,7 @@ function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
 
   const editorRef = useRef<EditorView | null>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: triggerFocus is the manual focus signal
   useEffect(() => {
     if (editorRef.current) {
       editorRef.current.focus();

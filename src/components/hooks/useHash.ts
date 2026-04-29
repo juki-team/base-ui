@@ -8,6 +8,7 @@ export const useHash = () => {
   const [hash, setHash] = useState(() => getHash() ?? '');
   const routeParams = useRouterStore((store) => store.routeParams);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: routeParams is a trigger to re-read the hash on client-side navigation
   useEffect(() => {
     const handleHashChange = () => {
       setHash(getHash() ?? '');

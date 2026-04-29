@@ -55,6 +55,7 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
     reValidateMode: 'onBlur',
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: isOpen is a trigger to reset the form on every open
   useEffect(() => {
     reset();
   }, [isOpen, reset]);
