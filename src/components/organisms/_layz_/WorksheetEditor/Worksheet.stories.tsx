@@ -122,7 +122,7 @@ const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO })
         // readOnly={!!user?.nickname}
       />
       <ButtonLoader
-        onClick={async (setLoader) => {
+        onClick={(setLoader) => {
           setLoader(Status.LOADING);
           // const {
           //   url,

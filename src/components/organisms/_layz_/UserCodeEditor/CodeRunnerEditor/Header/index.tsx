@@ -210,7 +210,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
             ),
           }}
           style={{ width: 'auto' }}
-          onChange={async ({ value }) => {
+          onChange={({ value }) => {
             if (source) {
               switch (value) {
                 case 'copy-text':
@@ -257,7 +257,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
             ),
           }}
           style={{ width: 'auto' }}
-          onChange={async ({ value }) => {
+          onChange={({ value }) => {
             if (source) {
               switch (value) {
                 case 'download-text':

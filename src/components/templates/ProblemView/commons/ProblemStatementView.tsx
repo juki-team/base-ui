@@ -283,7 +283,7 @@ export const ProblemStatementView = <T,>({
             <ButtonLoader
               size="small"
               icon={<DownloadIcon />}
-              onClick={async (setLoaderStatus) => {
+              onClick={(setLoaderStatus) => {
                 setLoaderStatus(Status.LOADING);
                 try {
                   handleDownloadMd();

@@ -32,7 +32,7 @@ export function getVisitorSessionId(): string {
   return getQuerySessionId() || '';
 }
 
-export const authorizedRequest = async <M extends Exclude<HTTPMethod, 'GET'> = 'POST', N extends Blob | string = string>(
+export const authorizedRequest = <M extends Exclude<HTTPMethod, 'GET'> = 'POST', N extends Blob | string = string>(
   url: string,
   options?: AuthorizedRequestType<M>,
   safe?: boolean,
@@ -40,7 +40,7 @@ export const authorizedRequest = async <M extends Exclude<HTTPMethod, 'GET'> = '
   return _authorizedRequest(url, options, safe);
 };
 
-export const getAuthorizedRequest = async <N extends Blob | string = string>(
+export const getAuthorizedRequest = <N extends Blob | string = string>(
   url: string,
   options?: Omit<AuthorizedRequestType, 'method'>,
   safe?: boolean,

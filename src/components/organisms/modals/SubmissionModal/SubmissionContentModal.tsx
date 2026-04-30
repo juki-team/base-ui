@@ -48,7 +48,7 @@ export function SubmissionContentModal({ submitId, ...modalProps }: SubmissionMo
                 data-tooltip-content="reload"
                 size="small"
                 icon={<RefreshIcon size="tiny" />}
-                onClick={async (setLoaderStatus) => {
+                onClick={(setLoaderStatus) => {
                   setLoaderStatus(Status.LOADING);
                   setTriggerFetch(Date.now());
                   setLoaderStatus(Status.SUCCESS);

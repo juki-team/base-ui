@@ -3,7 +3,7 @@ import { isBrowser } from '../../../helpers';
 
 const TO_RADIANS = Math.PI / 180;
 
-export async function canvasPreview(
+export function canvasPreview(
   image: HTMLImageElement,
   canvas: HTMLCanvasElement,
   crop: PixelCrop,

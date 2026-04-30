@@ -97,7 +97,7 @@ export const JukiAblyInitializer = () => {
   const { setRealtimeClient, realtimeClient, setSpaces } = useAblyStore();
   const realtimeClientRef = useStableRef(realtimeClient);
   useEffect(() => {
-    (async () => {
+    (() => {
       try {
         if (realtimeClientRef.current) {
           consoleInfo('Closing previous Ably connection due to clientId change');

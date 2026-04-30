@@ -65,7 +65,7 @@ export function ButtonAction(props: ButtonActionProps) {
                   icon={icon}
                   size={size}
                   disabled={disabled}
-                  onClick={async (setLoader) => {
+                  onClick={(setLoader) => {
                     const result = onClick?.();
                     if (result instanceof Promise) {
                       setLoader(Status.LOADING);
