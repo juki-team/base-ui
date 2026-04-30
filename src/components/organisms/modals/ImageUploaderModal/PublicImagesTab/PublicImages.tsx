@@ -22,7 +22,7 @@ export const PublicImages = (props: PublicImagesTabProps) => {
     <div className="public-images-tab jk-row">
       {publicImages.map((publicImage, index) => (
         <div className="thumbnail" key={publicImage.imageUrl}>
-          <img src={`${publicImage.imageThumbnailUrl}?v=${new Date().getTime()}`} alt={`image ${index}`} />
+          <img src={`${publicImage.imageThumbnailUrl}?v=${new Date().getTime()}`} alt={`thumbnail ${index}`} />
           <FloatToolbar
             actionButtons={[
               ...(copyButtons

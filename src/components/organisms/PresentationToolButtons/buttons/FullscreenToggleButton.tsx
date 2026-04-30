@@ -3,7 +3,7 @@ import { Button } from '../../../atoms';
 import { FullscreenExitIcon, FullscreenIcon } from '../../../atoms/server';
 
 function enterFullscreen() {
-  if (typeof document != 'undefined') {
+  if (typeof document !== 'undefined') {
     const element = document.documentElement;
     if (element.requestFullscreen) {
       void element.requestFullscreen();
@@ -24,7 +24,7 @@ function enterFullscreen() {
 }
 
 function exitFullscreen() {
-  if (typeof document != 'undefined') {
+  if (typeof document !== 'undefined') {
     if (document.exitFullscreen) {
       void document.exitFullscreen();
       // @ts-expect-error - webkitExitFullscreen is a non‑standard browser API

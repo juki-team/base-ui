@@ -237,7 +237,7 @@ for (let {
   let groupContent = [];
   let indexContent = [];
   if (withGroup) {
-    groupContent = [...files.map(({ basePath, name }) => `export { ${name} } from './${name}';`), ''].join('\n');
+    groupContent = [...files.map(({ name }) => `export { ${name} } from './${name}';`), ''].join('\n');
     indexContent.push(`const GroupImport = () => import('./_group');\n`);
     indexContent.push(
       ...files.map(({ name }) => `export const ${name} = lazy(() => GroupImport().then(m => ({ default: m.${name} })));\n`),

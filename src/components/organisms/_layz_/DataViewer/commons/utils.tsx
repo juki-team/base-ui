@@ -327,7 +327,9 @@ export function getTextWidth(text: string, font: string) {
 
   if (typeof document !== 'undefined') {
     // @ts-expect-error adding canvas element
-    const canvas: HTMLCanvasElement = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
+    if (!getTextWidth.canvas) getTextWidth.canvas = document.createElement('canvas');
+    // @ts-expect-error reading lazily created canvas
+    const canvas: HTMLCanvasElement = getTextWidth.canvas;
     const context = canvas.getContext('2d');
     if (context) {
       context.font = font;

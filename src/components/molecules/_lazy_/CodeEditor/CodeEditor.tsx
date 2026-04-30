@@ -76,7 +76,6 @@ function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
     case CodeLanguage.HTML:
       extensions.push(html({ autoCloseTags: true, matchClosingTags: true }));
       break;
-    case CodeLanguage.TEXT:
     default:
       break;
   }

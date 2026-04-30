@@ -313,10 +313,10 @@ function renderDot(content: string, t: TFunction): HTMLElement {
           const container = document.getElementById(newId);
           if (container) {
             container.innerHTML = '';
-            content.split('---').map((content) => {
-              const svg = viz.renderSVGElement(content, {});
+            for (const chunk of content.split('---')) {
+              const svg = viz.renderSVGElement(chunk, {});
               container.appendChild(svg);
-            });
+            }
           }
         } catch (error) {
           const container = document.getElementById(newId);

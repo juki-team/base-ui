@@ -10,7 +10,7 @@ export default meta;
 
 type Story = StoryObj<typeof ErrorBoundaryCmp>;
 
-const Error = () => {
+const ErrorThrower = () => {
   return <div>{JSON.parse('error')}</div>;
 };
 
@@ -18,7 +18,7 @@ export const Regular: Story = {
   render: () => (
     <MockupJukiProvider>
       <ErrorBoundaryCmp reload={() => console.info('reload')}>
-        <Error />
+        <ErrorThrower />
       </ErrorBoundaryCmp>
     </MockupJukiProvider>
   ),

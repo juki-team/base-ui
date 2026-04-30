@@ -4,7 +4,7 @@ import type { TabsInlineBodyProps } from '../Tabs/types';
 
 export function TabsInlineBody<T = string>({ tabs, selectedTabKey }: TabsInlineBodyProps<T>) {
   const tabKeys = Object.keys(tabs);
-  const selectedIndex = tabKeys.findIndex((key) => key === selectedTabKey) ?? 0;
+  const selectedIndex = tabKeys.indexOf(selectedTabKey as string) ?? 0;
   const [{ width, height }, setSize] = useState({ width: 0, height: 0 });
   const observerRef = useRef<ResizeObserver>(null);
 
