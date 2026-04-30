@@ -654,12 +654,13 @@ export class ApiManager {
           url: injectOrganization(injectBaseUrl('organization', '/judge-list'), organizationKey),
           method: HTTPMethod.GET,
         })),
-        getTrustedCompaniesList: valid<{
-          params?: { organizationKey: string };
-        } | void>(({ params: { organizationKey } = { organizationKey: '' } } = {}) => ({
-          url: injectOrganization(injectBaseUrl('organization', '/trusted-companies-list'), organizationKey),
-          method: HTTPMethod.GET,
-        })),
+        // biome-ignore lint/suspicious/noConfusingVoidType: void here is the standard TS pattern to allow calling the API method with no arguments (valid<T> wraps a function whose props is typed as T)
+        getTrustedCompaniesList: valid<{ params?: { organizationKey: string } } | void>(
+          ({ params: { organizationKey } = { organizationKey: '' } } = {}) => ({
+            url: injectOrganization(injectBaseUrl('organization', '/trusted-companies-list'), organizationKey),
+            method: HTTPMethod.GET,
+          }),
+        ),
         getResourceSpecifications: valid<{ params?: { organizationKey: string } }>(
           ({ params: { organizationKey } = { organizationKey: '' } } = {}) => ({
             url: injectOrganization(injectBaseUrl('organization', '/resource-specifications'), organizationKey),
@@ -730,12 +731,14 @@ export class ApiManager {
           url: injectBaseUrl('judge', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
+        // biome-ignore lint/suspicious/noConfusingVoidType: void here is the standard TS pattern to allow calling the API method with no arguments
         getSummaryList: valid<{ params?: { filterUrl?: string; sortUrl?: string } } | void>(
           ({ params: { filterUrl, sortUrl } = { filterUrl: '', sortUrl: '' } } = {}) => ({
             url: injectSort(injectFilter(injectBaseUrl('judge', '/summary-list'), filterUrl), sortUrl),
             method: HTTPMethod.GET,
           }),
         ),
+        // biome-ignore lint/suspicious/noConfusingVoidType: void here is the standard TS pattern to allow calling the API method with no arguments
         getSystemList: valid<{ params?: { filterUrl?: string; sortUrl?: string } } | void>(
           ({ params: { filterUrl, sortUrl } = { filterUrl: '', sortUrl: '' } } = {}) => ({
             url: injectSort(injectFilter(injectBaseUrl('judge', '/system-list'), filterUrl), sortUrl),

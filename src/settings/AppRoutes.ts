@@ -100,7 +100,7 @@ export class AppRoutes {
         edit({ key, tab = ContestTab.OVERVIEW }: { key: string; tab?: ContestTab }) {
           return injectOrigin(origin, igu(`/contests/${key}/edit${tab ? `?tab=${tab}` : ''}`));
         },
-        new({ tab }: { tab?: ContestTab } | void = { tab: undefined }) {
+        new({ tab }: { tab?: ContestTab } | undefined = { tab: undefined }) {
           return injectOrigin(origin, igu(`/contests/new${tab ? `?tab=${tab}` : ''}`));
         },
       },

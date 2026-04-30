@@ -4,7 +4,7 @@ import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer
 import { SubmissionNicknameField } from '../../submission/SubmissionNicknameField';
 
 export function getSubmissionNicknameHeader(
-  options: OptionType<string>[] | void,
+  options?: OptionType<string>[],
 ): DataViewerHeadersType<SubmissionSummaryListResponseDTO> {
   return {
     head: 'nickname',
