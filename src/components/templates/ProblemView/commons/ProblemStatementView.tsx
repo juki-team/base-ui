@@ -77,6 +77,7 @@ export const ProblemStatementView = <T,>({
         {/*    style={{ position: 'absolute', top: 'var(--pad-m)', left: 'var(--pad-m)' }}*/}
         {/*  />*/}
         {/*)}*/}
+        {/* biome-ignore lint/style/useNamingConvention: __html is React's reserved property name for dangerouslySetInnerHTML */}
         <div className={`${judgeKey}-statement`} dangerouslySetInnerHTML={{ __html: content }} />
         {isPrivate && (
           <div className="jk-row">

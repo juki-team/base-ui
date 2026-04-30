@@ -270,6 +270,7 @@ export const MermaidViewer = (props: MermaidViewerProps) => {
               {renderedSvg ? (
                 <div
                   ref={svgContainerRef}
+                  // biome-ignore lint/style/useNamingConvention: __html is React's reserved property name for dangerouslySetInnerHTML
                   dangerouslySetInnerHTML={{ __html: renderedSvg }}
                   style={{ maxWidth: '100%', lineHeight: 0 }}
                 />

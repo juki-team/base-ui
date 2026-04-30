@@ -46,7 +46,7 @@ const outputTabs: TabsType = {
       </div>
     ),
   },
-  submissions_1: {
+  submissions1: {
     key: 'submissions_1',
     header: <div>submissions</div>,
     body: (
@@ -55,7 +55,7 @@ const outputTabs: TabsType = {
       </div>
     ),
   },
-  submissions_2: {
+  submissions2: {
     key: 'submissions_2',
     header: <div>submissions</div>,
     body: (
@@ -64,7 +64,7 @@ const outputTabs: TabsType = {
       </div>
     ),
   },
-  submissions_3: {
+  submissions3: {
     key: 'submissions_3',
     header: <div>submissions</div>,
     body: (
@@ -73,7 +73,7 @@ const outputTabs: TabsType = {
       </div>
     ),
   },
-  submissions_4: {
+  submissions4: {
     key: 'submissions_4',
     header: <div>submissions</div>,
     body: (

@@ -86,6 +86,7 @@ function DiffViewButton({
               <T className="tt-se cr-er fw-bd">only the first 1000 characters of the difference are being displayed</T>
             )}
           </div>
+          {/* biome-ignore lint/style/useNamingConvention: __html is React's reserved property name for dangerouslySetInnerHTML */}
           <div className="wh-100" dangerouslySetInnerHTML={{ __html: diff }} />
           {diffInput.includes('No newline at end of file') && (
             <div className="jk-row block center">

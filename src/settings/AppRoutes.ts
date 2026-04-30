@@ -52,6 +52,7 @@ const injectGlobalURLSearchParams = (pathUrl: string) => {
 const igu = injectGlobalURLSearchParams;
 
 export class AppRoutes {
+  // biome-ignore lint/style/useNamingConvention: JUDGE/COACH are app-variant identifiers (intentional uppercase, public API used across the platform)
   public JUDGE(_origin?: string) {
     const origin = _origin ?? '';
 
@@ -121,6 +122,7 @@ export class AppRoutes {
     };
   }
 
+  // biome-ignore lint/style/useNamingConvention: JUDGE/COACH are app-variant identifiers (intentional uppercase, public API used across the platform)
   public COACH(_origin?: string) {
     const origin = _origin ?? '';
 

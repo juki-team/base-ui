@@ -321,11 +321,6 @@ export type DataViewerHeadersType<T> = {
   group?: string;
 };
 
-// export type URLSearchParamsInitType = string | [string, string][] | Record<string, string | string[]> | URLSearchParams;
-// export type SetSearchParamsType = ((nextInit: URLSearchParamsInitType, navigateOptions?: ({ replace?: boolean | undefined, state?: any } | undefined)) => void);
-
-export type setURLSearchParams = (params: URLSearchParams) => void;
-
 export type DataViewerRequestType = (props: DataViewerRequestPropsType) => void;
 
 export type DataViewerDownloadType<T> = {

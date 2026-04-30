@@ -309,6 +309,7 @@ export function ProblemInfo({ problem, size }: ProblemInfoProps) {
           <div className="jk-row extend top jk-pg-xsm">
             <div
               className={`${problem.judge?.key}-statement only-info`}
+              // biome-ignore lint/style/useNamingConvention: __html is React's reserved property name for dangerouslySetInnerHTML
               dangerouslySetInnerHTML={{ __html: problem.statement.html[Language.EN] || problem.statement.html[Language.ES] }}
             />
           </div>
