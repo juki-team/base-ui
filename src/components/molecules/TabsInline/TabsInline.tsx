@@ -175,7 +175,8 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
             <div className="jk-row left stretch jk-tabs-headers-inline">
               {Children.toArray(
                 displayedTabs.map((tab) => (
-                  <HeaderTab key={String(tab.key)}
+                  <HeaderTab
+                    key={String(tab.key)}
                     tab={tab}
                     selectedTabKey={selectedTabKey}
                     getHrefOnTabChange={getHrefOnTabChange}

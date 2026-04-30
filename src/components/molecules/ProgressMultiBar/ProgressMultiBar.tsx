@@ -9,7 +9,8 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
         {progress.map(({ label, percentage, color }, index) =>
           typeof label === 'string' ? (
             // biome-ignore lint/suspicious/noArrayIndexKey: progress segments are ordered and stable; key changes would re-trigger CSS transitions
-            <div key={index}
+            <div
+              key={index}
               data-tooltip-id="jk-tooltip"
               data-tooltip-place={tooltipPlacement}
               data-tooltip-content={label}
@@ -37,7 +38,8 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
             />
           ) : (
             // biome-ignore lint/suspicious/noArrayIndexKey: progress segments are ordered and stable
-            <Popover key={index}
+            <Popover
+              key={index}
               content={label}
               popoverClassName="bc-sf-hi jk-br-ie elevation-1"
               offset={4}
@@ -66,7 +68,8 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
           {points.map(({ label, percentage, color }, index) =>
             typeof label === 'string' ? (
               // biome-ignore lint/suspicious/noArrayIndexKey: point markers are ordered and stable
-              <div key={index}
+              <div
+                key={index}
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-place={tooltipPlacement}
                 data-tooltip-content={label}
@@ -85,7 +88,8 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
               />
             ) : (
               // biome-ignore lint/suspicious/noArrayIndexKey: point markers are ordered and stable
-              <Popover key={index}
+              <Popover
+                key={index}
                 content={label}
                 popoverClassName="bc-sf-hi jk-br-ie elevation-1"
                 offset={6}

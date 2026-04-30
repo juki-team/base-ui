@@ -41,7 +41,7 @@ export const useInjectCompanyStyles = () => {
     set('--navbar-at-cr', theme?.navbar?.accentColor);
 
     return () => {
-      CSS_PROPS.forEach((prop) => body.style.removeProperty(prop));
+      for (const prop of CSS_PROPS) body.style.removeProperty(prop);
     };
   }, [companyStyles, userPreferredTheme]);
 };

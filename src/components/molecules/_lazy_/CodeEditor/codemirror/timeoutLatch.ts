@@ -25,13 +25,13 @@ export class TimeoutLatch {
         this.isTimeExhausted = true;
         const callbacks = this.callbacks.slice();
         this.callbacks.length = 0;
-        callbacks.forEach((callback) => {
+        for (const callback of callbacks) {
           try {
             callback();
           } catch (error) {
             console.error('TimeoutLatch callback error:', error);
           }
-        });
+        }
       }
     }
   }
@@ -67,12 +67,12 @@ class Scheduler {
   private start(): void {
     if (this.interval === null) {
       this.interval = setInterval(() => {
-        this.latches.forEach((latch) => {
+        for (const latch of this.latches) {
           latch.tick();
           if (latch.isDone) {
             this.remove(latch);
           }
-        });
+        }
       }, 1);
     }
   }

@@ -24,18 +24,18 @@ function DataGridComponent({ rows, cols, freeze, styles, autofilter, firstRowAsH
   const dataStyles: CellStyleType[][] = [];
   const cell: HotTableProps['cell'] = [];
   const colHeaders: true | string[] = firstRowAsHeaders ? [] : true;
-  Object.entries(rows).forEach(([i, rowData]) => {
+  for (const [i, rowData] of Object.entries(rows)) {
     let row = +i;
     if (firstRowAsHeaders) {
       if (row === 0) {
         (colHeaders as string[]).push(...Object.entries(rowData.cells).map(([, cellData]) => cellData.text as string));
-        return;
+        continue;
       }
       row -= 1;
     }
     const dataRow: string[] = [];
     data[row] = dataRow;
-    Object.entries(rowData.cells).forEach(([j, cellData]) => {
+    for (const [j, cellData] of Object.entries(rowData.cells)) {
       const col = +j;
       dataRow[col] = cellData.text as string;
       const cellStyle = typeof cellData.style === 'number' ? styles?.[cellData.style] : undefined;
@@ -50,15 +50,15 @@ function DataGridComponent({ rows, cols, freeze, styles, autofilter, firstRowAsH
           className: classNames(alignment[`h${cellStyle.align}`], alignment[`v${cellStyle.valign}`]),
         });
       }
-    });
-  });
+    }
+  }
 
   const colWidths: number[] = [];
-  Object.entries(cols || {}).forEach(([i, colProperty]) => {
+  for (const [i, colProperty] of Object.entries(cols || {})) {
     if (typeof colProperty.width === 'number') {
       colWidths[+i] = colProperty.width;
     }
-  });
+  }
 
   const freezeCell = utils.decode_cell(freeze || '');
   const autofilterRange = utils.decode_range(autofilter?.ref || '');

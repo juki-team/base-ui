@@ -116,13 +116,13 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
     workBook.Sheets[name] = sheet;
     const sheetRows: NonNullable<(typeof sheet)['!rows']> = [];
     sheet['!rows'] = sheetRows;
-    Object.entries(rows).forEach(([i, rowData]) => {
+    for (const [i, rowData] of Object.entries(rows)) {
       const R = +i;
       if (rowData.height) {
         sheetRows[R] = { hpx: rowData.height };
       }
-      Object.entries(rowData.cells).forEach(([i, cellData]) => {
-        const C = +i;
+      for (const [j, cellData] of Object.entries(rowData.cells)) {
+        const C = +j;
         if (range.s.r > R) range.s.r = R;
         if (range.s.c > C) range.s.c = C;
         if (range.e.r < R) range.e.r = R;
@@ -136,7 +136,7 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
           v: cellData.text,
           t: 's',
         };
-        if (cell.v == null) return;
+        if (cell.v == null) continue;
         const cellRef = utils.encode_cell({ c: C, r: R });
 
         if (typeof cell.v === 'number') {
@@ -187,8 +187,8 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
           }
         }
         sheet[cellRef] = cell;
-      });
-    });
+      }
+    }
     if (range.s.c < 10000000) {
       sheet['!ref'] = utils.encode_range(range);
     }
@@ -198,14 +198,14 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
 
     const sheetCols: NonNullable<(typeof sheet)['!cols']> = sheet['!cols'] ?? [];
     sheet['!cols'] = sheetCols;
-    Object.entries(cols || {}).forEach(([i, property]) => {
+    for (const [i, property] of Object.entries(cols || {})) {
       const index = +i;
       const colDef = sheetCols[index] ?? {};
       sheetCols[index] = colDef;
       if (property.width) {
         colDef.wpx = property.width;
       }
-    });
+    }
   }
   return workBook;
 };
@@ -248,7 +248,7 @@ export const classNames = (
   c15?: ClassType,
 ): string => {
   let classes = '';
-  [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15].forEach((prop) => {
+  for (const prop of [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15]) {
     if (prop) {
       if (typeof prop === 'string') {
         classes += (classes ? ' ' : '') + prop;
@@ -260,7 +260,7 @@ export const classNames = (
         }
       }
     }
-  });
+  }
   return classes;
 };
 

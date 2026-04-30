@@ -183,7 +183,8 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
                   case 'file':
                     return part.mediaType?.startsWith('image/') ? (
                       // biome-ignore lint/suspicious/noArrayIndexKey: parts of an immutable chat message; index is stable per message
-                      <img key={`${message.id}-${i}`}
+                      <img
+                        key={`${message.id}-${i}`}
                         src={part.url as string}
                         alt="attachment"
                         style={{ maxWidth: '100%', maxHeight: 200, borderRadius: 4, objectFit: 'contain' }}

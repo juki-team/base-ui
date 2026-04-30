@@ -3,20 +3,20 @@ import type { Href, RequestFilterType, RequestSortType } from '../types';
 
 export const toFilterUrl = (filter: RequestFilterType) => {
   let filterUrl = '';
-  Object.entries(filter).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(filter)) {
     if (value) {
       if (filterUrl) {
         filterUrl += '&';
       }
       filterUrl += `${key}=${encodeURIComponent(value.toString())}`;
     }
-  });
+  }
   return filterUrl;
 };
 
 export const toSortUrl = (sort: RequestSortType) => {
   let filterUrl = '';
-  Object.entries(sort).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(sort)) {
     if (filterUrl && (value === -1 || value === 1)) {
       filterUrl += SEPARATOR_TOKEN;
     }
@@ -26,7 +26,7 @@ export const toSortUrl = (sort: RequestSortType) => {
     if (value === 1) {
       filterUrl += encodeURIComponent(`+${key}`);
     }
-  });
+  }
   return filterUrl ? `sort=${filterUrl}` : '';
 };
 

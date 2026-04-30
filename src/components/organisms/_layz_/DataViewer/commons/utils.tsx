@@ -265,7 +265,7 @@ export const isDisabledStart =
 export const isSomethingFiltered = <T,>(headers: TableHeadersType<T>[]) => {
   let filtered = false;
   const values: FilterValuesType = {};
-  headers.forEach(({ index, filter }) => {
+  for (const { index, filter } of headers) {
     if (isFilterText(filter)) {
       if (filter.getFilter?.()) {
         values[index] = filter.getFilter();
@@ -289,7 +289,7 @@ export const isSomethingFiltered = <T,>(headers: TableHeadersType<T>[]) => {
         filtered = true;
       }
     }
-  });
+  }
   return { filtered, values };
 };
 

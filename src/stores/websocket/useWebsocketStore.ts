@@ -61,7 +61,7 @@ export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
     broadcastMessage: (key, data) => {
       const newMessage = { key, data };
       const subs = get().subscribers[key] || [];
-      subs.forEach((cb) => cb(newMessage));
+      for (const cb of subs) cb(newMessage);
     },
     subscribeToEvent: getSubscribeToEvent(),
   };

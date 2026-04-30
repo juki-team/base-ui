@@ -478,7 +478,7 @@ export default function DataViewer<T extends object>(props: DataViewerProps<T>) 
   const onAllFilters = useCallback(
     (values: FilterValuesType) => {
       const newSearchFilter = { ...filters };
-      headers.forEach(({ filter, index: columnIndex }) => {
+      for (const { filter, index: columnIndex } of headers) {
         const value = values[columnIndex];
         if (filter?.type === FILTER_TEXT || filter?.type === FILTER_TEXT_AUTO) {
           newSearchFilter[columnIndex] = value as string;
@@ -502,7 +502,7 @@ export default function DataViewer<T extends object>(props: DataViewerProps<T>) 
             newSearchFilter[columnIndex] = '';
           }
         }
-      });
+      }
       if (isSomethingSearchFiltered(newSearchFilter)) {
         setFilter(JSON.stringify(newSearchFilter));
       } else {

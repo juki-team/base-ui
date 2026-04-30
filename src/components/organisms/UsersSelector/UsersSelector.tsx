@@ -23,9 +23,9 @@ export function UsersSelector(props: UsersSelectorProps) {
   const users = useMemo(() => {
     const users: { [key: string]: UserSummaryListResponseDTO } = {};
     const dataUsers = data?.success ? data?.contents : [];
-    dataUsers.forEach((user) => {
+    for (const user of dataUsers) {
       users[getUserKey(user.nickname, user.organization.key)] = user;
-    });
+    }
     return users;
   }, [data]);
   const dataUsers = Object.values(users);
@@ -36,14 +36,14 @@ export function UsersSelector(props: UsersSelectorProps) {
       .filter(Boolean);
     let error = '';
     const validNicknames: string[] = [];
-    nicknames.forEach((nickname) => {
+    for (const nickname of nicknames) {
       const userKey = getUserKey(nickname, organizationKey);
       if (users[userKey]) {
         validNicknames.push(userKey);
       } else {
         error += `${error ? ', ' : ''}"${nickname}" unknown nickname`;
       }
-    });
+    }
     setError(error);
     setTextNicknames(validNicknames);
   }, [organizationKey, text, users]);

@@ -63,14 +63,14 @@ export const SubmitViewContent = ({
   const isProblemEditor = isManager || isAdministrator;
   const date = new Date(timestamp);
   const testCasesByGroup: { [key: number]: TestCaseResult[] } = {};
-  (testCaseResults || []).forEach((testCase) => {
+  for (const testCase of testCaseResults || []) {
     const group = testCase.group ? (problemScoringMode === ProblemScoringMode.SUBTASK ? testCase.group : 1) : 0;
     if (testCasesByGroup[group]) {
       testCasesByGroup[group].push(testCase);
     } else {
       testCasesByGroup[group] = [testCase];
     }
-  });
+  }
 
   const compilationFailed =
     verdict !== ProblemVerdict.NONE && verdict !== ProblemVerdict.PENDING && compilationResult?.success === false;

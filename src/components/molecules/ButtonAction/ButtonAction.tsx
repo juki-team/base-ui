@@ -58,7 +58,8 @@ export function ButtonAction(props: ButtonActionProps) {
             ({ icon, onClick, label, disabled, size = 'small', type = 'primary', children, ...props }, index) =>
               children ?? (
                 // biome-ignore lint/suspicious/noArrayIndexKey: action menu is a fixed list per ButtonAction instance
-                <ButtonLoader key={index}
+                <ButtonLoader
+                  key={index}
                   {...props}
                   type={type}
                   icon={icon}

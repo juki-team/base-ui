@@ -69,9 +69,9 @@ export function Tabs<T extends string>(props: TabsProps<T>) {
   useClickOutside(() => (tabsHeaderFocus.current = false), tabsHeaderRef);
 
   const tabHeaders: { [key: string]: ReactNode } = {};
-  tabs.forEach(({ key, header }) => {
+  for (const { key, header } of tabs) {
     tabHeaders[key] = renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey });
-  });
+  }
   const [maxWidthUsed, setMaxWidthUsed] = useState(widthTabs + widthActions + 32);
   useEffect(() => {
     const newWidth = widthTabs + widthActions + 32;
