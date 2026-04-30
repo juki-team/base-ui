@@ -10,6 +10,7 @@
       "linter": {
         "rules": {
           "a11y": { "noStaticElementInteractions": "off", "useKeyWithClickEvents": "off" },
+          "correctness": { "useJsxKeyInIterable": "off" },
           "style": { "noDefaultExport": "off", "useNamingConvention": "off" },
           "suspicious": { "noExplicitAny": "off" }
         }

@@ -188,7 +188,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
             <div className="jk-row gap left stretch jk-tabs-headers-inline">
               {Children.toArray(
                 displayedTabs.map((tab) => (
-                  <HeaderTab
+                  <HeaderTab key={tab.key}
                     tab={tab}
                     selectedTabKey={selectedTabKey}
                     tickStyle={tickStyle}

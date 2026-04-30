@@ -88,7 +88,7 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
   });
 
   const renderChildren = children.map((content, index) => (
-    <div className="jk-row nowrap gap">
+    <div key={content.id} className="jk-row nowrap gap">
       <ListSheetRecursiveSection
         sheet={content}
         setSheet={
