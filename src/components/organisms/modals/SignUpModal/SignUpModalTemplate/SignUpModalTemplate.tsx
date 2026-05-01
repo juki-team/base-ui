@@ -15,9 +15,7 @@ const signUpSchema = yupObject().shape({
   givenName: yupString().required('cannot be empty').min(3, 'must be at least 3 characters'),
   familyName: yupString().required('cannot be empty').min(3, 'must be at least 3 characters'),
   email: yupString().required('cannot be empty').email('must be a valid email'),
-  checkbox: yupBoolean()
-    .required('you must accept the terms of service')
-    .oneOf([true], 'you must accept the terms of service'),
+  checkbox: yupBoolean().required('you must accept the terms of service').oneOf([true], 'you must accept the terms of service'),
   nickname: yupString()
     .required('cannot be empty')
     .matches(ALPHANUMERIC_DASH_UNDERSCORE_REGEX, 'only alphanumeric characters or dash or underscore is valid')

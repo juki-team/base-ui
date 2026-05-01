@@ -26,8 +26,8 @@ function JudgeInput({ judge: { value, label, logo, logoSize }, user, setUser }: 
   const height2 = (24 / logoSize[1]) * logoSize[0];
   const width2 = 24;
 
-  let height;
-  let width;
+  let height: number;
+  let width: number;
   if (Math.max(height1, width1) > Math.max(height2, width2)) {
     height = height2;
     width = width2;

@@ -67,7 +67,7 @@ const newAblyClient = (uiId: string) => {
       authCallback: async (_, callback) => {
         if (isBrowser()) {
           consoleInfo('new request to auth ably');
-          let tokenRequest;
+          let tokenRequest: TokenDetails | TokenRequest | string | null = null;
           try {
             const response = cleanRequest<ContentResponse<TokenDetails | TokenRequest | string | null>>(
               await authorizedRequest(`${jukiApiManager.apiV2.websocket.auth().url}?uiId=${uiId}`),

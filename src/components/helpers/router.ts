@@ -31,8 +31,8 @@ export const toSortUrl = (sort: RequestSortType) => {
 };
 
 export const getHref = (href: Href) => {
-  let pathname;
-  let searchParams;
+  let pathname: string;
+  let searchParams: URLSearchParams;
   if (typeof href === 'string') {
     const [p, s] = href.split('?');
     pathname = p || '';

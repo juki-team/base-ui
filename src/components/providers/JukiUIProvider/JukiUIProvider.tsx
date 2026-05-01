@@ -30,11 +30,11 @@ export const JukiUIProvider = ({
   const { isLogged } = useUserStore((state) => state.user);
   const LinkCmp: FC<LinkCmpProps> = useCallback(
     ({ href, ...restProps }) => {
-      let pathname;
-      let sp;
+      let pathname: string;
+      let sp: URLSearchParams;
       if (typeof href === 'string') {
         const [p, s] = href.split('?');
-        pathname = p;
+        pathname = p ?? '';
         sp = new URLSearchParams(s);
       } else {
         pathname = href?.pathname ?? '';

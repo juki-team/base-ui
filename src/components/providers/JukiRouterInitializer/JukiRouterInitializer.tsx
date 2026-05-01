@@ -112,8 +112,8 @@ export const JukiRouterInitializer = (props: JukiRouterInitializerProps) => {
 
   const push: RouterFn<Href> = useCallback(
     (url) => {
-      let sp;
-      let pathname;
+      let sp: URLSearchParams;
+      let pathname: string;
       if (typeof url === 'string') {
         const [p = '', s] = url.split('?');
         pathname = p;

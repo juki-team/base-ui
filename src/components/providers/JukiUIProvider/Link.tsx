@@ -4,7 +4,7 @@ import type { LinkCmpProps } from './types';
 export const Link = (props: PropsWithChildren<LinkCmpProps>) => {
   const { href, children, className, style, target, rel } = props;
 
-  let url;
+  let url: string;
   if (typeof href === 'string') {
     url = href;
   } else {

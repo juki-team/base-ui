@@ -1,5 +1,5 @@
 import { ProfileSetting } from '@juki-team/commons/enums';
-import { type PropsWithChildren, useState } from 'react';
+import { type PropsWithChildren, type ReactNode, useState } from 'react';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
@@ -69,7 +69,7 @@ export function ProblemView<T>(props: PropsWithChildren<ProblemViewProps<T>>) {
     </div>
   );
 
-  let body;
+  let body: ReactNode;
   if (problem.judge.isSubmitSupported) {
     body = (
       <SplitPane
