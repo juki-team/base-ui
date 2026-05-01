@@ -28,6 +28,7 @@ const profileSettingsChangePasswordSchema = yup.object().shape({
     .oneOf([yup.ref('newPassword'), ''], 'both passwords must match'),
 });
 
+// biome-ignore lint/style/noDefaultExport: lazy component
 export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordModalProps) {
   const {
     register,

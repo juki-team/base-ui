@@ -8,8 +8,8 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
       <div className="jk-row left jk-br-ie" style={{ width: '100%', background: 'var(--cr-ht-lt)' }}>
         {progress.map(({ label, percentage, color }, index) =>
           typeof label === 'string' ? (
-            // biome-ignore lint/suspicious/noArrayIndexKey: progress segments are ordered and stable; key changes would re-trigger CSS transitions
             <div
+              // biome-ignore lint/suspicious/noArrayIndexKey: progress segments are ordered and stable; key changes would re-trigger CSS transitions
               key={index}
               data-tooltip-id="jk-tooltip"
               data-tooltip-place={tooltipPlacement}
@@ -37,8 +37,8 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
               className="outline-hover"
             />
           ) : (
-            // biome-ignore lint/suspicious/noArrayIndexKey: progress segments are ordered and stable
             <Popover
+              // biome-ignore lint/suspicious/noArrayIndexKey: progress segments are ordered and stable
               key={index}
               content={label}
               popoverClassName="bc-sf-hi jk-br-ie elevation-1"
@@ -67,8 +67,8 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
         <div className="jk-row left jk-br-ie" style={{ width: '100%', top: 0, left: 0 }}>
           {points.map(({ label, percentage, color }, index) =>
             typeof label === 'string' ? (
-              // biome-ignore lint/suspicious/noArrayIndexKey: point markers are ordered and stable
               <div
+                // biome-ignore lint/suspicious/noArrayIndexKey: point markers are ordered and stable
                 key={index}
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-place={tooltipPlacement}
@@ -87,8 +87,8 @@ export function ProgressMultiBar({ progress, points, label, height = 12, tooltip
                 }
               />
             ) : (
-              // biome-ignore lint/suspicious/noArrayIndexKey: point markers are ordered and stable
               <Popover
+                // biome-ignore lint/suspicious/noArrayIndexKey: point markers are ordered and stable
                 key={index}
                 content={label}
                 popoverClassName="bc-sf-hi jk-br-ie elevation-1"

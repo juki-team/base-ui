@@ -384,4 +384,5 @@ function MdMathComponent(props: MdMathProps) {
 
 const MdMath = memo(MdMathComponent);
 
+// biome-ignore lint/style/noDefaultExport: lazy component
 export default MdMath;

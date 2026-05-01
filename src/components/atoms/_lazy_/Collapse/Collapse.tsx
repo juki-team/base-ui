@@ -4,6 +4,7 @@ import { useHandleState } from '../../../hooks/useHandleState';
 import { ExpandLessIcon, ExpandMoreIcon } from '../../server';
 import type { CollapseProps } from './types';
 
+// biome-ignore lint/style/noDefaultExport: lazy component
 export default function Collapse(props: CollapseProps) {
   const {
     children,

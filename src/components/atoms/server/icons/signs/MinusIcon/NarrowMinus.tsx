@@ -6,4 +6,5 @@ const Minus = memo(({ color, width }: RootIconProps) => (
   <Segment start={{ x: 6, y: 12 }} end={{ x: 18, y: 12 }} options={{ width }} fill={color} />
 ));
 
+// biome-ignore lint/style/noDefaultExport: icon component
 export default Minus;

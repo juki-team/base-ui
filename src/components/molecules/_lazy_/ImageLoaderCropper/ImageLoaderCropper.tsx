@@ -31,6 +31,7 @@ function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: numbe
   );
 }
 
+// biome-ignore lint/style/noDefaultExport: lazy component
 export default function ImageLoaderCropper(props: ImageLoaderCropperProps) {
   const {
     defaultCrop,

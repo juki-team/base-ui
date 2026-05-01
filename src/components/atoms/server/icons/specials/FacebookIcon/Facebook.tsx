@@ -6,4 +6,5 @@ const Facebook = () => {
   );
 };
 
+// biome-ignore lint/style/noDefaultExport: icon component
 export default Facebook;

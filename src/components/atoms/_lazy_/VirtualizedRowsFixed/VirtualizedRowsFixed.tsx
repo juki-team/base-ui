@@ -50,6 +50,7 @@ export function VirtualizedRowsFixed(props: VirtualizedRowsFixedProps) {
   );
 }
 
+// biome-ignore lint/style/noDefaultExport: lazy component
 export default memo(VirtualizedRowsFixed, (prev, next) => {
   return (
     prev.rowHeight === next.rowHeight &&

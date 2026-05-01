@@ -203,6 +203,7 @@ function getPlacementVariants(placement: Placement): Variants {
   }
 }
 
+// biome-ignore lint/style/noDefaultExport: lazy component
 export default function Popover(props: PopoverProps) {
   const {
     children,

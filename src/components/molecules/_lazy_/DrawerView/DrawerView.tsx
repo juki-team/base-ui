@@ -67,4 +67,5 @@ const DrawerView = memo(DrawerViewComponent, ({ isOpen }, { isOpen: isOpenNext }
   return isOpen === isOpenNext && !isOpen;
 });
 
+// biome-ignore lint/style/noDefaultExport: lazy component
 export default DrawerView;

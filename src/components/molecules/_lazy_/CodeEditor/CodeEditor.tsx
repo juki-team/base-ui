@@ -111,4 +111,5 @@ function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
 
 const CodeEditor = memo(CodeEditorCmp) as typeof CodeEditorCmp;
 
+// biome-ignore lint/style/noDefaultExport: lazy component
 export default CodeEditor;

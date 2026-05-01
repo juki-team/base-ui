@@ -11,6 +11,7 @@ import { MdMath } from '../MdMath';
 import { WorksheetNode } from '../WorksheetEditor/sheets/WorksheetNode';
 import type { WorksheetAsSlidesProps } from './types';
 
+// biome-ignore lint/style/noDefaultExport: lazy component
 export default function WorksheetAsSlides(props: WorksheetAsSlidesProps) {
   const {
     worksheet: {

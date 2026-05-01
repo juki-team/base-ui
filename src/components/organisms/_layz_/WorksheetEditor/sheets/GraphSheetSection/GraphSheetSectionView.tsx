@@ -39,8 +39,8 @@ export const GraphSheetSectionView = ({ content, setSheet }: GraphSheetSectionPr
           size="small"
         />
         {new Array(content.dots.length).fill(1).map((_, index) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: numeric pagination tags; index IS the identity
           <Div
+            // biome-ignore lint/suspicious/noArrayIndexKey: numeric pagination tags; index IS the identity
             key={index}
             className={classNames('jk-tag clickable', { 'bc-sf-hi': index !== frame })}
             onClick={() => setFrame(index)}

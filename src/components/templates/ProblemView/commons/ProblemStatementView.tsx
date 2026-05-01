@@ -237,8 +237,8 @@ export const ProblemStatementView = <T,>({
         </div>
         <div className="jk-col stretch gap">
           {(statement.sampleCases || [{ input: '', output: '' }]).map((_, index) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: sample cases are positional; index IS the identity passed to the child
             <SampleTest
+              // biome-ignore lint/suspicious/noArrayIndexKey: sample cases are positional; index IS the identity passed to the child
               key={index}
               index={index}
               sampleCases={statement.sampleCases}

@@ -53,8 +53,8 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: 
             {Children.toArray(
               menu.map(({ selected, icon, label, menuItemWrapper }, index) => {
                 const menuItem = (
-                  // biome-ignore lint/suspicious/noArrayIndexKey: menu is a fixed list per render; Children.toArray wraps with stable keys
                   <Div
+                    // biome-ignore lint/suspicious/noArrayIndexKey: menu is a fixed list per render; Children.toArray wraps with stable keys
                     key={index}
                     className={classNames('jk-menu-item jk-row extend gap nowrap left jk-br-ie bc-pd cr-tx-ht-it', {
                       selected: !!selected,

@@ -182,8 +182,8 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
                 switch (part.type) {
                   case 'file':
                     return part.mediaType?.startsWith('image/') ? (
-                      // biome-ignore lint/suspicious/noArrayIndexKey: parts of an immutable chat message; index is stable per message
                       <img
+                        // biome-ignore lint/suspicious/noArrayIndexKey: parts of an immutable chat message; index is stable per message
                         key={`${message.id}-${i}`}
                         src={part.url as string}
                         alt="attachment"

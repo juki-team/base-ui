@@ -49,6 +49,7 @@ function SortableItemCmp<T, U>({ id, Cmp, item, props, index }: SortableItemProp
 
 const SortableItem = memo(SortableItemCmp) as typeof SortableItemCmp;
 
+// biome-ignore lint/style/noDefaultExport: lazy component
 export default function SortableItems<T, U = undefined>(properties: SortableItemsProps<T, U>) {
   const { items, setItems, onChange, props, Cmp, horizontal } = properties;
 

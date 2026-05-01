@@ -21,6 +21,7 @@ const getSafeBgColor = () => {
   return 'transparent';
 };
 
+// biome-ignore lint/style/noDefaultExport: lazy component
 export default function ExcalidrawButton() {
   const [isActive, setIsActive] = useState(false);
   const [viewBackgroundColor, setViewBackgroundColor] = useState(getSafeBgColor());
