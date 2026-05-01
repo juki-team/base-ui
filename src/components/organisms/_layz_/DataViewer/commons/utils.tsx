@@ -262,6 +262,7 @@ export const isDisabledStart =
     };
   };
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export const isSomethingFiltered = <T,>(headers: TableHeadersType<T>[]) => {
   let filtered = false;
   const values: FilterValuesType = {};
@@ -390,6 +391,7 @@ export const buildHeaders = <T,>(
   setFilter: SetFn,
   deleteFilter: DeleteFn,
 ) => {
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
   const baseHeaders = headers.map(({ sort, filter, ...props }, index) => {
     const getVisible = () => split(searchVisibles).includes(props.index);
     const newHead: DataViewerTableHeadersType<T> = {

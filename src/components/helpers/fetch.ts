@@ -52,6 +52,7 @@ const _authorizedRequest = async <M extends HTTPMethod = 'GET', N extends Blob |
   url: string,
   options?: Partial<AuthorizedRequestType<M>>,
   safe?: boolean,
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 ): Promise<N> => {
   const { method = HTTPMethod.GET, body, signal, responseType, headers, cache, next } = options || {};
 

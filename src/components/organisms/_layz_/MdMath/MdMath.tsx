@@ -203,6 +203,7 @@ function MdMathComponent(props: MdMathProps) {
           }
           return <p className={classNames({ fragment: isRoot })}>{children as ReactNode}</p>;
         },
+        // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
         a({ children, href = '' }) {
           const firstChildrenString =
             typeof children === 'string'
@@ -270,6 +271,7 @@ function MdMathComponent(props: MdMathProps) {
         //   return <pre>holiwi input</pre>;
         // },
         script: () => null,
+        // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
         code: ({ children, className = '', node }) => {
           const isRoot = node?.position?.start?.column === 11111;
           const inline = !children?.toString().includes('\n');

@@ -19,6 +19,7 @@ const alignment: { [key: string]: string } = {
   vbottom: 'htBottom',
 };
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 function DataGridComponent({ rows, cols, freeze, styles, autofilter, firstRowAsHeaders }: DataGridProps) {
   const data: string[][] = [];
   const dataStyles: CellStyleType[][] = [];

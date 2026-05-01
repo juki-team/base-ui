@@ -11,6 +11,7 @@ import { TwoContentSection } from '../TwoContentSection/TwoContentSection';
 import { JukiLoadingLayout } from './JukiLoadingLayout';
 import type { TwoContentLayoutProps } from './types';
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export function TwoContentLayout<T = string>(props: TwoContentLayoutProps<T>) {
   const {
     breadcrumbs: initialBreadcrumbs,

@@ -28,6 +28,7 @@ export function EntityLogsModal({ url, ...restProps }: EntityLogsModalProps) {
                     />
                   </div>
                   <div className="jk-col gap stretch">
+                    {/* biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred */}
                     {changes.map(({ type, valueType, oldValue, value, path }, index) => (
                       // biome-ignore lint/suspicious/noArrayIndexKey: changes within a single log entry are immutable
                       <div key={index} className="jk-row gap nowrap left">

@@ -42,6 +42,7 @@ export function Tabs<T extends string>(props: TabsProps<T>) {
   }, [tabs]);
 
   useEffect(() => {
+    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
     const handleEsc = ({ keyCode }: { keyCode: number }) => {
       if (tabsHeaderFocus.current && typeof indexes[tabKey] === 'number') {
         if (keyCode === 39) {

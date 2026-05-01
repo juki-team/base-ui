@@ -3,6 +3,7 @@ import { classNames } from '../../../../helpers';
 import type { TableHeadersType } from '../types';
 import type { DataViewerCardProps } from './types';
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export const DataViewerCard = <T,>(props: DataViewerCardProps<T>) => {
   const { cardWidth, index, data, headers, fake, cardStyle, cardClassName, onCardClick, onCardHover } = props;
 

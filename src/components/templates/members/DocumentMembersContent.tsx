@@ -44,6 +44,7 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
             onChange={
               setMembers
                 ? ({ value }) => {
+                    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
                     setMembers((prevState) => {
                       const currentMembers = { ...prevState };
                       currentMembers.rankAdministrators = administrators?.closeable

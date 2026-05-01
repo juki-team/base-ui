@@ -43,6 +43,7 @@ export const JukiRouterInitializer = (props: JukiRouterInitializerProps) => {
   );
 
   const deleteSearchParams: DeleteSearchParamsType = useCallback(
+    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
     (entries) => {
       const newSearchParams = cloneURLSearchParams(_searchParams);
       for (const { name, value } of Array.isArray(entries) ? entries : [entries]) {

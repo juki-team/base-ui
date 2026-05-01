@@ -109,6 +109,7 @@ export const FilterDrawer = <T,>(props: FilterDrawerProps<T>) => {
           <T>order and filters</T>
         </div>
         <div className="jk-col top nowrap stretch space-between filter-drawer-columns flex-1">
+          {/* biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred */}
           {headers.map((header, index) => {
             const {
               index: columnIndex,

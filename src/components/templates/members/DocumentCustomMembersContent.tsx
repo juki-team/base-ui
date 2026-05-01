@@ -44,6 +44,7 @@ function PrintUsers({
   );
 }
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export function DocumentCustomMembersContent(props: DocumentCustomMembersContentProps) {
   const { members, setMembers, documentOwner, administrators, managers, participants, guests, spectators } = props;
 

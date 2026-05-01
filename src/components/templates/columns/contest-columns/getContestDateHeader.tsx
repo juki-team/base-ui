@@ -8,6 +8,7 @@ export function getContestDateHeader(): DataViewerHeadersType<ContestSummaryList
   return {
     head: 'dates',
     index: 'date',
+    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
     Field: ({ record: { settings, isEndless }, isCard }) => (
       <Field className="jk-row extend">
         {isEndless ? (

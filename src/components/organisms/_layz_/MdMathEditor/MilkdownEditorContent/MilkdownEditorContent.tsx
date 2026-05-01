@@ -446,6 +446,7 @@ export function MilkdownEditorContent({
             languages: myLanguages,
             extensions: [basicSetup(), ...(theme === Theme.DARK ? [oneDark] : [defaultLightThemeOption])],
             previewToggleButton: () => 'edit',
+            // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
             renderPreview: (lang, content) => {
               const [language, as] = lang.split('/');
               if (language?.toLowerCase() === 'latex' && content.length > 0) {

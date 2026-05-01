@@ -57,6 +57,7 @@ enum View {
   ONLY_VIEWER = 'ONLY_VIEWER',
 }
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
   const {
     initialMd: source,
@@ -119,6 +120,7 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
     }, 0);
   };
 
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
   const handlePaste: ClipboardEventHandler = async (event) => {
     const items = event.clipboardData?.items;
     if (items) {

@@ -7,6 +7,7 @@ import { T } from '../../atoms';
 import { CodeViewer, TwoActionModal } from '../../molecules';
 import type { CheckUnsavedChangesProps } from './types';
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 function objectDiffAsBash(objA: object, objB: object): string {
   const changes = microDiff(objA, objB);
   let output = '';

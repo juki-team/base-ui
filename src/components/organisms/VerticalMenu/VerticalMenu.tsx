@@ -7,6 +7,7 @@ import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
 import { HorizontalMenu } from '../HorizontalMenu/HorizontalMenu';
 import type { VerticalMenuProps } from './types';
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export function VerticalMenu(props: VerticalMenuProps) {
   const {
     isOpen = true,

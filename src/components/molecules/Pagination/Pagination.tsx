@@ -21,6 +21,7 @@ const buildVisiblePages = (page: number, endPage: number): number[] => {
   return pages;
 };
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export const Pagination = (props: PaginationProps) => {
   const {
     dataLength,

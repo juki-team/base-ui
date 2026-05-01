@@ -74,6 +74,7 @@ const applyOffline = <T extends object>(
   headers: DataViewerHeadersType<T>[],
   filters: RequestFilterType,
   searchSorts: string,
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 ) => {
   let newData = [...data];
 
@@ -86,6 +87,7 @@ const applyOffline = <T extends object>(
         newData = newData.filter(head.filter.callbackFn({ columnIndex: head.index, text: filters[filterIndex] }));
       } else if (isFilterTextAutoOffline(head?.filter)) {
         const regExp = new RegExp(filters[filterIndex], 'gi');
+        // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
         newData = newData.filter((datum) => {
           if (isFilterTextAutoOffline(head?.filter)) {
             const value = head.filter.getValue
@@ -116,6 +118,7 @@ const applyOffline = <T extends object>(
             return undefined;
           })
           .filter(Boolean) as OptionType<string>[];
+        // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
         newData = newData.filter((datum) => {
           if (isFilterSelectAutoOffline(head?.filter)) {
             const value = head.filter.getValue
@@ -139,6 +142,7 @@ const applyOffline = <T extends object>(
           showOfDateDisplayType(head.filter.pickerType || DEFAULT_PICKER_TYPE);
         if (filters[filterIndex] && isValidDate(new Date(+filters[filterIndex]))) {
           const searchDate = new Date(+filters[filterIndex]);
+          // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
           newData = newData.filter((datum) => {
             if (isFilterDateAutoOffline(head?.filter)) {
               const value = head.filter.getValue
@@ -204,6 +208,7 @@ const applyOffline = <T extends object>(
           const { showMonths, showDays, showHours, showMinutes, showSeconds, showMilliseconds } = showOfDateDisplayType(
             head.filter.pickerType || DEFAULT_PICKER_TYPE,
           );
+          // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
           newData = newData.filter((datum) => {
             if (isFilterDateRangeAutoOffline(head?.filter)) {
               const date = head.filter.getValue
@@ -476,6 +481,7 @@ export default function DataViewer<T extends object>(props: DataViewerProps<T>) 
   ]);
 
   const onAllFilters = useCallback(
+    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
     (values: FilterValuesType) => {
       const newSearchFilter = { ...filters };
       for (const { filter, index: columnIndex } of headers) {

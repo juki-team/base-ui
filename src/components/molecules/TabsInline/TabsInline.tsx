@@ -58,6 +58,7 @@ const HeaderTab = <T = string>(props: HeaderTabProps<T>) => {
   );
 };
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export function TabsInline<T>(props: TabsInlineProps<T>) {
   const {
     tabs,

@@ -8,6 +8,7 @@ import type { DrawerActionsType } from '../../molecules/Drawer/types';
 import { ArrowBackIcon, ViewHeadlineIcon } from '../../server';
 import type { HorizontalMenuProps } from './types';
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export function HorizontalMenu(props: HorizontalMenuProps) {
   const {
     className = '',

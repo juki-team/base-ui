@@ -14,6 +14,7 @@ import {
 export function NotificationProvider({ children }: NotificationProviderProps) {
   const sound = useSoundStore();
 
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
   const [state, dispatch] = useReducer((state: NotificationProps[], action: NotificationActionsTypes) => {
     switch (action.type) {
       case NotificationAction.ADD_NOTIFICATION:

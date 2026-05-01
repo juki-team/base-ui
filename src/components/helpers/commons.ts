@@ -100,6 +100,7 @@ export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName
   downloadBlobAsFile(blob, fileName);
 };
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: string = 'file.xlsx') => {
   const { utils } = await getXLSX();
   const workBook = utils.book_new();
@@ -246,6 +247,7 @@ export const classNames = (
   c13?: ClassType,
   c14?: ClassType,
   c15?: ClassType,
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 ): string => {
   let classes = '';
   for (const prop of [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15]) {

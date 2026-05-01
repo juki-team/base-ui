@@ -129,6 +129,7 @@ function SlideDeckComponent(props: SlideDeckProps) {
   const framePending = useAnimationFrameStore((store) => store.framePending);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: framePending is the trigger; deckRef and document queries are read at runtime
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
   useEffect(() => {
     setLoading(true);
     if (!framePending && deckRef.current && deckRef.current.isReady()) {

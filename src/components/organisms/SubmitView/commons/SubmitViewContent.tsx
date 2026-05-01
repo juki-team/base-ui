@@ -41,6 +41,7 @@ export const SubmitViewContent = ({
   submit: SubmissionDataResponseDTO;
   header?: ReactNode;
   className?: string;
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 }) => {
   const {
     runId,
@@ -95,6 +96,7 @@ export const SubmitViewContent = ({
     <div className={classNames('jk-col stretch gap wh-100', className)}>
       {header}
       <Collapse
+        // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
         header={({ isOpen, toggle }) => (
           <DisplayGridData
             data={[

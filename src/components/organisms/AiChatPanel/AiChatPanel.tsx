@@ -12,6 +12,7 @@ import { useStableRef } from '../../hooks/useStableRef';
 import { MdMathViewer } from '../MdMathViewer/MdMathViewer';
 import type { AiChatPanelProps, Part } from './types';
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export const AiChatPanel = (props: AiChatPanelProps) => {
   const { title, api, storeKey, getBodyRef, onMessagesChangeRef, toolStateUI, suggestions, onWidthChange, actions } = props;
   const [isOpen, setIsOpen] = useState(false);

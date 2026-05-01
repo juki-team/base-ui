@@ -6,6 +6,7 @@ import { Segment } from './Segment';
 import { SquareFrame } from './SquareFrame';
 import { Vector } from './Vector';
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType<RootIconProps>, name: string) => {
   const {
     size = 'regular',

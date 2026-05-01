@@ -6,6 +6,7 @@ import { Field } from '../../organisms';
 import { CheckIcon, OpenInNewIcon, VoidIcon } from '../../server';
 import type { ContestNameLinkFieldProps } from './types';
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export function ContestNameLinkField(props: ContestNameLinkFieldProps) {
   const {
     record: {

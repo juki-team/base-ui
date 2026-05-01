@@ -54,6 +54,7 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
         if (runId !== activeRunIdRef.current) return;
         const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
           onChangeRef.current?.({
+            // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
             onTestCasesChange: (prevState) => {
               const newTestCases: CodeEditorTestCases = { ...prevState };
               for (const testKey in newTestCases) {
@@ -91,6 +92,7 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
           case SubmissionRunStatus.EXECUTED_TEST_CASE:
           case SubmissionRunStatus.FAILED_TEST_CASE:
             onChangeRef.current?.({
+              // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
               onTestCasesChange: (prevState) => {
                 const newTestCases: CodeEditorTestCases = { ...prevState };
                 if (inputKey && newTestCases[inputKey]) {

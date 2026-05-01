@@ -22,6 +22,7 @@ import {
 } from '@juki-team/commons/helpers';
 import type { WebSocketResponseEventKey } from '@juki-team/commons/types';
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebSocketUnsubscribeEventDTO) {
   if (isSubscribeCodeRunStatusWebSocketEventDTO(event) || isUnsubscribeCodeRunStatusWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.CODE_RUN_STATUS, event.clientId, event.runId);

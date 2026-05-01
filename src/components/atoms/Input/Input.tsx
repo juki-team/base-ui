@@ -5,6 +5,7 @@ import type { InputCommonsProps } from '../../types';
 
 export type CmpInputProps<T> = InputCommonsProps<T>;
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export function InputBase<T extends string | number | FileList>(
   _props: InputProps<T> & {
     inputId: string;

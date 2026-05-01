@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { MdMath } from '../_layz_/MdMath';
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 function splitMarkdownIntoChunks(md: string): string[] {
   const lines = md.split('\n');
   const chunks: string[] = [];

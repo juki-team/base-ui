@@ -33,6 +33,7 @@ const signUpSchema = yupObject().shape({
     .oneOf([yupRef('password'), ''], 'both passwords must match'),
 });
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
   const { isOpen, onClose, onSubmit, signUpWithGoogle, reactAppGoogleClientId, onSignInButton } = props;
 

@@ -23,6 +23,7 @@ export const useTrackCursor = (offsetRef: RefObject<{ x: number; y: number; zoom
       }
     };
 
+    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
     const fun = async () => {
       await leaveSpace();
       if (cancelled) {

@@ -86,6 +86,7 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
   //   setWithVerticalScroll(withVerticalScroll);
   // }, [ withVerticalScroll ]);
 
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
   const { topHeaders, rightBorders, headersWidth, headersStickyWidth } = useMemo(() => {
     const topHeaders: DataViewerTableHeadersType<T>[] = [];
     const rightBorders: number[] = [];

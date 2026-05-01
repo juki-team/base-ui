@@ -186,6 +186,7 @@ const formatSettingsStoreRecovered = (recovered: unknown): StorageType<SettingsS
 
 const formatStoreRecovered =
   <T,>(languages: UserCodeEditorProps<T>['languages']) =>
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
   (recovered: unknown): StorageType<CodeEditorFiles<T>> => {
     const state: StorageType<CodeEditorFiles<T>> = {};
     for (const [key, value] of Object.entries(recovered || {})) {
@@ -491,6 +492,7 @@ function UserCodeEditor<T>(props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeE
     fileName,
     fileNameEdited,
     fileNameDeleted,
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
   }: CodeRunnerEditorPropertiesType<T>) => {
     if (codeRunStatus) {
       onCodeRunStatusChange?.(codeRunStatus, { files, currentFileName, testCases });

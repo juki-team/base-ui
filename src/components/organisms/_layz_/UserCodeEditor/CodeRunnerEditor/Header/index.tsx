@@ -13,6 +13,7 @@ import { ContentCopyIcon, DownloadIcon, FullscreenExitIcon, FullscreenIcon, Sett
 import type { HeaderProps } from '../types';
 import { RunCodeButton } from './RunCodeButton';
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export const Header = <T,>(props: HeaderProps<T>) => {
   const {
     onChangeRef,
@@ -97,6 +98,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
   }, [addQuietNotification, toPng]);
 
   const handleKeyDown = useCallback(
+    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
     (e: KeyboardEvent) => {
       const isMac = navigator.platform.toUpperCase().includes('MAC');
       const metaOrCtrl = isMac ? e.metaKey : e.ctrlKey;

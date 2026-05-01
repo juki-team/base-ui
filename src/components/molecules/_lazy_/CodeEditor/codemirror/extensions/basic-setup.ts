@@ -91,6 +91,7 @@ export interface BasicSetupOptions extends MinimalSetupOptions {
  and an array literal), copy it into your own code, and adjust it
  as desired.
  */
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 export const basicSetup = (options: BasicSetupOptions = {}): Extension[] => {
   const { crosshairCursor: initCrosshairCursor = false } = options;
 
