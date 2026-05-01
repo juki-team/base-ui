@@ -235,5 +235,4 @@ function MdMathEditor(props: MdMathEditorProps & { ref?: Ref<MdMathEditorHandle>
   );
 }
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default MdMathEditor;

@@ -24,7 +24,6 @@ hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('diff', diff);
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default function CodeViewer(props: CodeViewerProps) {
   const { code, language, lineNumbers = true, height, style, maxHeight, className } = props;
 

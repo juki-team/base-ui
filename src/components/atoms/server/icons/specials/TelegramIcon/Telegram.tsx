@@ -29,5 +29,4 @@ const Telegram = () => {
   );
 };
 
-// biome-ignore lint/style/noDefaultExport: icon component
 export default Telegram;

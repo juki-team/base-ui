@@ -124,5 +124,4 @@ function DataGridComponent({ rows, cols, freeze, styles, autofilter, firstRowAsH
 
 const DataGrid = memo(DataGridComponent);
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default DataGrid;

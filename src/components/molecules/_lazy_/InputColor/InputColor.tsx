@@ -79,7 +79,6 @@ const valueToColorResult = (value: string | ColorResult | undefined): ColorResul
   return value;
 };
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default function InputColor({ value, children, onChange, ...inputProps }: InputColorProps) {
   const newColor = typeof value === 'string' ? value : value?.hex;
 

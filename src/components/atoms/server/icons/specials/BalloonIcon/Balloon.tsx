@@ -73,5 +73,4 @@ const Balloon = ({ percent = 80 }: { percent?: number }) => {
   );
 };
 
-// biome-ignore lint/style/noDefaultExport: icon component
 export default Balloon;

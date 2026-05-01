@@ -2,7 +2,13 @@
   "$schema": "https://biomejs.dev/schemas/2.4.13/schema.json",
   "extends": ["@juki-team/commons/biome.shared.json"],
   "files": {
-    "includes": ["src/**/*.{js,jsx,ts,tsx,mjs,cjs,mts,cts,json}", "!**/dist", "!**/node_modules", "!src/vendor"]
+    "includes": [
+      "src/**/*.{js,jsx,ts,tsx,mjs,cjs,mts,cts,json}",
+      "!**/dist",
+      "!**/node_modules",
+      "!src/vendor",
+      "!src/scripts/generate-lazy-components.js"
+    ]
   },
   "linter": {
     "rules": {
@@ -23,10 +29,28 @@
   },
   "overrides": [
     {
+      "includes": [
+        "**/server/icons/**",
+        "src/shims/**",
+        "src/stores/i18n/**",
+        "**/_lazy_/**/*.{ts,tsx}",
+        "**/_layz_/**/*.{ts,tsx}"
+      ],
+      "linter": { "rules": { "style": { "noDefaultExport": "off" } } }
+    },
+    {
+      "includes": ["**/server/icons/**", "**/CircularProgress/**", "**/PawsLoadingLayout.tsx"],
+      "linter": { "rules": { "a11y": { "noSvgWithoutTitle": "off" } } }
+    },
+    {
       "includes": ["**/*.stories.{js,jsx,ts,tsx}", "**/*.d.ts"],
       "linter": {
         "rules": {
-          "a11y": { "noStaticElementInteractions": "off", "useKeyWithClickEvents": "off" },
+          "a11y": {
+            "noStaticElementInteractions": "off",
+            "useKeyWithClickEvents": "off",
+            "noLabelWithoutControl": "off"
+          },
           "correctness": { "useJsxKeyInIterable": "off" },
           "style": { "noDefaultExport": "off", "useNamingConvention": "off" },
           "suspicious": { "noExplicitAny": "off", "noEmptyBlockStatements": "off" }

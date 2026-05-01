@@ -130,6 +130,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
             />
           </div>
           <div className="jk-form-item">
+            {/* biome-ignore lint/a11y/noLabelWithoutControl: <TextArea> renders its own input internally */}
             <label>
               <div className="jk-row left gap">
                 <PersonIcon size="small" />

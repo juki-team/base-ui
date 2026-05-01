@@ -223,7 +223,6 @@ function SlideDeckComponent(props: SlideDeckProps) {
   );
 }
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default function SlideDeck({ children, onClose, ...rest }: SlideDeckProps) {
   return (
     <Client>

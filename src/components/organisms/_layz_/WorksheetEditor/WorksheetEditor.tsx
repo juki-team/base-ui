@@ -7,7 +7,6 @@ import type { OnPageChange } from '../WorksheetViewer/types';
 import { WorksheetBodies } from './sheets/WorksheetBodies';
 import type { WorksheetEditorProps } from './types';
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default function WorksheetEditor(props: WorksheetEditorProps) {
   const {
     worksheet: {

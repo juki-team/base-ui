@@ -10,5 +10,4 @@ const Gmail = () => {
   );
 };
 
-// biome-ignore lint/style/noDefaultExport: icon component
 export default Gmail;

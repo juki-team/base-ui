@@ -10,5 +10,4 @@ const NarrowArrow = memo(({ width, color }: RootIconProps) => (
   </>
 ));
 
-// biome-ignore lint/style/noDefaultExport: icon component
 export default NarrowArrow;

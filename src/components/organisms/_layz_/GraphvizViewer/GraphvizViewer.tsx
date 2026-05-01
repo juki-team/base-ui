@@ -16,7 +16,6 @@ export const useGraphvizStore = create<GraphvizState>((set) => ({
   triggerRerender: () => set(() => ({ shouldRerender: Date.now() })),
 }));
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default function GraphvizViewer({ dot, className }: GraphvizViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const t = useI18nStore((store) => store.i18n.t);

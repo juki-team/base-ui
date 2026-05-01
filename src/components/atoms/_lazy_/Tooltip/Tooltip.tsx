@@ -1,7 +1,6 @@
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { T } from '../../T/T';
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default function Tooltip() {
   return (
     <ReactTooltip

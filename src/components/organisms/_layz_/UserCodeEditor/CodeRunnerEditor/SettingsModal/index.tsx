@@ -10,9 +10,9 @@ export const SettingsModal = <T,>({ onChange, tabSize, fontSize, ...modalProps }
           <T className="tt-se">code editor settings</T>
         </h3>
         <div className="jk-row left gap">
-          <label className="tt-se">
+          <span className="tt-se">
             <T>choose your tab size</T>:{' '}
-          </label>
+          </span>
           <Select
             options={CODE_EDIT0R_TAB_SIZES.map((keyMap) => ({ value: keyMap, label: `${keyMap}` }))}
             selectedOption={{ value: tabSize }}
@@ -20,9 +20,9 @@ export const SettingsModal = <T,>({ onChange, tabSize, fontSize, ...modalProps }
           />
         </div>
         <div className="jk-row left gap">
-          <label className="tt-se">
+          <span className="tt-se">
             <T>choose your font size</T>:{' '}
-          </label>
+          </span>
           <Select
             options={CODE_EDIT0R_FONT_SIZES.map((keyMap) => ({ value: keyMap, label: `${keyMap}` }))}
             selectedOption={{ value: fontSize }}

@@ -18,7 +18,6 @@ import { TableOfContents } from '../WorksheetEditor/sheets/TableOfContents';
 import { WorksheetBodies } from '../WorksheetEditor/sheets/WorksheetBodies';
 import type { OnPageChange, WorksheetViewerProps } from './types';
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default function WorksheetViewer(props: WorksheetViewerProps) {
   const {
     worksheet: {

@@ -6,7 +6,6 @@ import { classNames } from '../../../helpers';
 import { TableOfContentsModal } from '../WorksheetEditor/sheets/TableOfContentsModal';
 import type { WorksheetContentsProps } from './types';
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default function WorksheetContents(props: WorksheetContentsProps) {
   const { page, subPage, onPageChange, sheetsInPages } = props;
 

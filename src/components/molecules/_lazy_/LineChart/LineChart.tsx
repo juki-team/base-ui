@@ -1,7 +1,6 @@
 import { CartesianGrid, Line, LineChart as RechartsLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import type { LineChartProps } from './types';
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default function LineChart(props: LineChartProps) {
   const {
     data,

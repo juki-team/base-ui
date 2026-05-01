@@ -9,5 +9,4 @@ const Exclamation = memo(({ width, color }: RootIconProps) => (
   </>
 ));
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default Exclamation;

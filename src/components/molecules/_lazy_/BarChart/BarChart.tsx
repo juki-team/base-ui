@@ -1,7 +1,6 @@
 import { Bar, CartesianGrid, BarChart as RechartsBarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import type { BarChartProps } from './types';
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default function BarChart(props: BarChartProps) {
   const { data, margin, tooltipContent, xAxisTick } = props;
 

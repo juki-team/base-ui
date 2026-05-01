@@ -101,6 +101,7 @@ export function ProblemSelector({ onSelect, extend = false, organizationKey = ''
     <div className={classNames('jk-row-col gap nowrap', { extend })}>
       <div className="jk-col gap extend flex-1">
         <div className="jk-row nowrap gap">
+          {/* biome-ignore lint/a11y/noLabelWithoutControl: <Select> renders its own input internally */}
           <label className="jk-row nowrap">
             <T className="tt-se ws-np fw-bd">judge</T>:&nbsp;
             <Select

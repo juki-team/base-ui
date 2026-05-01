@@ -653,5 +653,4 @@ function UserCodeEditor<T>(props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeE
   );
 }
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default UserCodeEditor;

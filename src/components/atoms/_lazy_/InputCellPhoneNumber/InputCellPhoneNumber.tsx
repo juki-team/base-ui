@@ -73,7 +73,6 @@ function getCountryCallingCode(countryCode: CountryCode) {
   }
 }
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default function InputCellPhoneNumber(props: InputCellPhoneNumberProps) {
   const {
     expand = false,

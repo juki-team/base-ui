@@ -307,7 +307,6 @@ const applyOffline = <T extends object>(
   return data;
 };
 
-// biome-ignore lint/style/noDefaultExport: lazy component
 export default function DataViewer<T extends object>(props: DataViewerProps<T>) {
   const {
     cards,
