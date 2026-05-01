@@ -16,15 +16,15 @@ export const useOverflowDetector = ({ onOverflow, unOverflow, trigger, targetRef
   // biome-ignore lint/correctness/useExhaustiveDependencies: trigger is a custom render trigger from the consumer
   useEffect(() => {
     const handleEvent = () => {
-      if (width && targetRef.current) {
-        if (isOverflowed(targetRef)) {
-          widthRef.current = targetRef.current?.clientWidth;
-          onOverflow();
-        } else if (targetRef.current?.scrollWidth === targetRef.current?.clientWidth) {
-          if (targetRef.current?.clientWidth > widthRef.current) {
-            unOverflow();
-          }
-        }
+      const target = targetRef.current;
+      if (!target || width === 0) return;
+      if (isOverflowed(targetRef)) {
+        widthRef.current = target.clientWidth;
+        onOverflow();
+        return;
+      }
+      if (target.scrollWidth === target.clientWidth && target.clientWidth > widthRef.current) {
+        unOverflow();
       }
     };
     const timeoutId = setTimeout(handleEvent, 0);

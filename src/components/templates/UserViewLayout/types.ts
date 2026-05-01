@@ -9,4 +9,3 @@ export interface UserViewLayoutProps {
   reloadUser: KeyedMutator<UserProfileResponseDTO>;
   extraTabs?: TabsType<ProfileTab>;
 }
-

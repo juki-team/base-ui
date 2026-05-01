@@ -14,6 +14,26 @@ const DEFAULT_LABELS: { [Key in Period]: string } = {
   [Period.CALC]: '...',
 };
 
+const computeTimeState = (
+  current: Date,
+  startDate: Date,
+  endDate: Date,
+): { period: Period; remaining: number; interval: number } => {
+  if (startDate < current && current < endDate) {
+    return { period: Period.LIVE_END, remaining: endDate.getTime() - current.getTime(), interval: -1 };
+  }
+  if (endDate < current && current < startDate) {
+    return { period: Period.LIVE_START, remaining: current.getTime() - endDate.getTime(), interval: 1 };
+  }
+  if (current < startDate) {
+    return { period: Period.FUTURE, remaining: startDate.getTime() - current.getTime(), interval: -1 };
+  }
+  if (current > endDate) {
+    return { period: Period.PAST, remaining: current.getTime() - endDate.getTime(), interval: 1 };
+  }
+  return { period: Period.CALC, remaining: 0, interval: 0 };
+};
+
 export function TimerLabeled(props: TimerLabeledProps) {
   const {
     startDate,
@@ -34,34 +54,11 @@ export function TimerLabeled(props: TimerLabeledProps) {
 
   useEffect(() => {
     const current: Date = currentDate || new Date();
-    let period = Period.CALC;
-    let remaining = 0;
-    let interval = 0;
-    if (startDate < current && current < endDate) {
-      period = Period.LIVE_END;
-      remaining = endDate.getTime() - current.getTime();
-      interval = -1;
-    } else if (endDate < current && current < startDate) {
-      period = Period.LIVE_START;
-      remaining = current.getTime() - endDate.getTime();
-      interval = 1;
-    } else if (current < startDate) {
-      period = Period.FUTURE;
-      remaining = startDate.getTime() - current.getTime();
-      interval = -1;
-    } else if (current > endDate) {
-      period = Period.PAST;
-      remaining = current.getTime() - endDate.getTime();
-      interval = 1;
-    }
+    const { period, remaining, interval } = computeTimeState(current, startDate, endDate);
     setTime({ period, remaining, interval });
     const timeout = setTimeout(() => {
       if (period === Period.LIVE_START || period === Period.LIVE_END || period === Period.FUTURE) {
-        setTime({
-          period: Period.TIME_OUT,
-          remaining: 0,
-          interval: 0,
-        });
+        setTime({ period: Period.TIME_OUT, remaining: 0, interval: 0 });
       }
     }, remaining);
     return () => {

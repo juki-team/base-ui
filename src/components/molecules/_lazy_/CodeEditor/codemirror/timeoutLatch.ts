@@ -19,19 +19,17 @@ export class TimeoutLatch {
   }
 
   tick(): void {
-    if (!(this.isCancelled || this.isTimeExhausted)) {
-      this.timeLeftMS--;
-      if (this.timeLeftMS <= 0) {
-        this.isTimeExhausted = true;
-        const callbacks = this.callbacks.slice();
-        this.callbacks.length = 0;
-        for (const callback of callbacks) {
-          try {
-            callback();
-          } catch (error) {
-            console.error('TimeoutLatch callback error:', error);
-          }
-        }
+    if (this.isCancelled || this.isTimeExhausted) return;
+    this.timeLeftMS--;
+    if (this.timeLeftMS > 0) return;
+    this.isTimeExhausted = true;
+    const callbacks = this.callbacks.slice();
+    this.callbacks.length = 0;
+    for (const callback of callbacks) {
+      try {
+        callback();
+      } catch (error) {
+        console.error('TimeoutLatch callback error:', error);
       }
     }
   }

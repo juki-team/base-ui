@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { Div, Select, T } from '../../atoms';
@@ -7,6 +7,19 @@ import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '..
 import type { PaginationProps } from './types';
 
 const SIZE_PAGES = 3;
+
+const buildVisiblePages = (page: number, endPage: number): number[] => {
+  const pages = [page];
+  const right = endPage - page;
+  if (page > 1) pages.unshift(page - 1);
+  if (page > 2 && SIZE_PAGES >= 5) pages.unshift(page - 2);
+  if (page > 3 && right < 2 && SIZE_PAGES >= 5) pages.unshift(page - 3);
+  if (page > 4 && right < 1 && SIZE_PAGES >= 5) pages.unshift(page - 4);
+  for (let i = 0; i < 4 && pages.length < SIZE_PAGES && page < endPage - i; i++) {
+    pages.push(page + 1 + i);
+  }
+  return pages;
+};
 
 export const Pagination = (props: PaginationProps) => {
   const {
@@ -43,25 +56,7 @@ export const Pagination = (props: PaginationProps) => {
     }
   }, [pageSizeOptions, pageSize, onPageSizeChange]);
 
-  const pages = [page];
-  const right = endPage - page;
-  if (page > 1) {
-    pages.splice(0, 0, page - 1);
-  }
-  if (page > 2 && SIZE_PAGES >= 5) {
-    pages.splice(0, 0, page - 2);
-  }
-  if (page > 3 && right < 2 && SIZE_PAGES >= 5) {
-    pages.splice(0, 0, page - 3);
-  }
-  if (page > 4 && right < 1 && SIZE_PAGES >= 5) {
-    pages.splice(0, 0, page - 4);
-  }
-  for (let i = 0; i < 4; i++) {
-    if (pages.length < SIZE_PAGES && page < endPage - i) {
-      pages.push(page + 1 + i);
-    }
-  }
+  const pages = useMemo(() => buildVisiblePages(page, endPage), [page, endPage]);
 
   const prev = page > startPage ? () => jumpToPage(page - 1) : undefined;
   const next = page < endPage ? () => jumpToPage(page + 1) : undefined;

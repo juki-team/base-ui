@@ -34,9 +34,10 @@ export function Tabs<T extends string>(props: TabsProps<T>) {
   const { height: heightTabsContainer = 0, ref: refTabsContainer } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const indexes = useMemo(() => {
     const indexes: { [key: string]: number } = {};
-    tabs.forEach(({ key }, index) => {
-      indexes[key] = index;
-    });
+    for (let i = 0; i < tabs.length; i++) {
+      const tab = tabs[i];
+      if (tab) indexes[tab.key] = i;
+    }
     return indexes;
   }, [tabs]);
 
