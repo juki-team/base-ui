@@ -12,6 +12,9 @@
   },
   "linter": {
     "rules": {
+      "complexity": {
+        "noExcessiveCognitiveComplexity": { "level": "warn", "options": { "maxAllowedComplexity": 15 } }
+      },
       "style": {
         "useNamingConvention": {
           "level": "error",
@@ -51,6 +54,7 @@
             "useKeyWithClickEvents": "off",
             "noLabelWithoutControl": "off"
           },
+          "complexity": { "noExcessiveCognitiveComplexity": "off" },
           "correctness": { "useJsxKeyInIterable": "off" },
           "style": { "noDefaultExport": "off", "useNamingConvention": "off" },
           "suspicious": { "noExplicitAny": "off", "noEmptyBlockStatements": "off" }
