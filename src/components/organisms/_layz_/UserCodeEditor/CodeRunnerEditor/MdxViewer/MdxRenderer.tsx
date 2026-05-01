@@ -1,6 +1,7 @@
 import { evaluate } from '@mdx-js/mdx';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import React, { type ComponentType, useEffect, useState } from 'react';
+// biome-ignore lint/performance/noNamespaceImport: MDX evaluate() expects the entire jsx-runtime namespace (jsx, jsxs, Fragment) spread into its options
 import * as runtime from 'react/jsx-runtime';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';

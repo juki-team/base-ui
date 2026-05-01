@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // import { consoleWarn } from '@juki-team/commons';
 import { useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import * as yup from 'yup';
+import { boolean as yupBoolean, object as yupObject, ref as yupRef, string as yupString } from 'yup';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX, LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX } from '../../../../../constants';
 import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { Input, InputCheckbox, InputPassword, T } from '../../../../atoms';
@@ -11,32 +11,28 @@ import { ButtonLoader, SplitModal } from '../../../../molecules';
 import type { SetLoaderStatusOnClickType } from '../../../../types';
 import type { SignUpFormType, SignUpModalComponentProps } from './types';
 
-const signUpSchema = yup.object().shape({
-  givenName: yup.string().required('cannot be empty').min(3, 'must be at least 3 characters'),
-  familyName: yup.string().required('cannot be empty').min(3, 'must be at least 3 characters'),
-  email: yup.string().required('cannot be empty').email('must be a valid email'),
-  checkbox: yup
-    .boolean()
+const signUpSchema = yupObject().shape({
+  givenName: yupString().required('cannot be empty').min(3, 'must be at least 3 characters'),
+  familyName: yupString().required('cannot be empty').min(3, 'must be at least 3 characters'),
+  email: yupString().required('cannot be empty').email('must be a valid email'),
+  checkbox: yupBoolean()
     .required('you must accept the terms of service')
     .oneOf([true], 'you must accept the terms of service'),
-  nickname: yup
-    .string()
+  nickname: yupString()
     .required('cannot be empty')
     .matches(ALPHANUMERIC_DASH_UNDERSCORE_REGEX, 'only alphanumeric characters or dash or underscore is valid')
     .min(3, 'must be at least 3 characters')
     .max(32, 'must be less than 32 characters'),
-  password: yup
-    .string()
+  password: yupString()
     .required('cannot be empty')
     .min(8, 'must be at least 8 characters')
     .matches(
       LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX,
       'must have at least one uppercase, one lowercase letter and one number',
     ),
-  passwordConfirmation: yup
-    .string()
+  passwordConfirmation: yupString()
     .required('cannot be empty')
-    .oneOf([yup.ref('password'), ''], 'both passwords must match'),
+    .oneOf([yupRef('password'), ''], 'both passwords must match'),
 });
 
 export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {

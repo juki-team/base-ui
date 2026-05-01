@@ -3,7 +3,7 @@ import type { OrganizationTrustedOrganizationResponseDTO } from '@juki-team/comm
 import type { ContentResponse } from '@juki-team/commons/types';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
+import { object as yupObject, string as yupString } from 'yup';
 import { jukiApiManager } from '../../../../../settings';
 import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
@@ -15,10 +15,10 @@ import { ButtonLoader, SplitModal } from '../../../../molecules';
 import type { SetLoaderStatusOnClickType } from '../../../../types';
 import type { LoginFormType, LoginModalTemplateProps } from './types';
 
-const loginMultiCompaniesSchema = yup.object().shape({
-  nickname: yup.string().required('cannot be empty'),
-  password: yup.string().required('cannot be empty'),
-  organizationKey: yup.string().required('cannot be empty'),
+const loginMultiCompaniesSchema = yupObject().shape({
+  nickname: yupString().required('cannot be empty'),
+  password: yupString().required('cannot be empty'),
+  organizationKey: yupString().required('cannot be empty'),
 });
 
 export const LoginModalTemplate = (props: LoginModalTemplateProps) => {

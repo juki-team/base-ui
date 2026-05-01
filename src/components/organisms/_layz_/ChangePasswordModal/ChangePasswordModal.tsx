@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Status } from '@juki-team/commons/enums';
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
+import { object as yupObject, ref as yupRef, string as yupString } from 'yup';
 import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { InputPassword, Modal, T } from '../../../atoms';
@@ -12,20 +12,18 @@ import { ButtonLoader } from '../../../molecules';
 import type { SetLoaderStatusOnClickType } from '../../../types';
 import type { ChangePasswordModalProps, ProfileChangePasswordInput } from './types';
 
-const profileSettingsChangePasswordSchema = yup.object().shape({
-  oldPassword: yup.string().required('required in order to update the password'),
-  newPassword: yup
-    .string()
+const profileSettingsChangePasswordSchema = yupObject().shape({
+  oldPassword: yupString().required('required in order to update the password'),
+  newPassword: yupString()
     .required('cannot be empty')
     .min(8, 'password must be at least 8 characters')
     .matches(
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?"()-_]{8,}$/,
       'must have at least one uppercase, one lowercase letter and one number',
     ),
-  newPasswordConfirmation: yup
-    .string()
+  newPasswordConfirmation: yupString()
     .required('cannot be empty')
-    .oneOf([yup.ref('newPassword'), ''], 'both passwords must match'),
+    .oneOf([yupRef('newPassword'), ''], 'both passwords must match'),
 });
 
 // biome-ignore lint/style/noDefaultExport: lazy component

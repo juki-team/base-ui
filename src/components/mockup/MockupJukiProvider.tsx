@@ -53,7 +53,9 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
         // tokenName="juki-token"
         // socketServiceUrl={socketServiceUrl}
         multiOrganizations={false}
-        onSeeMyProfile={() => {}}
+        onSeeMyProfile={() => {
+          // mockup: no profile navigation in tests/stories
+        }}
         router={{
           pathname: '',
           routeParams: {},

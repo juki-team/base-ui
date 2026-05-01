@@ -1,6 +1,6 @@
 import type { TestCaseResult } from '@juki-team/commons/dto';
 import { ProblemScoringMode, type ProblemVerdict, ProfileSetting, Theme } from '@juki-team/commons/enums';
-import * as Diff2Html from 'diff2html';
+import { html as diff2html } from 'diff2html';
 import { ColorSchemeType } from 'diff2html/lib/types';
 import type { LineMatchingType } from 'diff2html/lib-esm/types';
 import { useCallback, useEffect, useState } from 'react';
@@ -53,7 +53,7 @@ function DiffViewButton({
         if (!isProblemEditor) {
           diff = hideTestKey(diffInput, t('file'));
         }
-        const diffHtml = Diff2Html.html(diff, {
+        const diffHtml = diff2html(diff, {
           drawFileList: false,
           matching: 'words' as LineMatchingType,
           renderNothingWhenEmpty: false,

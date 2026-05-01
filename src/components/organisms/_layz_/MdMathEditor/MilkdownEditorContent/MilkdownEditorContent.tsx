@@ -16,7 +16,7 @@ import { type Uploader, upload, uploadConfig } from '@milkdown/kit/plugin/upload
 import type { Node } from '@milkdown/kit/prose/model';
 import { type EditorState, Plugin, PluginKey, type Transaction } from '@milkdown/kit/prose/state';
 import { Milkdown, useEditor } from '@milkdown/react';
-import * as Viz from '@viz-js/viz';
+import { instance as vizInstance } from '@viz-js/viz';
 import type { TFunction } from 'i18next';
 import katex from 'katex';
 import mermaid from 'mermaid';
@@ -307,7 +307,7 @@ function renderDot(content: string, t: TFunction): HTMLElement {
     loader.style.fontStyle = 'italic';
     container.appendChild(loader);
 
-    Viz.instance()
+    vizInstance()
       .then((viz) => {
         try {
           const container = document.getElementById(newId);
