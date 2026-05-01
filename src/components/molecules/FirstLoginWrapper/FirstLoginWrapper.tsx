@@ -19,5 +19,6 @@ export function FirstLoginWrapper({ children }: FirstLoginWrapperProps) {
     setSearchParams({ name: QueryParamKey.SIGN_IN, value: 'true' });
   };
 
+  // biome-ignore lint/complexity/noBannedTypes: ReactElement<{}>['props'] is the pattern needed to relax cloneElement's prop typing
   return cloneElement(children as ReactElement, { onClick } as ReactElement<{}>['props']);
 }

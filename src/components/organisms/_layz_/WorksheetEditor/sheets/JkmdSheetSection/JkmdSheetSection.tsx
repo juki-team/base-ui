@@ -68,7 +68,7 @@ export const JkmdSheetSection = (props: SheetSection<JkmdSheet>) => {
                       params: { worksheetKey },
                       body: jkMdSubmissionDTO,
                     });
-                    const response = cleanRequest<ContentResponse<{}>>(await authorizedRequest(url, options));
+                    const response = cleanRequest<ContentResponse<Record<string, never>>>(await authorizedRequest(url, options));
                     await userResults?.mutate?.();
                     notifyResponse(response, setLoaderStatus);
                   }}

@@ -14,9 +14,7 @@ import { useMatchMutate } from '../../hooks/useMatchMutate';
 import { ButtonLoader } from '../../molecules';
 import { DataViewer, Field } from '../../organisms';
 import type { DataViewerHeadersType } from '../../organisms/_layz_/DataViewer/types';
-import type { UserMyActiveSessionsProps } from './types';
-
-export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
+export function UserMyActiveSessions() {
   const { deleteUserSession } = useJukiUser();
   const userSessionId = useUserStore((state) => state.user.sessionId);
   const {

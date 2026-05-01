@@ -6,9 +6,9 @@ export class TimeoutLatch {
   private timeoutMS: number;
   private isCancelled = false;
   private isTimeExhausted = false;
-  private callbacks: Function[] = [];
+  private callbacks: (() => void)[] = [];
 
-  constructor(callback: Function, timeoutMS: number) {
+  constructor(callback: () => void, timeoutMS: number) {
     this.timeLeftMS = timeoutMS;
     this.timeoutMS = timeoutMS;
     this.callbacks.push(callback);

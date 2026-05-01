@@ -22,8 +22,6 @@ export type SubmissionLanguageFieldProps = TableHeadFieldSubmissionSummaryListRe
   languagesByJudge: LanguagesByJudge;
 };
 
-export type SubmissionModalProps = {};
-
 export type SubmissionNicknameFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps;
 
 export type SubmissionProblemFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps;

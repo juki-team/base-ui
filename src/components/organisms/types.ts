@@ -15,7 +15,6 @@ export type * from './HorizontalMenu/types';
 export type * from './MdMathViewer/types';
 export type * from './modals/ImageUploaderModal/types';
 export type * from './modals/ImageUploaderModal/types';
-export type * from './PresentationToolButtons/types';
 export type * from './ProblemSelector/types';
 export type * from './ProblemVerdictTag/types';
 export type * from './UserChip/types';

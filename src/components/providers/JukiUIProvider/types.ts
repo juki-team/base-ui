@@ -1,5 +1,5 @@
-import type { CSSProperties, FC, HTMLAttributeAnchorTarget, MouseEventHandler, PropsWithChildren } from 'react';
 import type { UrlObject } from 'node:url';
+import type { CSSProperties, FC, HTMLAttributeAnchorTarget, MouseEventHandler, PropsWithChildren } from 'react';
 
 export interface ImageCmpProps1 {
   src?: string;

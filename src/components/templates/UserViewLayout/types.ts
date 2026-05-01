@@ -10,4 +10,3 @@ export interface UserViewLayoutProps {
   extraTabs?: TabsType<ProfileTab>;
 }
 
-export type ProfileSubmissionsProps = {};

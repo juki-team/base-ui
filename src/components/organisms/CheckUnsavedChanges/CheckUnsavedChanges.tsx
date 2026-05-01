@@ -94,6 +94,7 @@ export function CheckUnsavedChanges<T extends object>(props: CheckUnsavedChanges
   return (
     <>
       {modal}
+      {/* biome-ignore lint/complexity/noBannedTypes: ReactElement<{}>['props'] is the pattern needed to relax cloneElement's prop typing */}
       {cloneElement(children, { onClick: handleOnClick } as ReactElement<{}>['props'])}
     </>
   );

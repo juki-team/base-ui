@@ -31,6 +31,7 @@ export function SplitModal<T extends ModalButtonLoaderEventType>(props: PropsWit
           {!isSmallScreen && <div className="graphic jk-row pn-re">{renderReactNodeOrFunction(graphic)}</div>}
         </div>
         <div className="jk-side-main jk-col stretch jk-pg-lg">
+          {/* biome-ignore lint/complexity/noBannedTypes: ReactElement<{}>['props'] is the pattern needed to relax cloneElement's prop typing */}
           {cloneElement(children, { ref: sideMainRef } as ReactElement<{}>['props'])}
         </div>
       </div>
