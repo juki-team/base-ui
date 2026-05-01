@@ -166,19 +166,19 @@ export function ProblemModeInfo({
   );
 }
 
-const timeFixed = (milliseconds: number) => {
-  milliseconds /= 1000;
-  const label = <T>{milliseconds === 1 ? 'second' : 'seconds'}</T>;
-  if (milliseconds === ~~milliseconds) {
+const timeFixed = (ms: number) => {
+  const seconds = ms / 1000;
+  const label = <T>{seconds === 1 ? 'second' : 'seconds'}</T>;
+  if (seconds === ~~seconds) {
     return (
       <>
-        {milliseconds}&nbsp;{label}
+        {seconds}&nbsp;{label}
       </>
     );
   }
   return (
     <>
-      {milliseconds.toFixed(1)}&nbsp;{label}
+      {seconds.toFixed(1)}&nbsp;{label}
     </>
   );
 };
@@ -219,18 +219,18 @@ export function ProblemTimeLimitInfo({
 }
 
 const memoryFixed = (kbs: number) => {
-  kbs /= 1000;
-  const label = <T>{kbs === 1 ? 'MB' : 'MB'}</T>;
-  if (kbs === ~~kbs) {
+  const mb = kbs / 1000;
+  const label = <T>{mb === 1 ? 'MB' : 'MB'}</T>;
+  if (mb === ~~mb) {
     return (
       <>
-        {kbs}&nbsp;{label}
+        {mb}&nbsp;{label}
       </>
     );
   }
   return (
     <>
-      {kbs.toFixed(1)}&nbsp;{label}
+      {mb.toFixed(1)}&nbsp;{label}
     </>
   );
 };
@@ -310,6 +310,7 @@ export function ProblemInfo({ problem, size }: ProblemInfoProps) {
             <div
               className={`${problem.judge?.key}-statement only-info`}
               // biome-ignore lint/style/useNamingConvention: __html is React's reserved property name for dangerouslySetInnerHTML
+              // biome-ignore lint/security/noDangerouslySetInnerHtml: problem statement HTML is sanitized server-side by the judge importer
               dangerouslySetInnerHTML={{ __html: problem.statement.html[Language.EN] || problem.statement.html[Language.ES] }}
             />
           </div>

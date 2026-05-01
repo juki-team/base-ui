@@ -24,10 +24,10 @@ const hexToRgb = (hex: string): { r: number; g: number; b: number; a: number } =
   };
 };
 
-const rgbToHsl = (r: number, g: number, b: number): { h: number; s: number; l: number; a: number } => {
-  r /= 255;
-  g /= 255;
-  b /= 255;
+const rgbToHsl = (red: number, green: number, blue: number): { h: number; s: number; l: number; a: number } => {
+  const r = red / 255;
+  const g = green / 255;
+  const b = blue / 255;
 
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);

@@ -57,6 +57,7 @@ export default function CodeViewer(props: CodeViewerProps) {
             className={`ta-lt language-${CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext'} jk-pg-sm-trb jk-pg-xsm-l dy-bk`}
             style={{ minHeight: `calc(${lines.length} * (var(--text-medium-size) * 1.5))` }}
             // biome-ignore lint/style/useNamingConvention: __html is React's reserved property name for dangerouslySetInnerHTML
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: highlighted output comes from highlight.js applied to user-uploaded source code already escaped by the library
             dangerouslySetInnerHTML={{ __html: highlighted }}
           />
         </pre>

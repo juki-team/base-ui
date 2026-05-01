@@ -78,6 +78,7 @@ export const ProblemStatementView = <T,>({
         {/*  />*/}
         {/*)}*/}
         {/* biome-ignore lint/style/useNamingConvention: __html is React's reserved property name for dangerouslySetInnerHTML */}
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: external-judge problem statement HTML is sanitized server-side by the importer */}
         <div className={`${judgeKey}-statement`} dangerouslySetInnerHTML={{ __html: content }} />
         {isPrivate && (
           <div className="jk-row">

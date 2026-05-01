@@ -14,7 +14,7 @@ type Story = StoryObj<typeof TextArea>;
 export const Regular: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <TextArea {...args} onCtrlClick={() => console.log('onCtrlClick')} onCtrlEnter={() => console.log('onCtrlEnter')} />
+      <TextArea {...args} onCtrlClick={() => console.info('onCtrlClick')} onCtrlEnter={() => console.info('onCtrlEnter')} />
     </MockupJukiProvider>
   ),
 };

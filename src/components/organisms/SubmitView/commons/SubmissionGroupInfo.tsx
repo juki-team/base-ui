@@ -87,6 +87,7 @@ function DiffViewButton({
             )}
           </div>
           {/* biome-ignore lint/style/useNamingConvention: __html is React's reserved property name for dangerouslySetInnerHTML */}
+          {/* biome-ignore lint/security/noDangerouslySetInnerHtml: diff HTML is produced by diff2html from server-trusted submission source comparison */}
           <div className="wh-100" dangerouslySetInnerHTML={{ __html: diff }} />
           {diffInput.includes('No newline at end of file') && (
             <div className="jk-row block center">
