@@ -388,7 +388,7 @@ function UserCodeEditor<T>(props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeE
     }));
 
     setFilesStore((prevState) => {
-      if (prevState[storeKey] && prevState[storeKey][currentFileName]) {
+      if (prevState[storeKey]?.[currentFileName]) {
         const updatedFiles = Object.fromEntries(
           Object.entries(prevState[storeKey]).map(([fileName, fileData]) => [
             fileName,
@@ -500,7 +500,7 @@ function UserCodeEditor<T>(props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeE
     }
     if (typeof newSourceCode === 'string') {
       setFilesStore((prevState) => {
-        if (prevState[storeKey] && prevState[storeKey][currentFileName]) {
+        if (prevState[storeKey]?.[currentFileName]) {
           return {
             ...prevState,
             [storeKey]: {
@@ -529,7 +529,7 @@ function UserCodeEditor<T>(props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeE
           (name) => !!files[getFileKey(currentFolderPath, name)],
         );
         const newKey = getFileKey(currentFolderPath, newBaseName);
-        if (prevState[storeKey] && prevState[storeKey][currentFileName]) {
+        if (prevState[storeKey]?.[currentFileName]) {
           const newState: StorageType<CodeEditorFiles<T>> = {
             ...prevState,
             [storeKey]: {

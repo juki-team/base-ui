@@ -84,7 +84,7 @@ export function useCodeMirror(props: UseCodeMirror) {
       const value = doc.toString();
       onChange(value, vu);
     }
-    onStatistics && onStatistics(getStatistics(vu));
+    onStatistics?.(getStatistics(vu));
   });
 
   const defaultExtensions = getDefaultExtensions({
@@ -122,7 +122,7 @@ export function useCodeMirror(props: UseCodeMirror) {
           root,
         });
         setView(viewCurrent);
-        onCreateEditor && onCreateEditor(viewCurrent, stateCurrent);
+        onCreateEditor?.(viewCurrent, stateCurrent);
       }
     }
     return () => {

@@ -254,10 +254,8 @@ function MdMathComponent(props: MdMathProps) {
 
             return (
               <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link with-icon">
-                <>
-                  {children as ReactNode}&nbsp;
-                  <OpenInNewIcon />
-                </>
+                {children as ReactNode}&nbsp;
+                <OpenInNewIcon />
               </Link>
             );
           }

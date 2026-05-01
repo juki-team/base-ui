@@ -150,7 +150,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
       ),
     };
   }
-  outputTabs['output'] = {
+  outputTabs.output = {
     key: 'output',
     header: (
       <T
@@ -173,7 +173,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
   };
 
   if (testWithError) {
-    outputTabs['error'] = {
+    outputTabs.error = {
       key: 'error',
       header: (
         <T
@@ -241,7 +241,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
   };
 
   if (test?.sample && enableAddSampleCases) {
-    inputTabs['output'] = {
+    inputTabs.output = {
       key: 'output',
       header: <T className="tt-se">expected output</T>,
       body: onChangeRef?.current ? (
@@ -271,7 +271,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
         </div>
       ),
     };
-    inputTabs['settings'] = {
+    inputTabs.settings = {
       key: 'settings',
       header: <T className="tt-se">settings</T>,
       body: (

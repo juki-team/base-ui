@@ -54,9 +54,9 @@ export const getActionButtons = (props: GetActionButtonsProps): ButtonActionProp
               icon: <EditIcon size="small" />,
               children: undefined,
               onClick: onSaveEdit,
-              ['data-tooltip-id']: 'jk-tooltip',
-              ['data-tooltip-content']: 'edit',
-              ['data-tooltip-place']: 'left',
+              'data-tooltip-id': 'jk-tooltip',
+              'data-tooltip-content': 'edit',
+              'data-tooltip-place': 'left',
               placement: 'left-start',
             } as ButtonActionProps,
           ]
@@ -75,9 +75,9 @@ export const getActionButtons = (props: GetActionButtonsProps): ButtonActionProp
       icon: <SettingsIcon />,
       onClick: () => setModal(true),
       size: 'tiny' as ButtonSizeType,
-      ['data-tooltip-id']: 'jk-tooltip',
-      ['data-tooltip-content']: 'view settings',
-      ['data-tooltip-place']: 'left',
+      'data-tooltip-id': 'jk-tooltip',
+      'data-tooltip-content': 'view settings',
+      'data-tooltip-place': 'left',
     } as ButtonActionProps,
   ];
 };

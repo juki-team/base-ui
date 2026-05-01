@@ -46,7 +46,7 @@ export function ImageProfileModal({ isOpen, onClose, nickname, organizationKey }
                 }
               }
             }}
-            disabled={!(cropImage && cropImage?.previewCanvasRef.current)}
+            disabled={!cropImage?.previewCanvasRef.current}
           >
             <T className="tt-se">save image</T>
           </ButtonLoader>

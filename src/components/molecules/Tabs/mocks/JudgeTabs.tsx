@@ -10,7 +10,7 @@ import { TabsInline } from '../../index';
 import { TabsInlineBody } from '../../TabsInlineBody/TabsInlineBody';
 
 const outputTabs: TabsType = {
-  ['problems']: {
+  problems: {
     key: 'problems',
     header: <div>problems</div>,
     body: (

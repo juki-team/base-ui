@@ -252,13 +252,11 @@ const DataViewerToolbarCmp = <T,>(props: DataViewerToolbarProps<T>) => {
               className="jk-input-select"
               active={visibles !== headers.length}
             >
-              <>
-                &nbsp;
-                <span className="bc-ht-lt jk-br-ie ws-np" style={{ lineHeight: 1, padding: '0 4px' }}>
-                  {visibles} / {headers.length}
-                </span>
-                &nbsp;
-              </>
+              &nbsp;
+              <span className="bc-ht-lt jk-br-ie ws-np" style={{ lineHeight: 1, padding: '0 4px' }}>
+                {visibles} / {headers.length}
+              </span>
+              &nbsp;
             </ToolbarButtonIcon>
           </MultiSelect>
           {/*<div>*/}

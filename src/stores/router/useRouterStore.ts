@@ -1,4 +1,4 @@
-import type { ParsedUrlQuery } from 'querystring';
+import type { ParsedUrlQuery } from 'node:querystring';
 import { create } from 'zustand';
 import type {
   AppendSearchParamsType,

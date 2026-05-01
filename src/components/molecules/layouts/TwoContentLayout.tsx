@@ -54,6 +54,7 @@ export function TwoContentLayout<T = string>(props: TwoContentLayoutProps<T>) {
 
   return (
     <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })} secondClassName={bodyClassName}>
+      {/* biome-ignore lint/complexity/noUselessFragments: TwoContentSection expects children as a [ReactNode, ReactNode] tuple — this Fragment groups the first slot */}
       <>
         {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
         {(!!children || (!withTabs && tabButtons && tabButtons.length > 0)) && (

@@ -126,7 +126,7 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
       for (const item of items) {
         if (item.kind === 'file') {
           const file = item.getAsFile();
-          if (file && file.type.startsWith('image/')) {
+          if (file?.type.startsWith('image/')) {
             imageFiles.push(file);
           }
         }

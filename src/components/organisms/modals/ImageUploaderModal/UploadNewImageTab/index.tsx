@@ -88,7 +88,7 @@ export const UploadNewImageTab = memo(function UploadNewImageTabCmp({
             }
           }
         }}
-        disabled={!(cropImage && cropImage?.previewCanvasRef.current)}
+        disabled={!cropImage?.previewCanvasRef.current}
         size="small"
       >
         <T>upload image</T>

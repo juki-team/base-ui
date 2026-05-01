@@ -1,7 +1,7 @@
 import type { WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons/dto';
 import type { HTTPMethod, Status } from '@juki-team/commons/enums';
 import type { ContentResponse, UserHandles } from '@juki-team/commons/types';
-import type { ParsedUrlQuery } from 'querystring';
+import type { ParsedUrlQuery } from 'node:querystring';
 import type {
   ChangeEvent,
   CSSProperties,

@@ -122,50 +122,48 @@ export function MultiSelect<T, U extends ReactNode, V extends ReactNode>(props: 
         {children ? (
           children
         ) : (
-          <>
-            <div
-              className={classNames({ open: isOpen }, 'jk-input-select jk-br-ie jk-row space-between nowrap')}
-              ref={selectLayoutRef}
-            >
-              <div className="jk-row left jk-multi-select-selected-options jk-pg-xsm">
-                {optionsSelected.map((optionSelected) => (
-                  <div className="jk-tag bc-ht-lt jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
-                    {optionSelected?.inputLabel
-                      ? renderReactNodeOrFunction(optionSelected.inputLabel)
-                      : renderReactNodeOrFunction(optionSelected.label)}
-                    {!isDisabled && (
-                      <CloseIcon
-                        size="small"
-                        filledCircle
-                        onClick={(event) => {
-                          onChange(
-                            optionsSelected.filter(
-                              (option) => JSON.stringify(optionSelected.value) !== JSON.stringify(option.value),
-                            ),
-                            optionSelected,
-                          );
-                          event.stopPropagation();
-                        }}
-                        className="cr-hd"
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-              <div className="jk-row nowrap jk-multi-select-selected-icons">
-                {!isDisabled && (
-                  <CloseIcon
-                    className="input-icon"
-                    onClick={(event) => {
-                      onChange([], undefined);
-                      event.stopPropagation();
-                    }}
-                  />
-                )}
-                <ExpandMoreIcon className="input-icon" />
-              </div>
+          <div
+            className={classNames({ open: isOpen }, 'jk-input-select jk-br-ie jk-row space-between nowrap')}
+            ref={selectLayoutRef}
+          >
+            <div className="jk-row left jk-multi-select-selected-options jk-pg-xsm">
+              {optionsSelected.map((optionSelected) => (
+                <div className="jk-tag bc-ht-lt jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
+                  {optionSelected?.inputLabel
+                    ? renderReactNodeOrFunction(optionSelected.inputLabel)
+                    : renderReactNodeOrFunction(optionSelected.label)}
+                  {!isDisabled && (
+                    <CloseIcon
+                      size="small"
+                      filledCircle
+                      onClick={(event) => {
+                        onChange(
+                          optionsSelected.filter(
+                            (option) => JSON.stringify(optionSelected.value) !== JSON.stringify(option.value),
+                          ),
+                          optionSelected,
+                        );
+                        event.stopPropagation();
+                      }}
+                      className="cr-hd"
+                    />
+                  )}
+                </div>
+              ))}
             </div>
-          </>
+            <div className="jk-row nowrap jk-multi-select-selected-icons">
+              {!isDisabled && (
+                <CloseIcon
+                  className="input-icon"
+                  onClick={(event) => {
+                    onChange([], undefined);
+                    event.stopPropagation();
+                  }}
+                />
+              )}
+              <ExpandMoreIcon className="input-icon" />
+            </div>
+          </div>
         )}
       </div>
     </Popover>

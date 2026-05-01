@@ -47,17 +47,15 @@ export const FullscreenToggleButton = () => {
   const isFullscreen = usePageStore((store) => store.isFullscreen);
 
   return isFullscreen ? (
-    <>
-      <div className="jk-row right">
-        <Button
-          tooltipContent="exit fullscreen"
-          type="secondary"
-          size="tiny"
-          icon={<FullscreenExitIcon />}
-          onClick={() => exitFullscreen()}
-        />
-      </div>
-    </>
+    <div className="jk-row right">
+      <Button
+        tooltipContent="exit fullscreen"
+        type="secondary"
+        size="tiny"
+        icon={<FullscreenExitIcon />}
+        onClick={() => exitFullscreen()}
+      />
+    </div>
   ) : (
     <div className="jk-row right">
       <Button

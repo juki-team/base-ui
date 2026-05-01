@@ -1,4 +1,4 @@
-import type { ParsedUrlQuery } from 'querystring';
+import type { ParsedUrlQuery } from 'node:querystring';
 import type { AppendSearchParamsType, DeleteSearchParamsType, RouterFn, SetSearchParamsType } from '../../types';
 
 export type JukiRouterBaseProps = {

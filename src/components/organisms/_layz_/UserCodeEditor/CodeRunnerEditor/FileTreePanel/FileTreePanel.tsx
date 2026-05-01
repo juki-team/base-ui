@@ -141,37 +141,35 @@ function FileNode<T>({
       }
     >
       {viewFiles ? (
-        <>
-          <div className="jk-row gap nowrap space-between">
-            <div className="jk-row nowrap">
-              <DraftIcon letter={`${(globalIndex + 1) % 10}`} letterSize={12} size="tiny" />
-              <span
-                data-tooltip-id="jk-tooltip"
-                data-tooltip-content={name}
-                style={{ marginLeft: 2, fontFamily: 'monospace', letterSpacing: '-0.04em', whiteSpace: 'nowrap' }}
-              >
-                {abbreviateFileName(name)}
-              </span>
-            </div>
-            <div className="jk-row gap display-on-hover-2 nowrap">
-              <EditIcon
-                className={classNames({ 'cr-tx-ht-lt': fileKey !== currentFileName })}
-                size="tiny"
-                onClick={() => {
-                  setOpenFileName(fileKey);
-                  setFileNameEdit(name);
-                  setFolderPathEdit(folderPath);
-                  setDescriptionEdit(description);
-                }}
-              />
-              <DeleteIcon
-                className={classNames({ 'cr-tx-ht-lt': fileKey !== currentFileName })}
-                size="tiny"
-                onClick={() => setFileNameDelete(fileKey)}
-              />
-            </div>
+        <div className="jk-row gap nowrap space-between">
+          <div className="jk-row nowrap">
+            <DraftIcon letter={`${(globalIndex + 1) % 10}`} letterSize={12} size="tiny" />
+            <span
+              data-tooltip-id="jk-tooltip"
+              data-tooltip-content={name}
+              style={{ marginLeft: 2, fontFamily: 'monospace', letterSpacing: '-0.04em', whiteSpace: 'nowrap' }}
+            >
+              {abbreviateFileName(name)}
+            </span>
           </div>
-        </>
+          <div className="jk-row gap display-on-hover-2 nowrap">
+            <EditIcon
+              className={classNames({ 'cr-tx-ht-lt': fileKey !== currentFileName })}
+              size="tiny"
+              onClick={() => {
+                setOpenFileName(fileKey);
+                setFileNameEdit(name);
+                setFolderPathEdit(folderPath);
+                setDescriptionEdit(description);
+              }}
+            />
+            <DeleteIcon
+              className={classNames({ 'cr-tx-ht-lt': fileKey !== currentFileName })}
+              size="tiny"
+              onClick={() => setFileNameDelete(fileKey)}
+            />
+          </div>
+        </div>
       ) : (
         <div className="jk-row gap nowrap space-between">
           <div className="jk-row nowrap">

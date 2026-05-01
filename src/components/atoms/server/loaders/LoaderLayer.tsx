@@ -8,6 +8,6 @@ export const LoaderLayer = ({ loading, children }: PropsWithChildren<LoaderLayer
       <SpinIcon size="very-huge" />
     </div>
   ) : (
-    <>{children}</>
+    children
   );
 };
