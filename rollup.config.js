@@ -6,6 +6,7 @@ import typescript from 'rollup-plugin-typescript2';
 import terser from "@rollup/plugin-terser";
 import json from '@rollup/plugin-json';
 import alias from '@rollup/plugin-alias';
+import preserveDirectives from 'rollup-preserve-directives';
 // import scss from "rollup-plugin-scss";
 // import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 // import { visualizer } from 'rollup-plugin-visualizer';
@@ -83,6 +84,9 @@ const plugins = [
   // scss({output: false}), // 🔥 No genera un styles.css global
   json(),
   terser(),
+  // Must run AFTER terser so the prepended `'use client'` banners on
+  // chunks survive minification.
+  preserveDirectives(),
   // copy({
   //   targets: [
   //     // { src: './src/styles', dest: 'dist' },
@@ -233,10 +237,10 @@ export default [
     preserveEntrySignatures: 'strict',
     // preserveDirectives: true, // Unknown input options
     onwarn(warning, warn) {
-      if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
-        console.info(warning.message);
-        return;
-      }
+      // MODULE_LEVEL_DIRECTIVE warnings used to be silenced here, which masked
+      // dropped 'use client' banners. rollup-preserve-directives now handles
+      // the legitimate cases; let everything else through so unexpected mixed
+      // directives surface during builds.
       warn(warning);
     },
   },
