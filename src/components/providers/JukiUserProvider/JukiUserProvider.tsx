@@ -22,7 +22,7 @@ export const JukiUserProvider = () => {
   const setMutate = useUserStore((state) => state.setMutate);
   const isLoading = useUserStore((state) => state.isLoading);
   const userNickname = useUserStore((state) => state.user.nickname);
-  const organizationKey = useUserStore((state) => state.organization.key);
+  const organizationKey = useUserStore((state) => state.organization?.key);
   const userSessionId = useUserStore((state) => state.user.sessionId);
   const userPreferredLanguage = useUserStore((state) => state.user.settings?.[ProfileSetting.LANGUAGE]);
   const i18nChangeLanguage = useI18nStore((state) => state.changeLanguage);

@@ -32,6 +32,7 @@ const createUserStore = (initState: InitUserState) =>
         },
         organization: initState.organization,
         setOrganization: (organization) => {
+          if (!organization) return;
           const current = get().organization;
           if (JSON.stringify(current) !== JSON.stringify(organization)) {
             set({ organization });

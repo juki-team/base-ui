@@ -35,7 +35,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
   } = props;
 
   const { Image } = useUIStore((store) => store.components);
-  const organizationKey = useUserStore((store) => store.organization.key);
+  const organizationKey = useUserStore((store) => store.organization?.key ?? '');
   const {
     handleSubmit,
     formState: { isValid, errors, touchedFields },
