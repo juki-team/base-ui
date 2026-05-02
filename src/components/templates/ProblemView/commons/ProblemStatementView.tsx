@@ -38,7 +38,7 @@ export const ProblemStatementView = <T,>({
   withoutName,
   forPrinting,
   withoutDownloadButtons,
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 }: ProblemStatementViewProps<T>) => {
   const {
     judge: { key: judgeKey, isExternal, name: judgeName },

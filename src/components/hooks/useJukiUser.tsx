@@ -329,7 +329,7 @@ export const useJukiUserSettings = () => {
         key: ProfileSetting;
         value: string | boolean | number;
       }[],
-    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
+      // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
     ) => {
       const newSettings: UserSettings = { ...settings };
       for (const { key, value } of settingsToUpdate) {

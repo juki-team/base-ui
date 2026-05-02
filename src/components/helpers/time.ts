@@ -9,7 +9,7 @@ export const cutTimeSplit = (
   ignoreTrailingZeros: boolean,
   maxSplit: number,
   minSplit: number,
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
 ) => {
   const timeSplit = splitTime(Math.max(remaining, 0));
   const { showWeeks, showDays, showHours, showMinutes, showSeconds, showMilliseconds } = showOfTimeDisplayType(type);

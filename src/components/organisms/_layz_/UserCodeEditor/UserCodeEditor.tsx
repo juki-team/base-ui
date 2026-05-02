@@ -492,7 +492,7 @@ function UserCodeEditor<T>(props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeE
     fileName,
     fileNameEdited,
     fileNameDeleted,
-  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
+    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
   }: CodeRunnerEditorPropertiesType<T>) => {
     if (codeRunStatus) {
       onCodeRunStatusChange?.(codeRunStatus, { files, currentFileName, testCases });
