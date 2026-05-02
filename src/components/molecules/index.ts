@@ -12,7 +12,6 @@ export { Breadcrumbs } from './Breadcrumbs/Breadcrumbs';
 export { ButtonAction } from './ButtonAction/ButtonAction';
 export { ButtonLoader } from './ButtonLoader/ButtonLoader';
 export { CheckboxList } from './CheckboxList/CheckboxList';
-export { CircularProgress } from './CircularProgress/CircularProgress';
 export { DatePicker } from './DatePicker/DatePicker';
 export { DayPicker } from './DayPicker/DayPicker';
 export { Drawer } from './Drawer/Drawer';
