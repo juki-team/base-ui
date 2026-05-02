@@ -83,9 +83,10 @@ const plugins = [
   // }),
   // scss({output: false}), // 🔥 No genera un styles.css global
   json(),
-  terser(),
-  // Must run AFTER terser so the prepended `'use client'` banners on
-  // chunks survive minification.
+  // `compress.directives` defaults to true, which drops "non-standard"
+  // directives like 'use client' / 'use server'. Disable so the directives
+  // emitted by rollup-preserve-directives and the entry banner survive.
+  terser({ compress: { directives: false } }),
   preserveDirectives(),
   // copy({
   //   targets: [
@@ -154,6 +155,13 @@ export default [
         dir: 'dist/esm',
         format: 'esm',
         sourcemap: false,
+        // The main entry's source body is only `export * from './components'`,
+        // so after code-splitting `dist/esm/main.js` is a re-export-only file
+        // and rollup-preserve-directives has nothing to attach the directive
+        // to. Inject it explicitly so Next.js treats the package's public
+        // ESM entry as a client boundary; otherwise swr resolves to its
+        // react-server build during RSC compilation.
+        banner: (chunk) => (chunk.isEntry && chunk.fileName === 'main.js' ? '"use client";' : ''),
         // preserveModules: true,
         manualChunks(id) {
           // id = ruta absoluta del módulo

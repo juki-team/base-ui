@@ -21,7 +21,6 @@ export { ProblemModeField } from './problem/ProblemModeField';
 export { ProblemNameLinkField } from './problem/ProblemNameLinkField';
 export { ProblemNameModalField } from './problem/ProblemNameModalField';
 export { ProblemOwnerField } from './problem/ProblemOwnerField';
-export { ProblemStatus } from './problem/ProblemStatus';
 export { ProblemTypeField } from './problem/ProblemTypeField';
 export { TagsField } from './problem/TagsField';
 export { ResetPasswordModal } from './ResetPasswordModal/ResetPasswordModal';

@@ -7,7 +7,7 @@ import { Div, InputToggle, Popover, T, TextArea } from '../../../../../atoms';
 import { classNames } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../../../molecules';
-import { NewlineInfo } from '../../../../../molecules/InformationPopover/NewlineInfo';
+import { NewlineInfo } from '../../../../../molecules/server/NewlineInfo/NewlineInfo';
 import { AddIcon, CheckIcon, DeleteIcon, DraftIcon, InfoIIcon, SpinIcon } from '../../../../../server';
 import type { TabsType } from '../../../../../types';
 import { ProblemVerdictTag } from '../../../../ProblemVerdictTag/ProblemVerdictTag';

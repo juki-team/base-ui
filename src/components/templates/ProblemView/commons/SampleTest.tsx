@@ -1,6 +1,6 @@
 import type { ProblemSampleCases } from '@juki-team/commons/types';
 import { CopyToClipboard } from '../../../atoms';
-import { NewlineInfo } from '../../../molecules/InformationPopover/NewlineInfo';
+import { NewlineInfo } from '../../../molecules/server/NewlineInfo/NewlineInfo';
 
 interface SampleTestProps {
   index: number;

@@ -3,7 +3,7 @@ import { useUIStore } from '../../../stores/ui/useUIStore';
 import { classNames } from '../../helpers';
 import { Field } from '../../organisms';
 import { VoidIcon } from '../../server';
-import { ProblemStatus } from './ProblemStatus';
+import { ProblemStatus } from '../server/ProblemStatus/ProblemStatus';
 import type { ProblemNameLinkFieldProps } from './types';
 
 export function ProblemNameLinkField(props: ProblemNameLinkFieldProps) {

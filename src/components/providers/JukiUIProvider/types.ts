@@ -1,27 +1,8 @@
 import type { UrlObject } from 'node:url';
 import type { CSSProperties, FC, HTMLAttributeAnchorTarget, MouseEventHandler, PropsWithChildren } from 'react';
+import type { ImageCmpProps } from '../server/Image/types';
 
-export interface ImageCmpProps1 {
-  src?: string;
-  className?: string;
-  alt: string;
-  height: number;
-  width: number;
-  style?: CSSProperties;
-  fill?: never;
-}
-
-export interface ImageCmpProps2 {
-  src?: string;
-  className?: string;
-  alt: string;
-  height?: never;
-  width?: never;
-  style?: CSSProperties;
-  fill: true;
-}
-
-export type ImageCmpProps = ImageCmpProps1 | ImageCmpProps2;
+export type { ImageCmpProps, ImageCmpProps1, ImageCmpProps2 } from '../server/Image/types';
 
 type Url = string | UrlObject;
 

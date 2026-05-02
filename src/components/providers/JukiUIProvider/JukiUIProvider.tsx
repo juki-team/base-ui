@@ -10,7 +10,7 @@ import { classNames } from '../../helpers';
 import { LoginModal, SignUpModal, SubmissionModal, UserPreviewModal, WelcomeModal } from '../../organisms';
 import { LineLoader } from '../../server';
 import { NotificationProvider } from '../NotificationProvider/NotificationProvider';
-import { Image } from './Image';
+import { Image } from '../server/Image/Image';
 import { Link } from './Link';
 import type { JukiUIProviderProps, LinkCmpProps } from './types';
 

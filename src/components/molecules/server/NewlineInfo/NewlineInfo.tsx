@@ -1,7 +1,8 @@
-import { VoidIcon } from '../../atoms/server';
-import { classNames } from '../../helpers';
+import { VoidIcon } from '../../../atoms/server';
+import { classNames } from '../../../helpers';
+import type { NewlineInfoProps } from './types';
 
-export const NewlineInfo = ({ text }: { text: string }) => {
+export const NewlineInfo = ({ text }: NewlineInfoProps) => {
   const withEndLine = text.lastIndexOf('\n') === text.length - 1;
 
   return (

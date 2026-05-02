@@ -8,7 +8,7 @@ import { FetcherLayer } from '../../molecules';
 import { Field } from '../../organisms';
 import { VoidIcon } from '../../server';
 import { ProblemView } from '../ProblemView/ProblemView';
-import { ProblemStatus } from './ProblemStatus';
+import { ProblemStatus } from '../server/ProblemStatus/ProblemStatus';
 import type { ProblemNameModalFieldProps } from './types';
 
 export function ProblemNameModalField(props: ProblemNameModalFieldProps) {

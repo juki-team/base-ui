@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
 import { create } from 'zustand';
-import { Image } from '../../components/providers/JukiUIProvider/Image';
+import { Image } from '../../components/providers/server/Image/Image';
 import { Link } from '../../components/providers/JukiUIProvider/Link';
 import type { UIComponentsContextInterface } from '../../components/providers/JukiUIProvider/types';
 
