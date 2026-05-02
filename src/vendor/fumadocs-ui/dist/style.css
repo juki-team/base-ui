@@ -1,4 +1,4 @@
-/*! tailwindcss v4.2.2 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.2.4 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
@@ -176,17 +176,11 @@
   .start {
     inset-inline-start: var(--spacing);
   }
-  .start-0 {
-    inset-inline-start: calc(var(--spacing) * 0);
-  }
   .start-3 {
     inset-inline-start: calc(var(--spacing) * 3);
   }
   .start-6 {
     inset-inline-start: calc(var(--spacing) * 6);
-  }
-  .end-0 {
-    inset-inline-end: calc(var(--spacing) * 0);
   }
   .end-2 {
     inset-inline-end: calc(var(--spacing) * 2);
@@ -2830,6 +2824,11 @@
   --fd-sidebar-drawer-offset: -100%;
 }
 
+@property --radix-collapsible-content-height {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
 .fd-page-tree-item-name {
   display: inline-flex;
   width: 100%;
@@ -2941,18 +2940,13 @@
     font-style: var(--shiki-dark-font-style);
   }
 }
-code.shiki span {
+code.shiki:not(.not-fumadocs-code *) span {
   color: var(--shiki-light);
   font-style: var(--shiki-light-font-style);
 }
-.dark code.shiki span {
+.dark code.shiki:not(.not-fumadocs-code *) span {
   color: var(--shiki-dark);
   font-style: var(--shiki-dark-font-style);
-}
-@property --radix-collapsible-content-height {
-  syntax: '<length>';
-  inherits: false;
-  initial-value: 0px;
 }
 
 @property --tw-border-style {
