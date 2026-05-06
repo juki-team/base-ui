@@ -2,7 +2,7 @@ import { Judge, Language, ProblemScoringMode, ProfileSetting, Status } from '@ju
 import { cleanRequest } from '@juki-team/commons/helpers';
 import type { ContentResponse } from '@juki-team/commons/types';
 import { jukiApiManager } from '../../../../settings';
-import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { useT } from '../../../atoms/T/client';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Button, T } from '../../../atoms';
@@ -51,7 +51,7 @@ export const ProblemStatementView = <T,>({
   } = problem;
 
   const userPreferredLanguage = useUserStore((state) => state.user.settings?.[ProfileSetting.LANGUAGE]);
-  const t = useI18nStore((state) => state.i18n.t);
+  const t = useT();
   const problemName = contest?.index ? `${contest?.index}. (${problemKey}) ${name}` : `(${problemKey}) ${name}`;
   const { statementDescription, statementInput, statementOutput, statementNote, mdStatement, shouldViewPDF } = getStatementData(
     t,

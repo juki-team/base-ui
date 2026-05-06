@@ -1,11 +1,9 @@
 import { ONE_MINUTE } from '@juki-team/commons/constants';
 import type { PingResponseDTO } from '@juki-team/commons/dto';
-import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons/enums';
 import type { ContentResponse } from '@juki-team/commons/types';
 import { useCallback, useEffect, useRef } from 'react';
 import { JUKI_SERVICE_V2_URL } from '../../../constants/settings';
 import { jukiApiManager } from '../../../settings';
-import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { isBrowser } from '../../helpers';
@@ -24,8 +22,6 @@ export const JukiUserProvider = () => {
   const userNickname = useUserStore((state) => state.user.nickname);
   const organizationKey = useUserStore((state) => state.organization?.key);
   const userSessionId = useUserStore((state) => state.user.sessionId);
-  const userPreferredLanguage = useUserStore((state) => state.user.settings?.[ProfileSetting.LANGUAGE]);
-  const i18nChangeLanguage = useI18nStore((state) => state.changeLanguage);
   const isOnline = usePageStore((store) => store.isOnline);
   const isFocus = usePageStore((store) => store.isFocus);
   const isVisible = usePageStore((store) => store.isVisible);
@@ -58,10 +54,6 @@ export const JukiUserProvider = () => {
     void refreshAllRequest();
   }, [userNickname, organizationKey, userSessionId, refreshAllRequest, isLoading]);
 
-  useEffect(() => {
-    i18nChangeLanguage(userPreferredLanguage);
-  }, [i18nChangeLanguage, userPreferredLanguage]);
-
   // biome-ignore lint/correctness/useExhaustiveDependencies: isOnline is a change trigger to re-run when connectivity returns
   useEffect(() => {
     if (isLoading) {
@@ -77,7 +69,6 @@ export const JukiUserProvider = () => {
     }
   }, [mutate, isOnline, isFocus, isVisible, isLoading]);
 
-  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
   useEffect(() => {
     if (!data) {
       return;
@@ -85,33 +76,7 @@ export const JukiUserProvider = () => {
 
     if (data?.success) {
       setOrganization(data.content.organization);
-      if (data.content.user.isLogged) {
-        setUser(data.content.user);
-      } else {
-        let preferredLanguage: Language = localStorage.getItem(ProfileSetting.LANGUAGE) as Language;
-        if (preferredLanguage !== Language.EN && preferredLanguage !== Language.ES) {
-          preferredLanguage = Language.ES;
-        }
-        let preferredTheme: Theme = localStorage.getItem(ProfileSetting.THEME) as Theme;
-        if (preferredTheme !== Theme.DARK && preferredTheme !== Theme.LIGHT) {
-          preferredTheme = Theme.LIGHT;
-        }
-        setUser({
-          ...data?.content.user,
-          settings: {
-            ...data.content.user.settings,
-            [ProfileSetting.THEME]: preferredTheme,
-            [ProfileSetting.LANGUAGE]: preferredLanguage,
-            [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.ROWS,
-            [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
-            [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
-            [ProfileSetting.TIME_ZONE]: 'America/La_Paz',
-            [ProfileSetting.FONT_SIZE]: 16,
-          },
-        });
-      }
-
-      // localStorageCrossDomains.setItem(JUKI_TOKEN_NAME, data?.content.user.sessionId); // With new cookies integration is useless
+      setUser(data.content.user);
     }
   }, [data, setOrganization, setUser]);
 

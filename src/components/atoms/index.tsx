@@ -20,5 +20,6 @@ export { Modal } from './Modal/Modal';
 export { MultiSelect } from './MultiSelect/MultiSelect';
 export { Portal } from './Portal/Portal';
 export { Select } from './Select/Select';
+export { I18nProvider, useDict, useI18n, useLocale, useT } from './T/client';
 export { T } from './T/T';
 export { TextArea } from './TextArea/TextArea';

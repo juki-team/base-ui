@@ -1,2 +1,1 @@
 export * from './JukiI18nBridge';
-export * from './JukiProviders';

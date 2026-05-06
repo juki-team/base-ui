@@ -3,7 +3,7 @@ import { getUserKey } from '@juki-team/commons/helpers';
 import { DefaultChatTransport } from 'ai';
 import { type CSSProperties, type DragEvent, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { useI18nStore } from '../../../stores/i18n/useI18nStore';
+import { useT } from '../../atoms/T/client';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Div, T, TextArea } from '../../atoms';
 import { ArrowDownwardIcon, CheckIcon, CloseIcon, ErrorIcon, SendIcon, SmartToyIcon, StopCircleIcon } from '../../atoms/server';
@@ -31,7 +31,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
     onWidthChangeRef.current?.(panelWidth);
   }, [panelWidth, onWidthChangeRef]);
 
-  const t = useI18nStore((store) => store.i18n.t);
+  const t = useT();
 
   const {
     organization: { key: organizationKey },

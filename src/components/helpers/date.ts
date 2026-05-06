@@ -1,6 +1,5 @@
 import { MONTH_NAMES } from '@juki-team/commons/constants';
 import { padStart } from '@juki-team/commons/helpers';
-import type { i18n } from 'i18next';
 import type { DateLiteralProps } from '../atoms/DateLiteral/types';
 import type { DateDisplayType, TimeDisplayType } from '../types';
 
@@ -25,7 +24,7 @@ export const showOfTimeDisplayType = (type: TimeDisplayType) => {
   return { showWeeks, showDays, showHours, showMinutes, showSeconds, showMilliseconds };
 };
 
-export const getDateLiteral = (date: Date, show: Required<DateLiteralProps>['show'], t: i18n['t']) => {
+export const getDateLiteral = (date: Date, show: Required<DateLiteralProps>['show'], t: (key: string) => string) => {
   const { showYears, showMonths, showDays, showHours, showMinutes, showSeconds, showMilliseconds } =
     showOfDateDisplayType(show);
 

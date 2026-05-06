@@ -1,10 +1,9 @@
 import { Language } from '@juki-team/commons/enums';
-import { createInstance, type i18n } from 'i18next';
 import type { PropsWithChildren } from 'react';
 import { SWRConfig } from 'swr';
 import { EMPTY_ORGANIZATION, EMPTY_USER, SWR_CONFIG } from '../../constants';
 import { UserStoreProvider } from '../../stores/user/useUserStore';
-import { JukiI18nInitializer, JukiProviders } from '../providers';
+import { JukiI18nBridge, JukiProviders } from '../providers';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
 import './styles.scss';
@@ -16,64 +15,39 @@ enum TestPath {
   ADMIN = 'ADMIN',
 }
 
-const i18nInstance = createInstance() as i18n;
-
-const i18nConfig = {
-  locales: [Language.ES, Language.EN],
-  defaultLocale: Language.ES,
-  namespaces: ['translation'],
-};
-
-await i18nInstance.init({
-  // lng: i18nConfig.defaultLocale,
-  // fallbackLng: i18nConfig.defaultLocale,
-  supportedLngs: i18nConfig.locales,
-  defaultNS: i18nConfig.namespaces[0],
-  fallbackNS: i18nConfig.namespaces[0],
-  ns: i18nConfig.namespaces,
-  preload: i18nConfig.locales,
-  keySeparator: false, // we do not use keys in form messages.welcome
-  interpolation: {
-    escapeValue: false, // react already safes from xss
-  },
-  backend: {
-    backends: [
-      // resourcesToBackend(localResources),
-    ],
-    backendOptions: [],
-  },
-});
+const MOCK_DICTS: Record<string, Record<string, string>> = { [Language.EN]: {}, [Language.ES]: {} };
 
 export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   return (
     <UserStoreProvider initialUser={{ user: EMPTY_USER, organization: EMPTY_ORGANIZATION, isLoading: true }}>
-      <JukiProviders<TestPath>
-        // serviceApiUrl={serviceUrl + '/api/v1'}
-        // serviceApiV2Url={serviceV2Url}
-        // tokenName="juki-token"
-        // socketServiceUrl={socketServiceUrl}
-        multiOrganizations={false}
-        onSeeMyProfile={() => {
-          // mockup: no profile navigation in tests/stories
-        }}
-        router={{
-          pathname: '',
-          routeParams: {},
-          pushRoute: () => null,
-          replaceRoute: () => null,
-          reloadRoute: () => null,
-          isLoadingRoute: false,
-        }}
-        initialLastPath={{
-          [TestPath.USER]: { pathname: '', searchParams: new URLSearchParams() },
-          [TestPath.ADMIN]: { pathname: '', searchParams: new URLSearchParams() },
-        }}
-      >
-        <SWRConfig value={SWR_CONFIG}>{children}</SWRConfig>
-      </JukiProviders>
-      <JukiI18nInitializer />
-      <MockupLoginButton />
-      <MockupToggleThemeButton />
+      <JukiI18nBridge dicts={MOCK_DICTS}>
+        <JukiProviders<TestPath>
+          // serviceApiUrl={serviceUrl + '/api/v1'}
+          // serviceApiV2Url={serviceV2Url}
+          // tokenName="juki-token"
+          // socketServiceUrl={socketServiceUrl}
+          multiOrganizations={false}
+          onSeeMyProfile={() => {
+            // mockup: no profile navigation in tests/stories
+          }}
+          router={{
+            pathname: '',
+            routeParams: {},
+            pushRoute: () => null,
+            replaceRoute: () => null,
+            reloadRoute: () => null,
+            isLoadingRoute: false,
+          }}
+          initialLastPath={{
+            [TestPath.USER]: { pathname: '', searchParams: new URLSearchParams() },
+            [TestPath.ADMIN]: { pathname: '', searchParams: new URLSearchParams() },
+          }}
+        >
+          <SWRConfig value={SWR_CONFIG}>{children}</SWRConfig>
+        </JukiProviders>
+        <MockupLoginButton />
+        <MockupToggleThemeButton />
+      </JukiI18nBridge>
     </UserStoreProvider>
   );
 };

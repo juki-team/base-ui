@@ -35,7 +35,6 @@ export * from '../components/hooks/useWindowSize';
 // store hooks
 export * from '../stores/ably/useAblyStore';
 export * from '../stores/animationFrame/useAnimationFrameStore';
-export * from '../stores/i18n/useI18nStore';
 export * from '../stores/lastPath/useLastPath';
 export * from '../stores/lazyLoading/useLazyLoadingStore';
 export * from '../stores/page/usePageStore';

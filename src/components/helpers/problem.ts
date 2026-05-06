@@ -1,7 +1,6 @@
 import { CODE_LANGUAGE, JUKI_APP_ORGANIZATION_KEY, PROBLEM_MODE, PROBLEM_TYPE } from '@juki-team/commons/constants';
 import { Language, ProblemScoringMode } from '@juki-team/commons/enums';
 import type { ProblemSettings, ProblemStatement } from '@juki-team/commons/types';
-import type { TFunction } from 'i18next';
 import { isBrowser } from './commons';
 
 export const getEditorSettingsStorageKey = (useNickname: string) => `jk-editor-settings-store/${useNickname}`;
@@ -15,7 +14,7 @@ export const getSettingsStoreKey = (useNickname: string) => `jk-code-editor-sett
 export const getTestCasesStoreKey = (useNickname: string) => `jk-test-cases-storage/${useNickname}`;
 
 export const getStatementData = (
-  t: TFunction,
+  t: (key: string) => string,
   {
     statement,
     settings,

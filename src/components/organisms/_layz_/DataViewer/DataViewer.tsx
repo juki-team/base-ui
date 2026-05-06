@@ -26,7 +26,7 @@ import {
 } from '@juki-team/commons/helpers';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { EMPTY_ARRAY } from '../../../../constants';
-import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { useT } from '../../../atoms/T/client';
 import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
@@ -354,7 +354,7 @@ export default function DataViewer<T extends object>(props: DataViewerProps<T>) 
   const viewPortSize = usePageStore((store) => store.viewPort.screen);
   const preferredDataViewMode = useUserStore((state) => state.user.settings[ProfileSetting.DATA_VIEW_MODE]);
   const searchParams = useRouterStore((state) => state.searchParams);
-  const t = useI18nStore((state) => state.i18n.t);
+  const t = useT();
 
   const pageKey = getPageQueryParam(name);
   const pageSizeKey = getPageSizeQueryParam(name);

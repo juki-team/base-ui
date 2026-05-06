@@ -7,7 +7,7 @@ import RevealNotes from 'reveal.js/plugin/notes';
 import RevealSearch from 'reveal.js/plugin/search';
 import RevealZoom from 'reveal.js/plugin/zoom';
 import { useAnimationFrameStore } from '../../../../stores/animationFrame/useAnimationFrameStore';
-import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { useT } from '../../../atoms/T/client';
 import { Client, T } from '../../../atoms';
 import { useInjectColorTextHighlight } from '../../../hooks/useInjectColorTextHighlight';
 import { useInjectFontSize } from '../../../hooks/useInjectFontSize';
@@ -31,7 +31,7 @@ function SlideDeckComponent(props: SlideDeckProps) {
 
   const deckDivRef = useRef<HTMLDivElement>(null);
   const deckRef = useRef<RevealApi | null>(null);
-  const t = useI18nStore((store) => store.i18n.t);
+  const t = useT();
   const [loading, setLoading] = useState(true);
   const [ready, setReady] = useState(0);
   console.info('render SlideDeckCmp');

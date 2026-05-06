@@ -12,7 +12,6 @@ import { cleanRequest } from '@juki-team/commons/helpers';
 import type { ContentResponse, ErrorResponse, UserSettings } from '@juki-team/commons/types';
 import { useCallback, useState } from 'react';
 import { jukiApiManager } from '../../settings';
-import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
 import { T } from '../atoms/T/T';
 import { authorizedRequest } from '../helpers';
@@ -312,10 +311,7 @@ export const useJukiUser = () => {
 };
 
 export const useJukiUserSettings = () => {
-  const i18nChangeLanguage = useI18nStore((state) => state.changeLanguage);
-  const setUser = useUserStore((state) => state.setUser);
   const {
-    isLogged,
     settings,
     nickname,
     organization: { key: organizationKey },
@@ -356,23 +352,18 @@ export const useJukiUserSettings = () => {
         }
       }
 
-      if (isLogged) {
-        await updateUserPreferences({
-          params: { nickname, organizationKey },
-          body: { ...newSettings },
-          setLoader,
-          onSuccess: async () => {
-            setLoader?.(Status.LOADING);
-            await mutatePing();
-            setLoader?.(Status.SUCCESS);
-          },
-        });
-      } else {
-        setUser({ settings: newSettings });
-      }
-      i18nChangeLanguage(newSettings[ProfileSetting.LANGUAGE]);
+      await updateUserPreferences({
+        params: { nickname, organizationKey },
+        body: { ...newSettings },
+        setLoader,
+        onSuccess: async () => {
+          setLoader?.(Status.LOADING);
+          await mutatePing();
+          setLoader?.(Status.SUCCESS);
+        },
+      });
     },
-    [i18nChangeLanguage, isLogged, mutatePing, nickname, setUser, settings, updateUserPreferences, organizationKey],
+    [mutatePing, nickname, settings, updateUserPreferences, organizationKey],
   );
 
   const loading = loader === Status.LOADING;

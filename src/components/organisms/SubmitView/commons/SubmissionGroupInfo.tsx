@@ -4,7 +4,7 @@ import { html as diff2html } from 'diff2html';
 import { ColorSchemeType } from 'diff2html/lib/types';
 import type { LineMatchingType } from 'diff2html/lib-esm/types';
 import { useCallback, useEffect, useState } from 'react';
-import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { useT } from '../../../atoms/T/client';
 import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Button, Collapse, Modal, T, VirtualizedRowsFixed } from '../../../atoms';
@@ -44,7 +44,7 @@ function DiffViewButton({
   const [isOpen, setIsOpen] = useState(false);
   const [diff, setDiff] = useState('');
   const userPreferredTheme = useUserStore((state) => state.user.settings[ProfileSetting.THEME]);
-  const t = useI18nStore((state) => state.i18n.t);
+  const t = useT();
 
   useEffect(() => {
     if (isOpen) {

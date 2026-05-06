@@ -17,13 +17,12 @@ import type { Node } from '@milkdown/kit/prose/model';
 import { type EditorState, Plugin, PluginKey, type Transaction } from '@milkdown/kit/prose/state';
 import { Milkdown, useEditor } from '@milkdown/react';
 import { instance as vizInstance } from '@viz-js/viz';
-import type { TFunction } from 'i18next';
 import katex from 'katex';
 import mermaid from 'mermaid';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { type Dispatch, type Ref, type SetStateAction, useImperativeHandle, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
-import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
+import { useT } from '../../../../atoms/T/client';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { T } from '../../../../atoms';
 import { handleUploadImage } from '../../../../helpers';
@@ -296,7 +295,7 @@ function renderMermaid(content: string): HTMLElement {
   return null as unknown as HTMLElement;
 }
 
-function renderDot(content: string, t: TFunction): HTMLElement {
+function renderDot(content: string, t: (key: string) => string): HTMLElement {
   if (typeof document !== 'undefined') {
     const container = document.createElement('div');
     const newId = v4();
@@ -364,7 +363,7 @@ export function MilkdownEditorContent({
   const theme = useUserStore((store) => store.user.settings[ProfileSetting.THEME]);
   const currentMd = useRef(value);
   const triggerRender = useMemo(() => (value === currentMd.current ? 0 : Date.now()), [value]);
-  const t = useI18nStore((store) => store.i18n.t);
+  const t = useT();
 
   const { get: getEditor } = useEditor(
     (root) => {

@@ -1,6 +1,6 @@
 import { isValidDate } from '@juki-team/commons/helpers';
 import { useEffect, useState } from 'react';
-import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
+import { useT } from '../../../../atoms/T/client';
 import { Button, Div, Input, T } from '../../../../atoms';
 import { classNames, upperFirst } from '../../../../helpers';
 import { CheckboxList, DrawerView, InputDate } from '../../../../molecules';
@@ -97,7 +97,7 @@ export const FilterDrawer = <T,>(props: FilterDrawerProps<T>) => {
     setIsFiltered(filtered);
   }, [headers, isOpen]);
 
-  const t = useI18nStore((state) => state.i18n.t);
+  const t = useT();
 
   return (
     <DrawerView isOpen={isOpen} onClose={onClose} closeWhenKeyEscape closeWhenClickOutside>

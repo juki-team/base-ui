@@ -31,6 +31,7 @@
   "exports": {
     ".": {
       "types": "./dist/module-types/src/index.d.ts",
+      "react-server": "./dist/esm/server.js",
       "import": "./dist/esm/main.js",
       "require": "./dist/cjs/main.js"
     },
@@ -142,7 +143,6 @@
     "handsontable": "^17.0.1",
     "highlight.js": "^11.11.1",
     "i18n-iso-countries": "^7.14.0",
-    "i18next": "^26.0.8",
     "katex": "^0.16.45",
     "libphonenumber-js": "^1.12.42",
     "mermaid": "^11.14.0",

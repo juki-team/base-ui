@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { useI18nStore } from '../../../stores/i18n/useI18nStore';
+import { useT } from '../../atoms/T/client';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { Div, Select, T } from '../../atoms';
 import { classNames } from '../../helpers';
@@ -40,7 +40,7 @@ export const Pagination = (props: PaginationProps) => {
   const endPage = Math.max(Math.ceil(total / pageSize), startPage);
   const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
 
-  const t = useI18nStore((state) => state.i18n.t);
+  const t = useT();
   useEffect(() => {
     if (!initializing && (page < startPage || endPage < page)) {
       jumpToPage(startPage);

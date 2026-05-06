@@ -2,7 +2,7 @@ import { consoleWarn } from '@juki-team/commons/helpers';
 import { instance } from '@viz-js/viz';
 import { useEffect, useRef } from 'react';
 import { create } from 'zustand';
-import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { useT } from '../../../atoms/T/client';
 import { classNames } from '../../../helpers';
 import type { GraphvizViewerProps } from './types';
 
@@ -18,7 +18,7 @@ export const useGraphvizStore = create<GraphvizState>((set) => ({
 
 export default function GraphvizViewer({ dot, className }: GraphvizViewerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const t = useI18nStore((store) => store.i18n.t);
+  const t = useT();
   const shouldRerender = useGraphvizStore((store) => store.shouldRerender);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: shouldRerender is a trigger to re-render the SVG when the global flag toggles

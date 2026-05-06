@@ -1,7 +1,7 @@
 import { PROBLEM_VERDICT, SUBMISSION_RUN_STATUS } from '@juki-team/commons/constants';
 import type { SubmissionDataResponseDTO, SubmissionRunStatusWebSocketResponseEventDTO } from '@juki-team/commons/dto';
 import { ProblemVerdict, ProfileSetting, SubmissionRunStatus, Theme } from '@juki-team/commons/enums';
-import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { useT } from '../../../atoms/T/client';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
 import { classNames } from '../../../helpers';
@@ -30,7 +30,7 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
   } = props;
 
   const userPreferredTheme = useUserStore((state) => state.user.settings?.[ProfileSetting.THEME]);
-  const t = useI18nStore((state) => state.i18n.t);
+  const t = useT();
   const addDark = userPreferredTheme === Theme.DARK ? 'CC' : '';
 
   if (_shortLabel) {

@@ -1,13 +1,11 @@
-'use client';
-import { useDict } from './client';
+import { getServerDict } from './cache';
 import { translate } from './shared';
 import type { TProps } from './types';
 
 export function T({ className = '', children, style }: TProps) {
-  const dict = useDict();
   return (
     <span className={className} style={style}>
-      {translate(dict, children)}
+      {translate(getServerDict(), children)}
     </span>
   );
 }

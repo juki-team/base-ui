@@ -25,7 +25,6 @@ import {
   join,
   split,
 } from '@juki-team/commons/helpers';
-import type { TFunction } from 'i18next';
 import type { RefObject } from 'react';
 import { renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import type { DatePickerDateFunType } from '../../../../molecules/types';
@@ -382,7 +381,7 @@ const onFilter = (
 export const buildHeaders = <T,>(
   headers: DataViewerHeadersType<T>[],
   searchVisibles: string,
-  t: TFunction<['translation', ...string[]], undefined>,
+  t: (key: string) => string,
   filtersRef: RefObject<RequestFilterType>,
   searchSortsRef: RefObject<string>,
   setVisibles: SetFn,
