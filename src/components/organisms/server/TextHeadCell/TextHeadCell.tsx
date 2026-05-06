@@ -1,6 +1,6 @@
-import { T } from '../../atoms';
-import { classNames } from '../../helpers';
-import type { TextHeadCellProps } from '../_layz_/DataViewer/types';
+import { classNames } from '../../../helpers';
+import { T } from '../../../atoms/T/T.server';
+import type { TextHeadCellProps } from '../../_layz_/DataViewer/types';
 
 export function TextHeadCell({ text, className }: TextHeadCellProps) {
   return (

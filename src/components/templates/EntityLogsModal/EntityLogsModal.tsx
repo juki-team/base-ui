@@ -1,6 +1,7 @@
 import { isObjectJson } from '@juki-team/commons/helpers';
 import type { ContentResponse, LogDataResponseDTO } from '@juki-team/commons/types';
-import { DateLiteral, Modal, T } from '../../atoms';
+import { Modal, T } from '../../atoms';
+import { DateLiteral } from '../../atoms/server/DateLiteral/DateLiteral';
 import { classNames } from '../../helpers';
 import { FetcherLayer } from '../../molecules';
 import { UserChip } from '../../organisms';

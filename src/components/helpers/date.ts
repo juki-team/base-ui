@@ -1,6 +1,6 @@
 import { MONTH_NAMES } from '@juki-team/commons/constants';
 import { padStart } from '@juki-team/commons/helpers';
-import type { DateLiteralProps } from '../atoms/DateLiteral/types';
+import type { DateLiteralProps } from '../atoms/server/DateLiteral/types';
 import type { DateDisplayType, TimeDisplayType } from '../types';
 
 export const showOfDateDisplayType = (type: DateDisplayType) => {

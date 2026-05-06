@@ -6,7 +6,6 @@ export { VirtualizedRowsFixed } from './_lazy_/VirtualizedRowsFixed';
 export { Button } from './Button/Button';
 export { Client } from './Client/Client';
 export { CopyToClipboard } from './CopyToClipboard/CopyToClipboard';
-export { DateLiteral } from './DateLiteral/DateLiteral';
 export { DetectRequestAnimationFrame } from './DetectRequestAnimationFrame/DetectRequestAnimationFrame';
 export { Div } from './Div/Div';
 export { Input } from './Input/Input';

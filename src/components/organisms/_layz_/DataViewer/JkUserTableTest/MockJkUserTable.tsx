@@ -9,9 +9,8 @@ import {
   Popover,
   Select as SelectComponent,
   T,
-  TextHeadCell,
 } from '../../../../index';
-import { RefreshIcon } from '../../../../server';
+import { RefreshIcon, TextHeadCell } from '../../../../server';
 import type { DataViewerHeadersType, DataViewerProps, DataViewerRequestType } from '../types';
 import users from './data.json';
 

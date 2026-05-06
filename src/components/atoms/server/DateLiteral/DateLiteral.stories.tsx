@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 // import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
-import { MockupJukiProvider } from '../../mockup';
-import type { DateDisplayType } from '../../types';
+import { MockupJukiProvider } from '../../../mockup';
+import type { DateDisplayType } from '../../../types';
 
 import { DateLiteral } from './DateLiteral';
 

@@ -11,8 +11,8 @@ import { Button, Collapse, Modal, T, VirtualizedRowsFixed } from '../../../atoms
 import type { VirtualizedRowsFixedProps } from '../../../atoms/_lazy_/VirtualizedRowsFixed/types';
 import { classNames } from '../../../helpers';
 import { UpIcon, VisibilityIcon } from '../../../server';
-import { SubmissionMemory } from './SubmissionMemory';
-import { SubmissionTime } from './SubmissionTime';
+import { SubmissionMemory } from '../../server/SubmissionMemory/SubmissionMemory';
+import { SubmissionTime } from '../../server/SubmissionTime/SubmissionTime';
 import { SubmissionVerdict } from './SubmissionVerdict';
 
 export interface GroupInfoProps {

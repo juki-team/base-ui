@@ -7,17 +7,18 @@ import { ContestTab } from '../../../../enums';
 import { jukiApiManager, jukiAppRoutes } from '../../../../settings';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { Button, Collapse, DateLiteral, T } from '../../../atoms';
+import { Button, Collapse, T } from '../../../atoms';
+import { DateLiteral } from '../../../atoms/server/DateLiteral/DateLiteral';
 import { classNames, getJudgeOrigin } from '../../../helpers';
 import { hasTimeHasMemory } from '../../../helpers/submission';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { CodeViewer, SubmissionRejudgeButton, Timer, TimerDisplay } from '../../../molecules';
 import { OpenInNewIcon, UpIcon } from '../../../server';
+import { SubmissionMemory } from '../../server/SubmissionMemory/SubmissionMemory';
+import { SubmissionTime } from '../../server/SubmissionTime/SubmissionTime';
 import { UserChip } from '../../UserChip/UserChip';
 import { SubmissionGroupInfo } from './SubmissionGroupInfo';
 import { SubmissionListenerVerdict } from './SubmissionListenerVerdict';
-import { SubmissionMemory } from './SubmissionMemory';
-import { SubmissionTime } from './SubmissionTime';
 
 const DisplayGridData = ({ data }: { data: { title: ReactNode; content: ReactNode }[] }) => {
   return (

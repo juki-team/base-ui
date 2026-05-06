@@ -1,7 +1,7 @@
 import { DAY_NAMES, MONTH_NAMES } from '@juki-team/commons/constants';
 import { padStart } from '@juki-team/commons/helpers';
-import { classNames, showOfDateDisplayType } from '../../helpers';
-import { T } from '../T/T';
+import { classNames, showOfDateDisplayType } from '../../../helpers';
+import { T } from '../../T/T.server';
 import type { DateLiteralProps } from './types';
 
 export function DateLiteral(props: DateLiteralProps) {

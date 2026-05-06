@@ -29,7 +29,6 @@ export { PresentationToolButtons } from './PresentationToolButtons/PresentationT
 export { ProblemSelector } from './ProblemSelector/ProblemSelector';
 export { ProblemVerdictTag } from './ProblemVerdictTag/ProblemVerdictTag';
 export { SubmitView } from './SubmitView/SubmitView';
-export { TextHeadCell } from './TextHeadCell/TextHeadCell';
 export { UserChip } from './UserChip/UserChip';
 export { UserNicknameLink } from './UserNicknameLink/UserNicknameLink';
 export { UsersSelector } from './UsersSelector/UsersSelector';

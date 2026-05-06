@@ -5,7 +5,6 @@ export type * from './_lazy_/VirtualizedRowsFixed/types';
 export type * from './Button/types';
 export type * from './Client/types';
 export type * from './CopyToClipboard/types';
-export type * from './DateLiteral/types';
 export type * from './DetectRequestAnimationFrame/types';
 export type * from './Div/types';
 export type * from './Input/types';

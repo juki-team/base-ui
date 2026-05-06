@@ -29,7 +29,7 @@ import type { RefObject } from 'react';
 import { renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import type { DatePickerDateFunType } from '../../../../molecules/types';
 import type { RequestFilterType } from '../../../../types';
-import { TextHeadCell } from '../../../TextHeadCell/TextHeadCell';
+import { TextHeadCell } from '../../../server/TextHeadCell/TextHeadCell';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,

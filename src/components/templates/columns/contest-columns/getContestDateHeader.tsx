@@ -1,5 +1,6 @@
 import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
-import { DateLiteral, T } from '../../../atoms';
+import { T } from '../../../atoms';
+import { DateLiteral } from '../../../atoms/server/DateLiteral/DateLiteral';
 import { Field } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { EventIcon, ScheduleIcon } from '../../../server';
