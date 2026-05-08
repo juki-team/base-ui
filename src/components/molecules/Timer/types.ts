@@ -17,15 +17,4 @@ export interface TimerProps {
   timerKey?: string;
 }
 
-export interface TimerDisplayProps {
-  counter: number;
-  literal?: boolean;
-  inline?: boolean;
-  ignoreLeadingZeros?: boolean;
-  ignoreTrailingZeros?: boolean;
-  maxSplit?: number;
-  minSplit?: number;
-  abbreviated?: boolean;
-  type?: TimeDisplayType;
-  className?: string;
-}
+export type { TimerDisplayProps } from '../server/TimerDisplay/types';

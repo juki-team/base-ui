@@ -15,7 +15,7 @@ import {
 } from '../../../atoms/server';
 import { classNames } from '../../../helpers';
 import { ButtonAction } from '../../../molecules';
-import { TimerDisplay } from '../../../molecules/Timer/TimerDisplay';
+import { TimerDisplay } from '../../../molecules/server/TimerDisplay/TimerDisplay';
 
 export function FullscreenTimerButton() {
   const playBell = useSoundStore((store) => store.playBell);

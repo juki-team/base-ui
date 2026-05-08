@@ -1,7 +1,7 @@
 import { padStart } from '@juki-team/commons/helpers';
 import { Fragment } from 'react';
-import { T } from '../../atoms';
-import { classNames, cutTimeSplit } from '../../helpers';
+import { T } from '../../../atoms/T/T.server';
+import { classNames, cutTimeSplit } from '../../../helpers';
 import type { TimerDisplayProps } from './types';
 
 export function TimerDisplay(props: TimerDisplayProps) {

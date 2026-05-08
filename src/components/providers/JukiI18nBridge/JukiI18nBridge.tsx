@@ -5,6 +5,7 @@ import { consoleInfo } from '@juki-team/commons/helpers';
 import { type ReactNode, useEffect, useRef } from 'react';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
+import { setServerDict } from '../../atoms/T/cache';
 import { I18nProvider } from '../../atoms/T/client';
 import type { Dict } from '../../atoms/T/shared';
 
@@ -37,6 +38,16 @@ export function JukiI18nBridge({
 }: JukiI18nBridgeProps) {
   const locale = useUserStore((s) => s.user.settings?.[ProfileSetting.LANGUAGE]) ?? fallbackLocale;
   const reloadRoute = useRouterStore((store) => store.reloadRoute);
+
+  // Sync the active dict into the server-cache singleton so that components
+  // imported from `/server-components` (which use T.server internally) also
+  // resolve translations correctly when rendered in client context.
+  // Mutating during render is intentional: useEffect would be too late and
+  // cause a flicker of raw keys on first paint. Idempotent + a single bridge
+  // per app makes this safe under StrictMode and concurrent rendering.
+  if (typeof window !== 'undefined') {
+    setServerDict(locale, dicts[locale] ?? {});
+  }
 
   // Skip the initial render: the server already rendered with the right
   // locale and `setServerDict` was called in the layout. We only want to

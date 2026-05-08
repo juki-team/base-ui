@@ -1,6 +1,6 @@
 import { useEffect, useId } from 'react';
 import { useTimer } from '../../../stores/timer/useTimer';
-import { TimerDisplay } from './TimerDisplay';
+import { TimerDisplay } from '../server/TimerDisplay/TimerDisplay';
 import type { TimerProps } from './types';
 
 export function Timer(props: TimerProps) {

@@ -1,6 +1,6 @@
 import { T } from '../../atoms';
 import { DateLiteral } from '../../atoms/server/DateLiteral/DateLiteral';
-import { TimerDisplay } from '../../molecules';
+import { TimerDisplay } from '../../molecules/server/TimerDisplay/TimerDisplay';
 import { Field } from '../../organisms';
 import type { SubmissionDateFieldProps } from './types';
 
