@@ -2,7 +2,6 @@ import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
 import { T } from '../../../atoms';
 import { getContestState } from '../../../helpers';
 import { FrozenInformation, QuietInformation, UpsolvingInformation } from '../../../molecules';
-import { Field } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 
 export function getContestStatusHeader(): DataViewerHeadersType<ContestSummaryListResponseDTO> {
@@ -10,7 +9,7 @@ export function getContestStatusHeader(): DataViewerHeadersType<ContestSummaryLi
     head: 'status',
     index: 'status',
     Field: ({ record: contest }) => (
-      <Field className="jk-col center gap">
+      <div className="jk-table-field jk-col center gap">
         <div className={`jk-tag cr-we ${getContestState(contest).bc}`}>
           <T className="tt-ue tx-s">{getContestState(contest).label}</T>
         </div>
@@ -20,7 +19,7 @@ export function getContestStatusHeader(): DataViewerHeadersType<ContestSummaryLi
           contest.isLive && contest.isFrozenTime && <FrozenInformation />
         )}
         {contest.isPast && contest.settings.upsolvingEnabled && <UpsolvingInformation />}
-      </Field>
+      </div>
     ),
     filter: {
       type: 'select',

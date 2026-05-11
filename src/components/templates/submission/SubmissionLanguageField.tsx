@@ -1,5 +1,4 @@
 import { CODE_LANGUAGE } from '@juki-team/commons/constants';
-import { Field } from '../../organisms';
 import { SubmissionInfo } from './commons/SubmissionInfo';
 import type { SubmissionLanguageFieldProps } from './types';
 
@@ -17,7 +16,7 @@ export function SubmissionLanguageField({
   languagesByJudge,
 }: SubmissionLanguageFieldProps) {
   return isCard ? null : (
-    <Field>
+    <div className="jk-table-field">
       {hiddenSubmission ? (
         <div className="jk-col extend fr-4">
           {languagesByJudge[judgeKey]?.languages[language]?.label || CODE_LANGUAGE[language]?.label || language}
@@ -29,6 +28,6 @@ export function SubmissionLanguageField({
           </div>
         </SubmissionInfo>
       )}
-    </Field>
+    </div>
   );
 }

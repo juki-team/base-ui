@@ -1,7 +1,6 @@
 import { jukiAppRoutes } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { classNames } from '../../helpers';
-import { Field } from '../../organisms';
 import { VoidIcon } from '../../server';
 import { ProblemStatus } from '../server/ProblemStatus/ProblemStatus';
 import type { ProblemNameLinkFieldProps } from './types';
@@ -15,7 +14,7 @@ export function ProblemNameLinkField(props: ProblemNameLinkFieldProps) {
   const { Link } = useUIStore((store) => store.components);
 
   return (
-    <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
+    <div className={classNames('jk-table-field jk-row', { left: !isCard, center: isCard })}>
       <div className="jk-row nowrap">
         <Link
           href={jukiAppRoutes.JUDGE().problems.view({ key })}
@@ -47,6 +46,6 @@ export function ProblemNameLinkField(props: ProblemNameLinkFieldProps) {
           </>
         )}
       </div>
-    </Field>
+    </div>
   );
 }

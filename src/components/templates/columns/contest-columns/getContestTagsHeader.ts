@@ -1,7 +1,7 @@
 import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
 import type { OptionType } from '../../../molecules/types';
 import type { DataViewerHeadersType, FilterSelectOnlineType } from '../../../organisms/types';
-import { TagsField } from '../../problem/TagsField';
+import { TagsField } from '../../server/problem/TagsField';
 
 export function getContestTagsHeader(tags: OptionType<string>[]): DataViewerHeadersType<ContestSummaryListResponseDTO> {
   return {

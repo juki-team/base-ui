@@ -1,6 +1,6 @@
 import { CODE_LANGUAGE } from '@juki-team/commons/constants';
 import { classNames } from '../../helpers';
-import { Field, FieldText } from '../../organisms';
+import { FieldText } from '../../organisms';
 import { SubmissionMemory } from '../../organisms/server/SubmissionMemory/SubmissionMemory';
 import { SubmissionTime } from '../../organisms/server/SubmissionTime/SubmissionTime';
 import { SubmissionInfo } from './commons/SubmissionInfo';
@@ -22,11 +22,11 @@ export function SubmissionTimeField({
   const hidden = hiddenVerdict || hiddenSubmission;
 
   const content = (
-    <Field className={classNames('jk-row gap nowrap', { 'fr-4': hidden })}>
+    <div className={classNames('jk-table-field jk-row gap nowrap', { 'fr-4': hidden })}>
       <FieldText text={<div className="jk-col extend">{CODE_LANGUAGE[language]?.label || language}</div>} label="language" />
       <FieldText text={<SubmissionTime timeUsed={timeUsed} verdict={verdict} />} label="time used" />
       <FieldText text={<SubmissionMemory memoryUsed={memoryUsed} verdict={verdict} />} label="memory used" />
-    </Field>
+    </div>
   );
 
   return isCard ? (

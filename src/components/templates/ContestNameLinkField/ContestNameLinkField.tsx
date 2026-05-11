@@ -2,7 +2,6 @@ import { jukiAppRoutes } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { classNames, getJudgeOrigin } from '../../helpers';
-import { Field } from '../../organisms';
 import { CheckIcon, OpenInNewIcon, VoidIcon } from '../../server';
 import type { ContestNameLinkFieldProps } from './types';
 
@@ -24,7 +23,7 @@ export function ContestNameLinkField(props: ContestNameLinkFieldProps) {
   const origin = getJudgeOrigin(organizationKey, userOrganizationKey);
 
   return (
-    <Field className="jk-row left block">
+    <div className="jk-table-field jk-row left block">
       {user.isGuest || user.isAdministrator || user.isParticipant || user.isManager || user.isSpectator ? (
         <div className={classNames('gap nowrap', { 'jk-col': isCard, 'jk-row left': !isCard })}>
           <Link
@@ -97,6 +96,6 @@ export function ContestNameLinkField(props: ContestNameLinkFieldProps) {
       ) : (
         <div className={classNames('jk-row gap fw-bd', { center: isCard, left: !isCard })}>{name}</div>
       )}
-    </Field>
+    </div>
   );
 }

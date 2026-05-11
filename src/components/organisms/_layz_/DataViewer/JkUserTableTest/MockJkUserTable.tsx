@@ -3,7 +3,6 @@ import type { SelectOptionType } from '../../../../atoms/Select/types';
 import {
   ButtonLoader,
   DataViewer,
-  Field,
   FieldDate,
   FieldText,
   Popover,
@@ -122,7 +121,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       {
         index: 'text-large-text-large-text',
         Field: () => (
-          <Field>
+          <div className="jk-table-field">
             <div>holi</div>
             <div>123</div>
             <SelectComponent
@@ -138,7 +137,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
               selectedOption={{ value: 'value 3' }}
               onChange={() => null}
             />
-          </Field>
+          </div>
         ),
         style: { background: 'red' },
         minWidth: 200,
@@ -183,7 +182,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       {
         index: 'status',
         Field: ({ record: { status } }) => (
-          <Field>
+          <div className="jk-table-field">
             <Popover
               // showPopperArrow
               content={<div>The content</div>}
@@ -193,7 +192,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
             <div>
               <div style={{ backgroundColor: 'red' }}>{status}</div>
             </div>
-          </Field>
+          </div>
         ),
         // sort: { compareFn: () => (rowA, rowB) => rowA.status.localeCompare(rowB.status) },
         // Filter: {

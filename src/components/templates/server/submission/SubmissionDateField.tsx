@@ -1,8 +1,7 @@
-import { T } from '../../atoms';
-import { DateLiteral } from '../../atoms/server/DateLiteral/DateLiteral';
-import { TimerDisplay } from '../../molecules/server/TimerDisplay/TimerDisplay';
-import { Field } from '../../organisms';
-import type { SubmissionDateFieldProps } from './types';
+import { T } from '../../../atoms/T/T.server';
+import { DateLiteral } from '../../../atoms/server/DateLiteral/DateLiteral';
+import { TimerDisplay } from '../../../molecules/server/TimerDisplay/TimerDisplay';
+import type { SubmissionDateFieldProps } from '../../submission/types';
 
 export function SubmissionDateField({ record: { timestamp, contest }, isCard }: SubmissionDateFieldProps) {
   const label = 'date';
@@ -10,7 +9,7 @@ export function SubmissionDateField({ record: { timestamp, contest }, isCard }: 
   const twoLines = !isCard;
 
   return (
-    <Field className="jk-col center nowrap">
+    <div className="jk-table-field jk-col center nowrap">
       <div className="date-field jk-col center">
         <DateLiteral date={date} twoLines={twoLines} />
         {contest?.settingsStartTimestamp && (
@@ -30,6 +29,6 @@ export function SubmissionDateField({ record: { timestamp, contest }, isCard }: 
       <div className="jk-row date-field-label cr-tx-sc tx-t">
         {typeof label === 'string' ? <T className="tt-se">{label}</T> : label}
       </div>
-    </Field>
+    </div>
   );
 }

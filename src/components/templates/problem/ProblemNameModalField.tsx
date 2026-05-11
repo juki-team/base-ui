@@ -5,7 +5,6 @@ import { jukiApiManager } from '../../../settings';
 import { Div, Modal } from '../../atoms';
 import { classNames } from '../../helpers';
 import { FetcherLayer } from '../../molecules';
-import { Field } from '../../organisms';
 import { VoidIcon } from '../../server';
 import { ProblemView } from '../ProblemView/ProblemView';
 import { ProblemStatus } from '../server/ProblemStatus/ProblemStatus';
@@ -20,7 +19,7 @@ export function ProblemNameModalField(props: ProblemNameModalFieldProps) {
   const [modal, setModal] = useState<ReactNode>(null);
 
   return (
-    <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
+    <div className={classNames('jk-table-field jk-row', { left: !isCard, center: isCard })}>
       {modal}
       <div className="jk-row nowrap">
         <Div
@@ -62,6 +61,6 @@ export function ProblemNameModalField(props: ProblemNameModalFieldProps) {
           </>
         )}
       </div>
-    </Field>
+    </div>
   );
 }

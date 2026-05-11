@@ -13,6 +13,9 @@ node_modules
 /dist
 .tmp-build
 
+# scratch / local notes
+/tmp
+
 # misc
 .DS_Store
 .env.local

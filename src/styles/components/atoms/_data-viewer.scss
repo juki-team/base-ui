@@ -150,7 +150,7 @@
       padding: 2px 0;
     }
     
-    .field, .text-field, .date-field {
+    .jk-table-field, .text-field, .date-field {
       text-align: center;
     }
     
@@ -200,7 +200,7 @@
   .jk-table-rows-container {
     box-sizing: border-box;
     
-    .field, .text-field, .date-field {
+    .jk-table-field, .text-field, .date-field {
       height: 100%;
     }
     
@@ -243,7 +243,7 @@
           }
         }
         
-        .field {
+        .jk-table-field {
           padding: 0 var(--pad-xt);
           overflow: auto;
           box-sizing: border-box;

@@ -13,7 +13,7 @@ import { useDataViewerRequester } from '../../hooks/useDataViewerRequester';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { useMatchMutate } from '../../hooks/useMatchMutate';
 import { ButtonLoader } from '../../molecules';
-import { DataViewer, Field } from '../../organisms';
+import { DataViewer } from '../../organisms';
 import type { DataViewerHeadersType } from '../../organisms/_layz_/DataViewer/types';
 export function UserMyActiveSessions() {
   const { deleteUserSession } = useJukiUser();
@@ -32,7 +32,7 @@ export function UserMyActiveSessions() {
         head: 'session',
         index: 'session',
         Field: ({ record: { updateTimestamp, deviceName, osName, id } }) => (
-          <Field className="jk-col center">
+          <div className="jk-table-field jk-col center">
             <div className="fw-bd">{deviceName}</div>
             <div>{osName}</div>
             <DateLiteral date={new Date(updateTimestamp)} />
@@ -41,7 +41,7 @@ export function UserMyActiveSessions() {
                 <T className="tt-se">this device</T>
               </div>
             )}
-          </Field>
+          </div>
         ),
         cardPosition: 'top',
         minWidth: 250,
@@ -54,7 +54,7 @@ export function UserMyActiveSessions() {
         index: 'operations',
         Field: ({ record: { id } }) => {
           return (
-            <Field className="jk-col center gap">
+            <div className="jk-table-field jk-col center gap">
               {userSessionId !== id && (
                 <ButtonLoader
                   icon={<DeleteIcon />}
@@ -74,7 +74,7 @@ export function UserMyActiveSessions() {
                   <T>delete session</T>
                 </ButtonLoader>
               )}
-            </Field>
+            </div>
           );
         },
         cardPosition: 'bottom',

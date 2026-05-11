@@ -1,6 +1,5 @@
 import type { SubmissionSummaryListResponseDTO } from '@juki-team/commons/dto';
 import { SubmissionRejudgeButton } from '../../../molecules';
-import { Field } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer/types';
 import { SubmissionRetrieveButton } from '../../submission/SubmissionRetrieveButton';
 
@@ -9,7 +8,7 @@ export function getSubmissionRejudgeHeader(): DataViewerHeadersType<SubmissionSu
     head: 'rejudge',
     index: 'rejudge',
     Field: ({ record: { submitId, problem } }) => (
-      <Field>
+      <div className="jk-table-field">
         <div className="jk-col nowrap extend" style={{ padding: '4px 0', boxSizing: 'border-box' }}>
           {problem.judge.isSubmitSupported ? (
             <SubmissionRejudgeButton submissionId={submitId} />
@@ -17,7 +16,7 @@ export function getSubmissionRejudgeHeader(): DataViewerHeadersType<SubmissionSu
             <SubmissionRetrieveButton submissionId={submitId} />
           )}
         </div>
-      </Field>
+      </div>
     ),
     cardPosition: 'bottom',
     minWidth: 180,

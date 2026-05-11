@@ -1,9 +1,8 @@
 import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
-import { T } from '../../../atoms';
-import { DateLiteral } from '../../../atoms/server/DateLiteral/DateLiteral';
-import { Field } from '../../../organisms';
-import type { DataViewerHeadersType } from '../../../organisms/types';
-import { EventIcon, ScheduleIcon } from '../../../server';
+import { T } from '../../../../atoms/T/T.server';
+import { DateLiteral } from '../../../../atoms/server/DateLiteral/DateLiteral';
+import type { DataViewerHeadersType } from '../../../../organisms/types';
+import { EventIcon, ScheduleIcon } from '../../../../server';
 
 export function getContestDateHeader(): DataViewerHeadersType<ContestSummaryListResponseDTO> {
   return {
@@ -11,7 +10,7 @@ export function getContestDateHeader(): DataViewerHeadersType<ContestSummaryList
     index: 'date',
     // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred
     Field: ({ record: { settings, isEndless }, isCard }) => (
-      <Field className="jk-row extend">
+      <div className="jk-table-field jk-row extend">
         {isEndless ? (
           isCard ? (
             ''
@@ -65,7 +64,7 @@ export function getContestDateHeader(): DataViewerHeadersType<ContestSummaryList
         ) : (
           <DateLiteral date={new Date(settings.endTimestamp)} show="year-month-day-hours-minutes" twoLines />
         )}
-      </Field>
+      </div>
     ),
     sort: true,
     filter: { type: 'date-range', pickerType: 'year-month-day-hours-minutes' },

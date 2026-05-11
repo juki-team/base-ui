@@ -1,7 +1,7 @@
 import type { ProblemSummaryListResponseDTO } from '@juki-team/commons/dto';
 import type { OptionType } from '../../../molecules/types';
 import type { DataViewerHeadersType, FilterSelectOnlineType } from '../../../organisms/types';
-import { TagsField } from '../../problem/TagsField';
+import { TagsField } from '../../server/problem/TagsField';
 
 export function getProblemTagsHeader(tags: OptionType<string>[]): DataViewerHeadersType<ProblemSummaryListResponseDTO> {
   return {

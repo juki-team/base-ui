@@ -1,7 +1,6 @@
 import { type ReactNode, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Button, T } from '../../atoms';
-import { Field } from '../../organisms';
 import { EntityLogsModal } from '../EntityLogsModal/EntityLogsModal';
 import type { ProblemAdminActionsFieldProps } from './types';
 
@@ -9,7 +8,7 @@ export function ProblemAdminActionsField({ record: { key } }: ProblemAdminAction
   const [modal, setModal] = useState<ReactNode>(null);
 
   return (
-    <Field className="jk-row">
+    <div className="jk-table-field jk-row">
       {modal}
       <Button
         type="secondary"
@@ -26,6 +25,6 @@ export function ProblemAdminActionsField({ record: { key } }: ProblemAdminAction
       >
         <T>view logs</T>
       </Button>
-    </Field>
+    </div>
   );
 }
