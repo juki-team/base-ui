@@ -657,7 +657,7 @@ export class ApiManager {
         // biome-ignore lint/suspicious/noConfusingVoidType: void here is the standard TS pattern to allow calling the API method with no arguments (valid<T> wraps a function whose props is typed as T)
         getTrustedCompaniesList: valid<{ params?: { organizationKey: string } } | void>(
           ({ params: { organizationKey } = { organizationKey: '' } } = {}) => ({
-            url: injectOrganization(injectBaseUrl('organization', '/trusted-companies-list'), organizationKey),
+            url: injectOrganization(injectBaseUrl('organization', '/trusted-organizations-list'), organizationKey),
             method: HTTPMethod.GET,
           }),
         ),

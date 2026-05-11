@@ -56,8 +56,11 @@ export function MainMenu(props: MainMenuProps) {
     multiOrganizations && isLogged ? jukiApiManager.apiV2.organization.getPermissionList().url : null,
   );
   const organizationKey = searchParams.get(QueryParamKey.COMPANY) as string;
-  const companies: OrganizationUserPermissionsResponseDTO[] = useMemo(() => (data?.success ? data.contents : []), [data]);
-  const company = useMemo(() => companies.find((company) => company.key === organizationKey), [organizationKey, companies]);
+  const organizations: OrganizationUserPermissionsResponseDTO[] = useMemo(() => (data?.success ? data.contents : []), [data]);
+  const organization = useMemo(
+    () => organizations.find((organization) => organization.key === organizationKey),
+    [organizationKey, organizations],
+  );
   const isSmall = viewPortSize === 'sm';
   const isMedium = viewPortSize === 'md';
   const [helpOpen, setHelpOpen] = useState(false);
@@ -70,11 +73,11 @@ export function MainMenu(props: MainMenuProps) {
     if (multiOrganizations && isLogged && enabled) {
       const select = (
         <Select
-          options={companies.map((company) => ({
-            value: company.key,
-            label: <span className="ws-np">{company.name}</span>,
+          options={organizations.map((organization) => ({
+            value: organization.key,
+            label: <span className="ws-np">{organization.name}</span>,
           }))}
-          selectedOption={{ value: company?.key || '', label: company?.key ? undefined : <T>select</T> }}
+          selectedOption={{ value: organization?.key || '', label: organization?.key ? undefined : <T>select</T> }}
           onChange={({ value }) => setSearchParams({ name: QueryParamKey.COMPANY, value })}
           className="jk-br-ie jk-button secondary"
           // containerWidth={1000}
@@ -88,7 +91,7 @@ export function MainMenu(props: MainMenuProps) {
           icon: null,
           selected: false,
           menuItemWrapper: ({ isOpenVerticalMenu }) => {
-            let imageUrl = company?.imageUrl?.replace('horizontal', 'vertical') || '';
+            let imageUrl = organization?.imageUrl?.replace('horizontal', 'vertical') || '';
             if (isSmall && preferredTheme !== Theme.DARK) {
               imageUrl = imageUrl.replace('white', 'color');
             }
@@ -96,14 +99,14 @@ export function MainMenu(props: MainMenuProps) {
             return (
               <div className={classNames('jk-menu-item menu-item-company-selector cr-tx-ht-it', { 'jk-col gap': isSmall })}>
                 <div className="jk-menu-item-icon" style={{ height: 48 }}>
-                  {company && (
+                  {organization && (
                     <Popover
                       popoverClassName="bc-sf-hi jk-br-ie elevation-1"
                       triggerOn={isOpenVerticalMenu ? [] : TriggerAction.CLICK}
                       content={<div style={{ width: 200 }}>{select}</div>}
                       placement="right"
                     >
-                      <Image src={imageUrl} alt={company?.name} width={24} height={48} />
+                      <Image src={imageUrl} alt={organization?.name} width={24} height={48} />
                     </Popover>
                   )}
                 </div>
@@ -119,7 +122,7 @@ export function MainMenu(props: MainMenuProps) {
     }
     menu.push(...initialMenu);
     return menu;
-  }, [multiOrganizations, isLogged, initialMenu, companies, company, setSearchParams, isSmall, preferredTheme, Image]);
+  }, [multiOrganizations, isLogged, initialMenu, organizations, organization, setSearchParams, isSmall, preferredTheme, Image]);
 
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode;
 
