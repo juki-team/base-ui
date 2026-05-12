@@ -1,7 +1,7 @@
 import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
+import { GroupIcon } from '../../../../atoms/server';
 import { T } from '../../../../atoms/T/T.server';
 import type { DataViewerHeadersType } from '../../../../organisms/types';
-import { GroupIcon } from '../../../../server';
 
 export function getContestContestantsHeader(): DataViewerHeadersType<ContestSummaryListResponseDTO> {
   return {
