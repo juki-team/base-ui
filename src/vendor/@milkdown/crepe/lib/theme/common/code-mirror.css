@@ -22,6 +22,20 @@
       outline: 1px solid var(--crepe-color-primary);
     }
 
+    .milkdown .milkdown-code-block .milkdown-code-block-placeholder {
+      margin: 0;
+      padding: 4px 0;
+      font-family: var(--crepe-font-code, monospace);
+      font-size: 14px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .milkdown .milkdown-code-block .milkdown-code-block-placeholder code {
+        font-family: inherit;
+      }
+
     .milkdown .milkdown-code-block .cm-editor {
       outline: none !important;
       background: var(--crepe-color-surface);

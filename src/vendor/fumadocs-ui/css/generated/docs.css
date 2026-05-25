@@ -84,7 +84,6 @@
 @source inline("defaultSlots");
 @source inline("desktop");
 @source inline("duration-250");
-@source inline("editOnGithub");
 @source inline("empty:mb-0");
 @source inline("first:mt-0");
 @source inline("flex-row-reverse");
@@ -160,7 +159,6 @@
 @source inline("pointer-events-none");
 @source inline("popover");
 @source inline("previousCollapsed");
-@source inline("previousPage");
 @source inline("progress");
 @source inline("progressbar");
 @source inline("provided");

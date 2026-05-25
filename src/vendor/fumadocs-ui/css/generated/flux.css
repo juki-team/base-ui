@@ -53,7 +53,6 @@
 @source inline("defaultTabs");
 @source inline("duration");
 @source inline("ease");
-@source inline("editOnGithub");
 @source inline("empty:mb-0");
 @source inline("exit");
 @source inline("first:mt-0");
@@ -112,7 +111,6 @@
 @source inline("pointer-events-none");
 @source inline("popLayout");
 @source inline("pr-(--removed-body-scroll-bar-size,0)");
-@source inline("previousPage");
 @source inline("progress");
 @source inline("progressbar");
 @source inline("provided");
