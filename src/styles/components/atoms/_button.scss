@@ -76,49 +76,49 @@
   &.regular {
     --line-height: var(--tx-h-m); // 24px
     &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
-      font-size: var(--tx-s-m); // 16px
+      //font-size: var(--tx-s-m); // 16px
     }
   }
   
   &.very-tiny {
     --line-height: var(--tx-h-vt); // 12px
     &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
-      font-size: var(--tx-s-vt); // 8px
+      //font-size: var(--tx-s-vt); // 8px
     }
   }
   
   &.tiny {
     --line-height: var(--tx-h-t); // 18px
     &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
-      font-size: var(--tx-s-t); // 12px
+      //font-size: var(--tx-s-t); // 12px
     }
   }
   
   &.small {
     --line-height: var(--tx-h-s); // 21px
     &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
-      font-size: var(--tx-s-s); // 14px
+      //font-size: var(--tx-s-s); // 14px
     }
   }
   
   &.large {
     --line-height: var(--tx-h-l); // 27px
     &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
-      font-size: var(--tx-s-l); // 18px
+      //font-size: var(--tx-s-l); // 18px
     }
   }
   
   &.huge {
     --line-height: var(--tx-h-h); // 30px
     &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
-      font-size: var(--tx-s-h); // 20px
+      //font-size: var(--tx-s-h); // 20px
     }
   }
   
   &.very-huge {
     --line-height: var(--tx-h-vh); // 36px
     &:not(.tx-vh):not(.tx-h):not(.tx-l):not(.tx-m):not(.tx-s):not(.tx-t):not(.tx-vt) {
-      font-size: var(--tx-s-vh); // 24px
+      //font-size: var(--tx-s-vh); // 24px
     }
   }
   
