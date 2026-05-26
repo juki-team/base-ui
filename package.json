@@ -92,7 +92,8 @@
     "check-style-files": "find src/styles -type f -name \"*.scss\" -exec stat -f \"%z %N\" {} + | awk '{printf \"%.1f KB %s\\n\", $1/1024, $2}' | sort -nr",
     "outdated": "npx npm-check-updates",
     "check:circular-deps": "npx madge --circular ./src/*",
-    "check:circular-deps-graph": "npx madge --circular ./dist/* --image deps.png"
+    "check:circular-deps-graph": "npx madge --circular ./dist/* --image deps.png",
+    "doctor": "react-doctor"
   },
   "dependencies": {
     "@ai-sdk/react": "^3.0.193",
@@ -228,7 +229,8 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.4",
     "vite": "^8.0.14",
-    "vitest": "^4.1.7"
+    "vitest": "^4.1.7",
+    "react-doctor": "^0.2.6"
   },
   "peerDependencies": {
     "@ably/spaces": "^0.5.2",

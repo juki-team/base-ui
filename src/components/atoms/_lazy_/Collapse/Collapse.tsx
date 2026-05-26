@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, domAnimation, LazyMotion, m } from 'motion/react';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState } from '../../../hooks/useHandleState';
 import { ExpandLessIcon, ExpandMoreIcon } from '../../server';
@@ -22,45 +22,36 @@ export default function Collapse(props: CollapseProps) {
   const toggle = () => setIsOpen((prevState) => !prevState);
 
   return (
-    // <div
-    //   className={classNames('jk-collapse-container jk-col stretch', className, {
-    //     collapsed: !isOpen,
-    //     // 'is-fully-opened': currentIsFullyOpened,
-    //     // 'is-fully-closed': currentIsFullyClosed,
-    //   })}
-    // >
     <>
       {renderReactNodeOrFunctionP1(header, {
         isOpen,
         close,
         open,
         toggle,
-        // isFullyClosed: currentIsFullyClosed,
-        // isFullyOpened: currentIsFullyOpened,
         icon: isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />,
         Icon: isOpen ? ExpandLessIcon : ExpandMoreIcon,
       })}
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            key="content"
-            initial={direction === 'row' ? { width: 0 } : { height: 0 }}
-            animate={direction === 'row' ? { width: 'auto' } : { height: 'auto' }}
-            exit={direction === 'row' ? { width: 0 } : { height: 0 }}
-            style={{ overflow: 'hidden' }}
-            className={className}
-          >
-            {renderReactNodeOrFunctionP1(children, {
-              isOpen,
-              close,
-              open,
-              toggle,
-              // isFullyClosed: currentIsFullyClosed,
-              // isFullyOpened: currentIsFullyOpened,
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <LazyMotion features={domAnimation} strict>
+        <AnimatePresence initial={false}>
+          {isOpen && (
+            <m.div
+              key="content"
+              initial={direction === 'row' ? { width: 0 } : { height: 0 }}
+              animate={direction === 'row' ? { width: 'auto' } : { height: 'auto' }}
+              exit={direction === 'row' ? { width: 0 } : { height: 0 }}
+              style={{ overflow: 'hidden' }}
+              className={className}
+            >
+              {renderReactNodeOrFunctionP1(children, {
+                isOpen,
+                close,
+                open,
+                toggle,
+              })}
+            </m.div>
+          )}
+        </AnimatePresence>
+      </LazyMotion>
     </>
   );
 }

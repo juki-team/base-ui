@@ -17,8 +17,9 @@ const content = (
   <div className="jk-pg-sm elevation-1">
     <h3>title</h3>
     <div>Lorem ipsum</div>
-    {test.map(() => (
-      <div>{1}</div>
+    {test.map((_, index) => (
+      // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length filler list in a story; no reordering
+      <div key={index}>{1}</div>
     ))}
   </div>
 );

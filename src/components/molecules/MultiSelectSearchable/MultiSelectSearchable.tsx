@@ -1,4 +1,4 @@
-import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { type ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { TriggerAction } from '../../../enums';
 import { Div, Input, InputCheckbox, Popover, VirtualizedRowsFixed } from '../../atoms';
@@ -43,7 +43,6 @@ export function MultiSelectSearchable<T, U extends ReactNode, V extends ReactNod
   const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
   const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
   const [search, setSearch] = useState('');
-  const [filteredOptions, setFilteredOptions] = useState(options);
   const selectedOptions: SelectOptionType<T, U, V>[] = useMemo(
     () =>
       initialSelectedOptions.map((initialOptionSelected) => {
@@ -58,13 +57,13 @@ export function MultiSelectSearchable<T, U extends ReactNode, V extends ReactNod
     [initialSelectedOptions, options],
   );
 
-  useEffect(() => {
+  const filteredOptions = useMemo(() => {
     if (search && onFilter) {
-      setFilteredOptions(options.filter((option) => onFilter({ search, option, options, selectedOptions })));
-    } else {
-      setFilteredOptions(options);
+      return options.filter((option) => onFilter({ search, option, options, selectedOptions }));
     }
+    return options;
   }, [onFilter, options, search, selectedOptions]);
+
   const selectedOptionRef = useRef<HTMLDivElement>(null);
 
   const widthLabels = Math.max(...[...options, ...selectedOptions].map(({ label }) => getTextContent(label).length));

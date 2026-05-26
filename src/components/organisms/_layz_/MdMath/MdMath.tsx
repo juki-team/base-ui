@@ -236,7 +236,14 @@ function MdMathComponent(props: MdMathProps) {
             }
 
             if (commands.preview === 'html') {
-              return <iframe src={href} style={{ width: '100%', ...style }} title="preview-html-document" />;
+              return (
+                <iframe
+                  src={href}
+                  style={{ width: '100%', ...style }}
+                  title="preview-html-document"
+                  sandbox="allow-same-origin"
+                />
+              );
             }
 
             if (href?.startsWith('#')) {

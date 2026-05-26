@@ -2,7 +2,7 @@ import { CODE_LANGUAGE } from '@juki-team/commons/constants';
 import type { JudgeDataResponseDTO, SubmissionDataResponseDTO, TestCaseResult } from '@juki-team/commons/dto';
 import { Judge, ProblemScoringMode, ProblemVerdict } from '@juki-team/commons/enums';
 import type { ContentsResponse } from '@juki-team/commons/types';
-import type { ReactNode } from 'react';
+import { type ReactNode, useMemo } from 'react';
 import { ContestTab } from '../../../../enums';
 import { jukiApiManager, jukiAppRoutes } from '../../../../settings';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
@@ -85,14 +85,18 @@ export const SubmitViewContent = ({
   const isLeetCode = submit.problem.judge.key === Judge.LEETCODE;
   const { data } = useFetcher<ContentsResponse<JudgeDataResponseDTO>>(jukiApiManager.apiV2.judge.getSummaryList().url);
   const getSubmissionUrl = data?.success ? data.contents.find(({ key }) => key === Judge.LEETCODE)?.getSubmissionUrl : '';
-  const getSubmissionUrlFn = new Function(
-    'problemKey',
-    'submissionId',
-    'username',
-    'submissionRunId',
-    getSubmissionUrl || "return ''",
-  );
-  const externalUrl = getSubmissionUrlFn(problemKey, submitId, nickname, runId) as string;
+  // The judge `getSubmissionUrl` is a per-judge JS template body owned by the Juki API.
+  // Trust boundary: Juki backend. Wrapped in try/catch + gated on isLeetCode to contain
+  // failures and avoid rebuilding the function on every render.
+  const externalUrl = useMemo(() => {
+    if (!(isLeetCode && getSubmissionUrl)) return '';
+    try {
+      const fn = new Function('problemKey', 'submissionId', 'username', 'submissionRunId', getSubmissionUrl);
+      return fn(problemKey, submitId, nickname, runId) as string;
+    } catch {
+      return '';
+    }
+  }, [isLeetCode, getSubmissionUrl, problemKey, submitId, nickname, runId]);
 
   return (
     <div className={classNames('jk-col stretch gap wh-100', className)}>

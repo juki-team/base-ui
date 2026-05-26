@@ -2,7 +2,6 @@ import { LanguageDescription, LanguageSupport, StreamLanguage } from '@codemirro
 import { languages } from '@codemirror/language-data';
 import { stex } from '@codemirror/legacy-modes/mode/stex';
 import { oneDark } from '@codemirror/theme-one-dark';
-import { EditorView } from '@codemirror/view';
 import { CODE_LANGUAGE } from '@juki-team/commons/constants';
 import { CodeLanguage, NotificationType, ProfileSetting, Status, Theme } from '@juki-team/commons/enums';
 import { codeBlockConfig } from '@milkdown/components/code-block';
@@ -22,14 +21,15 @@ import mermaid from 'mermaid';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { type Dispatch, type Ref, type SetStateAction, useImperativeHandle, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
-import { useT } from '../../../../atoms/T/client';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { T } from '../../../../atoms';
+import { useT } from '../../../../atoms/T/client';
 import { handleUploadImage } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useStableRef } from '../../../../hooks/useStableRef';
 // import { basicSetup } from '@uiw/react-codemirror';
 import { basicSetup } from '../../../../molecules/_lazy_/CodeEditor/codemirror/extensions/basic-setup';
+import { defaultLightThemeOption } from '../../../../molecules/_lazy_/CodeEditor/codemirror/theme/light';
 import type { NewNotificationType } from '../../../CardNotification/types';
 import { CodeRenderMode } from '../../MdMath/types';
 
@@ -71,17 +71,6 @@ interface MilkdownEditorContentProps {
   setLoader: Dispatch<SetStateAction<Status>>;
   enableImageUpload: boolean;
 }
-
-export const defaultLightThemeOption = EditorView.theme(
-  {
-    '&': {
-      backgroundColor: '#fff',
-    },
-  },
-  {
-    dark: false,
-  },
-);
 
 const uploader =
   (setLoader: Dispatch<SetStateAction<Status>>, addNotification: (props: NewNotificationType) => void): Uploader =>

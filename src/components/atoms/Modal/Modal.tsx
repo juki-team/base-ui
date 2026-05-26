@@ -47,23 +47,15 @@ export function Modal<T extends ModalButtonLoaderEventType>(props: ModalProps<T>
   );
 
   useEffect(() => {
-    if (isOpen) {
-      previousFocusRef.current = document.activeElement as HTMLElement;
-
-      // document.body.style.overflow = 'hidden';
-
-      setTimeout(() => {
-        modalRef.current?.focus();
-      }, 100);
-    } else {
-      // document.body.style.overflow = '';
-
+    if (!isOpen) {
       previousFocusRef.current?.focus();
+      return;
     }
-
-    return () => {
-      // document.body.style.overflow = '';
-    };
+    previousFocusRef.current = document.activeElement as HTMLElement;
+    const focusTimeoutId = setTimeout(() => {
+      modalRef.current?.focus();
+    }, 100);
+    return () => clearTimeout(focusTimeoutId);
   }, [isOpen]);
 
   useEffect(() => {
