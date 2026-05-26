@@ -2,31 +2,37 @@ import { CODE_LANGUAGE } from '@juki-team/commons/constants';
 import type { JudgeDataResponseDTO, SubmissionDataResponseDTO, TestCaseResult } from '@juki-team/commons/dto';
 import { Judge, ProblemScoringMode, ProblemVerdict } from '@juki-team/commons/enums';
 import type { ContentsResponse } from '@juki-team/commons/types';
-import { type ReactNode, useMemo } from 'react';
+import { type ReactNode, useMemo, useSyncExternalStore } from 'react';
 import { ContestTab } from '../../../../enums';
 import { jukiApiManager, jukiAppRoutes } from '../../../../settings';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { Button, Collapse, T } from '../../../atoms';
+import Collapse from '../../../atoms/_lazy_/Collapse/Collapse';
+import { Button } from '../../../atoms/Button/Button';
 import { DateLiteral } from '../../../atoms/server/DateLiteral/DateLiteral';
+import { OpenInNewIcon } from '../../../atoms/server/icons/google/OpenInNewIcon';
+import { UpIcon } from '../../../atoms/server/icons/signs/UpIcon';
+import { T } from '../../../atoms/T/T';
 import { classNames, getJudgeOrigin } from '../../../helpers';
 import { hasTimeHasMemory } from '../../../helpers/submission';
 import { useFetcher } from '../../../hooks/useFetcher';
-import { CodeViewer, SubmissionRejudgeButton, Timer } from '../../../molecules';
+import CodeViewer from '../../../molecules/_lazy_/CodeViewer/CodeViewer';
+import { SubmissionRejudgeButton } from '../../../molecules/SubmissionRejudgeButton/SubmissionRejudgeButton';
 import { TimerDisplay } from '../../../molecules/server/TimerDisplay/TimerDisplay';
-import { OpenInNewIcon, UpIcon } from '../../../server';
+import { Timer } from '../../../molecules/Timer/Timer';
 import { SubmissionMemory } from '../../server/SubmissionMemory/SubmissionMemory';
 import { SubmissionTime } from '../../server/SubmissionTime/SubmissionTime';
 import { UserChip } from '../../UserChip/UserChip';
 import { SubmissionGroupInfo } from './SubmissionGroupInfo';
 import { SubmissionListenerVerdict } from './SubmissionListenerVerdict';
 
-const DisplayGridData = ({ data }: { data: { title: ReactNode; content: ReactNode }[] }) => {
+type DisplayGridDataItem = { key: string; title: ReactNode; content: ReactNode };
+
+const DisplayGridData = ({ data }: { data: DisplayGridDataItem[] }) => {
   return (
     <div className="jk-table-grid wh-100">
-      {data.map(({ title, content }, index) => (
-        // biome-ignore lint/suspicious/noArrayIndexKey: grid cells are a fixed positional list per render; no dynamic reordering
-        <div key={index} className="jk-col bc-sf-hi jk-pg-xsm jk-br-ie">
+      {data.map(({ key, title, content }) => (
+        <div key={key} className="jk-col bc-sf-hi jk-pg-xsm jk-br-ie">
           <div>{title}</div>
           <div>{content}</div>
         </div>
@@ -65,6 +71,14 @@ export const SubmitViewContent = ({
 
   const isProblemEditor = isManager || isAdministrator;
   const date = new Date(timestamp);
+  // SSR-safe mount detection: false on server, true after client hydration.
+  // Used to gate Date.now()-derived rendering and avoid hydration mismatch.
+  const mounted = useSyncExternalStore(
+    // No subscription needed: mount state never changes after first render
+    () => () => undefined,
+    () => true,
+    () => false,
+  );
   const testCasesByGroup: { [key: number]: TestCaseResult[] } = {};
   for (const testCase of testCaseResults || []) {
     const group = testCase.group ? (problemScoringMode === ProblemScoringMode.SUBTASK ? testCase.group : 1) : 0;
@@ -107,6 +121,7 @@ export const SubmitViewContent = ({
           <DisplayGridData
             data={[
               {
+                key: 'nickname',
                 title: <T className="fw-bd tt-se">nickname</T>,
                 content: (
                   <UserChip
@@ -117,6 +132,7 @@ export const SubmitViewContent = ({
                 ),
               },
               {
+                key: 'problem',
                 title: <T className="fw-bd tt-se">problem</T>,
                 content: contest ? (
                   <Link
@@ -141,10 +157,12 @@ export const SubmitViewContent = ({
                 ),
               },
               {
+                key: 'language',
                 title: <T className="fw-bd tt-se">language</T>,
                 content: <div className="jk-row">{CODE_LANGUAGE[language]?.label || language}</div>,
               },
               {
+                key: 'verdict',
                 title: <T className="fw-bd tt-se">verdict</T>,
                 content: (
                   <div className="jk-row gap center">
@@ -156,25 +174,31 @@ export const SubmitViewContent = ({
               ...(hasTimeHasMemory(verdict)
                 ? [
                     {
+                      key: 'time-used',
                       title: <T className="fw-bd tt-se">time used</T>,
                       content: <SubmissionTime timeUsed={timeUsed} verdict={verdict} />,
                     },
                     {
+                      key: 'memory-used',
                       title: <T className="fw-bd tt-se">memory used</T>,
                       content: <SubmissionMemory memoryUsed={memoryUsed} verdict={verdict} />,
                     },
                   ]
                 : []),
               {
+                key: 'date',
                 title: <T className="fw-bd tt-se">date</T>,
                 content: <DateLiteral date={date} twoLines />,
               },
               ...(isProblemEditor
                 ? [
                     {
+                      key: 'judgment-time',
                       title: <T className="fw-bd tt-se">{judgmentTime > 0 ? 'judgment time' : 'judging'}</T>,
                       content: (
-                        <div className="jk-row">
+                        // suppressHydrationWarning: the Timer (Date.now()) is gated by `mounted`
+                        // (false on SSR, true after hydration) so it only renders client-side.
+                        <div className="jk-row" suppressHydrationWarning>
                           ~&nbsp;
                           {judgmentTime > 0 ? (
                             <TimerDisplay
@@ -184,13 +208,15 @@ export const SubmitViewContent = ({
                               maxSplit={2}
                               abbreviated
                             />
-                          ) : (
+                          ) : mounted ? (
+                            // eslint-disable-next-line react-doctor/rendering-hydration-mismatch-time -- gated by `mounted` (client-only), see useSyncExternalStore above
                             <Timer remaining={Date.now() - -judgmentTime} interval={1000} literal type="seconds" />
-                          )}
+                          ) : null}
                         </div>
                       ),
                     },
                     {
+                      key: 'actions',
                       title: <T className="fw-bd tt-se">actions</T>,
                       content: <SubmissionRejudgeButton submissionId={submit.submitId} />,
                     },

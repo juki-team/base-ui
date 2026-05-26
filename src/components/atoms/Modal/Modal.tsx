@@ -1,7 +1,7 @@
 import { Status } from '@juki-team/commons/enums';
-import { AnimatePresence, motion } from 'motion/react';
-import { type MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { classNames } from '../../helpers';
+import { AnimatePresence, domAnimation, LazyMotion, m } from 'motion/react';
+import { type MouseEvent, useCallback, useEffect, useEffectEvent, useRef, useState } from 'react';
+import { classNames } from '../../helpers/commons';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { useLoaderStatusSync } from '../../hooks/useLoaderStatusSync';
 import { useStableRef } from '../../hooks/useStableRef';
@@ -58,18 +58,20 @@ export function Modal<T extends ModalButtonLoaderEventType>(props: ModalProps<T>
     return () => clearTimeout(focusTimeoutId);
   }, [isOpen]);
 
+  const handleEscape = useEffectEvent((event: KeyboardEvent) => {
+    onCloseRef.current?.(setLoaderStatusOnClick, loader, { onKeyDownEvent: event });
+  });
+
   useEffect(() => {
     if (!(isOpen && closeOnKeyEscape)) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onCloseRef.current?.(setLoaderStatusOnClick, loader, { onKeyDownEvent: event });
-      }
+      if (event.key === 'Escape') handleEscape(event);
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [loader, setLoaderStatusOnClick, closeOnKeyEscape, isOpen, onCloseRef]);
+  }, [closeOnKeyEscape, isOpen]);
 
   const handleOverlayClick = useCallback(
     (event: MouseEvent<HTMLDivElement>) => {
@@ -91,49 +93,53 @@ export function Modal<T extends ModalButtonLoaderEventType>(props: ModalProps<T>
 
   return (
     <Portal>
-      <AnimatePresence>
-        {isOpen && (
-          <div
-            className={classNames('jk-modal-container', containerClassName, { expand })}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={ariaLabelledBy}
-            aria-describedby={ariaDescribedBy}
-          >
-            <motion.div
-              className="jk-modal-overlay jk-overlay jk-overlay-backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={handleOverlayClick}
-            />
-            <motion.div
-              ref={modalRef}
-              tabIndex={-1}
-              key="modal-content"
-              className={classNames('jk-modal-content jk-br elevation-3', className)}
-              initial={{ scale: 0.6, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.6, opacity: 0 }}
+      <LazyMotion features={domAnimation} strict>
+        <AnimatePresence>
+          {isOpen && (
+            // Focus trap is handled manually via useFocusTrap; aria-modal kept explicit because we
+            // render <dialog open> (not via showModal), so it is not implicitly modal per spec.
+            <dialog
+              open
+              className={classNames('jk-modal-container', containerClassName, { expand })}
+              aria-modal="true"
+              aria-labelledby={ariaLabelledBy}
+              aria-describedby={ariaDescribedBy}
             >
-              {closeIcon && (
-                <div className="jk-modal-close-button wh-100">
-                  <button
-                    type="button"
-                    className="jk-button bc-sf-hi only-icon jk-br-ie"
-                    aria-label="Close modal"
-                    disabled={loader === Status.LOADING}
-                    onClick={handleCloseClick}
-                  >
-                    {loader === Status.LOADING ? <SpinIcon aria-hidden="true" /> : <CloseIcon aria-hidden="true" />}
-                  </button>
-                </div>
-              )}
-              {children}
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+              <m.div
+                className="jk-modal-overlay jk-overlay jk-overlay-backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={handleOverlayClick}
+              />
+              <m.div
+                ref={modalRef}
+                tabIndex={-1}
+                key="modal-content"
+                className={classNames('jk-modal-content jk-br elevation-3', className)}
+                initial={{ scale: 0.6, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.6, opacity: 0 }}
+              >
+                {closeIcon && (
+                  <div className="jk-modal-close-button wh-100">
+                    <button
+                      type="button"
+                      className="jk-button bc-sf-hi only-icon jk-br-ie"
+                      aria-label="Close modal"
+                      disabled={loader === Status.LOADING}
+                      onClick={handleCloseClick}
+                    >
+                      {loader === Status.LOADING ? <SpinIcon aria-hidden="true" /> : <CloseIcon aria-hidden="true" />}
+                    </button>
+                  </div>
+                )}
+                {children}
+              </m.div>
+            </dialog>
+          )}
+        </AnimatePresence>
+      </LazyMotion>
     </Portal>
   );
 }

@@ -1,6 +1,15 @@
 @use "../../mixins";
 
 .jk-modal-container {
+  // Reset native <dialog> UA defaults (padding, border, background, margin)
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+
   position: fixed;
   top: 0;
   left: 0;
