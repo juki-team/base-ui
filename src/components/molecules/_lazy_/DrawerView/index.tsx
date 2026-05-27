@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { SpinIcon } from '../../../atoms/server';
+import { SpinIcon } from '../../../atoms/server/icons/SpinIcon';
 import type { DrawerViewProps } from './types';
 
 export const DrawerViewImport = () => import('./DrawerView');

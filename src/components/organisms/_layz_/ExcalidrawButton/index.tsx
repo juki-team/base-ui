@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { SpinIcon } from '../../../atoms/server';
+import { SpinIcon } from '../../../atoms/server/icons/SpinIcon';
 
 export const ExcalidrawButtonImport = () => import('./ExcalidrawButton');
 

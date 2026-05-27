@@ -1,17 +1,15 @@
 import type { ProblemSummaryListResponseDTO } from '@juki-team/commons/dto';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  ButtonLoader,
-  DataViewer,
-  getProblemAdminActionsHeader,
-  getProblemKeyHeader,
-  getProblemModeHeader,
-  getProblemNameHeader,
-  getProblemOwnerHeader,
-  getProblemTagsHeader,
-  getProblemTypeHeader,
-  T,
-} from '../../../../index';
+import { DataViewer } from '..';
+import { T } from '../../../../atoms/T/T';
+import { ButtonLoader } from '../../../../molecules/ButtonLoader/ButtonLoader';
+import { getProblemAdminActionsHeader } from '../../../../templates/columns/problem-columns/getProblemAdminActionsHeader';
+import { getProblemKeyHeader } from '../../../../templates/columns/problem-columns/getProblemKeyHeader';
+import { getProblemModeHeader } from '../../../../templates/columns/problem-columns/getProblemModeHeader';
+import { getProblemNameHeader } from '../../../../templates/columns/problem-columns/getProblemNameHeader';
+import { getProblemOwnerHeader } from '../../../../templates/columns/problem-columns/getProblemOwnerHeader';
+import { getProblemTagsHeader } from '../../../../templates/columns/problem-columns/getProblemTagsHeader';
+import { getProblemTypeHeader } from '../../../../templates/columns/problem-columns/getProblemTypeHeader';
 import { ButtonAction } from '../../../../molecules/ButtonAction/ButtonAction';
 import { RefreshIcon } from '../../../../atoms/server/icons/google/RefreshIcon';
 import type { DataViewerHeadersType, DataViewerProps, DataViewerRequestType } from '../types';

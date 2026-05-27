@@ -7,7 +7,8 @@ import { T } from '../../../../atoms/T/T';
 import { classNames, toBlob } from '../../../../helpers/commons';
 import { handleUploadImage } from '../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
-import { ButtonLoader, ImageLoaderCropper } from '../../../../molecules';
+import { ButtonLoader } from '../../../../molecules/ButtonLoader/ButtonLoader';
+import { ImageLoaderCropper } from '../../../../molecules/_lazy_/ImageLoaderCropper';
 import type { CropImageType } from '../../../../molecules/types';
 import type { OnPickImageUrlType } from '../types';
 

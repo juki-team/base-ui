@@ -13,7 +13,7 @@ import { useDataViewerRequester } from '../../hooks/useDataViewerRequester';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { useMatchMutate } from '../../hooks/useMatchMutate';
 import { ButtonLoader } from '../../molecules/ButtonLoader/ButtonLoader';
-import { DataViewer } from '../../organisms';
+import { DataViewer } from '../../organisms/_layz_/DataViewer';
 import type { DataViewerHeadersType } from '../../organisms/_layz_/DataViewer/types';
 export function UserMyActiveSessions() {
   const { deleteUserSession } = useJukiUser();

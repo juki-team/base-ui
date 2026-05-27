@@ -1,5 +1,5 @@
 import { lazy, type Ref, Suspense } from 'react';
-import { SpinIcon } from '../../../atoms/server';
+import { SpinIcon } from '../../../atoms/server/icons/SpinIcon';
 import type { MdMathEditorHandle, MdMathEditorProps } from './types';
 
 export const MdMathEditorImport = () => import('./MdMathEditor');

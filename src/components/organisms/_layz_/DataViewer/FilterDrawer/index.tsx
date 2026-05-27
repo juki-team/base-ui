@@ -7,9 +7,14 @@ import { Input } from '../../../../atoms/Input/Input';
 import { T } from '../../../../atoms/T/T';
 import { classNames } from '../../../../helpers/commons';
 import { upperFirst } from '../../../../helpers/text';
-import { CheckboxList, DrawerView, InputDate } from '../../../../molecules';
+import { CheckboxList } from '../../../../molecules/CheckboxList/CheckboxList';
+import { InputDate } from '../../../../molecules/InputDate/InputDate';
+import { DrawerView } from '../../../../molecules/_lazy_/DrawerView';
 import type { OptionType } from '../../../../molecules/types';
-import { ArrowDownwardIcon, ArrowUpwardIcon, FilterListIcon, SortIcon } from '../../../../server';
+import { ArrowDownwardIcon } from '../../../../atoms/server/icons/google/ArrowDownwardIcon';
+import { ArrowUpwardIcon } from '../../../../atoms/server/icons/google/ArrowUpwardIcon';
+import { FilterListIcon } from '../../../../atoms/server/icons/google/FilterListIcon';
+import { SortIcon } from '../../../../atoms/server/icons/specials/SortIcon';
 import {
   isDisabledEnd,
   isDisabledStart,

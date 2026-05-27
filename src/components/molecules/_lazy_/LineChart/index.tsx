@@ -1,5 +1,5 @@
 import { type FC, lazy, Suspense } from 'react';
-import { SpinIcon } from '../../../atoms/server';
+import { SpinIcon } from '../../../atoms/server/icons/SpinIcon';
 import type { LineChartProps } from './types';
 
 export const LineChartImport = () => import('./LineChart');

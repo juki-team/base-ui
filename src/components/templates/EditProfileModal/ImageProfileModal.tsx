@@ -8,7 +8,8 @@ import { T } from '../../atoms/T/T';
 import { toBlob } from '../../helpers/commons';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { useMatchMutate } from '../../hooks/useMatchMutate';
-import { ButtonLoader, ImageLoaderCropper } from '../../molecules';
+import { ButtonLoader } from '../../molecules/ButtonLoader/ButtonLoader';
+import { ImageLoaderCropper } from '../../molecules/_lazy_/ImageLoaderCropper';
 import type { CropImageType } from '../../molecules/types';
 import type { ImageProfileModalProps } from './types';
 

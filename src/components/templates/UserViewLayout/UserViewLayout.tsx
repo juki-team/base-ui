@@ -8,7 +8,7 @@ import { LockIcon } from '../../atoms/server/icons/google/LockIcon';
 import { isJudgeWindowLocation } from '../../helpers/problem';
 import { TabsInlineButton } from '../../molecules/TabsInline/TabsInlineButton';
 import { TwoContentLayout } from '../../molecules/layouts/TwoContentLayout';
-import { ChangePasswordModal } from '../../organisms';
+import { ChangePasswordModal } from '../../organisms/_layz_/ChangePasswordModal';
 import type { TabsType } from '../../types';
 import { EditProfileModal } from '../EditProfileModal/EditProfileModal';
 import { ResetPasswordModal } from '../ResetPasswordModal/ResetPasswordModal';

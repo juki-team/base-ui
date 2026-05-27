@@ -18,7 +18,7 @@ import { HorizontalMenu } from '../../organisms/HorizontalMenu/HorizontalMenu';
 import { LoginUser } from '../../organisms/LoginUser/LoginUser';
 import { VerticalMenu } from '../../organisms/VerticalMenu/VerticalMenu';
 import type { MenuType } from '../../organisms/types';
-import { SpinIcon } from '../../server';
+import { SpinIcon } from '../../atoms/server/icons/SpinIcon';
 import { SettingsSection } from './SettingsSection';
 import type { MainMenuProps } from './types';
 

@@ -10,7 +10,7 @@ import { T } from '../../../../../atoms/T/T';
 import { classNames, downloadBlobAsFile } from '../../../../../helpers/commons';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { useKeyDown } from '../../../../../hooks/useKeyDown';
-import { CodeViewer } from '../../../../../molecules';
+import { CodeViewer } from '../../../../../molecules/_lazy_/CodeViewer';
 import { ContentCopyIcon } from '../../../../../atoms/server/icons/google/ContentCopyIcon';
 import { DownloadIcon } from '../../../../../atoms/server/icons/google/DownloadIcon';
 import { FullscreenExitIcon } from '../../../../../atoms/server/icons/google/FullscreenExitIcon';

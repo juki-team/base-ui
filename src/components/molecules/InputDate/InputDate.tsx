@@ -5,7 +5,7 @@ import { T } from '../../atoms/T/T';
 import { Popover } from '../../atoms/_lazy_/Popover';
 import { DateLiteral } from '../../atoms/server/DateLiteral/DateLiteral';
 import { classNames } from '../../helpers/commons';
-import { PlusIcon } from '../../server';
+import { PlusIcon } from '../../atoms/server/icons/signs/PlusIcon';
 import { DatePicker } from '../DatePicker/DatePicker';
 import type { InputDateProps } from '../DatePicker/types';
 

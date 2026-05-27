@@ -4,7 +4,7 @@ import { type Dispatch, type ReactNode, type RefObject, type SetStateAction, use
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../../constants';
 import { classNames } from '../../../../helpers/commons';
-import { CodeEditor } from '../../../../molecules';
+import { CodeEditor } from '../../../../molecules/_lazy_/CodeEditor';
 import type { CodeEditorPropertiesType } from '../../../../molecules/_lazy_/CodeEditor/types';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';

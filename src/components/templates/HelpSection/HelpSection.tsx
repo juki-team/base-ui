@@ -1,6 +1,8 @@
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms/T/T';
-import { ContactPhoneIcon, MailIcon, TelegramIcon } from '../../atoms/server';
+import { ContactPhoneIcon } from '../../atoms/server/icons/google/ContactPhoneIcon';
+import { MailIcon } from '../../atoms/server/icons/google/MailIcon';
+import { TelegramIcon } from '../../atoms/server/icons/specials/TelegramIcon';
 
 export function HelpSection() {
   const { contactEmail, contactTelegram, contactCellPhoneNumber } = useUserStore((state) => state.organization);

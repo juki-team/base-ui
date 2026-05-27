@@ -12,7 +12,7 @@ import { EMPTY_LIST_SHEET } from '../../../../../../constants/worksheet';
 import { Button } from '../../../../../atoms/Button/Button';
 import { T } from '../../../../../atoms/T/T';
 import { Collapse } from '../../../../../atoms/_lazy_/Collapse';
-import { UpIcon } from '../../../../../atoms/server';
+import { UpIcon } from '../../../../../atoms/server/icons/signs/UpIcon';
 import { MdMathViewer } from '../../../../MdMathViewer/MdMathViewer';
 import { MdMathEditor } from '../../../MdMathEditor';
 import { AddNewChild } from '../AddNewChild';

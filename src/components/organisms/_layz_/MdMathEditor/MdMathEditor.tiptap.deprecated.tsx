@@ -28,7 +28,7 @@
 // import { all, createLowlight } from 'lowlight';
 // import { CSSProperties, memo, useCallback, useEffect, useRef, useState } from 'react';
 // import { Markdown } from 'tiptap-markdown';
-// import { classNames, downloadBlobAsFile } from '../../../helpers';
+// import { classNames, downloadBlobAsFile } from '../../../helpers/commons';
 // import { useJukiNotification } from '../../../hooks';
 // import { NotificationType } from '../../../types';
 // import { Button, T } from '../../atoms';

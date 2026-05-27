@@ -1,6 +1,11 @@
 import { Button } from '../../../../../atoms/Button/Button';
 import { T } from '../../../../../atoms/T/T';
-import { FullscreenExitIcon, FullscreenIcon, LoadingIcon, MinusIcon, PlusIcon, RefreshIcon } from '../../../../../atoms/server';
+import { FullscreenExitIcon } from '../../../../../atoms/server/icons/google/FullscreenExitIcon';
+import { FullscreenIcon } from '../../../../../atoms/server/icons/google/FullscreenIcon';
+import { LoadingIcon } from '../../../../../atoms/server/icons/google/LoadingIcon';
+import { RefreshIcon } from '../../../../../atoms/server/icons/google/RefreshIcon';
+import { MinusIcon } from '../../../../../atoms/server/icons/signs/MinusIcon';
+import { PlusIcon } from '../../../../../atoms/server/icons/signs/PlusIcon';
 import type { GraphicToolbarProps } from './types';
 
 export function GraphicToolbar(props: GraphicToolbarProps) {

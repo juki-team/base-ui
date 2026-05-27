@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react-vite';
 import { type FC, useState } from 'react';
 import type { ColorResult } from 'react-color';
 import { MockupJukiProvider } from '../../../../mockup/MockupJukiProvider';
-import { InputColor } from '../../../../molecules';
+import { InputColor } from '../../../../molecules/_lazy_/InputColor';
 import { Input } from '../../../Input/Input';
 import { T } from '../../../T/T';
 import type { BasicIconProps } from '../types';

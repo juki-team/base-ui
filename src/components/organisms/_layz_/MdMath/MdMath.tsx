@@ -24,8 +24,10 @@ import { VisibilityOffIcon } from '../../../atoms/server/icons/google/Visibility
 import { classNames } from '../../../helpers/commons';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useSyncedState } from '../../../hooks/useSyncedState';
-import { CodeViewer } from '../../../molecules';
-import { ErrorIcon, OpenInNewIcon, SpinIcon } from '../../../server';
+import { CodeViewer } from '../../../molecules/_lazy_/CodeViewer';
+import { SpinIcon } from '../../../atoms/server/icons/SpinIcon';
+import { ErrorIcon } from '../../../atoms/server/icons/google/ErrorIcon';
+import { OpenInNewIcon } from '../../../atoms/server/icons/google/OpenInNewIcon';
 import type { SetSearchParamsType } from '../../../types';
 import { GraphvizViewers } from '../../GraphvizViewers/GraphvizViewers';
 import { UserChip } from '../../UserChip/UserChip';

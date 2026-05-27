@@ -2,13 +2,15 @@ import type { Meta } from '@storybook/react-vite';
 import { type FC, useState } from 'react';
 import type { ColorResult } from 'react-color';
 import { MockupJukiProvider } from '../../../../mockup/MockupJukiProvider';
-import { InputColor } from '../../../../molecules';
+import { InputColor } from '../../../../molecules/_lazy_/InputColor';
 import { Input } from '../../../Input/Input';
 import { Select } from '../../../Select/Select';
 import { SpinIcon } from '../SpinIcon';
 import type { SpinIconProps } from '../SpinIcon/types';
 import type { BasicIconProps } from '../types';
-import { BalloonIcon, GmailIcon, TelegramIcon } from './index';
+import { BalloonIcon } from './BalloonIcon';
+import { GmailIcon } from './GmailIcon';
+import { TelegramIcon } from './TelegramIcon';
 import { SortIcon } from './SortIcon';
 
 const meta: Meta<typeof GmailIcon> = {

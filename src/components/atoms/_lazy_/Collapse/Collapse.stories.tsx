@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupJukiProvider } from '../../../mockup/MockupJukiProvider';
-import { UpIcon } from '../../server';
+import { UpIcon } from '../../server/icons/signs/UpIcon';
 import { Collapse } from './index';
 
 const meta: Meta<typeof Collapse> = {

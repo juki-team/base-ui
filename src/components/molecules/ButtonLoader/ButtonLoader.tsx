@@ -3,7 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 import { Button } from '../../atoms/Button/Button';
 import { classNames } from '../../helpers/commons';
 import { useLoaderStatusSync } from '../../hooks/useLoaderStatusSync';
-import { CheckIcon, ErrorIcon, SpinIcon } from '../../server';
+import { SpinIcon } from '../../atoms/server/icons/SpinIcon';
+import { CheckIcon } from '../../atoms/server/icons/google/CheckIcon';
+import { ErrorIcon } from '../../atoms/server/icons/google/ErrorIcon';
 import type { ButtonLoaderProps } from './types';
 
 export function ButtonLoader(props: ButtonLoaderProps) {

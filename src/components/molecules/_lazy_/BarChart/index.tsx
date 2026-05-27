@@ -1,5 +1,5 @@
 import { type FC, lazy, Suspense } from 'react';
-import { SpinIcon } from '../../../atoms/server';
+import { SpinIcon } from '../../../atoms/server/icons/SpinIcon';
 import type { BarChartProps } from './types';
 
 export const BarChartImport = () => import('./BarChart');

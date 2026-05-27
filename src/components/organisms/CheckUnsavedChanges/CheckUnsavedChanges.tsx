@@ -4,7 +4,8 @@ import microDiff from 'microdiff';
 import { cloneElement, type ReactElement, type ReactNode, useRef, useState } from 'react';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { T } from '../../atoms/T/T';
-import { CodeViewer, TwoActionModal } from '../../molecules';
+import { TwoActionModal } from '../../molecules/TwoActionModal/TwoActionModal';
+import { CodeViewer } from '../../molecules/_lazy_/CodeViewer';
 import type { CheckUnsavedChangesProps } from './types';
 
 // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred

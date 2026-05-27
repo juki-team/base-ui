@@ -24,15 +24,13 @@ import { renderReactNodeOrFunction } from '../../../../helpers/render';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useSessionStorage } from '../../../../hooks/useSessionStorage';
 import { Pagination } from '../../../../molecules/Pagination/Pagination';
-import {
-  CalendarViewWeekIcon,
-  DownloadIcon,
-  FilterListIcon,
-  MenuIcon,
-  RefreshIcon,
-  SpinIcon,
-  ViewModuleIcon,
-} from '../../../../server';
+import { SpinIcon } from '../../../../atoms/server/icons/SpinIcon';
+import { CalendarViewWeekIcon } from '../../../../atoms/server/icons/google/CalendarViewWeekIcon';
+import { DownloadIcon } from '../../../../atoms/server/icons/google/DownloadIcon';
+import { FilterListIcon } from '../../../../atoms/server/icons/google/FilterListIcon';
+import { MenuIcon } from '../../../../atoms/server/icons/google/MenuIcon';
+import { RefreshIcon } from '../../../../atoms/server/icons/google/RefreshIcon';
+import { ViewModuleIcon } from '../../../../atoms/server/icons/google/ViewModuleIcon';
 import type { SetLoaderStatusOnClickType } from '../../../../types';
 import { FilterDrawer } from '../FilterDrawer';
 import type { DataViewerToolbarProps } from '../types';

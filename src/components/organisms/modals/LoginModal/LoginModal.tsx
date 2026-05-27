@@ -6,7 +6,8 @@ import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms/T/T';
 import { useJukiUser } from '../../../hooks/useJukiUser';
 import type { SetLoaderStatusOnClickType } from '../../../types';
-import { ForgotPasswordModal, LoginModalTemplate } from './LoginModalTemplate';
+import { ForgotPasswordModal } from './LoginModalTemplate/ForgotPassword';
+import { LoginModalTemplate } from './LoginModalTemplate/LoginModalTemplate';
 import type { LoginFormType } from './LoginModalTemplate/types';
 import type { LoginModalProps } from './types';
 

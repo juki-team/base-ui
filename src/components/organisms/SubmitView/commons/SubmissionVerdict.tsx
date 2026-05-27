@@ -5,7 +5,7 @@ import { useT } from '../../../atoms/T/client';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms/T/T';
 import { classNames } from '../../../helpers/commons';
-import { SpinIcon } from '../../../server';
+import { SpinIcon } from '../../../atoms/server/icons/SpinIcon';
 
 export interface SubmissionVerdictProps {
   verdict: ProblemVerdict;

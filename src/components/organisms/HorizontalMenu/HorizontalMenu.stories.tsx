@@ -12,7 +12,9 @@ import { AppsIcon } from '../../atoms/server/icons/google/AppsIcon';
 import { FilterListIcon } from '../../atoms/server/icons/google/FilterListIcon';
 import { SettingsIcon } from '../../atoms/server/icons/google/SettingsIcon';
 import { ViewHeadlineIcon } from '../../atoms/server/icons/google/ViewHeadlineIcon';
-import { HorizontalMenu as HorizontalMenuCmp, MdMathEditor, VerticalMenu } from '../index';
+import { VerticalMenu } from '../VerticalMenu/VerticalMenu';
+import { MdMathEditor } from '../_layz_/MdMathEditor';
+import { HorizontalMenu as HorizontalMenuCmp } from './HorizontalMenu';
 import { SAMPLE_MD_CONTENT } from '../MdMathViewer/constants';
 
 export default {

@@ -1,7 +1,9 @@
 import { Children, type MouseEvent, memo, type ReactElement, useCallback, useRef, useState } from 'react';
 import { Div } from '../../../../../atoms/Div/Div';
 import { classNames } from '../../../../../helpers/commons';
-import { ArrowDownwardIcon, ArrowUpwardIcon, SortIcon } from '../../../../../server';
+import { ArrowDownwardIcon } from '../../../../../atoms/server/icons/google/ArrowDownwardIcon';
+import { ArrowUpwardIcon } from '../../../../../atoms/server/icons/google/ArrowUpwardIcon';
+import { SortIcon } from '../../../../../atoms/server/icons/specials/SortIcon';
 import { fixHeaders, renderHead } from '../../commons/utils';
 import type { DataViewerTableHeadersType, TableHeadProps, TableSortType } from '../../types';
 import { Filter } from './Filter';

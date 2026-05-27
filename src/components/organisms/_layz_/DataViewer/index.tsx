@@ -1,5 +1,5 @@
 import { lazy, type ReactElement, Suspense } from 'react';
-import { SpinIcon } from '../../../atoms/server';
+import { SpinIcon } from '../../../atoms/server/icons/SpinIcon';
 import type { DataViewerProps } from './types';
 
 export const DataViewerImport = () => import('./DataViewer');

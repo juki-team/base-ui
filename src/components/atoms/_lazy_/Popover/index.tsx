@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { SpinIcon } from '../../server';
+import { SpinIcon } from '../../server/icons/SpinIcon';
 import type { PopoverProps } from './types';
 
 export const PopoverImport = () => import('./Popover');

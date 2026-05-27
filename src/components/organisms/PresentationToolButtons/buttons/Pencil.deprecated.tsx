@@ -1,9 +1,12 @@
 // import * as fabric from 'fabric';
 // import { useEffect, useRef, useState } from 'react';
-// import { T } from '../../../atoms';
+// import { T } from '../../../atoms/T/T';
 // import { Button } from '../../../atoms/Button/Button';
 // import { Input } from '../../../atoms/inputs/Input';
-// import { DeleteIcon, EditIcon, InkEraserIcon, StylusNoteIcon } from '../../../atoms/server';
+// import { DeleteIcon } from '../../../atoms/server/icons/google/DeleteIcon';
+// import { EditIcon } from '../../../atoms/server/icons/google/EditIcon';
+// import { InkEraserIcon } from '../../../atoms/server/icons/google/InkEraserIcon';
+// import { StylusNoteIcon } from '../../../atoms/server/icons/google/StylusNoteIcon';
 // import { PanToolIcon } from '../../../atoms/server/icons/google/PanToolIcon';
 // import { ButtonAction } from '../../../molecules/FloatToolbar/ButtonAction';
 // import { InputColor } from '../../../molecules/InputColor/InputColor';

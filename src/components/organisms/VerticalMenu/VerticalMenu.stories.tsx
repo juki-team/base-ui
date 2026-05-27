@@ -5,8 +5,12 @@ import { T } from '../../atoms/T/T';
 import { Popover } from '../../atoms/_lazy_/Popover';
 import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import type { DrawerActionsType } from '../../molecules/Drawer/types';
-import { AppsIcon, FilterListIcon, PlusIcon, SettingsIcon, ViewHeadlineIcon } from '../../server';
-import { MdMathEditor } from '../index';
+import { AppsIcon } from '../../atoms/server/icons/google/AppsIcon';
+import { FilterListIcon } from '../../atoms/server/icons/google/FilterListIcon';
+import { SettingsIcon } from '../../atoms/server/icons/google/SettingsIcon';
+import { ViewHeadlineIcon } from '../../atoms/server/icons/google/ViewHeadlineIcon';
+import { PlusIcon } from '../../atoms/server/icons/signs/PlusIcon';
+import { MdMathEditor } from '../_layz_/MdMathEditor';
 import { SAMPLE_MD_CONTENT } from '../MdMathViewer/constants';
 import { VerticalMenu as VerticalMenuCmp } from './VerticalMenu';
 

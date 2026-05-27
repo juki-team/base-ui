@@ -6,7 +6,7 @@ import { Button } from '../../../../atoms/Button/Button';
 import { T } from '../../../../atoms/T/T';
 import { Popover } from '../../../../atoms/_lazy_/Popover';
 import type { PopoverProps } from '../../../../atoms/_lazy_/Popover/types';
-import { PlusIcon } from '../../../../atoms/server';
+import { PlusIcon } from '../../../../atoms/server/icons/signs/PlusIcon';
 import { ButtonLoader } from '../../../../molecules/ButtonLoader/ButtonLoader';
 import type { SetSheetType } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';

@@ -11,7 +11,8 @@ import { PlayCircleIcon } from '../../atoms/server/icons/google/PlayCircleIcon';
 import { ReplyIcon } from '../../atoms/server/icons/google/ReplyIcon';
 import { StopCircleIcon } from '../../atoms/server/icons/google/StopCircleIcon';
 import { classNames } from '../../helpers/commons';
-import { CodeViewer, FloatToolbar } from '../../molecules';
+import { FloatToolbar } from '../../molecules/FloatToolbar/FloatToolbar';
+import { CodeViewer } from '../../molecules/_lazy_/CodeViewer';
 import { GraphvizViewer } from '../_layz_/GraphvizViewer';
 import type { GraphvizViewerProps } from '../_layz_/GraphvizViewer/types';
 

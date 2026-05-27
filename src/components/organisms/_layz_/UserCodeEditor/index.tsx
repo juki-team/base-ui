@@ -1,5 +1,5 @@
 import { lazy, type ReactElement, type Ref, Suspense } from 'react';
-import { SpinIcon } from '../../../atoms/server';
+import { SpinIcon } from '../../../atoms/server/icons/SpinIcon';
 import type { UserCodeEditorHandle, UserCodeEditorProps } from './types';
 
 export const UserCodeEditorImport = () => import('./UserCodeEditor');

@@ -1,14 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { SelectOptionType } from '../../../../atoms/Select/types';
-import {
-  ButtonLoader,
-  DataViewer,
-  FieldDate,
-  FieldText,
-  Popover,
-  Select as SelectComponent,
-  T,
-} from '../../../../index';
+import { DataViewer } from '..';
+import { Select as SelectComponent } from '../../../../atoms/Select/Select';
+import { T } from '../../../../atoms/T/T';
+import { Popover } from '../../../../atoms/_lazy_/Popover';
+import { ButtonLoader } from '../../../../molecules/ButtonLoader/ButtonLoader';
+import { FieldDate } from '../../../FieldDate/FieldDate';
+import { FieldText } from '../../../FieldText/FieldText';
 import { RefreshIcon } from '../../../../atoms/server/icons/google/RefreshIcon';
 import { TextHeadCell } from '../../../server/TextHeadCell/TextHeadCell';
 import type { DataViewerHeadersType, DataViewerProps, DataViewerRequestType } from '../types';

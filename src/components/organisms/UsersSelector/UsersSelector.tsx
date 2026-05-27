@@ -9,7 +9,9 @@ import { T } from '../../atoms/T/T';
 import { TextArea } from '../../atoms/TextArea/TextArea';
 import { useFetcher } from '../../hooks/useFetcher';
 import { MultiSelectSearchable } from '../../molecules/MultiSelectSearchable/MultiSelectSearchable';
-import { GroupsIcon, RefreshIcon, SpinIcon } from '../../server';
+import { SpinIcon } from '../../atoms/server/icons/SpinIcon';
+import { GroupsIcon } from '../../atoms/server/icons/google/GroupsIcon';
+import { RefreshIcon } from '../../atoms/server/icons/google/RefreshIcon';
 import { UserChip } from '../UserChip/UserChip';
 import type { UsersSelectorProps } from './types';
 

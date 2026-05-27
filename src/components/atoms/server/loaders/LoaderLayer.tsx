@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react';
-import { SpinIcon } from '../icons';
+import { SpinIcon } from '../icons/SpinIcon';
 import type { LoaderLayerProps } from './types';
 
 export const LoaderLayer = ({ loading, children }: PropsWithChildren<LoaderLayerProps>) => {

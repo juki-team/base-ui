@@ -5,7 +5,10 @@ import { Div } from '../../atoms/Div/Div';
 import { Select } from '../../atoms/Select/Select';
 import { T } from '../../atoms/T/T';
 import { classNames } from '../../helpers/commons';
-import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '../../server';
+import { SpinIcon } from '../../atoms/server/icons/SpinIcon';
+import { NavigateBeforeIcon } from '../../atoms/server/icons/google/NavigateBeforeIcon';
+import { NavigateNextIcon } from '../../atoms/server/icons/google/NavigateNextIcon';
+import { DoubleUpIcon } from '../../atoms/server/icons/signs/DoubleUpIcon';
 import type { PaginationProps } from './types';
 
 const SIZE_PAGES = 3;

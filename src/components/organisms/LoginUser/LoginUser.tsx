@@ -9,7 +9,9 @@ import { classNames } from '../../helpers/commons';
 import { getQuerySessionId } from '../../helpers/fetch';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { ButtonLoader } from '../../molecules/ButtonLoader/ButtonLoader';
-import { LoginIcon, LogoutIcon, SpinIcon } from '../../server';
+import { SpinIcon } from '../../atoms/server/icons/SpinIcon';
+import { LoginIcon } from '../../atoms/server/icons/google/LoginIcon';
+import { LogoutIcon } from '../../atoms/server/icons/google/LogoutIcon';
 import { UserChip } from '../UserChip/UserChip';
 import type { LoginUserProps } from './types';
 

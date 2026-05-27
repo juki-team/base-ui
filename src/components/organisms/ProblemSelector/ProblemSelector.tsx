@@ -18,7 +18,9 @@ import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { ButtonLoader } from '../../molecules/ButtonLoader/ButtonLoader';
 import { MultiSelectSearchable } from '../../molecules/MultiSelectSearchable/MultiSelectSearchable';
-import { DownloadIcon, RefreshIcon, SpinIcon } from '../../server';
+import { SpinIcon } from '../../atoms/server/icons/SpinIcon';
+import { DownloadIcon } from '../../atoms/server/icons/google/DownloadIcon';
+import { RefreshIcon } from '../../atoms/server/icons/google/RefreshIcon';
 import type { JudgeDataType, ProblemSelectorProps } from './types';
 
 export function ProblemSelector({ onSelect, extend = false, organizationKey = '' }: ProblemSelectorProps) {
