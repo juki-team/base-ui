@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '../../../atoms';
+import { Button } from '../../../atoms/Button/Button';
 import { EditIcon } from '../../../atoms/server';
 import { MockJkContestTable } from '../../../organisms/_layz_/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../../organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable';

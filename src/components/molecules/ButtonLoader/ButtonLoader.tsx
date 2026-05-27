@@ -1,6 +1,6 @@
 import { Status } from '@juki-team/commons/enums';
 import { useEffect, useRef, useState } from 'react';
-import { Button } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
 import { classNames } from '../../helpers/commons';
 import { useLoaderStatusSync } from '../../hooks/useLoaderStatusSync';
 import { CheckIcon, ErrorIcon, SpinIcon } from '../../server';

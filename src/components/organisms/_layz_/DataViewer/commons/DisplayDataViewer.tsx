@@ -2,7 +2,7 @@ import { DataViewMode } from '@juki-team/commons/enums';
 import { Children, type CSSProperties, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../../../constants';
-import { T } from '../../../../atoms';
+import { T } from '../../../../atoms/T/T';
 import { classNames } from '../../../../helpers/commons';
 import { renderReactNodeOrFunction } from '../../../../helpers/render';
 import { LineLoader } from '../../../../server';

@@ -3,7 +3,7 @@ import { ProfileTab } from '../../../enums';
 import { jukiAppRoutes } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { LockIcon } from '../../atoms/server';
 import { isJudgeWindowLocation } from '../../helpers/problem';
 import { TabsInlineButton, TwoContentLayout } from '../../molecules';

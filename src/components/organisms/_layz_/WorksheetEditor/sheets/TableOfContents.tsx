@@ -1,6 +1,7 @@
 import type { WorksheetsInPages } from '@juki-team/commons/types';
 import { QueryParamKey } from '../../../../../enums';
-import { Collapse, Div } from '../../../../atoms';
+import { Div } from '../../../../atoms/Div/Div';
+import { Collapse } from '../../../../atoms/_lazy_/Collapse';
 import { classNames } from '../../../../helpers/commons';
 import { MdMath } from '../../MdMath';
 import type { OnPageChange } from '../../WorksheetViewer/types';

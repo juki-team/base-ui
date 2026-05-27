@@ -10,7 +10,7 @@ import json from 'highlight.js/lib/languages/json';
 import markdown from 'highlight.js/lib/languages/markdown';
 import python from 'highlight.js/lib/languages/python';
 import { type CSSProperties, useMemo } from 'react';
-import { CopyToClipboard } from '../../../atoms';
+import { CopyToClipboard } from '../../../atoms/CopyToClipboard/CopyToClipboard';
 import { classNames } from '../../../helpers/commons';
 import type { CodeViewerProps } from './types';
 

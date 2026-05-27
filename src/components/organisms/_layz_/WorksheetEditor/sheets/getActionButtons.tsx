@@ -1,6 +1,7 @@
 import type { WorksheetType } from '@juki-team/commons/enums';
 import type { BodyWorksheet } from '@juki-team/commons/types';
-import { Button, T } from '../../../../atoms';
+import { Button } from '../../../../atoms/Button/Button';
+import { T } from '../../../../atoms/T/T';
 import { CloseIcon, EditIcon, SaveIcon, SettingsIcon, SortIcon, VisibilityIcon } from '../../../../atoms/server';
 import type { ButtonActionProps } from '../../../../molecules/FloatToolbar/types';
 import type { ButtonSizeType } from '../../../../types';

@@ -1,4 +1,4 @@
-import { Div } from '../../atoms';
+import { Div } from '../../atoms/Div/Div';
 import { classNames } from '../../helpers/commons';
 import type { FieldProps } from '../_layz_/DataViewer/types';
 

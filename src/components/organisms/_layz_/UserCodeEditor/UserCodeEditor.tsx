@@ -14,7 +14,7 @@ import {
 } from 'react';
 import { EMPTY_OBJECT } from '../../../../constants';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { T } from '../../../atoms';
+import { T } from '../../../atoms/T/T';
 import { normalizeFolderPath } from '../../../helpers/commons';
 import { getEditorSettingsStorageKey, getSettingsStoreKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers/problem';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';

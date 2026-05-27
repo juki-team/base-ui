@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react';
-import { Popover } from '../../atoms';
+import { Popover } from '../../atoms/_lazy_/Popover';
 import { ExclamationIcon } from '../../atoms/server';
 import type { InformationPopoverProps } from './types';
 

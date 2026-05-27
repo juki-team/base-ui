@@ -1,7 +1,9 @@
 import { useEffect, useMemo } from 'react';
 import { useT } from '../../atoms/T/client';
 import { usePageStore } from '../../../stores/page/usePageStore';
-import { Div, Select, T } from '../../atoms';
+import { Div } from '../../atoms/Div/Div';
+import { Select } from '../../atoms/Select/Select';
+import { T } from '../../atoms/T/T';
 import { classNames } from '../../helpers/commons';
 import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '../../server';
 import type { PaginationProps } from './types';

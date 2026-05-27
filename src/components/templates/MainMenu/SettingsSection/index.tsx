@@ -3,7 +3,10 @@ import type { Dispatch, KeyboardEventHandler, ReactNode, SyntheticEvent } from '
 import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { Div, Modal, Popover, T } from '../../../atoms';
+import { Div } from '../../../atoms/Div/Div';
+import { Modal } from '../../../atoms/Modal/Modal';
+import { T } from '../../../atoms/T/T';
+import { Popover } from '../../../atoms/_lazy_/Popover';
 import { AppsIcon, HelpIcon, LoadingIcon, SpinIcon } from '../../../atoms/server';
 import { classNames } from '../../../helpers/commons';
 import { useJukiUserSettings } from '../../../hooks/useJukiUser';

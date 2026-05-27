@@ -2,7 +2,8 @@ import { CODE_LANGUAGE, PROBLEM_MODE, PROBLEM_TYPE } from '@juki-team/commons/co
 import { Judge, Language, ProblemScoringMode } from '@juki-team/commons/enums';
 import type { ProblemSettings } from '@juki-team/commons/types';
 import { Children, Fragment, type PropsWithChildren, type ReactNode } from 'react';
-import { Popover, T } from '../../atoms';
+import { T } from '../../atoms/T/T';
+import { Popover } from '../../atoms/_lazy_/Popover';
 import { classNames } from '../../helpers/commons';
 import { ExclamationIcon, InfoIIcon } from '../../server';
 import type { ProblemInfoProps } from './types';

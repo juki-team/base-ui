@@ -1,6 +1,9 @@
 import { isObjectJson } from '@juki-team/commons/helpers';
 import type { Dispatch } from 'react';
-import { Button, InputTextArea, Modal, T } from '../../../../atoms';
+import { Button } from '../../../../atoms/Button/Button';
+import { InputTextArea } from '../../../../atoms/InputTextArea/InputTextArea';
+import { Modal } from '../../../../atoms/Modal/Modal';
+import { T } from '../../../../atoms/T/T';
 import type { BasicModalProps } from '../../../../atoms/Modal/types';
 import { useSyncedState } from '../../../../hooks/useSyncedState';
 

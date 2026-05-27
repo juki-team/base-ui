@@ -1,6 +1,6 @@
 import type { ImageSummaryResponseDTO } from '@juki-team/commons/dto';
 import { NotificationType } from '@juki-team/commons/enums';
-import { T } from '../../../../atoms';
+import { T } from '../../../../atoms/T/T';
 import { copy } from '../../../../helpers/copy';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { FloatToolbar } from '../../../../molecules';

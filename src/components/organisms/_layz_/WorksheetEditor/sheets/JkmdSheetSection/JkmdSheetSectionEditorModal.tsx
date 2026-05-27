@@ -1,6 +1,8 @@
 import type { JkmdSheet } from '@juki-team/commons/types';
 import { type Dispatch, useState } from 'react';
-import { Input, Modal, T } from '../../../../../atoms';
+import { Input } from '../../../../../atoms/Input/Input';
+import { Modal } from '../../../../../atoms/Modal/Modal';
+import { T } from '../../../../../atoms/T/T';
 import type { BasicModalProps } from '../../../../../atoms/Modal/types';
 import { MdMathEditor } from '../../../MdMathEditor';
 

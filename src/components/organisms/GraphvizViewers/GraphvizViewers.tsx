@@ -1,6 +1,9 @@
 import { CodeLanguage } from '@juki-team/commons/enums';
 import { useEffect, useState } from 'react';
-import { Button, Input, Modal, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { Input } from '../../atoms/Input/Input';
+import { Modal } from '../../atoms/Modal/Modal';
+import { T } from '../../atoms/T/T';
 import { ArrowLeftIcon, ArrowRightIcon, CodeIcon, PlayCircleIcon, ReplyIcon, StopCircleIcon } from '../../atoms/server';
 import { classNames } from '../../helpers/commons';
 import { CodeViewer, FloatToolbar } from '../../molecules';

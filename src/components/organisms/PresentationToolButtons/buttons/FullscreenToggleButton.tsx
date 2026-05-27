@@ -1,5 +1,5 @@
 import { usePageStore } from '../../../../stores/page/usePageStore';
-import { Button } from '../../../atoms';
+import { Button } from '../../../atoms/Button/Button';
 import { FullscreenExitIcon, FullscreenIcon } from '../../../atoms/server';
 
 function enterFullscreen() {

@@ -14,7 +14,9 @@ import {
 import { TriggerAction } from '../../../../../enums';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
-import { MultiSelect, Popover, Select } from '../../../../atoms';
+import { MultiSelect } from '../../../../atoms/MultiSelect/MultiSelect';
+import { Select } from '../../../../atoms/Select/Select';
+import { Popover } from '../../../../atoms/_lazy_/Popover';
 import { TableEyeIcon } from '../../../../atoms/server';
 import { classNames, downloadUrlAsFile, isBrowser } from '../../../../helpers/commons';
 import { getAuthorizedRequest } from '../../../../helpers/fetch';

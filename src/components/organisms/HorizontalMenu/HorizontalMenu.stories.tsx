@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react';
 import { action, configureActions } from 'storybook/actions';
 import { TriggerAction } from '../../../enums';
-import { Button, Popover, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { T } from '../../atoms/T/T';
+import { Popover } from '../../atoms/_lazy_/Popover';
 
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { MockupJukiProvider } from '../../mockup';

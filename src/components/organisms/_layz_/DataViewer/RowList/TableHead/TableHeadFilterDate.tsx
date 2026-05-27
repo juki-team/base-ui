@@ -9,7 +9,8 @@ import {
   isValidDate,
 } from '@juki-team/commons/helpers';
 import { useEffect, useRef, useState } from 'react';
-import { Button, T } from '../../../../../atoms';
+import { Button } from '../../../../../atoms/Button/Button';
+import { T } from '../../../../../atoms/T/T';
 import { InputDate } from '../../../../../molecules';
 import type { TableHeadFilterDateProps } from './types';
 

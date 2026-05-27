@@ -1,7 +1,7 @@
 import { type CSSProperties, cloneElement, type PropsWithChildren, type ReactElement } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { usePageStore } from '../../../stores/page/usePageStore';
-import { Modal } from '../../atoms';
+import { Modal } from '../../atoms/Modal/Modal';
 import type { ModalButtonLoaderEventType } from '../../atoms/Modal/types';
 import { renderReactNodeOrFunction } from '../../helpers/render';
 import type { SplitModalProps } from './types';

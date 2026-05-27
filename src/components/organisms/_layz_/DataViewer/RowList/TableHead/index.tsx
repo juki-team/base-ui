@@ -1,5 +1,5 @@
 import { Children, type MouseEvent, memo, type ReactElement, useCallback, useRef, useState } from 'react';
-import { Div } from '../../../../../atoms';
+import { Div } from '../../../../../atoms/Div/Div';
 import { classNames } from '../../../../../helpers/commons';
 import { ArrowDownwardIcon, ArrowUpwardIcon, SortIcon } from '../../../../../server';
 import { fixHeaders, renderHead } from '../../commons/utils';

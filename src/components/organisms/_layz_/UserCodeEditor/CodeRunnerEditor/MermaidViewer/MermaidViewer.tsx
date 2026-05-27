@@ -1,6 +1,8 @@
 import domToImage from 'dom-to-image-more';
 import { type MouseEvent, type MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
-import { Button, CopyToClipboard, T } from '../../../../../atoms';
+import { Button } from '../../../../../atoms/Button/Button';
+import { CopyToClipboard } from '../../../../../atoms/CopyToClipboard/CopyToClipboard';
+import { T } from '../../../../../atoms/T/T';
 import { ContentCopyIcon, DownloadIcon, LoadingIcon, PlayArrowIcon, WarningIcon } from '../../../../../atoms/server';
 import { downloadBlobAsFile } from '../../../../../helpers/commons';
 import { GraphicToolbar } from './GraphicToolbar';

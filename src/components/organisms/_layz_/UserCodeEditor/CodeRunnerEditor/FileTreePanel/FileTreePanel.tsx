@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { Button, Div, Input, InputTextArea, Modal, T } from '../../../../../atoms';
+import { Button } from '../../../../../atoms/Button/Button';
+import { Div } from '../../../../../atoms/Div/Div';
+import { Input } from '../../../../../atoms/Input/Input';
+import { InputTextArea } from '../../../../../atoms/InputTextArea/InputTextArea';
+import { Modal } from '../../../../../atoms/Modal/Modal';
+import { T } from '../../../../../atoms/T/T';
 import {
   AddIcon,
   ArrowDropDownIcon,

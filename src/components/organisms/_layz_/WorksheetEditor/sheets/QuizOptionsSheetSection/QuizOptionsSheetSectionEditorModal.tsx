@@ -1,7 +1,12 @@
 import type { QuizOptionsSheet } from '@juki-team/commons/types';
 import { type Dispatch, useState } from 'react';
 import { v4 } from 'uuid';
-import { Div, Input, InputCheckbox, InputRadio, Modal, T } from '../../../../../atoms';
+import { Div } from '../../../../../atoms/Div/Div';
+import { Input } from '../../../../../atoms/Input/Input';
+import { InputCheckbox } from '../../../../../atoms/InputCheckbox/InputCheckbox';
+import { InputRadio } from '../../../../../atoms/InputRadio/InputRadio';
+import { Modal } from '../../../../../atoms/Modal/Modal';
+import { T } from '../../../../../atoms/T/T';
 import type { BasicModalProps } from '../../../../../atoms/Modal/types';
 import { AddIcon } from '../../../../../atoms/server';
 import { MdMathEditor } from '../../../MdMathEditor';

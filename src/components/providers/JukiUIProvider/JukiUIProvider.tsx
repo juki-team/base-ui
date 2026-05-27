@@ -5,7 +5,7 @@ import { persistGlobalURLSearchParams } from '../../../settings/AppRoutes';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { Tooltip } from '../../atoms';
+import { Tooltip } from '../../atoms/_lazy_/Tooltip';
 import { classNames } from '../../helpers/commons';
 import { LoginModal, SignUpModal, SubmissionModal, UserPreviewModal, WelcomeModal } from '../../organisms';
 import { LineLoader } from '../../server';

@@ -5,7 +5,10 @@ import { type CSSProperties, type DragEvent, useEffect, useRef, useState } from 
 import { useResizeDetector } from 'react-resize-detector';
 import { useT } from '../../atoms/T/client';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { Button, Div, T, TextArea } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { Div } from '../../atoms/Div/Div';
+import { T } from '../../atoms/T/T';
+import { TextArea } from '../../atoms/TextArea/TextArea';
 import { ArrowDownwardIcon, CheckIcon, CloseIcon, ErrorIcon, SendIcon, SmartToyIcon, StopCircleIcon } from '../../atoms/server';
 import { classNames } from '../../helpers/commons';
 import { upperFirst } from '../../helpers/text';

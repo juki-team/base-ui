@@ -2,7 +2,10 @@ import { ONE_MINUTE } from '@juki-team/commons/constants';
 import { type CSSProperties, useCallback, useState } from 'react';
 import { useSoundStore } from '../../../../stores/sound/useSoundStore';
 import { useTimer } from '../../../../stores/timer/useTimer';
-import { Button, InputToggle, Portal, T } from '../../../atoms';
+import { Button } from '../../../atoms/Button/Button';
+import { InputToggle } from '../../../atoms/InputToggle/InputToggle';
+import { Portal } from '../../../atoms/Portal/Portal';
+import { T } from '../../../atoms/T/T';
 import type { ButtonProps } from '../../../atoms/Button/Button';
 import {
   AlarmIcon,

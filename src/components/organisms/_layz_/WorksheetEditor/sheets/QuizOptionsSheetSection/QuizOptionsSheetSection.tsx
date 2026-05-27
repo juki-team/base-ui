@@ -4,7 +4,7 @@ import { cleanRequest, isQuizOptionsSheet, isStringJson } from '@juki-team/commo
 import type { ContentResponse, QuizOptionsSheet } from '@juki-team/commons/types';
 import { useRef, useState } from 'react';
 import { jukiApiManager } from '../../../../../../settings';
-import { T } from '../../../../../atoms';
+import { T } from '../../../../../atoms/T/T';
 import { authorizedRequest } from '../../../../../helpers/fetch';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';

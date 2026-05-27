@@ -1,5 +1,5 @@
 import type { ProblemSampleCases } from '@juki-team/commons/types';
-import { CopyToClipboard } from '../../../atoms';
+import { CopyToClipboard } from '../../../atoms/CopyToClipboard/CopyToClipboard';
 import { NewlineInfo } from '../../../molecules/server/NewlineInfo/NewlineInfo';
 
 interface SampleTestProps {

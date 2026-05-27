@@ -1,7 +1,8 @@
 import { PALETTE } from '@juki-team/commons/constants';
 import { type ColorResult, SketchPicker } from 'react-color';
 import { TriggerAction } from '../../../../enums';
-import { Input, Popover } from '../../../atoms';
+import { Input } from '../../../atoms/Input/Input';
+import { Popover } from '../../../atoms/_lazy_/Popover';
 import type { InputColorProps } from './types';
 
 const DEFAULT_COLOR: ColorResult = {

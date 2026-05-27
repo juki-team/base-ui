@@ -1,6 +1,9 @@
 import { NotificationType, Status } from '@juki-team/commons/enums';
 import { memo, useState } from 'react';
-import { Button, CopyToClipboard, InputToggle, T } from '../../../../atoms';
+import { Button } from '../../../../atoms/Button/Button';
+import { CopyToClipboard } from '../../../../atoms/CopyToClipboard/CopyToClipboard';
+import { InputToggle } from '../../../../atoms/InputToggle/InputToggle';
+import { T } from '../../../../atoms/T/T';
 import { classNames, toBlob } from '../../../../helpers/commons';
 import { handleUploadImage } from '../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';

@@ -3,7 +3,11 @@ import { NotificationType, ProblemVerdict, SubmissionRunStatus } from '@juki-tea
 import { getDataOfTestCase, getVerdictFromTestCase, mex } from '@juki-team/commons/helpers';
 import type { CodeEditorTestCase, CodeEditorTestCases } from '@juki-team/commons/types';
 import { useEffect, useState } from 'react';
-import { Div, InputToggle, Popover, T, TextArea } from '../../../../../atoms';
+import { Div } from '../../../../../atoms/Div/Div';
+import { InputToggle } from '../../../../../atoms/InputToggle/InputToggle';
+import { T } from '../../../../../atoms/T/T';
+import { TextArea } from '../../../../../atoms/TextArea/TextArea';
+import { Popover } from '../../../../../atoms/_lazy_/Popover';
 import { classNames } from '../../../../../helpers/commons';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../../../molecules';

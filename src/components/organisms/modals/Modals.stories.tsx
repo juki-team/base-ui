@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryParamKey } from '../../../enums';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import { Button } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
 import { MockupJukiProvider } from '../../mockup';
 import { LoginUser } from '../LoginUser/LoginUser';
 import { SubmissionModal } from './SubmissionModal/SubmissionModal';

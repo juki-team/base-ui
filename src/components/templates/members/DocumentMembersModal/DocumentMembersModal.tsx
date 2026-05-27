@@ -1,7 +1,8 @@
 import type { EntityMembersResponseDTO } from '@juki-team/commons/dto';
 import { Status } from '@juki-team/commons/enums';
 import { type ReactNode, useState } from 'react';
-import { Modal, T } from '../../../atoms';
+import { Modal } from '../../../atoms/Modal/Modal';
+import { T } from '../../../atoms/T/T';
 import type { BasicModalProps } from '../../../atoms/Modal/types';
 import { useSyncedState } from '../../../hooks/useSyncedState';
 import { ButtonLoader } from '../../../molecules';

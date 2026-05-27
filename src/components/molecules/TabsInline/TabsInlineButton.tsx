@@ -1,5 +1,6 @@
 import { usePageStore } from '../../../stores/page/usePageStore';
-import { Button, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { T } from '../../atoms/T/T';
 import type { ButtonProps } from '../../atoms/Button/Button';
 
 export const TabsInlineButton = ({ size, label, ...props }: Omit<ButtonProps, 'children'> & { label: string }) => {

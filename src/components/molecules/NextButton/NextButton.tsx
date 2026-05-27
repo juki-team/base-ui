@@ -1,4 +1,4 @@
-import { Button } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
 import type { ButtonProps } from '../../atoms/Button/Button';
 import { NavigateNextIcon } from '../../atoms/server';
 

@@ -1,4 +1,5 @@
-import { Button, T } from '../../../../../atoms';
+import { Button } from '../../../../../atoms/Button/Button';
+import { T } from '../../../../../atoms/T/T';
 import { FullscreenExitIcon, FullscreenIcon, LoadingIcon, MinusIcon, PlusIcon, RefreshIcon } from '../../../../../atoms/server';
 import type { GraphicToolbarProps } from './types';
 

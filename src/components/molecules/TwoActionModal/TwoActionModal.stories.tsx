@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Button } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
 import { MockupJukiProvider } from '../../mockup';
 import { TwoActionModal } from './TwoActionModal';
 import type { TwoActionModalProps } from './types';

@@ -9,7 +9,9 @@ import type {
 } from '@juki-team/commons/types';
 import { Children, type Dispatch } from 'react';
 import { EMPTY_LIST_SHEET } from '../../../../../../constants';
-import { Button, Collapse, T } from '../../../../../atoms';
+import { Button } from '../../../../../atoms/Button/Button';
+import { T } from '../../../../../atoms/T/T';
+import { Collapse } from '../../../../../atoms/_lazy_/Collapse';
 import { UpIcon } from '../../../../../atoms/server';
 import { MdMathViewer } from '../../../../MdMathViewer/MdMathViewer';
 import { MdMathEditor } from '../../../MdMathEditor';

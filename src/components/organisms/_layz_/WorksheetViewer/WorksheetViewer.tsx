@@ -6,7 +6,7 @@ import { jukiApiManager } from '../../../../settings';
 import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { T } from '../../../atoms';
+import { T } from '../../../atoms/T/T';
 import { classNames } from '../../../helpers/commons';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useKeyDown } from '../../../hooks/useKeyDown';

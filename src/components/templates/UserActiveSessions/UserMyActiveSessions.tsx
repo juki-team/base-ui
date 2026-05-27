@@ -6,7 +6,7 @@ import { DEFAULT_DATA_VIEWER_PROPS } from '../../../constants';
 import { QueryParamKey } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { DateLiteral } from '../../atoms/server/DateLiteral/DateLiteral';
 import { DeleteIcon } from '../../atoms/server';
 import { useDataViewerRequester } from '../../hooks/useDataViewerRequester';

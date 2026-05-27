@@ -1,5 +1,5 @@
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { ContactPhoneIcon, MailIcon, TelegramIcon } from '../../atoms/server';
 
 export function HelpSection() {

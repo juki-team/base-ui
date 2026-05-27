@@ -1,6 +1,6 @@
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { HomeIcon } from '../../server';
 
 export function HomeLink() {

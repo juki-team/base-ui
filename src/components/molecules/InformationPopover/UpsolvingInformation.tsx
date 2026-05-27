@@ -1,4 +1,4 @@
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { FitnessCenterIcon } from '../../atoms/server';
 import { InformationPopover } from './InformationPopover';
 import type { InformationPopoverProps } from './types';

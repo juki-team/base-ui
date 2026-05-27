@@ -1,4 +1,4 @@
-import { T } from '../../../atoms';
+import { T } from '../../../atoms/T/T';
 import type { BasicModalProps } from '../../../atoms/types';
 import { TwoActionModal } from '../../../molecules';
 

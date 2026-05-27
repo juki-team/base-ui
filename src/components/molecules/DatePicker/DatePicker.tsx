@@ -1,5 +1,6 @@
 import type { Ref } from 'react';
-import { Button, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { T } from '../../atoms/T/T';
 import { classNames } from '../../helpers/commons';
 import { showOfDateDisplayType } from '../../helpers/date';
 import { DayPicker } from '../DayPicker/DayPicker';

@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Button, Modal, T } from '../../../atoms';
+import { Button } from '../../../atoms/Button/Button';
+import { Modal } from '../../../atoms/Modal/Modal';
+import { T } from '../../../atoms/T/T';
 import { Tabs } from '../../../molecules';
 import { RefreshIcon } from '../../../server';
 import { PublicImagesTab } from './PublicImagesTab';

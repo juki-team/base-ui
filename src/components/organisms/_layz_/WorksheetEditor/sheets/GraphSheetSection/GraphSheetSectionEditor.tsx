@@ -1,7 +1,10 @@
 import type { GraphSheet } from '@juki-team/commons/types';
 import { useState } from 'react';
 import { DEFAULT_GRAPH } from '../../../../../../constants';
-import { Button, Div, Input, T } from '../../../../../atoms';
+import { Button } from '../../../../../atoms/Button/Button';
+import { Div } from '../../../../../atoms/Div/Div';
+import { Input } from '../../../../../atoms/Input/Input';
+import { T } from '../../../../../atoms/T/T';
 import { AddIcon, ArrowBackIcon, ArrowForwardIcon, DeleteIcon } from '../../../../../atoms/server';
 import { classNames } from '../../../../../helpers/commons';
 import { GraphvizEditor } from '../../../../GraphvizEditor/GraphvizEditor';

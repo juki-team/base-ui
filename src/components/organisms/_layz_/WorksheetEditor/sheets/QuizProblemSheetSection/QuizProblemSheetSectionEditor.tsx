@@ -2,7 +2,10 @@ import { CODE_LANGUAGE, RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES } from '@juki-team
 import type { CodeLanguage, Judge } from '@juki-team/commons/enums';
 import type { QuizProblemSheet } from '@juki-team/commons/types';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../../constants';
-import { Input, InputCheckbox, MultiSelect, T } from '../../../../../atoms';
+import { Input } from '../../../../../atoms/Input/Input';
+import { InputCheckbox } from '../../../../../atoms/InputCheckbox/InputCheckbox';
+import { MultiSelect } from '../../../../../atoms/MultiSelect/MultiSelect';
+import { T } from '../../../../../atoms/T/T';
 import { ProblemSelector } from '../../../../ProblemSelector/ProblemSelector';
 import type { SetContentType } from '../../types';
 import { ProblemSummary } from './ProblemSummary';

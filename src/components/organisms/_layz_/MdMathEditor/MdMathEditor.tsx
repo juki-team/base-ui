@@ -14,7 +14,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { T } from '../../../atoms';
+import { T } from '../../../atoms/T/T';
 import { ArticleIcon, CodeIcon, DownloadIcon, LineLoader } from '../../../atoms/server';
 import { classNames, downloadBlobAsFile } from '../../../helpers/commons';
 import { useStableRef } from '../../../hooks/useStableRef';

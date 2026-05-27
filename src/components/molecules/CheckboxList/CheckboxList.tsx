@@ -1,4 +1,4 @@
-import { InputCheckbox } from '../../atoms';
+import { InputCheckbox } from '../../atoms/InputCheckbox/InputCheckbox';
 import type { CheckboxListProps } from './types';
 
 export function CheckboxList<T>({ selectedOptions, options, onSelectOptions }: CheckboxListProps<T>) {

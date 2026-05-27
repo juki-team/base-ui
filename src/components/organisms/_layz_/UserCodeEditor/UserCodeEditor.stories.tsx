@@ -3,7 +3,7 @@ import { CodeLanguage, SubmissionRunStatus } from '@juki-team/commons/enums';
 import type { CodeEditorFiles } from '@juki-team/commons/types';
 import type { UIMessage } from 'ai';
 import { useRef, useState } from 'react';
-import { Button } from '../../../atoms';
+import { Button } from '../../../atoms/Button/Button';
 import { CheckIcon, ErrorIcon, ExclamationIcon, SpinIcon } from '../../../atoms/server';
 import { MockupJukiProvider } from '../../../mockup';
 import { AiChatPanel } from '../../AiChatPanel/AiChatPanel';

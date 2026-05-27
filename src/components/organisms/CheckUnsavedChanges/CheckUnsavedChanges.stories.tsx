@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { CloseIcon } from '../../atoms/server';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { MockupJukiProvider } from '../../mockup';

@@ -9,7 +9,8 @@ import {
 import type { BodyWorksheet, NewPageSheet } from '@juki-team/commons/types';
 import { useCallback, useRef, useState } from 'react';
 import { QueryParamKey } from '../../../../../enums';
-import { Button, T } from '../../../../atoms';
+import { Button } from '../../../../atoms/Button/Button';
+import { T } from '../../../../atoms/T/T';
 import { DeleteIcon, SettingsIcon } from '../../../../atoms/server';
 import { classNames } from '../../../../helpers/commons';
 import type { NotUndefined } from '../../../../types';

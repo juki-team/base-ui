@@ -1,7 +1,8 @@
 import { Children, type ReactNode, useState } from 'react';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { Div, T } from '../../../atoms';
+import { Div } from '../../../atoms/Div/Div';
+import { T } from '../../../atoms/T/T';
 import { classNames } from '../../../helpers/commons';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers/render';
 import type { MenuType } from '../../../organisms/types';

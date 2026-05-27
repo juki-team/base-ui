@@ -11,7 +11,9 @@ import {
 } from '@juki-team/commons/helpers';
 import { useState } from 'react';
 import { DAYS_2 } from '../../../constants';
-import { Div, Select, T } from '../../atoms';
+import { Div } from '../../atoms/Div/Div';
+import { Select } from '../../atoms/Select/Select';
+import { T } from '../../atoms/T/T';
 import { classNames } from '../../helpers/commons';
 import type { DayPickerProps } from '../DatePicker/types';
 import { NextButton } from '../NextButton/NextButton';

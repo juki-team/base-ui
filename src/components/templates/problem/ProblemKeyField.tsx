@@ -1,4 +1,4 @@
-import { CopyToClipboard } from '../../atoms';
+import { CopyToClipboard } from '../../atoms/CopyToClipboard/CopyToClipboard';
 import type { ProblemKeyFieldProps } from './types';
 
 export function ProblemKeyField({ record: { key } }: ProblemKeyFieldProps) {

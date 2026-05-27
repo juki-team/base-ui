@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Button } from '../../../atoms';
+import { Button } from '../../../atoms/Button/Button';
 import { StylusLaserPointerIcon } from '../../../atoms/server';
 import { classNames } from '../../../helpers/commons';
 

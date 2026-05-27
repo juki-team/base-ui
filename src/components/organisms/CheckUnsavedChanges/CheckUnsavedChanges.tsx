@@ -3,7 +3,7 @@ import { diffLines, diffWords } from 'diff';
 import microDiff from 'microdiff';
 import { cloneElement, type ReactElement, type ReactNode, useRef, useState } from 'react';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { CodeViewer, TwoActionModal } from '../../molecules';
 import type { CheckUnsavedChangesProps } from './types';
 

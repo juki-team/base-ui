@@ -1,6 +1,9 @@
 import type { QuizOptionsSheet } from '@juki-team/commons/types';
 import type { Dispatch, SetStateAction } from 'react';
-import { Div, InputCheckbox, InputRadio, T } from '../../../../../atoms';
+import { Div } from '../../../../../atoms/Div/Div';
+import { InputCheckbox } from '../../../../../atoms/InputCheckbox/InputCheckbox';
+import { InputRadio } from '../../../../../atoms/InputRadio/InputRadio';
+import { T } from '../../../../../atoms/T/T';
 import { classNames } from '../../../../../helpers/commons';
 import { MdMathViewer } from '../../../../MdMathViewer/MdMathViewer';
 

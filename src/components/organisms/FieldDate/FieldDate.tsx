@@ -1,4 +1,4 @@
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { DateLiteral } from '../../atoms/server/DateLiteral/DateLiteral';
 import { classNames } from '../../helpers/commons';
 import type { DateFieldProps } from '../_layz_/DataViewer/types';

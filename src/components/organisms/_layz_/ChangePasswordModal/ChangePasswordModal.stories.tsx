@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '../../../atoms';
+import { Button } from '../../../atoms/Button/Button';
 import { MockupJukiProvider } from '../../../mockup';
 import { ChangePasswordModal as UserChangePasswordModalCmp } from './';
 

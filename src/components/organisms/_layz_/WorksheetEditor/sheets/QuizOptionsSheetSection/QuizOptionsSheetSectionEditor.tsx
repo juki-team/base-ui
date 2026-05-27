@@ -1,7 +1,12 @@
 import { QuizScoringMode } from '@juki-team/commons/enums';
 import type { QuizOptionsSheet } from '@juki-team/commons/types';
 import { v4 } from 'uuid';
-import { Button, Input, InputCheckbox, InputRadio, InputToggle, T } from '../../../../../atoms';
+import { Button } from '../../../../../atoms/Button/Button';
+import { Input } from '../../../../../atoms/Input/Input';
+import { InputCheckbox } from '../../../../../atoms/InputCheckbox/InputCheckbox';
+import { InputRadio } from '../../../../../atoms/InputRadio/InputRadio';
+import { InputToggle } from '../../../../../atoms/InputToggle/InputToggle';
+import { T } from '../../../../../atoms/T/T';
 import { AddIcon } from '../../../../../atoms/server';
 import { classNames } from '../../../../../helpers/commons';
 import { MdMathEditor } from '../../../MdMathEditor';

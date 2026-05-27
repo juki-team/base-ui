@@ -2,7 +2,7 @@ import { WorksheetType } from '@juki-team/commons/enums';
 import { isQuizProblemSheet, isStringJson } from '@juki-team/commons/helpers';
 import type { QuizProblemSheet } from '@juki-team/commons/types';
 import { useRef, useState } from 'react';
-import { T } from '../../../../../atoms';
+import { T } from '../../../../../atoms/T/T';
 import { CheckIcon } from '../../../../../atoms/server';
 import { useSyncedState } from '../../../../../hooks/useSyncedState';
 import { FloatToolbar } from '../../../../../molecules';

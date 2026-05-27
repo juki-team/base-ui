@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { Button, T } from '../../../../../atoms';
+import { Button } from '../../../../../atoms/Button/Button';
+import { T } from '../../../../../atoms/T/T';
 import { CheckboxList } from '../../../../../molecules';
 import type { OptionType } from '../../../../../molecules/types';
 import type { TableHeadFilterSelectProps } from './types';

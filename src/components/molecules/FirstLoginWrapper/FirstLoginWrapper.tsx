@@ -2,7 +2,7 @@ import { cloneElement, type ReactElement } from 'react';
 import { QueryParamKey } from '../../../enums';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import type { FirstLoginWrapperProps } from './types';
 

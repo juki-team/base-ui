@@ -3,7 +3,7 @@ import type { SubmissionDataResponseDTO, SubmissionRunStatusWebSocketResponseEve
 import { ProblemVerdict, ProfileSetting, SubmissionRunStatus, Theme } from '@juki-team/commons/enums';
 import { useT } from '../../../atoms/T/client';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { T } from '../../../atoms';
+import { T } from '../../../atoms/T/T';
 import { classNames } from '../../../helpers/commons';
 import { SpinIcon } from '../../../server';
 

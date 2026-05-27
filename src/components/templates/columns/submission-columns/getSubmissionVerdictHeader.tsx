@@ -1,6 +1,6 @@
 import { PROBLEM_VERDICT } from '@juki-team/commons/constants';
 import type { SubmissionSummaryListResponseDTO } from '@juki-team/commons/dto';
-import { T } from '../../../atoms';
+import { T } from '../../../atoms/T/T';
 import { AcUnitIcon, FitnessCenterIcon, LockClockIcon } from '../../../atoms/server';
 import { FieldText } from '../../../organisms';
 import { SubmissionListenerVerdict } from '../../../organisms/SubmitView/commons/SubmissionListenerVerdict';

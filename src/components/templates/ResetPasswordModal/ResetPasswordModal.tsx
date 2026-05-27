@@ -1,4 +1,6 @@
-import { Button, Modal, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { Modal } from '../../atoms/Modal/Modal';
+import { T } from '../../atoms/T/T';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { ButtonLoader } from '../../molecules';
 import { UserNicknameLink } from '../../organisms';

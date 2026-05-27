@@ -4,7 +4,8 @@ import { cleanRequest, isJkmdSheet, isStringJson } from '@juki-team/commons/help
 import type { ContentResponse, JkmdSheet } from '@juki-team/commons/types';
 import { useRef, useState } from 'react';
 import { jukiApiManager } from '../../../../../../settings';
-import { InputCheckbox, T } from '../../../../../atoms';
+import { InputCheckbox } from '../../../../../atoms/InputCheckbox/InputCheckbox';
+import { T } from '../../../../../atoms/T/T';
 import { authorizedRequest } from '../../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { ButtonLoader, FloatToolbar } from '../../../../../molecules';

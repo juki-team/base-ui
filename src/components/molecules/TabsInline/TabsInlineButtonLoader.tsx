@@ -1,5 +1,5 @@
 import { usePageStore } from '../../../stores/page/usePageStore';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import type { ButtonLoaderProps } from '../ButtonLoader/types';
 

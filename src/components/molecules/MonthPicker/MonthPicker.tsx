@@ -1,7 +1,9 @@
 import { MONTH_NAMES, YEARS } from '@juki-team/commons/constants';
 import { changeMonth, changeYear, decreaseYear, increaseMonth, increaseYear, startOfYear } from '@juki-team/commons/helpers';
 import { useState } from 'react';
-import { Div, Select, T } from '../../atoms';
+import { Div } from '../../atoms/Div/Div';
+import { Select } from '../../atoms/Select/Select';
+import { T } from '../../atoms/T/T';
 import { classNames } from '../../helpers/commons';
 import type { MonthPickerProps } from '../DatePicker/types';
 import { NextButton } from '../NextButton/NextButton';

@@ -1,4 +1,4 @@
-import { Button } from '../atoms';
+import { Button } from '../atoms/Button/Button';
 import { InvertColorsIcon } from '../server';
 
 export const MockupToggleThemeButton = () => {

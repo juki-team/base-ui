@@ -1,6 +1,6 @@
 import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { T } from '../../../../atoms';
+import { T } from '../../../../atoms/T/T';
 import { ButtonLoader } from '../../../../molecules';
 import { RefreshIcon } from '../../../../server';
 import {

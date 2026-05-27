@@ -1,6 +1,6 @@
 import { Children, useEffect } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
-import { Div } from '../../atoms';
+import { Div } from '../../atoms/Div/Div';
 import { classNames } from '../../helpers/commons';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers/render';
 import { useSyncedState } from '../../hooks/useSyncedState';

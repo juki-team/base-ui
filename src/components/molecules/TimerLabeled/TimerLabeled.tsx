@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Period } from '../../../enums';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { classNames } from '../../helpers/commons';
 import { cutTimeSplit } from '../../helpers/time';
 import { Timer } from '../Timer/Timer';

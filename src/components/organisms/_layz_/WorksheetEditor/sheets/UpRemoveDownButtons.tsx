@@ -1,4 +1,4 @@
-import { Button } from '../../../../atoms';
+import { Button } from '../../../../atoms/Button/Button';
 import { ArrowDownwardIcon, ArrowUpwardIcon, DeleteIcon } from '../../../../atoms/server';
 
 interface UpRemoveDownButtonsProps<T> {

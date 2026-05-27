@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { type CSSProperties, useEffect, useState } from 'react';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 
 export const UserLoaderLayout = () => {
   const userSessionId = useUserStore((state) => state.user.sessionId);

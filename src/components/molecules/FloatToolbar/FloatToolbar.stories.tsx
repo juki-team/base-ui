@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { MockupJukiProvider } from '../../mockup';
 import { DownloadIcon, OpenInNewIcon } from '../../server';
 import { FloatToolbar } from './FloatToolbar';

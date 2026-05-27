@@ -4,7 +4,7 @@ import type { ContentResponse } from '@juki-team/commons/types';
 import { useMemo } from 'react';
 import { jukiApiManager } from '../../../../settings';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { DetectRequestAnimationFrame } from '../../../atoms';
+import { DetectRequestAnimationFrame } from '../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
 import { useFetcher } from '../../../hooks/useFetcher';
 import type { UserResultsType } from '../../../types';
 import { MdMath } from '../MdMath';

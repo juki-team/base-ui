@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { Portal } from '../../atoms';
+import { Portal } from '../../atoms/Portal/Portal';
 import { DesignServicesIcon } from '../../atoms/server';
 import { ExcalidrawButton } from '../_layz_/ExcalidrawButton';
 import { FullscreenTimerButton } from './buttons/FullscreenTimerButton';

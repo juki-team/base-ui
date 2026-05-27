@@ -4,7 +4,7 @@ import type { Judge } from '@juki-team/commons/enums';
 import type { ContentsResponse } from '@juki-team/commons/types';
 import { jukiApiManager } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
-import { CopyToClipboard } from '../../atoms';
+import { CopyToClipboard } from '../../atoms/CopyToClipboard/CopyToClipboard';
 import { LocationOnIcon, MailIcon, SchoolIcon } from '../../atoms/server';
 import { classNames } from '../../helpers/commons';
 import { useFetcher } from '../../hooks/useFetcher';

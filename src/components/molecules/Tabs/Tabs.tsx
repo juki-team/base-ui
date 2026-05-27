@@ -2,7 +2,9 @@ import { Children, type CSSProperties, type ReactNode, useEffect, useMemo, useRe
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { TriggerAction } from '../../../enums';
-import { Div, Popover, Select } from '../../atoms';
+import { Div } from '../../atoms/Div/Div';
+import { Select } from '../../atoms/Select/Select';
+import { Popover } from '../../atoms/_lazy_/Popover';
 import { classNames } from '../../helpers/commons';
 import { renderReactNodeOrFunctionP1 } from '../../helpers/render';
 import { useClickOutside } from '../../hooks/useClickOutside';

@@ -1,7 +1,8 @@
 import { consoleError } from '@juki-team/commons/helpers';
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { useUIStore } from '../../../stores/ui/useUIStore';
-import { Button, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { T } from '../../atoms/T/T';
 import { HomeIcon } from '../../atoms/server';
 import { safeReportError } from '../../helpers/fetch';
 import { HelpSection } from '../HelpSection/HelpSection';

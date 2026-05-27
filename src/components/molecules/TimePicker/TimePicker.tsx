@@ -1,6 +1,8 @@
 import { HOURS, MILLISECONDS, MINUTES, SECONDS } from '@juki-team/commons/constants';
 import { changeHours, changeMilliseconds, changeMinutes, changeSeconds, padStart } from '@juki-team/commons/helpers';
-import { Button, Select, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { Select } from '../../atoms/Select/Select';
+import { T } from '../../atoms/T/T';
 import type { TimePickerProps } from '../DatePicker/types';
 
 export function TimePicker(props: TimePickerProps) {

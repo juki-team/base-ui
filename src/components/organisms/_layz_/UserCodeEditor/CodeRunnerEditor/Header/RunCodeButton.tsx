@@ -5,7 +5,7 @@ import type { CodeEditorFiles, CodeEditorTestCase, CodeEditorTestCases, ContentR
 import { type Dispatch, type RefObject, type SetStateAction, useCallback, useEffect, useRef } from 'react';
 import { v4 } from 'uuid';
 import { jukiApiManager } from '../../../../../../settings';
-import { T } from '../../../../../atoms';
+import { T } from '../../../../../atoms/T/T';
 import { PlayArrowIcon } from '../../../../../atoms/server';
 import { authorizedRequest } from '../../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';

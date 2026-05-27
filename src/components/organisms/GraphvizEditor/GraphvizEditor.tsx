@@ -1,4 +1,4 @@
-import { TextArea } from '../../atoms';
+import { TextArea } from '../../atoms/TextArea/TextArea';
 import { SplitPane } from '../../molecules';
 import { GraphvizViewer } from '../_layz_/GraphvizViewer';
 import type { GraphvizEditorProps } from '../_layz_/GraphvizViewer/types';

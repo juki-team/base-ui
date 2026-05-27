@@ -9,7 +9,9 @@ import {
   EMPTY_QUIZ_OPTIONS_SHEET,
   EMPTY_QUIZ_PROBLEM_SHEET,
 } from '../../../../../constants';
-import { Button, Popover, T } from '../../../../atoms';
+import { Button } from '../../../../atoms/Button/Button';
+import { T } from '../../../../atoms/T/T';
+import { Popover } from '../../../../atoms/_lazy_/Popover';
 import type { PopoverProps } from '../../../../atoms/_lazy_/Popover/types';
 import { PlusIcon } from '../../../../atoms/server';
 import { ButtonLoader } from '../../../../molecules';

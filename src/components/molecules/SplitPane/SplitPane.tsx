@@ -1,7 +1,8 @@
 import { type MouseEvent, memo, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
-import { Div, T } from '../../atoms';
+import { Div } from '../../atoms/Div/Div';
+import { T } from '../../atoms/T/T';
 import { classNames } from '../../helpers/commons';
 import { useHandleState } from '../../hooks/useHandleState';
 import { ExpandLessIcon, ExpandMoreIcon, NavigateBeforeIcon, NavigateNextIcon, SideNavigationIcon } from '../../server';

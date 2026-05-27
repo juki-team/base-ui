@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { configureActions } from 'storybook/actions';
-import { Button, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { T } from '../../atoms/T/T';
 import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';
 import type { TabsType } from '../../types';
 import { TabsInline } from '../index';

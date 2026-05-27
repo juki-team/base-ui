@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { QueryParamKey } from '../../../../enums';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { T } from '../../../atoms';
+import { T } from '../../../atoms/T/T';
 import { useJukiUser } from '../../../hooks/useJukiUser';
 import type { SetLoaderStatusOnClickType } from '../../../types';
 import { ForgotPasswordModal, LoginModalTemplate } from './LoginModalTemplate';

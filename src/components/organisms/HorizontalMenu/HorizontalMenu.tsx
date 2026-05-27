@@ -1,7 +1,8 @@
 import { Children, type ReactNode } from 'react';
 import { TriggerAction } from '../../../enums';
 import { usePageStore } from '../../../stores/page/usePageStore';
-import { Button, Div } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { Div } from '../../atoms/Div/Div';
 import { classNames } from '../../helpers/commons';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers/render';
 import { Drawer } from '../../molecules';

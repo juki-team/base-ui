@@ -3,7 +3,7 @@ import { cleanRequest } from '@juki-team/commons/helpers';
 import type { ContentResponse } from '@juki-team/commons/types';
 import { JUKI_SERVICE_V2_URL } from '../../../constants/settings';
 import { jukiApiManager } from '../../../settings';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { RefreshIcon } from '../../atoms/server';
 import { authorizedRequest } from '../../helpers/fetch';
 import { useJukiNotification } from '../../hooks/useJukiNotification';

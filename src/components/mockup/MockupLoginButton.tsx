@@ -1,6 +1,6 @@
 import { QueryParamKey } from '../../enums';
 import { useRouterStore } from '../../stores/router/useRouterStore';
-import { Button } from '../atoms';
+import { Button } from '../atoms/Button/Button';
 import { LoginIcon } from '../server';
 
 export const MockupLoginButton = () => {

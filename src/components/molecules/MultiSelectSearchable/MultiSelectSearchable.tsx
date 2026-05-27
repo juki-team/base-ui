@@ -1,7 +1,11 @@
 import { type ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { TriggerAction } from '../../../enums';
-import { Div, Input, InputCheckbox, Popover, VirtualizedRowsFixed } from '../../atoms';
+import { Div } from '../../atoms/Div/Div';
+import { Input } from '../../atoms/Input/Input';
+import { InputCheckbox } from '../../atoms/InputCheckbox/InputCheckbox';
+import { Popover } from '../../atoms/_lazy_/Popover';
+import { VirtualizedRowsFixed } from '../../atoms/_lazy_/VirtualizedRowsFixed';
 import type { SelectOptionType } from '../../atoms/types';
 import { classNames, getTextContent } from '../../helpers/commons';
 import { renderReactNodeOrFunction } from '../../helpers/render';

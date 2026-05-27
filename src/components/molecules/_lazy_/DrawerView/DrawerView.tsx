@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { memo, useRef } from 'react';
-import { Button, Portal } from '../../../atoms';
+import { Button } from '../../../atoms/Button/Button';
+import { Portal } from '../../../atoms/Portal/Portal';
 import { classNames } from '../../../helpers/commons';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers/render';
 import { useKeyDown } from '../../../hooks/useKeyDown';

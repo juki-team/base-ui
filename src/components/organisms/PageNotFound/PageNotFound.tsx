@@ -1,5 +1,6 @@
 import { useUIStore } from '../../../stores/ui/useUIStore';
-import { Button, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { T } from '../../atoms/T/T';
 import { HomeIcon } from '../../server';
 import type { PageNotFoundProps } from './types';
 

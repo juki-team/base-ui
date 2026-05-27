@@ -2,7 +2,10 @@ import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE } from '@juki-team/common
 import type { CodeLanguage } from '@juki-team/commons/enums';
 import type { CodeEditorSheet } from '@juki-team/commons/types';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../../constants';
-import { Input, InputCheckbox, MultiSelect, T } from '../../../../../atoms';
+import { Input } from '../../../../../atoms/Input/Input';
+import { InputCheckbox } from '../../../../../atoms/InputCheckbox/InputCheckbox';
+import { MultiSelect } from '../../../../../atoms/MultiSelect/MultiSelect';
+import { T } from '../../../../../atoms/T/T';
 import { UserCodeEditor } from '../../../UserCodeEditor';
 import type { SetContentType } from '../../types';
 

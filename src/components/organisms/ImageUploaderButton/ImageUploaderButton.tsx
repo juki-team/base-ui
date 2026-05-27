@@ -1,4 +1,5 @@
-import { Button, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { T } from '../../atoms/T/T';
 import { CloudUploadIcon } from '../../atoms/server';
 import { ImageUploaderModal } from '../modals/ImageUploaderModal/ImageUploaderModal';
 import type { ImageUploaderButtonProps, UploadImageButtonChildrenProps } from '../modals/ImageUploaderModal/types';

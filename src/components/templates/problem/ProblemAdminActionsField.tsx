@@ -1,6 +1,7 @@
 import { type ReactNode, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
-import { Button, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { T } from '../../atoms/T/T';
 import { EntityLogsModal } from '../EntityLogsModal/EntityLogsModal';
 import type { ProblemAdminActionsFieldProps } from './types';
 

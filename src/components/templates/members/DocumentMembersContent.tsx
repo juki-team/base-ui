@@ -1,7 +1,8 @@
 import { ENTITY_ACCESS } from '@juki-team/commons/constants';
 import { EntityAccess, EntityMembersRank } from '@juki-team/commons/enums';
 import { getDocumentAccess } from '@juki-team/commons/helpers';
-import { Select, T } from '../../atoms';
+import { Select } from '../../atoms/Select/Select';
+import { T } from '../../atoms/T/T';
 import { GlobeIcon, LockIcon, LockPersonIcon, PublicIcon } from '../../server';
 import { DocumentCustomMembersContent } from './DocumentCustomMembersContent';
 import type { DocumentMembersContentProps } from './types';

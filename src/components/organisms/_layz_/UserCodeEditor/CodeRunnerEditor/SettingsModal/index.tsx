@@ -1,5 +1,7 @@
 import { CODE_EDIT0R_FONT_SIZES, CODE_EDIT0R_TAB_SIZES } from '../../../../../../constants';
-import { Modal, Select, T } from '../../../../../atoms';
+import { Modal } from '../../../../../atoms/Modal/Modal';
+import { Select } from '../../../../../atoms/Select/Select';
+import { T } from '../../../../../atoms/T/T';
 import type { SettingsModalProps } from '../types';
 
 export const SettingsModal = <T,>({ onChange, tabSize, fontSize, ...modalProps }: SettingsModalProps<T>) => {

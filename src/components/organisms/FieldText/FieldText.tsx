@@ -1,4 +1,4 @@
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { classNames } from '../../helpers/commons';
 import type { TextFieldProps } from '../_layz_/DataViewer/types';
 import { Field } from '../Field/Field';

@@ -1,7 +1,8 @@
 import type { QuizOptionsSubmissionResponseDTO } from '@juki-team/commons/dto';
 import type { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
-import { Div, T } from '../../../../atoms';
+import { Div } from '../../../../atoms/Div/Div';
+import { T } from '../../../../atoms/T/T';
 import { classNames } from '../../../../helpers/commons';
 
 interface ResultHeaderProps {

@@ -1,6 +1,10 @@
 import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons/enums';
 import { useUIStore } from '../../../stores/ui/useUIStore';
-import { Button, InputRadio, InputToggle, Select, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { InputRadio } from '../../atoms/InputRadio/InputRadio';
+import { InputToggle } from '../../atoms/InputToggle/InputToggle';
+import { Select } from '../../atoms/Select/Select';
+import { T } from '../../atoms/T/T';
 import { classNames } from '../../helpers/commons';
 import { useJukiUserSettings } from '../../hooks/useJukiUser';
 import {

@@ -1,4 +1,4 @@
-import { T } from '../../../../atoms';
+import { T } from '../../../../atoms/T/T';
 import { ArrowDownwardIcon, ArrowUpwardIcon, DeleteIcon } from '../../../../atoms/server';
 import type { ButtonSizeType } from '../../../../types';
 

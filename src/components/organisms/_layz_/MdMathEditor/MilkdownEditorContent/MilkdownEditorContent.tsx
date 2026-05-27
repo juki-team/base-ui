@@ -22,7 +22,7 @@ import { Decoration, DecorationSet } from 'prosemirror-view';
 import { type Dispatch, type Ref, type SetStateAction, useImperativeHandle, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
-import { T } from '../../../../atoms';
+import { T } from '../../../../atoms/T/T';
 import { useT } from '../../../../atoms/T/client';
 import { handleUploadImage } from '../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';

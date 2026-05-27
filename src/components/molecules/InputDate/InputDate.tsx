@@ -1,6 +1,8 @@
 import { isValidDate } from '@juki-team/commons/helpers';
 import { TriggerAction } from '../../../enums';
-import { Button, Popover, T } from '../../atoms';
+import { Button } from '../../atoms/Button/Button';
+import { T } from '../../atoms/T/T';
+import { Popover } from '../../atoms/_lazy_/Popover';
 import { DateLiteral } from '../../atoms/server/DateLiteral/DateLiteral';
 import { classNames } from '../../helpers/commons';
 import { PlusIcon } from '../../server';

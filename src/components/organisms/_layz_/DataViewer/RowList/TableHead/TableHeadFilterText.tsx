@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { Button, Input, T } from '../../../../../atoms';
+import { Button } from '../../../../../atoms/Button/Button';
+import { Input } from '../../../../../atoms/Input/Input';
+import { T } from '../../../../../atoms/T/T';
 import type { TableHeadFilterTextProps } from './types';
 
 export const TableHeadFilterText = (props: TableHeadFilterTextProps) => {

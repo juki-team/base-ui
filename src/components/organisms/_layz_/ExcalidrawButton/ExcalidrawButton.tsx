@@ -2,7 +2,10 @@ import { Excalidraw, MainMenu } from '@excalidraw/excalidraw';
 import type { OrderedExcalidrawElement } from '@excalidraw/excalidraw/element/types';
 import type { AppState, ExcalidrawImperativeAPI } from '@excalidraw/excalidraw/types';
 import { useEffect, useState } from 'react';
-import { Button, InputToggle, Portal, T } from '../../../atoms';
+import { Button } from '../../../atoms/Button/Button';
+import { InputToggle } from '../../../atoms/InputToggle/InputToggle';
+import { Portal } from '../../../atoms/Portal/Portal';
+import { T } from '../../../atoms/T/T';
 import { EditIcon } from '../../../atoms/server';
 import { ButtonAction } from '../../../molecules';
 

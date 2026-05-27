@@ -1,6 +1,6 @@
 import { Children, Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import { TriggerAction } from '../../../enums';
-import { Popover } from '../../atoms';
+import { Popover } from '../../atoms/_lazy_/Popover';
 import { useOverflowDetector } from '../../hooks/useOverflowDetector';
 import { NavigateNextIcon } from '../../server';
 import { HomeLink } from '../HomeLink/HomeLink';

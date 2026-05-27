@@ -1,4 +1,4 @@
-import { T } from '../../atoms';
+import { T } from '../../atoms/T/T';
 import { FieldText, UserChip } from '../../organisms';
 import type { ProblemCrawlerFieldProps } from './types';
 

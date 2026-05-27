@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { Popover } from '../../atoms';
+import { Popover } from '../../atoms/_lazy_/Popover';
 import type { MultiProgressBarProps } from './types';
 
 export function ProgressMultiBar({ progress, points, label, height = 12, tooltipPlacement = 'top' }: MultiProgressBarProps) {
