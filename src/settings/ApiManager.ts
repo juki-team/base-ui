@@ -479,8 +479,8 @@ export class ApiManager {
                   index: string;
                   points: number;
                   color: string;
-                  startTimestamp: number;
-                  endTimestamp: number;
+                  startsAt: number;
+                  endsAt: number;
                 };
               };
               tags: string[];
@@ -503,8 +503,8 @@ export class ApiManager {
                   index: string;
                   points: number;
                   color: string;
-                  startTimestamp: number;
-                  endTimestamp: number;
+                  startsAt: number;
+                  endsAt: number;
                 };
               };
               tags: string[];

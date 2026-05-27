@@ -19,7 +19,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
   const [data, setData] = useState<ProblemSummaryListResponseDTO[]>([]);
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setData(problems.contents as ProblemSummaryListResponseDTO[]);
+      setData(problems.contents as unknown as ProblemSummaryListResponseDTO[]);
       // setData([]);
     }, 2000);
     return () => clearTimeout(timeoutId);

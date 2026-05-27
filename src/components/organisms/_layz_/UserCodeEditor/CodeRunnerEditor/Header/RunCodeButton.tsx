@@ -58,7 +58,7 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
             onTestCasesChange: (prevState) => {
               const newTestCases: CodeEditorTestCases = { ...prevState };
               for (const testKey in newTestCases) {
-                if (prevState[testKey]?.messageTimestamp && prevState[testKey].messageTimestamp > data.messageTimestamp) {
+                if (prevState[testKey]?.createdAt && prevState[testKey].createdAt > data.createdAt) {
                   continue;
                 }
                 if (newTestCases[testKey]) {
@@ -68,7 +68,7 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
                     err,
                     out,
                     log,
-                    messageTimestamp: data.messageTimestamp,
+                    createdAt: data.createdAt,
                   };
                 }
               }
@@ -102,10 +102,10 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
                     out: data.log?.out || '',
                     log: data.log?.log || '',
                     err: data.log?.err || '',
-                    messageTimestamp: data.messageTimestamp,
+                    createdAt: data.createdAt,
                   };
                   const prev = prevState[testCase.key];
-                  if (prev && prev.messageTimestamp > testCase.messageTimestamp) {
+                  if (prev && prev.createdAt > testCase.createdAt) {
                     return prevState;
                   }
                   return { ...prevState, [testCase.key]: testCase };

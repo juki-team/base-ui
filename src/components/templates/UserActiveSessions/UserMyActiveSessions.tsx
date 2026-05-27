@@ -31,11 +31,11 @@ export function UserMyActiveSessions() {
       {
         head: 'session',
         index: 'session',
-        Field: ({ record: { updateTimestamp, deviceName, osName, id } }) => (
+        Field: ({ record: { updatedAt, deviceName, osName, id } }) => (
           <div className="jk-table-field jk-col center">
             <div className="fw-bd">{deviceName}</div>
             <div>{osName}</div>
-            <DateLiteral date={new Date(updateTimestamp)} />
+            <DateLiteral date={new Date(updatedAt)} />
             {userSessionId === id && (
               <div className="jk-tag bc-io">
                 <T className="tt-se">this device</T>
@@ -46,7 +46,7 @@ export function UserMyActiveSessions() {
         cardPosition: 'top',
         minWidth: 250,
         sort: {
-          compareFn: () => (rowA, rowB) => rowB.updateTimestamp - rowA.updateTimestamp,
+          compareFn: () => (rowA, rowB) => rowB.updatedAt - rowA.updatedAt,
         },
       },
       {

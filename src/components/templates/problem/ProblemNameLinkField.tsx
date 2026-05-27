@@ -1,3 +1,4 @@
+import { EntityRole } from '@juki-team/commons/enums';
 import { jukiAppRoutes } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { classNames } from '../../helpers/commons';
@@ -31,7 +32,7 @@ export function ProblemNameLinkField(props: ProblemNameLinkFieldProps) {
         </Link>
         {(user.tried || user.solved) && <>&nbsp;</>}
         <ProblemStatus {...user} size="small" />
-        {user.isManager && (
+        {(user.role === EntityRole.MANAGER || user.role === EntityRole.ADMINISTRATOR) && (
           <>
             &nbsp;
             <VoidIcon

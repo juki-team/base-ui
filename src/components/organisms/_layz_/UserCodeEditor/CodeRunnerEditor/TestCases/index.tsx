@@ -68,7 +68,7 @@ const AddCaseButton = <T,>({
                   hidden: false,
                   sample: sample,
                   status: SubmissionRunStatus.NONE,
-                  messageTimestamp: 0,
+                  createdAt: 0,
                 },
               }),
             });

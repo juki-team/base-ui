@@ -12,11 +12,11 @@ export function SubmissionDateField({ record: { timestamp, contest }, isCard }: 
     <div className="jk-table-field jk-col center nowrap">
       <div className="date-field jk-col center">
         <DateLiteral date={date} twoLines={twoLines} />
-        {contest?.settingsStartTimestamp && (
+        {contest?.settingsStartsAt && (
           <div className="jk-row tx-t cr-hd" style={{ lineHeight: 1 }}>
             <T className="tt-se">sent at</T>&nbsp;
             <TimerDisplay
-              counter={timestamp - contest.settingsStartTimestamp}
+              counter={timestamp - contest.settingsStartsAt}
               maxSplit={2}
               ignoreLeadingZeros
               ignoreTrailingZeros

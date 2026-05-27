@@ -42,7 +42,7 @@ export const ProblemCodeEditor = <T,>(props: ProblemCodeEditorProps<T>) => {
       withPE: problem.settings.withPE,
       testOut: sample.output,
       hidden: false,
-      messageTimestamp: 0,
+      createdAt: 0,
     };
   });
 

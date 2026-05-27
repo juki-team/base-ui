@@ -135,7 +135,7 @@ const mergeTestCases = (a: CodeEditorTestCases, b: CodeEditorTestCases | undefin
       err: b?.[key]?.err ?? testCase?.err ?? '',
       log: b?.[key]?.log ?? testCase?.log ?? '',
       status: b?.[key]?.status ?? testCase?.status ?? SubmissionRunStatus.NONE,
-      messageTimestamp: b?.[key]?.messageTimestamp ?? testCase?.messageTimestamp ?? 0,
+      createdAt: b?.[key]?.createdAt ?? testCase?.createdAt ?? 0,
     };
     if (key === '*') {
       newTestCases[key].in = b?.[key]?.in ?? testCase?.in ?? '';
@@ -274,7 +274,7 @@ const formatTestCasesStoreRecover = (recovered: unknown): StorageType<CodeEditor
           sample: false,
           hidden: caseValue?.hidden,
           index: caseValue?.index ?? -1,
-          messageTimestamp: caseValue?.messageTimestamp ?? 0,
+          createdAt: caseValue?.createdAt ?? 0,
           out: caseValue?.out || '',
           err: caseValue?.err || '',
           log: caseValue?.log || '',
@@ -298,7 +298,7 @@ const getNewInitialTestCases = (testCaseStoreKey: string, initialTestCases: Code
       sample: false,
       hidden: false,
       index: -1,
-      messageTimestamp: 0,
+      createdAt: 0,
       out: '',
       err: '',
       log: '',

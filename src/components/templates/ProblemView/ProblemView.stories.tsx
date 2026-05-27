@@ -1,6 +1,6 @@
 import { EMPTY_ENTITY_MEMBERS } from '@juki-team/commons/constants';
 import type { ProblemDataResponseDTO } from '@juki-team/commons/dto';
-import { CodeLanguage, EntityState, Judge, ProblemScoringMode, ProblemType } from '@juki-team/commons/enums';
+import { CodeLanguage, EntityRole, EntityState, Judge, ProblemScoringMode, ProblemType } from '@juki-team/commons/enums';
 import type { ContentResponse } from '@juki-team/commons/types';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { jukiApiManager } from '../../../settings';
@@ -40,7 +40,6 @@ export const Regular: Story = {
   ),
 };
 
-// @ts-expect-error
 Regular.args = {
   codeEditorStoreKey: 'testing-P-1000',
   problem: {
@@ -50,7 +49,6 @@ Regular.args = {
     judge: {
       key: Judge.JUKI_JUDGE,
       name: 'juki judge',
-      isCustom: false,
       isExternal: false,
       isMain: false,
       isSubmitSupported: true,
@@ -59,7 +57,6 @@ Regular.args = {
     author: '',
     key: 'P-1000',
     ownerNickname: 'OscarGauss',
-    // @ts-expect-error for testing
     statement1: {
       description: {
         ES: '',
@@ -160,10 +157,7 @@ Regular.args = {
       key: 'juki-app',
     },
     user: {
-      isOwner: true,
-      isAdministrator: true,
-      isSpectator: true,
-      isManager: true,
+      role: EntityRole.MANAGER,
       solved: true,
       tried: true,
     },

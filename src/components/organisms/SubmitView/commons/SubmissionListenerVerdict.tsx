@@ -65,7 +65,7 @@ export const SubmissionListenerVerdict = ({ submit, className }: SubmissionListe
           currentStatus &&
           (priority(nextSampleCase)[nextStatus] > priority(currentSampleCase)[currentStatus] ||
             (priority(nextSampleCase)[nextStatus] === priority(currentSampleCase)[currentStatus] &&
-              data.messageTimestamp > prevState.messageTimestamp))
+              data.createdAt > prevState.createdAt))
         ) {
           return data;
         }

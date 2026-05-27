@@ -1,4 +1,5 @@
 import type { ProblemDataResponseDTO } from '@juki-team/commons/dto';
+import { EntityRole } from '@juki-team/commons/enums';
 import type { ContentResponse } from '@juki-team/commons/types';
 import { type ReactNode, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
@@ -48,7 +49,7 @@ export function ProblemNameModalField(props: ProblemNameModalFieldProps) {
         </Div>
         {(user.tried || user.solved) && <>&nbsp;</>}
         <ProblemStatus {...user} size="small" />
-        {user.isManager && (
+        {(user.role === EntityRole.MANAGER || user.role === EntityRole.ADMINISTRATOR) && (
           <>
             &nbsp;
             <div

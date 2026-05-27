@@ -31,7 +31,7 @@ const initialTestCases = {
     sample: true,
     hidden: false,
     status: SubmissionRunStatus.NONE,
-    messageTimestamp: 0,
+    createdAt: 0,
   },
   'test-empty-without-PE': {
     key: 'test-empty-without-PE',
@@ -45,7 +45,7 @@ const initialTestCases = {
     sample: true,
     hidden: false,
     status: SubmissionRunStatus.NONE,
-    messageTimestamp: 0,
+    createdAt: 0,
   },
   'test-empty': {
     key: 'test-empty',
@@ -59,7 +59,7 @@ const initialTestCases = {
     sample: true,
     hidden: false,
     status: SubmissionRunStatus.NONE,
-    messageTimestamp: 0,
+    createdAt: 0,
   },
   'test-empty-1': {
     key: 'test-empty-1',
@@ -73,7 +73,7 @@ const initialTestCases = {
     sample: true,
     hidden: false,
     status: SubmissionRunStatus.NONE,
-    messageTimestamp: 0,
+    createdAt: 0,
   },
   'test-empty-2': {
     key: 'test-empty-2',
@@ -87,7 +87,7 @@ const initialTestCases = {
     sample: true,
     hidden: false,
     status: SubmissionRunStatus.NONE,
-    messageTimestamp: 0,
+    createdAt: 0,
   },
 };
 
