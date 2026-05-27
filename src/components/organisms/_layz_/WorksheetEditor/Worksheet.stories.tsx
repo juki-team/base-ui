@@ -4,7 +4,7 @@ import type { ContentResponse } from '@juki-team/commons/types';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { jukiApiManager } from '../../../../settings';
 import { T } from '../../../atoms';
-import { oneTab } from '../../../helpers';
+import { oneTab } from '../../../helpers/layout';
 import { useSyncedState } from '../../../hooks/useSyncedState';
 import { MockupJukiProvider } from '../../../mockup';
 import { ButtonLoader, FetcherLayer, SlideDeck, TwoContentLayout } from '../../../molecules';

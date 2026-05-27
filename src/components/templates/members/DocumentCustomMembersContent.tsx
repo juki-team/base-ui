@@ -4,7 +4,7 @@ import { getDocumentAccess, getUserKey } from '@juki-team/commons/helpers';
 import type { ReactNode } from 'react';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { InputToggle, Popover, T } from '../../atoms';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { UserChip, UsersSelector } from '../../organisms';
 import { InfoIIcon } from '../../server';
 import type { DocumentCustomMembersContentProps } from './types';

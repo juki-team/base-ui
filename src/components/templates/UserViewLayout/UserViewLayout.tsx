@@ -5,7 +5,7 @@ import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
 import { LockIcon } from '../../atoms/server';
-import { isJudgeWindowLocation } from '../../helpers';
+import { isJudgeWindowLocation } from '../../helpers/problem';
 import { TabsInlineButton, TwoContentLayout } from '../../molecules';
 import { ChangePasswordModal } from '../../organisms';
 import type { TabsType } from '../../types';

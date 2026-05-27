@@ -2,7 +2,7 @@ import type { GraphSheet } from '@juki-team/commons/types';
 import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
 import { Button, Div } from '../../../../../atoms';
 import { ArrowBackIcon, ArrowForwardIcon } from '../../../../../atoms/server';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../../helpers/commons';
 import { GraphvizViewer } from '../../../GraphvizViewer';
 
 interface GraphSheetSectionProps {

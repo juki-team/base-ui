@@ -6,7 +6,7 @@ import { object as yupObject, ref as yupRef, string as yupString } from 'yup';
 import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { InputPassword, Modal, T } from '../../../atoms';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 import { useJukiUser } from '../../../hooks/useJukiUser';
 import { ButtonLoader } from '../../../molecules';
 import type { SetLoaderStatusOnClickType } from '../../../types';

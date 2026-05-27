@@ -1,5 +1,5 @@
 import { T } from '../../../atoms/T/T.server';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 import type { TagsFieldProps } from '../../problem/types';
 
 export function TagsField({ record: { tags }, isCard }: TagsFieldProps) {

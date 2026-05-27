@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useUIStore } from '../../../../../../stores/ui/useUIStore';
 import { Input, T } from '../../../../../atoms';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../../helpers/commons';
 import { ButtonLoader, SplitModal } from '../../../../../molecules';
 import type { ForgotPasswordModalProps } from './types';
 

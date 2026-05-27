@@ -1,6 +1,6 @@
 import { type ReactElement, type Ref, useEffect, useId } from 'react';
 import type { UseFormRegisterReturn } from 'react-hook-form';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import type { InputCommonsProps } from '../../types';
 
 export type CmpInputProps<T> = InputCommonsProps<T>;
@@ -45,13 +45,13 @@ export function InputBase<T extends string | number | FileList>(
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: registerRef is a change trigger to re-run focus after register attaches
   useEffect(() => {
-    if (autoFocus) {
-      setTimeout(() => {
-        if (ref && typeof ref === 'object' && 'current' in ref) {
-          ref.current?.focus();
-        }
-      }, 10);
-    }
+    if (!autoFocus) return;
+    const timeoutId = setTimeout(() => {
+      if (ref && typeof ref === 'object' && 'current' in ref) {
+        ref.current?.focus();
+      }
+    }, 10);
+    return () => clearTimeout(timeoutId);
   }, [autoFocus, registerRef, ref]);
 
   const length = Math.max(`${value || ''}`.length, 3);

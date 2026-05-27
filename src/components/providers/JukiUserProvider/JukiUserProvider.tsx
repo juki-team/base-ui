@@ -6,7 +6,7 @@ import { JUKI_SERVICE_V2_URL } from '../../../constants/settings';
 import { jukiApiManager } from '../../../settings';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { isBrowser } from '../../helpers';
+import { isBrowser } from '../../helpers/commons';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useInjectCompanyStyles } from '../../hooks/useInjectCompanyStyles';
 import { useInjectFontSize } from '../../hooks/useInjectFontSize';

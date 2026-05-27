@@ -26,7 +26,7 @@ import {
   split,
 } from '@juki-team/commons/helpers';
 import type { RefObject } from 'react';
-import { renderReactNodeOrFunctionP1 } from '../../../../helpers';
+import { renderReactNodeOrFunctionP1 } from '../../../../helpers/render';
 import type { DatePickerDateFunType } from '../../../../molecules/types';
 import type { RequestFilterType } from '../../../../types';
 import { TextHeadCell } from '../../../server/TextHeadCell/TextHeadCell';

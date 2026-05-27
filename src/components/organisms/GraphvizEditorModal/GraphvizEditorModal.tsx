@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Modal } from '../../atoms';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { EditIcon } from '../../server';
 import { GraphvizViewer } from '../_layz_/GraphvizViewer';
 import type { GraphvizEditorModalProps } from '../_layz_/GraphvizViewer/types';

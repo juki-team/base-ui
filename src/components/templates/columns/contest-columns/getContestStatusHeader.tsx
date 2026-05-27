@@ -1,6 +1,6 @@
 import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
 import { T } from '../../../atoms';
-import { getContestState } from '../../../helpers';
+import { getContestState } from '../../../helpers/contest';
 import { FrozenInformation, QuietInformation, UpsolvingInformation } from '../../../molecules';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 

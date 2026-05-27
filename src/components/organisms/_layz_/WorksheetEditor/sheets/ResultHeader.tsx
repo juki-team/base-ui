@@ -2,7 +2,7 @@ import type { QuizOptionsSubmissionResponseDTO } from '@juki-team/commons/dto';
 import type { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { Div, T } from '../../../../atoms';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../../helpers/commons';
 
 interface ResultHeaderProps {
   points: number;

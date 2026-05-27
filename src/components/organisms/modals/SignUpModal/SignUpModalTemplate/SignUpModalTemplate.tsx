@@ -6,7 +6,7 @@ import { boolean as yupBoolean, object as yupObject, ref as yupRef, string as yu
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX, LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX } from '../../../../../constants';
 import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { Input, InputCheckbox, InputPassword, T } from '../../../../atoms';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../../helpers/commons';
 import { ButtonLoader, SplitModal } from '../../../../molecules';
 import type { SetLoaderStatusOnClickType } from '../../../../types';
 import type { SignUpFormType, SignUpModalComponentProps } from './types';

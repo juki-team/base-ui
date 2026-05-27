@@ -2,7 +2,7 @@ import { isValidDate } from '@juki-team/commons/helpers';
 import { useState } from 'react';
 import { TriggerAction } from '../../../../../../enums';
 import { Popover } from '../../../../../atoms';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../../helpers/commons';
 import { FilterListIcon } from '../../../../../server';
 import { isFilterDate, isFilterDateRange, isFilterSelect, isFilterText } from '../../commons/utils';
 import type { TableHeaderFilterType } from '../../types';

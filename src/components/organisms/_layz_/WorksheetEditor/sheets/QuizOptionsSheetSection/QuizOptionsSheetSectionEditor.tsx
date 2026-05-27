@@ -3,7 +3,7 @@ import type { QuizOptionsSheet } from '@juki-team/commons/types';
 import { v4 } from 'uuid';
 import { Button, Input, InputCheckbox, InputRadio, InputToggle, T } from '../../../../../atoms';
 import { AddIcon } from '../../../../../atoms/server';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../../helpers/commons';
 import { MdMathEditor } from '../../../MdMathEditor';
 import type { SetContentType } from '../../types';
 

@@ -5,7 +5,7 @@ import type { ContentResponse, JkmdSheet } from '@juki-team/commons/types';
 import { useRef, useState } from 'react';
 import { jukiApiManager } from '../../../../../../settings';
 import { InputCheckbox, T } from '../../../../../atoms';
-import { authorizedRequest } from '../../../../../helpers';
+import { authorizedRequest } from '../../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { ButtonLoader, FloatToolbar } from '../../../../../molecules';
 import { MdMathViewer } from '../../../../MdMathViewer/MdMathViewer';

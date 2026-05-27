@@ -4,7 +4,7 @@ import { cleanRequest } from '@juki-team/commons/helpers';
 import type { ContentResponse } from '@juki-team/commons/types';
 import { useState } from 'react';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import { authorizedRequest } from '../../helpers';
+import { authorizedRequest } from '../../helpers/fetch';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { TabsInlineButton, TabsInlineButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';

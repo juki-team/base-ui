@@ -6,14 +6,9 @@ import { useT } from '../../../atoms/T/client';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Button, T } from '../../../atoms';
-import {
-  authorizedRequest,
-  classNames,
-  downloadBlobAsFile,
-  downloadUrlAsFile,
-  getStatementData,
-  safeReportError,
-} from '../../../helpers';
+import { classNames, downloadBlobAsFile, downloadUrlAsFile } from '../../../helpers/commons';
+import { authorizedRequest, safeReportError } from '../../../helpers/fetch';
+import { getStatementData } from '../../../helpers/problem';
 
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { ButtonLoader } from '../../../molecules/ButtonLoader/ButtonLoader';

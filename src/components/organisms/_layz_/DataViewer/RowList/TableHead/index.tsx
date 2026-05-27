@@ -1,6 +1,6 @@
 import { Children, type MouseEvent, memo, type ReactElement, useCallback, useRef, useState } from 'react';
 import { Div } from '../../../../../atoms';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../../helpers/commons';
 import { ArrowDownwardIcon, ArrowUpwardIcon, SortIcon } from '../../../../../server';
 import { fixHeaders, renderHead } from '../../commons/utils';
 import type { DataViewerTableHeadersType, TableHeadProps, TableSortType } from '../../types';

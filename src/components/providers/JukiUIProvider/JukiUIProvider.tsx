@@ -6,7 +6,7 @@ import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Tooltip } from '../../atoms';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { LoginModal, SignUpModal, SubmissionModal, UserPreviewModal, WelcomeModal } from '../../organisms';
 import { LineLoader } from '../../server';
 import { NotificationProvider } from '../NotificationProvider/NotificationProvider';

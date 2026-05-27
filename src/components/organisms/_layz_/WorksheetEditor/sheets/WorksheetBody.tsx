@@ -1,6 +1,6 @@
 import { WorksheetType } from '@juki-team/commons/enums';
 import { Children, type PropsWithChildren, type Ref } from 'react';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../../helpers/commons';
 import type { WorksheetBodyProps } from '../types';
 import { AddNewChild } from './AddNewChild';
 import { WorksheetNode } from './WorksheetNode';

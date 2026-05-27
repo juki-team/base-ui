@@ -11,7 +11,7 @@ import markdown from 'highlight.js/lib/languages/markdown';
 import python from 'highlight.js/lib/languages/python';
 import { type CSSProperties, useMemo } from 'react';
 import { CopyToClipboard } from '../../../atoms';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 import type { CodeViewerProps } from './types';
 
 hljs.registerLanguage('bash', bash);

@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { QueryParamKey } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import { toFilterUrl, toSortUrl } from '../../helpers';
+import { toFilterUrl, toSortUrl } from '../../helpers/router';
 import { useFetcher } from '../../hooks/useFetcher';
 import { PagedDataViewer } from '../../organisms';
 import type { DataViewerHeadersType } from '../../organisms/_layz_/DataViewer/types';

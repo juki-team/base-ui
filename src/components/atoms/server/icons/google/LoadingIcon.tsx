@@ -1,6 +1,6 @@
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../../helpers/commons';
 import type { BasicIconProps, RootIconProps } from '../types';
-import { renderBasicIcon } from '../utils';
+import { renderBasicIcon } from '../utils/renderBasicIcon';
 
 const Icon = ({ color }: RootIconProps) => (
   <path

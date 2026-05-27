@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react';
 import { persistGlobalURLSearchParams } from '../../../settings/AppRoutes';
 import { usePageStore } from '../../../stores/page/usePageStore';
-import { classNames, getHref, isBrowser, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { classNames, isBrowser } from '../../helpers/commons';
+import { renderReactNodeOrFunctionP1 } from '../../helpers/render';
+import { getHref } from '../../helpers/router';
 import { useSyncedState } from '../../hooks/useSyncedState';
 import type { TabsType } from '../../types';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';

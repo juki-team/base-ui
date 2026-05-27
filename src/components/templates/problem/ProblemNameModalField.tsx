@@ -3,7 +3,7 @@ import type { ContentResponse } from '@juki-team/commons/types';
 import { type ReactNode, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Div, Modal } from '../../atoms';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { FetcherLayer } from '../../molecules';
 import { VoidIcon } from '../../server';
 import { ProblemView } from '../ProblemView/ProblemView';

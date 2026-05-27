@@ -2,7 +2,7 @@ import type { WebSocketResponseEventDTO, WebSocketSubscribeEventDTO } from '@juk
 import { useEffect } from 'react';
 import { useUserStore } from '../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
-import { safeReportError } from '../helpers';
+import { safeReportError } from '../helpers/fetch';
 import { useStableRef } from './useStableRef';
 import { useSyncedState } from './useSyncedState';
 

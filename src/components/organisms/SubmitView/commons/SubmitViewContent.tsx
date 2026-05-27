@@ -13,7 +13,8 @@ import { DateLiteral } from '../../../atoms/server/DateLiteral/DateLiteral';
 import { OpenInNewIcon } from '../../../atoms/server/icons/google/OpenInNewIcon';
 import { UpIcon } from '../../../atoms/server/icons/signs/UpIcon';
 import { T } from '../../../atoms/T/T';
-import { classNames, getJudgeOrigin } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
+import { getJudgeOrigin } from '../../../helpers/problem';
 import { hasTimeHasMemory } from '../../../helpers/submission';
 import { useFetcher } from '../../../hooks/useFetcher';
 import CodeViewer from '../../../molecules/_lazy_/CodeViewer/CodeViewer';
@@ -105,6 +106,7 @@ export const SubmitViewContent = ({
   const externalUrl = useMemo(() => {
     if (!(isLeetCode && getSubmissionUrl)) return '';
     try {
+      // oxlint-disable-next-line react-doctor/no-eval -- trusted Juki backend template, see comment above; refactor to URL-template pending backend change
       const fn = new Function('problemKey', 'submissionId', 'username', 'submissionRunId', getSubmissionUrl);
       return fn(problemKey, submitId, nickname, runId) as string;
     } catch {
@@ -209,7 +211,7 @@ export const SubmitViewContent = ({
                               abbreviated
                             />
                           ) : mounted ? (
-                            // eslint-disable-next-line react-doctor/rendering-hydration-mismatch-time -- gated by `mounted` (client-only), see useSyncExternalStore above
+                            // oxlint-disable-next-line react-doctor/rendering-hydration-mismatch-time -- gated by `mounted` (client-only), see useSyncExternalStore above
                             <Timer remaining={Date.now() - -judgmentTime} interval={1000} literal type="seconds" />
                           ) : null}
                         </div>
@@ -306,7 +308,7 @@ export const SubmitViewContent = ({
           )}
         </div>
       )}
-      {!!canViewSourceCode && !isLeetCode && (
+      {canViewSourceCode && !isLeetCode && (
         <div className="jk-col stretch wh-100">
           <div className="tx-l fw-bd cr-tx-ht-dk">
             <T className="tt-se">source code</T>

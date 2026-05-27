@@ -121,7 +121,7 @@
     "@floating-ui/react": "^0.27.19",
     "@handsontable/react-wrapper": "^17.1.0",
     "@hookform/resolvers": "^5.4.0",
-    "@juki-team/commons": "^0.2.6",
+    "@juki-team/commons": "^0.2.11",
     "@mdx-js/mdx": "^3.1.1",
     "@milkdown/components": "^7.21.1",
     "@milkdown/core": "^7.21.1",
@@ -211,6 +211,7 @@
     "playwright": "^1.60.0",
     "postcss": "^8.5.15",
     "react": "^19.2.6",
+    "react-doctor": "^0.2.6",
     "react-dom": "^19.2.6",
     "react-router-dom": "^7.15.1",
     "rollup": "^4.60.4",
@@ -229,8 +230,7 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.4",
     "vite": "^8.0.14",
-    "vitest": "^4.1.7",
-    "react-doctor": "^0.2.6"
+    "vitest": "^4.1.7"
   },
   "peerDependencies": {
     "@ably/spaces": "^0.5.2",

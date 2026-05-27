@@ -3,7 +3,7 @@ import { QueryParamKey } from '../../../enums';
 import { cloneURLSearchParams } from '../../../settings/AppRoutes';
 import { useLastPathStore } from '../../../stores/lastPath/useLastPath';
 import { useUIStore } from '../../../stores/ui/useUIStore';
-import { getHref } from '../../helpers';
+import { getHref } from '../../helpers/router';
 import type { LastPathType } from '../../providers/JukiLastPathInitializer/types';
 import type { LinkLastPathProps } from './types';
 

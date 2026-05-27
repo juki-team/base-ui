@@ -2,7 +2,7 @@ import domToImage from 'dom-to-image-more';
 import { type MouseEvent, type MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import { Button, CopyToClipboard, T } from '../../../../../atoms';
 import { ContentCopyIcon, DownloadIcon, LoadingIcon, PlayArrowIcon, WarningIcon } from '../../../../../atoms/server';
-import { downloadBlobAsFile } from '../../../../../helpers';
+import { downloadBlobAsFile } from '../../../../../helpers/commons';
 import { GraphicToolbar } from './GraphicToolbar';
 import type { MermaidTheme, MermaidViewerProps } from './types';
 

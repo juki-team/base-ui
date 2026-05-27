@@ -2,7 +2,7 @@ import { CodeLanguage } from '@juki-team/commons/enums';
 import { useEffect, useState } from 'react';
 import { Button, Input, Modal, T } from '../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, CodeIcon, PlayCircleIcon, ReplyIcon, StopCircleIcon } from '../../atoms/server';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { CodeViewer, FloatToolbar } from '../../molecules';
 import { GraphvizViewer } from '../_layz_/GraphvizViewer';
 import type { GraphvizViewerProps } from '../_layz_/GraphvizViewer/types';

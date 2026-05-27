@@ -1,6 +1,6 @@
 // https://github.com/McShelby/reveal-pdfexport/tree/master
 import type { RevealApi, RevealPluginFactory } from 'reveal.js';
-import { isBrowser } from '../../../helpers';
+import { isBrowser } from '../../../helpers/commons';
 
 export function isPrintingPDF() {
   if (isBrowser()) {

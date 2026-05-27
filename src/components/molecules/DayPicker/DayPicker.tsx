@@ -12,7 +12,7 @@ import {
 import { useState } from 'react';
 import { DAYS_2 } from '../../../constants';
 import { Div, Select, T } from '../../atoms';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import type { DayPickerProps } from '../DatePicker/types';
 import { NextButton } from '../NextButton/NextButton';
 import { PreviousButton } from '../PreviousButton/PreviousButton';

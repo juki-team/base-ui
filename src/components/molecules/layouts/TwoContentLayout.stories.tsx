@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { EMPTY_USER } from '../../../constants';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Input, T } from '../../atoms';
-import { oneTab } from '../../helpers';
+import { oneTab } from '../../helpers/layout';
 import { MockupJukiProvider } from '../../mockup';
 import { MockJkContestTable } from '../../organisms/_layz_/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable';

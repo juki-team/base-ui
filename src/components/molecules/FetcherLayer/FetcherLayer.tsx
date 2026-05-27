@@ -3,7 +3,7 @@ import type { ContentResponse, ContentsResponse, ErrorResponse } from '@juki-tea
 import { useEffect, useMemo, useRef } from 'react';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { LineLoader, LoaderLayer } from '../../atoms/server';
-import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers/render';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import type { FetcherLayerProps } from './types';

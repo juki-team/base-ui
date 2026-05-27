@@ -1,6 +1,6 @@
 import { jukiAppRoutes } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { VoidIcon } from '../../server';
 import { ProblemStatus } from '../server/ProblemStatus/ProblemStatus';
 import type { ProblemNameLinkFieldProps } from './types';

@@ -20,10 +20,11 @@ import problems from './data.json';
 export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data' | 'headers'>) => {
   const [data, setData] = useState<ProblemSummaryListResponseDTO[]>([]);
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setData(problems.contents as ProblemSummaryListResponseDTO[]);
       // setData([]);
     }, 2000);
+    return () => clearTimeout(timeoutId);
   }, []);
   const columns: DataViewerHeadersType<ProblemSummaryListResponseDTO>[] = useMemo(
     () => [

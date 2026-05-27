@@ -14,7 +14,7 @@ import { useCallback, useState } from 'react';
 import { jukiApiManager } from '../../settings';
 import { useUserStore } from '../../stores/user/useUserStore';
 import { T } from '../atoms/T/T';
-import { authorizedRequest } from '../helpers';
+import { authorizedRequest } from '../helpers/fetch';
 import type {
   AuthorizedRequestType,
   SetStatusType,

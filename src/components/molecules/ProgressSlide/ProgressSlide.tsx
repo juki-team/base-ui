@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import type { ProgressSlideProps } from './types';
 
 export const ProgressSlide = ({ height = 12, progress = 100, className, color = 'var(--cr-we-light)' }: ProgressSlideProps) => {

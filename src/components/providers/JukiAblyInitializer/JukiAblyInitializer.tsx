@@ -20,7 +20,8 @@ import { useAblyStore } from '../../../stores/ably/useAblyStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
-import { authorizedRequest, isBrowser, safeReportError } from '../../helpers';
+import { isBrowser } from '../../helpers/commons';
+import { authorizedRequest, safeReportError } from '../../helpers/fetch';
 import { useStableRef } from '../../hooks/useStableRef';
 import { ErrorBoundary } from '../../templates';
 
@@ -97,6 +98,7 @@ export const JukiAblyInitializer = () => {
   const { setRealtimeClient, realtimeClient, setSpaces } = useAblyStore();
   const realtimeClientRef = useStableRef(realtimeClient);
   useEffect(() => {
+    let authTimeoutId: ReturnType<typeof setTimeout> | undefined;
     (() => {
       try {
         if (realtimeClientRef.current) {
@@ -140,7 +142,7 @@ export const JukiAblyInitializer = () => {
 
             setRealtimeClient(realtimeClient);
             setSpaces(new Spaces(realtimeClient));
-            setTimeout(newAuth, 1000);
+            authTimeoutId = setTimeout(newAuth, 1000);
           } else {
             consoleWarn('Failed creating realtimeClient ', { realtimeClient });
           }
@@ -151,6 +153,9 @@ export const JukiAblyInitializer = () => {
         void safeReportError(error as Error, null, { message: 'Error during Ably authorization' });
       }
     })();
+    return () => {
+      if (authTimeoutId) clearTimeout(authTimeoutId);
+    };
   }, [clientId, newAuth, realtimeClientRef, setRealtimeClient, setSpaces]);
 
   if (isBrowser() && realtimeClient) {

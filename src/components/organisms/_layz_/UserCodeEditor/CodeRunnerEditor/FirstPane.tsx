@@ -3,7 +3,7 @@ import type { CodeEditorFiles } from '@juki-team/commons/types';
 import { type Dispatch, type ReactNode, type RefObject, type SetStateAction, useCallback, useMemo, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../../constants';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../../helpers/commons';
 import { CodeEditor } from '../../../../molecules';
 import type { CodeEditorPropertiesType } from '../../../../molecules/_lazy_/CodeEditor/types';
 import { Header } from './Header';

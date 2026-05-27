@@ -4,7 +4,7 @@ import { cleanRequest } from '@juki-team/commons/helpers';
 import type { ContentResponse, QuizProblemSheet } from '@juki-team/commons/types';
 import { jukiApiManager } from '../../../../../../settings';
 import { T } from '../../../../../atoms';
-import { authorizedRequest } from '../../../../../helpers';
+import { authorizedRequest } from '../../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { ButtonLoader, FetcherLayer, FirstLoginWrapper } from '../../../../../molecules';
 import { ProblemView } from '../../../../../templates/ProblemView/ProblemView';

@@ -3,7 +3,7 @@ import { instance } from '@viz-js/viz';
 import { useEffect, useRef } from 'react';
 import { create } from 'zustand';
 import { useT } from '../../../atoms/T/client';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 import type { GraphvizViewerProps } from './types';
 
 interface GraphvizState {

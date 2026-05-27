@@ -10,7 +10,8 @@ import type { ContentResponse, ContentsResponse } from '@juki-team/commons/types
 import { useEffect, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Input, Select, T } from '../../atoms';
-import { authorizedRequest, classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
+import { authorizedRequest } from '../../helpers/fetch';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { ButtonLoader, MultiSelectSearchable } from '../../molecules';

@@ -1,5 +1,5 @@
 import { Div } from '../../atoms';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import type { FieldProps } from '../_layz_/DataViewer/types';
 
 export function Field({ onClick, className = '', children, style }: FieldProps) {

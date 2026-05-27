@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Modal, T } from '../../atoms';
-import { toBlob } from '../../helpers';
+import { toBlob } from '../../helpers/commons';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { useMatchMutate } from '../../hooks/useMatchMutate';
 import { ButtonLoader, ImageLoaderCropper } from '../../molecules';

@@ -9,7 +9,7 @@ import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Popover, Select, T } from '../../atoms';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { useFetcher } from '../../hooks/useFetcher';
 import { JukiLoadingLayout } from '../../molecules';
 import { HorizontalMenu, LoginUser, VerticalMenu } from '../../organisms';

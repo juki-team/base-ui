@@ -7,7 +7,8 @@ import { useLoaderStatusSync } from '../../hooks/useLoaderStatusSync';
 import { useStableRef } from '../../hooks/useStableRef';
 import type { SetLoaderStatusOnClickType } from '../../types';
 import { Portal } from '../Portal/Portal';
-import { CloseIcon, SpinIcon } from '../server';
+import { CloseIcon } from '../server/icons/google/CloseIcon';
+import { SpinIcon } from '../server/icons/SpinIcon';
 import type { ModalButtonLoaderEventType, ModalProps } from './types';
 
 export function Modal<T extends ModalButtonLoaderEventType>(props: ModalProps<T>) {

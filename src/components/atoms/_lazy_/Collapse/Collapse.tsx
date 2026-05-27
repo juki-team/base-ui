@@ -1,5 +1,5 @@
 import { AnimatePresence, domAnimation, LazyMotion, m } from 'motion/react';
-import { renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { renderReactNodeOrFunctionP1 } from '../../../helpers/render';
 import { useHandleState } from '../../../hooks/useHandleState';
 import { ExpandLessIcon, ExpandMoreIcon } from '../../server';
 import type { CollapseProps } from './types';

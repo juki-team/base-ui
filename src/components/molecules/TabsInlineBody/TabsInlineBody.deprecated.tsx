@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { Children, useEffect, useMemo, useState } from 'react';
 import { Duration } from '../../../enums';
-import { renderReactNodeOrFunctionP1 } from '../../helpers';
+import { renderReactNodeOrFunctionP1 } from '../../helpers/render';
 import type { TabsInlineBodyProps } from '../Tabs/types';
 
 const preload = false;
@@ -17,9 +17,10 @@ export const TabsInlineBody = <T = string>({ tabs, selectedTabKey }: TabsInlineB
   }, [loadPreload, tabs]);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setLoadPreload(false);
     }, 1000);
+    return () => clearTimeout(timeoutId);
   }, []);
 
   return (

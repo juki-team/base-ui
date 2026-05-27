@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../../helpers/commons';
 import type { BasicIconProps, RootIconProps } from '../types';
 import { CircleFrame } from './CircleFrame';
 import { Segment } from './Segment';

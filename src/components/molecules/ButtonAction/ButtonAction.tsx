@@ -4,7 +4,7 @@ import { TriggerAction } from '../../../enums';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { Popover } from '../../atoms';
 import type { PopoverProps } from '../../atoms/_lazy_/Popover/types';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import type { SetLoaderStatusOnClickType } from '../../types';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import type { ButtonActionProps } from '../FloatToolbar/types';

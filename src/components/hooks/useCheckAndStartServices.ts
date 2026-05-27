@@ -4,7 +4,8 @@ import type { ContentResponse } from '@juki-team/commons/types';
 import { useEffect } from 'react';
 import { jukiApiManager } from '../../settings';
 import { usePageStore } from '../../stores/page/usePageStore';
-import { authorizedRequest, isDev } from '../helpers';
+import { isDev } from '../helpers/commons';
+import { authorizedRequest } from '../helpers/fetch';
 
 export const useCheckAndStartServices = () => {
   const isLive = usePageStore((store) => store.isOnline && store.isFocus && store.isVisible);

@@ -1,4 +1,4 @@
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { MdFloatToolbar } from './MdFloatToolbar/MdFloatToolbar';
 import { MemoMdMath } from './MemoMdMath.deprecated';
 import type { MdMathViewerProps } from './types';

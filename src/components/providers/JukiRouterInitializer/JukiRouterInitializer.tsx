@@ -2,7 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { QueryParamKey } from '../../../enums';
 import { cloneURLSearchParams } from '../../../settings/AppRoutes';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import { getHref, isBrowser } from '../../helpers';
+import { isBrowser } from '../../helpers/commons';
+import { getHref } from '../../helpers/router';
 import type {
   AppendSearchParamsType,
   DeleteSearchParamsType,

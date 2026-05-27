@@ -3,7 +3,7 @@ import { useResizeDetector } from 'react-resize-detector';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { Modal } from '../../atoms';
 import type { ModalButtonLoaderEventType } from '../../atoms/Modal/types';
-import { renderReactNodeOrFunction } from '../../helpers';
+import { renderReactNodeOrFunction } from '../../helpers/render';
 import type { SplitModalProps } from './types';
 
 export function SplitModal<T extends ModalButtonLoaderEventType>(props: PropsWithChildren<SplitModalProps<T>>) {

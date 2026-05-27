@@ -7,7 +7,7 @@ import { v4 } from 'uuid';
 import { jukiApiManager } from '../../../../../../settings';
 import { T } from '../../../../../atoms';
 import { PlayArrowIcon } from '../../../../../atoms/server';
-import { authorizedRequest } from '../../../../../helpers';
+import { authorizedRequest } from '../../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { useKeyDown } from '../../../../../hooks/useKeyDown';
 import { useStableRef } from '../../../../../hooks/useStableRef';

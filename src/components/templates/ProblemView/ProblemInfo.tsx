@@ -3,7 +3,7 @@ import { Judge, Language, ProblemScoringMode } from '@juki-team/commons/enums';
 import type { ProblemSettings } from '@juki-team/commons/types';
 import { Children, Fragment, type PropsWithChildren, type ReactNode } from 'react';
 import { Popover, T } from '../../atoms';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { ExclamationIcon, InfoIIcon } from '../../server';
 import type { ProblemInfoProps } from './types';
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import type { DivProps } from './types';
 
 export function Div(props: DivProps) {

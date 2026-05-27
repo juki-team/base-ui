@@ -1,5 +1,5 @@
 import type { PixelCrop } from 'react-image-crop';
-import { isBrowser } from '../../../helpers';
+import { isBrowser } from '../../../helpers/commons';
 
 const TO_RADIANS = Math.PI / 180;
 

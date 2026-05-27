@@ -1,7 +1,8 @@
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { TriggerAction } from '../../../enums';
-import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
+import { classNames, getTextContent } from '../../helpers/commons';
+import { renderReactNodeOrFunction } from '../../helpers/render';
 import { Popover } from '../_lazy_/Popover';
 import { InputCheckbox } from '../InputCheckbox/InputCheckbox';
 import type { SelectOptionType } from '../Select/types';

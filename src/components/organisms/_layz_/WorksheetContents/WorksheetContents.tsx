@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { QueryParamKey } from '../../../../enums';
 import { Div, T } from '../../../atoms';
 import { ArrowBackIcon, ArrowForwardIcon, ViewHeadlineIcon } from '../../../atoms/server';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 import { TableOfContentsModal } from '../WorksheetEditor/sheets/TableOfContentsModal';
 import type { WorksheetContentsProps } from './types';
 

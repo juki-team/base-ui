@@ -18,7 +18,7 @@ import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Button, DetectRequestAnimationFrame, Div } from '../../../atoms';
 import { VisibilityIcon, VisibilityOffIcon } from '../../../atoms/server';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useSyncedState } from '../../../hooks/useSyncedState';
 import { CodeViewer } from '../../../molecules';

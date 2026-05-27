@@ -33,7 +33,7 @@ type UserTable = {
 export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' | 'headers'>) => {
   const [data, setData] = useState<UserTable[]>([]);
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setData(
         users.list.map(
           (user) =>
@@ -65,6 +65,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
         ),
       );
     }, 8000);
+    return () => clearTimeout(timeoutId);
   }, []);
   const columns: DataViewerHeadersType<UserTable>[] = useMemo(
     () => [

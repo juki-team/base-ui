@@ -6,7 +6,7 @@ import { CODE_EDITOR_PROGRAMMING_LANGUAGES } from '../../../../../constants';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { Button, Portal, T } from '../../../../atoms';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../../helpers/commons';
 import { useStableRef } from '../../../../hooks/useStableRef';
 import { SplitPane } from '../../../../molecules';
 import MdMathEditor from '../../MdMathEditor/MdMathEditor';

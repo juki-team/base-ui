@@ -24,7 +24,7 @@ import { v4 } from 'uuid';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { T } from '../../../../atoms';
 import { useT } from '../../../../atoms/T/client';
-import { handleUploadImage } from '../../../../helpers';
+import { handleUploadImage } from '../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useStableRef } from '../../../../hooks/useStableRef';
 // import { basicSetup } from '@uiw/react-codemirror';

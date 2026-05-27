@@ -1,5 +1,5 @@
 import type { BasicIconProps, RootIconProps } from '../types';
-import { renderBasicIcon } from '../utils';
+import { renderBasicIcon } from '../utils/renderBasicIcon';
 
 const Icon = ({ color }: RootIconProps) => (
   <path d="M200-200v-100h160l120-360H320v-100h400v100H580L460-300h140v100H200Z" fill={color} />

@@ -4,7 +4,7 @@ import { ProblemVerdict, ProfileSetting, SubmissionRunStatus, Theme } from '@juk
 import { useT } from '../../../atoms/T/client';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 import { SpinIcon } from '../../../server';
 
 export interface SubmissionVerdictProps {

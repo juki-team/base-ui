@@ -6,7 +6,7 @@ import type { ContentResponse } from '@juki-team/commons/types';
 import { type PropsWithChildren, useState } from 'react';
 import { Button, CopyToClipboard, T } from '../../atoms';
 import { EditIcon, ShareIcon } from '../../atoms/server';
-import { authorizedRequest } from '../../helpers';
+import { authorizedRequest } from '../../helpers/fetch';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { ButtonAction } from '../../molecules';
 import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModal';

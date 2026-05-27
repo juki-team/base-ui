@@ -2,7 +2,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { motion } from 'motion/react';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../../helpers/commons';
 import { useStableRef } from '../../../../hooks/useStableRef';
 import type { DataViewerTableHeadersType, RowVirtualizerFixedProps } from '../types';
 import { TableHead } from './TableHead';

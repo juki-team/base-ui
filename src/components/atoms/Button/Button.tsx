@@ -1,7 +1,7 @@
 import type { ComponentPropsWithRef, Ref } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import type { ButtonBasicProps, OnClickButtonEventType } from '../../types';
 
 export function Button(props: ButtonCmpProps & { ref?: Ref<HTMLButtonElement> }) {

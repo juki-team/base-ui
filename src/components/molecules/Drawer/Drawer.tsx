@@ -1,6 +1,7 @@
 import { isValidElement, type MouseEvent, type ReactNode, type Ref, useState } from 'react';
 import { TriggerAction } from '../../../enums';
-import { isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { isTrigger, renderChildrenWithProps } from '../../helpers/commons';
+import { renderReactNodeOrFunctionP1 } from '../../helpers/render';
 import { DrawerView } from '../_lazy_/DrawerView';
 import type { DrawerProps } from './types';
 

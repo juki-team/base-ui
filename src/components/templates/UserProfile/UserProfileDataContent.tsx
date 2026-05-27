@@ -6,7 +6,7 @@ import { jukiApiManager } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { CopyToClipboard } from '../../atoms';
 import { LocationOnIcon, MailIcon, SchoolIcon } from '../../atoms/server';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { useFetcher } from '../../hooks/useFetcher';
 import type { UserProfileDataContentProps } from './types';
 
@@ -51,6 +51,7 @@ export function UserProfileDataContent({ user, className }: UserProfileDataConte
         .filter(([judge, nickname]) => !!nickname && !!JUDGE[judge as Judge])
         .map(([judge, nickname]) => {
           const getProfileUrl = data?.success ? data.contents.find(({ key }) => key === judge)?.getProfileUrl : '';
+          // oxlint-disable-next-line react-doctor/no-eval -- trusted Juki backend template (per-judge URL builder); refactor to URL-template pending backend change
           const getProfileUrlFn = new Function('userNickname', getProfileUrl || "return ''");
           const externalUrl = getProfileUrlFn(nickname) as string;
 

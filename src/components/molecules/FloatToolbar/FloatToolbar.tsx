@@ -1,7 +1,7 @@
 import { type CSSProperties, memo } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import type { PopoverProps } from '../../atoms/_lazy_/Popover/types';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { ButtonAction } from '../ButtonAction/ButtonAction';
 import type { FloatToolbarProps } from './types';
 
@@ -24,7 +24,7 @@ function FloatToolbarCmp(props: FloatToolbarProps) {
         <div className="jk-float-toolbar-container jk-col gap stretch right" ref={ref}>
           {actionButtons.map((props, index) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: action buttons list is fixed per toolbar instance
-            <ButtonAction {...props} key={index} />
+            <ButtonAction key={index} {...props} />
           ))}
         </div>
       </div>

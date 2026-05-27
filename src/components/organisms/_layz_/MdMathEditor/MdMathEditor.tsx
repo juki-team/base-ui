@@ -16,7 +16,7 @@ import {
 } from 'react';
 import { T } from '../../../atoms';
 import { ArticleIcon, CodeIcon, DownloadIcon, LineLoader } from '../../../atoms/server';
-import { classNames, downloadBlobAsFile } from '../../../helpers';
+import { classNames, downloadBlobAsFile } from '../../../helpers/commons';
 import { useStableRef } from '../../../hooks/useStableRef';
 import { FloatToolbar } from '../../../molecules';
 import { ImageUploaderModal } from '../../modals';

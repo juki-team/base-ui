@@ -1,5 +1,5 @@
 import type { SubmissionSummaryListResponseDTO } from '@juki-team/commons/dto';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 import { FieldText } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer/types';
 import { SubmissionMemory } from '../../../organisms/server/SubmissionMemory/SubmissionMemory';

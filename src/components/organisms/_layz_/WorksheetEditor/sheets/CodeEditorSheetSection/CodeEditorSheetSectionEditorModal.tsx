@@ -5,7 +5,7 @@ import { type Dispatch, useState } from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../../constants';
 import { Input, InputCheckbox, Modal, MultiSelect, T } from '../../../../../atoms';
 import type { BasicModalProps } from '../../../../../atoms/Modal/types';
-import { getHeight } from '../../../../../helpers';
+import { getHeight } from '../../../../../helpers/worksheet';
 import { UserCodeEditor } from '../../../UserCodeEditor';
 
 interface RunnerSheetSectionProps extends BasicModalProps {

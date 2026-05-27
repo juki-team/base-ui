@@ -1,7 +1,7 @@
 import { NotificationType, Status } from '@juki-team/commons/enums';
 import { type ClipboardEventHandler, useRef } from 'react';
 import { T, TextArea } from '../../../../atoms';
-import { handleUploadImage } from '../../../../helpers';
+import { handleUploadImage } from '../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import type { TextPlainEditorContentProps } from '../../../MdMathViewer/types';
 

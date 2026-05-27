@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { DEFAULT_GRAPH } from '../../../../../../constants';
 import { Button, Div, Input, T } from '../../../../../atoms';
 import { AddIcon, ArrowBackIcon, ArrowForwardIcon, DeleteIcon } from '../../../../../atoms/server';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../../helpers/commons';
 import { GraphvizEditor } from '../../../../GraphvizEditor/GraphvizEditor';
 import type { SetContentType } from '../../types';
 

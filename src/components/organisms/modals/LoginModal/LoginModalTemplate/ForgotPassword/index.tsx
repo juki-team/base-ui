@@ -3,7 +3,7 @@ import { cleanRequest } from '@juki-team/commons/helpers';
 import type { ContentResponse } from '@juki-team/commons/types';
 import { jukiApiManager } from '../../../../../../settings';
 import type { BasicModalProps } from '../../../../../atoms/types';
-import { authorizedRequest } from '../../../../../helpers';
+import { authorizedRequest } from '../../../../../helpers/fetch';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { ForgotPasswordModalComponent } from './ForgoPasswordModal';

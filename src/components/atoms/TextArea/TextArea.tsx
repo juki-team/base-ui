@@ -1,6 +1,6 @@
 import type { ComponentPropsWithRef, CSSProperties, Ref } from 'react';
 import type { UseFormRegisterReturn } from 'react-hook-form';
-import { classNames, isBrowser } from '../../helpers';
+import { classNames, isBrowser } from '../../helpers/commons';
 
 export function TextArea(props: CmpTextAreaProps & { ref?: Ref<HTMLTextAreaElement> }) {
   const { ref, value, onChange, style, className, register, onBlur, disabled, rows, onCtrlClick, onCtrlEnter, ...rest } = props;

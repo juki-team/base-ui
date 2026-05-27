@@ -1,7 +1,7 @@
 import { NotificationType } from '@juki-team/commons/enums';
 import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
-import { classNames, getTextContent } from '../../helpers';
+import { classNames, getTextContent } from '../../helpers/commons';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { CloseIcon } from '../../server';
 import { NOTIFICATION_ICON } from './constants';
@@ -58,13 +58,13 @@ export function CardNotification({ ids, type, message }: CardNotificationProps) 
 
   const idsString = JSON.stringify(ids);
   useEffect(() => {
-    if (exit) {
-      setTimeout(() => {
-        for (const id of JSON.parse(idsString)) {
-          removeNotification(id);
-        }
-      }, 400);
-    }
+    if (!exit) return;
+    const timeoutId = setTimeout(() => {
+      for (const id of JSON.parse(idsString)) {
+        removeNotification(id);
+      }
+    }, 400);
+    return () => clearTimeout(timeoutId);
   }, [exit, idsString, removeNotification]);
 
   return (

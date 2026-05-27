@@ -3,7 +3,8 @@ import { type ClipboardEventHandler, type Dispatch, type RefObject, useCallback,
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { Button, Modal, T, TextArea } from '../../../atoms';
-import { classNames, handleUploadImage } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
+import { handleUploadImage } from '../../../helpers/fetch';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { SplitPane } from '../../../molecules';
 import { CloseIcon, EditIcon, InfoIIcon, PreviewIcon } from '../../../server';

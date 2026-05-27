@@ -9,7 +9,7 @@ import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { Div, Input, InputPassword, InputSelect, T } from '../../../../atoms';
 import { InfoIIcon } from '../../../../atoms/server';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../../helpers/commons';
 import { useFetcher } from '../../../../hooks/useFetcher';
 import { ButtonLoader, SplitModal } from '../../../../molecules';
 import type { SetLoaderStatusOnClickType } from '../../../../types';

@@ -12,7 +12,7 @@ import {
   FolderIcon,
   FolderOpenIcon,
 } from '../../../../../atoms/server';
-import { classNames, normalizeFolderPath } from '../../../../../helpers';
+import { classNames, normalizeFolderPath } from '../../../../../helpers/commons';
 import { TwoActionModal } from '../../../../../molecules';
 import type { FileTreePanelProps } from './types';
 

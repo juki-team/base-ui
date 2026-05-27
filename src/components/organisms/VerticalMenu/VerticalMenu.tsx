@@ -1,7 +1,8 @@
 import { Children, useEffect } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { Div } from '../../atoms';
-import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { classNames } from '../../helpers/commons';
+import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers/render';
 import { useSyncedState } from '../../hooks/useSyncedState';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
 import { HorizontalMenu } from '../HorizontalMenu/HorizontalMenu';

@@ -13,7 +13,7 @@ import {
   TimerIcon,
   UndoIcon,
 } from '../../../atoms/server';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 import { ButtonAction } from '../../../molecules';
 import { TimerDisplay } from '../../../molecules/server/TimerDisplay/TimerDisplay';
 

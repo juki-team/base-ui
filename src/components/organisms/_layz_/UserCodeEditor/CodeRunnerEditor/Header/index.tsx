@@ -5,7 +5,7 @@ import { type ReactNode, useCallback } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../../../constants';
 import { Button, Select, T } from '../../../../../atoms';
-import { classNames, downloadBlobAsFile } from '../../../../../helpers';
+import { classNames, downloadBlobAsFile } from '../../../../../helpers/commons';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { useKeyDown } from '../../../../../hooks/useKeyDown';
 import { CodeViewer } from '../../../../../molecules';

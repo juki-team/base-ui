@@ -7,7 +7,7 @@ import type {
 import type { ContentsResponse } from '@juki-team/commons/types';
 import { useMemo } from 'react';
 import { jukiApiManager } from '../../../../../settings';
-import { toFilterUrl, toSortUrl } from '../../../../helpers';
+import { toFilterUrl, toSortUrl } from '../../../../helpers/router';
 import { useFetcher } from '../../../../hooks/useFetcher';
 import {
   getSubmissionContestHeader,

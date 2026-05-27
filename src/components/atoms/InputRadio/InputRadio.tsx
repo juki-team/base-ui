@@ -1,4 +1,4 @@
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import type { InputRadioProps } from '../Input/types';
 
 export function InputRadio({ className, checked, disabled, onChange, label, size, ...props }: InputRadioProps) {

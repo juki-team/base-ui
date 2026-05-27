@@ -5,7 +5,7 @@ import { JUKI_SERVICE_V2_URL } from '../../../constants/settings';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
 import { RefreshIcon } from '../../atoms/server';
-import { authorizedRequest } from '../../helpers';
+import { authorizedRequest } from '../../helpers/fetch';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { useMatchMutate } from '../../hooks/useMatchMutate';
 import { ButtonLoader } from '../../molecules';

@@ -2,7 +2,7 @@ import { Status } from '@juki-team/commons/enums';
 import { type PropsWithChildren, useRef, useState } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { Modal, T } from '../../atoms';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { ExclamationIcon } from '../../server';
 import type { SetLoaderStatusOnClickType } from '../../types';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouterStore } from '../../stores/router/useRouterStore';
-import { isBrowser } from '../helpers';
+import { isBrowser } from '../helpers/commons';
 
 const getHash = () => (isBrowser() ? decodeURIComponent(window.location.hash.replace('#', '')) : undefined);
 

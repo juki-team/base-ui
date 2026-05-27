@@ -3,7 +3,7 @@ import type { ContentResponse, ContentsResponse } from '@juki-team/commons/types
 import { useMemo } from 'react';
 import useSWR, { type SWRConfiguration } from 'swr';
 import { useUserStore } from '../../stores/user/useUserStore';
-import { getAuthorizedRequest } from '../helpers';
+import { getAuthorizedRequest } from '../helpers/fetch';
 
 export const fetcher = ([url]: [string]) => {
   return getAuthorizedRequest(url, {}, false);

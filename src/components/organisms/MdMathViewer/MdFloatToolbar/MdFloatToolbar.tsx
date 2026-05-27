@@ -1,5 +1,5 @@
 import { T } from '../../../atoms';
-import { downloadBlobAsFile } from '../../../helpers';
+import { downloadBlobAsFile } from '../../../helpers/commons';
 import { FloatToolbar } from '../../../molecules';
 import type { ButtonActionProps } from '../../../molecules/types';
 import { DownloadIcon, EditIcon } from '../../../server';

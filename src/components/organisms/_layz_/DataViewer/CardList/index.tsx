@@ -1,6 +1,6 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { Children, type SyntheticEvent, useCallback, useRef, useState } from 'react';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../../helpers/commons';
 import { DataViewerCard } from './DataViewerCard';
 import type { CardRowVirtualizerFixedProps } from './types';
 

@@ -9,7 +9,7 @@ import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Button, Collapse, Modal, T, VirtualizedRowsFixed } from '../../../atoms';
 import type { VirtualizedRowsFixedProps } from '../../../atoms/_lazy_/VirtualizedRowsFixed/types';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 import { UpIcon, VisibilityIcon } from '../../../server';
 import { SubmissionMemory } from '../../server/SubmissionMemory/SubmissionMemory';
 import { SubmissionTime } from '../../server/SubmissionTime/SubmissionTime';

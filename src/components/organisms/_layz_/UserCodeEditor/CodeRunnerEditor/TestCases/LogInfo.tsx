@@ -2,7 +2,7 @@ import { ONE_SECOND } from '@juki-team/commons/constants';
 import { SubmissionRunStatus } from '@juki-team/commons/enums';
 import { getDataOfTestCase } from '@juki-team/commons/helpers';
 import { T } from '../../../../../atoms';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../../helpers/commons';
 import type { LogInfoProps } from '../types';
 
 const otherLimits: SubmissionRunStatus[] = [

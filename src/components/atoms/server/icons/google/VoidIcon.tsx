@@ -1,5 +1,5 @@
 import type { BasicIconProps } from '../types';
-import { renderBasicIcon } from '../utils';
+import { renderBasicIcon } from '../utils/renderBasicIcon';
 
 const Icon = () => <></>;
 

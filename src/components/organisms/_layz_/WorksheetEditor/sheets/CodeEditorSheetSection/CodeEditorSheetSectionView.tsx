@@ -9,7 +9,9 @@ import { jukiApiManager } from '../../../../../../settings';
 import { useRouterStore } from '../../../../../../stores/router/useRouterStore';
 import { Div, T } from '../../../../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, SpinIcon } from '../../../../../atoms/server';
-import { authorizedRequest, classNames, getHeight } from '../../../../../helpers';
+import { classNames } from '../../../../../helpers/commons';
+import { authorizedRequest } from '../../../../../helpers/fetch';
+import { getHeight } from '../../../../../helpers/worksheet';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { ButtonLoader } from '../../../../../molecules';

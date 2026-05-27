@@ -1,5 +1,5 @@
 import { VoidIcon } from '../../../atoms/server';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 import type { NewlineInfoProps } from './types';
 
 export const NewlineInfo = ({ text }: NewlineInfoProps) => {

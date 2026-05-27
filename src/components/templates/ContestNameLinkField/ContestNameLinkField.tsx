@@ -1,7 +1,8 @@
 import { jukiAppRoutes } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { classNames, getJudgeOrigin } from '../../helpers';
+import { classNames } from '../../helpers/commons';
+import { getJudgeOrigin } from '../../helpers/problem';
 import { CheckIcon, OpenInNewIcon, VoidIcon } from '../../server';
 import type { ContestNameLinkFieldProps } from './types';
 

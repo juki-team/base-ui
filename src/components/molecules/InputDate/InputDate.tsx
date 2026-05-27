@@ -2,7 +2,7 @@ import { isValidDate } from '@juki-team/commons/helpers';
 import { TriggerAction } from '../../../enums';
 import { Button, Popover, T } from '../../atoms';
 import { DateLiteral } from '../../atoms/server/DateLiteral/DateLiteral';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { PlusIcon } from '../../server';
 import { DatePicker } from '../DatePicker/DatePicker';
 import type { InputDateProps } from '../DatePicker/types';

@@ -16,10 +16,11 @@ import contests from './data.json';
 export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryListResponseDTO>, 'data' | 'headers'>) => {
   const [data, setData] = useState<ContestSummaryListResponseDTO[]>([]);
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setData(contests.contents as unknown as ContestSummaryListResponseDTO[]);
       // setData([]);
     }, 2000);
+    return () => clearTimeout(timeoutId);
   }, []);
   const columns: DataViewerHeadersType<ContestSummaryListResponseDTO>[] = useMemo(
     () => [getContestStatusHeader(), getContestNameHeader(), getContestDateHeader(), getContestContestantsHeader()],

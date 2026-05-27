@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../../helpers/commons';
 import type { IconProps } from '../../types';
 import Balloon from './Balloon';
 

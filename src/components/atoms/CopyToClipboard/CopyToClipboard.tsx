@@ -1,5 +1,6 @@
 import { type MouseEvent, useState } from 'react';
-import { classNames, copy } from '../../helpers';
+import { classNames } from '../../helpers/commons';
+import { copy } from '../../helpers/copy';
 import { ContentCopyIcon, DoneAllIcon } from '../server';
 import type { CopyToClipboardProps } from './types';
 

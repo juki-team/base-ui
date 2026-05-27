@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useT } from '../../atoms/T/client';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { Div, Select, T } from '../../atoms';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '../../server';
 import type { PaginationProps } from './types';
 

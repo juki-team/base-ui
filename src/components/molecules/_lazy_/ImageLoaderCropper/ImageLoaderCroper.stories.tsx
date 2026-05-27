@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { type FC, useState } from 'react';
 import { Button } from '../../../atoms';
-import { downloadBlobAsFile, toBlob } from '../../../helpers';
+import { downloadBlobAsFile, toBlob } from '../../../helpers/commons';
 import { MockupJukiProvider } from '../../../mockup';
 import { ImageLoaderCropper as ImageLoaderCropperCmp } from './';
 import type { CropImageType, ImageLoaderCropperProps } from './types';

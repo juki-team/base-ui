@@ -2,7 +2,7 @@ import { ContestTab } from '../../../enums';
 import { jukiAppRoutes } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { getJudgeOrigin } from '../../helpers';
+import { getJudgeOrigin } from '../../helpers/problem';
 import { FieldText } from '../../organisms';
 import { OpenInNewIcon } from '../../server';
 import type { SubmissionContestFieldProps } from './types';

@@ -5,7 +5,7 @@ import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Div, Modal, Popover, T } from '../../../atoms';
 import { AppsIcon, HelpIcon, LoadingIcon, SpinIcon } from '../../../atoms/server';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 import { useJukiUserSettings } from '../../../hooks/useJukiUser';
 import { HelpSection } from '../../HelpSection/HelpSection';
 

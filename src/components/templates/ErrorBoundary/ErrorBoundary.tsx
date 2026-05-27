@@ -3,7 +3,7 @@ import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { Button, T } from '../../atoms';
 import { HomeIcon } from '../../atoms/server';
-import { safeReportError } from '../../helpers';
+import { safeReportError } from '../../helpers/fetch';
 import { HelpSection } from '../HelpSection/HelpSection';
 import type { ErrorBoundaryProps } from './types';
 

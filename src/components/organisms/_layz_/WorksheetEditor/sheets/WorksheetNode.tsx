@@ -12,7 +12,7 @@ import { DetectRequestAnimationFrame } from '../../../../atoms/DetectRequestAnim
 // import 'reveal.js/dist/reveal.css';
 // import 'reveal.js/dist/theme/black.css';
 // import 'reveal.js/dist/theme/white.css';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../../helpers/commons';
 import { MdMathViewer } from '../../../MdMathViewer/MdMathViewer';
 import type { SetContentType, WorksheetNodeProps } from '../types';
 import { AddNewChild } from './AddNewChild';

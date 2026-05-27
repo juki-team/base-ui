@@ -1,7 +1,7 @@
 import { changeYear, decreaseYear, increaseYear } from '@juki-team/commons/helpers';
 import { useState } from 'react';
 import { Div } from '../../atoms';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import type { YearPickerProps } from '../DatePicker/types';
 import { NextButton } from '../NextButton/NextButton';
 import { PreviousButton } from '../PreviousButton/PreviousButton';

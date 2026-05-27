@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '../../../atoms';
 import { StylusLaserPointerIcon } from '../../../atoms/server';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../../helpers/commons';
 
 export function PointerButton() {
   const laserRef = useRef<HTMLDivElement | null>(null);

@@ -21,7 +21,8 @@ import { AnimatePresence, motion } from 'motion/react';
 import { cloneElement, isValidElement, useEffect, useMemo, useRef, useState } from 'react';
 import { Duration, TriggerAction } from '../../../../enums';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
-import { isTrigger, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { isTrigger } from '../../../helpers/commons';
+import { renderReactNodeOrFunctionP1 } from '../../../helpers/render';
 import type { TriggerOnActionsType } from '../../../types';
 import type { PopoverProps } from './types';
 

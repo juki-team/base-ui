@@ -1,7 +1,7 @@
 import type { Ref } from 'react';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { classNames } from '../../helpers';
+import { classNames } from '../../helpers/commons';
 import { UserNicknameLink } from '../UserNicknameLink/UserNicknameLink';
 import type { UserChipProps, UserMockChipProps } from './types';
 
