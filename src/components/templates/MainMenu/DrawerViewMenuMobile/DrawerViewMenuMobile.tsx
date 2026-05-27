@@ -6,7 +6,8 @@ import { T } from '../../../atoms/T/T';
 import { classNames } from '../../../helpers/commons';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers/render';
 import type { MenuType } from '../../../organisms/types';
-import { ArrowBackIcon, CloseIcon } from '../../../server';
+import { ArrowBackIcon } from '../../../atoms/server/icons/google/ArrowBackIcon';
+import { CloseIcon } from '../../../atoms/server/icons/google/CloseIcon';
 import { HelpSection } from '../../HelpSection/HelpSection';
 import { SettingsSection } from '../SettingsSection';
 

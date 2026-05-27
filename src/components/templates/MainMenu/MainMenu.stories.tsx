@@ -4,12 +4,15 @@ import { useState } from 'react';
 import { action, configureActions } from 'storybook/actions';
 import { Button } from '../../atoms/Button/Button';
 import { T } from '../../atoms/T/T';
-import { AssignmentIcon, LeaderboardIcon } from '../../atoms/server';
-import { MockupJukiProvider } from '../../mockup';
-import { TwoContentLayout } from '../../molecules';
+import { AssignmentIcon } from '../../atoms/server/icons/google/AssignmentIcon';
+import { LeaderboardIcon } from '../../atoms/server/icons/google/LeaderboardIcon';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
+import { TwoContentLayout } from '../../molecules/layouts/TwoContentLayout';
 import { MdMathEditor, MdMathViewer } from '../../organisms';
 import { SAMPLE_MD_CONTENT } from '../../organisms/MdMathViewer/constants';
-import { FilterListIcon, LoadingIcon, ViewHeadlineIcon } from '../../server';
+import { FilterListIcon } from '../../atoms/server/icons/google/FilterListIcon';
+import { LoadingIcon } from '../../atoms/server/icons/google/LoadingIcon';
+import { ViewHeadlineIcon } from '../../atoms/server/icons/google/ViewHeadlineIcon';
 import { MainMenu as MainMenuCmp } from './MainMenu';
 
 const meta: Meta<typeof MainMenuCmp> = {

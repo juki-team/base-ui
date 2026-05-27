@@ -1,5 +1,5 @@
 import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
-import { GroupIcon } from '../../../../atoms/server';
+import { GroupIcon } from '../../../../atoms/server/icons/google/GroupIcon';
 import { T } from '../../../../atoms/T/T.server';
 import type { DataViewerHeadersType } from '../../../../organisms/types';
 

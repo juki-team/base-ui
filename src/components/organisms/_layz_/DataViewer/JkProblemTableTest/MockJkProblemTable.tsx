@@ -13,7 +13,7 @@ import {
   T,
 } from '../../../../index';
 import { ButtonAction } from '../../../../molecules/ButtonAction/ButtonAction';
-import { RefreshIcon } from '../../../../server';
+import { RefreshIcon } from '../../../../atoms/server/icons/google/RefreshIcon';
 import type { DataViewerHeadersType, DataViewerProps, DataViewerRequestType } from '../types';
 import problems from './data.json';
 

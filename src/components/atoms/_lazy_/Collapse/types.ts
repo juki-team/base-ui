@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { ReactNodeOrFunctionP1Type } from '../../../types';
-import type { ExpandLessIcon } from '../../server';
+import type { ExpandLessIcon } from '../../server/icons/google/ExpandLessIcon';
 
 export interface CollapseProps {
   showContent?: boolean;

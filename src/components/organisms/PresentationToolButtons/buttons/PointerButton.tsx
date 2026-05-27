@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '../../../atoms/Button/Button';
-import { StylusLaserPointerIcon } from '../../../atoms/server';
+import { StylusLaserPointerIcon } from '../../../atoms/server/icons/google/StylusLaserPointerIcon';
 import { classNames } from '../../../helpers/commons';
 
 export function PointerButton() {

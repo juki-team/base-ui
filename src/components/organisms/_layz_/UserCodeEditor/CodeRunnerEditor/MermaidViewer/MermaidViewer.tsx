@@ -3,7 +3,11 @@ import { type MouseEvent, type MouseEventHandler, useCallback, useEffect, useRef
 import { Button } from '../../../../../atoms/Button/Button';
 import { CopyToClipboard } from '../../../../../atoms/CopyToClipboard/CopyToClipboard';
 import { T } from '../../../../../atoms/T/T';
-import { ContentCopyIcon, DownloadIcon, LoadingIcon, PlayArrowIcon, WarningIcon } from '../../../../../atoms/server';
+import { ContentCopyIcon } from '../../../../../atoms/server/icons/google/ContentCopyIcon';
+import { DownloadIcon } from '../../../../../atoms/server/icons/google/DownloadIcon';
+import { LoadingIcon } from '../../../../../atoms/server/icons/google/LoadingIcon';
+import { PlayArrowIcon } from '../../../../../atoms/server/icons/google/PlayArrowIcon';
+import { WarningIcon } from '../../../../../atoms/server/icons/google/WarningIcon';
 import { downloadBlobAsFile } from '../../../../../helpers/commons';
 import { GraphicToolbar } from './GraphicToolbar';
 import type { MermaidTheme, MermaidViewerProps } from './types';

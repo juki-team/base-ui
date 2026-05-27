@@ -11,8 +11,12 @@ import { T } from '../../atoms/T/T';
 import { TextArea } from '../../atoms/TextArea/TextArea';
 import { useEntityDiff } from '../../hooks/useEntityDiff';
 import { useJukiUser } from '../../hooks/useJukiUser';
-import { ButtonLoader } from '../../molecules';
-import { EditIcon, LocationCityIcon, LocationOnIcon, PersonIcon, SchoolIcon } from '../../server';
+import { ButtonLoader } from '../../molecules/ButtonLoader/ButtonLoader';
+import { EditIcon } from '../../atoms/server/icons/google/EditIcon';
+import { LocationCityIcon } from '../../atoms/server/icons/google/LocationCityIcon';
+import { LocationOnIcon } from '../../atoms/server/icons/google/LocationOnIcon';
+import { PersonIcon } from '../../atoms/server/icons/google/PersonIcon';
+import { SchoolIcon } from '../../atoms/server/icons/google/SchoolIcon';
 import { ImageProfileModal } from './ImageProfileModal';
 import type { EditProfileModalProps } from './types';
 

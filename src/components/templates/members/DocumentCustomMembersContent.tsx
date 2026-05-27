@@ -7,8 +7,9 @@ import { InputToggle } from '../../atoms/InputToggle/InputToggle';
 import { T } from '../../atoms/T/T';
 import { Popover } from '../../atoms/_lazy_/Popover';
 import { classNames } from '../../helpers/commons';
-import { UserChip, UsersSelector } from '../../organisms';
-import { InfoIIcon } from '../../server';
+import { UserChip } from '../../organisms/UserChip/UserChip';
+import { UsersSelector } from '../../organisms/UsersSelector/UsersSelector';
+import { InfoIIcon } from '../../atoms/server/icons/google/InfoIIcon';
 import type { DocumentCustomMembersContentProps } from './types';
 
 function PrintUsers({

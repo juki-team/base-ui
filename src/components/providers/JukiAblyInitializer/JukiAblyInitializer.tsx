@@ -23,7 +23,7 @@ import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
 import { isBrowser } from '../../helpers/commons';
 import { authorizedRequest, safeReportError } from '../../helpers/fetch';
 import { useStableRef } from '../../hooks/useStableRef';
-import { ErrorBoundary } from '../../templates';
+import { ErrorBoundary } from '../../templates/ErrorBoundary/ErrorBoundary';
 
 const WebsocketProvider = () => {
   const clientId = useUserStore((state) => state.clientId);

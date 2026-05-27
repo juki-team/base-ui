@@ -3,7 +3,7 @@ import { isStringJson } from '@juki-team/commons/helpers';
 import type { GraphSheet } from '@juki-team/commons/types';
 import { useRef, useState } from 'react';
 import { useSyncedState } from '../../../../../hooks/useSyncedState';
-import { FloatToolbar } from '../../../../../molecules';
+import { FloatToolbar } from '../../../../../molecules/FloatToolbar/FloatToolbar';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';

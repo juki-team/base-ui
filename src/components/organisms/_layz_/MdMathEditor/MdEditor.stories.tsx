@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { UIMessage } from 'ai';
 import { useRef, useState } from 'react';
 import { CheckIcon, ErrorIcon, ExclamationIcon, SpinIcon } from '../../../atoms/server';
-import { MockupJukiProvider } from '../../../mockup';
+import { MockupJukiProvider } from '../../../mockup/MockupJukiProvider';
 import { AiChatPanel } from '../../AiChatPanel/AiChatPanel';
 import type { AiChatSuggestion, AiChatToolStateUI } from '../../AiChatPanel/types';
 import { SAMPLE_MD_CONTENT } from '../../MdMathViewer/constants';

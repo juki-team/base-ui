@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryParamKey } from '../../../enums';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { Button } from '../../atoms/Button/Button';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import { LoginUser } from '../LoginUser/LoginUser';
 import { SubmissionModal } from './SubmissionModal/SubmissionModal';
 

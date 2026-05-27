@@ -2,7 +2,7 @@ import { WorksheetType } from '@juki-team/commons/enums';
 import { isCodeEditorSheet, isStringJson } from '@juki-team/commons/helpers';
 import type { CodeEditorSheet } from '@juki-team/commons/types';
 import { useRef, useState } from 'react';
-import { FloatToolbar } from '../../../../../molecules';
+import { FloatToolbar } from '../../../../../molecules/FloatToolbar/FloatToolbar';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';

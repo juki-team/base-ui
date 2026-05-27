@@ -4,7 +4,7 @@ import type { ContentResponse } from '@juki-team/commons/types';
 import { JUKI_SERVICE_V2_URL } from '../../../constants/settings';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms/T/T';
-import { RefreshIcon } from '../../atoms/server';
+import { RefreshIcon } from '../../atoms/server/icons/google/RefreshIcon';
 import { authorizedRequest } from '../../helpers/fetch';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { useMatchMutate } from '../../hooks/useMatchMutate';

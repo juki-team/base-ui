@@ -5,7 +5,7 @@ import { Modal } from '../../../atoms/Modal/Modal';
 import { T } from '../../../atoms/T/T';
 import type { BasicModalProps } from '../../../atoms/Modal/types';
 import { useSyncedState } from '../../../hooks/useSyncedState';
-import { ButtonLoader } from '../../../molecules';
+import { ButtonLoader } from '../../../molecules/ButtonLoader/ButtonLoader';
 import { DocumentMembersContent } from '../DocumentMembersContent';
 import type { DocumentCustomMembersContentProps } from '../types';
 

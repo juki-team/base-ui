@@ -3,8 +3,8 @@ import { jukiAppRoutes } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { getJudgeOrigin } from '../../helpers/problem';
-import { FieldText } from '../../organisms';
-import { OpenInNewIcon } from '../../server';
+import { FieldText } from '../../organisms/FieldText/FieldText';
+import { OpenInNewIcon } from '../../atoms/server/icons/google/OpenInNewIcon';
 import type { SubmissionContestProblemFieldProps } from './types';
 
 export function SubmissionContestProblemField(props: SubmissionContestProblemFieldProps) {

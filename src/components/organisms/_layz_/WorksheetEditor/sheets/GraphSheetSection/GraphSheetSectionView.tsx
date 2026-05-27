@@ -2,7 +2,8 @@ import type { GraphSheet } from '@juki-team/commons/types';
 import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
 import { Button } from '../../../../../atoms/Button/Button';
 import { Div } from '../../../../../atoms/Div/Div';
-import { ArrowBackIcon, ArrowForwardIcon } from '../../../../../atoms/server';
+import { ArrowBackIcon } from '../../../../../atoms/server/icons/google/ArrowBackIcon';
+import { ArrowForwardIcon } from '../../../../../atoms/server/icons/google/ArrowForwardIcon';
 import { classNames } from '../../../../../helpers/commons';
 import { GraphvizViewer } from '../../../GraphvizViewer';
 

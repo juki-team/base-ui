@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { MockupJukiProvider, mockupUsers } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
+import { mockupUsers } from '../../mockup/mockupUsers';
 import { MultiSelectSearchable } from './MultiSelectSearchable';
 
 export default {

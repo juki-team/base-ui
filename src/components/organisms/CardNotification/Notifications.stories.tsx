@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 import { Button } from '../../atoms/Button/Button';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 
 function Comp() {
   const { addInfoNotification, addSuccessNotification, addWarningNotification, addErrorNotification, addQuietNotification } =

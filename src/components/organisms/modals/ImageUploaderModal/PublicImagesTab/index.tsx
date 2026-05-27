@@ -1,7 +1,7 @@
 import type { ImageSummaryResponseDTO } from '@juki-team/commons/dto';
 import type { ContentsResponse } from '@juki-team/commons/types';
 import { jukiApiManager } from '../../../../../settings';
-import { FetcherLayer } from '../../../../molecules';
+import { FetcherLayer } from '../../../../molecules/FetcherLayer/FetcherLayer';
 import type { OnPickImageUrlType } from '../types';
 import { PublicImages } from './PublicImages';
 

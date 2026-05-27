@@ -3,7 +3,9 @@ import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { classNames } from '../../helpers/commons';
 import { getJudgeOrigin } from '../../helpers/problem';
-import { CheckIcon, OpenInNewIcon, VoidIcon } from '../../server';
+import { CheckIcon } from '../../atoms/server/icons/google/CheckIcon';
+import { OpenInNewIcon } from '../../atoms/server/icons/google/OpenInNewIcon';
+import { VoidIcon } from '../../atoms/server/icons/google/VoidIcon';
 import type { ContestNameLinkFieldProps } from './types';
 
 // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred

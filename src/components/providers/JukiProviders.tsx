@@ -1,13 +1,13 @@
 import { memo, type PropsWithChildren } from 'react';
 import { useClientTrackLocation } from '../hooks/useClientTrackLocation';
-import { JukiAblyInitializer, JukiAblySpaceProvider } from './JukiAblyInitializer';
-import { JukiLastPathInitializer } from './JukiLastPathInitializer';
-import { JukiPageInitializer } from './JukiPageInitializer';
-import { JukiRouterInitializer } from './JukiRouterInitializer';
+import { JukiAblyInitializer, JukiAblySpaceProvider } from './JukiAblyInitializer/JukiAblyInitializer';
+import { JukiLastPathInitializer } from './JukiLastPathInitializer/JukiLastPathInitializer';
+import { JukiPageInitializer } from './JukiPageInitializer/JukiPageInitializer';
+import { JukiRouterInitializer } from './JukiRouterInitializer/JukiRouterInitializer';
 import type { JukiRouterBaseProps, JukiRouterInitializerProps } from './JukiRouterInitializer/types';
-import { JukiUIProvider } from './JukiUIProvider';
-import { JukiUserProvider } from './JukiUserProvider';
-import { SoundInitializer } from './SoundInitializer';
+import { JukiUIProvider } from './JukiUIProvider/JukiUIProvider';
+import { JukiUserProvider } from './JukiUserProvider/JukiUserProvider';
+import { SoundInitializer } from './SoundInitializer/SoundInitializer';
 import type { JukiProvidersProps } from './types';
 
 const ClientTrackLocation = memo(function UserTrack() {

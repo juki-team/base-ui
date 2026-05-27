@@ -1,5 +1,8 @@
 import { NotificationType } from '@juki-team/commons/enums';
-import { CheckIcon, ErrorIcon, InfoIIcon, WarningIcon } from '../../server';
+import { CheckIcon } from '../../atoms/server/icons/google/CheckIcon';
+import { ErrorIcon } from '../../atoms/server/icons/google/ErrorIcon';
+import { InfoIIcon } from '../../atoms/server/icons/google/InfoIIcon';
+import { WarningIcon } from '../../atoms/server/icons/google/WarningIcon';
 
 export const LAPS = 200;
 

@@ -5,7 +5,11 @@ import { Div } from '../../atoms/Div/Div';
 import { T } from '../../atoms/T/T';
 import { classNames } from '../../helpers/commons';
 import { useHandleState } from '../../hooks/useHandleState';
-import { ExpandLessIcon, ExpandMoreIcon, NavigateBeforeIcon, NavigateNextIcon, SideNavigationIcon } from '../../server';
+import { ExpandLessIcon } from '../../atoms/server/icons/google/ExpandLessIcon';
+import { ExpandMoreIcon } from '../../atoms/server/icons/google/ExpandMoreIcon';
+import { NavigateBeforeIcon } from '../../atoms/server/icons/google/NavigateBeforeIcon';
+import { NavigateNextIcon } from '../../atoms/server/icons/google/NavigateNextIcon';
+import { SideNavigationIcon } from '../../atoms/server/icons/google/SideNavigationIcon';
 import type { SplitPaneProps } from './types';
 
 // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred

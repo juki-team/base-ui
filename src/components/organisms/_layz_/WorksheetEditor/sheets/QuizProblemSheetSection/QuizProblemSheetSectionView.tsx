@@ -6,7 +6,9 @@ import { jukiApiManager } from '../../../../../../settings';
 import { T } from '../../../../../atoms/T/T';
 import { authorizedRequest } from '../../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
-import { ButtonLoader, FetcherLayer, FirstLoginWrapper } from '../../../../../molecules';
+import { ButtonLoader } from '../../../../../molecules/ButtonLoader/ButtonLoader';
+import { FetcherLayer } from '../../../../../molecules/FetcherLayer/FetcherLayer';
+import { FirstLoginWrapper } from '../../../../../molecules/FirstLoginWrapper/FirstLoginWrapper';
 import { ProblemView } from '../../../../../templates/ProblemView/ProblemView';
 
 interface RunnerSheetSectionProps {

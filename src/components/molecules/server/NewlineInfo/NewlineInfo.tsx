@@ -1,4 +1,4 @@
-import { VoidIcon } from '../../../atoms/server';
+import { VoidIcon } from '../../../atoms/server/icons/google/VoidIcon';
 import { classNames } from '../../../helpers/commons';
 import type { NewlineInfoProps } from './types';
 

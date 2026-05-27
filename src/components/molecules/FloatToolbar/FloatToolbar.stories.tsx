@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { T } from '../../atoms/T/T';
-import { MockupJukiProvider } from '../../mockup';
-import { DownloadIcon, OpenInNewIcon } from '../../server';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
+import { DownloadIcon } from '../../atoms/server/icons/google/DownloadIcon';
+import { OpenInNewIcon } from '../../atoms/server/icons/google/OpenInNewIcon';
 import { FloatToolbar } from './FloatToolbar';
 
 const meta: Meta<typeof FloatToolbar> = {

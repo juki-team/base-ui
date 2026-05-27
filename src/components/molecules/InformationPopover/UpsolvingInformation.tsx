@@ -1,5 +1,5 @@
 import { T } from '../../atoms/T/T';
-import { FitnessCenterIcon } from '../../atoms/server';
+import { FitnessCenterIcon } from '../../atoms/server/icons/google/FitnessCenterIcon';
 import { InformationPopover } from './InformationPopover';
 import type { InformationPopoverProps } from './types';
 

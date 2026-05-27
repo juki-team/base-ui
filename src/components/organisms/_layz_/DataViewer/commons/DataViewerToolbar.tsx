@@ -17,13 +17,13 @@ import { useRouterStore } from '../../../../../stores/router/useRouterStore';
 import { MultiSelect } from '../../../../atoms/MultiSelect/MultiSelect';
 import { Select } from '../../../../atoms/Select/Select';
 import { Popover } from '../../../../atoms/_lazy_/Popover';
-import { TableEyeIcon } from '../../../../atoms/server';
+import { TableEyeIcon } from '../../../../atoms/server/icons/google/TableEyeIcon';
 import { classNames, downloadUrlAsFile, isBrowser } from '../../../../helpers/commons';
 import { getAuthorizedRequest } from '../../../../helpers/fetch';
 import { renderReactNodeOrFunction } from '../../../../helpers/render';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useSessionStorage } from '../../../../hooks/useSessionStorage';
-import { Pagination } from '../../../../molecules';
+import { Pagination } from '../../../../molecules/Pagination/Pagination';
 import {
   CalendarViewWeekIcon,
   DownloadIcon,

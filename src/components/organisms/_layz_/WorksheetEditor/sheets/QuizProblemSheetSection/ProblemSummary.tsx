@@ -3,7 +3,7 @@ import type { ProblemSummaryListResponseDTO } from '@juki-team/commons/dto';
 import type { ContentResponse } from '@juki-team/commons/types';
 import { jukiApiManager } from '../../../../../../settings';
 import { T } from '../../../../../atoms/T/T';
-import { FetcherLayer } from '../../../../../molecules';
+import { FetcherLayer } from '../../../../../molecules/FetcherLayer/FetcherLayer';
 import { PageNotFound } from '../../../../PageNotFound/PageNotFound';
 
 export const ProblemSummary = ({ problemKey }: { problemKey: string }) => {

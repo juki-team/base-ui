@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import type { RootIconProps } from '../../types';
-import { Segment } from '../../utils';
+import { Segment } from '../../utils/Segment';
 
 const Arrow = memo(({ width, color }: RootIconProps) => (
   <>

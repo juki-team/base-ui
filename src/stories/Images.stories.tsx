@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
-import { MockupJukiProvider } from '../components/mockup';
+import { MockupJukiProvider } from '../components/mockup/MockupJukiProvider';
 import { useUIStore } from '../stores/ui/useUIStore';
 
 const Image = () => <div></div>;

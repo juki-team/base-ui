@@ -4,8 +4,8 @@ import { CodeLanguage, EntityState, Judge, ProblemScoringMode, ProblemType } fro
 import type { ContentResponse } from '@juki-team/commons/types';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { jukiApiManager } from '../../../settings';
-import { MockupJukiProvider } from '../../mockup';
-import { FetcherLayer } from '../../molecules';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
+import { FetcherLayer } from '../../molecules/FetcherLayer/FetcherLayer';
 import { ProblemView } from './ProblemView';
 
 const meta: Meta<typeof ProblemView> = {

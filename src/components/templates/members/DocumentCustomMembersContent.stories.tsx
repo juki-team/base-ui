@@ -2,7 +2,7 @@ import { EMPTY_ENTITY_MEMBERS } from '@juki-team/commons/constants';
 import { getDocumentAccess } from '@juki-team/commons/helpers';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import { DocumentCustomMembersContent } from './DocumentCustomMembersContent';
 import { DocumentMembersButton } from './DocumentMembersButton';
 import { DocumentMembersContent } from './DocumentMembersContent';

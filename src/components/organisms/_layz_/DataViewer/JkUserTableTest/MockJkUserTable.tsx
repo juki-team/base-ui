@@ -9,7 +9,8 @@ import {
   Select as SelectComponent,
   T,
 } from '../../../../index';
-import { RefreshIcon, TextHeadCell } from '../../../../server';
+import { RefreshIcon } from '../../../../atoms/server/icons/google/RefreshIcon';
+import { TextHeadCell } from '../../../server/TextHeadCell/TextHeadCell';
 import type { DataViewerHeadersType, DataViewerProps, DataViewerRequestType } from '../types';
 import users from './data.json';
 

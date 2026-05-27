@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import { Select } from './Select';
 import type { SelectProps } from './types';
 

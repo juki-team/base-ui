@@ -8,11 +8,11 @@ import { jukiApiManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms/T/T';
 import { DateLiteral } from '../../atoms/server/DateLiteral/DateLiteral';
-import { DeleteIcon } from '../../atoms/server';
+import { DeleteIcon } from '../../atoms/server/icons/google/DeleteIcon';
 import { useDataViewerRequester } from '../../hooks/useDataViewerRequester';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { useMatchMutate } from '../../hooks/useMatchMutate';
-import { ButtonLoader } from '../../molecules';
+import { ButtonLoader } from '../../molecules/ButtonLoader/ButtonLoader';
 import { DataViewer } from '../../organisms';
 import type { DataViewerHeadersType } from '../../organisms/_layz_/DataViewer/types';
 export function UserMyActiveSessions() {

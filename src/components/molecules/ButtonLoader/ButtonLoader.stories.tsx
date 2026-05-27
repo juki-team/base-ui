@@ -1,8 +1,9 @@
 import { Status } from '@juki-team/commons/enums';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
-import { MockupJukiProvider } from '../../mockup';
-import { EventIcon, VisibilityIcon } from '../../server';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
+import { EventIcon } from '../../atoms/server/icons/google/EventIcon';
+import { VisibilityIcon } from '../../atoms/server/icons/google/VisibilityIcon';
 import { ButtonLoader } from './ButtonLoader';
 import type { ButtonLoaderProps } from './types';
 

@@ -1,7 +1,8 @@
 import { type MouseEvent, useState } from 'react';
 import { classNames } from '../../helpers/commons';
 import { copy } from '../../helpers/copy';
-import { ContentCopyIcon, DoneAllIcon } from '../server';
+import { ContentCopyIcon } from '../server/icons/google/ContentCopyIcon';
+import { DoneAllIcon } from '../server/icons/google/DoneAllIcon';
 import type { CopyToClipboardProps } from './types';
 
 export function CopyToClipboard(props: CopyToClipboardProps) {

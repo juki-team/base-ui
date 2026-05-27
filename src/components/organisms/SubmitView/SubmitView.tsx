@@ -2,7 +2,7 @@ import type { SubmissionDataResponseDTO } from '@juki-team/commons/dto';
 import type { ContentResponse } from '@juki-team/commons/types';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms/T/T';
-import { FetcherLayer } from '../../molecules';
+import { FetcherLayer } from '../../molecules/FetcherLayer/FetcherLayer';
 import { PageNotFound } from '../PageNotFound/PageNotFound';
 import { SubmitViewContent } from './commons/SubmitViewContent';
 import type { SubmitViewProps } from './types';

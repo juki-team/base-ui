@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 // import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import type { InputToggleProps } from '../Input/types';
 import { InputToggle } from './InputToggle';
 

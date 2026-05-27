@@ -1,5 +1,5 @@
 import { EMPTY_USER } from '../../../constants';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import { UserProfileSettings as UserProfileSettingsCmp } from './UserProfileSettings';
 
 export default {

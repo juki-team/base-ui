@@ -1,6 +1,7 @@
 import { CodeLanguage } from '@juki-team/commons/enums';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { MockupJukiProvider, MockupToggleThemeButton } from '../../../mockup';
+import { MockupJukiProvider } from '../../../mockup/MockupJukiProvider';
+import { MockupToggleThemeButton } from '../../../mockup/MockupToggleThemeButton';
 import { CodeViewer } from './';
 
 const codeTemplate = `

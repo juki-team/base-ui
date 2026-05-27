@@ -9,18 +9,15 @@ import { useMemo } from 'react';
 import { jukiApiManager } from '../../../../../settings';
 import { toFilterUrl, toSortUrl } from '../../../../helpers/router';
 import { useFetcher } from '../../../../hooks/useFetcher';
-import {
-  getSubmissionContestHeader,
-  getSubmissionContestProblemHeader,
-  getSubmissionDateHeader,
-  getSubmissionLanguageHeader,
-  getSubmissionMemoryHeader,
-  getSubmissionNicknameHeader,
-  getSubmissionRejudgeHeader,
-  getSubmissionTimeHeader,
-  getSubmissionVerdictHeader,
-  type LanguagesByJudge,
-} from '../../../../templates';
+import { getSubmissionContestHeader } from '../../../../templates/columns/submission-columns/getSubmissionContestHeader';
+import { getSubmissionContestProblemHeader } from '../../../../templates/columns/submission-columns/getSubmissionContestProblemHeader';
+import { getSubmissionDateHeader } from '../../../../templates/columns/submission-columns/getSubmissionDateHeader';
+import { getSubmissionLanguageHeader, type LanguagesByJudge } from '../../../../templates/columns/submission-columns/getSubmissionLanguageHeader';
+import { getSubmissionMemoryHeader } from '../../../../templates/columns/submission-columns/getSubmissionMemoryHeader';
+import { getSubmissionNicknameHeader } from '../../../../templates/columns/submission-columns/getSubmissionNicknameHeader';
+import { getSubmissionRejudgeHeader } from '../../../../templates/columns/submission-columns/getSubmissionRejudgeHeader';
+import { getSubmissionTimeHeader } from '../../../../templates/columns/submission-columns/getSubmissionTimeHeader';
+import { getSubmissionVerdictHeader } from '../../../../templates/columns/submission-columns/getSubmissionVerdictHeader';
 import { PagedDataViewer } from '../../../PagedDataViewer/PagedDataViewer';
 import type { DataViewerHeadersType, DataViewerProps } from '../types';
 

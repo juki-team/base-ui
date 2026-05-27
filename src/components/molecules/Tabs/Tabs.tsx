@@ -9,7 +9,7 @@ import { classNames } from '../../helpers/commons';
 import { renderReactNodeOrFunctionP1 } from '../../helpers/render';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { useHandleState } from '../../hooks/useHandleState';
-import { ViewHeadlineIcon } from '../../server';
+import { ViewHeadlineIcon } from '../../atoms/server/icons/google/ViewHeadlineIcon';
 import type { NotUndefined } from '../../types';
 import type { TabsProps } from './types';
 

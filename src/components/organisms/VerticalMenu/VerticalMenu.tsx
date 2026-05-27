@@ -4,7 +4,8 @@ import { Div } from '../../atoms/Div/Div';
 import { classNames } from '../../helpers/commons';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers/render';
 import { useSyncedState } from '../../hooks/useSyncedState';
-import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
+import { NavigateBeforeIcon } from '../../atoms/server/icons/google/NavigateBeforeIcon';
+import { NavigateNextIcon } from '../../atoms/server/icons/google/NavigateNextIcon';
 import { HorizontalMenu } from '../HorizontalMenu/HorizontalMenu';
 import type { VerticalMenuProps } from './types';
 

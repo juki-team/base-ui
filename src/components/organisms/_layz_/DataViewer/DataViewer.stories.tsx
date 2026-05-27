@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { MockupJukiProvider } from '../../../mockup';
+import { MockupJukiProvider } from '../../../mockup/MockupJukiProvider';
 import { Pagination } from '../../../molecules/Pagination/Pagination';
 import { DataViewer } from './';
 import { MockJkContestTable } from './JkContestTableTest/MockJkContestTable';

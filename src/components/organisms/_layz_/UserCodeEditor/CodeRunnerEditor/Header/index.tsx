@@ -11,7 +11,11 @@ import { classNames, downloadBlobAsFile } from '../../../../../helpers/commons';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { useKeyDown } from '../../../../../hooks/useKeyDown';
 import { CodeViewer } from '../../../../../molecules';
-import { ContentCopyIcon, DownloadIcon, FullscreenExitIcon, FullscreenIcon, SettingsIcon } from '../../../../../server';
+import { ContentCopyIcon } from '../../../../../atoms/server/icons/google/ContentCopyIcon';
+import { DownloadIcon } from '../../../../../atoms/server/icons/google/DownloadIcon';
+import { FullscreenExitIcon } from '../../../../../atoms/server/icons/google/FullscreenExitIcon';
+import { FullscreenIcon } from '../../../../../atoms/server/icons/google/FullscreenIcon';
+import { SettingsIcon } from '../../../../../atoms/server/icons/google/SettingsIcon';
 import type { HeaderProps } from '../types';
 import { RunCodeButton } from './RunCodeButton';
 

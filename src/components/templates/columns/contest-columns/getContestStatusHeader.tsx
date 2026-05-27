@@ -1,7 +1,9 @@
 import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
 import { T } from '../../../atoms/T/T';
 import { getContestState } from '../../../helpers/contest';
-import { FrozenInformation, QuietInformation, UpsolvingInformation } from '../../../molecules';
+import { FrozenInformation } from '../../../molecules/InformationPopover/FrozenInformation';
+import { QuietInformation } from '../../../molecules/InformationPopover/QuietInformation';
+import { UpsolvingInformation } from '../../../molecules/InformationPopover/UpsolvingInformation';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 
 export function getContestStatusHeader(): DataViewerHeadersType<ContestSummaryListResponseDTO> {

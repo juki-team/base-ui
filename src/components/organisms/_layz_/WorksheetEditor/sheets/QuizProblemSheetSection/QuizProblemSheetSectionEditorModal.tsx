@@ -2,7 +2,7 @@ import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE } from '@juki-team/common
 import type { CodeLanguage, Judge } from '@juki-team/commons/enums';
 import type { QuizProblemSheet } from '@juki-team/commons/types';
 import { useState } from 'react';
-import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../../constants';
+import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../../constants/worksheet';
 import { Input } from '../../../../../atoms/Input/Input';
 import { InputCheckbox } from '../../../../../atoms/InputCheckbox/InputCheckbox';
 import { Modal } from '../../../../../atoms/Modal/Modal';

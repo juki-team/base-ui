@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { Popover } from '../../atoms/_lazy_/Popover';
-import { ExclamationIcon } from '../../atoms/server';
+import { ExclamationIcon } from '../../atoms/server/icons/google/ExclamationIcon';
 import type { InformationPopoverProps } from './types';
 
 export const InformationPopover = ({ children, filledCircle, icon }: PropsWithChildren<InformationPopoverProps>) => {

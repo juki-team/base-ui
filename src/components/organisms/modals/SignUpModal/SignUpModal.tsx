@@ -2,7 +2,7 @@ import { QueryParamKey } from '../../../../enums';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { useJukiUser } from '../../../hooks/useJukiUser';
-import { SignUpModalTemplate } from './SignUpModalTemplate';
+import { SignUpModalTemplate } from './SignUpModalTemplate/SignUpModalTemplate';
 import type { SignUpModalComponentProps } from './SignUpModalTemplate/types';
 
 export function SignUpModal() {

@@ -1,4 +1,5 @@
-import { FieldText, UserChip } from '../../organisms';
+import { FieldText } from '../../organisms/FieldText/FieldText';
+import { UserChip } from '../../organisms/UserChip/UserChip';
 import { UserMockChip } from '../../organisms/UserChip/UserChip';
 import type { SubmissionNicknameFieldProps } from './types';
 

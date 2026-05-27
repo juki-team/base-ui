@@ -15,7 +15,7 @@ import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { ButtonLoader } from '../../../molecules/ButtonLoader/ButtonLoader';
 import { FloatToolbar } from '../../../molecules/FloatToolbar/FloatToolbar';
 import { MdMathViewer } from '../../../organisms/MdMathViewer/MdMathViewer';
-import { DownloadIcon } from '../../../server';
+import { DownloadIcon } from '../../../atoms/server/icons/google/DownloadIcon';
 import {
   JukiProblemInfo,
   ProblemInfo,

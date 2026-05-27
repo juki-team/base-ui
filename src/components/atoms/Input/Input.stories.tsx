@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 // import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import { InputCellPhoneNumber } from '../_lazy_/InputCellPhoneNumber';
 import type { InputCellPhoneNumberProps } from '../_lazy_/InputCellPhoneNumber/types';
 import { InputPassword } from '../InputPassword/InputPassword';

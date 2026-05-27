@@ -1,5 +1,5 @@
 import type { BasicIconProps, RootIconProps } from '../../types';
-import { renderBasicIcon } from '../../utils';
+import { renderBasicIcon } from '../../utils/renderBasicIcon';
 
 const Icon =
   ({ up, down }: { up?: boolean; down?: boolean }) =>

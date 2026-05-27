@@ -3,7 +3,7 @@ import { TriggerAction } from '../../../enums';
 import { Button } from '../../atoms/Button/Button';
 import { T } from '../../atoms/T/T';
 import { Popover } from '../../atoms/_lazy_/Popover';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import type { DrawerActionsType } from '../../molecules/Drawer/types';
 import { AppsIcon, FilterListIcon, PlusIcon, SettingsIcon, ViewHeadlineIcon } from '../../server';
 import { MdMathEditor } from '../index';

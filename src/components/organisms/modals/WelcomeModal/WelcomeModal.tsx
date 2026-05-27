@@ -5,7 +5,7 @@ import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Modal } from '../../../atoms/Modal/Modal';
 import { T } from '../../../atoms/T/T';
-import { ButtonLoader } from '../../../molecules';
+import { ButtonLoader } from '../../../molecules/ButtonLoader/ButtonLoader';
 import type { ButtonLoaderOnClickType } from '../../../types';
 import type { WelcomeModalProps } from './types';
 

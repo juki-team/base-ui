@@ -15,7 +15,7 @@ import { authorizedRequest } from '../../../../../helpers/fetch';
 import { getHeight } from '../../../../../helpers/worksheet';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
-import { ButtonLoader } from '../../../../../molecules';
+import { ButtonLoader } from '../../../../../molecules/ButtonLoader/ButtonLoader';
 import type { SetLoaderStatusOnClickType, UserResultsType } from '../../../../../types';
 import { UserCodeEditor } from '../../../UserCodeEditor';
 

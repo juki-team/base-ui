@@ -1,7 +1,7 @@
 import type { WebSocketSubscribeEventDTO, WebSocketUnsubscribeEventDTO } from '@juki-team/commons/dto';
 import { consoleInfo } from '@juki-team/commons/helpers';
 import { create } from 'zustand';
-import { getKeyWebSocketEventDTO, getUnsubscribeEvent } from '../../components/helpers';
+import { getKeyWebSocketEventDTO, getUnsubscribeEvent } from '../../components/helpers/websocket';
 import type { WebsocketSubStore } from './types';
 
 export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {

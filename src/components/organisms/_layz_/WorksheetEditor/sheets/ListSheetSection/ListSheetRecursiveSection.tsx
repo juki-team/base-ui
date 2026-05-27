@@ -8,7 +8,7 @@ import type {
   QuizTextSheet,
 } from '@juki-team/commons/types';
 import { Children, type Dispatch } from 'react';
-import { EMPTY_LIST_SHEET } from '../../../../../../constants';
+import { EMPTY_LIST_SHEET } from '../../../../../../constants/worksheet';
 import { Button } from '../../../../../atoms/Button/Button';
 import { T } from '../../../../../atoms/T/T';
 import { Collapse } from '../../../../../atoms/_lazy_/Collapse';

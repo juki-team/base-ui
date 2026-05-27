@@ -10,7 +10,7 @@ import { Portal } from '../../../../atoms/Portal/Portal';
 import { T } from '../../../../atoms/T/T';
 import { classNames } from '../../../../helpers/commons';
 import { useStableRef } from '../../../../hooks/useStableRef';
-import { SplitPane } from '../../../../molecules';
+import { SplitPane } from '../../../../molecules/SplitPane/SplitPane';
 import MdMathEditor from '../../MdMathEditor/MdMathEditor';
 import { FileTreePanel } from './FileTreePanel/FileTreePanel';
 import { FirstPane } from './FirstPane';

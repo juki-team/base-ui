@@ -6,8 +6,8 @@ import { Button } from '../../../atoms/Button/Button';
 import { InputToggle } from '../../../atoms/InputToggle/InputToggle';
 import { Portal } from '../../../atoms/Portal/Portal';
 import { T } from '../../../atoms/T/T';
-import { EditIcon } from '../../../atoms/server';
-import { ButtonAction } from '../../../molecules';
+import { EditIcon } from '../../../atoms/server/icons/google/EditIcon';
+import { ButtonAction } from '../../../molecules/ButtonAction/ButtonAction';
 
 const LOCAL_STORAGE_KEY = 'jk-excalidraw-data';
 

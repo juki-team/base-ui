@@ -8,7 +8,8 @@ import { Select } from '../../atoms/Select/Select';
 import { classNames } from '../../helpers/commons';
 import { renderReactNodeOrFunctionP1 } from '../../helpers/render';
 import { useHandleState } from '../../hooks/useHandleState';
-import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
+import { NavigateBeforeIcon } from '../../atoms/server/icons/google/NavigateBeforeIcon';
+import { NavigateNextIcon } from '../../atoms/server/icons/google/NavigateNextIcon';
 import type { NotUndefined, TabType } from '../../types';
 import type { TabsInlineProps } from '../Tabs/types';
 

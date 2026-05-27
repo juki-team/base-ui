@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
 import { T } from '../../atoms/T/T';
-import { CloseIcon } from '../../atoms/server';
+import { CloseIcon } from '../../atoms/server/icons/google/CloseIcon';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { MockupJukiProvider } from '../../mockup';
-import { ButtonLoader } from '../../molecules';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
+import { ButtonLoader } from '../../molecules/ButtonLoader/ButtonLoader';
 import { NotificationProvider } from '../../providers/NotificationProvider/NotificationProvider';
 import { CheckUnsavedChanges } from './CheckUnsavedChanges';
 

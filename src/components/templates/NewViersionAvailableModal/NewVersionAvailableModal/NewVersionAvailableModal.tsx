@@ -1,6 +1,6 @@
 import { T } from '../../../atoms/T/T';
 import type { BasicModalProps } from '../../../atoms/types';
-import { TwoActionModal } from '../../../molecules';
+import { TwoActionModal } from '../../../molecules/TwoActionModal/TwoActionModal';
 
 export interface NewVersionAvailableModalProps extends BasicModalProps {
   previousVersion: string;

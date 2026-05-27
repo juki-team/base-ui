@@ -1,14 +1,12 @@
 import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { T } from '../../../../atoms/T/T';
-import { ButtonLoader } from '../../../../molecules';
-import { RefreshIcon } from '../../../../server';
-import {
-  getContestContestantsHeader,
-  getContestDateHeader,
-  getContestNameHeader,
-  getContestStatusHeader,
-} from '../../../../templates';
+import { ButtonLoader } from '../../../../molecules/ButtonLoader/ButtonLoader';
+import { RefreshIcon } from '../../../../atoms/server/icons/google/RefreshIcon';
+import { getContestNameHeader } from '../../../../templates/columns/contest-columns/getContestNameHeader';
+import { getContestStatusHeader } from '../../../../templates/columns/contest-columns/getContestStatusHeader';
+import { getContestContestantsHeader } from '../../../../templates/server/columns/contest-columns/getContestContestantsHeader';
+import { getContestDateHeader } from '../../../../templates/server/columns/contest-columns/getContestDateHeader';
 import { DataViewer } from '../';
 import type { DataViewerHeadersType, DataViewerProps, DataViewerRequestType } from '../types';
 import contests from './data.json';

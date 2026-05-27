@@ -5,20 +5,18 @@ import { Input } from '../../../../../atoms/Input/Input';
 import { InputTextArea } from '../../../../../atoms/InputTextArea/InputTextArea';
 import { Modal } from '../../../../../atoms/Modal/Modal';
 import { T } from '../../../../../atoms/T/T';
-import {
-  AddIcon,
-  ArrowDropDownIcon,
-  ArrowDropUpIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  DeleteIcon,
-  DraftIcon,
-  EditIcon,
-  FolderIcon,
-  FolderOpenIcon,
-} from '../../../../../atoms/server';
+import { AddIcon } from '../../../../../atoms/server/icons/google/AddIcon';
+import { ArrowDropDownIcon } from '../../../../../atoms/server/icons/google/ArrowDropDownIcon';
+import { ArrowDropUpIcon } from '../../../../../atoms/server/icons/google/ArrowDropUpIcon';
+import { ArrowLeftIcon } from '../../../../../atoms/server/icons/google/ArrowLeftIcon';
+import { ArrowRightIcon } from '../../../../../atoms/server/icons/google/ArrowRightIcon';
+import { DeleteIcon } from '../../../../../atoms/server/icons/google/DeleteIcon';
+import { DraftIcon } from '../../../../../atoms/server/icons/google/DraftIcon';
+import { EditIcon } from '../../../../../atoms/server/icons/google/EditIcon';
+import { FolderIcon } from '../../../../../atoms/server/icons/google/FolderIcon';
+import { FolderOpenIcon } from '../../../../../atoms/server/icons/google/FolderOpenIcon';
 import { classNames, normalizeFolderPath } from '../../../../../helpers/commons';
-import { TwoActionModal } from '../../../../../molecules';
+import { TwoActionModal } from '../../../../../molecules/TwoActionModal/TwoActionModal';
 import type { FileTreePanelProps } from './types';
 
 function abbreviateFileName(name: string, maxNameLength = 16): string {

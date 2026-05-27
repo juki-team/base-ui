@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '../../atoms/Button/Button';
 import { Modal } from '../../atoms/Modal/Modal';
 import { classNames } from '../../helpers/commons';
-import { EditIcon } from '../../server';
+import { EditIcon } from '../../atoms/server/icons/google/EditIcon';
 import { GraphvizViewer } from '../_layz_/GraphvizViewer';
 import type { GraphvizEditorModalProps } from '../_layz_/GraphvizViewer/types';
 import { GraphvizEditor } from '../GraphvizEditor/GraphvizEditor';

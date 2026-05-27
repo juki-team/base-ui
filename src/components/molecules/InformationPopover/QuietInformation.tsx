@@ -1,5 +1,5 @@
 import { T } from '../../atoms/T/T';
-import { LockIcon } from '../../atoms/server';
+import { LockIcon } from '../../atoms/server/icons/google/LockIcon';
 import { InformationPopover } from './InformationPopover';
 import type { InformationPopoverProps } from './types';
 

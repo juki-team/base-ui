@@ -5,7 +5,7 @@ import { Portal } from '../../../atoms/Portal/Portal';
 import { classNames } from '../../../helpers/commons';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers/render';
 import { useKeyDown } from '../../../hooks/useKeyDown';
-import { CloseIcon } from '../../../server';
+import { CloseIcon } from '../../../atoms/server/icons/google/CloseIcon';
 
 import type { DrawerViewProps } from './types';
 

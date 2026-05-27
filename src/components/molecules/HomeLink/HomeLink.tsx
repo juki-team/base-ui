@@ -1,7 +1,7 @@
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { T } from '../../atoms/T/T';
-import { HomeIcon } from '../../server';
+import { HomeIcon } from '../../atoms/server/icons/google/HomeIcon';
 
 export function HomeLink() {
   const isLargeHugeScreen = usePageStore((store) => store.viewPort.isLargeScreen || store.viewPort.isHugeScreen);

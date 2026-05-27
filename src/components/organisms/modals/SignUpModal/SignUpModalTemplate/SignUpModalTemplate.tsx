@@ -10,7 +10,8 @@ import { InputCheckbox } from '../../../../atoms/InputCheckbox/InputCheckbox';
 import { InputPassword } from '../../../../atoms/InputPassword/InputPassword';
 import { T } from '../../../../atoms/T/T';
 import { classNames } from '../../../../helpers/commons';
-import { ButtonLoader, SplitModal } from '../../../../molecules';
+import { ButtonLoader } from '../../../../molecules/ButtonLoader/ButtonLoader';
+import { SplitModal } from '../../../../molecules/SplitModal/SplitModal';
 import type { SetLoaderStatusOnClickType } from '../../../../types';
 import type { SignUpFormType, SignUpModalComponentProps } from './types';
 

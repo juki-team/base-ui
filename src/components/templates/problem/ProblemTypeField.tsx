@@ -1,6 +1,6 @@
 import { PROBLEM_TYPE } from '@juki-team/commons/constants';
 import { T } from '../../atoms/T/T';
-import { FieldText } from '../../organisms';
+import { FieldText } from '../../organisms/FieldText/FieldText';
 import type { ProblemTypeFieldProps } from './types';
 
 export function ProblemTypeField({

@@ -16,7 +16,8 @@ import { classNames } from '../../helpers/commons';
 import { authorizedRequest } from '../../helpers/fetch';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
+import { ButtonLoader } from '../../molecules/ButtonLoader/ButtonLoader';
+import { MultiSelectSearchable } from '../../molecules/MultiSelectSearchable/MultiSelectSearchable';
 import { DownloadIcon, RefreshIcon, SpinIcon } from '../../server';
 import type { JudgeDataType, ProblemSelectorProps } from './types';
 

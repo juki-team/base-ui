@@ -2,7 +2,7 @@ import { Children, Fragment, useCallback, useMemo, useRef, useState } from 'reac
 import { TriggerAction } from '../../../enums';
 import { Popover } from '../../atoms/_lazy_/Popover';
 import { useOverflowDetector } from '../../hooks/useOverflowDetector';
-import { NavigateNextIcon } from '../../server';
+import { NavigateNextIcon } from '../../atoms/server/icons/google/NavigateNextIcon';
 import { HomeLink } from '../HomeLink/HomeLink';
 import type { BreadcrumbsProps } from './types';
 

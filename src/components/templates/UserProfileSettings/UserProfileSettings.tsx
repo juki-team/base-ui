@@ -7,15 +7,13 @@ import { Select } from '../../atoms/Select/Select';
 import { T } from '../../atoms/T/T';
 import { classNames } from '../../helpers/commons';
 import { useJukiUserSettings } from '../../hooks/useJukiUser';
-import {
-  DarkModeIcon,
-  LightModeIcon,
-  LineLoader,
-  LockIcon,
-  VerticalSplitIcon,
-  ViewHeadlineIcon,
-  ViewModuleIcon,
-} from '../../server';
+import { DarkModeIcon } from '../../atoms/server/icons/google/DarkModeIcon';
+import { LightModeIcon } from '../../atoms/server/icons/google/LightModeIcon';
+import { LockIcon } from '../../atoms/server/icons/google/LockIcon';
+import { VerticalSplitIcon } from '../../atoms/server/icons/google/VerticalSplitIcon';
+import { ViewHeadlineIcon } from '../../atoms/server/icons/google/ViewHeadlineIcon';
+import { ViewModuleIcon } from '../../atoms/server/icons/google/ViewModuleIcon';
+import { LineLoader } from '../../atoms/server/loaders/line-loader/LineLoader';
 import type { UserProfileSettingsProps } from './types';
 
 export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfileSettingsProps) {

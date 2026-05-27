@@ -1,5 +1,5 @@
 import { Button } from '../atoms/Button/Button';
-import { InvertColorsIcon } from '../server';
+import { InvertColorsIcon } from '../atoms/server/icons/google/InvertColorsIcon';
 
 export const MockupToggleThemeButton = () => {
   return (

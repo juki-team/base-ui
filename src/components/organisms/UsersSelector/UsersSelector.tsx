@@ -8,7 +8,7 @@ import { Modal } from '../../atoms/Modal/Modal';
 import { T } from '../../atoms/T/T';
 import { TextArea } from '../../atoms/TextArea/TextArea';
 import { useFetcher } from '../../hooks/useFetcher';
-import { MultiSelectSearchable } from '../../molecules';
+import { MultiSelectSearchable } from '../../molecules/MultiSelectSearchable/MultiSelectSearchable';
 import { GroupsIcon, RefreshIcon, SpinIcon } from '../../server';
 import { UserChip } from '../UserChip/UserChip';
 import type { UsersSelectorProps } from './types';

@@ -6,9 +6,12 @@ import { T } from '../../atoms/T/T';
 import { Popover } from '../../atoms/_lazy_/Popover';
 
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import type { DrawerActionsType } from '../../molecules/Drawer/types';
-import { AppsIcon, FilterListIcon, SettingsIcon, ViewHeadlineIcon } from '../../server';
+import { AppsIcon } from '../../atoms/server/icons/google/AppsIcon';
+import { FilterListIcon } from '../../atoms/server/icons/google/FilterListIcon';
+import { SettingsIcon } from '../../atoms/server/icons/google/SettingsIcon';
+import { ViewHeadlineIcon } from '../../atoms/server/icons/google/ViewHeadlineIcon';
 import { HorizontalMenu as HorizontalMenuCmp, MdMathEditor, VerticalMenu } from '../index';
 import { SAMPLE_MD_CONTENT } from '../MdMathViewer/constants';
 

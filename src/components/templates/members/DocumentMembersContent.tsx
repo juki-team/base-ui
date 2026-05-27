@@ -3,7 +3,10 @@ import { EntityAccess, EntityMembersRank } from '@juki-team/commons/enums';
 import { getDocumentAccess } from '@juki-team/commons/helpers';
 import { Select } from '../../atoms/Select/Select';
 import { T } from '../../atoms/T/T';
-import { GlobeIcon, LockIcon, LockPersonIcon, PublicIcon } from '../../server';
+import { GlobeIcon } from '../../atoms/server/icons/google/GlobeIcon';
+import { LockIcon } from '../../atoms/server/icons/google/LockIcon';
+import { LockPersonIcon } from '../../atoms/server/icons/google/LockPersonIcon';
+import { PublicIcon } from '../../atoms/server/icons/google/PublicIcon';
 import { DocumentCustomMembersContent } from './DocumentCustomMembersContent';
 import type { DocumentMembersContentProps } from './types';
 

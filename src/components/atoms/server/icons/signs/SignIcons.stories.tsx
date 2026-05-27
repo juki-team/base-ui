@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { MockupToggleThemeButton } from '../../../../mockup';
+import { MockupToggleThemeButton } from '../../../../mockup/MockupToggleThemeButton';
 import { ArrowIcon_, CheckIcon_, CloseIcon_, DoubleUpIcon, ExclamationIcon_, MinusIcon, PlusIcon, UpIcon } from './';
 
 const meta = {

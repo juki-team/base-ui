@@ -1,6 +1,10 @@
 import { WorksheetType } from '@juki-team/commons/enums';
 import type { ReactNode } from 'react';
-import { ArticleIcon, BubbleChartIcon, CodeIcon, EventListIcon, ExtensionIcon } from '../../../../atoms/server';
+import { ArticleIcon } from '../../../../atoms/server/icons/google/ArticleIcon';
+import { BubbleChartIcon } from '../../../../atoms/server/icons/google/BubbleChartIcon';
+import { CodeIcon } from '../../../../atoms/server/icons/google/CodeIcon';
+import { EventListIcon } from '../../../../atoms/server/icons/google/EventListIcon';
+import { ExtensionIcon } from '../../../../atoms/server/icons/google/ExtensionIcon';
 import type { BasicIconProps } from '../../../../atoms/server/icons/types';
 
 export const LOGO_WORKSHEET_TYPE: (size?: BasicIconProps['size']) => {

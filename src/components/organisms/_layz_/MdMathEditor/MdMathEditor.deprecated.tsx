@@ -9,8 +9,11 @@ import { TextArea } from '../../../atoms/TextArea/TextArea';
 import { classNames } from '../../../helpers/commons';
 import { handleUploadImage } from '../../../helpers/fetch';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
-import { SplitPane } from '../../../molecules';
-import { CloseIcon, EditIcon, InfoIIcon, PreviewIcon } from '../../../server';
+import { SplitPane } from '../../../molecules/SplitPane/SplitPane';
+import { CloseIcon } from '../../../atoms/server/icons/google/CloseIcon';
+import { EditIcon } from '../../../atoms/server/icons/google/EditIcon';
+import { InfoIIcon } from '../../../atoms/server/icons/google/InfoIIcon';
+import { PreviewIcon } from '../../../atoms/server/icons/google/PreviewIcon';
 
 import { ImageUploaderButton } from '../../ImageUploaderButton/ImageUploaderButton';
 import { SAMPLE_MD_CONTENT } from '../../MdMathViewer/constants';

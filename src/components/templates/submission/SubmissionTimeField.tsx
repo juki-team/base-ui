@@ -1,6 +1,6 @@
 import { CODE_LANGUAGE } from '@juki-team/commons/constants';
 import { classNames } from '../../helpers/commons';
-import { FieldText } from '../../organisms';
+import { FieldText } from '../../organisms/FieldText/FieldText';
 import { SubmissionMemory } from '../../organisms/server/SubmissionMemory/SubmissionMemory';
 import { SubmissionTime } from '../../organisms/server/SubmissionTime/SubmissionTime';
 import { SubmissionInfo } from './commons/SubmissionInfo';

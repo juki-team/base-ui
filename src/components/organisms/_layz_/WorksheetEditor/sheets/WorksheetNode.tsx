@@ -16,11 +16,11 @@ import { classNames } from '../../../../helpers/commons';
 import { MdMathViewer } from '../../../MdMathViewer/MdMathViewer';
 import type { SetContentType, WorksheetNodeProps } from '../types';
 import { AddNewChild } from './AddNewChild';
-import { CodeEditorSheetSection } from './CodeEditorSheetSection';
-import { GraphSheetSection } from './GraphSheetSection';
-import { JkmdSheetSection } from './JkmdSheetSection';
-import { QuizOptionsSheetSection } from './QuizOptionsSheetSection';
-import { QuizProblemSheetSection } from './QuizProblemSheetSection';
+import { CodeEditorSheetSection } from './CodeEditorSheetSection/CodeEditorSheetSection';
+import { GraphSheetSection } from './GraphSheetSection/GraphSheetSection';
+import { JkmdSheetSection } from './JkmdSheetSection/JkmdSheetSection';
+import { QuizOptionsSheetSection } from './QuizOptionsSheetSection/QuizOptionsSheetSection';
+import { QuizProblemSheetSection } from './QuizProblemSheetSection/QuizProblemSheetSection';
 import type { SheetSection } from './types';
 
 export const WorksheetNode = (props: WorksheetNodeProps) => {

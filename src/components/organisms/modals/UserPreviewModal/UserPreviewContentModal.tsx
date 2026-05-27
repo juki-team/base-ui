@@ -6,8 +6,9 @@ import { Button } from '../../../atoms/Button/Button';
 import { Modal } from '../../../atoms/Modal/Modal';
 import { T } from '../../../atoms/T/T';
 import type { BasicModalProps } from '../../../atoms/Modal/types';
-import { ButtonLoader, FetcherLayer } from '../../../molecules';
-import { OpenInNewIcon } from '../../../server';
+import { ButtonLoader } from '../../../molecules/ButtonLoader/ButtonLoader';
+import { FetcherLayer } from '../../../molecules/FetcherLayer/FetcherLayer';
+import { OpenInNewIcon } from '../../../atoms/server/icons/google/OpenInNewIcon';
 import { UserProfileDataContent } from '../../../templates/UserProfile/UserProfileDataContent';
 
 export const UserPreview = ({

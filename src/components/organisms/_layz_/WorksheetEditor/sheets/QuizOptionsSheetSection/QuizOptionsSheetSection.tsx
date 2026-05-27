@@ -9,7 +9,8 @@ import { authorizedRequest } from '../../../../../helpers/fetch';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { useSyncedState } from '../../../../../hooks/useSyncedState';
-import { ButtonLoader, FloatToolbar } from '../../../../../molecules';
+import { ButtonLoader } from '../../../../../molecules/ButtonLoader/ButtonLoader';
+import { FloatToolbar } from '../../../../../molecules/FloatToolbar/FloatToolbar';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';

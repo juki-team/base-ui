@@ -6,7 +6,7 @@ import { jukiApiManager } from '../../../../settings';
 import { T } from '../../../atoms/T/T';
 import { oneTab } from '../../../helpers/layout';
 import { useSyncedState } from '../../../hooks/useSyncedState';
-import { MockupJukiProvider } from '../../../mockup';
+import { MockupJukiProvider } from '../../../mockup/MockupJukiProvider';
 import { ButtonLoader, FetcherLayer, SlideDeck, TwoContentLayout } from '../../../molecules';
 import { PresentationToolButtons } from '../../PresentationToolButtons/PresentationToolButtons';
 import { WorksheetAsSlides } from '../WorksheetAsSlides';

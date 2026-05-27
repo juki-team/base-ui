@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '../../atoms/Button/Button';
-import { MockupToggleThemeButton } from '../../mockup';
-import { MdMathViewer } from '../../organisms';
+import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
+import { MdMathViewer } from '../../organisms/MdMathViewer/MdMathViewer';
 import { SAMPLE_MD_CONTENT } from '../../organisms/MdMathViewer/constants';
 import { Drawer as DrawerComponent } from './Drawer';
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fn, within } from 'storybook/test';
-import { MockupJukiProvider } from '../../mockup';
-import { LockIcon } from '../server';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
+import { LockIcon } from '../server/icons/google/LockIcon';
 import { T } from '../T/T';
 import { Button } from './Button';
 

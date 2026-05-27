@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import { Portal } from '../../atoms/Portal/Portal';
-import { DesignServicesIcon } from '../../atoms/server';
+import { DesignServicesIcon } from '../../atoms/server/icons/google/DesignServicesIcon';
 import { ExcalidrawButton } from '../_layz_/ExcalidrawButton';
 import { FullscreenTimerButton } from './buttons/FullscreenTimerButton';
 import { FullscreenToggleButton } from './buttons/FullscreenToggleButton';

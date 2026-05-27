@@ -6,7 +6,10 @@ import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../he
 import type { ReactNodeOrFunctionType } from '../../types';
 import { Popover } from '../_lazy_/Popover';
 import type { PlacementType } from '../_lazy_/Popover/types';
-import { ArrowDropDownIcon, ArrowDropUpIcon, ArrowLeftIcon, ArrowRightIcon } from '../server';
+import { ArrowDropDownIcon } from '../server/icons/google/ArrowDropDownIcon';
+import { ArrowDropUpIcon } from '../server/icons/google/ArrowDropUpIcon';
+import { ArrowLeftIcon } from '../server/icons/google/ArrowLeftIcon';
+import { ArrowRightIcon } from '../server/icons/google/ArrowRightIcon';
 import type { SelectOptionType, SelectProps } from './types';
 
 const expandIcons: { [Key in PlacementType]: ReactNode } = {

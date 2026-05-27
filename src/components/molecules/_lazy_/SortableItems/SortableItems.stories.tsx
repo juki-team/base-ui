@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { configureActions } from 'storybook/actions';
-import { MockupJukiProvider } from '../../../mockup';
+import { MockupJukiProvider } from '../../../mockup/MockupJukiProvider';
 import { SortableItems as SortableItemsComponent } from './';
 import type { SortableItem, SortableItemComponent } from './types';
 

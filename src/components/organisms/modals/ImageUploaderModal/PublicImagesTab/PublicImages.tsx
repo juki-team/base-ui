@@ -3,8 +3,9 @@ import { NotificationType } from '@juki-team/commons/enums';
 import { T } from '../../../../atoms/T/T';
 import { copy } from '../../../../helpers/copy';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
-import { FloatToolbar } from '../../../../molecules';
-import { CheckIcon, ContentCopyIcon } from '../../../../server';
+import { FloatToolbar } from '../../../../molecules/FloatToolbar/FloatToolbar';
+import { CheckIcon } from '../../../../atoms/server/icons/google/CheckIcon';
+import { ContentCopyIcon } from '../../../../atoms/server/icons/google/ContentCopyIcon';
 import type { OnPickImageUrlType } from '../types';
 
 interface PublicImagesTabProps {

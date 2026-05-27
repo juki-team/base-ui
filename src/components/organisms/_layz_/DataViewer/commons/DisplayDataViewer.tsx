@@ -5,7 +5,7 @@ import { SCROLL_WIDTH } from '../../../../../constants';
 import { T } from '../../../../atoms/T/T';
 import { classNames } from '../../../../helpers/commons';
 import { renderReactNodeOrFunction } from '../../../../helpers/render';
-import { LineLoader } from '../../../../server';
+import { LineLoader } from '../../../../atoms/server/loaders/line-loader/LineLoader';
 import { CardRowVirtualizerFixed } from '../CardList';
 import { ViewContainerRows } from '../RowList/ViewContainerRows';
 import type { DisplayDataViewerProps } from '../types';

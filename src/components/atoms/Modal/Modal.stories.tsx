@@ -1,7 +1,7 @@
 import { Status } from '@juki-team/commons/enums';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import { Button } from '../Button/Button';
 import { Input } from '../Input/Input';
 import { Modal } from './Modal';

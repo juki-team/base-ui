@@ -1,6 +1,7 @@
 import { usePageStore } from '../../../../stores/page/usePageStore';
 import { Button } from '../../../atoms/Button/Button';
-import { FullscreenExitIcon, FullscreenIcon } from '../../../atoms/server';
+import { FullscreenExitIcon } from '../../../atoms/server/icons/google/FullscreenExitIcon';
+import { FullscreenIcon } from '../../../atoms/server/icons/google/FullscreenIcon';
 
 function enterFullscreen() {
   if (typeof document !== 'undefined') {

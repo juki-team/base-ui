@@ -1,5 +1,5 @@
-import { EditIcon } from '../../../../../atoms/server';
-import { FloatToolbar } from '../../../../../molecules';
+import { EditIcon } from '../../../../../atoms/server/icons/google/EditIcon';
+import { FloatToolbar } from '../../../../../molecules/FloatToolbar/FloatToolbar';
 import type { ButtonActionProps } from '../../../../../molecules/FloatToolbar/types';
 import { ListSheetRecursiveSection, type ListSheetRecursiveSectionProps } from './ListSheetRecursiveSection';
 

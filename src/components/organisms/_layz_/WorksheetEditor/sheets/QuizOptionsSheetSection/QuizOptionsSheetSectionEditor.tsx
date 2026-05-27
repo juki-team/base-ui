@@ -7,7 +7,7 @@ import { InputCheckbox } from '../../../../../atoms/InputCheckbox/InputCheckbox'
 import { InputRadio } from '../../../../../atoms/InputRadio/InputRadio';
 import { InputToggle } from '../../../../../atoms/InputToggle/InputToggle';
 import { T } from '../../../../../atoms/T/T';
-import { AddIcon } from '../../../../../atoms/server';
+import { AddIcon } from '../../../../../atoms/server/icons/google/AddIcon';
 import { classNames } from '../../../../../helpers/commons';
 import { MdMathEditor } from '../../../MdMathEditor';
 import type { SetContentType } from '../../types';

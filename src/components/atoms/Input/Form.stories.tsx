@@ -1,8 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 // import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
-import { Input, InputPassword, Select as SelectComponent, TextArea } from '../index';
+import { InputPassword } from '../InputPassword/InputPassword';
+import { Select as SelectComponent } from '../Select/Select';
+import { TextArea } from '../TextArea/TextArea';
+import { Input } from './Input';
 import type { InputProps } from './Input';
 
 const meta: Meta<typeof Input> = {

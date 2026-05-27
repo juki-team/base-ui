@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { MockupJukiProvider } from '../../../mockup';
+import { MockupJukiProvider } from '../../../mockup/MockupJukiProvider';
 import { ThemeColorPalette } from './ThemeColorPalette';
 
 const meta: Meta<typeof ThemeColorPalette> = {

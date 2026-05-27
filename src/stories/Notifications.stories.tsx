@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Button } from '../components';
+import { Button } from '../components/atoms/Button/Button';
 
 import { useJukiNotification } from '../components/hooks/useJukiNotification';
-import { MockupJukiProvider } from '../components/mockup';
+import { MockupJukiProvider } from '../components/mockup/MockupJukiProvider';
 import { NotificationProvider } from '../components/providers/NotificationProvider/NotificationProvider';
 
 const meta = {

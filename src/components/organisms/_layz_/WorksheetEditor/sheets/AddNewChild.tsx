@@ -1,20 +1,13 @@
 import { NEW_PAGE_SHEET } from '@juki-team/commons/constants';
 import { WorksheetType } from '@juki-team/commons/enums';
 import type { BodyWorksheet } from '@juki-team/commons/types';
-import {
-  EMPTY_CODE_EDITOR_SHEET,
-  EMPTY_GRAPH_SHEET,
-  EMPTY_JK_MD_SHEET,
-  EMPTY_LIST_SHEET,
-  EMPTY_QUIZ_OPTIONS_SHEET,
-  EMPTY_QUIZ_PROBLEM_SHEET,
-} from '../../../../../constants';
+import { EMPTY_CODE_EDITOR_SHEET, EMPTY_GRAPH_SHEET, EMPTY_JK_MD_SHEET, EMPTY_LIST_SHEET, EMPTY_QUIZ_OPTIONS_SHEET, EMPTY_QUIZ_PROBLEM_SHEET } from '../../../../../constants/worksheet';
 import { Button } from '../../../../atoms/Button/Button';
 import { T } from '../../../../atoms/T/T';
 import { Popover } from '../../../../atoms/_lazy_/Popover';
 import type { PopoverProps } from '../../../../atoms/_lazy_/Popover/types';
 import { PlusIcon } from '../../../../atoms/server';
-import { ButtonLoader } from '../../../../molecules';
+import { ButtonLoader } from '../../../../molecules/ButtonLoader/ButtonLoader';
 import type { SetSheetType } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';
 

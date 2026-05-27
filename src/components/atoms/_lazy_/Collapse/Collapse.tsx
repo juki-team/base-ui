@@ -1,7 +1,8 @@
 import { AnimatePresence, domAnimation, LazyMotion, m } from 'motion/react';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers/render';
 import { useHandleState } from '../../../hooks/useHandleState';
-import { ExpandLessIcon, ExpandMoreIcon } from '../../server';
+import { ExpandLessIcon } from '../../server/icons/google/ExpandLessIcon';
+import { ExpandMoreIcon } from '../../server/icons/google/ExpandMoreIcon';
 import type { CollapseProps } from './types';
 
 export default function Collapse(props: CollapseProps) {

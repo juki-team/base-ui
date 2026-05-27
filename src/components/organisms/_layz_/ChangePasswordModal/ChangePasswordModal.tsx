@@ -10,7 +10,7 @@ import { Modal } from '../../../atoms/Modal/Modal';
 import { T } from '../../../atoms/T/T';
 import { classNames } from '../../../helpers/commons';
 import { useJukiUser } from '../../../hooks/useJukiUser';
-import { ButtonLoader } from '../../../molecules';
+import { ButtonLoader } from '../../../molecules/ButtonLoader/ButtonLoader';
 import type { SetLoaderStatusOnClickType } from '../../../types';
 import type { ChangePasswordModalProps, ProfileChangePasswordInput } from './types';
 

@@ -3,7 +3,10 @@ import { type Dispatch, useEffect, useState } from 'react';
 import { Button } from '../../../../../atoms/Button/Button';
 import { Modal } from '../../../../../atoms/Modal/Modal';
 import type { BasicModalProps } from '../../../../../atoms/Modal/types';
-import { AddIcon, ArrowBackIcon, ArrowForwardIcon, DeleteIcon } from '../../../../../atoms/server';
+import { AddIcon } from '../../../../../atoms/server/icons/google/AddIcon';
+import { ArrowBackIcon } from '../../../../../atoms/server/icons/google/ArrowBackIcon';
+import { ArrowForwardIcon } from '../../../../../atoms/server/icons/google/ArrowForwardIcon';
+import { DeleteIcon } from '../../../../../atoms/server/icons/google/DeleteIcon';
 import { GraphSheetSectionView } from './GraphSheetSectionView';
 
 interface GraphSheetSectionProps extends BasicModalProps {

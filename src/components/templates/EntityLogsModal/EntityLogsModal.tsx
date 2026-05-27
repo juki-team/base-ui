@@ -4,8 +4,8 @@ import { Modal } from '../../atoms/Modal/Modal';
 import { T } from '../../atoms/T/T';
 import { DateLiteral } from '../../atoms/server/DateLiteral/DateLiteral';
 import { classNames } from '../../helpers/commons';
-import { FetcherLayer } from '../../molecules';
-import { UserChip } from '../../organisms';
+import { FetcherLayer } from '../../molecules/FetcherLayer/FetcherLayer';
+import { UserChip } from '../../organisms/UserChip/UserChip';
 import type { EntityLogsModalProps } from './types';
 
 export function EntityLogsModal({ url, ...restProps }: EntityLogsModalProps) {

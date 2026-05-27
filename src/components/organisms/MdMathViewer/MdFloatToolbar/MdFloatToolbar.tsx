@@ -1,8 +1,9 @@
 import { T } from '../../../atoms/T/T';
 import { downloadBlobAsFile } from '../../../helpers/commons';
-import { FloatToolbar } from '../../../molecules';
+import { FloatToolbar } from '../../../molecules/FloatToolbar/FloatToolbar';
 import type { ButtonActionProps } from '../../../molecules/types';
-import { DownloadIcon, EditIcon } from '../../../server';
+import { DownloadIcon } from '../../../atoms/server/icons/google/DownloadIcon';
+import { EditIcon } from '../../../atoms/server/icons/google/EditIcon';
 import type { MdFloatToolbarProps } from './types';
 
 export function MdFloatToolbar({ source, edit, onEdit, download }: MdFloatToolbarProps) {

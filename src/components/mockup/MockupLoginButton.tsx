@@ -1,7 +1,7 @@
 import { QueryParamKey } from '../../enums';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { Button } from '../atoms/Button/Button';
-import { LoginIcon } from '../server';
+import { LoginIcon } from '../atoms/server/icons/google/LoginIcon';
 
 export const MockupLoginButton = () => {
   const setSearchParams = useRouterStore((store) => store.setSearchParams);

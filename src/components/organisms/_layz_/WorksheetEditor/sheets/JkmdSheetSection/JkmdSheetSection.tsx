@@ -8,7 +8,8 @@ import { InputCheckbox } from '../../../../../atoms/InputCheckbox/InputCheckbox'
 import { T } from '../../../../../atoms/T/T';
 import { authorizedRequest } from '../../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
-import { ButtonLoader, FloatToolbar } from '../../../../../molecules';
+import { ButtonLoader } from '../../../../../molecules/ButtonLoader/ButtonLoader';
+import { FloatToolbar } from '../../../../../molecules/FloatToolbar/FloatToolbar';
 import { MdMathViewer } from '../../../../MdMathViewer/MdMathViewer';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';

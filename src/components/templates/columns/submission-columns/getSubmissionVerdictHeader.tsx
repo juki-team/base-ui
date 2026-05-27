@@ -1,8 +1,10 @@
 import { PROBLEM_VERDICT } from '@juki-team/commons/constants';
 import type { SubmissionSummaryListResponseDTO } from '@juki-team/commons/dto';
 import { T } from '../../../atoms/T/T';
-import { AcUnitIcon, FitnessCenterIcon, LockClockIcon } from '../../../atoms/server';
-import { FieldText } from '../../../organisms';
+import { AcUnitIcon } from '../../../atoms/server/icons/google/AcUnitIcon';
+import { FitnessCenterIcon } from '../../../atoms/server/icons/google/FitnessCenterIcon';
+import { LockClockIcon } from '../../../atoms/server/icons/google/LockClockIcon';
+import { FieldText } from '../../../organisms/FieldText/FieldText';
 import { SubmissionListenerVerdict } from '../../../organisms/SubmitView/commons/SubmissionListenerVerdict';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { SubmissionInfo } from '../../submission/commons/SubmissionInfo';

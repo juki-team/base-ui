@@ -2,8 +2,8 @@ import { Button } from '../../atoms/Button/Button';
 import { Modal } from '../../atoms/Modal/Modal';
 import { T } from '../../atoms/T/T';
 import { useJukiUser } from '../../hooks/useJukiUser';
-import { ButtonLoader } from '../../molecules';
-import { UserNicknameLink } from '../../organisms';
+import { ButtonLoader } from '../../molecules/ButtonLoader/ButtonLoader';
+import { UserNicknameLink } from '../../organisms/UserNicknameLink/UserNicknameLink';
 import type { ResetPasswordModalProps } from './types';
 
 export function ResetPasswordModal({ nickname, organizationKey, ...modalProps }: ResetPasswordModalProps) {

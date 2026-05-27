@@ -3,7 +3,7 @@ import { type CSSProperties, useCallback, useEffect, useRef, useState } from 're
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { classNames, getTextContent } from '../../helpers/commons';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { CloseIcon } from '../../server';
+import { CloseIcon } from '../../atoms/server/icons/google/CloseIcon';
 import { NOTIFICATION_ICON } from './constants';
 import type { CardNotificationProps } from './types';
 

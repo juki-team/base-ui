@@ -2,9 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { configureActions } from 'storybook/actions';
 import { Button } from '../../atoms/Button/Button';
 import { T } from '../../atoms/T/T';
-import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
+import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
 import type { TabsType } from '../../types';
-import { TabsInline } from '../index';
+import { TabsInline } from '../TabsInline/TabsInline';
 import { JudgeTabs } from './mocks/JudgeTabs';
 import type { TabsInlineProps } from './types';
 

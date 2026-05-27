@@ -6,7 +6,8 @@ import { renderReactNodeOrFunction } from '../../helpers/render';
 import { Popover } from '../_lazy_/Popover';
 import { InputCheckbox } from '../InputCheckbox/InputCheckbox';
 import type { SelectOptionType } from '../Select/types';
-import { CloseIcon, ExpandMoreIcon } from '../server';
+import { CloseIcon } from '../server/icons/google/CloseIcon';
+import { ExpandMoreIcon } from '../server/icons/google/ExpandMoreIcon';
 import type { MultiSelectProps } from './types';
 
 export function MultiSelect<T, U extends ReactNode, V extends ReactNode>(props: MultiSelectProps<T, U, V>) {

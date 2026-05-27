@@ -1,6 +1,6 @@
 import { Judge } from '@juki-team/commons/enums';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import { UserViewLayout } from './UserViewLayout';
 
 const meta: Meta<typeof UserViewLayout> = {

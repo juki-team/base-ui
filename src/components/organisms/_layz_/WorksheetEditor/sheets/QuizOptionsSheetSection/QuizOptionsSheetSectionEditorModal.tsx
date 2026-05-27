@@ -8,7 +8,7 @@ import { InputRadio } from '../../../../../atoms/InputRadio/InputRadio';
 import { Modal } from '../../../../../atoms/Modal/Modal';
 import { T } from '../../../../../atoms/T/T';
 import type { BasicModalProps } from '../../../../../atoms/Modal/types';
-import { AddIcon } from '../../../../../atoms/server';
+import { AddIcon } from '../../../../../atoms/server/icons/google/AddIcon';
 import { MdMathEditor } from '../../../MdMathEditor';
 
 interface RunnerSheetSectionProps extends BasicModalProps {

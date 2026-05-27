@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Input } from '../Input/Input';
 import type { InputPasswordProps } from '../Input/types';
-import { VisibilityIcon, VisibilityOffIcon } from '../server';
+import { VisibilityIcon } from '../server/icons/google/VisibilityIcon';
+import { VisibilityOffIcon } from '../server/icons/google/VisibilityOffIcon';
 
 export function InputPassword({ onChange, register, ...props }: InputPasswordProps) {
   const [type, setType] = useState<'password' | 'text'>('password');

@@ -6,9 +6,11 @@ import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { authorizedRequest } from '../../helpers/fetch';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { useMatchMutate } from '../../hooks/useMatchMutate';
-import { TabsInlineButton, TabsInlineButtonLoader } from '../../molecules';
-import { CheckUnsavedChanges } from '../../organisms';
-import { CloseIcon, SaveIcon } from '../../server';
+import { TabsInlineButton } from '../../molecules/TabsInline/TabsInlineButton';
+import { TabsInlineButtonLoader } from '../../molecules/TabsInline/TabsInlineButtonLoader';
+import { CheckUnsavedChanges } from '../../organisms/CheckUnsavedChanges/CheckUnsavedChanges';
+import { CloseIcon } from '../../atoms/server/icons/google/CloseIcon';
+import { SaveIcon } from '../../atoms/server/icons/google/SaveIcon';
 import type { EntityUpdateLayoutProps } from './types';
 
 export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U, V>) {

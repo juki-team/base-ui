@@ -15,11 +15,14 @@ import {
   useState,
 } from 'react';
 import { T } from '../../../atoms/T/T';
-import { ArticleIcon, CodeIcon, DownloadIcon, LineLoader } from '../../../atoms/server';
+import { ArticleIcon } from '../../../atoms/server/icons/google/ArticleIcon';
+import { CodeIcon } from '../../../atoms/server/icons/google/CodeIcon';
+import { DownloadIcon } from '../../../atoms/server/icons/google/DownloadIcon';
+import { LineLoader } from '../../../atoms/server/loaders/line-loader/LineLoader';
 import { classNames, downloadBlobAsFile } from '../../../helpers/commons';
 import { useStableRef } from '../../../hooks/useStableRef';
-import { FloatToolbar } from '../../../molecules';
-import { ImageUploaderModal } from '../../modals';
+import { FloatToolbar } from '../../../molecules/FloatToolbar/FloatToolbar';
+import { ImageUploaderModal } from '../../modals/ImageUploaderModal/ImageUploaderModal';
 import { MilkdownEditorContent, type MilkdownEditorContentHandle } from './MilkdownEditorContent/MilkdownEditorContent';
 import { TextPlainEditorContent } from './TextPlainEditorContent/TextPlainEditorContent';
 import type { MdMathEditorHandle, MdMathEditorProps } from './types';

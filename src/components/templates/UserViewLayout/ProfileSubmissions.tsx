@@ -6,17 +6,14 @@ import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { toFilterUrl, toSortUrl } from '../../helpers/router';
 import { useFetcher } from '../../hooks/useFetcher';
-import { PagedDataViewer } from '../../organisms';
+import { PagedDataViewer } from '../../organisms/PagedDataViewer/PagedDataViewer';
 import type { DataViewerHeadersType } from '../../organisms/_layz_/DataViewer/types';
-import {
-  getSubmissionDateHeader,
-  getSubmissionLanguageHeader,
-  getSubmissionMemoryHeader,
-  getSubmissionProblemHeader,
-  getSubmissionTimeHeader,
-  getSubmissionVerdictHeader,
-  type LanguagesByJudge,
-} from '../columns';
+import { getSubmissionDateHeader } from '../columns/submission-columns/getSubmissionDateHeader';
+import { getSubmissionLanguageHeader, type LanguagesByJudge } from '../columns/submission-columns/getSubmissionLanguageHeader';
+import { getSubmissionMemoryHeader } from '../columns/submission-columns/getSubmissionMemoryHeader';
+import { getSubmissionProblemHeader } from '../columns/submission-columns/getSubmissionProblemHeader';
+import { getSubmissionTimeHeader } from '../columns/submission-columns/getSubmissionTimeHeader';
+import { getSubmissionVerdictHeader } from '../columns/submission-columns/getSubmissionVerdictHeader';
 export function ProfileSubmissions() {
   const nickname = useRouterStore((state) => state.routeParams.nickname);
   const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDTO>>(

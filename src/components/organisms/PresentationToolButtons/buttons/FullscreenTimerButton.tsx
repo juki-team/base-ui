@@ -7,17 +7,15 @@ import { InputToggle } from '../../../atoms/InputToggle/InputToggle';
 import { Portal } from '../../../atoms/Portal/Portal';
 import { T } from '../../../atoms/T/T';
 import type { ButtonProps } from '../../../atoms/Button/Button';
-import {
-  AlarmIcon,
-  FullscreenExitIcon,
-  FullscreenIcon,
-  PauseCircleIcon,
-  PlayCircleIcon,
-  TimerIcon,
-  UndoIcon,
-} from '../../../atoms/server';
+import { AlarmIcon } from '../../../atoms/server/icons/google/AlarmIcon';
+import { FullscreenExitIcon } from '../../../atoms/server/icons/google/FullscreenExitIcon';
+import { FullscreenIcon } from '../../../atoms/server/icons/google/FullscreenIcon';
+import { PauseCircleIcon } from '../../../atoms/server/icons/google/PauseCircleIcon';
+import { PlayCircleIcon } from '../../../atoms/server/icons/google/PlayCircleIcon';
+import { TimerIcon } from '../../../atoms/server/icons/google/TimerIcon';
+import { UndoIcon } from '../../../atoms/server/icons/google/UndoIcon';
 import { classNames } from '../../../helpers/commons';
-import { ButtonAction } from '../../../molecules';
+import { ButtonAction } from '../../../molecules/ButtonAction/ButtonAction';
 import { TimerDisplay } from '../../../molecules/server/TimerDisplay/TimerDisplay';
 
 export function FullscreenTimerButton() {

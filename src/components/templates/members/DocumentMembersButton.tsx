@@ -7,10 +7,11 @@ import { type PropsWithChildren, useState } from 'react';
 import { Button } from '../../atoms/Button/Button';
 import { CopyToClipboard } from '../../atoms/CopyToClipboard/CopyToClipboard';
 import { T } from '../../atoms/T/T';
-import { EditIcon, ShareIcon } from '../../atoms/server';
+import { EditIcon } from '../../atoms/server/icons/google/EditIcon';
+import { ShareIcon } from '../../atoms/server/icons/google/ShareIcon';
 import { authorizedRequest } from '../../helpers/fetch';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { ButtonAction } from '../../molecules';
+import { ButtonAction } from '../../molecules/ButtonAction/ButtonAction';
 import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModal';
 import type { DocumentMembersButtonProps } from './types';
 

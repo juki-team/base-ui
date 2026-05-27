@@ -12,10 +12,11 @@ import { Input } from '../../../../atoms/Input/Input';
 import { InputPassword } from '../../../../atoms/InputPassword/InputPassword';
 import { InputSelect } from '../../../../atoms/InputSelect/InputSelect';
 import { T } from '../../../../atoms/T/T';
-import { InfoIIcon } from '../../../../atoms/server';
+import { InfoIIcon } from '../../../../atoms/server/icons/google/InfoIIcon';
 import { classNames } from '../../../../helpers/commons';
 import { useFetcher } from '../../../../hooks/useFetcher';
-import { ButtonLoader, SplitModal } from '../../../../molecules';
+import { ButtonLoader } from '../../../../molecules/ButtonLoader/ButtonLoader';
+import { SplitModal } from '../../../../molecules/SplitModal/SplitModal';
 import type { SetLoaderStatusOnClickType } from '../../../../types';
 import type { LoginFormType, LoginModalTemplateProps } from './types';
 

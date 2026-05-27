@@ -8,7 +8,7 @@ import { Popover } from '../../atoms/_lazy_/Popover';
 import { classNames } from '../../helpers/commons';
 import { getQuerySessionId } from '../../helpers/fetch';
 import { useJukiUser } from '../../hooks/useJukiUser';
-import { ButtonLoader } from '../../molecules';
+import { ButtonLoader } from '../../molecules/ButtonLoader/ButtonLoader';
 import { LoginIcon, LogoutIcon, SpinIcon } from '../../server';
 import { UserChip } from '../UserChip/UserChip';
 import type { LoginUserProps } from './types';

@@ -1,7 +1,7 @@
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { Button } from '../../atoms/Button/Button';
 import { T } from '../../atoms/T/T';
-import { HomeIcon } from '../../server';
+import { HomeIcon } from '../../atoms/server/icons/google/HomeIcon';
 import type { PageNotFoundProps } from './types';
 
 export function PageNotFound({ children, style }: PageNotFoundProps) {

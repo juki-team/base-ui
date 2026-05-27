@@ -7,8 +7,9 @@ import { CopyToClipboard } from '../../../atoms/CopyToClipboard/CopyToClipboard'
 import { Modal } from '../../../atoms/Modal/Modal';
 import { T } from '../../../atoms/T/T';
 import type { ModalProps } from '../../../atoms/Modal/types';
-import { ButtonLoader } from '../../../molecules';
-import { OpenInNewIcon, RefreshIcon } from '../../../server';
+import { ButtonLoader } from '../../../molecules/ButtonLoader/ButtonLoader';
+import { OpenInNewIcon } from '../../../atoms/server/icons/google/OpenInNewIcon';
+import { RefreshIcon } from '../../../atoms/server/icons/google/RefreshIcon';
 import { SubmitView } from '../../SubmitView/SubmitView';
 
 export interface SubmissionModalProps extends ModalProps {

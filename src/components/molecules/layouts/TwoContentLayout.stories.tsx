@@ -6,7 +6,7 @@ import { Button } from '../../atoms/Button/Button';
 import { Input } from '../../atoms/Input/Input';
 import { T } from '../../atoms/T/T';
 import { oneTab } from '../../helpers/layout';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import { MockJkContestTable } from '../../organisms/_layz_/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkUserTable } from '../../organisms/_layz_/DataViewer/JkUserTableTest/MockJkUserTable';

@@ -6,9 +6,11 @@ import { useState } from 'react';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { authorizedRequest } from '../../helpers/fetch';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { TabsInlineButton, TabsInlineButtonLoader } from '../../molecules';
-import { CheckUnsavedChanges } from '../../organisms';
-import { CloseIcon, SaveIcon } from '../../server';
+import { TabsInlineButton } from '../../molecules/TabsInline/TabsInlineButton';
+import { TabsInlineButtonLoader } from '../../molecules/TabsInline/TabsInlineButtonLoader';
+import { CheckUnsavedChanges } from '../../organisms/CheckUnsavedChanges/CheckUnsavedChanges';
+import { CloseIcon } from '../../atoms/server/icons/google/CloseIcon';
+import { SaveIcon } from '../../atoms/server/icons/google/SaveIcon';
 import type { EntityCreateLayoutProps } from './types';
 
 export function EntityCreateLayout<T, U, V>(props: EntityCreateLayoutProps<T, U, V>) {

@@ -5,7 +5,8 @@ import { Children, Fragment, type PropsWithChildren, type ReactNode } from 'reac
 import { T } from '../../atoms/T/T';
 import { Popover } from '../../atoms/_lazy_/Popover';
 import { classNames } from '../../helpers/commons';
-import { ExclamationIcon, InfoIIcon } from '../../server';
+import { ExclamationIcon } from '../../atoms/server/icons/google/ExclamationIcon';
+import { InfoIIcon } from '../../atoms/server/icons/google/InfoIIcon';
 import type { ProblemInfoProps } from './types';
 
 export interface JukiProblemInfoProps {

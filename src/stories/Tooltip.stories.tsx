@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { MockupJukiProvider } from '../components/mockup';
+import { MockupJukiProvider } from '../components/mockup/MockupJukiProvider';
 
 const meta: Meta = {
   // component,

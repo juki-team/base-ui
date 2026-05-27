@@ -1,7 +1,8 @@
 // import { configureActions } from 'storybook/actions';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { MockupJukiProvider, MockupToggleThemeButton } from '../components/mockup';
-import { TabsInline as TabsComponent } from '../components/molecules';
+import { MockupJukiProvider } from '../components/mockup/MockupJukiProvider';
+import { MockupToggleThemeButton } from '../components/mockup/MockupToggleThemeButton';
+import { TabsInline as TabsComponent } from '../components/molecules/TabsInline/TabsInline';
 
 const meta: Meta<typeof TabsComponent> = {
   component: TabsComponent,

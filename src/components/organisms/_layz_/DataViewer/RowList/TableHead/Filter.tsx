@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { TriggerAction } from '../../../../../../enums';
 import { Popover } from '../../../../../atoms/_lazy_/Popover';
 import { classNames } from '../../../../../helpers/commons';
-import { FilterListIcon } from '../../../../../server';
+import { FilterListIcon } from '../../../../../atoms/server/icons/google/FilterListIcon';
 import { isFilterDate, isFilterDateRange, isFilterSelect, isFilterText } from '../../commons/utils';
 import type { TableHeaderFilterType } from '../../types';
 import { TableHeadFilterDate } from './TableHeadFilterDate';

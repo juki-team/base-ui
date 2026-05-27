@@ -6,13 +6,13 @@ import { type Dispatch, type RefObject, type SetStateAction, useCallback, useEff
 import { v4 } from 'uuid';
 import { jukiApiManager } from '../../../../../../settings';
 import { T } from '../../../../../atoms/T/T';
-import { PlayArrowIcon } from '../../../../../atoms/server';
+import { PlayArrowIcon } from '../../../../../atoms/server/icons/google/PlayArrowIcon';
 import { authorizedRequest } from '../../../../../helpers/fetch';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { useKeyDown } from '../../../../../hooks/useKeyDown';
 import { useStableRef } from '../../../../../hooks/useStableRef';
 import { useSubscribe } from '../../../../../hooks/useSubscribe';
-import { ButtonLoader } from '../../../../../molecules';
+import { ButtonLoader } from '../../../../../molecules/ButtonLoader/ButtonLoader';
 import type { SetLoaderStatusOnClickType } from '../../../../../types';
 import type { CodeRunnerEditorOnChangeType, Runner, RunState } from '../types';
 

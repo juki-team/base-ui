@@ -4,7 +4,7 @@ import { usePageStore } from '../../../stores/page/usePageStore';
 import { Modal } from '../../atoms/Modal/Modal';
 import { T } from '../../atoms/T/T';
 import { classNames } from '../../helpers/commons';
-import { ExclamationIcon } from '../../server';
+import { ExclamationIcon } from '../../atoms/server/icons/google/ExclamationIcon';
 import type { SetLoaderStatusOnClickType } from '../../types';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import type { TwoActionModalProps } from './types';

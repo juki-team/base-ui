@@ -1,5 +1,7 @@
 import { Button } from '../../../../atoms/Button/Button';
-import { ArrowDownwardIcon, ArrowUpwardIcon, DeleteIcon } from '../../../../atoms/server';
+import { ArrowDownwardIcon } from '../../../../atoms/server/icons/google/ArrowDownwardIcon';
+import { ArrowUpwardIcon } from '../../../../atoms/server/icons/google/ArrowUpwardIcon';
+import { DeleteIcon } from '../../../../atoms/server/icons/google/DeleteIcon';
 
 interface UpRemoveDownButtonsProps<T> {
   index: number;

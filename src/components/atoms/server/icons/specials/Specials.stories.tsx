@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/react-vite';
 import { type FC, useState } from 'react';
 import type { ColorResult } from 'react-color';
-import { MockupJukiProvider } from '../../../../mockup';
+import { MockupJukiProvider } from '../../../../mockup/MockupJukiProvider';
 import { InputColor } from '../../../../molecules';
 import { Input } from '../../../Input/Input';
 import { Select } from '../../../Select/Select';

@@ -3,7 +3,8 @@ import { useUIStore } from '../../../../../../stores/ui/useUIStore';
 import { Input } from '../../../../../atoms/Input/Input';
 import { T } from '../../../../../atoms/T/T';
 import { classNames } from '../../../../../helpers/commons';
-import { ButtonLoader, SplitModal } from '../../../../../molecules';
+import { ButtonLoader } from '../../../../../molecules/ButtonLoader/ButtonLoader';
+import { SplitModal } from '../../../../../molecules/SplitModal/SplitModal';
 import type { ForgotPasswordModalProps } from './types';
 
 export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword }: ForgotPasswordModalProps) => {

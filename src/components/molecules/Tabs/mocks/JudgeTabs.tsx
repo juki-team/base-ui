@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Button } from '../../../atoms/Button/Button';
-import { EditIcon } from '../../../atoms/server';
+import { EditIcon } from '../../../atoms/server/icons/google/EditIcon';
 import { MockJkContestTable } from '../../../organisms/_layz_/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../../organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkSubmissionTable } from '../../../organisms/_layz_/DataViewer/JkSubmissionsTableTest/MockJkSubmissionTable';
 import { MockJkUserTable } from '../../../organisms/_layz_/DataViewer/JkUserTableTest/MockJkUserTable';
 import type { TabsType } from '../../../types';
-import { TabsInline } from '../../index';
+import { TabsInline } from '../../TabsInline/TabsInline';
 import { TabsInlineBody } from '../../TabsInlineBody/TabsInlineBody';
 
 const outputTabs: TabsType = {

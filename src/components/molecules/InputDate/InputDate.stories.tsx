@@ -2,7 +2,7 @@ import { ONE_DAY } from '@juki-team/commons/constants';
 import { getDays, getHours, getMinutes, getMonths, getYears } from '@juki-team/commons/helpers';
 import { useState } from 'react';
 import { DateLiteral } from '../../atoms';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import { TimePicker } from '../TimePicker/TimePicker';
 import { InputDate } from './InputDate';
 

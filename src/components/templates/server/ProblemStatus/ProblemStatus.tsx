@@ -1,4 +1,5 @@
-import { CheckIcon, PendingActionsIcon } from '../../../atoms/server';
+import { CheckIcon } from '../../../atoms/server/icons/google/CheckIcon';
+import { PendingActionsIcon } from '../../../atoms/server/icons/google/PendingActionsIcon';
 import type { ProblemStatusProps } from './types';
 
 export function ProblemStatus({ solved, tried, size }: ProblemStatusProps) {

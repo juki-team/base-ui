@@ -1,5 +1,6 @@
 import type { ContestSummaryListResponseDTO } from '@juki-team/commons/dto';
-import { EventIcon, ScheduleIcon } from '../../../../atoms/server';
+import { EventIcon } from '../../../../atoms/server/icons/google/EventIcon';
+import { ScheduleIcon } from '../../../../atoms/server/icons/google/ScheduleIcon';
 import { DateLiteral } from '../../../../atoms/server/DateLiteral/DateLiteral';
 import { T } from '../../../../atoms/T/T.server';
 import type { DataViewerHeadersType } from '../../../../organisms/types';

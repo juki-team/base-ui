@@ -1,5 +1,6 @@
 import { T } from '../../atoms/T/T';
-import { FieldText, UserChip } from '../../organisms';
+import { FieldText } from '../../organisms/FieldText/FieldText';
+import { UserChip } from '../../organisms/UserChip/UserChip';
 import type { ProblemCrawlerFieldProps } from './types';
 
 export function ProblemCrawlerField({

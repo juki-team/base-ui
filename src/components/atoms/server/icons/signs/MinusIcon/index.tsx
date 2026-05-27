@@ -1,5 +1,5 @@
 import type { SignIconProps } from '../../types';
-import { renderSignIcon } from '../../utils';
+import { renderSignIcon } from '../../utils/renderSignIcon';
 import Minus from './Minus';
 import NarrowMinus from './NarrowMinus';
 

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Button } from '../../atoms/Button/Button';
-import { MockupJukiProvider } from '../../mockup';
-import { CalendarMonthIcon, EventIcon } from '../../server';
-import { DrawerViewMenuMobile as DrawerViewMenuMobileCmp } from './DrawerViewMenuMobile';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
+import { CalendarMonthIcon } from '../../atoms/server/icons/google/CalendarMonthIcon';
+import { EventIcon } from '../../atoms/server/icons/google/EventIcon';
+import { DrawerViewMenuMobile as DrawerViewMenuMobileCmp } from './DrawerViewMenuMobile/DrawerViewMenuMobile';
 
 export default {
   component: DrawerViewMenuMobileCmp,

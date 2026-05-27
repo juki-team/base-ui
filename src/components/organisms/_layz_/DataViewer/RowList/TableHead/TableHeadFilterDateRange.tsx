@@ -2,7 +2,7 @@ import { isValidDate } from '@juki-team/commons/helpers';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '../../../../../atoms/Button/Button';
 import { T } from '../../../../../atoms/T/T';
-import { InputDate } from '../../../../../molecules';
+import { InputDate } from '../../../../../molecules/InputDate/InputDate';
 import { isDisabledEnd, isDisabledStart, isRangeSelected, isSelected, orDatePickerDateFun } from '../../commons/utils';
 import type { TableHeadFilterDateRangeProps } from './types';
 

@@ -10,7 +10,9 @@ import type { SelectOptionType } from '../../atoms/types';
 import { classNames, getTextContent } from '../../helpers/commons';
 import { renderReactNodeOrFunction } from '../../helpers/render';
 import { useHandleState } from '../../hooks/useHandleState';
-import { CloseIcon, ExpandMoreIcon, SearchIcon } from '../../server';
+import { CloseIcon } from '../../atoms/server/icons/google/CloseIcon';
+import { ExpandMoreIcon } from '../../atoms/server/icons/google/ExpandMoreIcon';
+import { SearchIcon } from '../../atoms/server/icons/google/SearchIcon';
 import type { MultiSelectSearchableProps } from './types';
 
 export function MultiSelectSearchable<T, U extends ReactNode, V extends ReactNode>(props: MultiSelectSearchableProps<T, U, V>) {

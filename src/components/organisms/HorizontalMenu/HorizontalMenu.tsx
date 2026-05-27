@@ -5,9 +5,10 @@ import { Button } from '../../atoms/Button/Button';
 import { Div } from '../../atoms/Div/Div';
 import { classNames } from '../../helpers/commons';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers/render';
-import { Drawer } from '../../molecules';
+import { Drawer } from '../../molecules/Drawer/Drawer';
 import type { DrawerActionsType } from '../../molecules/Drawer/types';
-import { ArrowBackIcon, ViewHeadlineIcon } from '../../server';
+import { ArrowBackIcon } from '../../atoms/server/icons/google/ArrowBackIcon';
+import { ViewHeadlineIcon } from '../../atoms/server/icons/google/ViewHeadlineIcon';
 import type { HorizontalMenuProps } from './types';
 
 // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: complexity is dominated by JSX render branches / decision trees that read more naturally inline than split into helpers; refactor deferred

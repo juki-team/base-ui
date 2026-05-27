@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { MockupJukiProvider } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import type { GraphvizEditorProps } from '../_layz_/GraphvizViewer/types';
 import { GraphvizEditor } from './GraphvizEditor';
 
