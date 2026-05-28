@@ -5,6 +5,7 @@ import { Children, Fragment, type PropsWithChildren, type ReactNode } from 'reac
 import { T } from '../../atoms/T/T';
 import { Popover } from '../../atoms/_lazy_/Popover';
 import { classNames } from '../../helpers/commons';
+import { pickLanguage } from '../../helpers/problem';
 import { ExclamationIcon } from '../../atoms/server/icons/google/ExclamationIcon';
 import { InfoIIcon } from '../../atoms/server/icons/google/InfoIIcon';
 import type { ProblemInfoProps } from './types';
@@ -313,7 +314,7 @@ export function ProblemInfo({ problem, size }: ProblemInfoProps) {
               className={`${problem.judge?.key}-statement only-info`}
               // biome-ignore lint/style/useNamingConvention: __html is React's reserved property name for dangerouslySetInnerHTML
               // biome-ignore lint/security/noDangerouslySetInnerHtml: problem statement HTML is sanitized server-side by the judge importer
-              dangerouslySetInnerHTML={{ __html: problem.statement.html[Language.EN] || problem.statement.html[Language.ES] }}
+              dangerouslySetInnerHTML={{ __html: pickLanguage(problem.statement.html, Language.EN) }}
             />
           </div>
         )
