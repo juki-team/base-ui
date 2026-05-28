@@ -3,6 +3,25 @@ import { Language, ProblemScoringMode } from '@juki-team/commons/enums';
 import type { ProblemSettings, ProblemStatement } from '@juki-team/commons/types';
 import { isBrowser } from './commons';
 
+type LangCode = Lowercase<keyof typeof Language>;
+type Localized = Partial<Record<LangCode, string>>;
+
+/**
+ * Resolve a localized text field, falling back through preferred -> EN -> ES -> fallback.
+ * @param {Localized | undefined} field The object keyed by language code
+ * @param {Language} preferredLanguage The language to try first
+ * @param {string} fallback Value returned when no language is present
+ * @returns {string} The resolved text
+ */
+export const pickLanguage = (field: Localized | undefined, preferredLanguage: Language, fallback = ''): string => {
+  return (
+    field?.[preferredLanguage.toLowerCase() as LangCode] ||
+    field?.[Language.EN.toLowerCase() as LangCode] ||
+    field?.[Language.ES.toLowerCase() as LangCode] ||
+    fallback
+  );
+};
+
 export const getEditorSettingsStorageKey = (useNickname: string) => `jk-editor-settings-store/${useNickname}`;
 
 export const getProblemsStoreKey = (useNickname: string) => `jk-problem-storage/${useNickname}`;
@@ -25,30 +44,10 @@ export const getStatementData = (
   preferredLanguage: Language,
   problemName: string,
 ) => {
-  const statementDescription = (
-    statement?.description?.[preferredLanguage] ||
-    statement?.description?.[Language.EN] ||
-    statement?.description?.[Language.ES] ||
-    ''
-  ).trim();
-  const statementInput = (
-    statement?.input[preferredLanguage] ||
-    statement?.input[Language.EN] ||
-    statement?.input[Language.ES] ||
-    ''
-  ).trim();
-  const statementOutput = (
-    statement?.output[preferredLanguage] ||
-    statement?.output[Language.EN] ||
-    statement?.output[Language.ES] ||
-    ''
-  ).trim();
-  const statementNote = (
-    statement?.note?.[preferredLanguage] ||
-    statement?.note?.[Language.EN] ||
-    statement?.note?.[Language.ES] ||
-    ''
-  ).trim();
+  const statementDescription = pickLanguage(statement?.description, preferredLanguage).trim();
+  const statementInput = pickLanguage(statement?.input, preferredLanguage).trim();
+  const statementOutput = pickLanguage(statement?.output, preferredLanguage).trim();
+  const statementNote = pickLanguage(statement?.note, preferredLanguage).trim();
   const statementSampleCases = statement?.sampleCases || [];
   const languages = Object.values(settings?.byProgrammingLanguage || {});
 
@@ -91,7 +90,7 @@ ${
         .map(
           (pointsByGroup) => `### ${t('group')} ${pointsByGroup.group} (${pointsByGroup.points} ${t('points')})
 
-${pointsByGroup.description?.[preferredLanguage]}
+${pickLanguage(pointsByGroup.description, preferredLanguage)}
       `,
         )
         .join('\n')
@@ -128,7 +127,7 @@ ${statementNote}
       statementInput.trim() === '' &&
       statementOutput.trim() === '' &&
       statementNote.trim() === '' &&
-      (!!statement.pdfUrl[Language.ES] || !!statement.pdfUrl[Language.EN]),
+      !!pickLanguage(statement.pdfUrl, preferredLanguage),
   };
 };
 
