@@ -21,7 +21,14 @@ import {
   type Theme,
 } from '@juki-team/commons/enums';
 import { getUserKey } from '@juki-team/commons/helpers';
-import type { ClientId, CodeEditorFiles, JudgeLanguage, UserRoles, UserSettings } from '@juki-team/commons/types';
+import type {
+  ClientId,
+  CodeEditorFiles,
+  JudgeLanguage,
+  KeyFileType,
+  UserRoles,
+  UserSettings,
+} from '@juki-team/commons/types';
 import type { ErrorInfo } from 'react';
 import type { RowDataType } from '../components/molecules/_lazy_/DataGrid/types';
 import type {
@@ -362,6 +369,39 @@ export class ApiManager {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
+        getTestCasesGroups: valid<{ params: { key: string } }>(({ params: { key } }) => ({
+          url: injectBaseUrl('problem', `/${key}/test-cases-groups`),
+          method: HTTPMethod.GET,
+        })),
+        getAllTestCases: valid<{ params: { key: string } }>(({ params: { key } }) => ({
+          url: injectBaseUrl('problem', `/${key}/all-test-cases`),
+          method: HTTPMethod.GET,
+        })),
+        createTestCase: valid<{ params: { key: string }; body: Record<string, unknown> }, 'POST'>(
+          ({ params: { key }, body }) => ({
+            url: injectBaseUrl('problem', `/${key}/test-case`),
+            method: HTTPMethod.POST,
+            body: JSON.stringify(body),
+          }),
+        ),
+        getTestCaseKeyFile: valid<{ params: { key: string; testCaseKey: string; keyFile: KeyFileType } }>(
+          ({ params: { key, testCaseKey, keyFile } }) => ({
+            url: injectBaseUrl('problem', `/${key}/test-case/${testCaseKey}/key-file/${keyFile}`),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        deleteTestCaseKeyFile: valid<
+          { params: { key: string; testCaseKey: string; keyFile: KeyFileType } },
+          'DELETE'
+        >(({ params: { key, testCaseKey, keyFile } }) => ({
+          url: injectBaseUrl('problem', `/${key}/test-case/${testCaseKey}/key-file/${keyFile}`),
+          method: HTTPMethod.DELETE,
+        })),
+        createStatementPdf: valid<{ body: Record<string, unknown> }, 'POST'>(({ body }) => ({
+          url: injectBaseUrl('problem', '/statement-pdf'),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
       },
       contest: {
         create: valid<void, 'POST'>(() => ({
@@ -534,6 +574,62 @@ export class ApiManager {
             method: HTTPMethod.POST,
           }),
         ),
+        register: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}/register`),
+          method: HTTPMethod.POST,
+        })),
+        getScoreboardRoot: valid<{ params: { key: string; unfrozen: boolean; official: boolean } }>(
+          ({ params: { key, unfrozen, official } }) => ({
+            url: injectBaseUrl(
+              'contest',
+              `/${key}/scoreboard${official ? '?official=true' : ''}${unfrozen ? `${official ? '&' : '?'}state=unfrozen` : ''}`,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getScoreboardHistory: valid<{ params: { key: string } }>(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}/scoreboard-history`),
+          method: HTTPMethod.GET,
+        })),
+        recalculateScoreboardHistory: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}/recalculate-scoreboard-history`),
+          method: HTTPMethod.POST,
+        })),
+        createClarification: valid<{ params: { key: string }; body: Record<string, unknown> }, 'POST'>(
+          ({ params: { key }, body }) => ({
+            url: injectBaseUrl('contest', `/${key}/clarification`),
+            method: HTTPMethod.POST,
+            body: JSON.stringify(body),
+          }),
+        ),
+        answerClarification: valid<
+          { params: { key: string; clarificationId: string }; body: Record<string, unknown> },
+          'PUT'
+        >(({ params: { key, clarificationId }, body }) => ({
+          url: injectBaseUrl('contest', `/${key}/clarification/${clarificationId}`),
+          method: HTTPMethod.PUT,
+          body: JSON.stringify(body),
+        })),
+        lockScoreboard: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}/lock-scoreboard`),
+          method: HTTPMethod.POST,
+        })),
+        unlockScoreboard: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}/unlock-scoreboard`),
+          method: HTTPMethod.POST,
+        })),
+        disableUpsolving: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}/disable-upsolving`),
+          method: HTTPMethod.POST,
+        })),
+        enableUpsolving: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}/enable-upsolving`),
+          method: HTTPMethod.POST,
+        })),
+        getMembers: valid<{ params: { key: string } }>(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}/members`),
+          method: HTTPMethod.GET,
+        })),
       },
       submission: {
         getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
@@ -1294,6 +1390,24 @@ export class ApiManager {
             body: JSON.stringify({ id }),
           })),
         },
+      },
+      rejudge: {
+        getProblemCount: valid<{ params: { problemJudgeKey: string } }>(({ params: { problemJudgeKey } }) => ({
+          url: injectBaseUrl('rejudge', `/problem/${problemJudgeKey}/count`),
+          method: HTTPMethod.GET,
+        })),
+        rejudgeProblem: valid<{ params: { problemJudgeKey: string } }, 'POST'>(
+          ({ params: { problemJudgeKey } }) => ({
+            url: injectBaseUrl('rejudge', `/problem/${problemJudgeKey}`),
+            method: HTTPMethod.POST,
+          }),
+        ),
+      },
+      rank: {
+        getList: valid<void>(() => ({
+          url: injectBaseUrl('rank', '/list'),
+          method: HTTPMethod.GET,
+        })),
       },
       websocket: {
         auth: valid<void, 'POST'>(() => ({
