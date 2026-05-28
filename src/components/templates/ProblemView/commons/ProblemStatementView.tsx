@@ -1,4 +1,4 @@
-import { Judge, Language, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons/enums';
+import { Judge, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons/enums';
 import { cleanRequest } from '@juki-team/commons/helpers';
 import type { ContentResponse } from '@juki-team/commons/types';
 import { jukiApiManager } from '../../../../settings';
@@ -9,7 +9,7 @@ import { Button } from '../../../atoms/Button/Button';
 import { T } from '../../../atoms/T/T';
 import { classNames, downloadBlobAsFile, downloadUrlAsFile } from '../../../helpers/commons';
 import { authorizedRequest, safeReportError } from '../../../helpers/fetch';
-import { getStatementData } from '../../../helpers/problem';
+import { getStatementData, pickLanguage } from '../../../helpers/problem';
 
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { ButtonLoader } from '../../../molecules/ButtonLoader/ButtonLoader';
@@ -59,7 +59,7 @@ export const ProblemStatementView = <T,>({
   const { Link } = useUIStore((store) => store.components);
 
   if (isExternal) {
-    let content = statement.html[Language.EN] || statement.html[Language.ES];
+    let content = pickLanguage(statement.html, userPreferredLanguage);
     const isPrivate = judgeKey === Judge.LEETCODE;
     if (isPrivate) {
       content = ''; // content.substring(0, 200) + '...';
@@ -94,11 +94,7 @@ export const ProblemStatementView = <T,>({
     return (
       <div className="wh-100 ht-100">
         <iframe
-          src={
-            problem.statement.pdfUrl[userPreferredLanguage] ||
-            problem.statement.pdfUrl[Language.ES] ||
-            problem.statement.pdfUrl[Language.EN]
-          }
+          src={pickLanguage(problem.statement.pdfUrl, userPreferredLanguage)}
           width="100%"
           height="100%"
           style={{ border: 'none' }}
@@ -208,13 +204,7 @@ export const ProblemStatementView = <T,>({
                       &nbsp;({pointsByGroup.points}&nbsp;
                       {pointsByGroup.points === 1 ? <T className="tt-se">point</T> : <T className="tt-se">points</T>})
                     </div>
-                    <MdMathViewer
-                      source={
-                        pointsByGroup.description?.[userPreferredLanguage] ||
-                        pointsByGroup.description?.[Language.ES] ||
-                        pointsByGroup.description?.[Language.EN]
-                      }
-                    />
+                    <MdMathViewer source={pickLanguage(pointsByGroup.description, userPreferredLanguage)} />
                   </div>
                 </div>
               ))}
