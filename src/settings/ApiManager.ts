@@ -311,6 +311,14 @@ export class ApiManager {
           url: injectBaseUrl('problem', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
+        getSummary: valid<{ params: { key: string } }>(({ params: { key } }) => ({
+          url: injectBaseUrl('problem', `/${key}/summary`),
+          method: HTTPMethod.GET,
+        })),
+        getLogs: valid<{ params: { key: string } }>(({ params: { key } }) => ({
+          url: injectBaseUrl('problem', `/${key}/logs`),
+          method: HTTPMethod.GET,
+        })),
         getBasicSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
           ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
             url: injectSort(
@@ -338,29 +346,9 @@ export class ApiManager {
             method: HTTPMethod.GET,
           }),
         ),
-        getSummary: valid<{ params: { key: string } }>(({ params: { key } }) => ({
-          url: injectBaseUrl('problem', `/${key}/summary`),
-          method: HTTPMethod.GET,
-        })),
-        getLogs: valid<{ params: { key: string } }>(({ params: { key } }) => ({
-          url: injectBaseUrl('problem', `/${key}/logs`),
-          method: HTTPMethod.GET,
-        })),
         getTestCases: valid<{ params: { key: string } }>(({ params: { key } }) => ({
           url: injectBaseUrl('problem', `/${key}/test-cases`),
           method: HTTPMethod.GET,
-        })),
-        submit: valid<{ params: { key: string }; body: { language: string; source: string } }, 'POST'>(
-          ({ params: { key }, body }) => ({
-            url: injectBaseUrl('problem', `/${key}/submit`),
-            method: HTTPMethod.POST,
-            body: JSON.stringify(body),
-          }),
-        ),
-        crawl: valid<{ body: { judgeKey: Judge; key: string } }, 'POST'>(({ body }) => ({
-          url: injectBaseUrl('problem', `/crawl`),
-          method: HTTPMethod.POST,
-          body: JSON.stringify(body),
         })),
         getTestCasesGroups: valid<{ params: { key: string } }>(({ params: { key } }) => ({
           url: injectBaseUrl('problem', `/${key}/test-cases-groups`),
@@ -389,6 +377,18 @@ export class ApiManager {
             method: HTTPMethod.DELETE,
           }),
         ),
+        submit: valid<{ params: { key: string }; body: { language: string; source: string } }, 'POST'>(
+          ({ params: { key }, body }) => ({
+            url: injectBaseUrl('problem', `/${key}/submit`),
+            method: HTTPMethod.POST,
+            body: JSON.stringify(body),
+          }),
+        ),
+        crawl: valid<{ body: { judgeKey: Judge; key: string } }, 'POST'>(({ body }) => ({
+          url: injectBaseUrl('problem', `/crawl`),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
         createStatementPdf: valid<{ body: Record<string, unknown> }, 'POST'>(({ body }) => ({
           url: injectBaseUrl('problem', '/statement-pdf'),
           method: HTTPMethod.POST,
@@ -408,24 +408,6 @@ export class ApiManager {
           url: injectBaseUrl('contest', `/${key}`),
           method: HTTPMethod.DELETE,
         })),
-        getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
-          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-            url: injectSort(
-              injectFilter(injectPage(injectBaseUrl('contest', '/summary-list'), page, pageSize), filterUrl),
-              sortUrl,
-            ),
-            method: HTTPMethod.GET,
-          }),
-        ),
-        getSystemList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
-          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-            url: injectSort(
-              injectFilter(injectPage(injectBaseUrl('contest', '/system-list'), page, pageSize), filterUrl),
-              sortUrl,
-            ),
-            method: HTTPMethod.GET,
-          }),
-        ),
         getMetadata: valid<{ params: { key: string; organizationKey?: string } }>(({ params: { key, organizationKey } }) => ({
           url: injectOrganization(injectBaseUrl('contest', `/${key}/metadata`), organizationKey),
           method: HTTPMethod.GET,
@@ -444,9 +426,33 @@ export class ApiManager {
             method: HTTPMethod.GET,
           }),
         ),
+        getMembers: valid<{ params: { key: string; organizationKey?: string } }>(
+          ({ params: { key, organizationKey } }) => ({
+            url: injectOrganization(injectBaseUrl('contest', `/${key}/members`), organizationKey),
+            method: HTTPMethod.GET,
+          }),
+        ),
         getDataClarifications: valid<{ params: { key: string; organizationKey?: string } }>(
           ({ params: { key, organizationKey } }) => ({
             url: injectOrganization(injectBaseUrl('contest', `/${key}/data/clarifications`), organizationKey),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getScoreboard: valid<{ params: { key: string; unfrozen: boolean; organizationKey?: string; official: boolean } }>(
+          ({ params: { key, unfrozen, organizationKey, official } }) => ({
+            url: injectOrganization(
+              injectBaseUrl(
+                'contest',
+                `/${key}/scoreboard${official ? '?official=true' : ''}${unfrozen ? `${official ? '&' : '?'}state=unfrozen` : ''}`,
+              ),
+              organizationKey,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getScoreboardHistory: valid<{ params: { key: string; organizationKey?: string } }>(
+          ({ params: { key, organizationKey } }) => ({
+            url: injectOrganization(injectBaseUrl('contest', `/${key}/scoreboard-history`), organizationKey),
             method: HTTPMethod.GET,
           }),
         ),
@@ -454,6 +460,30 @@ export class ApiManager {
           url: injectOrganization(injectBaseUrl('contest', `/${key}/logs`), organizationKey),
           method: HTTPMethod.GET,
         })),
+        getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('contest', '/summary-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getSystemList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('contest', '/system-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        register: valid<{ params: { key: string; organizationKey?: string } }, 'POST'>(
+          ({ params: { key, organizationKey } }) => ({
+            url: injectOrganization(injectBaseUrl('contest', `/${key}/register`), organizationKey),
+            method: HTTPMethod.POST,
+          }),
+        ),
         submit: valid<
           {
             params: { key: string; problemKey: string; organizationKey?: string };
@@ -465,6 +495,12 @@ export class ApiManager {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
+        retrieve: valid<{ params: { key: string; organizationKey?: string } }, 'POST'>(
+          ({ params: { key, organizationKey } }) => ({
+            url: injectOrganization(injectBaseUrl('contest', `/${key}/retrieve`), organizationKey),
+            method: HTTPMethod.POST,
+          }),
+        ),
         recalculateScoreboard: valid<{ params: { key: string; organizationKey?: string; official: boolean } }, 'POST'>(
           ({ params: { key, organizationKey, official } }) => ({
             url: injectOrganization(
@@ -474,32 +510,61 @@ export class ApiManager {
             method: HTTPMethod.POST,
           }),
         ),
+        recalculateScoreboardHistory: valid<{ params: { key: string; organizationKey?: string } }, 'POST'>(
+          ({ params: { key, organizationKey } }) => ({
+            url: injectOrganization(injectBaseUrl('contest', `/${key}/recalculate-scoreboard-history`), organizationKey),
+            method: HTTPMethod.POST,
+          }),
+        ),
         recalculatePrerequisites: valid<{ params: { key: string; organizationKey?: string } }, 'POST'>(
           ({ params: { key, organizationKey } }) => ({
             url: injectOrganization(injectBaseUrl('contest', `/${key}/recalculate-prerequisites`), organizationKey),
             method: HTTPMethod.POST,
           }),
         ),
-        problem: {
-          rejudge: valid<{ params: { key: string; problemKey: string; organizationKey?: string } }, 'POST'>(
-            ({ params: { key, problemKey, organizationKey } }) => ({
-              url: injectOrganization(injectBaseUrl('contest', `/${key}/problem/${problemKey}/rejudge`), organizationKey),
-              method: HTTPMethod.POST,
-            }),
-          ),
-          retrieve: valid<{ params: { key: string; problemKey: string; organizationKey?: string } }, 'POST'>(
-            ({ params: { key, problemKey, organizationKey } }) => ({
-              url: injectOrganization(injectBaseUrl('contest', `/${key}/problem/${problemKey}/retrieve`), organizationKey),
-              method: HTTPMethod.POST,
-            }),
-          ),
-        },
-        retrieve: valid<{ params: { key: string; organizationKey?: string } }, 'POST'>(
+        lockScoreboard: valid<{ params: { key: string; organizationKey?: string } }, 'POST'>(
           ({ params: { key, organizationKey } }) => ({
-            url: injectOrganization(injectBaseUrl('contest', `/${key}/retrieve`), organizationKey),
+            url: injectOrganization(injectBaseUrl('contest', `/${key}/lock-scoreboard`), organizationKey),
             method: HTTPMethod.POST,
           }),
         ),
+        unlockScoreboard: valid<{ params: { key: string; organizationKey?: string } }, 'POST'>(
+          ({ params: { key, organizationKey } }) => ({
+            url: injectOrganization(injectBaseUrl('contest', `/${key}/unlock-scoreboard`), organizationKey),
+            method: HTTPMethod.POST,
+          }),
+        ),
+        enableUpsolving: valid<{ params: { key: string; organizationKey?: string } }, 'POST'>(
+          ({ params: { key, organizationKey } }) => ({
+            url: injectOrganization(injectBaseUrl('contest', `/${key}/enable-upsolving`), organizationKey),
+            method: HTTPMethod.POST,
+          }),
+        ),
+        disableUpsolving: valid<{ params: { key: string; organizationKey?: string } }, 'POST'>(
+          ({ params: { key, organizationKey } }) => ({
+            url: injectOrganization(injectBaseUrl('contest', `/${key}/disable-upsolving`), organizationKey),
+            method: HTTPMethod.POST,
+          }),
+        ),
+        createClarification: valid<
+          { params: { key: string; organizationKey?: string }; body: Record<string, unknown> },
+          'POST'
+        >(({ params: { key, organizationKey }, body }) => ({
+          url: injectOrganization(injectBaseUrl('contest', `/${key}/clarification`), organizationKey),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+        answerClarification: valid<
+          {
+            params: { key: string; clarificationId: string; organizationKey?: string };
+            body: Record<string, unknown>;
+          },
+          'PUT'
+        >(({ params: { key, clarificationId, organizationKey }, body }) => ({
+          url: injectOrganization(injectBaseUrl('contest', `/${key}/clarification/${clarificationId}`), organizationKey),
+          method: HTTPMethod.PUT,
+          body: JSON.stringify(body),
+        })),
         editGlobal: valid<
           {
             params: { key: string; organizationKey?: string };
@@ -554,73 +619,20 @@ export class ApiManager {
             method: HTTPMethod.POST,
           }),
         ),
-        register: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
-          url: injectBaseUrl('contest', `/${key}/register`),
-          method: HTTPMethod.POST,
-        })),
-        getScoreboard: valid<{ params: { key: string; unfrozen: boolean; organizationKey?: string; official: boolean } }>(
-          ({ params: { key, unfrozen, organizationKey, official } }) => ({
-            url: injectOrganization(
-              injectBaseUrl(
-                'contest',
-                `/${key}/data/scoreboard${unfrozen ? '?state=unfrozen' : ''}${official ? `${unfrozen ? '&' : '?'}official=true` : ''}`,
-              ),
-              organizationKey,
-            ),
-            method: HTTPMethod.GET,
-          }),
-        ),
-        getScoreboardRoot: valid<{ params: { key: string; unfrozen: boolean; official: boolean } }>(
-          ({ params: { key, unfrozen, official } }) => ({
-            url: injectBaseUrl(
-              'contest',
-              `/${key}/scoreboard${official ? '?official=true' : ''}${unfrozen ? `${official ? '&' : '?'}state=unfrozen` : ''}`,
-            ),
-            method: HTTPMethod.GET,
-          }),
-        ),
-        getScoreboardHistory: valid<{ params: { key: string } }>(({ params: { key } }) => ({
-          url: injectBaseUrl('contest', `/${key}/scoreboard-history`),
-          method: HTTPMethod.GET,
-        })),
-        recalculateScoreboardHistory: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
-          url: injectBaseUrl('contest', `/${key}/recalculate-scoreboard-history`),
-          method: HTTPMethod.POST,
-        })),
-        createClarification: valid<{ params: { key: string }; body: Record<string, unknown> }, 'POST'>(
-          ({ params: { key }, body }) => ({
-            url: injectBaseUrl('contest', `/${key}/clarification`),
-            method: HTTPMethod.POST,
-            body: JSON.stringify(body),
-          }),
-        ),
-        answerClarification: valid<{ params: { key: string; clarificationId: string }; body: Record<string, unknown> }, 'PUT'>(
-          ({ params: { key, clarificationId }, body }) => ({
-            url: injectBaseUrl('contest', `/${key}/clarification/${clarificationId}`),
-            method: HTTPMethod.PUT,
-            body: JSON.stringify(body),
-          }),
-        ),
-        lockScoreboard: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
-          url: injectBaseUrl('contest', `/${key}/lock-scoreboard`),
-          method: HTTPMethod.POST,
-        })),
-        unlockScoreboard: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
-          url: injectBaseUrl('contest', `/${key}/unlock-scoreboard`),
-          method: HTTPMethod.POST,
-        })),
-        disableUpsolving: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
-          url: injectBaseUrl('contest', `/${key}/disable-upsolving`),
-          method: HTTPMethod.POST,
-        })),
-        enableUpsolving: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
-          url: injectBaseUrl('contest', `/${key}/enable-upsolving`),
-          method: HTTPMethod.POST,
-        })),
-        getMembers: valid<{ params: { key: string } }>(({ params: { key } }) => ({
-          url: injectBaseUrl('contest', `/${key}/members`),
-          method: HTTPMethod.GET,
-        })),
+        problem: {
+          rejudge: valid<{ params: { key: string; problemKey: string; organizationKey?: string } }, 'POST'>(
+            ({ params: { key, problemKey, organizationKey } }) => ({
+              url: injectOrganization(injectBaseUrl('contest', `/${key}/problem/${problemKey}/rejudge`), organizationKey),
+              method: HTTPMethod.POST,
+            }),
+          ),
+          retrieve: valid<{ params: { key: string; problemKey: string; organizationKey?: string } }, 'POST'>(
+            ({ params: { key, problemKey, organizationKey } }) => ({
+              url: injectOrganization(injectBaseUrl('contest', `/${key}/problem/${problemKey}/retrieve`), organizationKey),
+              method: HTTPMethod.POST,
+            }),
+          ),
+        },
       },
       submission: {
         getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
