@@ -63,7 +63,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
       placement="bottom"
     >
       <div>
-        <Button icon={<AppsIcon />} type="text" />
+        <Button icon={<AppsIcon />} type="ghost" />
       </div>
     </Popover>
     <div className="cr-we">User</div>

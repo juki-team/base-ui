@@ -11,7 +11,7 @@ import { MockJkContestTable } from '../../organisms/_layz_/DataViewer/JkContestT
 import { MockJkProblemTable } from '../../organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkUserTable } from '../../organisms/_layz_/DataViewer/JkUserTableTest/MockJkUserTable';
 import type { TabsType } from '../../types';
-import { ApplicationLoaderLayout } from './ApplicationLoaderLayout';
+import { ApplicationLoaderLayout } from '../server/layouts/ApplicationLoaderLayout';
 import { TwoContentLayout as TwoContentLayoutComponent } from './TwoContentLayout';
 import type { TwoContentLayoutProps } from './types';
 import { UserLoaderLayout } from './UserLoaderLayout';

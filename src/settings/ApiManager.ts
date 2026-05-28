@@ -364,6 +364,18 @@ export class ApiManager {
         })),
       },
       contest: {
+        create: valid<void, 'POST'>(() => ({
+          url: injectBaseUrl('contest', ''),
+          method: HTTPMethod.POST,
+        })),
+        update: valid<{ params: { key: string } }, 'PUT'>(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}`),
+          method: HTTPMethod.PUT,
+        })),
+        delete: valid<{ params: { key: string } }, 'DELETE'>(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}`),
+          method: HTTPMethod.DELETE,
+        })),
         getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
           ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
             url: injectSort(
@@ -709,7 +721,7 @@ export class ApiManager {
               hosts?: string[];
               judgeKeys?: string[];
               trustedOrganizationsKeys?: string[];
-              startTimestamp?: number;
+              startsAt?: number;
               plan?: OrganizationPlan;
             };
           },
@@ -989,28 +1001,34 @@ export class ApiManager {
         })),
       },
       statistics: {
-        getorganizationStats: valid<{
+        getOrganizationStats: valid<{
           params: {
             organizationKey?: string;
-            startTimestamp: number;
-            endTimestamp: number;
+            startsAt: number;
+            endsAt: number;
             groupBy: GroupByTimestampKey[];
           };
-        }>(({ params: { organizationKey, startTimestamp, endTimestamp, groupBy } }) => ({
+        }>(({ params: { organizationKey, startsAt, endsAt, groupBy } }) => ({
           url: injectOrganization(
-            injectBaseUrl(
-              'statistics',
-              `/organization?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&groupBy=${groupBy.join(',')}`,
-            ),
+            injectBaseUrl('statistics', `/organization?startsAt=${startsAt}&endsAt=${endsAt}&groupBy=${groupBy.join(',')}`),
             organizationKey,
           ),
           method: HTTPMethod.GET,
         })),
         getProblemStats: valid<{
-          params: { organizationKey?: string; problemKey: string; startTimestamp: number; endTimestamp: number };
-        }>(({ params: { organizationKey, problemKey, startTimestamp, endTimestamp } }) => ({
+          params: {
+            organizationKey?: string;
+            problemKey: string;
+            startsAt: number;
+            endsAt: number;
+            groupBy: GroupByTimestampKey[];
+          };
+        }>(({ params: { organizationKey, problemKey, startsAt, endsAt, groupBy } }) => ({
           url: injectOrganization(
-            injectBaseUrl('statistics', `/problem/${problemKey}?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}`),
+            injectBaseUrl(
+              'statistics',
+              `/problem/${problemKey}?startsAt=${startsAt}&endsAt=${endsAt}&groupBy=${groupBy.join(',')}`,
+            ),
             organizationKey,
           ),
           method: HTTPMethod.GET,
@@ -1018,14 +1036,14 @@ export class ApiManager {
         getUsersTracksStats: valid<{
           params: {
             organizationKeys: string;
-            startTimestamp: number;
-            endTimestamp: number;
+            startsAt: number;
+            endsAt: number;
             groupBy: GroupByTimestampKey[];
           };
-        }>(({ params: { organizationKeys, startTimestamp, endTimestamp, groupBy } }) => ({
+        }>(({ params: { organizationKeys, startsAt, endsAt, groupBy } }) => ({
           url: injectBaseUrl(
             'statistics',
-            `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&groupBy=${groupBy.join(',')}${organizationKeys ? `&organizationKeys=${organizationKeys}` : ''}`,
+            `/users-tracks?startsAt=${startsAt}&endsAt=${endsAt}&groupBy=${groupBy.join(',')}${organizationKeys ? `&organizationKeys=${organizationKeys}` : ''}`,
           ),
           method: HTTPMethod.GET,
         })),

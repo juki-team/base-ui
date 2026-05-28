@@ -6,7 +6,8 @@
       "src/generated/**",
       "src/vendor/**",
       "**/*.stories.tsx",
-      "**/*.stories.ts"
+      "**/*.stories.ts",
+      "src/components/atoms/server/icons/**"
     ]
   }
 }

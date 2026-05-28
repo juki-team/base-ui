@@ -31,7 +31,7 @@ function Comp() {
             addInfoNotification(shortMessage);
             // addInfoNotification(textMessage);
           }}
-          type="text"
+          type="ghost"
           className="cr-io"
         >
           info
@@ -42,7 +42,7 @@ function Comp() {
             addSuccessNotification(shortMessage);
             addSuccessNotification(textMessage);
           }}
-          type="text"
+          type="ghost"
           className="cr-ss"
         >
           success
@@ -53,7 +53,7 @@ function Comp() {
             addWarningNotification(shortMessage);
             addWarningNotification(textMessage);
           }}
-          type="text"
+          type="ghost"
           className="cr-wg"
         >
           warning
@@ -64,7 +64,7 @@ function Comp() {
             addErrorNotification(shortMessage);
             addErrorNotification(textMessage);
           }}
-          type="text"
+          type="ghost"
           className="cr-er"
         >
           error
@@ -76,7 +76,7 @@ function Comp() {
             addQuietNotification(veryShortMessage);
             addQuietNotification(textMessage);
           }}
-          type="text"
+          type="ghost"
           className="cr-tx-ht-lt"
         >
           quiet

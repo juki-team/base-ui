@@ -49,7 +49,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
   <div className="jk-row gap" style={{ width: '240px' }}>
     <Popover content={<div> Settings </div>} triggerOn={TriggerAction.CLICK} placement="bottom" open={open}>
       <div>
-        <Button icon={<SettingsIcon />} type="text" />
+        <Button icon={<SettingsIcon />} type="ghost" />
       </div>
     </Popover>
     <Popover
@@ -75,7 +75,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
       placement="bottom"
     >
       <div>
-        <Button icon={<AppsIcon />} type="text" />
+        <Button icon={<AppsIcon />} type="ghost" />
       </div>
     </Popover>
     <div className="cr-we">User</div>

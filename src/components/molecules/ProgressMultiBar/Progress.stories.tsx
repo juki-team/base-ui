@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
-import { CircularProgress } from '../CircularProgress/CircularProgress';
+import { CircularProgress } from '../server/CircularProgress/CircularProgress';
 import { ProgressSlide } from '../ProgressSlide/ProgressSlide';
 import { ProgressMultiBar } from './ProgressMultiBar';
 
