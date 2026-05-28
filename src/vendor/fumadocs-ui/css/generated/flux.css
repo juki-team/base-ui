@@ -1,4 +1,5 @@
 @source inline("!enabled");
+@source inline("!header");
 @source inline("*:gap-0!");
 @source inline("*:rounded-lg");
 @source inline("---spacing");

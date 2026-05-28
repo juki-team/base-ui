@@ -1,3 +1,4 @@
+@source inline("!footer");
 @source inline("!isSelected");
 @source inline("!showItem");
 @source inline("*:col-start-1");
@@ -172,6 +173,7 @@
 @source inline("nd-page");
 @source inline("nd-subnav");
 @source inline("nd-toc");
+@source inline("nd-toc-placeholder");
 @source inline("no");
 @source inline("normalizedValue");
 @source inline("onClickItem");

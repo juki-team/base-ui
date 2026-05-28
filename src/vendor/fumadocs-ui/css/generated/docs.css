@@ -1,3 +1,4 @@
+@source inline("!header");
 @source inline("!showItem");
 @source inline("*:col-start-1");
 @source inline("*:my-auto");
@@ -146,6 +147,7 @@
 @source inline("nd-page");
 @source inline("nd-subnav");
 @source inline("nd-toc");
+@source inline("nd-toc-placeholder");
 @source inline("no");
 @source inline("normalizedValue");
 @source inline("onClickItem");

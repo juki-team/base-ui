@@ -21,14 +21,7 @@ import {
   type Theme,
 } from '@juki-team/commons/enums';
 import { getUserKey } from '@juki-team/commons/helpers';
-import type {
-  ClientId,
-  CodeEditorFiles,
-  JudgeLanguage,
-  KeyFileType,
-  UserRoles,
-  UserSettings,
-} from '@juki-team/commons/types';
+import type { ClientId, CodeEditorFiles, JudgeLanguage, KeyFileType, UserRoles, UserSettings } from '@juki-team/commons/types';
 import type { ErrorInfo } from 'react';
 import type { RowDataType } from '../components/molecules/_lazy_/DataGrid/types';
 import type {
@@ -390,13 +383,12 @@ export class ApiManager {
             method: HTTPMethod.GET,
           }),
         ),
-        deleteTestCaseKeyFile: valid<
-          { params: { key: string; testCaseKey: string; keyFile: KeyFileType } },
-          'DELETE'
-        >(({ params: { key, testCaseKey, keyFile } }) => ({
-          url: injectBaseUrl('problem', `/${key}/test-case/${testCaseKey}/key-file/${keyFile}`),
-          method: HTTPMethod.DELETE,
-        })),
+        deleteTestCaseKeyFile: valid<{ params: { key: string; testCaseKey: string; keyFile: KeyFileType } }, 'DELETE'>(
+          ({ params: { key, testCaseKey, keyFile } }) => ({
+            url: injectBaseUrl('problem', `/${key}/test-case/${testCaseKey}/key-file/${keyFile}`),
+            method: HTTPMethod.DELETE,
+          }),
+        ),
         createStatementPdf: valid<{ body: Record<string, unknown> }, 'POST'>(({ body }) => ({
           url: injectBaseUrl('problem', '/statement-pdf'),
           method: HTTPMethod.POST,
@@ -455,18 +447,6 @@ export class ApiManager {
         getDataClarifications: valid<{ params: { key: string; organizationKey?: string } }>(
           ({ params: { key, organizationKey } }) => ({
             url: injectOrganization(injectBaseUrl('contest', `/${key}/data/clarifications`), organizationKey),
-            method: HTTPMethod.GET,
-          }),
-        ),
-        getScoreboard: valid<{ params: { key: string; unfrozen: boolean; organizationKey?: string; official: boolean } }>(
-          ({ params: { key, unfrozen, organizationKey, official } }) => ({
-            url: injectOrganization(
-              injectBaseUrl(
-                'contest',
-                `/${key}/data/scoreboard${unfrozen ? '?state=unfrozen' : ''}${official ? `${unfrozen ? '&' : '?'}official=true` : ''}`,
-              ),
-              organizationKey,
-            ),
             method: HTTPMethod.GET,
           }),
         ),
@@ -578,6 +558,18 @@ export class ApiManager {
           url: injectBaseUrl('contest', `/${key}/register`),
           method: HTTPMethod.POST,
         })),
+        getScoreboard: valid<{ params: { key: string; unfrozen: boolean; organizationKey?: string; official: boolean } }>(
+          ({ params: { key, unfrozen, organizationKey, official } }) => ({
+            url: injectOrganization(
+              injectBaseUrl(
+                'contest',
+                `/${key}/data/scoreboard${unfrozen ? '?state=unfrozen' : ''}${official ? `${unfrozen ? '&' : '?'}official=true` : ''}`,
+              ),
+              organizationKey,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
         getScoreboardRoot: valid<{ params: { key: string; unfrozen: boolean; official: boolean } }>(
           ({ params: { key, unfrozen, official } }) => ({
             url: injectBaseUrl(
@@ -602,14 +594,13 @@ export class ApiManager {
             body: JSON.stringify(body),
           }),
         ),
-        answerClarification: valid<
-          { params: { key: string; clarificationId: string }; body: Record<string, unknown> },
-          'PUT'
-        >(({ params: { key, clarificationId }, body }) => ({
-          url: injectBaseUrl('contest', `/${key}/clarification/${clarificationId}`),
-          method: HTTPMethod.PUT,
-          body: JSON.stringify(body),
-        })),
+        answerClarification: valid<{ params: { key: string; clarificationId: string }; body: Record<string, unknown> }, 'PUT'>(
+          ({ params: { key, clarificationId }, body }) => ({
+            url: injectBaseUrl('contest', `/${key}/clarification/${clarificationId}`),
+            method: HTTPMethod.PUT,
+            body: JSON.stringify(body),
+          }),
+        ),
         lockScoreboard: valid<{ params: { key: string } }, 'POST'>(({ params: { key } }) => ({
           url: injectBaseUrl('contest', `/${key}/lock-scoreboard`),
           method: HTTPMethod.POST,
@@ -1396,12 +1387,10 @@ export class ApiManager {
           url: injectBaseUrl('rejudge', `/problem/${problemJudgeKey}/count`),
           method: HTTPMethod.GET,
         })),
-        rejudgeProblem: valid<{ params: { problemJudgeKey: string } }, 'POST'>(
-          ({ params: { problemJudgeKey } }) => ({
-            url: injectBaseUrl('rejudge', `/problem/${problemJudgeKey}`),
-            method: HTTPMethod.POST,
-          }),
-        ),
+        rejudgeProblem: valid<{ params: { problemJudgeKey: string } }, 'POST'>(({ params: { problemJudgeKey } }) => ({
+          url: injectBaseUrl('rejudge', `/problem/${problemJudgeKey}`),
+          method: HTTPMethod.POST,
+        })),
       },
       rank: {
         getList: valid<void>(() => ({
