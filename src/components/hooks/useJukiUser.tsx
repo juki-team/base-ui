@@ -284,12 +284,8 @@ export const useJukiUser = () => {
   );
 
   const updateUserPreferences = useCallback(
-    async ({
-      params,
-      body,
-      ...props
-    }: ApiParamsBodyType<{ nickname: string; organizationKey: string }, UserSettings, string>) => {
-      const { url, ...options } = jukiApiManager.apiV2.user.updateMyPreferences({ params, body });
+    async ({ body, ...props }: ApiBodyType<UserSettings, string>) => {
+      const { url, ...options } = jukiApiManager.apiV2.user.updateMyPreferences({ body });
       await doRequest<string, 'PUT'>({ url, options, ...props });
     },
     [doRequest],
@@ -311,11 +307,7 @@ export const useJukiUser = () => {
 };
 
 export const useJukiUserSettings = () => {
-  const {
-    settings,
-    nickname,
-    organization: { key: organizationKey },
-  } = useUserStore((state) => state.user);
+  const settings = useUserStore((state) => state.user.settings);
   const mutatePing = useUserStore((state) => state.mutate);
   const { updateUserPreferences } = useJukiUser();
   const [loader, setLoader] = useState<Status>(Status.NONE);
@@ -353,7 +345,6 @@ export const useJukiUserSettings = () => {
       }
 
       await updateUserPreferences({
-        params: { nickname, organizationKey },
         body: { ...newSettings },
         setLoader,
         onSuccess: async () => {
@@ -363,7 +354,7 @@ export const useJukiUserSettings = () => {
         },
       });
     },
-    [mutatePing, nickname, settings, updateUserPreferences, organizationKey],
+    [mutatePing, settings, updateUserPreferences],
   );
 
   const loading = loader === Status.LOADING;
