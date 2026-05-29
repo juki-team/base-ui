@@ -10,7 +10,6 @@ import { AiChatPanel } from '../../AiChatPanel/AiChatPanel';
 import type { AiChatSuggestion, AiChatToolStateUI } from '../../AiChatPanel/types';
 import { SAMPLE_MD_CONTENT } from '../../MdMathViewer/constants';
 import { MdMathViewer } from '../../MdMathViewer/MdMathViewer';
-import { MemoMdMathViewer } from '../../MdMathViewer/MemoMdMathViewer.deprecated';
 import { MdMathEditor } from './';
 import type { MdMathEditorHandle, MdMathEditorProps } from './types';
 
@@ -22,8 +21,6 @@ const meta: Meta<typeof MdMathEditor> = {
 export default meta;
 
 type Story = StoryObj<typeof MdMathEditor>;
-
-console.info({ MemoMdMathViewer });
 
 const DEFAULT_MD_MATH_TOOL_STATE_UI: AiChatToolStateUI = {
   'input-streaming': { label: 'editing content', icon: <SpinIcon filledCircle size="tiny" className="cr-io-lt" /> },

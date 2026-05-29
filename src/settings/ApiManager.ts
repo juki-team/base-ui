@@ -237,13 +237,11 @@ export class ApiManager {
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
-        updatePreferences: valid<{ params: { nickname: string; organizationKey: string }; body: UserSettings }, 'PUT'>(
-          ({ params: { nickname, organizationKey }, body }) => ({
-            url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, organizationKey)}/preferences`),
-            method: HTTPMethod.PUT,
-            body: JSON.stringify(body),
-          }),
-        ),
+        updateMyPreferences: valid<{ body: UserSettings }, 'PUT'>(({ body }) => ({
+          url: injectBaseUrl('user', `/preferences`),
+          method: HTTPMethod.PUT,
+          body: JSON.stringify(body),
+        })),
         updateRoles: valid<{ params: { nickname: string; organizationKey: string }; body: UserRoles }, 'PUT'>(
           ({ params: { nickname, organizationKey }, body }) => ({
             url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, organizationKey)}/roles`),
@@ -426,12 +424,10 @@ export class ApiManager {
             method: HTTPMethod.GET,
           }),
         ),
-        getMembers: valid<{ params: { key: string; organizationKey?: string } }>(
-          ({ params: { key, organizationKey } }) => ({
-            url: injectOrganization(injectBaseUrl('contest', `/${key}/members`), organizationKey),
-            method: HTTPMethod.GET,
-          }),
-        ),
+        getMembers: valid<{ params: { key: string; organizationKey?: string } }>(({ params: { key, organizationKey } }) => ({
+          url: injectOrganization(injectBaseUrl('contest', `/${key}/members`), organizationKey),
+          method: HTTPMethod.GET,
+        })),
         getDataClarifications: valid<{ params: { key: string; organizationKey?: string } }>(
           ({ params: { key, organizationKey } }) => ({
             url: injectOrganization(injectBaseUrl('contest', `/${key}/data/clarifications`), organizationKey),

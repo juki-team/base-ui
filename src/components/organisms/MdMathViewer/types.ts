@@ -8,18 +8,6 @@ export type TextPlainEditorContentProps = {
   enableImageUpload: boolean;
 };
 
-export type MdMathEditorDeprecatedProps = {
-  initialMd: string;
-  onChange?: (value: string) => void;
-  informationButton?: boolean;
-  uploadImageButton?: boolean;
-  downloadButton?: boolean;
-  // sharedButton?: boolean,
-  initEditMode?: boolean;
-  // onPickImageUrl?: OnPickImageUrlType,
-  // online?: boolean,
-};
-
 export interface MdMathViewerProps {
   source: string;
   dark?: boolean;

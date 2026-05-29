@@ -289,7 +289,7 @@ export const useJukiUser = () => {
       body,
       ...props
     }: ApiParamsBodyType<{ nickname: string; organizationKey: string }, UserSettings, string>) => {
-      const { url, ...options } = jukiApiManager.apiV2.user.updatePreferences({ params, body });
+      const { url, ...options } = jukiApiManager.apiV2.user.updateMyPreferences({ params, body });
       await doRequest<string, 'PUT'>({ url, options, ...props });
     },
     [doRequest],
