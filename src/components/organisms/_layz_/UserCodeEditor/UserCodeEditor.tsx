@@ -411,6 +411,7 @@ function UserCodeEditor<T>(props: UserCodeEditorProps<T> & { ref?: Ref<UserCodeE
   const testCases = testCasesStore[testCaseStoreKey] ?? newInitialTestCases[testCaseStoreKey] ?? {};
   useEffect(() => {
     onTestCasesChangeRef.current?.(testCases);
+    // eslint-disable-next-line react-doctor/exhaustive-deps -- onTestCasesChangeRef is a useStableRef; reading .current always calls the latest callback without re-triggering the effect
   }, [onTestCasesChangeRef, testCases]);
 
   const [editorTriggerFocus, setEditorTriggerFocus] = useState(0);

@@ -11,7 +11,7 @@ import { FetcherLayer } from '../../../molecules/FetcherLayer/FetcherLayer';
 import { OpenInNewIcon } from '../../../atoms/server/icons/google/OpenInNewIcon';
 import { UserProfileDataContent } from '../../../templates/UserProfile/UserProfileDataContent';
 
-export const UserPreview = ({
+const UserPreview = ({
   user,
   onClose,
   userHref,

@@ -24,22 +24,18 @@ import { RefreshIcon } from '../../atoms/server/icons/google/RefreshIcon';
 import type { JudgeDataType, ProblemSelectorProps } from './types';
 
 export function ProblemSelector({ onSelect, extend = false, organizationKey = '' }: ProblemSelectorProps) {
-  const [judge, setJudge] = useState<JudgeDataResponseDTO | null>(null);
+  const [selectedJudge, setSelectedJudge] = useState<JudgeDataResponseDTO | null>(null);
   const [key, setKey] = useState('');
   const [data, setData] = useState<JudgeDataType>({} as JudgeDataType);
   const { notifyResponse } = useJukiNotification();
+  // eslint-disable-next-line react-doctor/rerender-state-only-in-handlers -- manual refetch trigger via useEffect dep
   const [timestampTrigger, setTimestampTrigger] = useState(0);
   const { data: judgesData } = useFetcher<ContentResponse<JudgeDataResponseDTO[]>>(
     jukiApiManager.apiV2.organization.getJudgeList({ params: { organizationKey: organizationKey } }).url,
   );
   const judges = judgesData?.success ? judgesData.content : [];
   const firstJudge = judges[0];
-
-  useEffect(() => {
-    if (!judge && firstJudge) {
-      setJudge(firstJudge);
-    }
-  }, [firstJudge, judge]);
+  const judge = selectedJudge ?? firstJudge ?? null;
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: timestampTrigger is a manual refresh trigger
   useEffect(() => {
@@ -113,7 +109,7 @@ export function ProblemSelector({ onSelect, extend = false, organizationKey = ''
             <Select
               options={judges.map((judge) => ({ label: judge.name, value: judge }))}
               selectedOption={{ value: judge }}
-              onChange={({ value }) => setJudge(value)}
+              onChange={({ value }) => setSelectedJudge(value)}
             />
           </label>
           {(judge?.isExternal === false || judge?.key === Judge.JUKI_JUDGE || judge?.key === Judge.JV_UMSA) && (

@@ -31,6 +31,7 @@ export default function ExcalidrawButton() {
     elements: [] as readonly OrderedExcalidrawElement[],
     appState: { viewBackgroundColor: 'transparent' } as AppState,
   });
+  // eslint-disable-next-line react-doctor/rerender-state-only-in-handlers -- used as useEffect dep to sync background color
   const [excalidrawAPI, setExcalidrawAPI] = useState<ExcalidrawImperativeAPI | null>(null);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: isActive is a trigger to reload from sessionStorage on each open

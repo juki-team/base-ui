@@ -34,6 +34,7 @@ function SlideDeckComponent(props: SlideDeckProps) {
   const deckRef = useRef<RevealApi | null>(null);
   const t = useT();
   const [loading, setLoading] = useState(true);
+  // eslint-disable-next-line react-doctor/rerender-state-only-in-handlers -- used as useEffect dep on line 206 to trigger layout/sync
   const [ready, setReady] = useState(0);
   console.info('render SlideDeckCmp');
 

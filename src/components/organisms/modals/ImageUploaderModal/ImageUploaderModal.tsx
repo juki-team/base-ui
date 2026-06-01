@@ -11,6 +11,7 @@ import { UploadNewImageTab } from './UploadNewImageTab';
 export function ImageUploaderModal(props: ImageUploaderModalProps) {
   const { isOpen, onClose, withPublicImagesTab = true, copyButtons, onPickImageUrl } = props;
 
+  // eslint-disable-next-line react-doctor/rerender-state-only-in-handlers -- passed as `trigger` prop to <PublicImagesTab> to force its re-render
   const [count, setCount] = useState(0);
 
   const tabHeaders = [];

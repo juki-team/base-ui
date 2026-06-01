@@ -15,7 +15,7 @@ import { classNames } from '../../../helpers/commons';
 import { useJukiUserSettings } from '../../../hooks/useJukiUser';
 import { HelpSection } from '../../HelpSection/HelpSection';
 
-export const LanguageSetting = ({
+const LanguageSetting = ({
   isOpen,
   popoverPlacement,
 }: {
@@ -67,7 +67,7 @@ export const LanguageSetting = ({
   );
 };
 
-export const ThemeSetting = ({
+const ThemeSetting = ({
   isOpen,
   popoverPlacement,
 }: {

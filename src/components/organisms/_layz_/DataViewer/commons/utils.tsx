@@ -72,12 +72,12 @@ export const isSortOffline = <T,>(sort?: DataViewerHeaderSortType<T>): sort is D
   return !!(typeof sort === 'object' && sort?.compareFn);
 };
 
-export const isSortOnline = <T,>(sort?: DataViewerHeaderSortType<T>): sort is DataViewerHeaderSortOnlineType => {
+const isSortOnline = <T,>(sort?: DataViewerHeaderSortType<T>): sort is DataViewerHeaderSortOnlineType => {
   return sort === true;
 };
 
 // Text
-export const isFilterTextOnline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterTextOnlineType => {
+const isFilterTextOnline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterTextOnlineType => {
   return !(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_TEXT;
 };
 
@@ -90,7 +90,7 @@ export const isFilterTextAutoOffline = <T,>(filter?: JkTableHeaderFilterType<T>)
 };
 
 // Select
-export const isFilterSelectOnline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterSelectOnlineType => {
+const isFilterSelectOnline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterSelectOnlineType => {
   return !(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_SELECT;
 };
 
@@ -105,7 +105,7 @@ export const isFilterSelectAutoOffline = <T,>(
 };
 
 // Date
-export const isFilterDateOnline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterDateOnlineType => {
+const isFilterDateOnline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterDateOnlineType => {
   return !(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_DATE;
 };
 
@@ -118,7 +118,7 @@ export const isFilterDateAutoOffline = <T,>(filter?: JkTableHeaderFilterType<T>)
 };
 
 // Date range
-export const isFilterDateRangeOnline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterDateRangeOnlineType => {
+const isFilterDateRangeOnline = <T,>(filter?: JkTableHeaderFilterType<T>): filter is FilterDateRangeOnlineType => {
   return !(filter && Object.hasOwn(filter, 'callbackFn')) && filter?.type === FILTER_DATE_RANGE;
 };
 
@@ -321,7 +321,7 @@ export const fixHeaders = <T,>(headers: DataViewerTableHeadersType<T>[]) => {
 
 const widthCache = new Map();
 
-export function getTextWidth(text: string, font: string) {
+function getTextWidth(text: string, font: string) {
   const cacheKey = `${text}-${font}`;
   if (widthCache.has(cacheKey)) return widthCache.get(cacheKey);
 

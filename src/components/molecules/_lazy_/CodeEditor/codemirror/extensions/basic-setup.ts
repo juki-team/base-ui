@@ -149,27 +149,3 @@ export interface MinimalSetupOptions {
   defaultKeymap?: boolean;
   historyKeymap?: boolean;
 }
-
-/**
- A minimal set of extensions to create a functional editor. Only
- includes [the default keymap](https://codemirror.net/6/docs/ref/#commands.defaultKeymap), [undo
- history](https://codemirror.net/6/docs/ref/#commands.history), [special character
- highlighting](https://codemirror.net/6/docs/ref/#view.highlightSpecialChars), [custom selection
- drawing](https://codemirror.net/6/docs/ref/#view.drawSelection), and [default highlight
- style](https://codemirror.net/6/docs/ref/#language.defaultHighlightStyle).
- */
-export const minimalSetup = (options: MinimalSetupOptions = {}) => {
-  let keymaps: KeyBinding[] = [];
-  if (options.defaultKeymap !== false) {
-    keymaps = keymaps.concat(defaultKeymap);
-  }
-  if (options.historyKeymap !== false) {
-    keymaps = keymaps.concat(historyKeymap);
-  }
-  const extensions: Extension[] = [];
-  if (options.highlightSpecialChars !== false) extensions.push(highlightSpecialChars());
-  if (options.history !== false) extensions.push(history());
-  if (options.drawSelection !== false) extensions.push(drawSelection());
-  if (options.syntaxHighlighting !== false) extensions.push(syntaxHighlighting(defaultHighlightStyle, { fallback: true }));
-  return extensions.concat([keymap.of(keymaps.flat())]).filter(Boolean);
-};

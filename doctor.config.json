@@ -1,0 +1,59 @@
+{
+  "ignore": {
+    "files": [
+      "docs/**",
+      "build/**",
+      "src/generated/**",
+      "src/vendor/**",
+      "**/*.stories.tsx",
+      "**/*.stories.ts",
+      "src/components/atoms/server/icons/**"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "src/index.ts",
+          "src/helpers/index.ts",
+          "src/types/index.ts",
+          "src/enums/index.ts",
+          "src/constants/index.ts",
+          "src/settings/index.ts",
+          "src/components/server/index.ts",
+          "src/components/server/types.ts",
+          "src/components/organisms/server/types.ts",
+          "src/components/atoms/T/server.ts",
+          "src/components/atoms/server/T/index.ts",
+          "src/components/molecules/server/CircularProgress/CircularProgress.tsx",
+          "src/components/molecules/server/CircularProgress/types.ts",
+          "src/components/molecules/server/ThemeColorPalette/ThemeColorPalette.tsx",
+          "src/components/molecules/server/layouts/ApplicationLoaderLayout.tsx",
+          "src/components/mockup/MockupJukiProvider.tsx",
+          "src/components/mockup/MockupLoginButton.tsx",
+          "src/components/mockup/MockupToggleThemeButton.tsx",
+          "src/components/mockup/mockupUsers.ts",
+          "src/components/molecules/Tabs/mocks/JudgeTabs.tsx",
+          "src/components/organisms/_layz_/DataViewer/JkContestTableTest/MockJkContestTable.tsx",
+          "src/components/organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable.tsx",
+          "src/components/organisms/_layz_/DataViewer/JkSubmissionsTableTest/MockJkSubmissionTable.tsx",
+          "src/components/organisms/_layz_/DataViewer/JkUserTableTest/MockJkUserTable.tsx",
+          "src/components/helpers/layout.ts",
+          "src/components/helpers/store.ts",
+          "src/components/organisms/MdMathViewer/constants.ts",
+          "src/components/templates/MainMenu/DrawerViewMenuMobile/DrawerViewMenuMobile.tsx",
+          "src/types/editor.ts",
+          "src/prebuild-dummy.js"
+        ],
+        "rules": ["deslop/unused-file", "deslop/unused-export"]
+      },
+      {
+        "files": [
+          "src/components/helpers/commons.ts",
+          "src/components/helpers/date.ts",
+          "src/components/helpers/fetch.ts",
+          "src/components/helpers/problem.ts"
+        ],
+        "rules": ["deslop/unused-export"]
+      }
+    ]
+  }
+}

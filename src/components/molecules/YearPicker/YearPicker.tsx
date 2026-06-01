@@ -7,6 +7,7 @@ import { NextButton } from '../NextButton/NextButton';
 import { PreviousButton } from '../PreviousButton/PreviousButton';
 
 export function YearPicker({ date, onChange, isDisabled, isSelected }: YearPickerProps) {
+  // eslint-disable-next-line react-doctor/rerender-state-only-in-handlers -- read in render to compute gridYears
   const [viewDate, setViewDate] = useState(date);
 
   const gridYears: Date[][] = [];

@@ -35,12 +35,14 @@ export function MultiSelectSearchable<T, U extends ReactNode, V extends ReactNod
   // biome-ignore lint/correctness/useExhaustiveDependencies: cache _options by serialized values to keep referential stability across renders
   const options = useMemo(() => {
     return _options;
+    // eslint-disable-next-line react-doctor/exhaustive-deps -- cache by serialized value (optionValues) for referential stability
   }, [optionValues]);
 
   const initialSelectedOptionValues = JSON.stringify(_initialSelectedOptions.map((option) => option.value));
   // biome-ignore lint/correctness/useExhaustiveDependencies: cache _initialSelectedOptions by serialized values to keep referential stability
   const initialSelectedOptions = useMemo(() => {
     return _initialSelectedOptions;
+    // eslint-disable-next-line react-doctor/exhaustive-deps -- cache by serialized value (initialSelectedOptionValues) for referential stability
   }, [initialSelectedOptionValues]);
 
   const onChangeRef = useRef(_onChange);

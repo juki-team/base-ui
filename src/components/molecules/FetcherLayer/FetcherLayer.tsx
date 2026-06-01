@@ -59,6 +59,7 @@ export function FetcherLayer<T extends ContentResponse<U> | ContentsResponse<U>,
       return renderReactNodeOrFunctionP1(children, { data, isLoading, error, mutate });
     }
     return null;
+    // eslint-disable-next-line react-doctor/exhaustive-deps -- children intentionally excluded; function reference recreated each render
   }, [data, error, isLoading, mutate]);
 
   if (isLoading) {

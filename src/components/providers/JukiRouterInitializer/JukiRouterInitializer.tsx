@@ -83,6 +83,7 @@ export const JukiRouterInitializer = (props: JukiRouterInitializerProps) => {
     [_searchParams, updateSearchParams],
   );
 
+  // eslint-disable-next-line react-doctor/rerender-state-only-in-handlers -- used as useEffect dep to drive isLoadingRoute prop
   const [loaderCounter, setLoaderCounter] = useState(0);
 
   const _push = useCallback(

@@ -6,7 +6,7 @@ import { getScheduler, TimeoutLatch } from './timeoutLatch';
 import type { ReactCodeMirrorProps } from './types';
 import { getStatistics } from './utils';
 
-export const ExternalChange = Annotation.define<boolean>();
+const ExternalChange = Annotation.define<boolean>();
 const TYPING_TIMOUT = 200; // ms
 
 export interface UseCodeMirror extends ReactCodeMirrorProps {

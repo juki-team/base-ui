@@ -120,25 +120,25 @@ const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
 const TableHeadCmp = <T,>(props: TableHeadProps<T>) => {
   const { headers, setHeaders, loading, gap, headerRef, topHeaders, rightBorders, hasScrollTop } = props;
 
-  const [dragging, setDragging] = useState(-1);
+  const draggingRef = useRef(-1);
 
   const dividerPositionRef = useRef(0);
 
   const onMouseHoldDown = useCallback(
     (columnIndex: number) => (event: MouseEvent<HTMLDivElement>) => {
-      setDragging(columnIndex);
+      draggingRef.current = columnIndex;
       dividerPositionRef.current = event.clientX;
     },
     [],
   );
 
   const onMouseHoldUp = useCallback(() => {
-    setDragging(-1);
+    draggingRef.current = -1;
     dividerPositionRef.current = 0;
   }, []);
 
   const onMouseHoldMove = (event: MouseEvent<HTMLDivElement>) => {
-    const columnIndex = dragging;
+    const columnIndex = draggingRef.current;
     // const nextColumnIndex = columnIndex + 1;
     if (!dividerPositionRef.current || columnIndex === -1) {
       return;

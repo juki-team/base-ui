@@ -1,5 +1,5 @@
 import { TourProvider, useTour } from '@reactour/tour';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { QueryParamKey } from '../../../../enums';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
@@ -26,17 +26,17 @@ const steps = [
   },
 ];
 
-export function LoginModalCmp({ multiOrganizations, openForgotPasswordModal, setOpenForgotPasswordModal }: LoginModalProps) {
+function LoginModalCmp({ multiOrganizations, openForgotPasswordModal, setOpenForgotPasswordModal }: LoginModalProps) {
   const { signIn } = useJukiUser();
   const { osLabel, label } = useUserStore((state) => state.device);
   const searchParams = useRouterStore((state) => state.searchParams);
   const appendSearchParams = useRouterStore((state) => state.appendSearchParams);
   const deleteSearchParams = useRouterStore((state) => state.deleteSearchParams);
-  const [passwordTourOpened, setPasswordTourOpened] = useState(false);
+  const passwordTourOpenedRef = useRef(false);
   const onError = () => {
-    if (!passwordTourOpened) {
+    if (!passwordTourOpenedRef.current) {
       setIsOpen(true);
-      setPasswordTourOpened(true);
+      passwordTourOpenedRef.current = true;
     }
   };
   const { setIsOpen } = useTour();
