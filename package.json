@@ -167,7 +167,7 @@
     "reveal.js": "^6.0.1",
     "swr": "^2.4.1",
     "uuid": "^14.0.0",
-    "xlsx": "^0.18.5",
+    "xlsx": "npm:@stackline/xlsx@^1.0.6",
     "yup": "^1.7.1",
     "zustand": "^5.0.13"
   },
