@@ -39,7 +39,7 @@ export function PagedDataViewer<T extends object, V = T>(props: PagedDataViewerP
 
   const lastTotalRef = useRef(-1);
 
-  lastTotalRef.current = response?.success ? response.meta.total : lastTotalRef.current;
+  lastTotalRef.current = response?.success ? response.meta.totalElements : lastTotalRef.current;
 
   const toRowRef = useStableRef(toRow);
   const data: T[] = useMemo(() => {

@@ -1,4 +1,4 @@
-import { ProfileSetting } from '@juki-team/commons';
+import { ProfileSetting, Theme } from '@juki-team/commons';
 import { useEffect } from 'react';
 import { useUserStore } from '../../stores/user/useUserStore';
 
@@ -28,7 +28,7 @@ export const useInjectCompanyStyles = () => {
       }
     };
 
-    const theme = companyStyles?.[(userPreferredTheme?.toLowerCase() as 'light') || 'light'];
+    const theme = companyStyles?.[userPreferredTheme || Theme.LIGHT];
     set('--body-tx-cr', theme?.body?.textColor);
     set('--body-tx-cr-ht', theme?.body?.textColorHighlight);
     set('--body-tx-cr-ht-it', theme?.body?.textColorHighlightInset);

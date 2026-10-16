@@ -1,6 +1,6 @@
 import {
   CodeLanguage,
-  type CompanyPingResponseDTO,
+  type CompanyPing,
   DataViewMode,
   DAY_NAMES,
   EMPTY_USER_PERMISSIONS,
@@ -25,7 +25,7 @@ export const ALPHANUMERIC_DASH_UNDERSCORE_REGEX = /^[a-z0-9\-_]+$/i;
 
 export const LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?"()-_]{8,}$/;
 
-export const EMPTY_COMPANY: CompanyPingResponseDTO = {
+export const EMPTY_COMPANY: CompanyPing = {
   name: '',
   imageUrl: '',
   contactEmail: 'contact@juki.app',
@@ -34,7 +34,7 @@ export const EMPTY_COMPANY: CompanyPingResponseDTO = {
   key: '',
   codeEditorRunEnabled: true,
   styles: {
-    light: {
+    [Theme.LIGHT]: {
       body: {
         backgroundColor: '',
         backgroundColorHighlight: '',
@@ -51,7 +51,7 @@ export const EMPTY_COMPANY: CompanyPingResponseDTO = {
         logoTheme: Theme.LIGHT,
       },
     },
-    dark: {
+    [Theme.DARK]: {
       body: {
         backgroundColor: '',
         backgroundColorHighlight: '',

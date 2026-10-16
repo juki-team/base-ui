@@ -99,7 +99,7 @@ export default function InputColor({ value, children, onChange, ...inputProps }:
             <SketchPicker
               color={newColor}
               onChangeComplete={(colorResult) => onChange?.(valueToColorResult(colorResult))}
-              presetColors={[...PALLETE.claros, ...PALLETE.vivos, ...PALLETE.agrisados, ...PALLETE.oscuros]}
+              presetColors={[...PALLETE.CLAROS, ...PALLETE.VIVOS, ...PALLETE.AGRISADOS, ...PALLETE.OSCUROS]}
             />
             {/*<Button*/}
             {/*  onClick={() => {*/}

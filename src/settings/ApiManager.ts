@@ -15,8 +15,8 @@ import {
   Judge,
   JudgeLanguage,
   Language,
-  OrganizationPlan,
-  OrganizationStylesResponseDTO,
+  CompanyPlan,
+  CompanyStyles,
   ProblemVerdict,
   QuizOptionsSubmissionDTO,
   QuizProblemSubmissionDTO,
@@ -689,7 +689,7 @@ export class ApiManager {
               contactTelegram?: string;
               contactCellPhoneNumber?: string;
               contactEmail?: string;
-              styles?: OrganizationStylesResponseDTO;
+              styles?: CompanyStyles;
             };
           },
           HTTPMethod.PATCH
@@ -708,7 +708,7 @@ export class ApiManager {
               judgeKeys?: string[];
               trustedCompaniesKeys?: string[];
               startTimestamp?: number;
-              plan?: OrganizationPlan;
+              plan?: CompanyPlan;
             };
           },
           HTTPMethod.PATCH

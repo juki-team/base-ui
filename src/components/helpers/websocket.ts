@@ -32,10 +32,10 @@ export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebS
     return getWebSocketResponseEventKey(WebSocketResponseEvent.SUBMISSION_RUN_STATUS, event.clientId, event.submitId);
   }
   if (isSubscribeGetDataWebSocketEventDTO(event) || isUnsubscribeGetDataWebSocketEventDTO(event)) {
-    return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA, event.clientId, event.dataId);
+    return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_, event.clientId, event.dataId);
   }
   if (isSubscribeUserNotificationWebSocketEventDTO(event) || isUnsubscribeUserNotificationWebSocketEventDTO(event)) {
-    return getWebSocketResponseEventKey(WebSocketResponseEvent.USER_NOTIFICATION, event.clientId, '*');
+    return getWebSocketResponseEventKey(WebSocketResponseEvent.USER_NOTIFICATION_, event.clientId, '*');
   }
   if (isSubscribeProblemCrawledWebSocketEventDTO(event) || isUnsubscribeProblemCrawledWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.PROBLEM_CRAWLED, event.clientId, event.problemKey);

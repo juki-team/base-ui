@@ -1,4 +1,5 @@
-import { CodeEditorFile, CodeEditorFiles, CodeEditorTestCases, SubmissionRunStatus } from '@juki-team/commons';
+import { CodeEditorTestCases, SubmissionRunStatus } from '@juki-team/commons';
+import type { CodeEditorFile, CodeEditorFiles } from './code-editor-file';
 import { MdMathEditorHandle } from '../MdMathEditor/types';
 import { CodeEditorExpandPositionType, CodeRunnerEditorProps } from './CodeRunnerEditor/types';
 

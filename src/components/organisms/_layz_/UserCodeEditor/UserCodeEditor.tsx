@@ -1,7 +1,5 @@
 import {
   CODE_LANGUAGE,
-  CodeEditorFile,
-  type CodeEditorFiles,
   type CodeEditorTestCases,
   CodeLanguage,
   isStringJson,
@@ -9,6 +7,7 @@ import {
   SubmissionRunStatus,
   Theme,
 } from '@juki-team/commons';
+import type { CodeEditorFile, CodeEditorFiles } from './code-editor-file';
 import type { RefAttributes } from 'react';
 import {
   type Dispatch,

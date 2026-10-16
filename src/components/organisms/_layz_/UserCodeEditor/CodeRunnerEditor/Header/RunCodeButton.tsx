@@ -1,6 +1,5 @@
 import {
   cleanRequest,
-  CodeEditorFiles,
   CodeEditorTestCase,
   CodeEditorTestCases,
   CodeLanguage,
@@ -12,6 +11,7 @@ import {
   SubscribeCodeRunStatusWebSocketEventDTO,
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
+import type { CodeEditorFiles } from '../../code-editor-file';
 import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useRef } from 'react';
 import { v4 } from 'uuid';
 import { jukiApiManager } from '../../../../../../settings';
@@ -172,8 +172,8 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
               source,
               fullFileName: name,
               isInput: false,
-              isEntryPoint: active,
-              toCompile: active,
+              isEntryPoint: active ?? false,
+              toCompile: active ?? false,
             })),
             ...Object.values(testCases).map((testCase) => ({
               fullFileName: `${testCase.key}.in`,

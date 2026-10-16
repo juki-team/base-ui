@@ -1,7 +1,7 @@
 import {
   type ContentsResponse,
   MenuViewMode,
-  type OrganizationUserPermissionsResponseDTO,
+  type CompanyUserPermissionsResponseDTO,
   ProfileSetting,
   Theme,
 } from '@juki-team/commons';
@@ -56,7 +56,7 @@ export function MainMenu(props: MainMenuProps) {
 
   const imageUrl = topImageUrl || companyImageUrl;
 
-  const { data } = useFetcher<ContentsResponse<OrganizationUserPermissionsResponseDTO>>(
+  const { data } = useFetcher<ContentsResponse<CompanyUserPermissionsResponseDTO>>(
     multiCompanies && isLogged ? jukiApiManager.API_V2.company.getPermissionList().url : null,
   );
   const companyKey = searchParams.get(QueryParamKey.COMPANY) as string;
@@ -128,9 +128,7 @@ export function MainMenu(props: MainMenuProps) {
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode;
 
   const logoImageUrl =
-    styles?.[preferredTheme?.toLowerCase() as 'light']?.navbar?.logoTheme === Theme.LIGHT
-      ? imageUrl.replace('white', 'color')
-      : imageUrl;
+    styles?.[preferredTheme || Theme.LIGHT]?.navbar?.logoTheme === Theme.LIGHT ? imageUrl.replace('white', 'color') : imageUrl;
 
   // const drawerMenuMobile = (props: { onClose: () => void, menu: MenuType[] }) => (
   //   <DrawerViewMenuMobile {...props} logoImageUrl={logoImageUrl} moreApps={moreApps} />
