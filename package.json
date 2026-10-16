@@ -5,7 +5,8 @@
   "author": "juki-team",
   "license": "MIT",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "type": "module",
   "main": "dist/cjs/main.js",
@@ -70,7 +71,7 @@
     "build:rollup-clean": "rm -rf dist && rm -rf node_modules/.cache/rollup-plugin-typescript2",
     "build:rollup": "rm -rf dist && rollup -c rollup.config.js --strictDeprecations --environment NODE_ENV:production",
     "build:sass": "rm -rf dist/css-styles && sass src/styles:dist/styles --no-source-map --style=compressed",
-    "build:publish": "dotenv -- pnpm publish",
+    "build:publish": "dotenv -- pnpm publish --tag release-0.1 --publish-branch v1.x",
     "git:commit": "f() { param=${1}; message=${param:-chore}; echo ${message}; git add .; echo $message | git commit -F -; }; f",
     "git:commit-version": "version=\"v$(node -p \"require('./package.json').version\")\" && pnpm git:commit $(echo $version) && git tag -a $(echo $version) -m $(echo $version);",
     "git:push": "git push origin v1.x && git push origin --tags",
