@@ -31,3 +31,4 @@ deps.png
 .env
 
 .npmrc
+tmp/
