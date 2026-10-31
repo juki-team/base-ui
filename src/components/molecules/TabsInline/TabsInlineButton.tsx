@@ -5,10 +5,10 @@ import { sizeTabsInlineIcon } from './utils';
 
 export const TabsInlineButton = ({ size, label, icon, ...props }: Omit<ButtonProps, 'children'> & { label: string }) => {
   
-  const { isSmallScreen, isMediumScreen, isHugeScreen } = usePageStore(store => store.viewPort);
+  const { isSmallScreen, isMediumScreen } = usePageStore(store => store.viewPort);
   
   const isSmallMediumScreen = isSmallScreen || isMediumScreen;
-  const buttonSize = size || (isHugeScreen ? 'regular' : 'small');
+  const buttonSize = size || 'regular';
   
   return (
     <Button

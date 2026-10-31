@@ -35,6 +35,7 @@
   
   &.tick-style-classic {
     position: relative;
+    align-items: flex-end; // tab headers stay on the line, extra nodes get their own bottom padding
     
     &:after {
       content: "";
@@ -48,9 +49,13 @@
   }
 }
 
-// wrappers around the extra buttons (<a>, popover triggers...) must not add their own line box,
-// otherwise the button sits on the text baseline and gets misaligned with the others
-.jk-tabs-inline-extra-nodes > :not(.jk-button) {
-  display: flex;
-  align-items: center;
+.jk-tabs-inline-extra-nodes {
+  padding-bottom: calc(var(--pad-xt) / 2); // 4px, keeps the buttons off the tabs divider line
+  
+  // wrappers around the extra buttons (<a>, popover triggers...) must not add their own line box,
+  // otherwise the button sits on the text baseline and gets misaligned with the others
+  > :not(.jk-button) {
+    display: flex;
+    align-items: center;
+  }
 }
