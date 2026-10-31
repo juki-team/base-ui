@@ -55,7 +55,6 @@ export const UploadNewImageTab = memo(function UploadNewImageTabCmp({
                   imageThumbnailUrl: imagePublicUrl.replace('https://images.juki.pub/o/', 'https://images.juki.pub/t/'),
                 })
               }
-              size="small"
               expand
             >
               <T>pick</T>
@@ -89,7 +88,6 @@ export const UploadNewImageTab = memo(function UploadNewImageTabCmp({
           }
         }}
         disabled={!cropImage || !cropImage?.previewCanvasRef.current}
-        size="small"
       >
         <T>upload image</T>
       </ButtonLoader>

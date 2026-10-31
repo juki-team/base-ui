@@ -18,7 +18,7 @@ export function ButtonAction(props: ButtonActionProps) {
     placement = 'left-start' as PopoverProps['placement'],
     offset = 4,
     disabled,
-    size = 'small',
+    size = 'regular',
     className,
     popoverClassName,
     ...resProps
@@ -55,7 +55,7 @@ export function ButtonAction(props: ButtonActionProps) {
       content={
         <div className="jk-col gap stretch nowrap">
           {buttons.map(
-            ({ icon, onClick, label, disabled, size = 'small', type = 'primary', children, ...props }, index) =>
+            ({ icon, onClick, label, disabled, size = 'regular', type = 'primary', children, ...props }, index) =>
               children ?? (
                 <ButtonLoader
                   {...props}

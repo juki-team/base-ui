@@ -24,7 +24,7 @@ export function PageNotFound({ children, style }: PageNotFoundProps) {
             <T className="tt-se">the page does not exist or you do not have permissions to view it</T>
           </p>
           <Link href="/public">
-            <Button size="small" icon={<HomeIcon />}><T>go to home page</T></Button>
+            <Button icon={<HomeIcon />}><T>go to home page</T></Button>
           </Link>
         </>
       )}

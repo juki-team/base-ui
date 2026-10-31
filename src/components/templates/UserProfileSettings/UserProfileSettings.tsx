@@ -195,7 +195,6 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
 
             <div className="jk-col left gap nowrap jk-pg-sm" style={{ width: '100%' }}>
               <Button
-                size="small"
                 type="secondary"
                 onClick={() =>
                   setSettings([
@@ -219,7 +218,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
         </h3>
         <div className="jk-col stretch gap bc-sf-md jk-br-ie jk-pg-md">
           {user?.canUpdatePassword && (
-            <Button size="small" icon={<LockIcon />} onClick={onClickUpdatePassword} expand>
+            <Button icon={<LockIcon />} onClick={onClickUpdatePassword} expand>
               <T className="ws-np">update password</T>
             </Button>
           )}
