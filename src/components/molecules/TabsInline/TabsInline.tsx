@@ -1,15 +1,18 @@
-import { Children, PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
+import { Children, PropsWithChildren, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { Button } from '../../atoms';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { classNames, isBrowser, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState } from '../../hooks/useHandleState';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
 import type { NotUndefined, TabType } from '../../types';
 import type { TabsInlineProps } from '../Tabs/types';
+
+// measure the DOM before paint on the client; plain effect on the server to avoid the SSR warning
+const useIsomorphicLayoutEffect = isBrowser() ? useLayoutEffect : useEffect;
 
 type TabWithLinkProps<T> = PropsWithChildren<{
   tabKey: T | undefined;
@@ -111,7 +114,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
   }, []);
 
   // indicator position + keep the selected tab centered in view (e.g. entering by URL with ?tab=events)
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const el = scrollRef.current;
     const tab = el?.querySelector<HTMLElement>('.jk-tabs-inline-tab.selected');
     if (!el || !tab) {
@@ -148,7 +151,13 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
         )}
         <div className="jk-row left nowrap jk-tabs-inline-strip">
           {showArrows && (
-            <div className="jk-row jk-tabs-inline-arrow" onClick={() => scrollTabsBy(-1)}>
+            <button
+              type="button"
+              className="jk-row jk-tabs-inline-arrow"
+              aria-label="Scroll tabs left"
+              disabled={!edges.start}
+              onClick={() => scrollTabsBy(-1)}
+            >
               <NavigateBeforeIcon
                 className={classNames('br-50-pc bc-at-lt cr-at-it elevation-1', {
                   activated: edges.start,
@@ -156,7 +165,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
                 })}
                 size="small"
               />
-            </div>
+            </button>
           )}
           <div
             ref={scrollRef}
@@ -186,7 +195,13 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
             )}
           </div>
           {showArrows && (
-            <div className="jk-row jk-tabs-inline-arrow" onClick={() => scrollTabsBy(1)}>
+            <button
+              type="button"
+              className="jk-row jk-tabs-inline-arrow"
+              aria-label="Scroll tabs right"
+              disabled={!edges.end}
+              onClick={() => scrollTabsBy(1)}
+            >
               <NavigateNextIcon
                 className={classNames('br-50-pc bc-at-lt cr-at-it elevation-1', {
                   activated: edges.end,
@@ -194,7 +209,7 @@ export function TabsInline<T>(props: TabsInlineProps<T>) {
                 })}
                 size="small"
               />
-            </div>
+            </button>
           )}
         </div>
         {extraNodesPlacement === 'right' && !!extraNodes?.length && (

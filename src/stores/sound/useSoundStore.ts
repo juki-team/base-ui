@@ -19,7 +19,8 @@ const playSound = async (sound: HTMLAudioElement | undefined, volume = 0.3) => {
   if (sound) {
     sound.volume = volume;
     sound.currentTime = 0;
-    await sound.play();
+    // browsers reject play() when autoplay is blocked (no prior user interaction)
+    await sound.play().catch(() => {});
   }
 };
 

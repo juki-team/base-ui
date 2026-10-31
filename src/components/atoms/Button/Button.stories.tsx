@@ -84,9 +84,12 @@ export const Disabled: Story = {
 
     const buttons = within(container).getAllByRole('button');
 
+    // disabled buttons use aria-disabled (not the native attribute) so they still receive the click and shake
     for (const button of buttons) {
       await userEvent.click(button);
-      await expect(button).toBeDisabled();
+      await expect(button).toHaveAttribute('aria-disabled', 'true');
+      await expect(button).toHaveClass('disabled');
+      await expect(button).toHaveClass('shake');
       await expect(args.onClick).not.toHaveBeenCalled();
     }
   },
