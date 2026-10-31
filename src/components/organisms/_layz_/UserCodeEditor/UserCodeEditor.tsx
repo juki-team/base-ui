@@ -92,13 +92,17 @@ function useSaveChunkStorage<T extends Record<string, unknown>>(
   const mergeRef = useStableRef(merge);
   const formatStoreRecoveredRef = useStableRef(formatStoreRecovered);
 
-  const mergeState = useCallback(() => {
+  const mergeState = useCallback((current?: StorageType<T>) => {
     // let initialValue: StorageType<T> = {};
     // if (isStringJson(initialValueString)) {
     //   initialValue = JSON.parse(initialValueString);
     // }
     const newState: StorageType<T> = {};
-    const storeRecovered = Object.entries(formatStoreRecoveredRef.current(getStoreRecovered(storeKey)));
+    // localStorage is written with a debounce, so the in-memory state (current) takes priority over it
+    const storeRecovered = Object.entries({
+      ...formatStoreRecoveredRef.current(getStoreRecovered(storeKey)),
+      ...current,
+    });
     for (const [key, value] of Object.entries(initialValue)) {
       newState[key] = mergeRef.current(value, storeRecovered.find(([storeRecoveredKey]) => storeRecoveredKey === key)?.[1]);
     }
@@ -110,10 +114,10 @@ function useSaveChunkStorage<T extends Record<string, unknown>>(
     return newState;
   }, [storeKey, formatStoreRecoveredRef, mergeRef, initialValue]);
 
-  const [value, setValue] = useState<StorageType<T>>(mergeState());
+  const [value, setValue] = useState<StorageType<T>>(() => mergeState());
 
   useEffect(() => {
-    setValue(mergeState());
+    setValue((prev) => mergeState(prev));
   }, [mergeState]);
 
   useEffect(() => {
@@ -623,7 +627,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
       setFilesStore((prevState) => {
         const files = prevState[storeKey] || {};
         const { [fileNameDeleted]: _removed, ...newFiles } = { ...files }; // eslint-disable-line @typescript-eslint/no-unused-vars
-        setCurrentFileName(Object.keys(files)[0] ?? '');
+        setCurrentFileName(Object.keys(newFiles)[0] ?? '');
         return { ...prevState, [storeKey]: newFiles };
       });
       focusEditor();
