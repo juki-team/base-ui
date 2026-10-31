@@ -189,7 +189,7 @@
     "@types/graphlib-dot": "^0.6.4",
     "@types/hast": "^3.0.5",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.9.9",
+    "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-color": "^3.0.13",
     "@types/react-dom": "^19.3.0",
