@@ -286,9 +286,6 @@ importers:
       '@storybook/addon-vitest':
         specifier: ^10.6.5
         version: 10.6.5(@vitest/browser-playwright@5.0.5)(@vitest/browser@5.0.5)(react@19.3.1)(storybook@10.6.5(@types/react@19.3.0)(prettier@3.9.10)(react@19.3.1))(vitest@5.0.5)
-      '@storybook/preset-scss':
-        specifier: ^1.0.3
-        version: 1.0.3(css-loader@7.1.5(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7)))(sass-loader@17.1.0(sass@1.107.1)(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7)))(style-loader@4.0.0(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7)))
       '@storybook/react-vite':
         specifier: ^10.6.5
         version: 10.6.5(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(rollup@4.67.2)(storybook@10.6.5(@types/react@19.3.0)(prettier@3.9.10)(react@19.3.1))(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(esbuild@0.27.7)(jiti@2.7.0)(sass@1.107.1)(terser@5.51.2)(yaml@2.9.1))
@@ -298,9 +295,6 @@ importers:
       '@types/codemirror':
         specifier: ^5.60.18
         version: 5.60.18
-      '@types/d3-graphviz':
-        specifier: ^3.1.0
-        version: 3.1.0
       '@types/graphlib-dot':
         specifier: ^0.6.4
         version: 0.6.4
@@ -331,9 +325,6 @@ importers:
       ably:
         specifier: ^2.30.0
         version: 2.30.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      css-loader:
-        specifier: ^7.1.5
-        version: 7.1.5(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7))
       dotenv-cli:
         specifier: ^11.1.0
         version: 11.1.0
@@ -397,15 +388,9 @@ importers:
       sass:
         specifier: ^1.107.1
         version: 1.107.1
-      sass-loader:
-        specifier: ^17.1.0
-        version: 17.1.0(sass@1.107.1)(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7))
       storybook:
         specifier: ^10.6.5
         version: 10.6.5(@types/react@19.3.0)(prettier@3.9.10)(react@19.3.1)
-      style-loader:
-        specifier: ^4.0.0
-        version: 4.0.0(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7))
       swc-loader:
         specifier: ^0.2.7
         version: 0.2.7(@swc/core@1.16.21)(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7))
@@ -2806,13 +2791,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@storybook/preset-scss@1.0.3':
-    resolution: {integrity: sha512-o9Iz6wxPeNENrQa2mKlsDKynBfqU2uWaRP80HeWp4TkGgf7/x3DVF2O7yi9N0x/PI1qzzTTpxlQ90D62XmpiTw==}
-    peerDependencies:
-      css-loader: '*'
-      sass-loader: '*'
-      style-loader: '*'
-
   '@storybook/react-dom-shim@10.6.5':
     resolution: {integrity: sha512-Qbbkp+5Otg32w8Ddav6rH6MGPiYVfEzrgn0HqbqlqS8kY+DRXo+NYXJwZTVSDSwrYPrfH+Ok2tV4uE8Zo0c3cg==}
     peerDependencies:
@@ -3015,9 +2993,6 @@ packages:
   '@types/d3-chord@3.0.6':
     resolution: {integrity: sha512-LFYWWd8nwfwEmTZG9PfQxd17HbNPksHBiJHaKuY1XeqscXacsS2tyoo6OdRsjf+NQYeB6XrNL3a25E3gH69lcg==}
 
-  '@types/d3-color@1.4.5':
-    resolution: {integrity: sha512-5sNP3DmtSnSozxcjqmzQKsDOuVJXZkceo1KJScDc1982kk/TS9mTPc6lpli1gTu1MIBF1YWutpHpjucNWcIj5g==}
-
   '@types/d3-color@3.1.3':
     resolution: {integrity: sha512-iO90scth9WAbmgv7ogoq57O9YpKmFBbmoEoCHDB2xMBY0+/KVrqAaCDyCE16dUspeOvIxFFRI+0sEtqDqy2b4A==}
 
@@ -3051,14 +3026,8 @@ packages:
   '@types/d3-geo@3.1.0':
     resolution: {integrity: sha512-856sckF0oP/diXtS4jNsiQw/UuK5fQG8l/a9VVLeSouf1/PPbBE1i1W852zVwKwYCBkFJJB7nCFTbk6UMEXBOQ==}
 
-  '@types/d3-graphviz@3.1.0':
-    resolution: {integrity: sha512-LUu4guz1M5j15I7g24676TOwlB/+Lp5zstnZ+R2/+ON0TOMnYKArD3qDLws0a4iETre+uvS8cYaOMUT63BEUkw==}
-
   '@types/d3-hierarchy@3.1.7':
     resolution: {integrity: sha512-tJFtNoYBtRtkNysX1Xq4sxtjK8YgoWUNpIiUee0/jHGRwqvzYxkq0hGVbbOGSz+JgFxxRu4K8nb3YpG3CMARtg==}
-
-  '@types/d3-interpolate@1.4.5':
-    resolution: {integrity: sha512-k9L18hXXv7OvK4PqW1kSFYIzasGOvfhPUWmHFkoZ8/ci99EAmY4HoF6zMefrHl0SGV7XYc7Qq2MNh8dK3edg5A==}
 
   '@types/d3-interpolate@3.0.4':
     resolution: {integrity: sha512-mgLPETlrpVV1YRJIglr4Ez47g7Yxjl1lj7YKsiMCb27VJH9W8NVM6Bb9d8kkpG/uAQS5AmbA48q2IAolKKo1MA==}
@@ -3081,9 +3050,6 @@ packages:
   '@types/d3-scale@4.0.9':
     resolution: {integrity: sha512-dLmtwB8zkAeO/juAMfnV+sItKjlsw2lKdZVVy6LRr0cBmegxSABiLEpGVmSJJ8O08i4+sGR6qQtb6WtuwJdvVw==}
 
-  '@types/d3-selection@1.4.7':
-    resolution: {integrity: sha512-aLaTOjdOJEFPhij59NdNwppvpHBheZFlLbcb7cIZZYLC0he9Wmdd/u4+1NZxlr7ncK+mq1PLmowMPw1GONrIQg==}
-
   '@types/d3-selection@3.0.11':
     resolution: {integrity: sha512-bhAXu23DJWsrI45xafYpkQ4NtcKMwWnAC/vKrd2l+nxMFuvOT3XMYTIj2opv8vq8AO5Yh7Qac/nSeP/3zjTK0w==}
 
@@ -3099,14 +3065,8 @@ packages:
   '@types/d3-timer@3.0.2':
     resolution: {integrity: sha512-Ps3T8E8dZDam6fUyNiMkekK3XUsaUEik+idO9/YjPtfj2qruF8tFBXS7XhtE4iIXBLxhmLjP3SXpLhVf21I9Lw==}
 
-  '@types/d3-transition@1.3.6':
-    resolution: {integrity: sha512-Y8NwxuHV4ElbCkN7tJcuwENYKiAL+ktU6tNDLHqZ141YsaT3kwa5ZA5eqiJwHYWQzXMjF+FgL6/Sxo9IGSwmNQ==}
-
   '@types/d3-transition@3.0.9':
     resolution: {integrity: sha512-uZS5shfxzO3rGlu0cC3bjmMFKsXv+SmZZcgp0KD22ts4uGXp5EVYGzu/0YdwZeKmddhcAccYtREJKkPfXkZuCg==}
-
-  '@types/d3-zoom@1.8.7':
-    resolution: {integrity: sha512-HJWci3jXwFIuFKDqGn5PmuwrhZvuFdrnUmtSKCLXFAWyf2lAIUKMKh1/lHOkWBl/f4KVupGricJiqkQy+cVTog==}
 
   '@types/d3-zoom@3.0.8':
     resolution: {integrity: sha512-iqMC4/YlFCSlO8+2Ii1GGGliCAY4XdeG748w5vQUbevlbDu0zSjH/+jojorQVBK/se0j6DUFNPBGSqD3YWYnDw==}
@@ -3912,18 +3872,6 @@ packages:
     peerDependencies:
       postcss: ^8.0.9
 
-  css-loader@7.1.5:
-    resolution: {integrity: sha512-Q7iAfQkU2twNBryKX/vGAlE+GAmkF7quhSzAGNK8fBimxk3+tqg245rH52UPb9dioBolBc8rP0ihmHBaDTJQBA==}
-    engines: {node: '>= 18.12.0'}
-    peerDependencies:
-      '@rspack/core': 0.x || ^1.0.0 || ^2.0.0-0
-      webpack: ^5.27.0
-    peerDependenciesMeta:
-      '@rspack/core':
-        optional: true
-      webpack:
-        optional: true
-
   css-select@4.3.0:
     resolution: {integrity: sha512-wPpOYtnsVontu2mODhA19JrqWxNsfdatRKd64kmpRbQgh1KtItko5sTnEpPdpSaJszTOhEMlF/RPz28qj4HqhQ==}
 
@@ -4331,9 +4279,6 @@ packages:
   es-iterator-helpers@1.3.1:
     resolution: {integrity: sha512-zWwRvqWiuBPr0muUG/78cW3aHROFCNIQ3zpmYDpwdbnt2m+xlNyRWpHBpa2lJjSBit7BQ+RXA1iwbSmu5yJ/EQ==}
     engines: {node: '>= 0.4'}
-
-  es-module-lexer@2.0.0:
-    resolution: {integrity: sha512-5POEcUuZybH7IdmGsD8wlf0AI55wMecM9rVBTI/qEAy2c1kTOm3DjFYjrBdI2K3BaJjJYfYFeRtM0t9ssnRuxw==}
 
   es-module-lexer@2.3.2:
     resolution: {integrity: sha512-poHGpORABojJJucnV9KbOavETW8lBVnphkW77ER5/BQ5Fz7oXSoCNek7IH3vR5nRjdsEz926ibFYX8KtLQmdyw==}
@@ -6735,24 +6680,6 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  sass-loader@17.1.0:
-    resolution: {integrity: sha512-EZ/u/bLkAErTKvIq/f81Bz6tgL/5Brt8hWOABdTsVdO+nX0PWx2rQhR6fyxVME+MhnQrrwecMDlm2G1y07hhpQ==}
-    engines: {node: '>= 22.11.0'}
-    peerDependencies:
-      '@rspack/core': 0.x || ^1.0.0 || ^2.0.0-0
-      sass: ^1.3.0
-      sass-embedded: '*'
-      webpack: ^5.0.0
-    peerDependenciesMeta:
-      '@rspack/core':
-        optional: true
-      sass:
-        optional: true
-      sass-embedded:
-        optional: true
-      webpack:
-        optional: true
-
   sass@1.107.1:
     resolution: {integrity: sha512-aJ1/LvxOOb04YhmiBjzZn3jVwdHKol+OVhoMV6fFl02fF9T3i+5Mg9l/CnzqtM+NX5Jn5o3lAbs/ZJivTCLHfQ==}
     engines: {node: '>=20.19.0'}
@@ -6963,12 +6890,6 @@ packages:
 
   style-inject@0.3.0:
     resolution: {integrity: sha512-IezA2qp+vcdlhJaVm5SOdPPTUu0FCEqfNSli2vRuSIBbu5Nq5UvygTk/VzeCqfLz2Atj3dVII5QBKGZRZ0edzw==}
-
-  style-loader@4.0.0:
-    resolution: {integrity: sha512-1V4WqhhZZgjVAVJyt7TdDPZoPBPNHbekX4fWnCJL1yQukhCeZhJySUL+gL9y6sNdN95uEOS83Y55SqHcP7MzLA==}
-    engines: {node: '>= 18.12.0'}
-    peerDependencies:
-      webpack: ^5.27.0
 
   style-mod@4.1.3:
     resolution: {integrity: sha512-i/n8VsZydrugj3Iuzll8+x/00GH2vnYsk1eomD8QiRrSAeW6ItbCQDtfXCeJHd0iwiNagqjQkvpvREEPtW3IoQ==}
@@ -10110,12 +10031,6 @@ snapshots:
     dependencies:
       react: 19.3.1
 
-  '@storybook/preset-scss@1.0.3(css-loader@7.1.5(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7)))(sass-loader@17.1.0(sass@1.107.1)(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7)))(style-loader@4.0.0(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7)))':
-    dependencies:
-      css-loader: 7.1.5(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7))
-      sass-loader: 17.1.0(sass@1.107.1)(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7))
-      style-loader: 4.0.0(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7))
-
   '@storybook/react-dom-shim@10.6.5(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(storybook@10.6.5(@types/react@19.3.0)(prettier@3.9.10)(react@19.3.1))':
     dependencies:
       react: 19.3.1
@@ -10316,8 +10231,6 @@ snapshots:
 
   '@types/d3-chord@3.0.6': {}
 
-  '@types/d3-color@1.4.5': {}
-
   '@types/d3-color@3.1.3': {}
 
   '@types/d3-contour@3.0.6':
@@ -10349,17 +10262,7 @@ snapshots:
     dependencies:
       '@types/geojson': 7946.0.16
 
-  '@types/d3-graphviz@3.1.0':
-    dependencies:
-      '@types/d3-selection': 1.4.7
-      '@types/d3-transition': 1.3.6
-      '@types/d3-zoom': 1.8.7
-
   '@types/d3-hierarchy@3.1.7': {}
-
-  '@types/d3-interpolate@1.4.5':
-    dependencies:
-      '@types/d3-color': 1.4.5
 
   '@types/d3-interpolate@3.0.4':
     dependencies:
@@ -10379,8 +10282,6 @@ snapshots:
     dependencies:
       '@types/d3-time': 3.0.4
 
-  '@types/d3-selection@1.4.7': {}
-
   '@types/d3-selection@3.0.11': {}
 
   '@types/d3-shape@3.1.8':
@@ -10393,18 +10294,9 @@ snapshots:
 
   '@types/d3-timer@3.0.2': {}
 
-  '@types/d3-transition@1.3.6':
-    dependencies:
-      '@types/d3-selection': 1.4.7
-
   '@types/d3-transition@3.0.9':
     dependencies:
       '@types/d3-selection': 3.0.11
-
-  '@types/d3-zoom@1.8.7':
-    dependencies:
-      '@types/d3-interpolate': 1.4.5
-      '@types/d3-selection': 1.4.7
 
   '@types/d3-zoom@3.0.8':
     dependencies:
@@ -11381,19 +11273,6 @@ snapshots:
     dependencies:
       postcss: 8.5.32
 
-  css-loader@7.1.5(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7)):
-    dependencies:
-      icss-utils: 5.1.0(postcss@8.5.32)
-      postcss: 8.5.32
-      postcss-modules-extract-imports: 3.1.0(postcss@8.5.32)
-      postcss-modules-local-by-default: 4.2.0(postcss@8.5.32)
-      postcss-modules-scope: 3.2.1(postcss@8.5.32)
-      postcss-modules-values: 4.0.0(postcss@8.5.32)
-      postcss-value-parser: 4.2.0
-      semver: 7.7.4
-    optionalDependencies:
-      webpack: 5.105.4(@swc/core@1.16.21)(esbuild@0.27.7)
-
   css-select@4.3.0:
     dependencies:
       boolbase: 1.0.0
@@ -11905,8 +11784,6 @@ snapshots:
       iterator.prototype: 1.1.5
       math-intrinsics: 1.1.0
       safe-array-concat: 1.1.3
-
-  es-module-lexer@2.0.0: {}
 
   es-module-lexer@2.3.2: {}
 
@@ -14952,11 +14829,6 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass-loader@17.1.0(sass@1.107.1)(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7)):
-    optionalDependencies:
-      sass: 1.107.1
-      webpack: 5.105.4(@swc/core@1.16.21)(esbuild@0.27.7)
-
   sass@1.107.1:
     dependencies:
       chokidar: 5.0.0
@@ -15211,10 +15083,6 @@ snapshots:
   strip-indent@4.1.1: {}
 
   style-inject@0.3.0: {}
-
-  style-loader@4.0.0(webpack@5.105.4(@swc/core@1.16.21)(esbuild@0.27.7)):
-    dependencies:
-      webpack: 5.105.4(@swc/core@1.16.21)(esbuild@0.27.7)
 
   style-mod@4.1.3: {}
 
@@ -15637,7 +15505,7 @@ snapshots:
       browserslist: 4.28.2
       chrome-trace-event: 1.0.4
       enhanced-resolve: 5.20.1
-      es-module-lexer: 2.0.0
+      es-module-lexer: 2.3.2
       eslint-scope: 5.1.1
       events: 3.3.0
       glob-to-regexp: 0.4.1
