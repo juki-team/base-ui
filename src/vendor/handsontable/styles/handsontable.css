@@ -3,7 +3,7 @@
  *
  * HANDSONTABLE is a software distributed by HANDSONCODE sp. z o. o., a Polish corporation based in
  * Gdynia, Poland, at Aleja Zwyciestwa 96-98, registered by the District Court in Gdansk under number
- * 538651, EU tax ID number: PL5862294002, share capital: PLN 62,800.00.
+ * 538651, EU tax ID number: PL5862294002, share capital: PLN 67,200.00.
  *
  * This software is protected by applicable copyright laws, including international treaties, and dual-
  * licensed - depending on whether your use for commercial purposes, meaning intended for or
@@ -25,15 +25,23 @@
  * INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER ARISING FROM
  * USE OR INABILITY TO USE THIS SOFTWARE.
  *
- * Version: 17.1.0
- * Release date: 19/05/2026 (built at 19/05/2026 14:51:38)
+ * Version: 18.1.2
+ * Release date: 07/10/2026 (built at 07/10/2026 10:00:15)
  */
+@charset "UTF-8";
 .ht-root-wrapper {
   font-family: var(--ht-font-family), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+.ht-root-wrapper.ht-shadow-dom {
+  isolation: isolate;
+}
+.ht-root-wrapper.ht-slot-bottom-filled .ht-wrapper:not(.htHorizontallyScrollableByWindow) .ht_master .wtHolder, .ht-root-wrapper.ht-slot-bottom-filled .ht-wrapper:not(.htVerticallyScrollableByWindow) .ht_master .wtHolder, .ht-root-wrapper.ht-slot-top-filled .ht-wrapper:not(.htHorizontallyScrollableByWindow) .ht_master .wtHolder, .ht-root-wrapper.ht-slot-top-filled .ht-wrapper:not(.htVerticallyScrollableByWindow) .ht_master .wtHolder {
+  background-color: var(--ht-background-color);
+  box-shadow: inset 0 0 0 1px var(--ht-border-color);
 }
 
 .htFocusCatcher {
@@ -50,8 +58,38 @@
 }
 
 .ht-grid {
+  position: relative;
   flex: 1 1 auto;
   min-height: 0;
+}
+
+.ht-grid-content {
+  height: 100%;
+}
+
+.ht-slot-top, .ht-slot-bottom {
+  flex: 0 0 auto;
+  overflow-x: auto;
+}
+
+.ht-slot-element {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--ht-border-color);
+}
+
+.ht-slot-top > .ht-slot-element:not(:first-of-type) {
+  border-top-width: 0;
+}
+.ht-slot-top > .ht-slot-element:last-of-type {
+  border-bottom-width: 0;
+}
+
+.ht-slot-bottom > .ht-slot-element:not(:last-of-type) {
+  border-bottom-width: 0;
+}
+.ht-slot-bottom > .ht-slot-element:first-of-type {
+  border-top-width: 0;
 }
 
 .htScrollbarTest {
@@ -96,23 +134,11 @@
   border-end-end-radius: var(--ht-scrollbar-border-radius);
 }
 .handsontable.ht-wrapper {
-  border-radius: var(--ht-wrapper-border-radius, 0);
   height: 100%;
   width: 100%;
 }
-.handsontable.ht-wrapper:not(.htFirstDatasetColumnNotRendered) td:first-of-type {
+.handsontable.ht-wrapper:not(.htFirstDatasetColumnNotRendered) :where(table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > td:first-of-type {
   border-inline-start-width: 1px;
-}
-.handsontable.ht-wrapper::before {
-  content: "";
-  display: block;
-  position: absolute;
-  inset: 0;
-  border: var(--ht-wrapper-border-width) solid var(--ht-wrapper-border-color);
-  border-radius: var(--ht-wrapper-border-radius, 0);
-  z-index: 999;
-  pointer-events: none;
-  overflow: hidden;
 }
 .handsontable.htGhostTable.htNestedHeaders table {
   border-spacing: 0;
@@ -130,26 +156,24 @@
   border-top-width: 0;
   height: calc(var(--ht-cell-vertical-padding) * 2 + var(--ht-line-height) + 1px);
 }
-.handsontable.htHasScrollX:not(.htHorizontallyScrollableByWindow):not(.htScrollbarHidden) .ht_master .wtHolder, .handsontable.htHasScrollY:not(.htVerticallyScrollableByWindow):not(.htScrollbarHidden) .ht_master .wtHolder {
-  border-radius: var(--ht-wrapper-border-radius, 0);
-}
-.handsontable:not(.htHorizontallyScrollableByWindow).htPagination .ht_master .wtHolder, .handsontable:not(.htHorizontallyScrollableByWindow).htHasScrollX .ht_master .wtHolder, .handsontable:not(.htHorizontallyScrollableByWindow).htHasScrollY .ht_master .wtHolder, .handsontable:not(.htVerticallyScrollableByWindow).htPagination .ht_master .wtHolder, .handsontable:not(.htVerticallyScrollableByWindow).htHasScrollX .ht_master .wtHolder, .handsontable:not(.htVerticallyScrollableByWindow).htHasScrollY .ht_master .wtHolder {
+.handsontable:not(.htHorizontallyScrollableByWindow).htHasScrollX .ht_master .wtHolder, .handsontable:not(.htHorizontallyScrollableByWindow).htHasScrollY .ht_master .wtHolder, .handsontable:not(.htVerticallyScrollableByWindow).htHasScrollX .ht_master .wtHolder, .handsontable:not(.htVerticallyScrollableByWindow).htHasScrollY .ht_master .wtHolder {
   background-color: var(--ht-background-color);
+  box-shadow: inset 0 0 0 1px var(--ht-border-color);
 }
-.handsontable tr.ht__row_even th {
+.handsontable :where(table.htCore > tbody, .htGhostTable > table > tbody) > tr.ht__row_even > th {
   background-color: var(--ht-row-header-even-background-color);
 }
-.handsontable tr.ht__row_even td {
+.handsontable :where(table.htCore > tbody, .htGhostTable > table > tbody) > tr.ht__row_even > td {
   background-color: var(--ht-row-cell-even-background-color);
 }
-.handsontable tr.ht__row_odd th {
+.handsontable :where(table.htCore > tbody, .htGhostTable > table > tbody) > tr.ht__row_odd > th {
   background-color: var(--ht-row-header-odd-background-color);
 }
-.handsontable tr.ht__row_odd td {
+.handsontable :where(table.htCore > tbody, .htGhostTable > table > tbody) > tr.ht__row_odd > td {
   background-color: var(--ht-row-cell-odd-background-color);
 }
-.handsontable th,
-.handsontable td {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th,
+.handsontable :where(table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > td {
   height: calc(var(--ht-cell-vertical-padding) * 2 + var(--ht-line-height) + 1px);
   padding: var(--ht-cell-vertical-padding) var(--ht-cell-horizontal-padding);
   vertical-align: top;
@@ -172,15 +196,15 @@
   border-inline-start-color: var(--ht-cell-horizontal-border-color);
   border-inline-end-color: var(--ht-cell-horizontal-border-color);
 }
-.handsontable th.invisibleSelection,
-.handsontable td.invisibleSelection {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th.invisibleSelection,
+.handsontable :where(table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > td.invisibleSelection {
   outline: none;
 }
-.handsontable th.invisibleSelection::selection,
-.handsontable td.invisibleSelection::selection {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th.invisibleSelection::selection,
+.handsontable :where(table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > td.invisibleSelection::selection {
   background: transparent;
 }
-.handsontable th {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th {
   position: relative;
   overflow: visible;
   text-align: center;
@@ -189,108 +213,116 @@
   color: var(--ht-header-foreground-color);
   background-color: var(--ht-header-background-color);
 }
-.handsontable th:last-child {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th:last-child {
   /* Foundation framework fix */
   border-inline-start-width: 0;
   border-inline-end-width: 1px;
   border-bottom-width: 1px;
   border-inline-end-color: var(--ht-border-color);
 }
-.handsontable th:last-child.ht__active_highlight {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th:last-child.ht__active_highlight {
   border-inline-end-color: var(--ht-header-active-border-color);
 }
-.handsontable th:first-child {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th:first-child {
   border-inline-start-color: var(--ht-border-color);
 }
-.handsontable th:first-child.ht__active_highlight {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th:first-child.ht__active_highlight {
   border-inline-start-color: var(--ht-header-active-border-color);
 }
-.handsontable th:first-child, .handsontable th:nth-child(2) {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th:first-child, .handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th:nth-child(2) {
   border-inline-start-width: 1px;
 }
-.handsontable th.current {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th.current {
   box-shadow: inset 0 0 0 1px var(--ht-cell-selection-border-color);
 }
-.handsontable th.active {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th.active {
   color: var(--ht-header-active-foreground-color);
   background-color: var(--ht-header-active-background-color);
 }
-.handsontable th.ht__highlight {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th.ht__highlight {
   color: var(--ht-header-highlighted-foreground-color);
   background-color: var(--ht-header-highlighted-background-color);
 }
-.handsontable th.ht__active_highlight {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th.ht__active_highlight {
   border-color: var(--ht-header-active-border-color);
   color: var(--ht-header-active-foreground-color);
   background-color: var(--ht-header-active-background-color);
 }
-.handsontable tbody tr.ht__row_odd th.ht__highlight, .handsontable tbody tr.ht__row_even th.ht__highlight {
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th.ht__active_highlight-prev {
+  border-inline-end-color: var(--ht-header-active-border-color);
+}
+.handsontable :where(table.htCore > thead > tr, .htGhostTable > table > thead > tr, table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > th.ht__active_highlight-seam {
+  border-inline-end-color: var(--ht-header-active-border-color);
+}
+.handsontable :where(table.htCore, .htGhostTable > table) > tbody > tr.ht__row_odd > th.ht__highlight, .handsontable :where(table.htCore, .htGhostTable > table) > tbody > tr.ht__row_even > th.ht__highlight {
   color: var(--ht-header-row-highlighted-foreground-color);
   background-color: var(--ht-header-row-highlighted-background-color);
 }
-.handsontable tbody tr.ht__row_odd th.ht__active_highlight, .handsontable tbody tr.ht__row_even th.ht__active_highlight {
+.handsontable :where(table.htCore, .htGhostTable > table) > tbody > tr.ht__row_odd > th.ht__active_highlight, .handsontable :where(table.htCore, .htGhostTable > table) > tbody > tr.ht__row_even > th.ht__active_highlight {
   color: var(--ht-header-row-active-foreground-color);
   background-color: var(--ht-header-row-active-background-color);
 }
-.handsontable tbody tr:first-of-type th:first-child:empty::after,
-.handsontable tbody tr:first-of-type td:first-child:empty::after {
+.handsontable :where(table.htCore, .htGhostTable > table) > tbody > tr:first-of-type > th:first-child:empty::after,
+.handsontable :where(table.htCore, .htGhostTable > table) > tbody > tr:first-of-type > td:first-child:empty::after {
   content: "";
   display: block;
   min-height: var(--ht-line-height);
 }
-.handsontable tbody tr th {
+.handsontable :where(table.htCore, .htGhostTable > table) > tbody > tr > th {
   padding: 0;
   color: var(--ht-header-row-foreground-color);
   background-color: var(--ht-header-row-background-color);
 }
-.handsontable tbody tr th.ht__active_highlight {
-  box-shadow: 0 -1px 0 0 var(--ht-header-active-border-color);
-}
-.handsontable tbody tr th .relative {
+.handsontable :where(table.htCore, .htGhostTable > table) > tbody > tr > th .relative {
   padding: var(--ht-cell-vertical-padding) var(--ht-cell-horizontal-padding);
   min-height: 100%;
 }
-.handsontable tbody tr td:first-child {
+.handsontable :where(table.htCore, .htGhostTable > table) > tbody > tr > td:first-child {
   border-inline-start-color: var(--ht-border-color);
 }
-.handsontable tbody tr td:last-child {
+.handsontable :where(table.htCore, .htGhostTable > table) > tbody > tr > td:last-child {
   border-inline-end-color: var(--ht-border-color);
 }
-.handsontable thead tr th {
+.handsontable :where(table.htCore, .htGhostTable > table) > tbody > tr > th.ht__active_highlight-prev-row {
+  border-bottom-color: var(--ht-header-active-border-color);
+}
+.handsontable :where(table.htCore, .htGhostTable > table) > thead > tr > th {
   padding: 0;
 }
-.handsontable thead tr th.ht__active_highlight {
+.handsontable :where(table.htCore, .htGhostTable > table) > thead > tr > th.ht__active_highlight {
   box-shadow: -1px 0 0 0 var(--ht-header-active-border-color);
 }
-.handsontable thead tr th .relative {
+.handsontable :where(table.htCore, .htGhostTable > table) > thead > tr > th .relative {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: var(--ht-cell-vertical-padding) var(--ht-cell-horizontal-padding);
   gap: 2px;
 }
-.handsontable thead tr th .relative .colHeader {
+.handsontable :where(table.htCore, .htGhostTable > table) > thead > tr > th .relative .colHeader {
   flex: 1 1 auto;
   min-width: 0;
   text-overflow: ellipsis;
   overflow: hidden;
   vertical-align: top;
 }
-.handsontable tr:first-child th,
-.handsontable tr:first-child td {
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr:first-child > th,
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr:first-child > td {
   border-top-color: var(--ht-border-color);
   border-top-width: 1px;
 }
-.handsontable tr:first-child th.ht__active_highlight,
-.handsontable tr:first-child td.ht__active_highlight {
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr:first-child > th.ht__active_highlight, .handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr:first-child > th.ht__active_highlight-row-seam-bottom,
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr:first-child > td.ht__active_highlight,
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr:first-child > td.ht__active_highlight-row-seam-bottom {
   border-top-color: var(--ht-header-active-border-color);
 }
-.handsontable tr:last-child th,
-.handsontable tr:last-child td {
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr:last-child > th,
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr:last-child > td {
   border-bottom-color: var(--ht-border-color);
 }
-.handsontable tr:last-child th.ht__active_highlight,
-.handsontable tr:last-child td.ht__active_highlight {
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr:last-child > th.ht__active_highlight, .handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr:last-child > th.ht__active_highlight-row-seam-top,
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr:last-child > td.ht__active_highlight,
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr:last-child > td.ht__active_highlight-row-seam-top {
   border-bottom-color: var(--ht-header-active-border-color);
 }
 .handsontable div[class^=ht_clone] thead .ht__highlight .relative::after {
@@ -316,10 +348,10 @@
   width: var(--ht-header-highlighted-shadow-size);
   background-color: var(--ht-accent-color);
 }
-.handsontable div[class^=ht_clone] td:first-of-type {
+.handsontable div[class^=ht_clone] :where(table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > td:first-of-type {
   border-inline-start-width: 1px;
 }
-.handsontable thead tr:not(:last-child) th {
+.handsontable :where(table.htCore, .htGhostTable > table) > thead > tr:not(:last-child) > th {
   /* Fix for - nested columns with hidden column  */
   overflow: hidden;
 }
@@ -350,16 +382,16 @@
   overflow: hidden;
   white-space: nowrap;
 }
-.handsontable table,
-.handsontable tbody,
-.handsontable thead,
-.handsontable input,
-.handsontable textarea,
-.handsontable div {
+.handsontable table.htCore, .handsontable:where(.htGhostTable) > table,
+.handsontable :where(table.htCore, .htGhostTable > table) > thead,
+.handsontable :where(table.htCore, .htGhostTable > table) > tbody,
+.handsontable input:not(:where(table.htCore > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput), .htGhostTable > table > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput))),
+.handsontable textarea:not(:where(table.htCore > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput), .htGhostTable > table > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput))),
+.handsontable div:not(:where(table.htCore > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput), .htGhostTable > table > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput))) {
   box-sizing: content-box;
 }
-.handsontable input,
-.handsontable textarea {
+.handsontable input:not(:where(table.htCore > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput), .htGhostTable > table > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput))),
+.handsontable textarea:not(:where(table.htCore > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput), .htGhostTable > table > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput))) {
   min-height: initial;
 }
 .handsontable .htCore {
@@ -373,13 +405,13 @@
   cursor: default;
   background-color: var(--ht-background-color);
 }
-.handsontable col {
+.handsontable :where(table.htCore, .htGhostTable > table) > colgroup > col {
   width: 64px;
 }
-.handsontable col.rowHeader {
+.handsontable :where(table.htCore, .htGhostTable > table) > colgroup > col.rowHeader {
   width: 64px;
 }
-.handsontable col.hidden {
+.handsontable :where(table.htCore, .htGhostTable > table) > colgroup > col.hidden {
   width: 0 !important;
 }
 .handsontable span.colHeader, .handsontable span.rowHeader {
@@ -387,47 +419,47 @@
   font-size: var(--ht-font-size);
   line-height: var(--ht-line-height);
 }
-.handsontable tr.hidden {
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr.hidden {
   display: none;
 }
-.handsontable tr.hidden td,
-.handsontable tr.hidden th {
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr.hidden > td,
+.handsontable :where(table.htCore > thead, table.htCore > tbody, .htGhostTable > table > thead, .htGhostTable > table > tbody) > tr.hidden > th {
   display: none;
 }
-.handsontable a {
+.handsontable a:not(:where(table.htCore > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput), .htGhostTable > table > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput))) {
   color: var(--ht-link-color);
 }
-.handsontable a:hover {
+.handsontable a:not(:where(table.htCore > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput), .htGhostTable > table > tbody > tr > td:not(.htCustomMenuRenderer) *:not(.htCheckboxRendererInput))):hover {
   color: var(--ht-link-hover-color);
 }
-.handsontable .ht_clone_top th:nth-child(2) {
+.handsontable .ht_clone_top :where(table.htCore > thead > tr) > th:nth-child(2) {
   border-inline-start-width: 0;
   border-inline-end-width: 1px;
 }
-.handsontable .ht_clone_top_inline_start_corner th:nth-child(2) {
+.handsontable .ht_clone_top_inline_start_corner :where(table.htCore > thead > tr) > th:nth-child(2) {
   border-inline-start-width: 0;
   border-inline-end-width: 1px;
 }
-.handsontable.htRowHeaders thead tr th:nth-child(2) {
+.handsontable.htRowHeaders :where(table.htCore) > thead > tr > th:nth-child(2) {
   border-inline-start-width: 1px;
 }
-.handsontable .ht_master:not(.innerBorderInlineStart):not(.emptyColumns) tbody tr th,
-.handsontable .ht_master:not(.innerBorderInlineStart):not(.emptyColumns) thead tr th:first-child,
-.handsontable .ht_master:not(.innerBorderInlineStart):not(.emptyColumns) ~ .handsontable:not(.htGhostTable) tbody tr th,
-.handsontable .ht_master:not(.innerBorderInlineStart):not(.emptyColumns) ~ .handsontable:not(.ht_clone_top):not(.htGhostTable) thead tr th:first-child {
+.handsontable .ht_master:not(.innerBorderInlineStart):not(.emptyColumns) :where(table.htCore) > tbody > tr > th,
+.handsontable .ht_master:not(.innerBorderInlineStart):not(.emptyColumns) :where(table.htCore) > thead > tr > th:first-child,
+.handsontable .ht_master:not(.innerBorderInlineStart):not(.emptyColumns) ~ .handsontable:not(.htGhostTable) :where(table.htCore) > tbody > tr > th,
+.handsontable .ht_master:not(.innerBorderInlineStart):not(.emptyColumns) ~ .handsontable:not(.ht_clone_top):not(.htGhostTable) :where(table.htCore) > thead > tr > th:first-child {
   border-inline-end-width: 0;
   border-inline-start-width: 1px;
 }
-.handsontable .ht_master:not(.innerBorderTop):not(.innerBorderBottom) thead tr:last-child th, .handsontable .ht_master:not(.innerBorderTop):not(.innerBorderBottom) ~ .handsontable thead tr:last-child th,
-.handsontable .ht_master:not(.innerBorderTop):not(.innerBorderBottom) thead tr.lastChild th, .handsontable .ht_master:not(.innerBorderTop):not(.innerBorderBottom) ~ .handsontable thead tr.lastChild th {
+.handsontable .ht_master:not(.innerBorderTop):not(.innerBorderBottom) :where(table.htCore) > thead > tr:last-child > th, .handsontable .ht_master:not(.innerBorderTop):not(.innerBorderBottom) ~ .handsontable :where(table.htCore) > thead > tr:last-child > th,
+.handsontable .ht_master:not(.innerBorderTop):not(.innerBorderBottom) :where(table.htCore) > thead > tr.lastChild > th, .handsontable .ht_master:not(.innerBorderTop):not(.innerBorderBottom) ~ .handsontable :where(table.htCore) > thead > tr.lastChild > th {
   border-bottom-width: 0;
 }
-.handsontable.htAutoRowSize .ht_master.innerBorderTop tbody tr:first-child th,
-.handsontable.htAutoRowSize .ht_master.innerBorderTop tbody tr:first-child td {
+.handsontable.htAutoRowSize .ht_master.innerBorderTop :where(table.htCore) > tbody > tr:first-child > th,
+.handsontable.htAutoRowSize .ht_master.innerBorderTop :where(table.htCore) > tbody > tr:first-child > td {
   border-top-width: 0;
 }
-.handsontable.htAutoRowSize .ht_master.innerBorderTop ~ .ht_clone_inline_start tbody tr:first-child th,
-.handsontable.htAutoRowSize .ht_master.innerBorderTop ~ .ht_clone_inline_start tbody tr:first-child td {
+.handsontable.htAutoRowSize .ht_master.innerBorderTop ~ .ht_clone_inline_start :where(table.htCore) > tbody > tr:first-child > th,
+.handsontable.htAutoRowSize .ht_master.innerBorderTop ~ .ht_clone_inline_start :where(table.htCore) > tbody > tr:first-child > td {
   border-top-width: 0;
 }
 .handsontable .ht_master table.htCore > thead,
@@ -453,11 +485,11 @@
   overflow: auto;
 }
 
-[dir=rtl].handsontable td[dir=ltr] {
+[dir=rtl].handsontable :where(table.htCore > tbody > tr, .htGhostTable > table > tbody > tr) > td[dir=ltr] {
   border-inline-end-width: 0;
   border-inline-start-width: 1px;
 }
-[dir=rtl].handsontable tbody tr td[dir=ltr]:last-child {
+[dir=rtl].handsontable :where(table.htCore, .htGhostTable > table) > tbody > tr > td[dir=ltr]:last-child {
   border-inline-start-color: var(--ht-border-color);
 }
 [dir=rtl].handsontable div[class^=ht_clone] tbody .ht__highlight .relative::after {
@@ -465,119 +497,184 @@
   left: -1px;
 }
 
-.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_master .htCore tbody tr:first-child td:first-child {
-  border-start-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper {
+  border-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_master .htCore tbody tr:first-child td:last-child {
-  border-start-end-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_master .htCore > tbody > tr:first-child > td:first-child {
+  border-start-start-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_clone_top_inline_start_corner .htCore tbody tr:first-child td:first-child {
-  border-start-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_master .htCore > tbody > tr:first-child > td:last-child {
+  border-start-end-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_clone_top .htCore tbody tr:first-child td:first-child {
-  border-start-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_clone_top_inline_start_corner .htCore > tbody > tr:first-child > td:first-child {
+  border-start-start-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_clone_top .htCore tbody tr:first-child td:last-child {
-  border-start-end-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_clone_top .htCore > tbody > tr:first-child > td:first-child {
+  border-start-start-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_clone_inline_start .htCore tbody tr:first-child th:first-child,
-.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_clone_inline_start .htCore tbody tr:first-child td:first-child {
-  border-start-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_clone_top .htCore > tbody > tr:first-child > td:last-child {
+  border-start-end-radius: var(--ht-border-radius);
+}
+.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_clone_inline_start .htCore > tbody > tr:first-child > th:first-child,
+.handsontable.ht-wrapper:not(.htColumnHeaders) .ht_clone_inline_start .htCore > tbody > tr:first-child > td:first-child {
+  border-start-start-radius: var(--ht-border-radius);
+}
+.handsontable.ht-wrapper .ht_master .wtHolder {
+  border-radius: var(--ht-border-radius);
 }
 .handsontable.ht-wrapper .ht_master .htCore {
-  border-radius: var(--ht-wrapper-border-radius);
+  border-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_master .htCore thead tr:first-child th:first-child {
-  border-start-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_master .htCore > thead > tr:first-child > th:first-child {
+  border-start-start-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_master .htCore thead tr:first-child th:last-child {
-  border-start-end-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_master .htCore > thead > tr:first-child > th:not(.hiddenHeader).htLastVisibleHeader {
+  border-start-end-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_master .htCore thead tr:last-child th:first-child {
-  border-end-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_master .htCore > thead > tr:last-child > th:first-child {
+  border-end-start-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_master .htCore thead tr:last-child th:last-child {
-  border-end-end-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_master .htCore > thead > tr:last-child > th:not(.hiddenHeader).htLastVisibleHeader {
+  border-end-end-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_master .htCore tbody tr:last-child td:first-child {
-  border-end-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_master .htCore > tbody > tr:last-child > td:first-child {
+  border-end-start-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_master .htCore tbody tr:last-child td:last-child {
-  border-end-end-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_master .htCore > tbody > tr:last-child > td:last-child {
+  border-end-end-radius: var(--ht-border-radius);
 }
 .handsontable.ht-wrapper .ht_clone_top_inline_start_corner .htCore {
-  border-start-start-radius: var(--ht-wrapper-border-radius);
+  border-start-start-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_clone_top_inline_start_corner .htCore thead tr:first-child th:first-child {
-  border-start-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_clone_top_inline_start_corner .htCore > thead > tr:first-child > th:first-child {
+  border-start-start-radius: var(--ht-border-radius);
 }
 .handsontable.ht-wrapper .ht_clone_top .htCore {
-  border-start-start-radius: var(--ht-wrapper-border-radius);
-  border-start-end-radius: var(--ht-wrapper-border-radius);
+  border-start-start-radius: var(--ht-border-radius);
+  border-start-end-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_clone_top .htCore thead tr:first-child th:first-child {
-  border-start-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_clone_top .htCore > thead > tr:first-child > th:first-child {
+  border-start-start-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_clone_top .htCore thead tr:first-child th:last-child {
-  border-start-end-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_clone_top .htCore > thead > tr:first-child > th:not(.hiddenHeader).htLastVisibleHeader {
+  border-start-end-radius: var(--ht-border-radius);
 }
 .handsontable.ht-wrapper .ht_clone_inline_start .htCore {
-  border-start-start-radius: var(--ht-wrapper-border-radius);
-  border-end-start-radius: var(--ht-wrapper-border-radius);
+  border-start-start-radius: var(--ht-border-radius);
+  border-end-start-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_clone_inline_start .htCore thead tr:first-child th:first-child {
-  border-start-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_clone_inline_start .htCore > thead > tr:first-child > th:first-child {
+  border-start-start-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_clone_inline_start .htCore tbody tr:last-child th:first-child,
-.handsontable.ht-wrapper .ht_clone_inline_start .htCore tbody tr:last-child td:first-child {
-  border-end-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_clone_inline_start .htCore > tbody > tr:last-child > th:first-child,
+.handsontable.ht-wrapper .ht_clone_inline_start .htCore > tbody > tr:last-child > td:first-child {
+  border-end-start-radius: var(--ht-border-radius);
 }
 .handsontable.ht-wrapper .ht_clone_bottom_inline_start_corner .htCore {
-  border-end-start-radius: var(--ht-wrapper-border-radius);
+  border-end-start-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_clone_bottom_inline_start_corner .htCore tr:last-child th:first-child,
-.handsontable.ht-wrapper .ht_clone_bottom_inline_start_corner .htCore tr:last-child td:first-child {
-  border-end-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_clone_bottom_inline_start_corner .htCore > :where(thead, tbody) > tr:last-child > th:first-child,
+.handsontable.ht-wrapper .ht_clone_bottom_inline_start_corner .htCore > :where(thead, tbody) > tr:last-child > td:first-child {
+  border-end-start-radius: var(--ht-border-radius);
 }
 .handsontable.ht-wrapper .ht_clone_bottom .htCore {
-  border-end-start-radius: var(--ht-wrapper-border-radius);
-  border-end-end-radius: var(--ht-wrapper-border-radius);
+  border-end-start-radius: var(--ht-border-radius);
+  border-end-end-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_clone_bottom .htCore tr:last-child th:first-child,
-.handsontable.ht-wrapper .ht_clone_bottom .htCore tr:last-child td:first-child {
-  border-end-start-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_clone_bottom .htCore > :where(thead, tbody) > tr:last-child > th:first-child,
+.handsontable.ht-wrapper .ht_clone_bottom .htCore > :where(thead, tbody) > tr:last-child > td:first-child {
+  border-end-start-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper .ht_clone_bottom .htCore tr:last-child th:last-child,
-.handsontable.ht-wrapper .ht_clone_bottom .htCore tr:last-child td:last-child {
-  border-end-end-radius: var(--ht-wrapper-border-radius);
+.handsontable.ht-wrapper .ht_clone_bottom .htCore > :where(thead, tbody) > tr:last-child > th:last-child,
+.handsontable.ht-wrapper .ht_clone_bottom .htCore > :where(thead, tbody) > tr:last-child > td:last-child {
+  border-end-end-radius: var(--ht-border-radius);
 }
-.handsontable.ht-wrapper.htHasScrollX .htCore {
+.handsontable.ht-wrapper.htHasScrollX:not(.htHorizontallyScrollableByWindow) .htCore {
   border-end-start-radius: 0;
   border-end-end-radius: 0;
 }
-.handsontable.ht-wrapper.htHasScrollX .htCore thead tr:last-child th:first-child,
-.handsontable.ht-wrapper.htHasScrollX .htCore tbody tr:last-child td:first-child,
-.handsontable.ht-wrapper.htHasScrollX .htCore tbody tr:last-child th:first-child {
-  border-end-start-radius: 0 !important;
+.handsontable.ht-wrapper.htHasScrollX:not(.htHorizontallyScrollableByWindow) .htCore > thead > tr:last-child > th:first-child,
+.handsontable.ht-wrapper.htHasScrollX:not(.htHorizontallyScrollableByWindow) .htCore > tbody > tr:last-child > td:first-child,
+.handsontable.ht-wrapper.htHasScrollX:not(.htHorizontallyScrollableByWindow) .htCore > tbody > tr:last-child > th:first-child {
+  border-end-start-radius: 0;
 }
-.handsontable.ht-wrapper.htHasScrollX .htCore thead tr:last-child th:last-child,
-.handsontable.ht-wrapper.htHasScrollX .htCore tbody tr:last-child td:last-child,
-.handsontable.ht-wrapper.htHasScrollX .htCore tbody tr:last-child th:last-child {
-  border-end-end-radius: 0 !important;
+.handsontable.ht-wrapper.htHasScrollX:not(.htHorizontallyScrollableByWindow) .htCore > thead > tr:last-child > th:not(.hiddenHeader).htLastVisibleHeader,
+.handsontable.ht-wrapper.htHasScrollX:not(.htHorizontallyScrollableByWindow) .htCore > tbody > tr:last-child > td:last-child,
+.handsontable.ht-wrapper.htHasScrollX:not(.htHorizontallyScrollableByWindow) .htCore > tbody > tr:last-child > th:last-child {
+  border-end-end-radius: 0;
 }
 .handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore {
   border-start-end-radius: 0;
   border-end-end-radius: 0;
 }
-.handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore thead tr:first-child th:last-child,
-.handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore tbody tr:first-child td:last-child,
-.handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore tbody tr:first-child th:last-child {
+.handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore > thead > tr:first-child > th:not(.hiddenHeader).htLastVisibleHeader,
+.handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore > tbody > tr:first-child > td:last-child,
+.handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore > tbody > tr:first-child > th:last-child {
+  border-start-end-radius: 0;
+}
+.handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore > thead > tr:last-child > th:not(.hiddenHeader).htLastVisibleHeader,
+.handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore > tbody > tr:last-child > td:last-child,
+.handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore > tbody > tr:last-child > th:last-child {
+  border-end-end-radius: 0;
+}
+
+.ht-root-wrapper {
+  border-radius: var(--ht-border-radius);
+}
+.ht-root-wrapper.ht-slot-bottom-filled .ht-wrapper,
+.ht-root-wrapper.ht-slot-bottom-filled .ht_master .wtHolder {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+.ht-root-wrapper.ht-slot-bottom-filled .htCore {
+  border-end-start-radius: 0 !important;
+  border-end-end-radius: 0 !important;
+}
+.ht-root-wrapper.ht-slot-bottom-filled .htCore > thead > tr:last-child > th:first-child,
+.ht-root-wrapper.ht-slot-bottom-filled .htCore > tbody > tr:last-child > td:first-child,
+.ht-root-wrapper.ht-slot-bottom-filled .htCore > tbody > tr:last-child > th:first-child {
+  border-end-start-radius: 0 !important;
+}
+.ht-root-wrapper.ht-slot-bottom-filled .htCore > thead > tr:last-child > th:not(.hiddenHeader).htLastVisibleHeader,
+.ht-root-wrapper.ht-slot-bottom-filled .htCore > tbody > tr:last-child > td:last-child,
+.ht-root-wrapper.ht-slot-bottom-filled .htCore > tbody > tr:last-child > th:last-child {
+  border-end-end-radius: 0 !important;
+}
+.ht-root-wrapper.ht-slot-top-filled .ht-wrapper,
+.ht-root-wrapper.ht-slot-top-filled .ht_master .wtHolder {
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+}
+.ht-root-wrapper.ht-slot-top-filled .htCore {
+  border-start-start-radius: 0 !important;
   border-start-end-radius: 0 !important;
 }
-.handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore thead tr:last-child th:last-child,
-.handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore tbody tr:last-child td:last-child,
-.handsontable.ht-wrapper.htHasScrollY:not(.htVerticallyScrollableByWindow) .htCore tbody tr:last-child th:last-child {
-  border-end-end-radius: 0 !important;
+.ht-root-wrapper.ht-slot-top-filled .htCore > thead > tr:first-child > th:first-child,
+.ht-root-wrapper.ht-slot-top-filled .htCore > tbody > tr:first-child > td:first-child,
+.ht-root-wrapper.ht-slot-top-filled .htCore > tbody > tr:first-child > th:first-child {
+  border-start-start-radius: 0 !important;
+}
+.ht-root-wrapper.ht-slot-top-filled .htCore > thead > tr:first-child > th:not(.hiddenHeader).htLastVisibleHeader,
+.ht-root-wrapper.ht-slot-top-filled .htCore > tbody > tr:first-child > td:last-child,
+.ht-root-wrapper.ht-slot-top-filled .htCore > tbody > tr:first-child > th:last-child {
+  border-start-end-radius: 0 !important;
+}
+.ht-root-wrapper .ht-slot-element {
+  border-radius: var(--ht-border-radius);
+}
+.ht-root-wrapper .ht-slot-bottom > .ht-slot-element:not(:last-of-type) {
+  border-radius: 0;
+}
+.ht-root-wrapper .ht-slot-bottom > .ht-slot-element:last-of-type {
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+}
+.ht-root-wrapper .ht-slot-top > .ht-slot-element:not(:first-of-type) {
+  border-radius: 0;
+}
+.ht-root-wrapper .ht-slot-top > .ht-slot-element:first-of-type {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
 }
 
 .handsontable.mobile {
@@ -747,6 +844,71 @@
 .handsontable td.area {
   border-color: color-mix(in srgb, var(--ht-border-color), var(--ht-foreground-color) 10%);
 }
+.handsontable .wtSelectionHandle {
+  position: absolute;
+  box-sizing: border-box;
+  z-index: 115;
+  background: var(--ht-cell-selection-handle-background-color);
+  border: var(--ht-cell-selection-handle-border-width) solid var(--ht-cell-selection-handle-border-color);
+  border-radius: var(--ht-cell-selection-handle-border-radius);
+  animation: ht-selection-handle-fade-in var(--ht-table-transition) ease-in-out backwards;
+}
+.handsontable .wtSelectionHandle:hover {
+  background: color-mix(in srgb, var(--ht-cell-selection-handle-border-color) 30%, var(--ht-cell-selection-handle-background-color));
+}
+@media (prefers-reduced-motion: reduce) {
+  .handsontable .wtSelectionHandle {
+    animation: none;
+  }
+}
+.handsontable .wtSelectionHandle--top,
+.handsontable .wtSelectionHandle--bottom {
+  width: var(--ht-cell-selection-handle-length);
+  height: var(--ht-cell-selection-handle-size);
+  cursor: ns-resize;
+}
+.handsontable .wtSelectionHandle--start,
+.handsontable .wtSelectionHandle--end {
+  width: var(--ht-cell-selection-handle-size);
+  height: var(--ht-cell-selection-handle-length);
+  cursor: ew-resize;
+}
+.handsontable.ht__resizing-selection--top .wtSelectionHandle:not(.wtSelectionHandle--top), .handsontable.ht__resizing-selection--bottom .wtSelectionHandle:not(.wtSelectionHandle--bottom), .handsontable.ht__resizing-selection--start .wtSelectionHandle:not(.wtSelectionHandle--start), .handsontable.ht__resizing-selection--end .wtSelectionHandle:not(.wtSelectionHandle--end) {
+  display: none !important;
+}
+.handsontable.ht__resizing-selection--top,
+.handsontable.ht__resizing-selection--top *, .handsontable.ht__resizing-selection--bottom,
+.handsontable.ht__resizing-selection--bottom * {
+  cursor: ns-resize !important;
+}
+.handsontable.ht__resizing-selection--start,
+.handsontable.ht__resizing-selection--start *, .handsontable.ht__resizing-selection--end,
+.handsontable.ht__resizing-selection--end * {
+  cursor: ew-resize !important;
+}
+.handsontable.ht__resizing-selection--top .wtSelectionHandle--top, .handsontable.ht__resizing-selection--bottom .wtSelectionHandle--bottom, .handsontable.ht__resizing-selection--start .wtSelectionHandle--start, .handsontable.ht__resizing-selection--end .wtSelectionHandle--end {
+  background: color-mix(in srgb, var(--ht-cell-selection-handle-border-color) 30%, var(--ht-cell-selection-handle-background-color));
+}
+.handsontable .wtMoveZone {
+  cursor: grab;
+}
+.handsontable .wtMoveZone:active {
+  cursor: grabbing;
+}
+.handsontable.ht__moving {
+  cursor: grabbing;
+}
+.handsontable.ht__moving * {
+  cursor: grabbing !important;
+}
+.handsontable.ht__moving .wtBorder.area,
+.handsontable.ht__moving .wtBorder.current {
+  display: none !important;
+}
+.handsontable.ht__moving .wtSelectionHandle,
+.handsontable.ht__moving .wtMoveZone {
+  visibility: hidden !important;
+}
 .handsontable .wtBorder {
   position: absolute;
   font-size: 0;
@@ -778,7 +940,7 @@
   border-color: var(--ht-cell-autofill-border-color) !important;
   font-size: 0;
   cursor: crosshair;
-  z-index: 10;
+  z-index: 110;
 }
 .handsontable .wtBorder.corner::after {
   content: "";
@@ -794,6 +956,14 @@
   inset-block-end: 0;
 }
 
+@keyframes ht-selection-handle-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .hot-display-license-info {
   font-family: var(--ht-font-family), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   padding: var(--ht-license-vertical-padding, 16px) var(--ht-license-horizontal-padding, 16px);
@@ -802,9 +972,7 @@
   color: var(--ht-license-foreground-color);
   background-color: var(--ht-license-background-color, #f7f7f9);
   text-align: left;
-  border: 1px solid var(--ht-border-color, #f7f7f9);
-  margin-top: 10px;
-  border-radius: var(--ht-wrapper-border-radius);
+  min-width: 300px;
 }
 .hot-display-license-info a {
   font-size: var(--ht-license-font-size);
@@ -812,6 +980,200 @@
 }
 .hot-display-license-info a:hover {
   color: var(--ht-link-hover-color);
+}
+
+.ht-license-badge-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1050;
+  pointer-events: none;
+}
+
+.ht-license-badge-on .ht-license-badge-corner thead tr:first-child th:first-child::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  inset-inline-start: clamp(0px, 100% - var(--ht-license-badge-size, 16px), 6px);
+  inline-size: min(var(--ht-license-badge-size, 16px), 100%);
+  block-size: min(var(--ht-license-badge-size, 16px), 100%);
+  background-color: var(--ht-license-badge-color, var(--ht-disabled-color, #a3a3a3));
+  pointer-events: none;
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width=%2714.8626%27 height=%2716%27 viewBox=%270 0 14.8626 16%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0 0H3.28665V4.35577H7.03576V0H10.306V11.407H7.03576V6.90834H3.28665V11.407H0V0Z%27 fill=%27%23000%27/%3E%3Cpath d=%27M11.0991 12.236H14.8633V16.0001H11.0991V12.236Z%27 fill=%27%23000%27/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width=%2714.8626%27 height=%2716%27 viewBox=%270 0 14.8626 16%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0 0H3.28665V4.35577H7.03576V0H10.306V11.407H7.03576V6.90834H3.28665V11.407H0V0Z%27 fill=%27%23000%27/%3E%3Cpath d=%27M11.0991 12.236H14.8633V16.0001H11.0991V12.236Z%27 fill=%27%23000%27/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.ht-license-badge-on .ht-license-badge-corner thead tr:first-child th:first-child:hover::after {
+  background-color: var(--ht-license-badge-hover-color, var(--ht-read-only-color, #68696c));
+}
+
+[dir=rtl] .ht-license-badge-on .ht-license-badge-corner thead tr:first-child th:first-child::after {
+  inset-inline-start: 0;
+  inset-inline-end: clamp(0px, 100% - var(--ht-license-badge-size, 16px), 6px);
+}
+
+.ht-license-badge {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  background: transparent;
+  color: transparent;
+}
+
+.ht-license-popover {
+  font-family: var(--ht-font-family), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: var(--ht-license-badge-area-width, 50px);
+  inset-inline-end: 0;
+  z-index: 1051;
+  display: none;
+  flex-direction: column;
+  inline-size: auto;
+  max-inline-size: min(var(--ht-license-popover-width, 320px), 100vw - 32px);
+  max-block-size: 100%;
+  overflow: visible;
+  padding: 16px;
+  border-radius: var(--ht-border-radius, 8px);
+  border-start-start-radius: 0;
+  background-color: var(--ht-license-popover-background-color, #16171a);
+  color: var(--ht-license-popover-foreground-color, #fff);
+  font-size: var(--ht-font-size-small, 12px);
+  line-height: var(--ht-line-height-small, 18px);
+  text-align: start;
+  pointer-events: auto;
+  box-shadow: var(--ht-shadow-x, 0) var(--ht-shadow-y, 0) var(--ht-shadow-blur, 8px) color-mix(in srgb, var(--ht-shadow-color, rgb(0, 0, 0)) var(--ht-shadow-opacity, 100%), transparent);
+}
+.ht-license-popover::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 100%;
+  inline-size: 0;
+  block-size: 0;
+  border-block-start: var(--ht-license-popover-tail-size, 5px) solid var(--ht-license-popover-background-color, #16171a);
+  border-inline-start: var(--ht-license-popover-tail-size, 5px) solid transparent;
+}
+
+.ht-license-popover__content {
+  min-block-size: 0;
+  overflow-y: auto;
+}
+
+.ht-license-badge-wrapper.is-corner-hover:not(.is-dismissed) .ht-license-popover,
+.ht-license-badge-wrapper:not(.is-dismissed):hover .ht-license-popover,
+.ht-license-popover.is-open {
+  display: flex;
+}
+
+.ht-license-badge-wrapper.is-cornerless .ht-license-badge {
+  display: none;
+}
+.ht-license-badge-wrapper.is-cornerless .ht-license-popover {
+  inset-inline-start: 0;
+  border-start-start-radius: var(--ht-border-radius, 8px);
+}
+.ht-license-badge-wrapper.is-cornerless .ht-license-popover::before {
+  display: none;
+}
+
+.ht-license-popover__title {
+  margin-block-end: 8px;
+  padding-inline-end: 16px;
+  font-weight: bold;
+}
+
+.ht-license-popover__body {
+  margin: 0 0 12px;
+  color: var(--ht-license-popover-body-color, #d5d6d8);
+}
+
+.ht-license-popover__link {
+  color: var(--ht-license-popover-link-color, #3ba0ff);
+  text-decoration: none;
+}
+.ht-license-popover__link:hover {
+  text-decoration: underline;
+}
+
+.ht-license-popover__close {
+  position: absolute;
+  inset-block-start: 12px;
+  inset-inline-end: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 20px;
+  block-size: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  line-height: 1;
+}
+.ht-license-popover__close::before {
+  content: "✕";
+  font-size: 14px;
+}
+
+.ht-dialog.ht-license-lock {
+  z-index: 1070;
+}
+.ht-dialog.ht-license-lock::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: calc(var(--ht-line-height, 20px) + var(--ht-density-cell-vertical, 4px) * 2);
+  background-color: var(--ht-header-background-color);
+  border-block-end: 1px solid var(--ht-cell-horizontal-border-color, var(--ht-border-color));
+}
+.ht-dialog.ht-license-lock::after {
+  content: "";
+  position: absolute;
+  inset-block-start: calc(var(--ht-density-cell-vertical, 4px) + (var(--ht-line-height, 20px) - var(--ht-license-badge-size, 16px)) / 2);
+  inset-inline-start: var(--ht-cell-horizontal-padding, 8px);
+  inline-size: var(--ht-license-badge-size, 16px);
+  block-size: var(--ht-license-badge-size, 16px);
+  background-color: var(--ht-license-badge-color, var(--ht-disabled-color, #a3a3a3));
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width=%2714.8626%27 height=%2716%27 viewBox=%270 0 14.8626 16%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0 0H3.28665V4.35577H7.03576V0H10.306V11.407H7.03576V6.90834H3.28665V11.407H0V0Z%27 fill=%27%23000%27/%3E%3Cpath d=%27M11.0991 12.236H14.8633V16.0001H11.0991V12.236Z%27 fill=%27%23000%27/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width=%2714.8626%27 height=%2716%27 viewBox=%270 0 14.8626 16%27 fill=%27none%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath d=%27M0 0H3.28665V4.35577H7.03576V0H10.306V11.407H7.03576V6.90834H3.28665V11.407H0V0Z%27 fill=%27%23000%27/%3E%3Cpath d=%27M11.0991 12.236H14.8633V16.0001H11.0991V12.236Z%27 fill=%27%23000%27/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+.ht-dialog.ht-license-lock .ht-dialog__content-wrapper {
+  padding-block-start: calc(var(--ht-line-height, 20px) + var(--ht-density-cell-vertical, 4px) * 2);
+}
+.ht-dialog.ht-license-lock .ht-dialog__content-wrapper-inner,
+.ht-dialog.ht-license-lock .ht-dialog__content {
+  min-inline-size: 0;
+}
+.ht-dialog.ht-license-lock a.ht-button {
+  display: inline-block;
+  text-decoration: none;
+}
+.ht-dialog.ht-license-lock .ht-dialog__title,
+.ht-dialog.ht-license-lock .ht-dialog__description {
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .handsontable .htAutocompleteArrow {
@@ -1220,123 +1582,6 @@
 
 [dir=rtl].handsontable.listbox table thead th {
   text-align: right;
-}
-
-.pika-single {
-  font-family: var(--ht-font-family), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  box-shadow: var(--ht-menu-shadow-x, 0) var(--ht-menu-shadow-y, 0) var(--ht-menu-shadow-blur, 8px) color-mix(in srgb, var(--ht-menu-shadow-color, rgb(0, 0, 0)) var(--ht-menu-shadow-opacity, 100%), transparent);
-  position: relative;
-  display: block;
-  padding: 10px;
-  font-size: var(--ht-font-size);
-  line-height: var(--ht-line-height);
-  font-weight: var(--ht-font-weight);
-  color: var(--ht-foreground-color);
-  background: var(--ht-background-color, #ffffff);
-  border: var(--ht-menu-border-width, 1px) solid var(--ht-menu-border-color, #e5e5e9);
-  border-radius: var(--ht-menu-border-radius);
-  z-index: 9999;
-}
-.pika-single.is-hidden {
-  display: none;
-}
-.pika-single .pika-row {
-  background-color: transparent;
-}
-.pika-single .pika-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.pika-single .pika-label {
-  position: relative;
-  order: 2;
-  padding: 5px;
-  color: var(--ht-accent-color);
-}
-.pika-single .pika-label .pika-select {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-.pika-single .pika-prev,
-.pika-single .pika-next {
-  width: 20px;
-  height: 20px;
-  white-space: nowrap;
-  text-indent: -9999px;
-  cursor: pointer;
-  color: var(--ht-accent-color);
-  background: none;
-  border: none;
-  padding: 0;
-}
-.pika-single .pika-prev {
-  order: 1;
-  margin-right: auto;
-}
-.pika-single .pika-next {
-  order: 3;
-  margin-left: auto;
-}
-.pika-single .pika-table thead {
-  height: 50px;
-}
-.pika-single .pika-table th {
-  padding: 1px;
-  vertical-align: middle;
-}
-.pika-single .pika-table th abbr {
-  text-decoration: none;
-  font-weight: normal;
-  border: none;
-  cursor: initial;
-}
-.pika-single .pika-table td {
-  padding: 1px;
-  vertical-align: middle;
-}
-.pika-single .pika-table td.is-disabled .pika-button {
-  pointer-events: none;
-  opacity: 0.5;
-}
-.pika-single .pika-table td.is-today .pika-button {
-  background: color-mix(in srgb, var(--ht-menu-item-hover-color) var(--ht-menu-item-hover-color-opacity, 100%), transparent);
-}
-.pika-single .pika-table td.is-selected .pika-button {
-  background: var(--ht-accent-color, #1a42e8);
-  color: var(--ht-primary-button-foreground-color, #ffffff);
-}
-.pika-single .pika-table td.pika-week {
-  width: 12.5%;
-  text-align: center;
-}
-.pika-single .pika-table .pika-button {
-  width: 100%;
-  aspect-ratio: 1/1;
-  background: transparent;
-  color: var(--ht-foreground-color);
-  border: none;
-  border-radius: var(--ht-button-border-radius);
-  margin: 0;
-  padding: 10px;
-  cursor: pointer;
-  font-size: inherit;
-}
-.pika-single .pika-table .pika-button:hover {
-  background: color-mix(in srgb, var(--ht-menu-item-hover-color) var(--ht-menu-item-hover-color-opacity, 100%), transparent);
-}
-
-[dir=rtl].htDatepickerHolder .pika-single .pika-next {
-  transform: rotate(180deg);
-  margin-left: 0;
-  margin-right: auto;
-}
-[dir=rtl].htDatepickerHolder .pika-single .pika-prev {
-  transform: rotate(180deg);
-  margin-left: auto;
-  margin-right: 0;
 }
 
 .handsontableEditor {
@@ -1889,10 +2134,10 @@
   border-inline-start-color: var(--ht-header-active-border-color);
   z-index: 1;
 }
-.handsontable.htRowHeaders.htHasRowspanHeaders thead tr:last-child th:first-child {
+.handsontable.htRowHeaders.htHasRowspanHeaders :where(table.htCore) > thead > tr:last-child > th:first-child {
   border-end-start-radius: 0;
 }
-.handsontable.htHasRowspanHeaders .ht_clone_inline_start .htCore tbody tr:first-child th:first-child {
+.handsontable.htHasRowspanHeaders .ht_clone_inline_start .htCore > tbody > tr:first-child > th:first-child {
   border-start-start-radius: 0;
 }
 .handsontable .ht_master:not(.innerBorderTop):not(.innerBorderBottom) thead th.htRowspanBottomLevel, .handsontable .ht_master:not(.innerBorderTop):not(.innerBorderBottom) ~ .handsontable thead th.htRowspanBottomLevel {
@@ -2213,6 +2458,7 @@
   overflow-y: scroll !important;
   background: transparent;
   border-radius: 0 !important;
+  box-shadow: none !important;
 }
 .handsontable .htUIMultipleSelect .ht_master .wtHolder .htCore {
   box-shadow: none;
@@ -2274,6 +2520,7 @@
   --ht-cell-horizontal-padding: calc(
           var(--ht-menu-item-horizontal-padding, 2px) +
           var(--ht-gap-size, 2px) * 2);
+  --ht-cell-vertical-padding: 4px;
   overflow: initial !important;
   width: calc(100% + var(--ht-menu-item-horizontal-padding, 2px) * 2 + var(--ht-gap-size, 2px) * 4);
   margin: 0 calc((var(--ht-menu-item-horizontal-padding, 2px) + var(--ht-gap-size, 2px) * 2) * -1);
@@ -2298,7 +2545,7 @@
 }
 .handsontable .htUIMultipleSelectHot .wtHolder td {
   height: auto !important;
-  padding: 4px var(--ht-cell-horizontal-padding);
+  padding: var(--ht-cell-vertical-padding) var(--ht-cell-horizontal-padding);
 }
 .handsontable .htUIClearAll,
 .handsontable .htUISelectAll {
@@ -2337,6 +2584,14 @@
 .handsontable .htUIInput.htUIButtonOK {
   margin-inline-start: 0;
   margin-inline-end: calc(2 * var(--ht-gap-size, 2px));
+}
+
+.handsontable td a.ht-hyperlink {
+  color: var(--ht-link-color);
+  text-decoration: underline;
+}
+.handsontable td a.ht-hyperlink:hover {
+  color: var(--ht-link-hover-color);
 }
 
 .handsontable .htCommentCell {
@@ -2400,11 +2655,55 @@
   background-repeat: repeat-y;
 }
 
+.handsontable .colHeader.columnSorting.sortAction {
+  box-sizing: border-box;
+  flex-grow: 0;
+  margin-inline: auto;
+  min-width: min(var(--ht-icon-size, 16px) + 8px, 100%);
+  max-width: 100%;
+  position: static;
+}
+.handsontable .colHeader.columnSorting.sortAction::before, .handsontable .colHeader.columnSorting.sortAction::after {
+  margin-inline: var(--ht-sort-indicator-offset);
+  margin-inline-end: var(--ht-sort-indicator-offset-end);
+}
+.handsontable .htLeft .colHeader.columnSorting.sortAction {
+  margin-left: 0;
+  margin-right: auto;
+}
+.handsontable .htRight .colHeader.columnSorting.sortAction {
+  margin-left: auto;
+  margin-right: 0;
+}
+.handsontable th .relative {
+  --ht-sort-indicator-offset: var(--ht-cell-horizontal-padding);
+  --ht-sort-indicator-offset-end: var(--ht-cell-horizontal-padding);
+  --ht-sort-indicator-reserve: var(--ht-cell-horizontal-padding);
+  --ht-sort-indicator-reserve-end: var(--ht-sort-indicator-reserve);
+  --ht-header-button-slot: calc(var(--ht-icon-size, 16px) + 2px);
+}
+.handsontable .relative.has-header-button {
+  --ht-sort-indicator-offset-end: calc(
+    var(--ht-cell-horizontal-padding) + var(--ht-icon-size, 16px) +
+    (var(--ht-icon-button-hit-area-size, 24px) - var(--ht-icon-size, 16px)) * 0.5
+  );
+  --ht-sort-indicator-reserve-end: var(--ht-cell-horizontal-padding);
+}
+.handsontable .relative.has-sort-indicator.has-header-button {
+  column-gap: calc(2px + var(--ht-header-button-slot));
+}
+.handsontable .relative.has-sort-indicator {
+  --ht-sort-indicator-reserve: calc(var(--ht-cell-horizontal-padding) + var(--ht-icon-size, 16px) + 2px);
+  padding-inline-end: var(--ht-sort-indicator-reserve-end);
+}
+.handsontable .relative.htRight.has-sort-indicator,
+.handsontable .htRight .relative.has-sort-indicator {
+  padding-inline-start: var(--ht-sort-indicator-reserve);
+  padding-inline-end: var(--ht-cell-horizontal-padding);
+  --ht-header-button-slot: 0px;
+}
 .handsontable .columnSorting:not(.indicatorDisabled) {
   position: relative;
-}
-.handsontable .columnSorting:not(.indicatorDisabled).sortAction.ascending, .handsontable .columnSorting:not(.indicatorDisabled).sortAction.descending {
-  padding-inline-end: calc(var(--ht-icon-size, 16px) + 2px);
 }
 .handsontable .columnSorting:not(.indicatorDisabled).sortAction:hover {
   text-decoration: none;
@@ -2420,33 +2719,44 @@
   transform: translateY(-50%);
   text-align: right;
 }
-.handsontable .htRight .columnSorting.sortAction.ascending, .handsontable .htRight .columnSorting.sortAction.descending {
-  padding-inline-start: calc(var(--ht-icon-size, 16px) + 2px);
-  padding-inline-end: 0;
-}
 .handsontable .htRight .columnSorting.sortAction::before {
   left: 2px;
   right: auto;
   text-align: left;
 }
 
+[dir=rtl] .handsontable .relative.htRight.has-sort-indicator,
+[dir=rtl] .handsontable .htRight .relative.has-sort-indicator {
+  padding-inline-start: var(--ht-cell-horizontal-padding);
+  padding-inline-end: var(--ht-sort-indicator-reserve-end);
+  --ht-header-button-slot: calc(var(--ht-icon-size, 16px) + 2px);
+}
+[dir=rtl] .handsontable .relative.htLeft.has-sort-indicator,
+[dir=rtl] .handsontable .htLeft .relative.has-sort-indicator {
+  padding-inline-start: var(--ht-sort-indicator-reserve);
+  padding-inline-end: var(--ht-cell-horizontal-padding);
+  --ht-header-button-slot: 0px;
+}
 [dir=rtl] .handsontable .columnSorting.sortAction::before {
   left: 2px;
   right: auto;
   text-align: left;
 }
-[dir=rtl] .handsontable .htRight .columnSorting.sortAction.ascending, [dir=rtl] .handsontable .htRight .columnSorting.sortAction.descending {
-  padding-inline-start: 0;
-  padding-inline-end: calc(var(--ht-icon-size, 16px) + 2px);
-}
-[dir=rtl] .handsontable .htLeft .columnSorting.sortAction.ascending, [dir=rtl] .handsontable .htLeft .columnSorting.sortAction.descending {
-  padding-inline-start: calc(var(--ht-icon-size, 16px) + 2px);
-  padding-inline-end: 0;
-}
 [dir=rtl] .handsontable .htLeft .columnSorting.sortAction::before {
   left: auto;
   right: 2px;
   text-align: right;
+}
+
+.htGhostTable .htCore .relative {
+  --ht-sort-indicator-offset: 0px;
+  --ht-sort-indicator-offset-end: 0px;
+  --ht-header-button-slot: 0px;
+}
+
+.htGhostTable .htCore .relative.has-header-button {
+  --ht-sort-indicator-reserve: var(--ht-cell-horizontal-padding);
+  --ht-sort-indicator-reserve-end: var(--ht-cell-horizontal-padding);
 }
 
 .htGhostTable .htCore span.colHeader.columnSorting:not(.indicatorDisabled)::before {
@@ -2515,7 +2825,7 @@
   padding-inline-end: var(--ht-gap-size);
 }
 
-.handsontable .htRowHeaders .ht_master.innerBorderInlineStart ~ .ht_clone_top_inline_start_corner th:nth-child(2), .handsontable .htRowHeaders .ht_master.innerBorderInlineStart ~ .ht_clone_inline_start td:first-of-type {
+.handsontable .htRowHeaders .ht_master.innerBorderInlineStart ~ .ht_clone_top_inline_start_corner :where(table.htCore > thead > tr) > th:nth-child(2), .handsontable .htRowHeaders .ht_master.innerBorderInlineStart ~ .ht_clone_inline_start :where(table.htCore > tbody > tr) > td:first-of-type {
   border-left: 0 none;
 }
 .handsontable .ht_clone_top_inline_start_corner th.ht__active_highlight {
@@ -2657,7 +2967,7 @@
 .handsontable .wtHider {
   position: relative;
 }
-.handsontable .ht__manualColumnMove.after-selection--columns thead th.ht__highlight, .handsontable.ht__manualColumnMove.after-selection--columns thead th.ht__highlight {
+.handsontable .ht__manualColumnMove.after-selection--columns thead th.ht__highlight, .handsontable .ht__manualColumnMove.after-selection--columns thead th.ht__active_highlight, .handsontable.ht__manualColumnMove.after-selection--columns thead th.ht__highlight, .handsontable.ht__manualColumnMove.after-selection--columns thead th.ht__active_highlight {
   cursor: move;
   cursor: -moz-grab;
   cursor: -webkit-grab;
@@ -2756,7 +3066,7 @@
   z-index: 1060;
   opacity: 0;
   overflow-y: auto;
-  border-radius: var(--ht-wrapper-border-radius);
+  border-radius: var(--ht-border-radius);
   border: 1px solid var(--ht-border-color);
   box-sizing: border-box !important;
 }
@@ -2794,7 +3104,7 @@
   width: 100%;
   min-height: 100%;
   padding: calc(var(--ht-gap-size) * 4);
-  border-radius: var(--ht-wrapper-border-radius);
+  border-radius: var(--ht-border-radius);
 }
 .ht-dialog__content {
   position: relative;
@@ -2818,7 +3128,7 @@
   justify-content: center;
   max-width: 480px;
   padding: calc(var(--ht-gap-size) * 2);
-  border-radius: var(--ht-wrapper-border-radius);
+  border-radius: var(--ht-border-radius);
 }
 .ht-dialog--confirm .ht-dialog__content-wrapper-inner--background {
   box-shadow: var(--ht-shadow-x, 0) var(--ht-shadow-y, 0) var(--ht-shadow-blur, 8px) color-mix(in srgb, var(--ht-shadow-color, rgb(0, 0, 0)) var(--ht-shadow-opacity, 100%), transparent);
@@ -2917,7 +3227,7 @@
   color: var(--ht-notification-foreground-color, var(--ht-foreground-color));
   background-color: var(--ht-notification-background-color, var(--ht-background-color));
   border: 1px solid var(--ht-notification-border-color, var(--ht-border-color));
-  border-radius: var(--ht-wrapper-border-radius, 4px);
+  border-radius: var(--ht-border-radius, 4px);
   font-size: var(--ht-font-size);
   line-height: var(--ht-line-height);
   letter-spacing: var(--ht-letter-spacing);
@@ -3002,7 +3312,7 @@
   background: transparent;
   color: var(--ht-icon-button-icon-color, inherit);
   cursor: pointer;
-  border-radius: var(--ht-icon-button-border-radius, var(--ht-wrapper-border-radius, 4px));
+  border-radius: var(--ht-icon-button-border-radius, var(--ht-border-radius, 4px));
   flex-shrink: 0;
   overflow: visible;
 }
@@ -3025,18 +3335,17 @@
 }
 
 .handsontable.ht-pagination {
+  width: 100%;
   color: var(--ht-pagination-bar-foreground-color);
   background: var(--ht-pagination-bar-background-color);
-  border: 1px solid var(--ht-wrapper-border-color);
-  border-top-color: transparent;
-  border-radius: 0 0 var(--ht-wrapper-border-radius) var(--ht-wrapper-border-radius);
   font-size: var(--ht-font-size);
   line-height: var(--ht-line-height);
   box-sizing: border-box;
   overflow-x: auto;
 }
-.handsontable.ht-pagination--bordered {
-  border-top-color: var(--ht-wrapper-border-color);
+.handsontable.ht-pagination:not(.ht-slot-element) {
+  border: 1px solid var(--ht-border-color);
+  border-radius: var(--ht-border-radius);
 }
 .handsontable.ht-pagination .ht-pagination__inner {
   display: flex;
@@ -3044,7 +3353,6 @@
   align-items: center;
   flex-wrap: wrap;
   gap: calc(var(--ht-gap-size) * 4);
-  border-radius: 0 0 var(--ht-wrapper-border-radius) var(--ht-wrapper-border-radius);
   padding-inline: var(--ht-pagination-bar-horizontal-padding);
   padding-block: var(--ht-pagination-bar-vertical-padding);
   min-width: 230px;
@@ -3147,24 +3455,6 @@
   min-width: 100px;
   text-align: center;
 }
-.handsontable.ht-wrapper.htPagination {
-  border-end-start-radius: 0;
-  border-end-end-radius: 0;
-}
-.handsontable.ht-wrapper.htPagination .htCore {
-  border-end-start-radius: 0;
-  border-end-end-radius: 0;
-}
-.handsontable.ht-wrapper.htPagination .htCore thead tr:last-child th:first-child,
-.handsontable.ht-wrapper.htPagination .htCore tbody tr:last-child td:first-child,
-.handsontable.ht-wrapper.htPagination .htCore tbody tr:last-child th:first-child {
-  border-end-start-radius: 0 !important;
-}
-.handsontable.ht-wrapper.htPagination .htCore thead tr:last-child th:last-child,
-.handsontable.ht-wrapper.htPagination .htCore tbody tr:last-child td:last-child,
-.handsontable.ht-wrapper.htPagination .htCore tbody tr:last-child th:last-child {
-  border-end-end-radius: 0 !important;
-}
 
 .ht-loading__icon-svg {
   display: block;
@@ -3208,7 +3498,7 @@
   z-index: 999;
   overflow-y: auto;
   border: 1px solid var(--ht-border-color);
-  border-radius: var(--ht-wrapper-border-radius);
+  border-radius: var(--ht-border-radius);
   box-sizing: border-box;
   background-color: var(--ht-background-color);
 }
@@ -3223,7 +3513,7 @@
   width: 100%;
   min-height: 100%;
   padding: calc(var(--ht-gap-size) * 2);
-  border-radius: var(--ht-wrapper-border-radius);
+  border-radius: var(--ht-border-radius);
 }
 .ht-empty-data-state__content-wrapper-inner {
   display: flex;
@@ -3232,7 +3522,7 @@
   justify-content: center;
   max-width: 480px;
   padding: calc(var(--ht-gap-size) * 2);
-  border-radius: var(--ht-wrapper-border-radius);
+  border-radius: var(--ht-border-radius);
 }
 .ht-empty-data-state__content-wrapper-inner:focus {
   outline: none;
@@ -3297,10 +3587,15 @@
   border-end-start-radius: 0;
   border-inline-start-width: 0;
 }
-.ht-empty-data-state--disable-bottom-border, .ht-empty-data-state:has(~ .ht-pagination) {
+.ht-empty-data-state--disable-bottom-border {
   border-end-start-radius: 0;
   border-end-end-radius: 0;
   border-bottom-width: 0;
+}
+
+.ht-root-wrapper.ht-slot-bottom-filled .ht-empty-data-state {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
 }
 
 @keyframes ht-empty-data-state-spin {
