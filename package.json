@@ -112,7 +112,7 @@
     "@excalidraw/excalidraw": "^0.18.1",
     "@floating-ui/react": "^0.27.20",
     "@handsontable/react-wrapper": "^17.1.0",
-    "@hookform/resolvers": "^5.9.2",
+    "@hookform/resolvers": "^6.0.2",
     "@juki-team/commons": "0.1.41",
     "@mdx-js/mdx": "^3.1.1",
     "@milkdown/components": "^7.23.0",
