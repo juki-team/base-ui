@@ -1,3 +1,9 @@
 @use "base";
 @use "components";
+// light & critical vendor styles (math in statements, code viewer): loaded eagerly,
+// the heavy ones stay in vendor/index.scss (vendor-styles.scss), which consumers load lazily
+// katex stays as a plain css @import (not inlined) so its url(fonts/...) resolve next to katex.min.css,
+// the path is relative to this entry file
+@use "vendor/highlight.js" as vendor-highlight;
+@import "../vendor/katex/dist/katex.min.css";
 //@use "libs";
