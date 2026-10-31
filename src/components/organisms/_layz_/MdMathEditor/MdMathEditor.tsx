@@ -185,7 +185,20 @@ const MdMathEditor = forwardRef<MdMathEditorHandle, MdMathEditorProps>(function 
 
   return (
     <MilkdownProvider>
-      <div ref={wrapperRef} className={classNames('jk-md-math-editor wh-100 pn-re', className)} onBlur={onBlur}>
+      <div
+        ref={wrapperRef}
+        className={classNames('jk-md-math-editor wh-100 pn-re', className)}
+        onBlur={(event) => {
+          // only when focus moves to an element outside the editor (e.g. Tab out).
+          // focus moving between inner elements (e.g. the inline LaTeX tooltip editor) is not a blur of the editor,
+          // and a null relatedTarget (click on a non-focusable inner element, window blur) is not either:
+          // clicks outside are handled by the mousedown listener above
+          const nextFocused = event.relatedTarget as Node | null;
+          if (nextFocused && !event.currentTarget.contains(nextFocused)) {
+            onBlur?.();
+          }
+        }}
+      >
         {!!onBlur && <Focus />}
         {loader === Status.LOADING && <LineLoader />}
         {loader === Status.LOADING && (
