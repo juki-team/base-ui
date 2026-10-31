@@ -88,7 +88,7 @@
     "check:circular-deps-graph": "npx madge --circular ./dist/* --image deps.png"
   },
   "dependencies": {
-    "@ai-sdk/react": "^3.0.323",
+    "@ai-sdk/react": "^4.0.163",
     "@codemirror/autocomplete": "^6.20.4",
     "@codemirror/commands": "^6.11.1",
     "@codemirror/lang-cpp": "^6.0.3",
@@ -125,7 +125,7 @@
     "@tanstack/react-virtual": "^3.14.24",
     "@viz-js/lang-dot": "^1.0.5",
     "@viz-js/viz": "^3.31.0",
-    "ai": "^6.0.320",
+    "ai": "^7.0.159",
     "codemirror": "^6.0.2",
     "codemirror-lang-mermaid": "^0.5.0",
     "countries-and-timezones": "^3.11.0",
