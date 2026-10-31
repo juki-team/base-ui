@@ -11,4 +11,5 @@ export interface UserViewLayoutProps {
 }
 
 export interface ProfileSubmissionsProps {
+  nickname: string;
 }

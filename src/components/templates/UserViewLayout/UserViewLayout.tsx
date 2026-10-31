@@ -60,7 +60,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
       header: userNickname === user.nickname
         ? <T className="tt-ce ws-np">my submissions</T>
         : <T className="tt-ce ws-np">submissions</T>,
-      body: <ProfileSubmissions />,
+      body: <ProfileSubmissions nickname={user.nickname} />,
     };
   }
   

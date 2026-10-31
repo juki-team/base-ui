@@ -6,7 +6,6 @@ import {
 import { useMemo } from 'react';
 import { QueryParamKey } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
-import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { toFilterUrl, toSortUrl } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
 import { PagedDataViewer } from '../../organisms';
@@ -22,9 +21,8 @@ import {
 } from '../columns';
 import type { ProfileSubmissionsProps } from './types';
 
-export function ProfileSubmissions(_: ProfileSubmissionsProps) {
-  
-  const nickname = useRouterStore(state => state.routeParams.nickname);
+export function ProfileSubmissions({ nickname }: ProfileSubmissionsProps) {
+
   const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
   // const preload = usePreload();
   const languages = useMemo(() => {
@@ -59,7 +57,7 @@ export function ProfileSubmissions(_: ProfileSubmissionsProps) {
           params: {
             page,
             pageSize,
-            filterUrl: toFilterUrl({ ...filter, nicknames: nickname as string }),
+            filterUrl: toFilterUrl({ ...filter, nicknames: nickname }),
             sortUrl: toSortUrl(sort),
           },
         }).url
