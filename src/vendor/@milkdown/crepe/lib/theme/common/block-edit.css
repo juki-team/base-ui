@@ -61,7 +61,7 @@
       }
   .milkdown .milkdown-slash-menu .tab-group ul li {
           padding: 6px 10px;
-          font-size: 14px;
+          font-size: calc(var(--crepe-base-font-size, 16px) * 0.875);
           font-style: normal;
           font-weight: 600;
           line-height: 20px;
@@ -80,7 +80,7 @@
       scroll-behavior: smooth;
     }
   .milkdown .milkdown-slash-menu .menu-groups .menu-group h6 {
-          font-size: 14px;
+          font-size: calc(var(--crepe-base-font-size, 16px) * 0.875);
           font-style: normal;
           font-weight: 600;
           line-height: 20px;
@@ -113,7 +113,7 @@
             fill: var(--crepe-color-outline);
           }
   .milkdown .milkdown-slash-menu .menu-groups .menu-group li > span {
-            font-size: 14px;
+            font-size: calc(var(--crepe-base-font-size, 16px) * 0.875);
             font-style: normal;
             font-weight: 600;
             line-height: 20px;

@@ -78,7 +78,7 @@
       background: var(--crepe-color-surface);
       font-family: var(--crepe-font-default);
       border-radius: 8px;
-      font-size: 16px;
+      font-size: var(--crepe-base-font-size, 16px);
     }
 
     .milkdown .milkdown-image-inline .empty-image-inline .image-icon svg {
@@ -370,7 +370,7 @@
       line-height: 40px;
       padding: 0 24px;
       border-radius: 100px;
-      font-size: 14px;
+      font-size: calc(var(--crepe-base-font-size, 16px) * 0.875);
       font-weight: 600;
     }
   .milkdown .milkdown-image-block .image-edit .confirm:hover {

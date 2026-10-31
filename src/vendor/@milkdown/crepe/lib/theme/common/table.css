@@ -55,7 +55,7 @@
 
 .milkdown .milkdown-table-block .handle {
       position: absolute;
-      font-size: 14px;
+      font-size: calc(var(--crepe-base-font-size, 16px) * 0.875);
       transition: opacity ease-in-out 0.2s;
     }
 

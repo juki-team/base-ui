@@ -2315,6 +2315,21 @@ $notesWidthPercent: 25%;
 	}
 }
 
+@media (pointer: coarse) {
+	.reveal .controls {
+		font-size: clamp(10px, 2.5vmin, 40px);
+	}
+
+	.reveal .progress {
+		height: clamp(3px, 0.75vmin, 10px);
+	}
+
+	.reveal .r-overlay-button {
+		font-size: clamp(0.4em, 3vmin, 1em);
+		padding: clamp(0.2em, 2vmin, 1em);
+	}
+}
+
 /*********************************************
  * PRINT STYLES
  *********************************************/

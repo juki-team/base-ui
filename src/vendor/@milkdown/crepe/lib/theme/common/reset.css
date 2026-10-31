@@ -26,6 +26,7 @@
   .milkdown {
 
   font-family: var(--crepe-font-default);
+  font-size: var(--crepe-base-font-size, 16px);
   color: var(--crepe-color-on-background);
   background: var(--crepe-color-background);
 }
@@ -143,45 +144,45 @@
     }
 
   .milkdown .ProseMirror h1 {
-      font-size: 42px;
-      line-height: 50px;
+      font-size: 2.625em;
+      line-height: 1.1905;
       margin-top: 32px;
     }
 
   .milkdown .ProseMirror h2 {
-      font-size: 36px;
-      line-height: 44px;
+      font-size: 2.25em;
+      line-height: 1.2222;
       margin-top: 28px;
     }
 
   .milkdown .ProseMirror h3 {
-      font-size: 32px;
-      line-height: 40px;
+      font-size: 2em;
+      line-height: 1.25;
       margin-top: 24px;
     }
 
   .milkdown .ProseMirror h4 {
-      font-size: 28px;
-      line-height: 36px;
+      font-size: 1.75em;
+      line-height: 1.2857;
       margin-top: 20px;
     }
 
   .milkdown .ProseMirror h5 {
-      font-size: 24px;
-      line-height: 32px;
+      font-size: 1.5em;
+      line-height: 1.3333;
       margin-top: 16px;
     }
 
   .milkdown .ProseMirror h6 {
-      font-size: 18px;
+      font-size: 1.125em;
       font-weight: 700;
-      line-height: 28px;
+      line-height: 1.5556;
       margin-top: 16px;
     }
 
   .milkdown .ProseMirror p {
-      font-size: 16px;
-      line-height: 24px;
+      font-size: 1em;
+      line-height: 1.5;
       padding: 4px 0;
     }
 

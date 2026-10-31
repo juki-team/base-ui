@@ -69,3 +69,8 @@
     transition-duration: .01ms !important;
   }
 }
+
+::view-transition-old(fd-lightbox), ::view-transition-new(fd-lightbox) {
+  object-fit: cover;
+  height: 100%;
+}

@@ -25,8 +25,8 @@
  * INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER ARISING FROM
  * USE OR INABILITY TO USE THIS SOFTWARE.
  *
- * Version: 17.0.1
- * Release date: 25/03/2026 (built at 25/03/2026 09:28:45)
+ * Version: 17.1.0
+ * Release date: 19/05/2026 (built at 19/05/2026 14:51:38)
  */
 .ht-root-wrapper {
   font-family: var(--ht-font-family), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -44,6 +44,7 @@
   margin: 0;
   padding: 0;
   border: 0;
+  outline: 0;
   opacity: 0;
   z-index: -1;
 }
@@ -262,16 +263,18 @@
   box-shadow: -1px 0 0 0 var(--ht-header-active-border-color);
 }
 .handsontable thead tr th .relative {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   padding: var(--ht-cell-vertical-padding) var(--ht-cell-horizontal-padding);
+  gap: 2px;
 }
 .handsontable thead tr th .relative .colHeader {
+  flex: 1 1 auto;
+  min-width: 0;
   text-overflow: ellipsis;
   overflow: hidden;
   vertical-align: top;
-  max-width: calc(100% + 1px);
-}
-.handsontable thead tr th .relative:has(.collapsibleIndicator, .changeType) .colHeader {
-  max-width: calc(100% - (var(--ht-icon-size) + var(--ht-gap-size)) - 1px);
 }
 .handsontable tr:first-child th,
 .handsontable tr:first-child td {
@@ -398,6 +401,10 @@
   color: var(--ht-link-hover-color);
 }
 .handsontable .ht_clone_top th:nth-child(2) {
+  border-inline-start-width: 0;
+  border-inline-end-width: 1px;
+}
+.handsontable .ht_clone_top_inline_start_corner th:nth-child(2) {
   border-inline-start-width: 0;
   border-inline-end-width: 1px;
 }
@@ -1052,7 +1059,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 calc(var(--ht-gap-size) * 2);
+  padding: var(--ht-chip-vertical-padding) var(--ht-chip-horizontal-padding);
   background: var(--ht-chip-background);
   border-radius: var(--ht-chip-border-radius);
   color: var(--ht-foreground-color);
@@ -1756,77 +1763,98 @@
   inset: 0;
 }
 
-.handsontable .collapsibleIndicator {
-  top: calc((var(--ht-line-height) - var(--ht-icon-size)) / 2);
-  margin-inline-start: var(--ht-gap-size);
-  margin-inline-end: 1px;
-}
 .handsontable .collapsibleIndicator,
 .handsontable .ht_nestingButton {
   position: relative;
-  width: var(--ht-icon-size);
-  height: var(--ht-icon-size);
+  width: var(--ht-icon-button-hit-area-size);
+  height: var(--ht-icon-button-hit-area-size);
+  margin: calc(-1 * (var(--ht-icon-button-hit-area-size) - var(--ht-icon-size)) / 2 + 1px);
   box-sizing: border-box;
-  border-radius: var(--ht-collapse-button-border-radius);
-  overflow: hidden;
+  overflow: visible;
   cursor: pointer;
   /* hide text */
   text-indent: -100px;
   font-size: 0;
-  float: right;
+  flex-shrink: 0;
+  /* Icon: mask + currentColor from ht-icons-main.css; keep ::before for icon only */
 }
 .handsontable .collapsibleIndicator::before,
 .handsontable .ht_nestingButton::before {
   content: "";
   display: block;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  width: var(--ht-icon-size);
+  height: var(--ht-icon-size);
+  margin-top: calc(-0.5 * var(--ht-icon-size));
+  margin-left: calc(-0.5 * var(--ht-icon-size));
+  border-radius: var(--ht-collapse-button-border-radius);
   transition: var(--ht-table-transition) all ease-in-out;
+  z-index: 1;
 }
-.handsontable .collapsibleIndicator.expanded, .handsontable .collapsibleIndicator.ht_nestingCollapse,
-.handsontable .ht_nestingButton.expanded,
-.handsontable .ht_nestingButton.ht_nestingCollapse {
-  background-color: var(--ht-collapse-button-open-background-color);
-  box-shadow: 0 0 0 1px var(--ht-collapse-button-open-border-color);
+.handsontable .collapsibleIndicator,
+.handsontable .ht_nestingButton {
+  /* Button background and border (behind icon so mask stays visible) */
+}
+.handsontable .collapsibleIndicator::after,
+.handsontable .ht_nestingButton::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--ht-icon-size);
+  height: var(--ht-icon-size);
+  margin-top: calc(-0.5 * var(--ht-icon-size));
+  margin-left: calc(-0.5 * var(--ht-icon-size));
+  border-radius: var(--ht-collapse-button-border-radius);
+  transition: var(--ht-table-transition) all ease-in-out;
+  z-index: 0;
 }
 .handsontable .collapsibleIndicator.expanded::before, .handsontable .collapsibleIndicator.ht_nestingCollapse::before,
 .handsontable .ht_nestingButton.expanded::before,
 .handsontable .ht_nestingButton.ht_nestingCollapse::before {
   color: var(--ht-collapse-button-open-icon-color);
 }
-.handsontable .collapsibleIndicator.expanded:hover, .handsontable .collapsibleIndicator.ht_nestingCollapse:hover,
-.handsontable .ht_nestingButton.expanded:hover,
-.handsontable .ht_nestingButton.ht_nestingCollapse:hover {
-  background-color: var(--ht-collapse-button-open-hover-background-color);
-  box-shadow: 0 0 0 1px var(--ht-collapse-button-open-hover-border-color);
+.handsontable .collapsibleIndicator.expanded::after, .handsontable .collapsibleIndicator.ht_nestingCollapse::after,
+.handsontable .ht_nestingButton.expanded::after,
+.handsontable .ht_nestingButton.ht_nestingCollapse::after {
+  background-color: var(--ht-collapse-button-open-background-color);
+  box-shadow: 0 0 0 1px var(--ht-collapse-button-open-border-color);
 }
 .handsontable .collapsibleIndicator.expanded:hover::before, .handsontable .collapsibleIndicator.ht_nestingCollapse:hover::before,
 .handsontable .ht_nestingButton.expanded:hover::before,
 .handsontable .ht_nestingButton.ht_nestingCollapse:hover::before {
   color: var(--ht-collapse-button-open-hover-icon-color);
 }
-.handsontable .collapsibleIndicator.collapsed, .handsontable .collapsibleIndicator.ht_nestingExpand,
-.handsontable .ht_nestingButton.collapsed,
-.handsontable .ht_nestingButton.ht_nestingExpand {
-  background-color: var(--ht-collapse-button-close-background-color);
-  box-shadow: 0 0 0 1px var(--ht-collapse-button-close-border-color);
+.handsontable .collapsibleIndicator.expanded:hover::after, .handsontable .collapsibleIndicator.ht_nestingCollapse:hover::after,
+.handsontable .ht_nestingButton.expanded:hover::after,
+.handsontable .ht_nestingButton.ht_nestingCollapse:hover::after {
+  background-color: var(--ht-collapse-button-open-hover-background-color);
+  box-shadow: 0 0 0 1px var(--ht-collapse-button-open-hover-border-color);
 }
 .handsontable .collapsibleIndicator.collapsed::before, .handsontable .collapsibleIndicator.ht_nestingExpand::before,
 .handsontable .ht_nestingButton.collapsed::before,
 .handsontable .ht_nestingButton.ht_nestingExpand::before {
   color: var(--ht-collapse-button-close-icon-color);
 }
-.handsontable .collapsibleIndicator.collapsed:hover, .handsontable .collapsibleIndicator.ht_nestingExpand:hover,
-.handsontable .ht_nestingButton.collapsed:hover,
-.handsontable .ht_nestingButton.ht_nestingExpand:hover {
-  background-color: var(--ht-collapse-button-close-hover-background-color);
-  box-shadow: 0 0 0 1px var(--ht-collapse-button-close-hover-border-color);
+.handsontable .collapsibleIndicator.collapsed::after, .handsontable .collapsibleIndicator.ht_nestingExpand::after,
+.handsontable .ht_nestingButton.collapsed::after,
+.handsontable .ht_nestingButton.ht_nestingExpand::after {
+  background-color: var(--ht-collapse-button-close-background-color);
+  box-shadow: 0 0 0 1px var(--ht-collapse-button-close-border-color);
 }
 .handsontable .collapsibleIndicator.collapsed:hover::before, .handsontable .collapsibleIndicator.ht_nestingExpand:hover::before,
 .handsontable .ht_nestingButton.collapsed:hover::before,
 .handsontable .ht_nestingButton.ht_nestingExpand:hover::before {
   color: var(--ht-collapse-button-close-hover-icon-color);
+}
+.handsontable .collapsibleIndicator.collapsed:hover::after, .handsontable .collapsibleIndicator.ht_nestingExpand:hover::after,
+.handsontable .ht_nestingButton.collapsed:hover::after,
+.handsontable .ht_nestingButton.ht_nestingExpand:hover::after {
+  background-color: var(--ht-collapse-button-close-hover-background-color);
+  box-shadow: 0 0 0 1px var(--ht-collapse-button-close-hover-border-color);
 }
 .handsontable th.ht__active_highlight .collapsibleIndicator.collapsed::before, .handsontable th.ht__active_highlight .collapsibleIndicator.ht_nestingExpand::before,
 .handsontable th.ht__active_highlight .ht_nestingButton.collapsed::before,
@@ -1849,11 +1877,27 @@
   color: var(--ht-collapse-button-open-hover-icon-active-color);
 }
 
-[dir=rtl].handsontable .collapsibleIndicator,
-[dir=rtl].handsontable .ht_nestingButton {
-  float: left;
+.handsontable thead th.htRowspanHeader + th {
+  border-inline-start-width: 0;
 }
-
+.handsontable thead th.htRowspanHeader {
+  height: auto;
+  vertical-align: bottom;
+  overflow: visible;
+}
+.handsontable thead th.htRowspanHeader.ht__active_highlight {
+  border-inline-start-color: var(--ht-header-active-border-color);
+  z-index: 1;
+}
+.handsontable.htRowHeaders.htHasRowspanHeaders thead tr:last-child th:first-child {
+  border-end-start-radius: 0;
+}
+.handsontable.htHasRowspanHeaders .ht_clone_inline_start .htCore tbody tr:first-child th:first-child {
+  border-start-start-radius: 0;
+}
+.handsontable .ht_master:not(.innerBorderTop):not(.innerBorderBottom) thead th.htRowspanBottomLevel, .handsontable .ht_master:not(.innerBorderTop):not(.innerBorderBottom) ~ .handsontable thead th.htRowspanBottomLevel {
+  border-bottom-width: 0;
+}
 .handsontable thead th.hiddenHeader:not(:first-of-type) {
   display: none;
 }
@@ -1949,60 +1993,81 @@
 .handsontable .changeType {
   position: relative;
   box-sizing: border-box;
-  width: var(--ht-icon-size);
-  height: var(--ht-icon-size);
-  border-radius: var(--ht-icon-button-border-radius);
-  box-shadow: 0 0 0 1px var(--ht-icon-button-border-color);
+  width: var(--ht-icon-button-hit-area-size);
+  height: var(--ht-icon-button-hit-area-size);
+  margin: calc(-1 * (var(--ht-icon-button-hit-area-size) - var(--ht-icon-size)) / 2 + 1px);
   border: none;
+  outline: none;
+  box-shadow: none;
+  background: none;
+  background-color: transparent;
   color: inherit;
   padding: 0;
-  margin: 0;
-  background-color: var(--ht-icon-button-background-color);
-  order: 1;
   z-index: 1;
-  float: right;
-  top: calc((var(--ht-line-height) - var(--ht-icon-size)) / 2);
-  margin-inline-start: var(--ht-gap-size);
-  margin-inline-end: 1px;
+  flex-shrink: 0;
+  overflow: visible;
+  /* Icon: mask + currentColor from ht-icons-main.css; keep ::before for icon only */
 }
 .handsontable .changeType::before {
   content: "";
   display: block;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  width: var(--ht-icon-size);
+  height: var(--ht-icon-size);
+  margin-top: calc(-0.5 * var(--ht-icon-size));
+  margin-left: calc(-0.5 * var(--ht-icon-size));
   color: var(--ht-icon-button-icon-color);
+  z-index: 1;
+}
+.handsontable .changeType {
+  /* Button background and border (behind icon so mask stays visible) */
+}
+.handsontable .changeType::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--ht-icon-size);
+  height: var(--ht-icon-size);
+  margin-top: calc(-0.5 * var(--ht-icon-size));
+  margin-left: calc(-0.5 * var(--ht-icon-size));
+  border-radius: var(--ht-icon-button-border-radius);
+  box-shadow: 0 0 0 1px var(--ht-icon-button-border-color);
+  background-color: var(--ht-icon-button-background-color);
+  z-index: 0;
 }
 .handsontable .changeType:hover {
   cursor: pointer;
-  box-shadow: 0 0 0 1px var(--ht-icon-button-hover-border-color);
-  background-color: var(--ht-icon-button-hover-background-color);
 }
 .handsontable .changeType:hover::before {
   color: var(--ht-icon-button-hover-icon-color);
 }
-.handsontable .ht__active_highlight .changeType {
-  box-shadow: 0 0 0 1px var(--ht-icon-button-active-border-color, var(--ht-icon-active-button-border-color));
-  background-color: var(--ht-icon-button-active-background-color, var(--ht-icon-active-button-background-color));
+.handsontable .changeType:hover::after {
+  box-shadow: 0 0 0 1px var(--ht-icon-button-hover-border-color);
+  background-color: var(--ht-icon-button-hover-background-color);
 }
 .handsontable .ht__active_highlight .changeType::before {
   color: var(--ht-icon-button-active-icon-color, var(--ht-icon-active-button-icon-color));
 }
-.handsontable .ht__active_highlight .changeType:hover {
-  box-shadow: 0 0 0 1px var(--ht-icon-button-active-hover-border-color, var(--ht-icon-active-button-hover-border-color));
-  background-color: var(--ht-icon-button-active-hover-background-color, var(--ht-icon-active-button-hover-background-color));
+.handsontable .ht__active_highlight .changeType::after {
+  box-shadow: 0 0 0 1px var(--ht-icon-button-active-border-color, var(--ht-icon-active-button-border-color));
+  background-color: var(--ht-icon-button-active-background-color, var(--ht-icon-active-button-background-color));
 }
 .handsontable .ht__active_highlight .changeType:hover::before {
   color: var(--ht-icon-button-active-hover-icon-color, var(--ht-icon-active-button-hover-icon-color));
+}
+.handsontable .ht__active_highlight .changeType:hover::after {
+  box-shadow: 0 0 0 1px var(--ht-icon-button-active-hover-border-color, var(--ht-icon-active-button-hover-border-color));
+  background-color: var(--ht-icon-button-active-hover-background-color, var(--ht-icon-active-button-hover-background-color));
 }
 .handsontable th.htFiltersActive {
   background-color: var(--ht-header-filter-background-color);
 }
 .handsontable th.htFiltersActive.ht__active_highlight {
   background-color: color-mix(in srgb, var(--ht-header-active-background-color), var(--ht-header-filter-background-color) 20%);
-}
-.handsontable th.htFiltersActive.ht__active_highlight .changeType::after {
-  background-color: var(--ht-header-active-foreground-color);
 }
 .handsontable.htDropdownMenu > .ht_master, .handsontable.htContextMenu > .ht_master, .handsontable.htFiltersConditionsMenu > .ht_master {
   box-shadow: var(--ht-menu-shadow-x, 0) var(--ht-menu-shadow-y, 0) var(--ht-menu-shadow-blur, 8px) color-mix(in srgb, var(--ht-menu-shadow-color, rgb(0, 0, 0)) var(--ht-menu-shadow-opacity, 100%), transparent);
@@ -2161,9 +2226,6 @@
 [dir=rtl].handsontable.htDropdownMenu table tbody tr td .htItemWrapper span.selected::after, [dir=rtl].handsontable.htContextMenu table tbody tr td .htItemWrapper span.selected::after, [dir=rtl].handsontable.htFiltersConditionsMenu table tbody tr td .htItemWrapper span.selected::after {
   left: calc(4 * var(--ht-gap-size));
   right: auto;
-}
-[dir=rtl].handsontable .changeType {
-  float: left;
 }
 
 .handsontable.htFiltersConditionsMenu:not(.htGhostTable) {
@@ -2341,12 +2403,8 @@
 .handsontable .columnSorting:not(.indicatorDisabled) {
   position: relative;
 }
-.handsontable .columnSorting:not(.indicatorDisabled).sortAction {
-  min-width: calc(var(--ht-icon-size, 16px) + 8px);
-}
 .handsontable .columnSorting:not(.indicatorDisabled).sortAction.ascending, .handsontable .columnSorting:not(.indicatorDisabled).sortAction.descending {
   padding-inline-end: calc(var(--ht-icon-size, 16px) + 2px);
-  max-width: calc(100% - (var(--ht-icon-size, 16px) * 2 + var(--ht-gap-size, 4px) + 3px)) !important;
 }
 .handsontable .columnSorting:not(.indicatorDisabled).sortAction:hover {
   text-decoration: none;
@@ -2453,8 +2511,8 @@
   text-align: right;
 }
 
-.htGhostTable th div button.changeType + span.colHeader.columnSorting:not(.indicatorDisabled) {
-  padding-right: var(--ht-gap-size);
+.htGhostTable th div:has(.changeType) span.colHeader.columnSorting:not(.indicatorDisabled) {
+  padding-inline-end: var(--ht-gap-size);
 }
 
 .handsontable .htRowHeaders .ht_master.innerBorderInlineStart ~ .ht_clone_top_inline_start_corner th:nth-child(2), .handsontable .htRowHeaders .ht_master.innerBorderInlineStart ~ .ht_clone_inline_start td:first-of-type {
@@ -2802,6 +2860,170 @@
   gap: calc(var(--ht-gap-size) * 2);
 }
 
+.ht-notification {
+  position: absolute;
+  inset: 0;
+  z-index: 1070;
+  pointer-events: none;
+  overflow: visible;
+}
+.ht-notification__stack {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: min(420px, 100% - 40px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  pointer-events: auto;
+  -webkit-overflow-scrolling: touch;
+  min-height: 0;
+  padding: 10px;
+  scrollbar-width: auto;
+  scrollbar-color: var(--ht-scrollbar-thumb-color) var(--ht-scrollbar-track-color);
+}
+.ht-notification__stack--top-start {
+  top: 10px;
+  inset-inline-start: 10px;
+  align-items: flex-start;
+  max-height: calc(100% - 40px);
+}
+.ht-notification__stack--top-end {
+  top: 10px;
+  inset-inline-end: 10px;
+  align-items: flex-end;
+  max-height: calc(100% - 40px);
+}
+.ht-notification__stack--bottom-start {
+  bottom: 10px;
+  inset-inline-start: 10px;
+  align-items: flex-start;
+  max-height: calc(100% - 40px);
+}
+.ht-notification__stack--bottom-end {
+  bottom: 10px;
+  inset-inline-end: 10px;
+  align-items: flex-end;
+  max-height: calc(100% - 40px);
+}
+.ht-notification__toast {
+  box-shadow: var(--ht-shadow-x, 0) var(--ht-shadow-y, 0) var(--ht-shadow-blur, 8px) color-mix(in srgb, var(--ht-shadow-color, rgb(0, 0, 0)) var(--ht-shadow-opacity, 100%), transparent);
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  max-width: 100%;
+  pointer-events: auto;
+  color: var(--ht-notification-foreground-color, var(--ht-foreground-color));
+  background-color: var(--ht-notification-background-color, var(--ht-background-color));
+  border: 1px solid var(--ht-notification-border-color, var(--ht-border-color));
+  border-radius: var(--ht-wrapper-border-radius, 4px);
+  font-size: var(--ht-font-size);
+  line-height: var(--ht-line-height);
+  letter-spacing: var(--ht-letter-spacing);
+  outline: none;
+}
+.ht-notification__toast:focus-visible {
+  box-shadow: 0 0 0 1px var(--ht-accent-color);
+}
+.ht-notification__toast--animate {
+  opacity: 0;
+  transition: opacity var(--ht-table-transition, 0.15s) ease-out, transform var(--ht-table-transition, 0.15s) ease-out;
+}
+.ht-notification__toast--animate.ht-notification__toast--stack-top:not(.ht-notification__toast--visible) {
+  transform: translateY(-6px);
+}
+.ht-notification__toast--animate.ht-notification__toast--stack-bottom:not(.ht-notification__toast--visible) {
+  transform: translateY(6px);
+}
+.ht-notification__toast--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ht-notification__toast--info .ht-notification__accent {
+  display: none;
+}
+.ht-notification__toast--success .ht-notification__accent {
+  background-color: var(--ht-notification-success-accent, #37bc6c);
+}
+.ht-notification__toast--warning .ht-notification__accent {
+  background-color: var(--ht-notification-warning-accent, #fbe952);
+}
+.ht-notification__toast--error .ht-notification__accent {
+  background-color: var(--ht-notification-error-accent, #fa4d32);
+}
+.ht-notification__toast-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  padding: 10px;
+  gap: 0;
+  direction: inherit;
+}
+.ht-notification__accent {
+  box-sizing: border-box;
+  flex: 0 0 4px;
+  align-self: stretch;
+  border-radius: 4px;
+  margin-inline-end: 10px;
+}
+.ht-notification__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.ht-notification__title {
+  margin: 0 0 var(--ht-gap-size);
+  font-size: var(--ht-font-size);
+  font-weight: var(--ht-font-weight, 600);
+}
+.ht-notification__message {
+  margin: 0;
+  font-size: var(--ht-font-size-small);
+  word-break: break-word;
+}
+.ht-notification__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ht-gap-size);
+  margin-top: var(--ht-gap-size);
+}
+.ht-notification__close {
+  position: relative;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  align-self: flex-start;
+  margin-inline-start: 4px;
+  width: var(--ht-icon-button-hit-area-size);
+  height: var(--ht-icon-button-hit-area-size);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--ht-icon-button-icon-color, inherit);
+  cursor: pointer;
+  border-radius: var(--ht-icon-button-border-radius, var(--ht-wrapper-border-radius, 4px));
+  flex-shrink: 0;
+  overflow: visible;
+}
+.ht-notification__close::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 50%;
+  margin-top: calc(-0.5 * var(--ht-icon-size));
+  margin-inline-start: calc(-0.5 * var(--ht-icon-size));
+}
+.ht-notification__close:hover {
+  color: var(--ht-icon-button-hover-icon-color, inherit);
+  background-color: var(--ht-icon-button-hover-background-color, color-mix(in srgb, var(--ht-foreground-color) 8%, transparent));
+}
+.ht-notification__close:focus-visible {
+  outline: 2px solid var(--ht-accent-color);
+  outline-offset: 2px;
+}
+
 .handsontable.ht-pagination {
   color: var(--ht-pagination-bar-foreground-color);
   background: var(--ht-pagination-bar-background-color);
@@ -2891,9 +3113,9 @@
 }
 .handsontable.ht-pagination .ht-page-navigation-section__button {
   font-size: inherit;
-  border: 1px solid var(--ht-pagination-bar-background-color);
-  color: var(--ht-secondary-button-foreground-color);
-  background-color: var(--ht-pagination-bar-background-color);
+  border: 1px solid var(--ht-pagination-button-border-color);
+  color: var(--ht-pagination-button-foreground-color);
+  background-color: var(--ht-pagination-button-background-color);
   border-radius: var(--ht-icon-button-large-border-radius);
   padding: var(--ht-icon-button-large-padding);
   cursor: pointer;
@@ -2905,14 +3127,20 @@
 .handsontable.ht-pagination .ht-page-navigation-section__button--disabled {
   cursor: default;
   pointer-events: none;
-  color: var(--ht-secondary-button-disabled-foreground-color);
+  color: var(--ht-pagination-button-disabled-foreground-color);
+  background-color: var(--ht-pagination-button-disabled-background-color);
+  border-color: var(--ht-pagination-button-disabled-border-color);
 }
 .handsontable.ht-pagination .ht-page-navigation-section__button:hover:not(:disabled) {
-  background-color: var(--ht-secondary-button-hover-background-color);
+  border-color: var(--ht-pagination-button-hover-border-color);
+  color: var(--ht-pagination-button-hover-foreground-color);
+  background-color: var(--ht-pagination-button-hover-background-color);
 }
 .handsontable.ht-pagination .ht-page-navigation-section__button:focus {
   outline: none;
-  border: 1px solid var(--ht-accent-color);
+  border-color: var(--ht-pagination-button-focus-border-color);
+  color: var(--ht-pagination-button-focus-foreground-color);
+  background-color: var(--ht-pagination-button-focus-background-color);
 }
 .handsontable.ht-pagination .ht-page-navigation-section__label {
   white-space: nowrap;
@@ -3040,6 +3268,25 @@
 .ht-empty-data-state__buttons--has-buttons {
   margin-top: calc(var(--ht-gap-size) * 2);
 }
+.ht-empty-data-state__spinner {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin-bottom: calc(var(--ht-gap-size) * 2);
+  border: 2px solid var(--ht-border-color);
+  border-top-color: var(--ht-accent-color);
+  border-radius: 50%;
+  animation: ht-empty-data-state-spin 0.75s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ht-empty-data-state__spinner {
+    animation: none;
+    border-top-color: var(--ht-border-color);
+  }
+}
+.ht-empty-data-state--loading .ht-empty-data-state__content {
+  gap: calc(var(--ht-gap-size) * 0.5);
+}
 .ht-empty-data-state--disable-top-border {
   border-start-start-radius: 0;
   border-start-end-radius: 0;
@@ -3054,4 +3301,10 @@
   border-end-start-radius: 0;
   border-end-end-radius: 0;
   border-bottom-width: 0;
+}
+
+@keyframes ht-empty-data-state-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
