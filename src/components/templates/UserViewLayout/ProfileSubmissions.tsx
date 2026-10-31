@@ -21,7 +21,7 @@ import {
 } from '../columns';
 import type { ProfileSubmissionsProps } from './types';
 
-export function ProfileSubmissions({ nickname }: ProfileSubmissionsProps) {
+export function ProfileSubmissions({ userKey }: ProfileSubmissionsProps) {
 
   const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
   // const preload = usePreload();
@@ -57,7 +57,7 @@ export function ProfileSubmissions({ nickname }: ProfileSubmissionsProps) {
           params: {
             page,
             pageSize,
-            filterUrl: toFilterUrl({ ...filter, nicknames: nickname }),
+            filterUrl: toFilterUrl({ ...filter, nicknames: userKey }),
             sortUrl: toSortUrl(sort),
           },
         }).url

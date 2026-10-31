@@ -1,3 +1,4 @@
+import { getUserKey } from '@juki-team/commons';
 import { useState } from 'react';
 import { ProfileTab } from '../../../enums';
 import { jukiAppRoutes } from '../../../settings';
@@ -21,12 +22,14 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
   
   const mutatePing = useUserStore(state => state.mutate);
   const userNickname = useUserStore(state => state.user.nickname);
+  const userCompanyKey = useUserStore(state => state.user.company.key);
   const replaceRoute = useRouterStore(state => state.replaceRoute);
   const searchParams = useRouterStore(state => state.searchParams);
   const [ openModal, setOpenModal ] = useState('');
   
   const onClose = () => setOpenModal('');
   const tab = searchParams.get('tab') as ProfileTab || ProfileTab.OVERVIEW;
+  const isOwnProfile = user.nickname === userNickname && user.company.key === userCompanyKey;
   
   let tabHeaders: TabsType<ProfileTab> = {
     [ProfileTab.OVERVIEW]: {
@@ -36,7 +39,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
     },
   };
   
-  if (user.nickname === userNickname) {
+  if (isOwnProfile) {
     tabHeaders[ProfileTab.SETTINGS] = {
       key: ProfileTab.SETTINGS,
       header: <T className="tt-ce ws-np">settings</T>,
@@ -57,10 +60,10 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
   if (isJudgeWindowLocation()) {
     tabHeaders[ProfileTab.SUBMISSIONS] = {
       key: ProfileTab.SUBMISSIONS,
-      header: userNickname === user.nickname
+      header: isOwnProfile
         ? <T className="tt-ce ws-np">my submissions</T>
         : <T className="tt-ce ws-np">submissions</T>,
-      body: <ProfileSubmissions nickname={user.nickname} />,
+      body: <ProfileSubmissions userKey={getUserKey(user.nickname, user.company.key)} />,
     };
   }
   
