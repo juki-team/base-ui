@@ -168,7 +168,7 @@
     "@ably/spaces": "^0.5.2",
     "@eslint/css": "latest",
     "@eslint/js": "^10.0.1",
-    "@eslint/json": "^1.2.0",
+    "@eslint/json": "^2.1.1",
     "@eslint/markdown": "^8.0.3",
     "@rollup/plugin-alias": "^6.0.1",
     "@rollup/plugin-commonjs": "^29.0.3",
