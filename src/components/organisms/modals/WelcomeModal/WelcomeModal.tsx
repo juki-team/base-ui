@@ -13,7 +13,7 @@ export function WelcomeModal({ onSeeMyProfile: _onSeeMyProfile }: WelcomeModalPr
   const searchParams = useRouterStore((state) => state.searchParams);
   const deleteSearchParams = useRouterStore((state) => state.deleteSearchParams);
   const nickname = useUserStore((state) => state.user.nickname);
-  const companyKey = useUserStore((state) => state.company.key);
+  const companyKey = useUserStore((state) => state.user.company.key);
 
   const onSeeMyProfile: ButtonLoaderOnClickType = async (setLoaderStatus) => {
     setLoaderStatus(Status.LOADING);

@@ -21,7 +21,7 @@ export function LoginUser({
 }: LoginUserProps) {
   const { logout } = useJukiUser();
   const userNickname = useUserStore((state) => state.user.nickname);
-  const companyKey = useUserStore((state) => state.company.key);
+  const userCompanyKey = useUserStore((state) => state.user.company.key);
   const userImageUrl = useUserStore((state) => state.user.imageUrl);
   const userIsLogged = useUserStore((state) => state.user.isLogged);
   const userIsLoading = useUserStore((state) => state.isLoading);
@@ -52,7 +52,7 @@ export function LoginUser({
             {userNickname}
             <div className="jk-col gap">
               {!!onSeeMyProfile && (
-                <ButtonLoader expand onClick={() => onSeeMyProfile(userNickname, companyKey)}>
+                <ButtonLoader expand onClick={() => onSeeMyProfile(userNickname, userCompanyKey)}>
                   <T className="ws-np tt-se">my account</T>
                 </ButtonLoader>
               )}
@@ -77,7 +77,7 @@ export function LoginUser({
         placement={popoverPlacement}
       >
         <UserChip
-          companyKey={companyKey}
+          companyKey={userCompanyKey}
           imageUrl={userImageUrl}
           nickname={userNickname}
           className={classNames('user-logged-head extend', { left: !!withLabel }, className)}
