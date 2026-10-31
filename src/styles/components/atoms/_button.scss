@@ -65,9 +65,9 @@
   --size-button-loader-icon: var(--line-height);
   @include mixins.transition-fast(opacity, padding, outline-color, outline-width, background-color, border-color);
   
-  //.jk-icon {
-  //  --size-icon: calc(var(--line-height) - 4px);
-  //}
+  .jk-icon {
+    --size-icon: calc(var(--line-height) - 4px);
+  }
   
   &:not(.disabled):not(.ghost):hover {
     --button-border-width: 3px;
