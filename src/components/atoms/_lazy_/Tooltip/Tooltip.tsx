@@ -12,7 +12,7 @@ export default function Tooltip() {
       // disableStyleInjection
       render={({ content, activeAnchor }) => (
         content ?
-          activeAnchor?.getAttribute('data-tooltip-t') === 'false'
+          activeAnchor?.getAttribute('data-tooltip-t') === 'false' || typeof content !== 'string'
             ? content
             :
             <T className={activeAnchor?.getAttribute('data-tooltip-t-class-name') ?? 'tt-se tx-s'}>{content}</T>

@@ -150,7 +150,7 @@
     "react-image-crop": "^11.1.2",
     "react-markdown": "^10.1.0",
     "react-resize-detector": "^12.3.0",
-    "react-tooltip": "^5.30.1",
+    "react-tooltip": "^6.0.9",
     "recharts": "^3.10.1",
     "rehype-katex": "^7.0.1",
     "rehype-raw": "^7.0.0",

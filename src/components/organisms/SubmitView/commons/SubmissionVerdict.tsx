@@ -40,26 +40,26 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
   const addDark = userPreferredTheme === Theme.DARK ? 'CC' : '';
 
   if (_shortLabel) {
+    const verdictLabel = PROBLEM_VERDICT[initialVerdict]?.label ? t(PROBLEM_VERDICT[initialVerdict]?.label) : initialVerdict;
+    const tooltipContent = [
+      verdictLabel.charAt(0).toUpperCase() + verdictLabel.slice(1),
+      initialVerdict === ProblemVerdict.PENDING &&
+      processedCases &&
+      !!(processedCases.samples.total + processedCases.tests.total)
+        ? `(${processedCases.samples.processed + processedCases.tests.processed} / ${processedCases.samples.total + processedCases.tests.total})`
+        : '',
+      initialVerdict === ProblemVerdict.PA && initialPoints ? `(${(+initialPoints || 0).toFixed(2)} ${t('pts.')})` : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+
     return (
       <div
         className="jk-row center jk-tag"
         style={{ backgroundColor: PROBLEM_VERDICT[initialVerdict]?.color + addDark }}
         data-tooltip-id="jk-tooltip"
-        data-tooltip-html={`
-          <span class="tt-se ws-np">${PROBLEM_VERDICT[initialVerdict]?.label ? t(PROBLEM_VERDICT[initialVerdict]?.label) : initialVerdict}</span>
-          ${
-            initialVerdict === ProblemVerdict.PENDING &&
-            processedCases &&
-            !!(processedCases.samples.total + processedCases.tests.total)
-              ? `&nbsp;(${processedCases.samples.processed + processedCases.tests.processed}&nbsp;/&nbsp;${processedCases.samples.total + processedCases.tests.total})`
-              : ''
-          }
-          ${
-            initialVerdict === ProblemVerdict.PA && initialPoints
-              ? `&nbsp;<span class="ws-np">(${(+initialPoints || 0).toFixed(2)} <span>${t('pts.')}</span>)</span>`
-              : ''
-          }
-        `}
+        data-tooltip-content={tooltipContent}
+        data-tooltip-t="false"
       >
         {initialVerdict === ProblemVerdict.PENDING && (
           <>
