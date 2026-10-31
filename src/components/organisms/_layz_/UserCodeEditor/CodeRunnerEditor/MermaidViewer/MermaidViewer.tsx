@@ -127,6 +127,9 @@ export const MermaidViewer = (props: MermaidViewerProps) => {
         mermaid.initialize({
           startOnLoad: false,
           theme: mermaidTheme,
+          // keep the pre-v12 appearance (v12 defaults to the neo look and ELK layout)
+          look: 'classic',
+          layout: 'dagre',
           securityLevel: 'loose',
           ...extraConfig,
         });

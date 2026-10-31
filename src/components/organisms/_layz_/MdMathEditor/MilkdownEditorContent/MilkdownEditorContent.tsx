@@ -288,7 +288,11 @@ function renderMermaid(content: string): HTMLElement {
     container.className = 'mermaid';
     container.innerHTML = content;
 
-    setTimeout(() => mermaid.run({ querySelector: '.mermaid' }), 0);
+    setTimeout(() => {
+      // keep the pre-v12 appearance (v12 defaults to the redux-color theme, neo look and ELK layout)
+      mermaid.initialize({ startOnLoad: false, theme: 'default', look: 'classic', layout: 'dagre' });
+      mermaid.run({ querySelector: '.mermaid' });
+    }, 0);
 
     return container;
   }

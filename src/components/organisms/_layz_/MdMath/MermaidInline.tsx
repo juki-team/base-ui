@@ -11,7 +11,8 @@ export const MermaidInline = ({ value }: { value: string }) => {
     el.innerHTML = value;
 
     import('mermaid').then(({ default: mermaid }) => {
-      mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
+      // keep the pre-v12 appearance (v12 defaults to the redux-color theme, neo look and ELK layout)
+      mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: 'default', look: 'classic', layout: 'dagre' });
       mermaid.run({ nodes: [el] });
     });
   }, [value]);
