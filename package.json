@@ -185,7 +185,7 @@
     "@storybook/react-vite": "^10.6.5",
     "@swc/core": "^1.16.21",
     "@types/codemirror": "^5.60.18",
-    "@types/d3-graphviz": "^2.6.10",
+    "@types/d3-graphviz": "^3.1.0",
     "@types/graphlib-dot": "^0.6.4",
     "@types/hast": "^3.0.5",
     "@types/jest": "^30.0.0",
