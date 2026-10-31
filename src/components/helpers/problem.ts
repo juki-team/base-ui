@@ -112,10 +112,16 @@ ${statementNote}
 };
 
 export const isJudgeWindowLocation = () => {
-  return isBrowser() && (
-    window.location.origin === 'https://judge.juki.app'
-    || window.location.origin.endsWith('.jukijudge.com')
-    || window.location.origin === 'http://localhost:3070'
+  if (!isBrowser()) {
+    return false;
+  }
+  const { origin } = window.location;
+  return (
+    origin === 'https://judge.juki.app'
+    || origin.endsWith('.judge.juki.app') // sub-judges, e.g. usfx.tecnologia.judge.juki.app
+    || origin.endsWith('.jukijudge.com')
+    || origin === 'https://judge.local.juki.app'
+    || origin === 'http://localhost:3070'
   );
 };
 
