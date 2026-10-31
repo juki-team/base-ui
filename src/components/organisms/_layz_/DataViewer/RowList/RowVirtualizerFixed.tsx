@@ -1,6 +1,6 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { motion } from 'motion/react';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { LayoutGroup, motion } from 'motion/react';
+import { useCallback, useEffect, useId, useMemo, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../../helpers';
 import { useStableRef } from '../../../../hooks/useStableRef';
@@ -28,6 +28,10 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
   } = props;
 
   const parentRef = useRef<HTMLDivElement>(null);
+  // layoutIds are global in motion: scope them per table instance so rows of different tables
+  // (e.g. index keys "1", "2"... on another page) don't run shared-layout animations between them
+  const layoutGroupId = useId();
+  const animateRows = !!getRecordKey;
   const { height: headerHeight = 0, ref: headerRef } = useResizeDetector();
   const dataRef = useStableRef(data);
   const getRecordKeyRef = useStableRef(getRecordKey);
@@ -197,51 +201,53 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
           start: null,
         })) : rowVirtualizer.getVirtualItems())
         */}
-        {virtualItems.map((virtualRow) => (
-          <motion.div
-            key={virtualRow.key}
-            jk-data-virtual-row-key={virtualRow.key}
-            layoutId={(virtualRow.key as string) || undefined}
-            style={{
-              ...(getRecordStyle?.({ data, index: virtualRow.index, isCard: false, isStickySection: false }) || {}),
-              position: virtualRow.start !== null ? 'absolute' : undefined,
-              top: virtualRow.start !== null ? virtualRow.start + gap : 0,
-              left: 0,
-              width: headersWidth,
-              height: `${virtualRow.size - gap * 2}px`,
-            }}
-            className={classNames(
-              'jk-table-row',
-              getRecordClassName?.({ data, index: virtualRow.index, isCard: false, isStickySection: true }) || '',
-            )}
-            onClick={() => onRecordClick?.({ data, index: virtualRow.index, isCard: false })}
-            onMouseEnter={() => onRecordHover?.({ data, index: virtualRow.index, isCard: false })}
-          >
-            {visibleHeaders.map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, index) => (
-              <div
-                key={virtualRow.key + '_' + columnIndex}
-                style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
-                className={classNames(
-                  {
-                    sticky: !!sticky,
-                    'with-right-border': rightBorders.includes(index),
-                  },
-                  'jk-table-row-field bc-sf-md',
-                )}
-                data-testid={virtualRow.key + '_' + columnIndex}
-              >
-                {data[virtualRow.index] && (
-                  <Field
-                    record={data[virtualRow.index]!}
-                    columnIndex={columnIndex}
-                    recordIndex={virtualRow.index}
-                    isCard={false}
-                  />
-                )}
-              </div>
-            ))}
-          </motion.div>
-        ))}
+        <LayoutGroup id={layoutGroupId}>
+          {virtualItems.map((virtualRow) => (
+            <motion.div
+              key={virtualRow.key}
+              jk-data-virtual-row-key={virtualRow.key}
+              layoutId={animateRows ? String(virtualRow.key) : undefined}
+              style={{
+                ...(getRecordStyle?.({ data, index: virtualRow.index, isCard: false, isStickySection: false }) || {}),
+                position: virtualRow.start !== null ? 'absolute' : undefined,
+                top: virtualRow.start !== null ? virtualRow.start + gap : 0,
+                left: 0,
+                width: headersWidth,
+                height: `${virtualRow.size - gap * 2}px`,
+              }}
+              className={classNames(
+                'jk-table-row',
+                getRecordClassName?.({ data, index: virtualRow.index, isCard: false, isStickySection: true }) || '',
+              )}
+              onClick={() => onRecordClick?.({ data, index: virtualRow.index, isCard: false })}
+              onMouseEnter={() => onRecordHover?.({ data, index: virtualRow.index, isCard: false })}
+            >
+              {visibleHeaders.map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, index) => (
+                <div
+                  key={virtualRow.key + '_' + columnIndex}
+                  style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
+                  className={classNames(
+                    {
+                      sticky: !!sticky,
+                      'with-right-border': rightBorders.includes(index),
+                    },
+                    'jk-table-row-field bc-sf-md',
+                  )}
+                  data-testid={virtualRow.key + '_' + columnIndex}
+                >
+                  {data[virtualRow.index] && (
+                    <Field
+                      record={data[virtualRow.index]!}
+                      columnIndex={columnIndex}
+                      recordIndex={virtualRow.index}
+                      isCard={false}
+                    />
+                  )}
+                </div>
+              ))}
+            </motion.div>
+          ))}
+        </LayoutGroup>
       </div>
     </div>
   );
