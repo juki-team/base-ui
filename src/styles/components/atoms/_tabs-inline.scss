@@ -1,42 +1,114 @@
+@use "../../mixins";
+
 .jk-tabs-inline {
   overflow: visible;
-  
-  &.one-tab-view {
-    .tab-tick-background.selected {
-      width: calc(100% - var(--pad-t) - var(--pad-t));
-    }
+
+  // tabs + desktop arrows; takes all the free space, the extra nodes stay fixed
+  .jk-tabs-inline-strip {
+    position: relative;
+    z-index: 1; // indicator above the classic divider
+    flex: 1 1 auto;
+    min-width: 0;
+    align-self: stretch;
+    align-items: flex-end;
   }
-  
+
+  .jk-tabs-inline-arrow {
+    flex: none;
+    align-self: center;
+    padding: 0 var(--pad-xt);
+    cursor: pointer;
+  }
+
   .jk-tabs-headers-inline {
-    overflow: auto;
-    
+    --tabs-fade: 24px;
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &.fade-start {
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--tabs-fade));
+      mask-image: linear-gradient(to right, transparent, #000 var(--tabs-fade));
+    }
+
+    &.fade-end {
+      -webkit-mask-image: linear-gradient(to left, transparent, #000 var(--tabs-fade));
+      mask-image: linear-gradient(to left, transparent, #000 var(--tabs-fade));
+    }
+
+    &.fade-start.fade-end {
+      $both: linear-gradient(
+          to right,
+          transparent,
+          #000 var(--tabs-fade),
+          #000 calc(100% - var(--tabs-fade)),
+          transparent
+      );
+      -webkit-mask-image: $both;
+      mask-image: $both;
+    }
+
     .tab-tick-background {
       padding: 1px 10px;
-      
+
       &:hover:not(.selected) {
         background-color: var(--cr-ht);
       }
     }
-    
-    .jk-tabs-inline-tab:not(.selected) {
-      cursor: pointer;
-    }
-    
+
     .jk-tabs-inline-tab {
       position: relative;
+      flex: none;
+      white-space: nowrap;
+      min-height: 40px; // comfortable touch target
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      @include mixins.transition(color, opacity);
+
+      &:not(.selected) {
+        cursor: pointer;
+        opacity: 0.7;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    .jk-tabs-inline-indicator {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      border-radius: 2px 2px 0 0;
+      background-color: var(--cr-tx-ht);
+      pointer-events: none;
+      transition: transform 200ms ease, width 200ms ease;
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
     }
   }
-  
+
   &.tick-style-line {
     .jk-tabs-inline-tab {
       padding: var(--pad-xt) var(--pad-t);
     }
   }
-  
+
   &.tick-style-classic {
     position: relative;
     align-items: flex-end; // tab headers stay on the line, extra nodes get their own bottom padding
-    
+
     &:after {
       content: "";
       width: 100%;
@@ -44,14 +116,15 @@
       left: 0;
       bottom: 0;
       position: absolute;
-      border-bottom: 2px solid var(--cr-ht-lt);
+      border-bottom: 1px solid var(--cr-ht-lt);
     }
   }
 }
 
 .jk-tabs-inline-extra-nodes {
+  flex: none; // never shrinks: on mobile the tabs scroll, the buttons stay
   padding-bottom: calc(var(--pad-xt) / 2); // 4px, keeps the buttons off the tabs divider line
-  
+
   // wrappers around the extra buttons (<a>, popover triggers...) must not add their own line box,
   // otherwise the button sits on the text baseline and gets misaligned with the others
   > :not(.jk-button) {
