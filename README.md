@@ -1,38 +1,48 @@
 # Juki Base UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Documentation
 
 See https://juki-team.github.io/base-ui
 
 ## Available Scripts
 
+This project uses [pnpm](https://pnpm.io) (see `packageManager` in `package.json`).
+
+```shell
+pnpm install --frozen-lockfile
+```
+
 ### Storybook
 
 To run storybook locally
 ```shell
-yarn storybook
+pnpm dev
 ```
 
 To build storybook
 ```shell
-yarn storybook:build
+pnpm build:storybook
 ```
 
 ### To sync with juki commons
 
 ```shell
-yarn pull
+pnpm pull
 ```
 
 ### To build base ui
 ```shell
-yarn build
+pnpm build:rollup
 ```
 
 ### To publish base ui
 
+Commit the pending changes, bump the patch version, build, tag, publish to npm and push:
 ```shell
-yarn push
+pnpm push-commit "commit message"
+```
+
+With no pending changes:
+```shell
+pnpm push
 ```
