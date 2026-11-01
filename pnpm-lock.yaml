@@ -271,8 +271,8 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2(@sinclair/typebox@0.34.49)(@standard-schema/spec@1.1.0)(ajv-formats@2.1.1(ajv@8.18.0))(ajv@8.18.0)(react-hook-form@7.91.0(@types/react@19.3.0)(react@19.3.1))(yup@1.7.1)(zod@4.3.6)
       '@juki-team/commons':
-        specifier: 0.1.41
-        version: 0.1.41
+        specifier: 0.1.42
+        version: 0.1.42
       '@mdx-js/mdx':
         specifier: ^3.1.1
         version: 3.1.1(supports-color@8.1.1)
@@ -1359,8 +1359,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@juki-team/commons@0.1.41':
-    resolution: {integrity: sha512-DwPr4CHgKPVY/pxXdvaGF1pZrbBJx/CaYZ5KiaKptm5fBA7DNrKI+urZ1muHkaD5AnzjZIjhAhoAtW9ACO1hfQ==}
+  '@juki-team/commons@0.1.42':
+    resolution: {integrity: sha512-SUFTsHNP66hH10wZd7xivSWoa2XJKPZum62yJ1LvH1YNghgFLk8DiizhE8hkmn5sgflHUxUsfeXA0kexAcB0GQ==}
 
   '@keyv/bigmap@1.3.1':
     resolution: {integrity: sha512-WbzE9sdmQtKy8vrNPa9BRnwZh5UF4s1KTmSK0KUVLo3eff5BlQNNWDnFOouNpKfPKDnms9xynJjsMYjMaT/aFQ==}
@@ -8558,7 +8558,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  '@juki-team/commons@0.1.41':
+  '@juki-team/commons@0.1.42':
     dependencies:
       uuid: 14.0.3
 
