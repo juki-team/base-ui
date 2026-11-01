@@ -1,4 +1,4 @@
-import { Children, type MouseEvent, memo, type ReactElement, useCallback, useRef, useState } from 'react';
+import { Children, type MouseEvent, memo, type ReactElement, useCallback, useRef } from 'react';
 import { Div } from '../../../../../atoms/Div/Div';
 import { classNames } from '../../../../../helpers/commons';
 import { ArrowDownwardIcon } from '../../../../../atoms/server/icons/google/ArrowDownwardIcon';
