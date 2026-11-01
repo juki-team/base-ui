@@ -1,16 +1,18 @@
-import { type CSSProperties } from 'react';
 import type { GetRecordClassNameType, GetRecordStyleType, OnRecordClickType, TableHeadersType } from '../types';
+
+/** columns grouped by card position (topLeft, top, center...) */
+export type CardSections<T> = { [position: string]: TableHeadersType<T>[] };
 
 export interface DataViewerCardProps<T> {
   cardWidth: number,
   index: number,
   data: T[],
-  headers: TableHeadersType<T>[],
+  sections: CardSections<T>,
   fake: boolean,
-  cardClassName: string,
-  cardStyle: CSSProperties,
-  onCardClick: () => void,
-  onCardHover: () => void,
+  getRecordStyle: GetRecordStyleType<T> | undefined,
+  getRecordClassName: GetRecordClassNameType<T> | undefined,
+  onRecordClick: OnRecordClickType<T> | undefined,
+  onRecordHover: OnRecordClickType<T> | undefined,
 }
 
 export interface CardRowVirtualizerFixedProps<T> {

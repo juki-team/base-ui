@@ -286,29 +286,47 @@
     @include mixins.elevation(1);
   }
   
+  // Left, middle and right parts share a single grid row, so the section is as tall as its tallest
+  // part without measuring them (the middle part is overlaid on the whole width, as before).
   .top-container, .upper-container, .center-container, .lower-container, .bottom-container {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    position: relative;
-    
-    > .top, > .upper, > .center, > .lower, > .bottom {
-      position: absolute;
-      top: 0;
-      width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
+
+    > .top-left, > .upper-left, > .center-left, > .lower-left, > .bottom-left {
+      grid-row: 1;
+      grid-column: 1;
     }
-    
-    > .top-right, > .upper-right, > .center-right, > .lower-right, > .bottom-right {
-      align-items: flex-end;
-    }
-    
-    > .top-left, > .upper-left, > .top-left, > .lower-left, > .bottom-left {
+
+    // same selector list as before: .center-left keeps its default alignment
+    > .top-left, > .upper-left, > .lower-left, > .bottom-left {
       align-items: flex-start;
     }
-    
+
+    > .top, > .upper, > .center, > .lower, > .bottom {
+      grid-row: 1;
+      grid-column: 1 / -1;
+    }
+
+    > .top-right, > .upper-right, > .center-right, > .lower-right, > .bottom-right {
+      grid-row: 1;
+      grid-column: 3;
+      align-items: flex-end;
+    }
+
     &.no-middle {
-      > .top-right, > .upper-right, > .center-right, > .lower-right, > .bottom-right, > .top-left, > .upper-left, > .top-left, > .lower-left, > .bottom-left {
-        flex: 1;
+      grid-template-columns: 1fr 1fr;
+
+      > .top-left, > .upper-left, > .center-left, > .lower-left, > .bottom-left {
+        grid-column: 1;
+      }
+
+      > .top-left, > .upper-left, > .lower-left, > .bottom-left {
+        align-items: center;
+      }
+
+      > .top-right, > .upper-right, > .center-right, > .lower-right, > .bottom-right {
+        grid-column: 2;
         align-items: center;
       }
     }

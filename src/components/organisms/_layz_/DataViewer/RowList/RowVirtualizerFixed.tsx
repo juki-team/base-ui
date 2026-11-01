@@ -1,11 +1,12 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { LayoutGroup, motion } from 'motion/react';
+import { LayoutGroup } from 'motion/react';
 import { useCallback, useEffect, useId, useMemo, useRef } from 'react';
-import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../../helpers';
 import { useStableRef } from '../../../../hooks/useStableRef';
 import type { DataViewerTableHeadersType, RowVirtualizerFixedProps } from '../types';
 import { TableHead } from './TableHead';
+import { TableRow } from './TableRow';
+import { useScrollEdges } from './useScrollEdges';
 
 export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
   const {
@@ -32,7 +33,6 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
   // (e.g. index keys "1", "2"... on another page) don't run shared-layout animations between them
   const layoutGroupId = useId();
   const animateRows = !!getRecordKey;
-  const { height: headerHeight = 0, ref: headerRef } = useResizeDetector();
   const dataRef = useStableRef(data);
   const getRecordKeyRef = useStableRef(getRecordKey);
   const rowVirtualizer = useVirtualizer({
@@ -73,18 +73,7 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
   // }, [ data, rowVirtualizer ]);
 
   const totalSize = rowVirtualizer.getTotalSize();
-  const scrollEl = rowVirtualizer.scrollElement;
-  const scrollOffset = rowVirtualizer.scrollOffset ?? 0;
-
-  const hasScrollTop = scrollOffset > 0;
-  const hasScrollBottom = scrollEl
-    ? scrollOffset + scrollEl.clientHeight < totalSize + headerHeight + gap /*border bottom header*/
-    : false;
-  const hasScrollLeft = scrollEl ? scrollEl.scrollLeft > 0 : false;
-  const hasScrollRight = scrollEl ? scrollEl.scrollWidth - scrollEl.clientWidth - scrollEl.scrollLeft > 1 : false;
-
   const virtualItems = rowVirtualizer.getVirtualItems();
-  const withVerticalScroll = hasScrollTop || hasScrollBottom;
 
   // useEffect(() => {
   //   setWithVerticalScroll(withVerticalScroll);
@@ -121,6 +110,15 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
 
     return { topHeaders, rightBorders, headersWidth, headersStickyWidth };
   }, [groups, visibleHeaders]);
+  const rightBordersSet = useMemo(() => new Set(rightBorders), [rightBorders]);
+
+  const {
+    top: hasScrollTop,
+    bottom: hasScrollBottom,
+    left: hasScrollLeft,
+    right: hasScrollRight,
+  } = useScrollEdges(parentRef, [totalSize, headersWidth]);
+  const withVerticalScroll = hasScrollTop || hasScrollBottom;
 
   return (
     <div ref={parentRef} style={{ height: '100%', overflow: 'scroll' }} className="jk-table-rows-container">
@@ -129,7 +127,6 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
         setHeaders={setHeaders}
         loading={loading}
         gap={gap}
-        headerRef={headerRef}
         topHeaders={topHeaders}
         rightBorders={rightBorders}
         hasScrollTop={hasScrollTop}
@@ -203,49 +200,23 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
         */}
         <LayoutGroup id={layoutGroupId}>
           {virtualItems.map((virtualRow) => (
-            <motion.div
+            <TableRow<T>
               key={virtualRow.key}
-              jk-data-virtual-row-key={virtualRow.key}
-              layoutId={animateRows ? String(virtualRow.key) : undefined}
-              style={{
-                ...(getRecordStyle?.({ data, index: virtualRow.index, isCard: false, isStickySection: false }) || {}),
-                position: virtualRow.start !== null ? 'absolute' : undefined,
-                top: virtualRow.start !== null ? virtualRow.start + gap : 0,
-                left: 0,
-                width: headersWidth,
-                height: `${virtualRow.size - gap * 2}px`,
-              }}
-              className={classNames(
-                'jk-table-row',
-                getRecordClassName?.({ data, index: virtualRow.index, isCard: false, isStickySection: true }) || '',
-              )}
-              onClick={() => onRecordClick?.({ data, index: virtualRow.index, isCard: false })}
-              onMouseEnter={() => onRecordHover?.({ data, index: virtualRow.index, isCard: false })}
-            >
-              {visibleHeaders.map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, index) => (
-                <div
-                  key={virtualRow.key + '_' + columnIndex}
-                  style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
-                  className={classNames(
-                    {
-                      sticky: !!sticky,
-                      'with-right-border': rightBorders.includes(index),
-                    },
-                    'jk-table-row-field bc-sf-md',
-                  )}
-                  data-testid={virtualRow.key + '_' + columnIndex}
-                >
-                  {data[virtualRow.index] && (
-                    <Field
-                      record={data[virtualRow.index]!}
-                      columnIndex={columnIndex}
-                      recordIndex={virtualRow.index}
-                      isCard={false}
-                    />
-                  )}
-                </div>
-              ))}
-            </motion.div>
+              rowKey={virtualRow.key}
+              data={data}
+              index={virtualRow.index}
+              start={virtualRow.start}
+              size={virtualRow.size}
+              gap={gap}
+              width={headersWidth}
+              columns={visibleHeaders}
+              rightBorders={rightBordersSet}
+              getRecordStyle={getRecordStyle}
+              getRecordClassName={getRecordClassName}
+              onRecordClick={onRecordClick}
+              onRecordHover={onRecordHover}
+              animate={animateRows}
+            />
           ))}
         </LayoutGroup>
       </div>

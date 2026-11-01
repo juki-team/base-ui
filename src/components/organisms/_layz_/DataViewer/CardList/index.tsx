@@ -1,7 +1,7 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { Children, type SyntheticEvent, useCallback, useRef, useState } from 'react';
+import { type SyntheticEvent, useCallback, useMemo, useRef, useState } from 'react';
 import { classNames } from '../../../../helpers';
-import { DataViewerCard } from './DataViewerCard';
+import { DataViewerCard, getCardSections } from './DataViewerCard';
 import type { CardRowVirtualizerFixedProps } from './types';
 
 const gap = 16;
@@ -25,6 +25,7 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
   const parentRef = useRef<HTMLDivElement>(null);
   const [ borderTop, setBorderTop ] = useState(false);
   const [ borderBottom, setBorderBottom ] = useState(false);
+  const sections = useMemo(() => getCardSections(headers), [headers]);
   const cardsByRow = Math.max(Math.floor((rowWidth - gap) / (cardWidth + gap)), 1);
   
   const rowVirtualizer = useVirtualizer({
@@ -69,33 +70,23 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
             }}
             className="jk-row jk-list-card-row"
           >
-            {Children.toArray(new Array(cardsByRow).fill('').map((_, index) => {
+            {Array.from({ length: cardsByRow }, (_, index) => {
               const cardIndex = virtualRow.index * cardsByRow + index;
               return (
-                <DataViewerCard
-                  key={virtualRow.index * cardsByRow + index}
-                  fake={virtualRow.index * cardsByRow + index >= data.length}
+                <DataViewerCard<T>
+                  key={cardIndex}
+                  fake={cardIndex >= data.length}
                   cardWidth={finalWidth}
-                  headers={headers}
+                  sections={sections}
                   data={data}
                   index={cardIndex}
-                  cardClassName={getRecordClassName?.({
-                    data,
-                    index: cardIndex,
-                    isCard: true,
-                    isStickySection: false,
-                  }) || ''}
-                  cardStyle={getRecordStyle?.({
-                    data,
-                    index: cardIndex,
-                    isCard: true,
-                    isStickySection: false,
-                  }) || {}}
-                  onCardClick={() => onRecordClick?.({ data, index: cardIndex, isCard: true })}
-                  onCardHover={() => onRecordHover?.({ data, index: cardIndex, isCard: true })}
+                  getRecordClassName={getRecordClassName}
+                  getRecordStyle={getRecordStyle}
+                  onRecordClick={onRecordClick}
+                  onRecordHover={onRecordHover}
                 />
               );
-            }))}
+            })}
           </div>
         ))}
       </div>

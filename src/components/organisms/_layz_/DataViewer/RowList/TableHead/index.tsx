@@ -111,7 +111,7 @@ const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
 };
 
 const TableHeadCmp = <T,>(props: TableHeadProps<T>) => {
-  const { headers, setHeaders, loading, gap, headerRef, topHeaders, rightBorders, hasScrollTop } = props;
+  const { headers, setHeaders, loading, gap, topHeaders, rightBorders, hasScrollTop } = props;
 
   const [dragging, setDragging] = useState(-1);
 
@@ -168,7 +168,7 @@ const TableHeadCmp = <T,>(props: TableHeadProps<T>) => {
   const headersWidth = headers.reduce((sum, head) => sum + (head.visible?.getVisible?.() ? head.width : 0), 0);
 
   return (
-    <div className="jk-table-head-container" ref={headerRef} onMouseMove={onMouseHoldMove} style={{ paddingBottom: gap }}>
+    <div className="jk-table-head-container" onMouseMove={onMouseHoldMove} style={{ paddingBottom: gap }}>
       {displayTopHeader && (
         <div className={classNames('jk-table-head', { 'elevation-1': hasScrollTop })} style={{ width: headersWidth }}>
           {Children.toArray(

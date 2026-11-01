@@ -1,6 +1,5 @@
 import { DataViewMode } from '@juki-team/commons';
 import { CSSProperties, Dispatch, FC, PropsWithChildren, ReactNode, RefObject, SetStateAction } from 'react';
-import { UseResizeDetectorReturn } from 'react-resize-detector';
 import { DatePickerDateFunType, OptionType } from '../../../molecules/types';
 import {
   DataViewerRequesterGetUrlType,
@@ -369,7 +368,6 @@ export interface TableHeadProps<T> {
   setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   loading: boolean,
   gap: number,
-  headerRef: UseResizeDetectorReturn<HTMLDivElement>['ref'],
   topHeaders: DataViewerTableHeadersType<T>[],
   rightBorders: number[],
   hasScrollTop: boolean,
