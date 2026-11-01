@@ -129,6 +129,14 @@ const DataViewerToolbarCmp = <T,>(props: DataViewerToolbarProps<T>) => {
     }
   }, [loading]);
 
+  // The drawer (and its lazy chunk) is mounted the first time it opens and kept afterwards, so the
+  // close animation still runs; tables whose filters are never opened don't pay for it.
+  const isFilterDrawerOpen = showFilterDrawer === 'open';
+  const [filterDrawerMounted, setFilterDrawerMounted] = useState(isFilterDrawerOpen);
+  if (isFilterDrawerOpen && !filterDrawerMounted) {
+    setFilterDrawerMounted(true);
+  }
+
   const url = new URL(isBrowser() ? window.location?.href || '' : '');
   url.searchParams.set(filterKey, JSON.stringify(filters));
 
@@ -144,14 +152,15 @@ const DataViewerToolbarCmp = <T,>(props: DataViewerToolbarProps<T>) => {
       ref={toolbarRef}
       // style={withVerticalScroll && viewMode === DataViewMode.ROWS ? { marginRight: SCROLL_WIDTH } : {}}
     >
-      <FilterDrawer
-        isOpen={showFilterDrawer === 'open'}
-        headers={headers}
-        // setHeaders={setHeaders}
-        onClose={() => setShowFilterDrawer(false)}
-        onFilter={(values) => onAllFilters(values)}
-        onResetFilters={() => onAllFilters({})}
-      />
+      {filterDrawerMounted && (
+        <FilterDrawer
+          isOpen={isFilterDrawerOpen}
+          headers={headers}
+          onClose={() => setShowFilterDrawer(false)}
+          onFilter={(values) => onAllFilters(values)}
+          onResetFilters={() => onAllFilters({})}
+        />
+      )}
       {!isSmallScreen && (
         <div className="jk-table-view-extra-nodes jk-row left gap">{extraNodes.map(renderReactNodeOrFunction)}</div>
       )}

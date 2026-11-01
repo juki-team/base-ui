@@ -88,6 +88,9 @@ export const FilterDrawer = <T,>(props: FilterDrawerProps<T>) => {
   };
 
   useEffect(() => {
+    if (!isOpen) {
+      return; // values are only shown while open; they are re-synced when it opens
+    }
     const { filtered, values } = isSomethingFiltered(headers);
     setInitialValues(onlyValues(values));
     setValues(values);
