@@ -1,19 +1,21 @@
-import { Children, memo, MouseEvent, ReactElement, useCallback, useRef, useState } from 'react';
+import { memo, type MouseEvent, type ReactElement } from 'react';
 import { classNames } from '../../../../../helpers';
 import { ArrowDownwardIcon, ArrowUpwardIcon, SortIcon } from '../../../../../server';
-import { fixHeaders, renderHead } from '../../commons/utils';
-import { DataViewerTableHeadersType, TableHeadProps, TableSortType } from '../../types';
+import { renderHead } from '../../commons/utils';
+import type { DataViewerTableHeadersType, TableHeadProps, TableSortType } from '../../types';
+import { columnLeftVar, columnWidthVar, TABLE_WIDTH_VAR } from '../columnLayout';
 import { Filter } from './Filter';
-
-const fillWidth = true;
 
 interface RenderHeaderProps<T> {
   header: DataViewerTableHeadersType<T>;
-  onMouseHoldMove: (event: MouseEvent<HTMLDivElement>) => void;
-  onMouseHoldUp: () => void;
-  onMouseHoldDown: (index: number) => (event: MouseEvent<HTMLDivElement>) => void;
+  /** CSS width (a column variable or a calc() of several for group headers) */
+  width: string;
+  /** CSS sticky offset */
+  left: string;
+  /** visible position of the column, used to start a resize */
+  position: number;
+  onResizeStart?: (position: number, clientX: number) => void;
   loading: boolean;
-  headers: DataViewerTableHeadersType<T>[];
   withTools: boolean;
   withRightBorder: boolean;
   borderTopLeftRadius?: boolean;
@@ -25,10 +27,11 @@ interface RenderHeaderProps<T> {
 const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
   const {
     header,
-    onMouseHoldUp,
-    onMouseHoldDown,
+    width,
+    left,
+    position,
+    onResizeStart,
     loading,
-    headers,
     withTools,
     withRightBorder,
     borderTopLeftRadius,
@@ -37,17 +40,16 @@ const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
     borderBottomRightRadius,
   } = props;
 
-  const { index: columnIndex, width, filter, sort, sticky, headClassName, headIndex, accumulatedWidth } = header;
+  const { index: columnIndex, filter, sort, sticky, headClassName } = header;
   const { onSort, getOrder } = sort || ({} as TableSortType);
   const order = getOrder?.();
 
   return (
     <div
-      key={columnIndex + '_head'}
       style={{
-        width: width,
+        width,
         minWidth: width,
-        left: sticky ? accumulatedWidth : undefined,
+        left: sticky ? left : undefined,
         top: 0,
         zIndex: sticky ? 3 : 2,
         borderTopLeftRadius: borderTopLeftRadius ? 'var(--border-radius-inline)' : undefined,
@@ -64,9 +66,7 @@ const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
           'with-filter': !!filter?.onFilter,
           sticky: !!sticky,
         })}
-        onMouseUp={onMouseHoldUp}
-        key={columnIndex}
-        style={{ width: width + 'px', ...header.style }}
+        style={{ width, ...header.style }}
       >
         <div className="jk-table-head-field flex-1 ht-100">{renderHead({ header, columnIndex, className: headClassName })}</div>
         {withTools && (
@@ -93,10 +93,13 @@ const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
             {filter?.onFilter && <Filter columnIndex={columnIndex} filter={filter} disabled={loading} />}
           </div>
         )}
-        {withTools && (!fillWidth || headIndex < headers.length) && (
+        {withTools && onResizeStart && (
           <div
             className="jk-table-head-drag"
-            onMouseDown={onMouseHoldDown(headIndex)}
+            onMouseDown={(event: MouseEvent<HTMLDivElement>) => {
+              event.preventDefault(); // no text selection while dragging
+              onResizeStart(position, event.clientX);
+            }}
             onClick={(event) => {
               event.preventDefault();
               event.stopPropagation();
@@ -111,115 +114,56 @@ const RenderHeader = <T,>(props: RenderHeaderProps<T>) => {
 };
 
 const TableHeadCmp = <T,>(props: TableHeadProps<T>) => {
-  const { headers, setHeaders, loading, gap, topHeaders, rightBorders, hasScrollTop } = props;
-
-  const [dragging, setDragging] = useState(-1);
-
-  const dividerPositionRef = useRef(0);
-
-  const onMouseHoldDown = useCallback(
-    (columnIndex: number) => (event: MouseEvent<HTMLDivElement>) => {
-      setDragging(columnIndex);
-      dividerPositionRef.current = event.clientX;
-    },
-    [],
-  );
-
-  const onMouseHoldUp = useCallback(() => {
-    setDragging(-1);
-    dividerPositionRef.current = 0;
-  }, []);
-
-  const onMouseHoldMove = (event: MouseEvent<HTMLDivElement>) => {
-    const columnIndex = dragging;
-    // const nextColumnIndex = columnIndex + 1;
-    if (!dividerPositionRef.current || columnIndex === -1) {
-      return;
-    }
-    const moveX = event.clientX - (dividerPositionRef.current || 0);
-    dividerPositionRef.current = event.clientX;
-    // if (fillWidth && headers[nextColumnIndex]) {
-    //   if (headers[columnIndex].width + moveX >= headers[columnIndex].minWidth
-    //     && headers[nextColumnIndex].width - moveX >= headers[nextColumnIndex].minWidth) {
-    //     const newHeaders = [ ...headers ];
-    //     newHeaders[columnIndex] = {
-    //       ...newHeaders[columnIndex],
-    //       width: Math.max(newHeaders[columnIndex].width + moveX, newHeaders[columnIndex].minWidth),
-    //     };
-    //     newHeaders[nextColumnIndex] = {
-    //       ...newHeaders[nextColumnIndex],
-    //       width: Math.max(newHeaders[nextColumnIndex].width - moveX, newHeaders[nextColumnIndex].minWidth),
-    //     };
-    //     setHeaders(newHeaders);
-    //   }
-    // } else {
-    const newHeaders = [...headers];
-    if (newHeaders[columnIndex]) {
-      newHeaders[columnIndex] = {
-        ...newHeaders[columnIndex],
-        width: Math.max(newHeaders[columnIndex].width + moveX, newHeaders[columnIndex].minWidth),
-      };
-      setHeaders(fixHeaders(newHeaders));
-    }
-    // }
-  };
+  const { columns, topHeaders, rightBorders, loading, gap, hasScrollTop, onResizeStart } = props;
 
   const displayTopHeader = !!rightBorders.length;
-  const headersWidth = headers.reduce((sum, head) => sum + (head.visible?.getVisible?.() ? head.width : 0), 0);
 
   return (
-    <div className="jk-table-head-container" onMouseMove={onMouseHoldMove} style={{ paddingBottom: gap }}>
+    <div className="jk-table-head-container" style={{ paddingBottom: gap }}>
       {displayTopHeader && (
-        <div className={classNames('jk-table-head', { 'elevation-1': hasScrollTop })} style={{ width: headersWidth }}>
-          {Children.toArray(
-            topHeaders.map((header, index) => (
-              <RenderHeader
-                key={header.headIndex}
-                header={header}
-                onMouseHoldMove={onMouseHoldMove}
-                onMouseHoldUp={onMouseHoldUp}
-                onMouseHoldDown={onMouseHoldDown}
-                loading={loading}
-                headers={headers}
-                withTools={false}
-                withRightBorder={!(header.head === '' && topHeaders[index + 1]?.head === '') && index !== topHeaders.length - 1}
-                borderTopLeftRadius={index === 0}
-                borderTopRightRadius={index === topHeaders.length - 1}
-              />
-            )),
-          )}
+        <div className={classNames('jk-table-head', { 'elevation-1': hasScrollTop })} style={{ width: TABLE_WIDTH_VAR }}>
+          {topHeaders.map(({ header, positions }, index) => (
+            <RenderHeader<T>
+              key={header.headIndex}
+              header={header}
+              width={
+                positions.length === 1
+                  ? columnWidthVar(positions[0]!)
+                  : `calc(${positions.map(columnWidthVar).join(' + ')})`
+              }
+              left={columnLeftVar(positions[0]!)}
+              position={positions[0]!}
+              loading={loading}
+              withTools={false}
+              withRightBorder={!(header.head === '' && topHeaders[index + 1]?.header.head === '') && index !== topHeaders.length - 1}
+              borderTopLeftRadius={index === 0}
+              borderTopRightRadius={index === topHeaders.length - 1}
+            />
+          ))}
         </div>
       )}
-      <div
-        className={classNames('jk-table-head jk-br-ie', { 'elevation-1': hasScrollTop })}
-        onMouseLeave={onMouseHoldUp}
-        style={{ width: headersWidth }}
-      >
-        {Children.toArray(
-          headers
-            .filter(({ visible }) => visible?.getVisible?.())
-            .map((header, index, data) => (
-              <RenderHeader
-                key={header.headIndex}
-                header={header}
-                onMouseHoldMove={onMouseHoldMove}
-                onMouseHoldUp={onMouseHoldUp}
-                onMouseHoldDown={onMouseHoldDown}
-                loading={loading}
-                headers={headers}
-                withTools
-                withRightBorder={false}
-                // withRightBorder={rightBorders.includes(index) && index !== data.length - 1}
-                borderTopLeftRadius={!displayTopHeader && index === 0}
-                borderTopRightRadius={!displayTopHeader && index === topHeaders.length - 1}
-                borderBottomLeftRadius={index === 0}
-                borderBottomRightRadius={index === data.length - 1}
-              />
-            )),
-        )}
+      <div className={classNames('jk-table-head jk-br-ie', { 'elevation-1': hasScrollTop })} style={{ width: TABLE_WIDTH_VAR }}>
+        {columns.map((header, position) => (
+          <RenderHeader<T>
+            key={header.headIndex}
+            header={header}
+            width={columnWidthVar(position)}
+            left={columnLeftVar(position)}
+            position={position}
+            onResizeStart={onResizeStart}
+            loading={loading}
+            withTools
+            withRightBorder={false}
+            borderTopLeftRadius={!displayTopHeader && position === 0}
+            borderTopRightRadius={!displayTopHeader && position === topHeaders.length - 1}
+            borderBottomLeftRadius={position === 0}
+            borderBottomRightRadius={position === columns.length - 1}
+          />
+        ))}
       </div>
     </div>
   );
 };
 
+// Memoized: column sizes come from CSS variables, so resizing/scrolling doesn't re-render the head.
 export const TableHead = memo(TableHeadCmp) as <T>(props: TableHeadProps<T>) => ReactElement;

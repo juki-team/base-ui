@@ -383,12 +383,11 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
     });
   }, [ setLoaderStatusRef ]);
   
-  const [ tableHeaders, setTableHeaders ] = useState<DataViewerTableHeadersType<T>[]>(
+  // derived, not state + effect: a headers change used to render the whole table twice (old + new headers)
+  const tableHeaders: DataViewerTableHeadersType<T>[] = useMemo(
     () => buildHeaders(headers, searchVisibles, t, filtersRef, searchSortsRef, setVisibles, setSort, deleteSort, setFilter, deleteFilter),
+    [ deleteFilter, deleteSort, headers, setFilter, setSort, t, filtersRef, searchSortsRef, setVisibles, searchVisibles ],
   );
-  useEffect(() => {
-    setTableHeaders(buildHeaders(headers, searchVisibles, t, filtersRef, searchSortsRef, setVisibles, setSort, deleteSort, setFilter, deleteFilter));
-  }, [ deleteFilter, deleteSort, headers, setFilter, setSort, t, filtersRef, searchSortsRef, setVisibles, searchVisibles /*to trigger render of headers*/ ]);
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
     const newSearchFilter = { ...filters };
@@ -470,7 +469,6 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
         extraNodesFloating={extraNodesFloating}
         headers={tableHeaders}
         groups={groups || EMPTY_ARRAY}
-        setHeaders={setTableHeaders}
         loading={loaderStatus === Status.LOADING}
         initializing={initializing}
         onAllFilters={onAllFilters}

@@ -1,6 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { SCROLL_WIDTH } from '../../../../../constants';
-import { usePrevious } from '../../../../hooks/usePrevious';
 import type {
   DataViewerGroupsType,
   DataViewerTableHeadersType,
@@ -11,38 +9,29 @@ import type {
 } from '../types';
 import { RowVirtualizerFixed } from './RowVirtualizerFixed';
 
-const minCellWidth = 100;
-
-const headersMinWidth = <T, >(headers: DataViewerTableHeadersType<T>[]) => {
-  return headers.map(head => head.minWidth || minCellWidth);
-};
-
 interface ViewContainerRowsProps<T> {
-  headers: DataViewerTableHeadersType<T>[],
-  setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
-  viewContainerWidth: number,
-  rowHeight: number,
-  data: T[],
-  loading: boolean,
-  getRecordKey: GetRecordKeyType<T> | undefined,
-  getRecordStyle: GetRecordStyleType<T> | undefined,
-  getRecordClassName: GetRecordClassNameType<T> | undefined,
-  onRecordClick: OnRecordClickType<T> | undefined,
-  onRecordHover: OnRecordClickType<T> | undefined,
-  // onRecordRender: OnRecordClickType<T> | undefined,
-  groups: DataViewerGroupsType<T>[],
-  virtualizerOverscan: number,
-  focusRowKey?: string,
-  // setWithVerticalScroll: Dispatch<SetStateAction<boolean>>,
+  headers: DataViewerTableHeadersType<T>[];
+  viewContainerWidth: number;
+  rowHeight: number;
+  data: T[];
+  loading: boolean;
+  getRecordKey: GetRecordKeyType<T> | undefined;
+  getRecordStyle: GetRecordStyleType<T> | undefined;
+  getRecordClassName: GetRecordClassNameType<T> | undefined;
+  onRecordClick: OnRecordClickType<T> | undefined;
+  onRecordHover: OnRecordClickType<T> | undefined;
+  groups: DataViewerGroupsType<T>[];
+  virtualizerOverscan: number;
+  focusRowKey?: string;
 }
 
 const gap = 4;
 
-export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
-  
+// Column widths are derived inside RowVirtualizerFixed (computeColumnLayout); there is no width state to
+// sync here anymore, which used to cost two extra renders of the whole table per headers/size change.
+export const ViewContainerRows = <T,>(props: ViewContainerRowsProps<T>) => {
   const {
     headers,
-    setHeaders,
     viewContainerWidth,
     rowHeight,
     loading,
@@ -52,50 +41,13 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
     getRecordClassName,
     onRecordClick,
     onRecordHover,
-    // onRecordRender,
     groups,
     virtualizerOverscan,
     focusRowKey,
-    // setWithVerticalScroll,
   } = props;
-  
-  const prevSizeWidth = usePrevious(viewContainerWidth);
-  const prevHeaders = useRef(JSON.stringify(headersMinWidth(headers)));
-  const prevExtraWidth = useRef(0);
-  
-  useEffect(() => {
-    const width = (viewContainerWidth || 0) - SCROLL_WIDTH;
-    const [ visibleHeaders, totalMinUsedWidth, totalUsedWidth ] = headers
-      .reduce(([ visibleHeaders, totalMinUsedWidth, totalUsedWidth ], { minWidth = minCellWidth, visible, width }) => [
-        visibleHeaders + (visible ? 1 : 0),
-        totalMinUsedWidth + (visible ? minWidth : 0),
-        totalUsedWidth + (visible ? width : 0),
-      ], [ 0, 0, 0 ]);
-    
-    const extra = width > totalMinUsedWidth ? width - totalMinUsedWidth : 0;
-    if (viewContainerWidth !== prevSizeWidth || prevHeaders.current !== JSON.stringify(headersMinWidth(headers)) || extra !== prevExtraWidth.current || (visibleHeaders ? (totalUsedWidth === 0) : false)) {
-      const newHeaders = [ ...headers ];
-      let accumulatedWidth = 0;
-      headers.forEach(({ minWidth = minCellWidth, ...restProps }, index) => {
-        if (restProps.visible?.getVisible()) {
-          const percentage = minWidth / totalMinUsedWidth;
-          newHeaders[index] = {
-            ...restProps,
-            width: Math.floor(minWidth + (extra * percentage)),
-            minWidth,
-            accumulatedWidth,
-          };
-          accumulatedWidth += newHeaders[index].width;
-        }
-      });
-      setHeaders(newHeaders);
-      prevHeaders.current = JSON.stringify(headersMinWidth(headers));
-      prevExtraWidth.current = extra;
-    }
-  }, [ headers, prevSizeWidth, setHeaders, viewContainerWidth ]);
-  
+
   return (
-    <RowVirtualizerFixed
+    <RowVirtualizerFixed<T>
       data={data}
       headers={headers}
       rowHeight={rowHeight}
@@ -104,14 +56,12 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
       getRecordStyle={getRecordStyle}
       onRecordClick={onRecordClick}
       onRecordHover={onRecordHover}
-      // onRecordRender={onRecordRender}
       gap={gap}
       loading={loading}
-      setHeaders={setHeaders}
+      availableWidth={Math.max((viewContainerWidth || 0) - SCROLL_WIDTH, 0)}
       groups={groups}
       virtualizerOverscan={virtualizerOverscan}
       focusRowKey={focusRowKey}
-      // setWithVerticalScroll={setWithVerticalScroll}
     />
   );
 };

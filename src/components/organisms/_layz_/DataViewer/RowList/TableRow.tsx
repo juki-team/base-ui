@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { type CSSProperties, type Key, memo, type ReactElement } from 'react';
 import { classNames } from '../../../../helpers';
 import type { DataViewerTableHeadersType, GetRecordClassNameType, GetRecordStyleType, OnRecordClickType } from '../types';
+import { columnLeftVar, columnWidthVar, TABLE_WIDTH_VAR } from './columnLayout';
 
 interface TableRowProps<T> {
   data: T[];
@@ -10,7 +11,7 @@ interface TableRowProps<T> {
   start: number;
   size: number;
   gap: number;
-  width: number;
+  /** visible columns; their sizes come from CSS variables, so resizing doesn't re-render the rows */
   columns: DataViewerTableHeadersType<T>[];
   rightBorders: Set<number>;
   getRecordStyle?: GetRecordStyleType<T>;
@@ -29,7 +30,6 @@ function TableRowCmp<T>(props: TableRowProps<T>) {
     start,
     size,
     gap,
-    width,
     columns,
     rightBorders,
     getRecordStyle,
@@ -45,7 +45,7 @@ function TableRowCmp<T>(props: TableRowProps<T>) {
     position: 'absolute',
     top: start + gap,
     left: 0,
-    width,
+    width: TABLE_WIDTH_VAR,
     height: `${size - gap * 2}px`,
   };
   const className = classNames(
@@ -55,10 +55,14 @@ function TableRowCmp<T>(props: TableRowProps<T>) {
   const onClick = onRecordClick ? () => onRecordClick({ data, index, isCard: false }) : undefined;
   const onMouseEnter = onRecordHover ? () => onRecordHover({ data, index, isCard: false }) : undefined;
 
-  const cells = columns.map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, position) => (
+  const cells = columns.map(({ Field, index: columnIndex, sticky }, position) => (
     <div
       key={columnIndex}
-      style={{ width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
+      style={{
+        width: columnWidthVar(position),
+        minWidth: columnWidthVar(position),
+        left: sticky ? columnLeftVar(position) : undefined,
+      }}
       className={classNames(
         { sticky: !!sticky, 'with-right-border': rightBorders.has(position) },
         'jk-table-row-field bc-sf-md',

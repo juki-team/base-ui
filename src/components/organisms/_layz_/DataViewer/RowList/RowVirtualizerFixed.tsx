@@ -1,9 +1,17 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { LayoutGroup } from 'motion/react';
-import { useCallback, useEffect, useId, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { useStableRef } from '../../../../hooks/useStableRef';
-import type { DataViewerTableHeadersType, RowVirtualizerFixedProps } from '../types';
+import type { RowVirtualizerFixedProps, TopHeaderType } from '../types';
+import {
+  applyColumnLayout,
+  columnLayoutStyle,
+  columnWidthVar,
+  computeColumnLayout,
+  getColumnMinWidth,
+  withColumnWidth,
+} from './columnLayout';
 import { TableHead } from './TableHead';
 import { TableRow } from './TableRow';
 import { useScrollEdges } from './useScrollEdges';
@@ -21,7 +29,7 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
     // onRecordRender,
     gap,
     loading,
-    setHeaders,
+    availableWidth,
     groups,
     virtualizerOverscan,
     focusRowKey,
@@ -79,37 +87,76 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
   //   setWithVerticalScroll(withVerticalScroll);
   // }, [ withVerticalScroll ]);
 
-  const { topHeaders, rightBorders, headersWidth, headersStickyWidth } = useMemo(() => {
-    const topHeaders: DataViewerTableHeadersType<T>[] = [];
+  // Group headers depend only on which columns are visible (their widths are CSS calc() of the columns).
+  const { topHeaders, rightBorders } = useMemo(() => {
+    const groupsByValue = new Map(groups.map((group) => [group.value, group]));
+    const topHeaders: TopHeaderType<T>[] = [];
     const rightBorders: number[] = [];
-    let index = 0;
-
-    for (const header of visibleHeaders) {
-      const group = groups.find((group) => group.value === header.group);
+    visibleHeaders.forEach((header, position) => {
+      const group = header.group !== undefined ? groupsByValue.get(header.group) : undefined;
       const previous = topHeaders[topHeaders.length - 1];
       if (group) {
-        if (previous?.group === group.value) {
-          previous.width += header.width;
-          previous.sticky &&= header.sticky;
+        if (previous?.header.group === group.value) {
+          previous.positions.push(position);
+          previous.header.sticky &&= header.sticky;
         } else {
-          if (!rightBorders.length || topHeaders[topHeaders.length - 1]?.head === '') {
-            rightBorders.push(index - 1);
+          if (!rightBorders.length || previous?.header.head === '') {
+            rightBorders.push(position - 1);
           }
-          rightBorders.push(index);
-          topHeaders.push({ ...header, head: group.label, style: group.style });
+          rightBorders.push(position);
+          topHeaders.push({ header: { ...header, head: group.label, style: group.style }, positions: [position] });
         }
-        rightBorders[rightBorders.length - 1] = index;
+        rightBorders[rightBorders.length - 1] = position;
       } else {
-        topHeaders.push({ ...header, head: '', style: {} });
+        topHeaders.push({ header: { ...header, head: '', style: {} }, positions: [position] });
       }
-      index++;
-    }
-
-    const headersStickyWidth = visibleHeaders.reduce((sum, head) => sum + (head.sticky ? head.width : 0), 0);
-    const headersWidth = visibleHeaders.reduce((sum, head) => sum + head.width, 0);
-
-    return { topHeaders, rightBorders, headersWidth, headersStickyWidth };
+    });
+    return { topHeaders, rightBorders };
   }, [groups, visibleHeaders]);
+
+  // Column sizes: derived (no state round-trip); only the widths the user dragged are stored.
+  const [manualWidths, setManualWidths] = useState<Record<string, number>>({});
+  const layout = useMemo(
+    () => computeColumnLayout(visibleHeaders, availableWidth, manualWidths),
+    [visibleHeaders, availableWidth, manualWidths],
+  );
+  const layoutStyle = useMemo(() => columnLayoutStyle(layout), [layout]);
+  const headersWidth = layout.total;
+  const headersStickyWidth = layout.stickyWidth;
+
+  const layoutRef = useStableRef(layout);
+  const visibleHeadersRef = useStableRef(visibleHeaders);
+  const onResizeStart = useCallback(
+    (position: number, startX: number) => {
+      const element = parentRef.current;
+      const header = visibleHeadersRef.current[position];
+      if (!element || !header) {
+        return;
+      }
+      const base = layoutRef.current;
+      const columns = visibleHeadersRef.current;
+      const minWidth = getColumnMinWidth(header);
+      let current = base;
+      // while dragging only the CSS variables change (no React render per mouse move)
+      const onMove = (event: MouseEvent) => {
+        const width = Math.max((base.widths[position] ?? minWidth) + event.clientX - startX, minWidth);
+        if (width !== current.widths[position]) {
+          current = withColumnWidth(base, columns, position, width);
+          applyColumnLayout(element, current);
+        }
+      };
+      const onUp = () => {
+        window.removeEventListener('mousemove', onMove);
+        window.removeEventListener('mouseup', onUp);
+        if (current !== base) {
+          setManualWidths((prev) => ({ ...prev, [header.index]: current.widths[position]! }));
+        }
+      };
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onUp);
+    },
+    [layoutRef, visibleHeadersRef],
+  );
   const rightBordersSet = useMemo(() => new Set(rightBorders), [rightBorders]);
 
   const {
@@ -121,15 +168,19 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
   const withVerticalScroll = hasScrollTop || hasScrollBottom;
 
   return (
-    <div ref={parentRef} style={{ height: '100%', overflow: 'scroll' }} className="jk-table-rows-container">
-      <TableHead
-        headers={headers}
-        setHeaders={setHeaders}
-        loading={loading}
-        gap={gap}
+    <div
+      ref={parentRef}
+      style={{ ...layoutStyle, height: '100%', overflow: 'scroll' }}
+      className="jk-table-rows-container"
+    >
+      <TableHead<T>
+        columns={visibleHeaders}
         topHeaders={topHeaders}
         rightBorders={rightBorders}
+        loading={loading}
+        gap={gap}
         hasScrollTop={hasScrollTop}
+        onResizeStart={onResizeStart}
       />
       {hasScrollLeft && (
         <div
@@ -181,10 +232,10 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
             }}
             className="jk-table-row"
           >
-            {visibleHeaders.map(({ index: columnIndex, width, sticky }) => (
+            {visibleHeaders.map(({ index: columnIndex, sticky }, position) => (
               <div
                 key={columnIndex}
-                style={{ width: width, minWidth: width }}
+                style={{ width: columnWidthVar(position), minWidth: columnWidthVar(position) }}
                 className={classNames({ sticky: !!sticky })}
               ></div>
             ))}
@@ -208,7 +259,6 @@ export const RowVirtualizerFixed = <T,>(props: RowVirtualizerFixedProps<T>) => {
               start={virtualRow.start}
               size={virtualRow.size}
               gap={gap}
-              width={headersWidth}
               columns={visibleHeaders}
               rightBorders={rightBordersSet}
               getRecordStyle={getRecordStyle}

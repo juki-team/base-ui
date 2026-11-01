@@ -53,7 +53,8 @@ export interface RowVirtualizerFixedProps<T> {
   // onRecordRender: OnRecordClickType<T> | undefined,
   gap: number,
   loading: boolean,
-  setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
+  /** width the columns can fill (container width minus the scrollbar) */
+  availableWidth: number,
   groups: DataViewerGroupsType<T>[],
   virtualizerOverscan: number,
   focusRowKey?: string,
@@ -261,7 +262,6 @@ export interface DisplayDataViewerProps<T> {
   extraNodesFloating?: boolean,
   headers: DataViewerTableHeadersType<T>[],
   groups: DataViewerGroupsType<T>[],
-  setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   loading: boolean,
   initializing: boolean,
   onAllFilters: (values: FilterValuesType) => void,
@@ -363,14 +363,21 @@ export interface DataViewerProps<T extends object> {
   focusRowKey?: string,
 }
 
+/** a group header (or an empty placeholder) spanning the visible columns at `positions` */
+export interface TopHeaderType<T> {
+  header: DataViewerTableHeadersType<T>,
+  positions: number[],
+}
+
 export interface TableHeadProps<T> {
-  headers: DataViewerTableHeadersType<T>[],
-  setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
+  /** visible columns */
+  columns: DataViewerTableHeadersType<T>[],
+  topHeaders: TopHeaderType<T>[],
+  rightBorders: number[],
   loading: boolean,
   gap: number,
-  topHeaders: DataViewerTableHeadersType<T>[],
-  rightBorders: number[],
   hasScrollTop: boolean,
+  onResizeStart: (position: number, clientX: number) => void,
 }
 
 export interface FilterDrawerProps<T> {
