@@ -103,13 +103,13 @@ const DataViewerToolbarCmp = <T,>(props: DataViewerToolbarProps<T>) => {
   const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
   const { notifyResponse } = useJukiNotification();
 
-  const searchParams = useRouterStore((state) => state.searchParams);
+  const showFilterDrawerParam = useRouterStore((state) => state.searchParams.get(showFilterDrawerKey));
 
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
 
   const [showFilterDrawer, _setShowFilterDrawer] = useSessionStorage(
     showFilterDrawerKey,
-    searchParams.get(showFilterDrawerKey) === 'open' ? 'open' : 'close',
+    showFilterDrawerParam === 'open' ? 'open' : 'close',
   );
   const setShowFilterDrawer = useCallback(
     (show: boolean) => {

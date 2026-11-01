@@ -44,6 +44,8 @@ import {
 } from './constants';
 import type { DataViewerHeadersType, DataViewerProps, DataViewerTableHeadersType, FilterValuesType } from './types';
 
+const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 const applyOffline = <T extends object, >(data: T[], headers: DataViewerHeadersType<T>[], filters: RequestFilterType, searchSorts: string) => {
   let newData = [ ...data ];
   
@@ -55,11 +57,12 @@ const applyOffline = <T extends object, >(data: T[], headers: DataViewerHeadersT
       if (isFilterTextOffline(head?.filter)) {
         newData = newData.filter(head.filter.callbackFn({ columnIndex: head.index, text: filters[filterIndex] }));
       } else if (isFilterTextAutoOffline(head?.filter)) {
-        const regExp = new RegExp(filters[filterIndex], 'gi');
+        // the filter is plain text typed by the user: escape it (a "(" or "[" used to throw and break the table)
+        const regExp = new RegExp(escapeRegExp(filters[filterIndex]), 'i');
         newData = newData.filter(datum => {
           if (isFilterTextAutoOffline(head?.filter)) {
             const value = head.filter.getValue ? head.filter.getValue({ record: datum }) : (headIndex in datum ? datum[headIndex as Extract<keyof T, string>] : null);
-            return typeof value === 'string' ? !!(value?.match?.(regExp)) : false;
+            return typeof value === 'string' ? regExp.test(value) : false;
           }
           return false;
         });
@@ -296,7 +299,6 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
   
   const viewPortSize = usePageStore(store => store.viewPort.screen);
   const preferredDataViewMode = useUserStore(state => state.user.settings[ProfileSetting.DATA_VIEW_MODE]);
-  const searchParams = useRouterStore(state => state.searchParams);
   const t = useI18nStore(state => state.i18n.t);
   
   const pageKey = getPageQueryParam(name);
@@ -307,23 +309,32 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
   const showFilterDrawerKey = getShowFilterDrawerQueryParam(name);
   const visiblesKey = getVisiblesQueryParam(name);
   
+  // Subscribe only to this table's query params (they seed/sync its state), not to the whole URL:
+  // any unrelated navigation used to re-render the entire table.
+  const sortParam = useRouterStore(state => state.searchParams.get(sortKey));
+  const visiblesParam = useRouterStore(state => state.searchParams.get(visiblesKey));
+  const filterParam = useRouterStore(state => state.searchParams.get(filterKey));
+  const pageParam = useRouterStore(state => state.searchParams.get(pageKey));
+  const pageSizeParam = useRouterStore(state => state.searchParams.get(pageSizeKey));
+  const viewModeParam = useRouterStore(state => state.searchParams.get(viewModeKey));
+  
   const withPagination = !!initialPageSizeOptions;
   
   const [ loaderStatus, setLoaderStatus ] = useState<Status>(Status.LOADING);
   
   const initializing = loaderStatus === Status.LOADING || initialInitializing;
   
-  const iniSort = searchParams.get(sortKey);
+  const iniSort = sortParam;
   const [ searchSorts, setSort, deleteSort ] = useSessionStorage(sortKey, iniSort);
   const searchSortsRef = useStableRef(searchSorts);
   
   const [ searchVisibles, setVisibles ] = useSessionStorage(
     visiblesKey,
-    searchParams.get(visiblesKey),
+    visiblesParam,
     join(headers.map(({ index }) => index)),
   );
   
-  const iniFilters = searchParams.get(filterKey) || '';
+  const iniFilters = filterParam || '';
   const [ _searchFilter, setFilter, deleteFilter ] = useSessionStorage(filterKey, isStringJson(iniFilters) ? iniFilters : null);
   const filters = useMemo(() => {
     const initialFilters = isStringJson(_searchFilter) ? JSON.parse(_searchFilter) : {};
@@ -338,9 +349,9 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
   
   const initialPageSizeOptionsString = JSON.stringify(initialPageSizeOptions ?? [ 25, 50, 100 ]);
   const pageSizeOptions = useMemo(() => JSON.parse(initialPageSizeOptionsString), [ initialPageSizeOptionsString ]);
-  const [ _page, jumpToPage ] = useSessionStorage(pageKey, searchParams.get(pageKey));
+  const [ _page, jumpToPage ] = useSessionStorage(pageKey, pageParam);
   const page = +_page || 1;
-  const [ _pageSize, onPageSizeChange ] = useSessionStorage(pageSizeKey, searchParams.get(pageSizeKey));
+  const [ _pageSize, onPageSizeChange ] = useSessionStorage(pageSizeKey, pageSizeParam);
   const pageSize = +_pageSize || pageSizeOptions[0];
   
   const requestKey = useMemo(() => {
@@ -386,7 +397,10 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
   // derived, not state + effect: a headers change used to render the whole table twice (old + new headers)
   const tableHeaders: DataViewerTableHeadersType<T>[] = useMemo(
     () => buildHeaders(headers, searchVisibles, t, filtersRef, searchSortsRef, setVisibles, setSort, deleteSort, setFilter, deleteFilter),
-    [ deleteFilter, deleteSort, headers, setFilter, setSort, t, filtersRef, searchSortsRef, setVisibles, searchVisibles ],
+    // searchSorts / _searchFilter: getOrder()/getFilter() read refs, so the headers must be rebuilt when they
+    // change, otherwise the memoized head kept showing the previous sort arrow / filter state (offline sort)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ deleteFilter, deleteSort, headers, setFilter, setSort, t, filtersRef, searchSortsRef, setVisibles, searchVisibles, searchSorts, _searchFilter ],
   );
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
@@ -424,8 +438,8 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
   const initialViewMode = _initialViewMode || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
   const [ viewMode, setViewMode ] = useSessionStorage(
     viewModeKey,
-    searchParams.get(viewModeKey)
-      ? (searchParams.get(viewModeKey)?.toUpperCase() === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS)
+    viewModeParam
+      ? (viewModeParam.toUpperCase() === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS)
       : initialViewMode,
   );
   useEffect(() => {
