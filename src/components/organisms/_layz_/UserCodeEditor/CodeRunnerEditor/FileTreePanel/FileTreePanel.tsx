@@ -99,6 +99,7 @@ interface FileNodeProps<T> {
   globalIndex: number;
   currentFileName: string;
   viewFiles: boolean;
+  readOnly: boolean;
   onChangeRef: FileTreePanelProps<T>['onChangeRef'];
   setOpenFileName: (key: string) => void;
   setFileNameEdit: (name: string) => void;
@@ -115,6 +116,7 @@ function FileNode<T>({
   globalIndex,
   currentFileName,
   viewFiles,
+  readOnly,
   onChangeRef,
   setOpenFileName,
   setFileNameEdit,
@@ -150,23 +152,29 @@ function FileNode<T>({
                 {abbreviateFileName(name)}
               </span>
             </div>
-            <div className="jk-row gap display-on-hover-2 nowrap">
-              <EditIcon
-                className={classNames({ 'cr-tx-ht-lt': fileKey !== currentFileName })}
-                size="tiny"
-                onClick={() => {
-                  setOpenFileName(fileKey);
-                  setFileNameEdit(name);
-                  setFolderPathEdit(folderPath);
-                  setDescriptionEdit(description);
-                }}
-              />
-              <DeleteIcon
-                className={classNames({ 'cr-tx-ht-lt': fileKey !== currentFileName })}
-                size="tiny"
-                onClick={() => setFileNameDelete(fileKey)}
-              />
-            </div>
+            {!readOnly && (
+              <div className="jk-row gap display-on-hover-2 nowrap">
+                <EditIcon
+                  className={classNames({ 'cr-tx-ht-lt': fileKey !== currentFileName })}
+                  size="tiny"
+                  onClick={(e) => {
+                    e.stopPropagation(); // don't also open the file
+                    setOpenFileName(fileKey);
+                    setFileNameEdit(name);
+                    setFolderPathEdit(folderPath);
+                    setDescriptionEdit(description);
+                  }}
+                />
+                <DeleteIcon
+                  className={classNames({ 'cr-tx-ht-lt': fileKey !== currentFileName })}
+                  size="tiny"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setFileNameDelete(fileKey);
+                  }}
+                />
+              </div>
+            )}
           </div>
         </>
       ) : (
@@ -193,6 +201,7 @@ interface FolderNodeProps<T> {
   globalIndexMap: Map<string, number>;
   currentFileName: string;
   viewFiles: boolean;
+  readOnly: boolean;
   onChangeRef: FileTreePanelProps<T>['onChangeRef'];
   setOpenFileName: (key: string) => void;
   setFileNameEdit: (name: string) => void;
@@ -210,6 +219,7 @@ function FolderNode<T>({
   node,
   depth,
   viewFiles,
+  readOnly,
   currentFileName,
   onChangeRef,
   setOpenFileName,
@@ -257,6 +267,7 @@ function FolderNode<T>({
                   globalIndex={globalIndexMap.get(item.data.key) ?? item.data.index}
                   currentFileName={currentFileName}
                   viewFiles={viewFiles}
+                  readOnly={readOnly}
                   onChangeRef={onChangeRef}
                   setOpenFileName={setOpenFileName}
                   setFileNameEdit={setFileNameEdit}
@@ -270,6 +281,7 @@ function FolderNode<T>({
                   node={item.data as TreeNode & { type: 'folder' }}
                   depth={depth + 1}
                   viewFiles={viewFiles}
+                  readOnly={readOnly}
                   currentFileName={currentFileName}
                   onChangeRef={onChangeRef}
                   setOpenFileName={setOpenFileName}
@@ -297,14 +309,15 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
   const [descriptionEdit, setDescriptionEdit] = useState('');
   const [fileNameDelete, setFileNameDelete] = useState('');
 
+  const newFileNameEdit = fileNameEdit.trim().replace(/\//g, '_');
+  const canApplyEdit = newFileNameEdit.length > 0;
+
   const onChange = () => {
+    if (!canApplyEdit) {
+      return; // an empty name would produce a file with an empty key
+    }
     onChangeRef.current?.({
-      fileNameEdited: [
-        openFileName,
-        fileNameEdit.trim().replace(/\//g, '_'),
-        normalizeFolderPath(folderPathEdit),
-        descriptionEdit,
-      ],
+      fileNameEdited: [openFileName, newFileNameEdit, normalizeFolderPath(folderPathEdit), descriptionEdit],
     });
     setOpenFileName('');
   };
@@ -320,6 +333,7 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
   const fileNodeProps = {
     currentFileName,
     viewFiles,
+    readOnly: !!readOnly,
     onChangeRef,
     setOpenFileName,
     setFileNameEdit,
@@ -377,7 +391,7 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
             <Button type="secondary" onClick={() => setOpenFileName('')}>
               <T className="tt-se">cancel</T>
             </Button>
-            <Button onClick={onChange}>
+            <Button onClick={onChange} disabled={!canApplyEdit}>
               <T className="tt-se">change</T>
             </Button>
           </div>

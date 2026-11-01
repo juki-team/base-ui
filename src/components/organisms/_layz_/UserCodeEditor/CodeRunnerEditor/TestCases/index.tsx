@@ -231,9 +231,10 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
               test
                 ? (value) =>
                     onChangeRef?.current?.({
+                      // merge over the latest state, not the rendered `test`, so run results arriving meanwhile are kept
                       onTestCasesChange: (testCases) => ({
                         ...testCases,
-                        [test?.key]: { ...test, in: value },
+                        [test.key]: { ...(testCases[test.key] ?? test), in: value },
                       }),
                     })
                 : undefined

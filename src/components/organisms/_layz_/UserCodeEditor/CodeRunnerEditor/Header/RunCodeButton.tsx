@@ -167,14 +167,18 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
         body: {
           runId,
           files: [
-            ...Object.values(files).map(({ language, source, name, active }) => ({
-              language: language as CodeLanguage,
-              source,
-              fullFileName: name,
-              isInput: false,
-              isEntryPoint: active ?? false,
-              toCompile: active ?? false,
-            })),
+            // the open file is the entry point; `active` may be stale after a reload, so derive it from currentFileName
+            ...Object.entries(files).map(([fileKey, { language, source, name, active }]) => {
+              const isEntryPoint = fileKey === currentFileName || (active === true && !files[currentFileName]);
+              return {
+                language: language as CodeLanguage,
+                source,
+                fullFileName: name,
+                isInput: false,
+                isEntryPoint,
+                toCompile: isEntryPoint,
+              };
+            }),
             ...Object.values(testCases).map((testCase) => ({
               fullFileName: `${testCase.key}.in`,
               language: CodeLanguage.TEXT,
@@ -209,18 +213,21 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
   };
   const handleRunCodeRef = useStableRef(handleRunCode);
 
+  const isRunningRef = useStableRef(isRunning);
+  const hasCurrentFileRef = useStableRef(!!currentFile);
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (!e.shiftKey && !e.altKey && e.key === 'Enter') {
+      // Run with Ctrl+Enter / ⌘+Enter only; a plain Enter must keep inserting new lines in the editor
+      if ((e.metaKey || e.ctrlKey) && !e.shiftKey && !e.altKey && e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
-        if (setLoaderRef.current) {
+        if (setLoaderRef.current && !isRunningRef.current && hasCurrentFileRef.current) {
           void handleRunCodeRef.current(setLoaderRef.current);
         }
-        return;
       }
     },
-    [handleRunCodeRef],
+    [handleRunCodeRef, isRunningRef, hasCurrentFileRef],
   );
 
   useKeyDown(handleKeyDown);

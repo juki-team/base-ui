@@ -141,6 +141,15 @@ const getDefaultFileName = (codeLanguage: CodeLanguage) => CODE_LANGUAGE[codeLan
 
 const getExtension = (codeLanguage: unknown) => CODE_LANGUAGE[codeLanguage as CodeLanguage]?.fileExtension[0] ?? 'source';
 
+const getFileExtension = (fileName: string) => {
+  const dotIndex = fileName.lastIndexOf('.');
+  return dotIndex > 0 ? fileName.slice(dotIndex + 1).toLowerCase() : '';
+};
+
+// true when the file name already has an extension accepted by the language (e.g. main.cpp for C++17 and C++20)
+const hasValidExtension = (fileName: string, codeLanguage: unknown) =>
+  (CODE_LANGUAGE[codeLanguage as CodeLanguage]?.fileExtension ?? []).includes(getFileExtension(fileName));
+
 const getFileKey = (folderPath: string, name: string) => (folderPath ? `${folderPath}/${name}` : name);
 
 const mergeTestCases = (a: CodeEditorTestCases, b: CodeEditorTestCases | undefined): CodeEditorTestCases => {
@@ -397,17 +406,24 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
       },
     }));
 
+    // keep `active` (the entry point) in sync with the open file
     setFilesStore((prevState) => {
-      if (prevState[storeKey] && prevState[storeKey][currentFileName]) {
-        const updatedFiles = Object.fromEntries(
-          Object.entries(prevState[storeKey]).map(([fileName, fileData]) => [
-            fileName,
-            typeof fileData === 'object' && fileData !== null ? { ...fileData, active: fileName === lastFileName } : fileData,
-          ]),
-        );
-        return { ...prevState, [storeKey]: updatedFiles };
+      const prevFiles = prevState[storeKey];
+      if (!prevFiles || !prevFiles[lastFileName]) {
+        return prevState;
       }
-      return prevState;
+      let changed = false;
+      const updatedFiles = Object.fromEntries(
+        Object.entries(prevFiles).map(([fileName, fileData]) => {
+          const active = fileName === lastFileName;
+          if ((fileData.active ?? false) !== active) {
+            changed = true;
+            return [fileName, { ...fileData, active }];
+          }
+          return [fileName, fileData];
+        }),
+      );
+      return changed ? { ...prevState, [storeKey]: updatedFiles } : prevState;
     });
   };
 
@@ -527,36 +543,40 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
       // onSourceChange?.(newSourceCode);
     }
     if (newLanguage) {
-      // setLanguage(newLanguage);
       setEditorSettings((prevState) => ({ ...prevState, lastLanguageUsed: newLanguage }));
-      setFilesStore((prevState) => {
-        const files = { ...(prevState[storeKey] || {}) };
-        const currentFile = prevState[storeKey]?.[currentFileName];
-        const currentFolderPath = currentFile?.folderPath ?? '';
-        const newBaseName = getNewFileName(
-          removeExtension(currentFile?.name ?? ''),
-          `.${getExtension(newLanguage)}`,
-          (name) => !!files[getFileKey(currentFolderPath, name)],
-        );
+      const typedFiles = files as CodeEditorFiles<T>;
+      const currentFile = typedFiles[currentFileName];
+      if (currentFile) {
+        const currentFolderPath = currentFile.folderPath ?? '';
+        // only rename when the extension no longer matches the language (C++17 -> C++20 keeps main.cpp)
+        const newBaseName = hasValidExtension(currentFile.name, newLanguage)
+          ? currentFile.name
+          : getNewFileName(
+              removeExtension(currentFile.name),
+              `.${getExtension(newLanguage)}`,
+              (name) => !!typedFiles[getFileKey(currentFolderPath, name)],
+            );
         const newKey = getFileKey(currentFolderPath, newBaseName);
-        if (prevState[storeKey] && prevState[storeKey][currentFileName]) {
+        setFilesStore((prevState) => {
+          const prevFile = prevState[storeKey]?.[currentFileName];
+          if (!prevFile) {
+            return prevState;
+          }
           const newState: StorageType<CodeEditorFiles<T>> = {
             ...prevState,
             [storeKey]: {
               ...prevState[storeKey],
-              [currentFileName]: {
-                ...prevState[storeKey]?.[currentFileName],
-                language: newLanguage,
-              },
+              [currentFileName]: { ...prevFile, language: newLanguage },
             },
           };
-          setTimeout(() => {
-            setCurrentFileName(newKey);
-          }, 100);
-          return changeFileName(newState, currentFileName, newBaseName, currentFolderPath);
+          return newKey === currentFileName
+            ? newState
+            : changeFileName(newState, currentFileName, newBaseName, currentFolderPath);
+        });
+        if (newKey !== currentFileName) {
+          setCurrentFileName(newKey);
         }
-        return prevState;
-      });
+      }
       focusEditor();
     }
     if (onTestCasesChange) {
@@ -578,31 +598,40 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
       focusEditor();
     }
     if (newFileName !== undefined) {
+      const typedFiles = files as CodeEditorFiles<T>;
+      const folderPath = normalizeFolderPath(newFileName);
+      const newName = getNewFileName(
+        'new',
+        `.${getExtension(defaultLanguage)}`,
+        (name) => !!typedFiles[getFileKey(folderPath, name)],
+      );
+      const newKey = getFileKey(folderPath, newName);
+      const maxIndex = Object.values(typedFiles).reduce((accum, { index }) => Math.max(accum, index || 0), 0);
       setFilesStore((prevState) => {
-        const files = { ...(prevState[storeKey] || {}) };
-        const folderPath = newFileName;
-        const newName = getNewFileName(
-          'new',
-          `.${getExtension(defaultLanguage)}`,
-          (name) => !!files[getFileKey(folderPath, name)],
-        );
-        const newKey = getFileKey(folderPath, newName);
-        setCurrentFileName(newKey);
-        const maxIndex = Object.values(files).reduce((accum, { index }) => Math.max(accum, index || 0), 0);
-        files[newKey] = {
-          source: CODE_LANGUAGE[defaultLanguage as CodeLanguage]?.templateSourceCode || '',
-          language: defaultLanguage,
-          index: maxIndex + 1,
-          name: newName,
-          hidden: false,
-          protected: false,
-          readonly: false,
-          folderPath,
-          description: '',
-          active: true,
+        const prevFiles = prevState[storeKey] || {};
+        if (prevFiles[newKey]) {
+          return prevState;
+        }
+        return {
+          ...prevState,
+          [storeKey]: {
+            ...prevFiles,
+            [newKey]: {
+              source: CODE_LANGUAGE[defaultLanguage as CodeLanguage]?.templateSourceCode || '',
+              language: defaultLanguage,
+              index: maxIndex + 1,
+              name: newName,
+              hidden: false,
+              protected: false,
+              readonly: false,
+              folderPath,
+              description: '',
+              active: true,
+            },
+          },
         };
-        return { ...prevState, [storeKey]: files };
       });
+      setCurrentFileName(newKey);
       focusEditor();
     }
     if (fileName) {
@@ -625,11 +654,18 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
     }
     if (fileNameDeleted) {
       setFilesStore((prevState) => {
-        const files = prevState[storeKey] || {};
-        const { [fileNameDeleted]: _removed, ...newFiles } = { ...files }; // eslint-disable-line @typescript-eslint/no-unused-vars
-        setCurrentFileName(Object.keys(newFiles)[0] ?? '');
+        const prevFiles = prevState[storeKey] || {};
+        if (!prevFiles[fileNameDeleted]) {
+          return prevState;
+        }
+        const { [fileNameDeleted]: _removed, ...newFiles } = prevFiles; // eslint-disable-line @typescript-eslint/no-unused-vars
         return { ...prevState, [storeKey]: newFiles };
       });
+      // only switch files when the open one was deleted
+      if (fileNameDeleted === currentFileName) {
+        const remaining = Object.keys(files).filter((key) => key !== fileNameDeleted);
+        setCurrentFileName(remaining[0] ?? '');
+      }
       focusEditor();
     }
   };
