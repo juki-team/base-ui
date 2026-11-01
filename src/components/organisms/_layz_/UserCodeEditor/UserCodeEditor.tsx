@@ -18,6 +18,7 @@ import {
   useCallback,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -54,18 +55,15 @@ function useSaveStorage<T extends Record<string, unknown>>(
   storeKey: string | undefined,
   defaultValue: T,
 ): [T, Dispatch<SetStateAction<T>>] {
-  const storeRecovered = getStoreRecovered(storeKey);
-  const [value, setValue] = useState<T>({ ...defaultValue, ...storeRecovered });
+  const defaultValueRef = useStableRef(defaultValue);
+  // read localStorage lazily (once) and again only when the key changes, not on every render
+  const [value, setValue] = useState<T>(() => ({ ...defaultValue, ...getStoreRecovered(storeKey) }));
 
-  const defaultValueRef = useRef(defaultValue);
-  defaultValueRef.current = defaultValue;
-
-  const storeRecoveredRef = useRef(storeRecovered);
-  storeRecoveredRef.current = storeRecovered;
-
-  useEffect(() => {
-    setValue({ ...defaultValueRef.current, ...storeRecoveredRef.current });
-  }, [storeKey]);
+  const [loadedStoreKey, setLoadedStoreKey] = useState(storeKey);
+  if (loadedStoreKey !== storeKey) {
+    setLoadedStoreKey(storeKey);
+    setValue({ ...defaultValueRef.current, ...getStoreRecovered(storeKey) });
+  }
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -92,33 +90,36 @@ function useSaveChunkStorage<T extends Record<string, unknown>>(
   const mergeRef = useStableRef(merge);
   const formatStoreRecoveredRef = useStableRef(formatStoreRecovered);
 
-  const mergeState = useCallback((current?: StorageType<T>) => {
-    // let initialValue: StorageType<T> = {};
-    // if (isStringJson(initialValueString)) {
-    //   initialValue = JSON.parse(initialValueString);
-    // }
-    const newState: StorageType<T> = {};
-    // localStorage is written with a debounce, so the in-memory state (current) takes priority over it
-    const storeRecovered = Object.entries({
-      ...formatStoreRecoveredRef.current(getStoreRecovered(storeKey)),
-      ...current,
-    });
-    for (const [key, value] of Object.entries(initialValue)) {
-      newState[key] = mergeRef.current(value, storeRecovered.find(([storeRecoveredKey]) => storeRecoveredKey === key)?.[1]);
-    }
-    for (const [key, value] of storeRecovered) {
-      if (!newState[key]) {
-        newState[key] = value;
+  const mergeState = useCallback(
+    (current?: StorageType<T>) => {
+      const newState: StorageType<T> = {};
+      // localStorage is written with a debounce, so the in-memory state (current) takes priority over it
+      const storeRecovered: StorageType<T> = {
+        ...formatStoreRecoveredRef.current(getStoreRecovered(storeKey)),
+        ...current,
+      };
+      for (const [key, value] of Object.entries(initialValue)) {
+        newState[key] = mergeRef.current(value, storeRecovered[key]);
       }
-    }
-    return newState;
-  }, [storeKey, formatStoreRecoveredRef, mergeRef, initialValue]);
+      for (const [key, value] of Object.entries(storeRecovered)) {
+        if (!newState[key]) {
+          newState[key] = value;
+        }
+      }
+      return newState;
+    },
+    [storeKey, formatStoreRecoveredRef, mergeRef, initialValue],
+  );
 
   const [value, setValue] = useState<StorageType<T>>(() => mergeState());
 
-  useEffect(() => {
+  // Re-merge synchronously during render when the key or the initial value changes, instead of in an
+  // effect: an effect would commit one render with an empty chunk (and notify consumers with `{}`).
+  const [appliedMergeState, setAppliedMergeState] = useState(() => mergeState);
+  if (appliedMergeState !== mergeState) {
+    setAppliedMergeState(() => mergeState);
     setValue((prev) => mergeState(prev));
-  }, [mergeState]);
+  }
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -179,6 +180,10 @@ const mergeTestCases = (a: CodeEditorTestCases, b: CodeEditorTestCases | undefin
 const mergeSources = <T,>(a: CodeEditorFiles<T>, b: CodeEditorFiles<T> | undefined): CodeEditorFiles<T> => {
   return { ...b, ...a };
 };
+
+const mergeSettings = (a: SettingsStore, b: SettingsStore | undefined): SettingsStore => ({ ...a, ...b });
+
+const EMPTY_TEST_CASES: CodeEditorTestCases = {};
 
 const getNewFileName = (prefix: string, suffix: string, exist: (name: string) => boolean) => {
   let newFile = `${prefix}${suffix}`;
@@ -255,7 +260,8 @@ const formatStoreRecovered =
             readonly: 'readonly' in source && typeof source?.readonly === 'boolean' ? source.readonly : false,
             folderPath,
             description: 'description' in source && typeof source?.description === 'string' ? source?.description : '',
-            active: false,
+            // keep the entry point across reloads
+            active: 'active' in source && typeof source?.active === 'boolean' ? source.active : false,
           };
         }
       }
@@ -375,8 +381,24 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
   if (languages?.length && !languages.some((lang) => lang.value === defaultLanguage) && languages[0]) {
     defaultLanguage = languages[0].value;
   }
-  const formatter = formatStoreRecovered(languages);
-  const [newInitialFiles] = useSyncedState<StorageType<CodeEditorFiles<T>>>(formatter({ [storeKey]: { ...initialFiles } }));
+  // parents usually build `languages` with .map() on every render; key the formatter on its values instead
+  const languagesKey = (languages ?? []).map(({ value }) => String(value)).join('\u0000');
+  const languagesRef = useStableRef(languages);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const formatter = useMemo(() => formatStoreRecovered(languagesRef.current), [languagesKey, languagesRef]);
+
+  // Consumers often feed what we emit through onFilesChange/onTestCasesChange straight back as
+  // initialFiles/initialTestCases. Those echoes (same object reference) must not re-seed the store:
+  // the parent is one render behind and would overwrite the last keystroke.
+  const lastEmittedFilesRef = useRef<CodeEditorFiles<T> | undefined>(undefined);
+  const seedFilesRef = useRef(initialFiles);
+  if (initialFiles !== seedFilesRef.current && initialFiles !== lastEmittedFilesRef.current) {
+    seedFilesRef.current = initialFiles;
+  }
+  const seedFiles = seedFilesRef.current;
+  const [newInitialFiles] = useSyncedState<StorageType<CodeEditorFiles<T>>>(
+    useMemo(() => formatter({ [storeKey]: { ...seedFiles } }), [formatter, storeKey, seedFiles]),
+  );
   const [filesStore, setFilesStore] = useSaveChunkStorage<CodeEditorFiles<T>>(
     getSourcesStoreKey(userNickname),
     newInitialFiles,
@@ -384,18 +406,29 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
     formatter,
   );
   const onFilesChangeRef = useStableRef(onFilesChange);
-  const files = filesStore[storeKey] || EMPTY_OBJECT;
-  useEffect(() => onFilesChangeRef.current?.(files), [files, onFilesChangeRef]);
-  const defaultFileName = initialFileName ?? Object.keys(files)[0] ?? getDefaultFileName(defaultLanguage as CodeLanguage);
-  const [newInitialSettings] = useSyncedState<StorageType<SettingsStore>>({ [storeKey]: { lastFileName: defaultFileName } });
+  const files: CodeEditorFiles<T> = filesStore[storeKey] || EMPTY_OBJECT;
+  useEffect(() => {
+    lastEmittedFilesRef.current = files;
+    onFilesChangeRef.current?.(files);
+  }, [files, onFilesChangeRef]);
+
+  // the seed for lastFileName depends on the initial files only, so adding/renaming files doesn't re-merge the settings store
+  const seedFileName =
+    initialFileName ?? Object.keys(newInitialFiles[storeKey] ?? {})[0] ?? getDefaultFileName(defaultLanguage as CodeLanguage);
+  const [newInitialSettings] = useSyncedState<StorageType<SettingsStore>>(
+    useMemo(() => ({ [storeKey]: { lastFileName: seedFileName } }), [storeKey, seedFileName]),
+  );
   const [settingsStore, setSettingsStore] = useSaveChunkStorage<SettingsStore>(
     getSettingsStoreKey(userNickname),
     newInitialSettings,
-    (a, b) => ({ ...a, ...b }),
+    mergeSettings,
     formatSettingsStoreRecovered,
   );
   const onCurrentFileNameChangeRef = useStableRef(onCurrentFileNameChange);
-  const currentFileName = settingsStore[storeKey]?.lastFileName ?? defaultFileName;
+  const lastFileName = settingsStore[storeKey]?.lastFileName ?? seedFileName;
+  // never point the editor at a file that doesn't exist (stale lastFileName after a reload or an external change)
+  const fileKeys = Object.keys(files);
+  const currentFileName = files[lastFileName] || fileKeys.length === 0 ? lastFileName : fileKeys[0]!;
   useEffect(() => onCurrentFileNameChangeRef.current?.(currentFileName), [currentFileName, onCurrentFileNameChangeRef]);
   const setCurrentFileName = (lastFileName: string) => {
     setSettingsStore((prevState) => ({
@@ -428,8 +461,14 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
   };
 
   const testCaseStoreKey = storeKey;
+  const lastEmittedTestCasesRef = useRef<CodeEditorTestCases | undefined>(undefined);
+  const seedTestCasesRef = useRef(initialTestCases);
+  if (initialTestCases !== seedTestCasesRef.current && initialTestCases !== lastEmittedTestCasesRef.current) {
+    seedTestCasesRef.current = initialTestCases;
+  }
+  const seedTestCases = seedTestCasesRef.current;
   const [newInitialTestCases] = useSyncedState<StorageType<CodeEditorTestCases>>(
-    getNewInitialTestCases(testCaseStoreKey, initialTestCases),
+    useMemo(() => getNewInitialTestCases(testCaseStoreKey, seedTestCases), [testCaseStoreKey, seedTestCases]),
   );
   const [testCasesStore, setTestCasesStore] = useSaveChunkStorage<CodeEditorTestCases>(
     getTestCasesStoreKey(userNickname),
@@ -438,8 +477,9 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
     formatTestCasesStoreRecover,
   );
   const onTestCasesChangeRef = useStableRef(onTestCasesChange);
-  const testCases = testCasesStore[testCaseStoreKey]!;
+  const testCases = testCasesStore[testCaseStoreKey] ?? EMPTY_TEST_CASES;
   useEffect(() => {
+    lastEmittedTestCasesRef.current = testCases;
     onTestCasesChangeRef.current?.(testCases);
   }, [onTestCasesChangeRef, testCases]);
 
