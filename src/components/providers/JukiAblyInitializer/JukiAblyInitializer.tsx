@@ -23,6 +23,7 @@ import { jukiApiManager } from '../../../settings';
 import { useAblyStore } from '../../../stores/ably/useAblyStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
+import { getTopicChannelsAuthParams, initTopicChannels, setTopicChannelsCapability } from '../../../stores/websocket/topicChannels';
 import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
 import { authorizedRequest, isBrowser, safeReportError } from '../../helpers';
 import { useStableRef } from '../../hooks/useStableRef';
@@ -74,9 +75,17 @@ const newAblyClient = (uiId: string) => {
           let tokenRequest;
           try {
             const response = cleanRequest<ContentResponse<TokenDetails | TokenRequest | string | null>>(
-              await authorizedRequest(jukiApiManager.API_V2.websocket.auth().url + `?uiId=${uiId}`),
+              await authorizedRequest(
+                jukiApiManager.API_V2.websocket.auth().url +
+                  '?' +
+                  // the API decides what is granted for the contest / tracked client, see topicChannels.ts
+                  new URLSearchParams({ uiId, ...getTopicChannelsAuthParams() }).toString(),
+              ),
             );
             tokenRequest = response.success ? response.content : null;
+            if (tokenRequest && typeof tokenRequest === 'object' && 'capability' in tokenRequest) {
+              setTopicChannelsCapability(tokenRequest.capability);
+            }
           } catch (error) {
             callback(error?.toString() || 'Error on authCallback', null);
             return;
@@ -145,6 +154,7 @@ export const JukiAblyInitializer = () => {
               });
             });
             
+            initTopicChannels(realtimeClient, clientId, useWebsocketStore.getState().broadcastMessage);
             setRealtimeClient(realtimeClient);
             setSpaces(new Spaces(realtimeClient));
             setTimeout(newAuth, 1000);

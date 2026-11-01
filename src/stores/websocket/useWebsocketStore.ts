@@ -1,46 +1,24 @@
-import { consoleInfo, WebSocketSubscribeEventDTO, WebSocketUnsubscribeEventDTO } from '@juki-team/commons';
+import { consoleInfo } from '@juki-team/commons';
 import { create } from 'zustand';
-import { getKeyWebSocketEventDTO, getUnsubscribeEvent } from '../../components/helpers';
+import { getKeyWebSocketEventDTO } from '../../components/helpers';
+import { addTopicSubscription } from './topicChannels';
 import { WebsocketSubStore } from './types';
 
 export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
-  let publishQueue: Array<{ key: string; event: WebSocketSubscribeEventDTO | WebSocketUnsubscribeEventDTO }> = [];
-  let isPublishing = false;
-  
-  const flushQueue = async () => {
-    if (isPublishing || publishQueue.length === 0) {
-      return;
-    }
-    isPublishing = true;
-    const channelSubscription = get().channelPublishSubscription;
-    if (channelSubscription) {
-      const queueCopy = publishQueue.map(({ event }) => event);
-      publishQueue = [];
-      await channelSubscription.publish('batched', queueCopy);
-    }
-    isPublishing = false;
-  };
-  
-  const queuePublish = (key: string, event: WebSocketSubscribeEventDTO | WebSocketUnsubscribeEventDTO) => {
-    publishQueue.push({ key, event });
-  };
-  
-  setInterval(flushQueue, 200);
-  
   const getSubscribeToEvent: () => WebsocketSubStore['subscribeToEvent'] = () => {
     consoleInfo('new SubscribeToEvent function');
     return (event, callback) => {
       const key = getKeyWebSocketEventDTO(event);
-      queuePublish(key, event);
+      // the events arrive by the TOPIC channels (see topicChannels.ts), the subscription only says which ones are needed
+      const removeTopicSubscription = addTopicSubscription(event);
       set((state) => ({
         subscribers: {
           ...state.subscribers,
-          [key]: [ ...(state.subscribers[key] || []), callback ],
+          [key]: [...(state.subscribers[key] || []), callback],
         },
       }));
       return () => {
-        const unSubEvent = getUnsubscribeEvent(event);
-        queuePublish(getKeyWebSocketEventDTO(unSubEvent), unSubEvent);
+        removeTopicSubscription();
         set((state) => ({
           subscribers: {
             ...state.subscribers,
@@ -50,7 +28,7 @@ export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
       };
     };
   };
-  
+
   return {
     subscribers: {},
     newAuth: () => set({ subscribeToEvent: getSubscribeToEvent() }),
