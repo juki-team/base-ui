@@ -4,7 +4,7 @@
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
-  "packageManager": "pnpm@10.30.3",
+  "packageManager": "pnpm@12.16.1",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
@@ -76,16 +76,16 @@
     "git:commit": "f() { param=${1}; message=${param:-chore}; echo ${message}; git add .; echo $message | git commit -F -; }; f",
     "git:commit-version": "version=\"v$(node -p \"require('./package.json').version\")\" && pnpm git:commit $(echo $version) && git tag -a $(echo $version) -m $(echo $version);",
     "git:push": "git push origin v1.x --follow-tags",
-    "push-commit": "f() { pnpm check:circular-deps && pnpm git:commit \"${1}\" && npm version patch --no-git-tag-version && pnpm build:rollup-clean && pnpm build:rollup && pnpm git:commit-version && pnpm build:publish && pnpm git:push; }; f",
+    "push-commit": "f() { pnpm check:circular-deps && pnpm git:commit \"${1}\" && pnpm version patch --no-git-tag-version --no-git-checks && pnpm build:rollup-clean && pnpm build:rollup && pnpm git:commit-version && pnpm build:publish && pnpm git:push; }; f",
     "push": "pnpm check:circular-deps && pnpm build:rollup-clean && pnpm build:rollup && pnpm version patch && pnpm build:publish && pnpm git:push",
-    "push:storybook": "f() { pnpm check:circular-deps && pnpm git:commit \"${1}\" && npm version patch --no-git-tag-version && pnpm build:rollup-clean && pnpm build:sass && pnpm build:storybook && pnpm git:commit-version && pnpm build:publish && pnpm git:push; }; f",
+    "push:storybook": "f() { pnpm check:circular-deps && pnpm git:commit \"${1}\" && pnpm version patch --no-git-tag-version --no-git-checks && pnpm build:rollup-clean && pnpm build:sass && pnpm build:storybook && pnpm git:commit-version && pnpm build:publish && pnpm git:push; }; f",
     "pull": "pnpm remove @juki-team/commons && dotenv -- pnpm add --save-exact @juki-team/commons@0.1",
-    "chromatic": "npx chromatic --project-token=xyz",
+    "chromatic": "pnpm dlx chromatic --project-token=xyz",
     "clean-and-reset": "rm -rf node_modules pnpm-lock.yaml && pnpm store prune && pnpm install",
     "check-style-files": "find src/styles -type f -name \"*.scss\" -exec stat -f \"%z %N\" {} + | awk '{printf \"%.1f KB %s\\n\", $1/1024, $2}' | sort -nr",
-    "outdated": "npx npm-check-updates",
-    "check:circular-deps": "npx madge --circular ./src/*",
-    "check:circular-deps-graph": "npx madge --circular ./dist/* --image deps.png"
+    "outdated": "pnpm dlx npm-check-updates",
+    "check:circular-deps": "pnpm dlx madge --circular ./src/*",
+    "check:circular-deps-graph": "pnpm dlx madge --circular ./dist/* --image deps.png"
   },
   "dependencies": {
     "@ai-sdk/react": "^4.0.163",
@@ -242,10 +242,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "resolutions": {
-    "@hpcc-js/wasm": "2.22.4",
-    "@types/minimatch": "^5.0.0"
   },
   "msw": {
     "workerDirectory": [
