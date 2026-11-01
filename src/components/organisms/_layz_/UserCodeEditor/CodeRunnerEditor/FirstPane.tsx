@@ -4,7 +4,7 @@ import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../../constants';
 import { classNames } from '../../../../helpers';
 import { CodeEditor } from '../../../../molecules';
-import type { CodeEditorPropertiesType } from '../../../../molecules/_lazy_/CodeEditor/types';
+import type { CodeEditorPropertiesType, EditorStateCache } from '../../../../molecules/_lazy_/CodeEditor/types';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';
 import {
@@ -27,6 +27,8 @@ interface FirstPaneProps<T> {
   onlyFirstPane?: boolean;
   triggerFocus?: number;
   withoutRunCodeButton?: boolean;
+  documentKey: string;
+  editorStateCache: EditorStateCache;
   //
   setExpanded: Dispatch<SetStateAction<boolean>>;
   files: CodeEditorFiles<T>;
@@ -62,6 +64,8 @@ export const FirstPane = <T,>(props: FirstPaneProps<T>) => {
     expanded,
     expandPosition,
     withoutRunCodeButton,
+    documentKey,
+    editorStateCache,
   } = props;
 
   const [runState, setRunState] = useState<RunState>({ id: '', running: false });
@@ -148,6 +152,8 @@ export const FirstPane = <T,>(props: FirstPaneProps<T>) => {
           tabSize={tabSize}
           fontSize={fontSize}
           triggerFocus={triggerFocus}
+          documentKey={documentKey}
+          stateCache={editorStateCache}
         />
       </div>
     </div>

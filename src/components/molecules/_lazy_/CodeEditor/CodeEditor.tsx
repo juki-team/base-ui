@@ -58,7 +58,18 @@ function getLanguageExtension(language: unknown): Extension | null {
 }
 
 function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
-  const { source, language, theme, readOnly = false, onChange, tabSize = 4, fontSize = 14, triggerFocus = 0 } = props;
+  const {
+    source,
+    language,
+    theme,
+    readOnly = false,
+    onChange,
+    tabSize = 4,
+    fontSize = 14,
+    triggerFocus = 0,
+    documentKey,
+    stateCache,
+  } = props;
 
   const editorRef = useRef<EditorView | null>(null);
 
@@ -91,6 +102,8 @@ function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
       <ReactCodeMirror
         readOnly={readOnly}
         value={source}
+        documentKey={documentKey}
+        stateCache={stateCache}
         height={height + 'px'}
         extensions={extensions}
         onChange={handleChange}

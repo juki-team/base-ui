@@ -715,6 +715,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
       triggerFocus={editorTriggerFocus}
       files={files}
       currentFileName={currentFileName}
+      documentScope={storeKey}
       className={className}
       theme={editorSettings.theme}
       tabSize={editorSettings.tabSize}

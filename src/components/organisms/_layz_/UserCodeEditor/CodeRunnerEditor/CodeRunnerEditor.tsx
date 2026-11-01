@@ -5,7 +5,7 @@ import {
   ProfileSetting,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 } from '@juki-team/commons';
-import { ReactNode, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES } from '../../../../../constants';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
@@ -14,6 +14,7 @@ import { Button, Portal, T } from '../../../../atoms';
 import { classNames } from '../../../../helpers';
 import { useStableRef } from '../../../../hooks/useStableRef';
 import { SplitPane } from '../../../../molecules';
+import type { EditorStateCache } from '../../../../molecules/_lazy_/CodeEditor/types';
 import MdMathEditor from '../../MdMathEditor/MdMathEditor';
 import { FileTreePanel } from './FileTreePanel/FileTreePanel';
 import type { FileTreeFiles } from './FileTreePanel/types';
@@ -50,6 +51,7 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
     onlyCodeEditor,
     files,
     currentFileName,
+    documentScope = '',
     triggerFocus,
     mdEditorRef,
     withoutRunCodeButton,
@@ -59,6 +61,12 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
   } = props;
 
   const { source = '', language = CodeLanguage.TEXT as T } = files?.[currentFileName] ?? {};
+
+  // Per-document CodeMirror states (undo history, selection, scroll). Owned here, above the pane that
+  // gets remounted when toggling fullscreen, so the editor comes back exactly as it was.
+  const editorStateCache = useRef<EditorStateCache>(new Map()).current;
+  const getDocumentKey = (fileName: string) => `${documentScope}\u0000${fileName}`;
+  const documentKey = getDocumentKey(currentFileName);
 
   // consumers usually build `languages` with .map() on every render; keep one stable reference per set of values
   const languagesKey = (_languages ?? []).map(({ value }) => String(value)).join('\u0000');
@@ -87,6 +95,16 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [treeSignature],
   );
+  // drop cached states of deleted/renamed files (a re-created file must not inherit the old undo history)
+  useEffect(() => {
+    const liveKeys = new Set(Object.keys(treeFiles).map(getDocumentKey));
+    for (const key of Array.from(editorStateCache.keys())) {
+      if (!liveKeys.has(key)) {
+        editorStateCache.delete(key);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [treeFiles, documentScope]);
 
   const onChangeRef = useStableRef(readOnly ? undefined : _onChange);
 
@@ -189,6 +207,8 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
           expandPosition,
           expanded,
           withoutRunCodeButton,
+          documentKey,
+          editorStateCache,
         }}
       />
     ),
@@ -212,6 +232,8 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
       expandPosition,
       expanded,
       withoutRunCodeButton,
+      documentKey,
+      editorStateCache,
     ],
   );
 

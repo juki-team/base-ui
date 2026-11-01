@@ -44,12 +44,16 @@ const ReactCodeMirror = forwardRef<ReactCodeMirrorRef, ReactCodeMirrorProps>((pr
     readOnly,
     root,
     initialState,
+    documentKey,
+    stateCache,
     ...other
   } = props;
   const editor = useRef<HTMLDivElement | null>(null);
   const { state, view, container, setContainer } = useCodeMirror({
     root,
     value,
+    documentKey,
+    stateCache,
     autoFocus,
     theme,
     height,

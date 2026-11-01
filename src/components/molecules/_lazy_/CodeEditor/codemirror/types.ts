@@ -1,14 +1,30 @@
-import type { EditorState, EditorStateConfig, Extension, StateField } from '@codemirror/state';
+import type { EditorState, EditorStateConfig, Extension, StateEffect, StateField } from '@codemirror/state';
 import type { EditorView, ViewUpdate } from '@codemirror/view';
 import React from 'react';
 import type { BasicSetupOptions } from './extensions/basic-setup';
 import type { Statistics } from './utils';
+
+/** Editor state (document, selection, undo history) plus scroll position of one document. */
+export interface CachedEditorDocument {
+  state: EditorState;
+  scroll: StateEffect<unknown> | null;
+}
+
+/** Keyed by `documentKey`; owned by the caller so it can outlive the editor instance (e.g. remounts). */
+export type EditorStateCache = Map<string, CachedEditorDocument>;
 
 export interface ReactCodeMirrorProps
   extends Omit<EditorStateConfig, 'doc' | 'extensions'>,
     Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'placeholder'> {
   /** value of the auto created model in the editor. */
   value?: string;
+  /**
+   * Identifies the document being edited. When it changes the editor swaps the whole EditorState
+   * (so each document keeps its own undo history, selection and scroll) instead of replacing the text.
+   */
+  documentKey?: string;
+  /** Where per-document states are kept; pass a stable Map to keep them across editor remounts. */
+  stateCache?: EditorStateCache;
   height?: string;
   minHeight?: string;
   maxHeight?: string;

@@ -61,6 +61,8 @@ export interface CodeRunnerEditorProps<T> extends Omit<CodeEditorPropertiesType<
   triggerFocus?: number;
   files: CodeEditorFiles<T>;
   currentFileName: string;
+  /** namespaces the per-file editor states (undo history, selection...), e.g. the store key */
+  documentScope?: string;
   readOnly?: boolean;
   onChange?: CodeRunnerEditorOnChangeType<T>;
   className?: string;

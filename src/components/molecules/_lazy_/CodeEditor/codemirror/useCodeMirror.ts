@@ -1,9 +1,9 @@
 import { Annotation, EditorState, type Extension, StateEffect } from '@codemirror/state';
 import { EditorView, type ViewUpdate } from '@codemirror/view';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { getDefaultExtensions } from './getDefaultExtensions';
 import { getScheduler, TimeoutLatch } from './timeoutLatch';
-import { ReactCodeMirrorProps } from './types';
+import { EditorStateCache, ReactCodeMirrorProps } from './types';
 import { getStatistics } from './utils';
 
 export const ExternalChange = Annotation.define<boolean>();
@@ -39,12 +39,34 @@ export function useCodeMirror(props: UseCodeMirror) {
     basicSetup: defaultBasicSetup = true,
     root,
     initialState,
+    documentKey,
+    stateCache,
   } = props;
   const [ container, setContainer ] = useState<HTMLDivElement | null>();
   const [ view, setView ] = useState<EditorView>();
   const [ state, setState ] = useState<EditorState>();
   const typingLatch = useState<{ current: TimeoutLatch | null }>(() => ({ current: null }))[0];
   const pendingUpdate = useState<{ current: (() => void) | null }>(() => ({ current: null }))[0];
+  // key of the document the view currently holds (not necessarily the latest prop until the swap effect runs)
+  const documentKeyRef = useRef(documentKey);
+  const stateCacheRef = useRef<EditorStateCache | undefined>(stateCache);
+  stateCacheRef.current = stateCache;
+
+  const cacheCurrentDocument = (currentView: EditorView, withScroll: boolean) => {
+    const key = documentKeyRef.current;
+    if (key === undefined || !stateCacheRef.current) {
+      return;
+    }
+    let scroll = stateCacheRef.current.get(key)?.scroll ?? null;
+    if (withScroll) {
+      try {
+        scroll = currentView.scrollSnapshot();
+      } catch {
+        // the DOM may already be detached (unmount): keep the last known scroll
+      }
+    }
+    stateCacheRef.current.set(key, { state: currentView.state, scroll });
+  };
   const defaultThemeOption = EditorView.theme({
     '&': {
       height,
@@ -84,6 +106,9 @@ export function useCodeMirror(props: UseCodeMirror) {
       const value = doc.toString();
       onChange(value, vu);
     }
+    if (vu.docChanged || vu.selectionSet) {
+      cacheCurrentDocument(vu.view, false); // keep the cache fresh so remounts restore the latest state
+    }
     onStatistics && onStatistics(getStatistics(vu));
   });
   
@@ -102,7 +127,9 @@ export function useCodeMirror(props: UseCodeMirror) {
     getExtensions.push(EditorView.updateListener.of(onUpdate));
   }
   getExtensions = getExtensions.concat(extensions);
-  
+  const getExtensionsRef = useRef(getExtensions);
+  getExtensionsRef.current = getExtensions;
+
   useLayoutEffect(() => {
     if (container && !state) {
       const config = {
@@ -110,9 +137,14 @@ export function useCodeMirror(props: UseCodeMirror) {
         selection,
         extensions: getExtensions,
       };
-      const stateCurrent = initialState
-        ? EditorState.fromJSON(initialState.json, config, initialState.fields)
-        : EditorState.create(config);
+      // restore the document state (undo history, selection) from the cache when we have it: this is
+      // what keeps the editor intact when the component remounts (e.g. toggling fullscreen)
+      const cached = documentKey !== undefined ? stateCacheRef.current?.get(documentKey) : undefined;
+      const stateCurrent = cached
+        ? cached.state
+        : initialState
+          ? EditorState.fromJSON(initialState.json, config, initialState.fields)
+          : EditorState.create(config);
       setState(stateCurrent);
       if (!view) {
         const viewCurrent = new EditorView({
@@ -120,6 +152,12 @@ export function useCodeMirror(props: UseCodeMirror) {
           parent: container,
           root,
         });
+        if (cached) {
+          // the cached state carries the extensions (listeners, theme...) of the previous instance
+          viewCurrent.dispatch({
+            effects: [ StateEffect.reconfigure.of(getExtensions), ...(cached.scroll ? [ cached.scroll ] : []) ],
+          });
+        }
         setView(viewCurrent);
         onCreateEditor && onCreateEditor(viewCurrent, stateCurrent);
       }
@@ -131,6 +169,33 @@ export function useCodeMirror(props: UseCodeMirror) {
       }
     };
   }, [ container, state ]);
+
+  // Swap documents: keep the outgoing one in the cache and load the incoming one (cached or fresh).
+  useEffect(() => {
+    const previousKey = documentKeyRef.current;
+    if (!view || previousKey === documentKey) {
+      documentKeyRef.current = documentKey;
+      return;
+    }
+    // an external update pending for the previous document must not land on the new one
+    if (typingLatch.current) {
+      typingLatch.current.cancel();
+      typingLatch.current = null;
+    }
+    pendingUpdate.current = null;
+    cacheCurrentDocument(view, true);
+    documentKeyRef.current = documentKey;
+    const cached = documentKey !== undefined ? stateCacheRef.current?.get(documentKey) : undefined;
+    if (cached) {
+      view.setState(cached.state);
+      view.dispatch({
+        effects: [ StateEffect.reconfigure.of(getExtensionsRef.current), ...(cached.scroll ? [ cached.scroll ] : []) ],
+      });
+    } else {
+      view.setState(EditorState.create({ doc: value ?? '', extensions: getExtensionsRef.current }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ documentKey, view ]);
   
   useEffect(() => {
     if (props.container) {
@@ -141,6 +206,7 @@ export function useCodeMirror(props: UseCodeMirror) {
   useEffect(
     () => () => {
       if (view) {
+        cacheCurrentDocument(view, true);
         view.destroy();
         setView(undefined);
       }
