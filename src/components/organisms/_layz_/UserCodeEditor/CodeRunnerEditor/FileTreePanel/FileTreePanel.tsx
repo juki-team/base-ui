@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { Button, Input, InputTextArea, Modal, T } from '../../../../../atoms';
 import {
   AddIcon,
@@ -14,7 +14,7 @@ import {
 } from '../../../../../atoms/server';
 import { classNames, normalizeFolderPath } from '../../../../../helpers';
 import { TwoActionModal } from '../../../../../molecules';
-import type { FileTreePanelProps } from './types';
+import type { FileTreeEntry, FileTreePanelProps } from './types';
 
 function abbreviateFileName(name: string, maxNameLength = 16): string {
   if (name.length <= maxNameLength) {
@@ -45,7 +45,7 @@ type TreeNode =
       description: string;
     };
 
-function buildTree(entries: [string, { folderPath: string; index: number; name: string; description?: string }][]): TreeNode[] {
+function buildTree(entries: [string, FileTreeEntry][]): TreeNode[] {
   const root: TreeNode[] = [];
   const folderMap = new Map<string, TreeNode & { type: 'folder' }>();
 
@@ -299,7 +299,7 @@ function FolderNode<T>({
   );
 }
 
-export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
+const FileTreePanelCmp = <T,>(props: FileTreePanelProps<T>) => {
   const { fileTreePanelRef, files, currentFileName, onChangeRef, readOnly } = props;
 
   const [viewFiles, setViewFiles] = useState<boolean>(false);
@@ -322,13 +322,11 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
     setOpenFileName('');
   };
 
-  const entries = Object.entries(files) as [
-    string,
-    { folderPath: string; index: number; name: string; description?: string },
-  ][];
-  const sorted = [...entries].sort(([, a], [, b]) => a.index - b.index);
-  const globalIndexMap = new Map(sorted.map(([key], i) => [key, i]));
-  const tree = buildTree(entries);
+  const { tree, globalIndexMap } = useMemo(() => {
+    const entries = Object.entries(files);
+    const sorted = [...entries].sort(([, a], [, b]) => a.index - b.index);
+    return { tree: buildTree(entries), globalIndexMap: new Map(sorted.map(([key], i) => [key, i])) };
+  }, [files]);
 
   const fileNodeProps = {
     currentFileName,
@@ -440,3 +438,5 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
     </>
   );
 };
+
+export const FileTreePanel = memo(FileTreePanelCmp) as typeof FileTreePanelCmp;

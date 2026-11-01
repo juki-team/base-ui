@@ -9,7 +9,7 @@ import {
   SUBMISSION_RUN_STATUS,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import { useEffect, useState } from 'react';
+import { memo, type RefObject, useEffect, useMemo, useState } from 'react';
 import { InputToggle, Popover, T, TextArea } from '../../../../../atoms';
 import { classNames } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
@@ -22,13 +22,12 @@ import type { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
 import { LogInfo } from './LogInfo';
 
 const AddCaseButton = <T,>({
-  onChange,
+  onChangeRef,
   testCasesValues,
   sample = false,
 }: {
-  onChange: CodeRunnerEditorOnChangeType<T>;
+  onChangeRef: RefObject<CodeRunnerEditorOnChangeType<T> | undefined>;
   testCasesValues: CodeEditorTestCase[];
-  testCases: CodeEditorTestCases;
   sample?: boolean;
 }) => {
   const { addNotification } = useJukiNotification();
@@ -49,7 +48,7 @@ const AddCaseButton = <T,>({
           if (cases.length < (sample ? 30 : 16)) {
             const key = globalThis.crypto.randomUUID();
             const index = mex(cases.map((testCaseValue) => testCaseValue.index));
-            onChange?.({
+            onChangeRef.current?.({
               onTestCasesChange: (testCases) => ({
                 ...testCases,
                 [key]: {
@@ -77,19 +76,29 @@ const AddCaseButton = <T,>({
   );
 };
 
-export const TestCases = <T,>(props: TestCasesProps<T>) => {
+const EMPTY_TEST_CASES: CodeEditorTestCases = {};
+
+const TestCasesCmp = <T,>(props: TestCasesProps<T>) => {
   const {
-    testCases = {},
+    testCases = EMPTY_TEST_CASES,
     onChangeRef,
     timeLimit,
     memoryLimit,
     direction,
     enableAddSampleCases,
     enableAddCustomSampleCases,
+    readOnly = false,
   } = props;
 
-  const testCasesValues = Object.values(testCases).sort((a, b) =>
-    a.key === '*' ? -1 : b.key === '*' ? 1 : a.sample !== b.sample ? +b.sample - +a.sample : a.index - b.index,
+  // `onChangeRef.current` is read at event time; render decisions use the prop so memo() stays correct
+  const editable = !readOnly;
+
+  const testCasesValues = useMemo(
+    () =>
+      Object.values(testCases).sort((a, b) =>
+        a.key === '*' ? -1 : b.key === '*' ? 1 : a.sample !== b.sample ? +b.sample - +a.sample : a.index - b.index,
+      ),
+    [testCases],
   );
   const [testCaseKey, setTestCaseKey] = useState(testCasesValues[0]?.key || '*');
   useEffect(() => {
@@ -214,7 +223,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
       key: 'input',
       header: <T className="tt-se">input</T>,
       body:
-        (test?.sample ? enableAddSampleCases : enableAddCustomSampleCases) && onChangeRef?.current ? (
+        (test?.sample ? enableAddSampleCases : enableAddCustomSampleCases) && editable ? (
           <TextArea
             style={{
               height: 'calc(100% - 4px)',
@@ -252,7 +261,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
     inputTabs['output'] = {
       key: 'output',
       header: <T className="tt-se">expected output</T>,
-      body: onChangeRef?.current ? (
+      body: editable ? (
         <TextArea
           style={{
             height: 'calc(100% - 4px)',
@@ -268,7 +277,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
             onChangeRef?.current?.({
               onTestCasesChange: (testCases) => ({
                 ...testCases,
-                [test?.key]: { ...test, testOut: value },
+                [test.key]: { ...(testCases[test.key] ?? test), testOut: value },
               }),
             })
           }
@@ -290,12 +299,12 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
             leftLabel={<T className="tt-se tx-s">no hidden</T>}
             rightLabel={<T className="tt-se tx-s">hidden</T>}
             onChange={
-              onChangeRef?.current
+              editable
                 ? (hidden) =>
                     onChangeRef?.current?.({
                       onTestCasesChange: (testCases) => ({
                         ...testCases,
-                        [test?.key]: { ...test, hidden },
+                        [test.key]: { ...(testCases[test.key] ?? test), hidden },
                       }),
                     })
                 : undefined
@@ -307,12 +316,12 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
             leftLabel={<T className="tt-se tx-s">without PE</T>}
             rightLabel={<T className="tt-se tx-s">with PE</T>}
             onChange={
-              onChangeRef?.current
+              editable
                 ? (withPE) =>
                     onChangeRef?.current?.({
                       onTestCasesChange: (testCases) => ({
                         ...testCases,
-                        [test?.key]: { ...test, withPE },
+                        [test.key]: { ...(testCases[test.key] ?? test), withPE },
                       }),
                     })
                 : undefined
@@ -412,14 +421,14 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
           );
         })}
         {/*TODO: add character inside de buttons to distinguish the buttons*/}
-        {enableAddSampleCases && onChangeRef?.current && (
+        {enableAddSampleCases && editable && onChangeRef && (
           <div className="jk-row jk-pg-xsm-tb border-top-highlight-light">
-            <AddCaseButton onChange={onChangeRef?.current} testCasesValues={testCasesValues} testCases={testCases} sample />
+            <AddCaseButton onChangeRef={onChangeRef} testCasesValues={testCasesValues} sample />
           </div>
         )}
-        {enableAddCustomSampleCases && onChangeRef?.current && (
+        {enableAddCustomSampleCases && editable && onChangeRef && (
           <div className="jk-row jk-pg-xsm-tb border-top-highlight-light">
-            <AddCaseButton onChange={onChangeRef?.current} testCasesValues={testCasesValues} testCases={testCases} />
+            <AddCaseButton onChangeRef={onChangeRef} testCasesValues={testCasesValues} />
           </div>
         )}
       </div>
@@ -483,3 +492,6 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
     </div>
   );
 };
+
+// memoized: it only depends on test cases / limits / flags, so keystrokes in the code editor must not re-render it
+export const TestCases = memo(TestCasesCmp) as typeof TestCasesCmp;

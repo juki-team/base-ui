@@ -97,6 +97,7 @@ export interface TestCasesProps<T> {
   direction: 'row' | 'column';
   enableAddSampleCases: boolean;
   enableAddCustomSampleCases: boolean;
+  readOnly?: boolean;
 }
 
 export interface HeaderProps<T> {

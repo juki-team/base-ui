@@ -16,19 +16,24 @@ import { useStableRef } from '../../../../hooks/useStableRef';
 import { SplitPane } from '../../../../molecules';
 import MdMathEditor from '../../MdMathEditor/MdMathEditor';
 import { FileTreePanel } from './FileTreePanel/FileTreePanel';
+import type { FileTreeFiles } from './FileTreePanel/types';
 import { FirstPane } from './FirstPane';
 import { MdxRenderer } from './MdxViewer/MdxRenderer';
 import { MermaidViewer } from './MermaidViewer/MermaidViewer';
 import { TestCases } from './TestCases';
 import { CodeRunnerEditorProps, Runner } from './types';
 
+let defaultLanguages: { value: unknown; label: ReactNode }[] | undefined;
+const getDefaultLanguages = <T,>() =>
+  (defaultLanguages ??= CODE_EDITOR_PROGRAMMING_LANGUAGES.map((lang) => ({
+    value: lang,
+    label: (CODE_LANGUAGE[lang]?.label || lang) as ReactNode,
+  }))) as { value: T; label: ReactNode }[];
+
 export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
   const {
     readOnly,
-    languages = CODE_EDITOR_PROGRAMMING_LANGUAGES.map((lang) => ({
-      value: lang as T,
-      label: (CODE_LANGUAGE[lang]?.label || lang) as ReactNode,
-    })),
+    languages: _languages,
     onChange: _onChange,
     leftButtons,
     centerButtons,
@@ -55,6 +60,34 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
 
   const { source = '', language = CodeLanguage.TEXT as T } = files?.[currentFileName] ?? {};
 
+  // consumers usually build `languages` with .map() on every render; keep one stable reference per set of values
+  const languagesKey = (_languages ?? []).map(({ value }) => String(value)).join('\u0000');
+  const languagesRef = useStableRef(_languages);
+  const languages = useMemo(
+    () => languagesRef.current ?? getDefaultLanguages<T>(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [languagesKey, languagesRef],
+  );
+
+  // the file tree only needs metadata: a new object only when a file is added/removed/renamed/moved
+  const treeSignature = Object.entries(files)
+    .map(
+      ([key, { name, folderPath, index, description }]) =>
+        `${key}\u0001${name}\u0001${folderPath}\u0001${index}\u0001${description ?? ''}`,
+    )
+    .join('\u0002');
+  const treeFiles = useMemo<FileTreeFiles>(
+    () =>
+      Object.fromEntries(
+        Object.entries(files).map(([key, { name, folderPath, index, description }]) => [
+          key,
+          { name, folderPath, index, description },
+        ]),
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [treeSignature],
+  );
+
   const onChangeRef = useStableRef(readOnly ? undefined : _onChange);
 
   const preferredTheme = useUserStore((state) => state.user.settings[ProfileSetting.THEME]);
@@ -75,6 +108,7 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
           direction={direction}
           enableAddSampleCases={readOnly ? false : !!enableAddSampleCases}
           enableAddCustomSampleCases={readOnly ? false : !!enableAddCustomSampleCases}
+          readOnly={!!readOnly}
         />
       );
     }
@@ -208,7 +242,7 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
       <div className="flex-1 ow-hn jk-row nowrap stretch">
         <FileTreePanel
           fileTreePanelRef={ref}
-          files={files}
+          files={treeFiles}
           currentFileName={currentFileName}
           onChangeRef={onChangeRef}
           readOnly={readOnly}
