@@ -10,31 +10,14 @@ import { search } from '@codemirror/search';
 import type { EditorView } from '@codemirror/view';
 // import { oneDark } from '@codemirror/theme-one-dark';
 import { CodeLanguage, Theme } from '@juki-team/commons';
-import { memo, useEffect, useRef } from 'react';
+import type { Extension } from '@codemirror/state';
+import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
-// import { basicSetup } from '@uiw/codemirror-extensions-basic-setup';
 import ReactCodeMirror from './codemirror/ReactCodeMirror';
 import { CodeEditorProps } from './types';
 
-function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
-  const { source, language, theme, readOnly = false, onChange, tabSize = 4, fontSize = 14, triggerFocus = 0 } = props;
-
-  const editorRef = useRef<EditorView | null>(null);
-
-  useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.focus();
-    }
-  }, [triggerFocus]);
-
-  const extensions = [
-    // basicSetup(),
-    autocompletion(),
-    search(),
-    // oneDark,
-  ];
-
+function getLanguageExtension(language: unknown): Extension | null {
   switch (language) {
     case CodeLanguage.ICPC_CPP:
     case CodeLanguage.CPP:
@@ -47,22 +30,17 @@ function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
     case CodeLanguage.CPP_11:
     case CodeLanguage.CPP_20:
     case CodeLanguage.ARDUINO:
-      extensions.push(cpp());
-      break;
+      return cpp();
     case CodeLanguage.JAVA:
     case CodeLanguage.JAVA_21:
-      extensions.push(java());
-      break;
+      return java();
     case CodeLanguage.JAVASCRIPT:
     case CodeLanguage.JAVASCRIPT_NODE_JS_22:
-      extensions.push(javascript());
-      break;
+      return javascript();
     case CodeLanguage.JSON:
-      extensions.push(json());
-      break;
+      return json();
     case CodeLanguage.MARKDOWN:
-      extensions.push(markdown());
-      break;
+      return markdown();
     case CodeLanguage.ICPC_PYTHON:
     case CodeLanguage.PYTHON2:
     case CodeLanguage.PYTHON3:
@@ -70,15 +48,41 @@ function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
     case CodeLanguage.PYTHON_PYPY_2:
     case CodeLanguage.PYTHON_3:
     case CodeLanguage.PYTHON_PYPY_3:
-      extensions.push(python());
-      break;
+      return python();
     case CodeLanguage.HTML:
-      extensions.push(html({ autoCloseTags: true, matchClosingTags: true }));
-      break;
+      return html({ autoCloseTags: true, matchClosingTags: true });
     case CodeLanguage.TEXT:
     default:
-      break;
+      return null;
   }
+}
+
+function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
+  const { source, language, theme, readOnly = false, onChange, tabSize = 4, fontSize = 14, triggerFocus = 0 } = props;
+
+  const editorRef = useRef<EditorView | null>(null);
+
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.focus();
+    }
+  }, [triggerFocus]);
+
+  // Every value passed to ReactCodeMirror must be referentially stable between keystrokes: a new
+  // extensions array / basicSetup object / onChange function triggers a full StateEffect.reconfigure
+  // (re-parsing the whole document and closing the autocomplete popup) on every render.
+  const extensions = useMemo(() => {
+    const languageExtension = getLanguageExtension(language);
+    return languageExtension ? [autocompletion(), search(), languageExtension] : [autocompletion(), search()];
+  }, [language]);
+
+  const basicSetup = useMemo(() => ({ tabSize }), [tabSize]);
+
+  const handleChange = useCallback((value: string) => onChange?.({ source: value }), [onChange]);
+
+  const handleCreateEditor = useCallback((view: EditorView) => {
+    editorRef.current = view;
+  }, []);
 
   const { height = 0, ref } = useResizeDetector(RESIZE_DETECTOR_PROPS);
 
@@ -89,22 +93,11 @@ function CodeEditorCmp<T>(props: CodeEditorProps<T>) {
         value={source}
         height={height + 'px'}
         extensions={extensions}
-        onChange={(value) => onChange?.({ source: value })}
+        onChange={handleChange}
         theme={theme === Theme.DARK ? 'dark' : 'light'}
-        basicSetup={{ tabSize }}
-        onCreateEditor={(view) => {
-          editorRef.current = view;
-        }}
+        basicSetup={basicSetup}
+        onCreateEditor={handleCreateEditor}
       />
-      {/*<CodeMirrorEditor*/}
-      {/*  readOnly={readOnly}*/}
-      {/*  value={sourceCode}*/}
-      {/*  height={height + 'px'}*/}
-      {/*  extensions={extensions}*/}
-      {/*  onChange={(value) => onChange?.({ sourceCode: value })}*/}
-      {/*  theme={theme === Theme.DARK ? 'dark' : 'light'}*/}
-      {/*  basicSetup={{ tabSize }} */}
-      {/*/>*/}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { CodeLanguage, RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES } from '@juki-team/commons';
 import domToImage from 'dom-to-image-more';
-import { ReactNode, useCallback } from 'react';
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../../../constants';
 import { Button, Select, T } from '../../../../../atoms';
@@ -47,29 +47,46 @@ export const Header = <T,>(props: HeaderProps<T>) => {
     }
   }, [addQuietNotification, currentFileName, files]);
 
-  const toPng = async () => {
-    const cmThemeNode = document.querySelector('.code-viewer-to-print');
-    if (!cmThemeNode) {
-      return;
+  // The highlighted CodeViewer used to export PNGs is only mounted while exporting: rendering it
+  // permanently re-highlighted the whole file on every keystroke.
+  const [printSource, setPrintSource] = useState<string | null>(null);
+  const printNodeRef = useRef<HTMLDivElement>(null);
+  const printReadyRef = useRef<(() => void) | null>(null);
+  useEffect(() => {
+    if (printSource !== null) {
+      printReadyRef.current?.();
+      printReadyRef.current = null;
     }
+  }, [printSource]);
+
+  const toPng = useCallback(async (sourceToPrint: string) => {
+    await new Promise<void>((resolve) => {
+      printReadyRef.current = resolve;
+      setPrintSource(sourceToPrint);
+    });
+    await new Promise((resolve) => requestAnimationFrame(resolve));
     try {
-      return await domToImage.toBlob(cmThemeNode);
+      if (printNodeRef.current) {
+        return await domToImage.toBlob(printNodeRef.current);
+      }
     } catch (error) {
       console.error('Error al capturar imagen:', error);
+    } finally {
+      setPrintSource(null);
     }
-    return;
-  };
+    return undefined;
+  }, []);
 
   const downloadAsPng = useCallback(async () => {
     const currentFile = files[currentFileName];
     if (currentFile?.source && currentFile?.name) {
-      const blob = await toPng();
+      const blob = await toPng(currentFile.source);
       if (blob) {
         downloadBlobAsFile(blob, `${currentFile.name}.png`);
         addQuietNotification(<T className="tt-se">downloaded</T>);
       }
     }
-  }, [addQuietNotification, currentFileName, files]);
+  }, [addQuietNotification, currentFileName, files, toPng]);
 
   const copyAsText = useCallback(async () => {
     const currentFile = files[currentFileName];
@@ -84,8 +101,12 @@ export const Header = <T,>(props: HeaderProps<T>) => {
   }, [addQuietNotification, currentFileName, files]);
 
   const copyAsPng = useCallback(async () => {
+    const currentFile = files[currentFileName];
+    if (!currentFile?.source) {
+      return;
+    }
     try {
-      const blob = await toPng();
+      const blob = await toPng(currentFile.source);
       if (blob) {
         await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
         addQuietNotification(<T className="tt-se">copied</T>);
@@ -93,7 +114,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
     } catch (err) {
       console.error('Failed to copy image:', err);
     }
-  }, [addQuietNotification]);
+  }, [addQuietNotification, currentFileName, files, toPng]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -172,9 +193,11 @@ export const Header = <T,>(props: HeaderProps<T>) => {
             setRunState={setRunState}
           />
         )}
-        <div className="code-viewer-to-print bc-sf-md jk-pg jk-br-ie">
-          <CodeViewer code={source} language={language as CodeLanguage} />
-        </div>
+        {printSource !== null && (
+          <div className="code-viewer-to-print bc-sf-md jk-pg jk-br-ie" ref={printNodeRef}>
+            <CodeViewer code={printSource} language={language as CodeLanguage} />
+          </div>
+        )}
         <Select
           options={[
             {
