@@ -51,15 +51,14 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
                 problem={data.content}
                 infoPlacement="name"
                 codeEditorStoreKey={`${worksheetKey}/${content.id}`}
-                codeEditorCenterButtons={({ files, currentFileName }) => {
-                  
-                  const { source = '', language = CodeLanguage.TEXT } = files[currentFileName] || {};
-                  
+                codeEditorCenterButtons={({ getCurrentFile }) => {
                   return [
                     <FirstLoginWrapper key="submit">
                       <ButtonLoader
                         size="small"
                         onClick={async setLoaderStatus => {
+                          // read the code at click time: the slot isn't re-rendered on every keystroke
+                          const { source = '', language = CodeLanguage.TEXT } = getCurrentFile() || {};
                           setLoaderStatus(Status.LOADING);
                           const quizProblem: QuizProblemSubmissionDTO = {
                             id: content.id,

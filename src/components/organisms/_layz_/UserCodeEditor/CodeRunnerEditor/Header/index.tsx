@@ -1,6 +1,6 @@
 import { CodeLanguage, RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES } from '@juki-team/commons';
 import domToImage from 'dom-to-image-more';
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { memo, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../../../constants';
 import { Button, Select, T } from '../../../../../atoms';
@@ -12,7 +12,7 @@ import { ContentCopyIcon, DownloadIcon, FullscreenExitIcon, FullscreenIcon, Sett
 import type { HeaderProps } from '../types';
 import { RunCodeButton } from './RunCodeButton';
 
-export const Header = <T,>(props: HeaderProps<T>) => {
+const HeaderCmp = <T,>(props: HeaderProps<T>) => {
   const {
     onChangeRef,
     setShowSettings,
@@ -24,8 +24,10 @@ export const Header = <T,>(props: HeaderProps<T>) => {
     setExpanded,
     headerRef,
     headerWidthContainer,
-    files,
     currentFileName,
+    language,
+    hasSource,
+    getFiles,
     runner,
     setRunState,
     languages,
@@ -37,15 +39,13 @@ export const Header = <T,>(props: HeaderProps<T>) => {
   const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
 
-  const { source = '', language = CodeLanguage.TEXT } = files[currentFileName] ?? {};
-
   const downloadAsText = useCallback(() => {
-    const currentFile = files[currentFileName];
+    const currentFile = getFiles()[currentFileName];
     if (currentFile?.source && currentFile?.name) {
       downloadBlobAsFile(currentFile.source as unknown as Blob, currentFile.name);
       addQuietNotification(<T className="tt-se">downloaded</T>);
     }
-  }, [addQuietNotification, currentFileName, files]);
+  }, [addQuietNotification, currentFileName, getFiles]);
 
   // The highlighted CodeViewer used to export PNGs is only mounted while exporting: rendering it
   // permanently re-highlighted the whole file on every keystroke.
@@ -78,7 +78,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
   }, []);
 
   const downloadAsPng = useCallback(async () => {
-    const currentFile = files[currentFileName];
+    const currentFile = getFiles()[currentFileName];
     if (currentFile?.source && currentFile?.name) {
       const blob = await toPng(currentFile.source);
       if (blob) {
@@ -86,10 +86,10 @@ export const Header = <T,>(props: HeaderProps<T>) => {
         addQuietNotification(<T className="tt-se">downloaded</T>);
       }
     }
-  }, [addQuietNotification, currentFileName, files, toPng]);
+  }, [addQuietNotification, currentFileName, getFiles, toPng]);
 
   const copyAsText = useCallback(async () => {
-    const currentFile = files[currentFileName];
+    const currentFile = getFiles()[currentFileName];
     if (currentFile?.source) {
       try {
         await navigator.clipboard.writeText(currentFile.source);
@@ -98,10 +98,10 @@ export const Header = <T,>(props: HeaderProps<T>) => {
         console.error('Failed to copy:', err);
       }
     }
-  }, [addQuietNotification, currentFileName, files]);
+  }, [addQuietNotification, currentFileName, getFiles]);
 
   const copyAsPng = useCallback(async () => {
-    const currentFile = files[currentFileName];
+    const currentFile = getFiles()[currentFileName];
     if (!currentFile?.source) {
       return;
     }
@@ -114,7 +114,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
     } catch (err) {
       console.error('Failed to copy image:', err);
     }
-  }, [addQuietNotification, currentFileName, files, toPng]);
+  }, [addQuietNotification, currentFileName, getFiles, toPng]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -187,7 +187,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
             {...runner}
             onRunStart={onRunStart}
             withLabels={withLabels}
-            files={files}
+            getFiles={getFiles}
             currentFileName={currentFileName}
             onChangeRef={onChangeRef}
             setRunState={setRunState}
@@ -219,7 +219,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
               ),
             },
           ]}
-          disabled={!source}
+          disabled={!hasSource}
           selectedOption={{
             value: '',
             label: withLabels ? (
@@ -233,7 +233,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
           }}
           style={{ width: 'auto' }}
           onChange={async ({ value }) => {
-            if (source) {
+            if (hasSource) {
               switch (value) {
                 case 'copy-text':
                   void copyAsText();
@@ -266,7 +266,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
               ),
             },
           ]}
-          disabled={!source}
+          disabled={!hasSource}
           selectedOption={{
             value: '',
             label: withLabels ? (
@@ -280,7 +280,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
           }}
           style={{ width: 'auto' }}
           onChange={async ({ value }) => {
-            if (source) {
+            if (hasSource) {
               switch (value) {
                 case 'download-text':
                   downloadAsText();
@@ -332,3 +332,6 @@ export const Header = <T,>(props: HeaderProps<T>) => {
     </div>
   );
 };
+
+// memoized: its props don't change while typing (files are read through getFiles at action time)
+export const Header = memo(HeaderCmp) as typeof HeaderCmp;

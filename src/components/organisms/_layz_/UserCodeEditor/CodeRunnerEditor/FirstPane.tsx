@@ -31,7 +31,9 @@ interface FirstPaneProps<T> {
   editorStateCache: EditorStateCache;
   //
   setExpanded: Dispatch<SetStateAction<boolean>>;
-  files: CodeEditorFiles<T>;
+  /** latest files at call time (stable function) */
+  getFiles: () => CodeEditorFiles<T>;
+  hasSource: boolean;
   currentFileName: string;
   leftButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode;
   centerButtons?: CodeEditorButtonsType<T>;
@@ -54,7 +56,8 @@ export const FirstPane = <T,>(props: FirstPaneProps<T>) => {
     onlyFirstPane,
     triggerFocus,
     setExpanded,
-    files,
+    getFiles,
+    hasSource,
     currentFileName,
     leftButtons,
     centerButtons,
@@ -90,11 +93,33 @@ export const FirstPane = <T,>(props: FirstPaneProps<T>) => {
 
   const [showSettings, setShowSettings] = useState(false);
 
+  // Everything handed to the (memoized) Header must be stable while typing: no `files`/`source` here.
+  const getCurrentFile = useCallback(() => getFiles()[currentFileName], [getFiles, currentFileName]);
+  const slotProps = useMemo(
+    () => ({ runner, currentFileName, language, hasSource, getFiles, getCurrentFile }),
+    [runner, currentFileName, language, hasSource, getFiles, getCurrentFile],
+  );
+  const leftOptions = useCallback(
+    ({ withLabels }: { withLabels: boolean }) => leftButtons?.({ ...slotProps, withLabels }),
+    [leftButtons, slotProps],
+  );
+  const centerOptions = useCallback(
+    ({ widthContainer, withLabels }: { widthContainer: number; withLabels: boolean }) =>
+      centerButtons?.({ ...slotProps, widthContainer, withLabels }),
+    [centerButtons, slotProps],
+  );
+  const rightOptions = useCallback(
+    ({ withLabels }: { withLabels: boolean }) => rightButtons?.({ ...slotProps, withLabels }),
+    [rightButtons, slotProps],
+  );
+  const onRunStart = useCallback((id: string) => setRunState({ id, running: false }), []);
+  const closeSettings = useCallback(() => setShowSettings(false), []);
+
   return (
     <div className={classNames('jk-col nowrap left stretch ht-100', { 'wh-100': !!onlyFirstPane })}>
       <SettingsModal
         isOpen={showSettings}
-        onClose={() => setShowSettings(false)}
+        onClose={closeSettings}
         onChange={onChangeRef.current}
         tabSize={tabSize}
         fontSize={fontSize}
@@ -105,41 +130,19 @@ export const FirstPane = <T,>(props: FirstPaneProps<T>) => {
         languages={languages}
         setRunState={setRunState}
         runner={runner}
-        leftOptions={({ withLabels }) =>
-          leftButtons?.({
-            runner,
-            withLabels,
-            files,
-            currentFileName,
-          })
-        }
-        centerOptions={({ widthContainer, withLabels }) =>
-          centerButtons?.({
-            runner,
-            widthContainer,
-            withLabels,
-            files,
-            currentFileName,
-          })
-        }
-        rightOptions={({ withLabels }) =>
-          rightButtons?.({
-            runner,
-            withLabels,
-            files,
-            currentFileName,
-          })
-        }
+        leftOptions={leftOptions}
+        centerOptions={centerOptions}
+        rightOptions={rightOptions}
         setShowSettings={setShowSettings}
-        onRunStart={(id) => {
-          setRunState({ id, running: false });
-        }}
+        onRunStart={onRunStart}
         onChangeRef={onChangeRef}
         expanded={expandPosition ? expanded : null}
         setExpanded={setExpanded}
         readOnly={!!readOnly}
-        files={files}
         currentFileName={currentFileName}
+        language={language}
+        hasSource={hasSource}
+        getFiles={getFiles}
         withoutRunCodeButton={withoutRunCodeButton}
       />
       <div className="ow-ao" style={{ height: `calc(100% - ${height}px)` }}>

@@ -86,14 +86,14 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
               void saveCode(files, testCases);
             }
           }}
-          centerButtons={({ runner: { testCases } = { testCases: {} }, files }) => {
+          centerButtons={({ runner: { testCases } = { testCases: {} }, getFiles }) => {
             const buttons = [];
             if (!readOnly && isSolvable) {
               buttons.push(
                 <ButtonLoader
                   key="save"
                   size="tiny"
-                  onClick={() => saveCode(files, testCases)}
+                  onClick={() => saveCode(getFiles(), testCases)}
                   setLoaderStatusRef={(setLoaderStatus) => (setLoaderStatusRef.current = setLoaderStatus)}
                 >
                   <T className="tt-se">save</T>

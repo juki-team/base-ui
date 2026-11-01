@@ -5,7 +5,7 @@ import {
   ProfileSetting,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 } from '@juki-team/commons';
-import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES } from '../../../../../constants';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
@@ -58,6 +58,7 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
     mermaidTheme,
     mermaidConfigJson,
     mermaidFileName,
+    onBlur,
   } = props;
 
   const { source = '', language = CodeLanguage.TEXT as T } = files?.[currentFileName] ?? {};
@@ -107,6 +108,11 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
   }, [treeFiles, documentScope]);
 
   const onChangeRef = useStableRef(readOnly ? undefined : _onChange);
+
+  // header + button slots read the files lazily, so typing doesn't re-render them
+  const filesRef = useStableRef(files);
+  const getFiles = useCallback(() => filesRef.current, [filesRef]);
+  const hasSource = source.length > 0;
 
   const preferredTheme = useUserStore((state) => state.user.settings[ProfileSetting.THEME]);
 
@@ -197,7 +203,8 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
           onlyFirstPane,
           triggerFocus,
           setExpanded,
-          files,
+          getFiles,
+          hasSource,
           currentFileName,
           leftButtons,
           centerButtons,
@@ -222,7 +229,8 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
       languages,
       onlyFirstPane,
       triggerFocus,
-      files,
+      getFiles,
+      hasSource,
       currentFileName,
       leftButtons,
       centerButtons,
@@ -260,6 +268,16 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
         className,
       )}
       style={{ overflow: expanded ? 'hidden' : undefined }}
+      onBlur={
+        onBlur
+          ? (event) => {
+              // only when the focus leaves the editor, not when it moves inside it (code -> file tree...)
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                onBlur();
+              }
+            }
+          : undefined
+      }
     >
       <div className="flex-1 ow-hn jk-row nowrap stretch">
         <FileTreePanel

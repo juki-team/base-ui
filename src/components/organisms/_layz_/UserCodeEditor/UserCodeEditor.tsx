@@ -134,6 +134,37 @@ function useSaveChunkStorage<T extends Record<string, unknown>>(
   return [value, setValue];
 }
 
+// Consumers are notified (onFilesChange / onTestCasesChange) at most once per this delay while typing.
+// Pending notifications are flushed right away when the editor loses focus, on run and on unmount,
+// so the parent always has the latest value before any user action outside the editor.
+const CHANGE_NOTIFICATION_DELAY = 300; // ms
+
+function useDebouncedNotification<V>(value: V, notify: (value: V) => void): () => void {
+  const notifyRef = useStableRef(notify);
+  const pendingRef = useRef<{ value: V } | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  const flush = useCallback(() => {
+    clearTimeout(timeoutRef.current);
+    const pending = pendingRef.current;
+    if (pending) {
+      pendingRef.current = null;
+      notifyRef.current(pending.value);
+    }
+  }, [notifyRef]);
+
+  useEffect(() => {
+    pendingRef.current = { value };
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(flush, CHANGE_NOTIFICATION_DELAY);
+  }, [value, flush]);
+
+  // never drop the last change: flush on unmount (closing a modal, switching sections...)
+  useEffect(() => flush, [flush]);
+
+  return flush;
+}
+
 type StorageType<T extends Record<string, unknown>> = {
   [key: string]: T;
 };
@@ -407,10 +438,11 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
   );
   const onFilesChangeRef = useStableRef(onFilesChange);
   const files: CodeEditorFiles<T> = filesStore[storeKey] || EMPTY_OBJECT;
-  useEffect(() => {
-    lastEmittedFilesRef.current = files;
-    onFilesChangeRef.current?.(files);
-  }, [files, onFilesChangeRef]);
+  const filesRef = useStableRef(files);
+  const flushFilesChange = useDebouncedNotification(files, (emitted) => {
+    lastEmittedFilesRef.current = emitted;
+    onFilesChangeRef.current?.(emitted);
+  });
 
   // the seed for lastFileName depends on the initial files only, so adding/renaming files doesn't re-merge the settings store
   const seedFileName =
@@ -429,6 +461,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
   // never point the editor at a file that doesn't exist (stale lastFileName after a reload or an external change)
   const fileKeys = Object.keys(files);
   const currentFileName = files[lastFileName] || fileKeys.length === 0 ? lastFileName : fileKeys[0]!;
+  const currentFileNameRef = useStableRef(currentFileName);
   useEffect(() => onCurrentFileNameChangeRef.current?.(currentFileName), [currentFileName, onCurrentFileNameChangeRef]);
   const setCurrentFileName = (lastFileName: string) => {
     setSettingsStore((prevState) => ({
@@ -478,10 +511,16 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
   );
   const onTestCasesChangeRef = useStableRef(onTestCasesChange);
   const testCases = testCasesStore[testCaseStoreKey] ?? EMPTY_TEST_CASES;
-  useEffect(() => {
-    lastEmittedTestCasesRef.current = testCases;
-    onTestCasesChangeRef.current?.(testCases);
-  }, [onTestCasesChangeRef, testCases]);
+  const testCasesRef = useStableRef(testCases);
+  const flushTestCasesChange = useDebouncedNotification(testCases, (emitted) => {
+    lastEmittedTestCasesRef.current = emitted;
+    onTestCasesChangeRef.current?.(emitted);
+  });
+
+  const flushChanges = useCallback(() => {
+    flushFilesChange();
+    flushTestCasesChange();
+  }, [flushFilesChange, flushTestCasesChange]);
 
   const [editorTriggerFocus, setEditorTriggerFocus] = useState(0);
   const focusEditor = () => setTimeout(() => setEditorTriggerFocus((n) => n + 1), 200);
@@ -513,8 +552,12 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
       markdownReplaceSelectionWithMarkdown: (md: string) => mdEditorRef.current?.replaceSelectionWithMarkdown(md),
       markdownHighlightSelectionNodes: (className: string) => mdEditorRef.current?.highlightSelectionNodes(className),
       markdownClearHighlight: () => mdEditorRef.current?.clearHighlight(),
+      getFiles: () => filesRef.current,
+      getTestCases: () => testCasesRef.current,
+      getCurrentFileName: () => currentFileNameRef.current,
+      flushChanges,
     }),
-    [setFilesStore, storeKey],
+    [setFilesStore, storeKey, filesRef, testCasesRef, currentFileNameRef, flushChanges],
   );
 
   const changeFileName = (
@@ -559,6 +602,9 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
     fileNameDeleted,
   }: CodeRunnerEditorPropertiesType<T>) => {
     if (codeRunStatus) {
+      if (codeRunStatus === SubmissionRunStatus.RECEIVED) {
+        flushChanges(); // running is a user action outside the typing flow: consumers get the latest code now
+      }
       onCodeRunStatusChange?.(codeRunStatus, { files, currentFileName, testCases });
     }
     if (typeof isRunning === 'boolean') {
@@ -712,6 +758,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
 
   return (
     <CodeRunnerEditor<T>
+      onBlur={flushChanges}
       triggerFocus={editorTriggerFocus}
       files={files}
       currentFileName={currentFileName}

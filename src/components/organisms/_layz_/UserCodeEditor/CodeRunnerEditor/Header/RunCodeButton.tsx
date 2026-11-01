@@ -30,7 +30,8 @@ interface RunCodeButtonProps<T> extends Runner {
   onRunStart: (id: string) => void;
   onChangeRef: RefObject<CodeRunnerEditorOnChangeType<T> | undefined>;
   withLabels: boolean;
-  files: CodeEditorFiles<T>;
+  /** latest files at call time: the button doesn't re-render on every keystroke */
+  getFiles: () => CodeEditorFiles<T>;
   currentFileName: string;
   setRunState: Dispatch<SetStateAction<RunState>>;
 }
@@ -44,14 +45,15 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
     timeLimit,
     memoryLimit,
     withLabels,
-    files,
+    getFiles,
     currentFileName,
     testCases,
     setRunState,
   } = props;
   const { addErrorNotification } = useJukiNotification();
   const activeRunIdRef = useRef('');
-  const currentFile = files[currentFileName];
+  // the open file only disappears when the file set changes, which re-renders this button anyway
+  const hasCurrentFile = !!getFiles()[currentFileName];
   const event: Omit<SubscribeCodeRunStatusWebSocketEventDTO, 'clientId'> = {
     event: WebSocketSubscriptionEvent.SUBSCRIBE_CODE_RUN_STATUS,
     runId,
@@ -160,6 +162,7 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
     setStatus(Status.LOADING);
     clean(SubmissionRunStatus.RECEIVED);
     try {
+      const files = getFiles();
       const runId = v4();
       onRunStart(runId);
       activeRunIdRef.current = runId;
@@ -214,7 +217,7 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
   const handleRunCodeRef = useStableRef(handleRunCode);
 
   const isRunningRef = useStableRef(isRunning);
-  const hasCurrentFileRef = useStableRef(!!currentFile);
+  const hasCurrentFileRef = useStableRef(hasCurrentFile);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -249,7 +252,7 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
       icon={<PlayArrowIcon size="tiny" />}
       onClick={handleRunCode}
       setLoaderStatusRef={(setLoader) => (setLoaderRef.current = setLoader)}
-      disabled={!currentFile}
+      disabled={!hasCurrentFile}
     >
       {withLabels && <T className="tt-se tx-t">run</T>}
     </ButtonLoader>

@@ -19,12 +19,24 @@ export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
 
 export type CodeRunnerEditorOnChangeType<T> = (props: CodeRunnerEditorPropertiesType<T>) => void;
 
+/**
+ * Props of the header button slots (leftButtons / centerButtons / rightButtons).
+ * They deliberately don't carry the files: read them with `getFiles()` / `getCurrentFile()` when the
+ * user acts (click). Only `hasSource` / `language` / `currentFileName` affect rendering, so the slots
+ * are not re-rendered on every keystroke.
+ */
 export type CodeEditorCenterButtonsPropertiesType<T> = {
   widthContainer: number;
   runner: Runner | undefined;
   withLabels: boolean;
-  files: CodeEditorFiles<T>;
   currentFileName: string;
+  language: T;
+  /** the open file has non-empty source */
+  hasSource: boolean;
+  /** latest files at call time */
+  getFiles: () => CodeEditorFiles<T>;
+  /** latest open file at call time */
+  getCurrentFile: () => CodeEditorFiles<T>[string] | undefined;
 };
 
 export type CodeEditorButtonsType<T> = (props: CodeEditorCenterButtonsPropertiesType<T>) => ReactNode;
@@ -78,6 +90,8 @@ export interface CodeRunnerEditorProps<T> extends Omit<CodeEditorPropertiesType<
   mermaidTheme?: MermaidTheme;
   mermaidConfigJson?: string;
   mermaidFileName?: string;
+  /** fired when the focus leaves the editor (used to flush debounced change notifications) */
+  onBlur?: () => void;
   //
   languages?: { value: T; label: ReactNode }[];
   leftButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode;
@@ -115,8 +129,10 @@ export interface HeaderProps<T> {
   readOnly: boolean;
   headerRef: UseResizeDetectorReturn<any>['ref'];
   headerWidthContainer: number;
-  files: CodeEditorFiles<T>;
   currentFileName: string;
+  language: T;
+  hasSource: boolean;
+  getFiles: () => CodeEditorFiles<T>;
   runner: Runner;
   setRunState: Dispatch<SetStateAction<RunState>>;
   withoutRunCodeButton?: boolean;
