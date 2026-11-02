@@ -31,3 +31,5 @@ deps.png
 
 .npmrc
 tmp/
+
+stats/
