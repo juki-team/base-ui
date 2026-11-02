@@ -63,14 +63,18 @@ const lastKey = (map: Map<string, number>) => [...map.keys()].pop();
 /**
  * Params sent to the API when requesting the Ably token: the API decides what is granted for them.
  */
-export const getTopicChannelsAuthParams = (): { contestKey?: string; trackedClientId?: string; presenceCompanyId?: string } => {
+export const getTopicChannelsAuthParams = (): {
+  contestKey?: string;
+  trackedClientId?: string;
+  presenceCompanyKey?: string;
+} => {
   const contestKey = lastKey(contestRefs);
   const trackedClientId = lastKey(trackedClientRefs);
-  const presenceCompanyId = lastKey(presenceCompanyRefs);
+  const presenceCompanyKey = lastKey(presenceCompanyRefs);
   return {
     ...(contestKey ? { contestKey } : {}),
     ...(trackedClientId ? { trackedClientId } : {}),
-    ...(presenceCompanyId ? { presenceCompanyId } : {}),
+    ...(presenceCompanyKey ? { presenceCompanyKey } : {}),
   };
 };
 
@@ -369,10 +373,10 @@ export const addTopicSubscription = (event: WebSocketSubscribeEventDTO) => {
  * Watches the live presence of the clients of a company (the API only grants it to its user administrators).
  * The listener receives every present member on each change. Returns the function to stop watching.
  */
-export const watchCompanyPresence = (companyId: string, listener: PresenceListener) => {
-  const name = CHANNEL_COMPANY_PRESENCE(companyId);
+export const watchCompanyPresence = (companyKey: string, listener: PresenceListener) => {
+  const name = CHANNEL_COMPANY_PRESENCE(companyKey);
   const prevAuthParams = JSON.stringify(getTopicChannelsAuthParams());
-  increment(presenceCompanyRefs, companyId);
+  increment(presenceCompanyRefs, companyKey);
   presenceListeners.set(name, new Set([...(presenceListeners.get(name) ?? []), listener]));
   if (JSON.stringify(getTopicChannelsAuthParams()) !== prevAuthParams) {
     reauthorize();
@@ -387,7 +391,7 @@ export const watchCompanyPresence = (companyId: string, listener: PresenceListen
     }
     removed = true;
     const prev = JSON.stringify(getTopicChannelsAuthParams());
-    decrement(presenceCompanyRefs, companyId);
+    decrement(presenceCompanyRefs, companyKey);
     presenceListeners.get(name)?.delete(listener);
     if (JSON.stringify(getTopicChannelsAuthParams()) !== prev) {
       reauthorize();

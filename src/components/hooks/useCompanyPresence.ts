@@ -19,15 +19,15 @@ export interface CompanyPresenceMember {
  * Only for its user administrators: the API grants the channel, for anyone else the list stays empty.
  * The user of each member must be resolved by its `sessionId` through the API, never by the member data.
  */
-export const useCompanyPresence = (companyId: string | null | undefined) => {
+export const useCompanyPresence = (companyKey: string | null | undefined) => {
   const [members, setMembers] = useState<CompanyPresenceMember[]>([]);
 
   useEffect(() => {
-    if (!companyId) {
+    if (!companyKey) {
       setMembers([]);
       return;
     }
-    return watchCompanyPresence(companyId, (presenceMembers) => {
+    return watchCompanyPresence(companyKey, (presenceMembers) => {
       setMembers(
         presenceMembers.map((member) => {
           const { sessionId, uiId } = getParamsOfClientId(member.clientId as ClientId);
@@ -43,7 +43,7 @@ export const useCompanyPresence = (companyId: string | null | undefined) => {
         }),
       );
     });
-  }, [companyId]);
+  }, [companyKey]);
 
   return members;
 };
