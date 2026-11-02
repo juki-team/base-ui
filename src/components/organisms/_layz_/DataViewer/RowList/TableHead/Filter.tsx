@@ -26,9 +26,9 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
     : isFilterSelect(filter)
       ? !!filter.getFilter().length
       : isFilterDate(filter)
-        ? !!(filter.getFilter() ? isValidDate(filter.getFilter()) : undefined)
+        ? !!isValidDate(filter.getFilter())
         : isFilterDateRange(filter)
-          ? !!(filter.getFilter()?.[0] ? isValidDate(filter.getFilter()?.[0]) : undefined) && !!(filter.getFilter()?.[1] ? isValidDate(filter.getFilter()?.[1]) : undefined)
+          ? !!isValidDate(filter.getFilter()?.[0]) && !!isValidDate(filter.getFilter()?.[1])
           : false;
   return (
     <Popover

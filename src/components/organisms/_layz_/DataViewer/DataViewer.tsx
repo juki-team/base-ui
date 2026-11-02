@@ -108,7 +108,7 @@ const applyOffline = <T extends object, >(data: T[], headers: DataViewerHeadersT
           showSeconds,
           showMilliseconds,
         } = showOfDateDisplayType(head.filter.pickerType || DEFAULT_PICKER_TYPE);
-        if (filters[filterIndex] && (new Date(+filters[filterIndex]) ? isValidDate(new Date(+filters[filterIndex])) : undefined)) {
+        if (filters[filterIndex] && isValidDate(new Date(+filters[filterIndex]))) {
           const searchDate = new Date(+filters[filterIndex]);
           newData = newData.filter(datum => {
             if (isFilterDateAutoOffline(head?.filter)) {

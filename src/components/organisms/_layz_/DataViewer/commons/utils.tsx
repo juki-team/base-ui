@@ -225,13 +225,13 @@ export const isSomethingFiltered = <T, >(headers: TableHeadersType<T>[]) => {
         filtered = true;
       }
     } else if (isFilterDate(filter)) {
-      if ((filter.getFilter?.() ? isValidDate(filter.getFilter?.()) : undefined)) {
+      if (isValidDate(filter.getFilter?.())) {
         values[index] = filter.getFilter() as Date;
         filtered = true;
       }
     } else if (isFilterDateRange(filter)) {
       const dates = filter.getFilter?.();
-      if ((dates?.[0] ? isValidDate(dates?.[0]) : undefined) && (dates?.[1] ? isValidDate(dates?.[1]) : undefined)) {
+      if (isValidDate(dates?.[0]) && isValidDate(dates?.[1])) {
         values[index] = dates;
         filtered = true;
       }

@@ -140,7 +140,7 @@ export const FilterDrawer = <T,>(props: FilterDrawerProps<T>) => {
               filterCmp = (
                 <InputDate
                   type={filter.pickerType}
-                  date={((values[columnIndex] as Date) ? isValidDate((values[columnIndex] as Date)) : undefined) ? (values[columnIndex] as Date) : null}
+                  date={isValidDate((values[columnIndex] as Date)) ? (values[columnIndex] as Date) : null}
                   onDatePick={(date) => setValues((prevState) => ({ ...prevState, [columnIndex]: date }))}
                   onDateClean={() => setValues((prevState) => ({ ...prevState, [columnIndex]: '' }))}
                   isDisabled={filter.isDisabled}
