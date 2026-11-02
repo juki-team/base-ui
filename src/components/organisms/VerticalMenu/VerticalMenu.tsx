@@ -1,13 +1,12 @@
-import { Children, useEffect } from 'react';
+import { useState } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
-import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useSyncedState } from '../../hooks/useSyncedState';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
-import { HorizontalMenu } from '../HorizontalMenu/HorizontalMenu';
+import { MobileMenuBottom, MobileMenuTop, renderMenuItems } from '../HorizontalMenu/MenuParts';
 import type { VerticalMenuProps } from './types';
 
 export function VerticalMenu(props: VerticalMenuProps) {
-  
   const {
     isOpen = true,
     onToggle,
@@ -20,105 +19,71 @@ export function VerticalMenu(props: VerticalMenuProps) {
     drawerMenuMobile,
     onBack,
   } = props;
-  
-  const [ open, setOpen ] = useSyncedState(isOpen);
-  const { isSmallScreen, isMediumScreen, isLargeScreen, isHugeScreen } = usePageStore(store => store.viewPort);
-  
-  useEffect(() => {
-    if (isMediumScreen) {
+
+  const [open, setOpen] = useSyncedState(isOpen);
+  const screen = usePageStore((store) => store.viewPort.screen);
+  const isSmallScreen = screen === 'sm';
+
+  // Collapse on medium screens and expand on large ones whenever the breakpoint changes. Done during
+  // render (not in effects) so the new state is applied before the first paint at that breakpoint.
+  // (null: also applied on mount, like the previous effects)
+  const [lastScreen, setLastScreen] = useState<string | null>(null);
+  if (lastScreen !== screen) {
+    setLastScreen(screen);
+    if (screen === 'md') {
       setOpen(false);
-    }
-  }, [ isMediumScreen, setOpen ]);
-  useEffect(() => {
-    if (isLargeScreen || isHugeScreen) {
+    } else if (screen === 'lg' || screen === 'hg') {
       setOpen(true);
     }
-  }, [ isLargeScreen, isHugeScreen, setOpen ]);
-  
-  const menus = [];
-  for (let i = 0; i < menu.length; i++) {
-    const { selected, icon, label, tooltipLabel, onClick, menuItemWrapper } = menu[i]!;
-    const menuItem = (
-      <div
-        className={classNames('jk-menu-item jk-pg-xsm jk-br-ie cr-pr jk-row gap left', {
-          selected: !!selected,
-        })}
-        style={{
-          margin: open ? '0 var(--pad-xt)' : undefined,
-        }}
-        onClick={() => onClick?.(open)}
-        key={i}
-        data-tooltip-id="jk-tooltip"
-        data-tooltip-content={!open ? tooltipLabel : ''}
-        data-tooltip-place="right"
-      >
-        <div className="jk-menu-item-icon jk-row">
-          {renderReactNodeOrFunction(icon)}
-        </div>
-        <div className="jk-menu-item-label">
-          {renderReactNodeOrFunction(label)}
-        </div>
-      </div>
-    );
-    if (menuItemWrapper) {
-      menus.push(renderReactNodeOrFunctionP1(menuItemWrapper, {
-        selected,
-        icon,
-        label,
-        onClick,
-        children: menuItem,
-        index: i,
-        isOpenVerticalMenu: open,
-      }, i));
-    } else {
-      menus.push(menuItem);
-    }
   }
-  
+
   const handleCollapse = () => {
     if (onToggle) {
-      onToggle?.(!open);
+      onToggle(!open);
     } else {
       setOpen(!open);
     }
   };
-  
-  return isSmallScreen ? (
-    <HorizontalMenu
-      menu={menu}
-      leftSection={() => renderReactNodeOrFunctionP1(topSection, { isOpen: open })}
-      rightSection={() => renderReactNodeOrFunctionP1(bottomSection, { isOpen: open })}
-      rightMobile={rightMobile}
-      centerMobile={centerMobile}
-      drawerMenuMobile={drawerMenuMobile}
-      onBack={onBack}
+
+  // Same element tree on every screen size: only the header changes. The page (children) always sits in
+  // the second slot, so crossing the mobile breakpoint no longer unmounts and remounts the whole page.
+  return (
+    <div
+      className={classNames(
+        'ht-100 wh-100',
+        isSmallScreen ? 'jk-horizontal-menu-layout-container' : 'jk-vertical-menu-layout-container',
+        { collapsed: !isSmallScreen && !open },
+      )}
     >
-      {children}
-    </HorizontalMenu>
-  ) : (
-    <div className={classNames('jk-vertical-menu-layout-container ht-100 wh-100', { collapsed: !open })}>
-      <header className="jk-menu ht-100">
-        <section className="jk-menu-content ht-100">
-          <div className="jk-row right jk-menu-collapse-section">
-            <div className="jk-row jk-menu-collapse" onClick={handleCollapse}>
-              {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
+      {isSmallScreen ? (
+        <header className="jk-menu wh-100 jk-top-horizontal-menu sticky-top">
+          <MobileMenuTop
+            menu={menu}
+            rightMobile={rightMobile}
+            centerMobile={centerMobile}
+            drawerMenuMobile={drawerMenuMobile}
+            onBack={onBack}
+          />
+        </header>
+      ) : (
+        <header className="jk-menu ht-100">
+          <section className="jk-menu-content ht-100">
+            <div className="jk-row right jk-menu-collapse-section">
+              <div className="jk-row jk-menu-collapse" onClick={handleCollapse}>
+                {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
+              </div>
             </div>
-          </div>
-          <div className="flex-2">
-            {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}
-          </div>
-          <div className={classNames('jk-menu-items jk-col gap nowrap flex-8', { stretch: open })}>
-            {Children.toArray(menus)}
-            <div className="jk-menu-item extra" />
-          </div>
-          <div>
-            {typeof bottomSection === 'function' ? bottomSection({ isOpen: open }) : bottomSection}
-          </div>
-        </section>
-      </header>
-      <section className="jk-menu-main-layout">
-        {children}
-      </section>
+            <div className="flex-2">{renderReactNodeOrFunctionP1(topSection, { isOpen: open })}</div>
+            <div className={classNames('jk-menu-items jk-col gap nowrap flex-8', { stretch: open })}>
+              {renderMenuItems(menu, { type: 'vertical', open })}
+              <div className="jk-menu-item extra" />
+            </div>
+            <div>{renderReactNodeOrFunctionP1(bottomSection, { isOpen: open })}</div>
+          </section>
+        </header>
+      )}
+      <section className="jk-menu-main-layout">{children}</section>
+      {isSmallScreen && <MobileMenuBottom items={renderMenuItems(menu, { type: 'horizontal', isSmallScreen: true })} />}
     </div>
   );
 }
