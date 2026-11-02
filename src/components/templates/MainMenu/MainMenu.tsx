@@ -45,21 +45,26 @@ export function MainMenu(props: MainMenuProps) {
 
   const { Link, Image } = useUIStore((store) => store.components);
   const viewPortSize = usePageStore((store) => store.viewPort.screen);
-  const searchParams = useRouterStore((state) => state.searchParams);
   const setSearchParams = useRouterStore((state) => state.setSearchParams);
   const isLoading = useUserStore((state) => state.isLoading);
   const { imageUrl: companyImageUrl, name, styles } = useUserStore((state) => state.company);
-  const {
-    isLogged,
-    settings: { [ProfileSetting.THEME]: preferredTheme, [ProfileSetting.MENU_VIEW_MODE]: userPreferredMenuViewMode },
-  } = useUserStore((state) => state.user);
+  // only the fields the menu uses (not the whole user object, which changes with any user update)
+  const isLogged = useUserStore((state) => state.user.isLogged);
+  const preferredTheme = useUserStore((state) => state.user.settings[ProfileSetting.THEME]);
+  const userPreferredMenuViewMode = useUserStore((state) => state.user.settings[ProfileSetting.MENU_VIEW_MODE]);
 
   const imageUrl = topImageUrl || companyImageUrl;
 
+  // The company selector (multi-company installations) is disabled. While it is, don't fetch the
+  // permission list nor subscribe to the URL (every navigation re-rendered the whole menu).
+  const enabled = false;
+  const withCompanySelector = !!multiCompanies && isLogged && enabled;
   const { data } = useFetcher<ContentsResponse<CompanyUserPermissionsResponseDTO>>(
-    multiCompanies && isLogged ? jukiApiManager.API_V2.company.getPermissionList().url : null,
+    withCompanySelector ? jukiApiManager.API_V2.company.getPermissionList().url : null,
   );
-  const companyKey = searchParams.get(QueryParamKey.COMPANY) as string;
+  const companyKey = useRouterStore((state) =>
+    withCompanySelector ? (state.searchParams.get(QueryParamKey.COMPANY) as string) : '',
+  );
   const companies = useMemo(() => (data?.success ? data.contents : []), [data]);
   const company = useMemo(() => companies.find((company) => company.key === companyKey), [companyKey, companies]);
   const isSmall = viewPortSize === 'sm';
@@ -68,10 +73,9 @@ export function MainMenu(props: MainMenuProps) {
 
   const content = useMemo(() => (isLoading ? <JukiLoadingLayout /> : children), [isLoading, children]);
 
-  const enabled = false;
   const menu = useMemo(() => {
     const menu: MenuType[] = [];
-    if (multiCompanies && isLogged && enabled) {
+    if (withCompanySelector) {
       const select = (
         <Select
           options={companies.map((company) => ({
@@ -123,7 +127,7 @@ export function MainMenu(props: MainMenuProps) {
     }
     menu.push(...initialMenu);
     return menu;
-  }, [multiCompanies, isLogged, enabled, initialMenu, companies, company, setSearchParams, isSmall, preferredTheme, Image]);
+  }, [withCompanySelector, initialMenu, companies, company, setSearchParams, isSmall, preferredTheme, Image]);
 
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode;
 

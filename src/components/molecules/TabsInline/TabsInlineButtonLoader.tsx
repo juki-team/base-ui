@@ -8,7 +8,9 @@ export const TabsInlineButtonLoader = ({ size, label, icon, ...props }: Omit<But
   label: string
 }) => {
   
-  const { isSmallScreen, isMediumScreen } = usePageStore(store => store.viewPort);
+  // select the flags, not the whole viewPort object (a new one is set on every resize event)
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
+  const isMediumScreen = usePageStore(store => store.viewPort.isMediumScreen);
   
   const isSmallMediumScreen = isSmallScreen || isMediumScreen;
   const buttonSize = size || 'regular';
