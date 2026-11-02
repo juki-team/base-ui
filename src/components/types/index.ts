@@ -29,6 +29,11 @@ export type TabType<T = string> = {
   clickable?: boolean;
   body?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T }>;
   key: T;
+  /**
+   * Called once, when the browser is idle, while the tab has not been opened yet: preload its data (SWR `preload`) and
+   * code (lazy chunks) so it opens instantly. The body itself is only mounted when the tab is opened.
+   */
+  preload?: () => void;
 };
 
 export type TabsType<T = string> = { [key: string]: TabType<T> };
