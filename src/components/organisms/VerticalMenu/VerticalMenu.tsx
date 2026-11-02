@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useSyncedState } from '../../hooks/useSyncedState';
@@ -36,6 +36,14 @@ export function VerticalMenu(props: VerticalMenuProps) {
       setOpen(true);
     }
   }
+
+  const items = useMemo(
+    () =>
+      isSmallScreen
+        ? renderMenuItems(menu, { type: 'horizontal', isSmallScreen: true })
+        : renderMenuItems(menu, { type: 'vertical', open }),
+    [menu, open, isSmallScreen],
+  );
 
   const handleCollapse = () => {
     if (onToggle) {
@@ -75,7 +83,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
             </div>
             <div className="flex-2">{renderReactNodeOrFunctionP1(topSection, { isOpen: open })}</div>
             <div className={classNames('jk-menu-items jk-col gap nowrap flex-8', { stretch: open })}>
-              {renderMenuItems(menu, { type: 'vertical', open })}
+              {items}
               <div className="jk-menu-item extra" />
             </div>
             <div>{renderReactNodeOrFunctionP1(bottomSection, { isOpen: open })}</div>
@@ -83,7 +91,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
         </header>
       )}
       <section className="jk-menu-main-layout">{children}</section>
-      {isSmallScreen && <MobileMenuBottom items={renderMenuItems(menu, { type: 'horizontal', isSmallScreen: true })} />}
+      {isSmallScreen && <MobileMenuBottom items={items} />}
     </div>
   );
 }

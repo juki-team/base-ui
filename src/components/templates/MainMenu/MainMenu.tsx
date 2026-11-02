@@ -5,7 +5,7 @@ import {
   ProfileSetting,
   Theme,
 } from '@juki-team/commons';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { QueryParamKey, TriggerAction } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
 import { usePageStore } from '../../../stores/page/usePageStore';
@@ -15,6 +15,7 @@ import { useUserStore } from '../../../stores/user/useUserStore';
 import { Popover, Select, T } from '../../atoms';
 import { classNames } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
+import { useStableRef } from '../../hooks/useStableRef';
 import { JukiLoadingLayout } from '../../molecules';
 import { HorizontalMenu, LoginUser, VerticalMenu } from '../../organisms';
 import type { MenuType } from '../../organisms/types';
@@ -33,7 +34,7 @@ const LOGO_SIZE = {
 export function MainMenu(props: MainMenuProps) {
   const {
     menu: initialMenu,
-    onSeeMyProfile,
+    onSeeMyProfile: _onSeeMyProfile,
     menuViewMode,
     profileSelected,
     moreApps,
@@ -54,6 +55,13 @@ export function MainMenu(props: MainMenuProps) {
   const userPreferredMenuViewMode = useUserStore((state) => state.user.settings[ProfileSetting.MENU_VIEW_MODE]);
 
   const imageUrl = topImageUrl || companyImageUrl;
+
+  // consumers usually pass an inline callback: keep a stable one so the memoized LoginUser doesn't re-render
+  const onSeeMyProfileRef = useStableRef(_onSeeMyProfile);
+  const onSeeMyProfile = useCallback<NonNullable<MainMenuProps['onSeeMyProfile']>>(
+    (...args) => onSeeMyProfileRef.current?.(...args),
+    [onSeeMyProfileRef],
+  );
 
   // The company selector (multi-company installations) is disabled. While it is, don't fetch the
   // permission list nor subscribe to the URL (every navigation re-rendered the whole menu).

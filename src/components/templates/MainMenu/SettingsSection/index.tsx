@@ -1,5 +1,5 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
-import { type Dispatch, type KeyboardEventHandler, type ReactNode, type SyntheticEvent } from 'react';
+import { type Dispatch, type KeyboardEventHandler, memo, type ReactNode, type SyntheticEvent } from 'react';
 import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
@@ -140,7 +140,7 @@ export interface SettingsSectionProps {
   moreApps?: ReactNode;
 }
 
-export const SettingsSection = (props: SettingsSectionProps) => {
+const SettingsSectionCmp = (props: SettingsSectionProps) => {
   const { isMobile, isOpen, helpOpen, setHelpOpen, popoverPlacement, moreApps } = props;
 
   const userPreferredTheme = useUserStore((state) => state.user.settings[ProfileSetting.THEME]);
@@ -216,3 +216,6 @@ export const SettingsSection = (props: SettingsSectionProps) => {
     </>
   );
 };
+
+// memoized: the menu re-renders on every route change; pass a stable `moreApps` to benefit from it
+export const SettingsSection = memo(SettingsSectionCmp);

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { QueryParamKey } from '../../../enums';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
@@ -10,7 +11,7 @@ import { LoginIcon, LogoutIcon, SpinIcon } from '../../server';
 import { UserChip } from '../UserChip/UserChip';
 import type { LoginUserProps } from './types';
 
-export function LoginUser({
+function LoginUserCmp({
   withLabel,
   isVertical,
   popoverPlacement,
@@ -109,3 +110,6 @@ export function LoginUser({
     </div>
   );
 }
+
+// memoized: its props are stable across navigations (the menu re-renders on every route change)
+export const LoginUser = memo(LoginUserCmp);

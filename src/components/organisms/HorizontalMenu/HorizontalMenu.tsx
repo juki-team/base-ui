@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
 import { MobileMenuBottom, MobileMenuTop, renderMenuItems } from './MenuParts';
@@ -18,7 +19,7 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
 
   const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
 
-  const items = renderMenuItems(menu, { type: 'horizontal', isSmallScreen });
+  const items = useMemo(() => renderMenuItems(menu, { type: 'horizontal', isSmallScreen }), [menu, isSmallScreen]);
 
   // the page (children) always sits in the second slot, so switching to/from mobile never remounts it
   return (
