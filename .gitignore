@@ -32,3 +32,5 @@ yarn-error.log*
 deps.png
 
 .env
+
+stats/
