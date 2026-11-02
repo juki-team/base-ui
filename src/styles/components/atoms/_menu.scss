@@ -1,5 +1,17 @@
 @use "../../mixins";
 
+@mixin vertical-menu-collapsed {
+  --left-vertical-menu-width: var(--left-vertical-collapsed-menu-width);
+  
+  .jk-menu-item-icon {
+    margin: 0 auto !important;
+  }
+  
+  .jk-menu-item-label {
+    display: none;
+  }
+}
+
 .jk-vertical-menu-layout-container, .jk-horizontal-menu-layout-container {
   display: flex;
   position: relative;
@@ -26,14 +38,14 @@
   @include mixins.sm { --left-vertical-menu-width: calc(64px * 2); }
   
   &.collapsed {
-    --left-vertical-menu-width: var(--left-vertical-collapsed-menu-width);
-    
-    .jk-menu-item-icon {
-      margin: 0 auto !important;
-    }
-    
-    .jk-menu-item-label {
-      display: none;
+    @include vertical-menu-collapsed;
+  }
+  
+  // The server doesn't know the screen size: until the viewport is measured the media query decides,
+  // so medium screens don't paint the menu open and then collapse it (the page width jumped).
+  &.viewport-pending {
+    @include mixins.md {
+      @include vertical-menu-collapsed;
     }
   }
   

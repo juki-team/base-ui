@@ -60,7 +60,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
       className={classNames(
         'ht-100 wh-100',
         isSmallScreen ? 'jk-horizontal-menu-layout-container' : 'jk-vertical-menu-layout-container',
-        { collapsed: !isSmallScreen && !open },
+        { collapsed: !isSmallScreen && !open, 'viewport-pending': !screen },
       )}
     >
       {isSmallScreen ? (
