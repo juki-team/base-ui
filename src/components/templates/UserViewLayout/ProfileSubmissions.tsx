@@ -8,6 +8,7 @@ import { QueryParamKey } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
 import { toFilterUrl, toSortUrl } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
+import { useSubmissionsJudging } from '../../hooks/useSubmissionsJudging';
 import { PagedDataViewer } from '../../organisms';
 import type { DataViewerHeadersType } from '../../organisms/_layz_/DataViewer/types';
 import {
@@ -22,6 +23,8 @@ import {
 import type { ProfileSubmissionsProps } from './types';
 
 export function ProfileSubmissions({ userKey }: ProfileSubmissionsProps) {
+
+  useSubmissionsJudging({ userKey });
 
   const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDto>>(jukiApiManager.API_V2.judge.getSummaryList().url);
   // const preload = usePreload();

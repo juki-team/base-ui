@@ -5,9 +5,10 @@ import {
   SUBMISSION_RUN_STATUS,
   type SubmissionDataResponseDto,
   SubmissionRunStatus,
-  type SubmissionRunStatusWebSocketResponseEventDto,
   Theme,
 } from '@juki-team/commons';
+import { memo } from 'react';
+import type { LiveSubmissionData } from '../../../../stores/submissionsLive/useSubmissionsLiveStore';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
@@ -19,13 +20,27 @@ export interface SubmissionVerdictProps {
   points?: number;
   status?: SubmissionRunStatus;
   submitId: string;
-  submissionData?: SubmissionRunStatusWebSocketResponseEventDto;
+  submissionData?: LiveSubmissionData;
   processedCases?: SubmissionDataResponseDto['processedCases'];
   shortLabel?: boolean;
   className?: string;
 }
 
-export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
+const IN_PROGRESS_STATUSES: SubmissionRunStatus[] = [
+  SubmissionRunStatus.RECEIVED,
+  SubmissionRunStatus.COMPILING,
+  SubmissionRunStatus.COMPILED,
+  SubmissionRunStatus.FETCHING_TEST_CASES,
+  SubmissionRunStatus.JUDGING_TEST_CASE,
+  SubmissionRunStatus.RUNNING_TEST_CASES,
+  SubmissionRunStatus.RUNNING_SAMPLE_TEST_CASES,
+  SubmissionRunStatus.RUNNING_TEST_CASE,
+  SubmissionRunStatus.EXECUTED_TEST_CASE,
+  SubmissionRunStatus.FAILED_TEST_CASE,
+  SubmissionRunStatus.GRADING,
+];
+
+const SubmissionVerdictCmp = (props: SubmissionVerdictProps) => {
   const {
     verdict: initialVerdict,
     points: initialPoints,
@@ -102,22 +117,7 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
         padding: '6px 8px',
       }}
     >
-      {((
-        [
-          SubmissionRunStatus.RECEIVED,
-          SubmissionRunStatus.COMPILING,
-          SubmissionRunStatus.COMPILED,
-          SubmissionRunStatus.FETCHING_TEST_CASES,
-          SubmissionRunStatus.JUDGING_TEST_CASE,
-          SubmissionRunStatus.RUNNING_TEST_CASES,
-          SubmissionRunStatus.RUNNING_SAMPLE_TEST_CASES,
-          SubmissionRunStatus.RUNNING_TEST_CASE,
-          SubmissionRunStatus.EXECUTED_TEST_CASE,
-          SubmissionRunStatus.FAILED_TEST_CASE,
-          SubmissionRunStatus.GRADING,
-        ] as SubmissionRunStatus[]
-      ).includes(status) ||
-        verdict === ProblemVerdict.PENDING) && (
+      {(IN_PROGRESS_STATUSES.includes(status) || verdict === ProblemVerdict.PENDING) && (
         <>
           <SpinIcon size="small" />
           &nbsp;
@@ -153,3 +153,5 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
     </div>
   );
 };
+
+export const SubmissionVerdict = memo(SubmissionVerdictCmp);

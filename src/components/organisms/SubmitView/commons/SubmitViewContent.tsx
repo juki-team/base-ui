@@ -145,7 +145,7 @@ export const SubmitViewContent = ({
                 title: <T className="fw-bd tt-se">verdict</T>,
                 content: (
                   <div className="jk-row gap center">
-                    <SubmissionListenerVerdict submit={submit} />
+                    <SubmissionListenerVerdict submit={submit} alwaysListen />
                     {compilationFailed && <UpIcon onClick={toggle} rotate={isOpen ? 0 : 180} className="link" />}
                   </div>
                 ),
