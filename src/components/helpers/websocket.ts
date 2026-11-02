@@ -6,6 +6,7 @@ import {
   isSubscribeProblemCrawledWebSocketEventDto,
   isSubscribeSubmissionRunStatusWebSocketEventDto,
   isSubscribeSubmissionsCrawlWebSocketEventDto,
+  isSubscribeSubmissionsJudgingWebSocketEventDto,
   isSubscribeUserNotificationWebSocketEventDto,
   isUnsubscribeCodeRunStatusWebSocketEventDto,
   isUnsubscribeContestChangesWebSocketEventDto,
@@ -13,6 +14,7 @@ import {
   isUnsubscribeProblemCrawledWebSocketEventDto,
   isUnsubscribeSubmissionRunStatusWebSocketEventDto,
   isUnsubscribeSubmissionsCrawlWebSocketEventDto,
+  isUnsubscribeSubmissionsJudgingWebSocketEventDto,
   isUnsubscribeUserNotificationWebSocketEventDto,
   join,
   WebSocketResponseEvent,
@@ -48,6 +50,10 @@ export function getKeyWebSocketEventDto(event: WebSocketSubscribeEventDto | WebS
   if (isSubscribeContestChangesWebSocketEventDto(event) || isUnsubscribeContestChangesWebSocketEventDto(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.CONTEST_CHANGES, event.clientId, event.contestKey);
   }
+  if (isSubscribeSubmissionsJudgingWebSocketEventDto(event) || isUnsubscribeSubmissionsJudgingWebSocketEventDto(event)) {
+    // one key for every table, see getWebSocketResponseEventKeyOfResponse
+    return getWebSocketResponseEventKey(WebSocketResponseEvent.SUBMISSION_JUDGING, event.clientId, '*');
+  }
 
 
 
@@ -76,6 +82,10 @@ export function getUnsubscribeEvent(event: WebSocketSubscribeEventDto): WebSocke
 
   if (isSubscribeUserNotificationWebSocketEventDto(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_USER_NOTIFICATION };
+  }
+
+  if (isSubscribeSubmissionsJudgingWebSocketEventDto(event)) {
+    return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SUBMISSIONS_JUDGING };
   }
 
 

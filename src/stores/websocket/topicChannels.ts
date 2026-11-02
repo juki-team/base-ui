@@ -6,6 +6,8 @@ import {
   getChannelOfWebSocketSubscribeEvent,
   getContestChannelParams,
   getContestKeyOfWebSocketSubscribeEvent,
+  getProblemChannelParams,
+  getProblemKeyOfWebSocketSubscribeEvent,
   getWebSocketResponseEventKeyOfResponse,
   UserPresenceData,
   WebSocketResponseEventDto,
@@ -23,6 +25,7 @@ import type Ably from 'ably';
  * - private channels of the token (`session:{id}`, `user:{id}`): always
  * - topic channels needed by the active subscriptions (`getChannelOfWebSocketSubscribeEvent`): while they are used
  * - role channels of the contest being viewed (`contest:{key}:{role}` granted in the token): while it is viewed
+ * - problem being viewed (`problem:{key}:{role}`): its token param is requested while it is viewed
  * - organization presence (`presence:organization:{id}`): this tab enters the presence of its organization (`presence` only, it
  *   does not receive the others); the administrators watching a organization also receive it (`presence-subscribe`)
  *
@@ -37,6 +40,7 @@ let dispatch: Dispatch = () => undefined;
 
 const channelRefs = new Map<string, number>();
 const contestRefs = new Map<string, number>();
+const problemRefs = new Map<string, number>();
 const presenceOrganizationRefs = new Map<string, number>();
 const attached = new Map<string, (message: Ably.InboundMessage) => void>();
 
@@ -63,12 +67,15 @@ const lastKey = (map: Map<string, number>) => [...map.keys()].pop();
  */
 export const getTopicChannelsAuthParams = (): {
   contestKey?: string;
+  problemKey?: string;
   presenceCompanyKey?: string;
 } => {
   const contestKey = lastKey(contestRefs);
+  const problemKey = lastKey(problemRefs);
   const presenceCompanyKey = lastKey(presenceOrganizationRefs);
   return {
     ...(contestKey ? { contestKey } : {}),
+    ...(problemKey ? { problemKey } : {}),
     ...(presenceCompanyKey ? { presenceCompanyKey } : {}),
   };
 };
@@ -135,6 +142,22 @@ const onMessage = (data: WebSocketResponseEventDto) => {
     recentMessagesSet.delete(recentMessages.shift()!);
   }
   dispatch(key, data);
+};
+
+/**
+ * Messages published before the channel is attached are lost, so these channels ask Ably for the recent ones on attach
+ * (retention: 2 minutes). It covers a submission that finished, or a rejudge that started, before the attach.
+ * Duplicates are discarded by `onMessage`. The contest channels don't rewind: they also carry other events.
+ */
+const getChannelOptions = (name: string): Ably.ChannelOptions | undefined => {
+  if (name.startsWith('submission:')) {
+    return { params: { rewind: '1' } }; // the last status of the submission
+  }
+  const segments = name.split(':');
+  if (getProblemChannelParams(name) || (segments[0] === 'user' && segments.length === 3)) {
+    return { params: { rewind: '2m' } }; // judging start/end of the table
+  }
+  return undefined;
 };
 
 const getDesiredChannels = () => {
@@ -282,7 +305,7 @@ const reconcile = () => {
       const listener = (message: Ably.InboundMessage) => onMessage(message.data);
       attached.set(name, listener);
       realtime.channels
-        .get(name)
+        .get(name, getChannelOptions(name))
         .subscribe(listener)
         .catch((error) => {
           attached.delete(name);
@@ -331,10 +354,12 @@ export const initTopicChannels = (realtimeClient: Ably.Realtime, newClientId: Cl
 export const addTopicSubscription = (event: WebSocketSubscribeEventDto) => {
   const channel = getChannelOfWebSocketSubscribeEvent(event);
   const contestKey = getContestKeyOfWebSocketSubscribeEvent(event);
+  const problemKey = getProblemKeyOfWebSocketSubscribeEvent(event);
 
   const prevAuthParams = JSON.stringify(getTopicChannelsAuthParams());
   if (channel) increment(channelRefs, channel);
   if (contestKey) increment(contestRefs, contestKey);
+  if (problemKey) increment(problemRefs, problemKey);
   const update = () => {
     if (JSON.stringify(getTopicChannelsAuthParams()) !== prevAuthParams) {
       reauthorize();
@@ -353,6 +378,7 @@ export const addTopicSubscription = (event: WebSocketSubscribeEventDto) => {
     const prev = JSON.stringify(getTopicChannelsAuthParams());
     if (channel) decrement(channelRefs, channel);
     if (contestKey) decrement(contestRefs, contestKey);
+    if (problemKey) decrement(problemRefs, problemKey);
     if (JSON.stringify(getTopicChannelsAuthParams()) !== prev) {
       reauthorize();
     } else {
