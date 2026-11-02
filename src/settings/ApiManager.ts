@@ -1011,20 +1011,6 @@ export class ApiManager {
           ),
           method: HTTPMethod.GET,
         })),
-        getUsersTracksStats: valid<{
-          params: {
-            companyKeys: string;
-            startTimestamp: number;
-            endTimestamp: number;
-            groupBy: GroupByTimestampKey[];
-          };
-        }>(({ params: { companyKeys, startTimestamp, endTimestamp, groupBy } }) => ({
-          url: injectBaseUrl(
-            'statistics',
-            `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&groupBy=${groupBy.join(',')}${companyKeys ? `&companyKeys=${companyKeys}` : ''}`,
-          ),
-          method: HTTPMethod.GET,
-        })),
       },
       excalidraw: {
         getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
