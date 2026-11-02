@@ -32,8 +32,6 @@ export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
   return {
     subscribers: {},
     newAuth: () => set({ subscribeToEvent: getSubscribeToEvent() }),
-    channelPublishMessages: null,
-    setProps: (props) => set(props),
     broadcastMessage: (key, data) => {
       const newMessage = { key, data };
       const subs = get().subscribers[key] || [];

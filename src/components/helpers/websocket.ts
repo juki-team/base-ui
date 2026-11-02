@@ -1,7 +1,5 @@
 import {
   getWebSocketResponseEventKey,
-  isSubscribeClientTrackDataWebSocketEventDTO,
-  isSubscribeClientTrackWebSocketEventDTO,
   isSubscribeCodeRunStatusWebSocketEventDTO,
   isSubscribeContestChangesWebSocketEventDTO,
   isSubscribeGetDataWebSocketEventDTO,
@@ -9,8 +7,6 @@ import {
   isSubscribeSubmissionRunStatusWebSocketEventDTO,
   isSubscribeSubmissionsCrawlWebSocketEventDTO,
   isSubscribeUserNotificationWebSocketEventDTO,
-  isUnsubscribeClientTrackDataWebSocketEventDTO,
-  isUnsubscribeClientTrackWebSocketEventDTO,
   isUnsubscribeCodeRunStatusWebSocketEventDTO,
   isUnsubscribeContestChangesWebSocketEventDTO,
   isUnsubscribeGetDataWebSocketEventDTO,
@@ -52,13 +48,8 @@ export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebS
   if (isSubscribeContestChangesWebSocketEventDTO(event) || isUnsubscribeContestChangesWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.CONTEST_CHANGES, event.clientId, event.contestKey);
   }
-  if (isSubscribeClientTrackWebSocketEventDTO(event) || isUnsubscribeClientTrackWebSocketEventDTO(event)) {
-    return getWebSocketResponseEventKey(WebSocketResponseEvent.CLIENT_TRACK, event.clientId, '*');
-  }
-  if (isSubscribeClientTrackDataWebSocketEventDTO(event) || isUnsubscribeClientTrackDataWebSocketEventDTO(event)) {
-    // the data of a tracked client is a SEND_DATA_CLIENT_TRACK response whose dataId is the tracked client
-    return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_, event.clientId, event.trackedClientId);
-  }
+
+
 
   return '' as WebSocketResponseEventKey;
 }
@@ -82,15 +73,11 @@ export function getUnsubscribeEvent(event: WebSocketSubscribeEventDTO): WebSocke
   if (isSubscribeContestChangesWebSocketEventDTO(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_CONTEST_CHANGES };
   }
-  if (isSubscribeClientTrackWebSocketEventDTO(event)) {
-    return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_CLIENT_TRACK };
-  }
+
   if (isSubscribeUserNotificationWebSocketEventDTO(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_USER_NOTIFICATION };
   }
-  if (isSubscribeClientTrackDataWebSocketEventDTO(event)) {
-    return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_CLIENT_TRACK_DATA };
-  }
+
 
   return event;
 }

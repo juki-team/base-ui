@@ -1,7 +1,6 @@
 import Spaces from '@ably/spaces';
 import { SpaceProvider, SpacesProvider } from '@ably/spaces/react';
 import {
-  CHANNEL_PUBLISH_MESSAGES,
   cleanRequest,
   consoleError,
   consoleInfo,
@@ -11,7 +10,6 @@ import {
 } from '@juki-team/commons';
 import Ably, { TokenDetails, TokenRequest } from 'ably';
 import { LiveObjects } from 'ably/liveobjects';
-import { AblyProvider, ChannelProvider, useChannel } from 'ably/react';
 import { PropsWithChildren, useEffect } from 'react';
 import { ABLY_LOG_LEVEL } from '../../../constants/settings';
 import { QueryParamKey } from '../../../enums';
@@ -23,22 +21,6 @@ import { getTopicChannelsAuthParams, initTopicChannels, setTopicChannelsCapabili
 import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
 import { authorizedRequest, isBrowser, safeReportError } from '../../helpers';
 import { useStableRef } from '../../hooks/useStableRef';
-import { ErrorBoundary } from '../../templates';
-
-/**
- * Channel to send requests to the backend (chat completions, client track screenshots).
- * The events from the backend arrive by the TOPIC channels (see stores/websocket/topicChannels.ts).
- */
-const WebsocketProvider = () => {
-  const setProps = useWebsocketStore(store => store.setProps);
-  const { channel: channelPublishMessages } = useChannel(CHANNEL_PUBLISH_MESSAGES);
-  
-  useEffect(() => {
-    setProps({ channelPublishMessages });
-  }, [ channelPublishMessages, setProps ]);
-  
-  return null;
-};
 
 const newAblyClient = (uiId: string) => {
   if (isBrowser()) {
@@ -148,18 +130,6 @@ export const JukiAblyInitializer = () => {
       }
     })();
   }, [ clientId, newAuth, realtimeClientRef, setRealtimeClient, setSpaces ]);
-  
-  if (isBrowser() && realtimeClient) {
-    return (
-      <ErrorBoundary background>
-        <AblyProvider client={realtimeClient}>
-          <ChannelProvider channelName={CHANNEL_PUBLISH_MESSAGES}>
-            <WebsocketProvider />
-          </ChannelProvider>
-        </AblyProvider>
-      </ErrorBoundary>
-    );
-  }
   
   return null;
 };

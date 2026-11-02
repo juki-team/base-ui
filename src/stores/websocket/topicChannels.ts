@@ -7,7 +7,6 @@ import {
   getContestChannelParams,
   getContestKeyOfWebSocketSubscribeEvent,
   getWebSocketResponseEventKeyOfResponse,
-  isSubscribeClientTrackDataWebSocketEventDTO,
   UserPresenceData,
   WebSocketResponseEventDTO,
   WebSocketSubscribeEventDTO,
@@ -38,7 +37,6 @@ let dispatch: Dispatch = () => undefined;
 
 const channelRefs = new Map<string, number>();
 const contestRefs = new Map<string, number>();
-const trackedClientRefs = new Map<string, number>();
 const presenceCompanyRefs = new Map<string, number>();
 const attached = new Map<string, (message: Ably.InboundMessage) => void>();
 
@@ -65,15 +63,12 @@ const lastKey = (map: Map<string, number>) => [...map.keys()].pop();
  */
 export const getTopicChannelsAuthParams = (): {
   contestKey?: string;
-  trackedClientId?: string;
   presenceCompanyKey?: string;
 } => {
   const contestKey = lastKey(contestRefs);
-  const trackedClientId = lastKey(trackedClientRefs);
   const presenceCompanyKey = lastKey(presenceCompanyRefs);
   return {
     ...(contestKey ? { contestKey } : {}),
-    ...(trackedClientId ? { trackedClientId } : {}),
     ...(presenceCompanyKey ? { presenceCompanyKey } : {}),
   };
 };
@@ -330,18 +325,16 @@ export const initTopicChannels = (realtimeClient: Ably.Realtime, newClientId: Cl
 };
 
 /**
- * Registers the topic channel (and the contest / tracked client token params) of a subscription.
+ * Registers the topic channel (and the contest token param) of a subscription.
  * Returns the function to unregister it.
  */
 export const addTopicSubscription = (event: WebSocketSubscribeEventDTO) => {
   const channel = getChannelOfWebSocketSubscribeEvent(event);
   const contestKey = getContestKeyOfWebSocketSubscribeEvent(event);
-  const trackedClientId = isSubscribeClientTrackDataWebSocketEventDTO(event) ? event.trackedClientId : null;
 
   const prevAuthParams = JSON.stringify(getTopicChannelsAuthParams());
   if (channel) increment(channelRefs, channel);
   if (contestKey) increment(contestRefs, contestKey);
-  if (trackedClientId) increment(trackedClientRefs, trackedClientId);
   const update = () => {
     if (JSON.stringify(getTopicChannelsAuthParams()) !== prevAuthParams) {
       reauthorize();
@@ -360,7 +353,6 @@ export const addTopicSubscription = (event: WebSocketSubscribeEventDTO) => {
     const prev = JSON.stringify(getTopicChannelsAuthParams());
     if (channel) decrement(channelRefs, channel);
     if (contestKey) decrement(contestRefs, contestKey);
-    if (trackedClientId) decrement(trackedClientRefs, trackedClientId);
     if (JSON.stringify(getTopicChannelsAuthParams()) !== prev) {
       reauthorize();
     } else {

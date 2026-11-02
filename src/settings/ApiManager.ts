@@ -1,7 +1,6 @@
 import { OrderedExcalidrawElement } from '@excalidraw/excalidraw/element/types';
 import { AppState } from '@excalidraw/excalidraw/types';
 import {
-  ClientId,
   CodeEditorFiles,
   CodeEditorSubmissionDTO,
   CodeLanguage,
@@ -271,21 +270,6 @@ export class ApiManager {
           HTTPMethod.POST
         >(({ params: { companyKey }, body }) => ({
           url: injectCompany(injectBaseUrl('user', `/check-data`), companyKey),
-          method: HTTPMethod.POST,
-          body: JSON.stringify(body),
-        })),
-        clientTrack: valid<
-          {
-            body: {
-              clientId: ClientId;
-              location: boolean;
-              screenshot: boolean;
-              device: boolean;
-            };
-          },
-          HTTPMethod.POST
-        >(({ body }) => ({
-          url: injectBaseUrl('user', `/client-track`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
@@ -624,13 +608,6 @@ export class ApiManager {
       code: {
         run: valid<{ body: CodeRunDTO }, HTTPMethod.POST>(({ body }) => ({
           url: injectBaseUrl('code', '/run'),
-          method: HTTPMethod.POST,
-          body: JSON.stringify(body),
-        })),
-      },
-      ia: {
-        chatCompletions: valid<{ body: { content: string; connectionId: string } }, HTTPMethod.POST>(({ body }) => ({
-          url: injectBaseUrl('ia', '/chat/completions'),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
