@@ -3,7 +3,7 @@ allowBuilds:
   '@swc/core': false
   esbuild: false
 minimumReleaseAgeExclude:
-  - '@juki-team/commons@0.1.42 || 0.1.43 || 0.1.45 || 0.1.47'
+  - '@juki-team/commons@0.1.42 || 0.1.43 || 0.1.45 || 0.1.47 || 0.1.49'
 overrides:
   # security floors (pnpm audit, Nov 2026); remove when the dependents ship fixed versions
   dompurify: ^3.4.17
