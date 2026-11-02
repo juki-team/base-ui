@@ -129,7 +129,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
               <div className="jk-form-item">
                 <Input
                   labelPlacement="top"
-                  label={<T className="tt-se">company key</T>}
+                  label={<T className="tt-se">organization key</T>}
                   register={register('organizationKey')}
                   className={classNames({
                     error: !!errors?.organizationKey?.message,

@@ -68,15 +68,15 @@ const lastKey = (map: Map<string, number>) => [...map.keys()].pop();
 export const getTopicChannelsAuthParams = (): {
   contestKey?: string;
   problemKey?: string;
-  presenceCompanyKey?: string;
+  presenceOrganizationKey?: string;
 } => {
   const contestKey = lastKey(contestRefs);
   const problemKey = lastKey(problemRefs);
-  const presenceCompanyKey = lastKey(presenceOrganizationRefs);
+  const presenceOrganizationKey = lastKey(presenceOrganizationRefs);
   return {
     ...(contestKey ? { contestKey } : {}),
     ...(problemKey ? { problemKey } : {}),
-    ...(presenceCompanyKey ? { presenceCompanyKey } : {}),
+    ...(presenceOrganizationKey ? { presenceOrganizationKey } : {}),
   };
 };
 

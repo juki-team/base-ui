@@ -193,23 +193,23 @@
 }
 
 .jk-vertical-menu-layout-container {
-  --width-company-selector: var(--left-vertical-menu-width);
+  --width-organization-selector: var(--left-vertical-menu-width);
 }
 
 .jk-horizontal-menu-layout-container {
-  --width-company-selector: 250px;
+  --width-organization-selector: 250px;
   
-  .menu-item-company-selector {
+  .menu-item-organization-selector {
     gap: var(--gap);
     display: flex;
   }
 }
 
-.menu-item-company-selector {
+.menu-item-organization-selector {
   
   .jk-menu-item-label > div {
     
-    width: calc(var(--width-company-selector) - var(--margin) - 24px - 4px) !important;
+    width: calc(var(--width-organization-selector) - var(--margin) - 24px - 4px) !important;
     
     --margin: calc(var(--pad-m) + var(--pad-s));
     @include mixins.md { --margin: calc(var(--pad-xs) + var(--pad-s)); }

@@ -110,7 +110,7 @@ export function MainMenu(props: MainMenuProps) {
             }
 
             return (
-              <div className={classNames('jk-menu-item menu-item-company-selector cr-tx-ht-it', { 'jk-col gap': isSmall })}>
+              <div className={classNames('jk-menu-item menu-item-organization-selector cr-tx-ht-it', { 'jk-col gap': isSmall })}>
                 <div className="jk-menu-item-icon" style={{ height: 48 }}>
                   {organization && (
                     <Popover

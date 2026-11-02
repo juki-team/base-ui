@@ -56,7 +56,7 @@ const injectFilter = (path: string, filterUrl: string | undefined) => {
 };
 
 const injectOrganization = (path: string, organizationKey: string | undefined) => {
-  return organizationKey ? addAnd(addQuery(path)) + `companyKey=${organizationKey}` : path;
+  return organizationKey ? addAnd(addQuery(path)) + `organizationKey=${organizationKey}` : path;
 };
 
 type ResponseAPI<M extends HTTPMethod = HTTPMethod.GET> = { url: string } & AuthorizedRequestType<M>;
@@ -615,35 +615,35 @@ export class ApiManager {
       organization: {
         get: valid<{ params: { organizationKey: string } } | void>(
           ({ params: { organizationKey } } = { params: { organizationKey: '' } }) => ({
-            url: injectOrganization(injectBaseUrl('company', ''), organizationKey),
+            url: injectOrganization(injectBaseUrl('organization', ''), organizationKey),
             method: HTTPMethod.GET,
           }),
         ),
         getPermissionList: valid<void>(() => ({
-          url: injectBaseUrl('company', '/permission-list'),
+          url: injectBaseUrl('organization', '/permission-list'),
           method: HTTPMethod.GET,
         })),
         getJudgeList: valid<{
           params: { organizationKey: string };
         } | void>(({ params: { organizationKey } } = { params: { organizationKey: '' } }) => ({
-          url: injectOrganization(injectBaseUrl('company', '/judge-list'), organizationKey),
+          url: injectOrganization(injectBaseUrl('organization', '/judge-list'), organizationKey),
           method: HTTPMethod.GET,
         })),
         getTrustedOrganizationsList: valid<{
           params: { organizationKey: string };
         } | void>(({ params: { organizationKey } } = { params: { organizationKey: '' } }) => ({
-          url: injectOrganization(injectBaseUrl('company', '/trusted-companies-list'), organizationKey),
+          url: injectOrganization(injectBaseUrl('organization', '/trusted-organizations-list'), organizationKey),
           method: HTTPMethod.GET,
         })),
         getResourceSpecifications: valid<{ params: { organizationKey: string } } | void>(
           ({ params: { organizationKey } } = { params: { organizationKey: '' } }) => ({
-            url: injectOrganization(injectBaseUrl('company', '/resource-specifications'), organizationKey),
+            url: injectOrganization(injectBaseUrl('organization', '/resource-specifications'), organizationKey),
             method: HTTPMethod.GET,
           }),
         ),
         getEmailData: valid<{ params: { organizationKey: string } } | void>(
           ({ params: { organizationKey } } = { params: { organizationKey: '' } }) => ({
-            url: injectOrganization(injectBaseUrl('company', '/email-data'), organizationKey),
+            url: injectOrganization(injectBaseUrl('organization', '/email-data'), organizationKey),
             method: HTTPMethod.GET,
           }),
         ),
@@ -651,7 +651,7 @@ export class ApiManager {
           { params?: { organizationKey: string }; body: { logoType: string; contentType: string } },
           HTTPMethod.PUT
         >(({ params: { organizationKey } = { organizationKey: '' }, body }) => ({
-          url: injectOrganization(injectBaseUrl('company', `/image`), organizationKey),
+          url: injectOrganization(injectBaseUrl('organization', `/image`), organizationKey),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
@@ -671,7 +671,7 @@ export class ApiManager {
           },
           HTTPMethod.PATCH
         >(({ params: { organizationKey } = { organizationKey: '' }, body }) => ({
-          url: injectOrganization(injectBaseUrl('company', ''), organizationKey),
+          url: injectOrganization(injectBaseUrl('organization', ''), organizationKey),
           method: HTTPMethod.PATCH,
           body: JSON.stringify(body),
         })),
@@ -690,7 +690,7 @@ export class ApiManager {
           },
           HTTPMethod.PATCH
         >(({ params: { organizationKey } = { organizationKey: '' }, body }) => ({
-          url: injectOrganization(injectBaseUrl('company', '/sensitive-data'), organizationKey),
+          url: injectOrganization(injectBaseUrl('organization', '/sensitive-data'), organizationKey),
           method: HTTPMethod.PATCH,
           body: JSON.stringify(body),
         })),
@@ -973,7 +973,7 @@ export class ApiManager {
           url: injectOrganization(
             injectBaseUrl(
               'statistics',
-              `/company?startsAt=${startsAt}&endsAt=${endsAt}&groupBy=${groupBy.join(',')}`,
+              `/organization?startsAt=${startsAt}&endsAt=${endsAt}&groupBy=${groupBy.join(',')}`,
             ),
             organizationKey,
           ),
