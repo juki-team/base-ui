@@ -1,4 +1,4 @@
-import { ContentResponse, Status, Theme, WorksheetDataResponseDTO } from '@juki-team/commons';
+import { ContentResponse, Status, Theme, WorksheetDataResponseDto } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { jukiApiManager } from '../../../../settings';
 import { T } from '../../../atoms';
@@ -22,7 +22,7 @@ type Story = StoryObj<typeof WorksheetViewerCmp>;
 export const WorksheetViewer: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <FetcherLayer<ContentResponse<WorksheetDataResponseDTO>>
+      <FetcherLayer<ContentResponse<WorksheetDataResponseDto>>
         // url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url} //
         // url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-g4Y' } }).url}
         url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'W-aUW' } }).url}
@@ -55,7 +55,7 @@ export const WorksheetViewer: Story = {
 export const WorksheetResultViewer: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <FetcherLayer<ContentResponse<WorksheetDataResponseDTO>>
+      <FetcherLayer<ContentResponse<WorksheetDataResponseDto>>
         url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
         {({ data }) => (
@@ -84,13 +84,13 @@ export const WorksheetResultViewer: Story = {
   ),
 };
 
-// interface UpsertWorksheetUIDTO extends Omit<UpsertWorksheetDTO, 'members'> {
-//   members: EntityMembersResponseDTO,
-//   owner: UserCompanyBasicInfoResponseDTO,
+// interface UpsertWorksheetUIDTO extends Omit<UpsertWorksheetDto, 'members'> {
+//   members: EntityMembersResponseDto,
+//   owner: UserOrganizationBasicInfoResponseDto,
 // }
 
-// const toUpsertWorksheetDTO = (entity: UpsertWorksheetUIDTO): UpsertWorksheetDTO => ({
-//   members: toEntityMembersDTO(entity.members),
+// const toUpsertWorksheetDto = (entity: UpsertWorksheetUIDTO): UpsertWorksheetDto => ({
+//   members: toEntityMembersDto(entity.members),
 //   folderId: entity.folderId,
 //   name: entity.name,
 //   description: entity.description,
@@ -110,7 +110,7 @@ export const WorksheetResultViewer: Story = {
 //   },
 // });
 
-const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, }) => {
+const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDto, }) => {
   const [ content, setContent ] = useSyncedState(initialContent);
   return (
     <>
@@ -128,7 +128,7 @@ const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, }
           //   ...options
           // } = jukiApiManager.API_V1.worksheet.update({
           //   params: { key: initialContent.key },
-          //   body: toUpsertWorksheetDTO({ ...initialContent }),
+          //   body: toUpsertWorksheetDto({ ...initialContent }),
           // });
           // const request = cleanRequest(await authorizedRequest(url, options));
           // console.info({ request });
@@ -144,7 +144,7 @@ const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, }
 export const WorksheetEditor: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <FetcherLayer<ContentResponse<WorksheetDataResponseDTO>>
+      <FetcherLayer<ContentResponse<WorksheetDataResponseDto>>
         url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
         {({ data }) => (
@@ -168,7 +168,7 @@ export const WorksheetEditor: Story = {
 export const WorksheetViewerAsSlides: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <FetcherLayer<ContentResponse<WorksheetDataResponseDTO>>
+      <FetcherLayer<ContentResponse<WorksheetDataResponseDto>>
         // url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
         url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-g4Y' } }).url}
       >

@@ -12,7 +12,7 @@ export const UserProfileSettings = () => {
       <UserProfileSettingsCmp
         user={{
           ...EMPTY_USER,
-          company: { key: '' },
+          organization: { key: '' },
           canEditProfileData: true,
           canEditSettingsData: true,
           canEditPermissionsData: true,

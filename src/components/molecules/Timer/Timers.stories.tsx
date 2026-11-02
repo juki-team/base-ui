@@ -15,12 +15,12 @@ export const Regular: Story = {
   render: (args) => (
     <MockupJukiProvider>
       <h3>TimerClock</h3>
-      {[ 1.5 * 60 * 1000, 0, -30 * 1000 ].map((startTimestamp) => (
+      {[ 1.5 * 60 * 1000, 0, -30 * 1000 ].map((startsAt) => (
         <TimerLabeled
-          key={startTimestamp}
+          key={startsAt}
           {...args}
-          startDate={new Date(Date.now() + startTimestamp)}
-          endDate={new Date(Date.now() + startTimestamp + 15 * 1000)}
+          startDate={new Date(Date.now() + startsAt)}
+          endDate={new Date(Date.now() + startsAt + 15 * 1000)}
           type="weeks-days-hours-minutes-seconds-milliseconds"
           abbreviated
           maxSplit={2}
@@ -34,10 +34,10 @@ export const Regular: Story = {
         abbreviated
       />
       <h3>laps 4</h3>
-      {[ 15 * 1000, 0, -30 * 1000 ].map((startTimestamp) => (
+      {[ 15 * 1000, 0, -30 * 1000 ].map((startsAt) => (
         <TimerLabeled
-          startDate={new Date(Date.now() + startTimestamp)}
-          endDate={new Date(Date.now() + startTimestamp + 15 * 1000)}
+          startDate={new Date(Date.now() + startsAt)}
+          endDate={new Date(Date.now() + startsAt + 15 * 1000)}
           type="hours-minutes-seconds"
           literal
         />

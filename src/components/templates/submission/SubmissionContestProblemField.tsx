@@ -10,15 +10,15 @@ import type { SubmissionContestProblemFieldProps } from './types';
 export function SubmissionContestProblemField(props: SubmissionContestProblemFieldProps) {
   
   const {
-    record: { problem: { key: problemKey, name: problemName, company: { key: problemCompanyKey } }, contest },
+    record: { problem: { key: problemKey, name: problemName, organization: { key: problemOrganizationKey } }, contest },
     isCard,
     contest: colContest,
   } = props;
   
   const { Link } = useUIStore(store => store.components);
-  const userCompanyKey = useUserStore(state => state.company.key);
+  const userOrganizationKey = useUserStore(state => state.organization.key);
   
-  const origin = getJudgeOrigin(contest ? contest.company.key : problemCompanyKey, userCompanyKey);
+  const origin = getJudgeOrigin(contest ? contest.organization.key : problemOrganizationKey, userOrganizationKey);
   
   return (
     <FieldText

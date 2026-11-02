@@ -1,6 +1,6 @@
 import {
   CODE_LANGUAGE,
-  JUKI_APP_COMPANY_KEY,
+  JUKI_APP_ORGANIZATION_KEY,
   Language,
   PROBLEM_MODE,
   PROBLEM_TYPE,
@@ -125,12 +125,12 @@ export const isJudgeWindowLocation = () => {
   );
 };
 
-export const getJudgeOrigin = (companyKey: string, userCompanyKey?: string) => {
-  if (isJudgeWindowLocation() || userCompanyKey === companyKey) {
+export const getJudgeOrigin = (organizationKey: string, userOrganizationKey?: string) => {
+  if (isJudgeWindowLocation() || userOrganizationKey === organizationKey) {
     return '';
   }
-  let origin = `https://${companyKey}.jukijudge.com`;
-  if (companyKey === JUKI_APP_COMPANY_KEY) {
+  let origin = `https://${organizationKey}.jukijudge.com`;
+  if (organizationKey === JUKI_APP_ORGANIZATION_KEY) {
     origin = 'https://judge.juki.app';
   }
   return origin;

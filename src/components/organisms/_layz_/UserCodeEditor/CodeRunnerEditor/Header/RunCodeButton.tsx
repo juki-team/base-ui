@@ -5,10 +5,10 @@ import {
   CodeLanguage,
   consoleWarn,
   ContentResponse,
-  isCodeRunStatusMessageWebSocketResponseEventDTO,
+  isCodeRunStatusMessageWebSocketResponseEventDto,
   Status,
   SubmissionRunStatus,
-  SubscribeCodeRunStatusWebSocketEventDTO,
+  SubscribeCodeRunStatusWebSocketEventDto,
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
 import type { CodeEditorFiles } from '../../code-editor-file';
@@ -54,14 +54,14 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
   const activeRunIdRef = useRef('');
   // the open file only disappears when the file set changes, which re-renders this button anyway
   const hasCurrentFile = !!getFiles()[currentFileName];
-  const event: Omit<SubscribeCodeRunStatusWebSocketEventDTO, 'clientId'> = {
+  const event: Omit<SubscribeCodeRunStatusWebSocketEventDto, 'clientId'> = {
     event: WebSocketSubscriptionEvent.SUBSCRIBE_CODE_RUN_STATUS,
     runId,
   };
   useSubscribe(
     event,
     (data) => {
-      if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
+      if (isCodeRunStatusMessageWebSocketResponseEventDto(data)) {
         // Guard against stale messages from a previous run (#4)
         if (runId !== activeRunIdRef.current) return;
         const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
@@ -69,7 +69,7 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
             onTestCasesChange: (prevState) => {
               const newTestCases: CodeEditorTestCases = { ...prevState };
               for (const testKey in newTestCases) {
-                if (prevState[testKey]?.messageTimestamp && prevState[testKey].messageTimestamp > data.messageTimestamp) {
+                if (prevState[testKey]?.createdAt && prevState[testKey].createdAt > data.createdAt) {
                   continue;
                 }
                 if (newTestCases[testKey]) {
@@ -79,7 +79,7 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
                     err,
                     out,
                     log,
-                    messageTimestamp: data.messageTimestamp,
+                    createdAt: data.createdAt,
                   };
                 }
               }
@@ -112,10 +112,10 @@ export const RunCodeButton = <T,>(props: RunCodeButtonProps<T>) => {
                     out: data.log?.out || '',
                     log: data.log?.log || '',
                     err: data.log?.err || '',
-                    messageTimestamp: data.messageTimestamp,
+                    createdAt: data.createdAt,
                   };
                   const prev = prevState[testCase.key];
-                  if (prev && prev.messageTimestamp > testCase.messageTimestamp) {
+                  if (prev && prev.createdAt > testCase.createdAt) {
                     return prevState;
                   }
                   return { ...prevState, [testCase.key]: testCase };

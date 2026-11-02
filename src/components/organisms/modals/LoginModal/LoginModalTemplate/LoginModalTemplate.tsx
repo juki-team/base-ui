@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ContentResponse, CompanyTrustedCompanyResponseDTO } from '@juki-team/commons';
+import { ContentResponse, OrganizationTrustedOrganizationResponseDto } from '@juki-team/commons';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -14,10 +14,10 @@ import { ButtonLoader, SplitModal } from '../../../../molecules';
 import { SetLoaderStatusOnClickType } from '../../../../types';
 import type { LoginFormType, LoginModalTemplateProps } from './types';
 
-const loginMultiCompaniesSchema = yup.object().shape({
+const loginMultiOrganizationsSchema = yup.object().shape({
   nickname: yup.string().required('cannot be empty'),
   password: yup.string().required('cannot be empty'),
-  companyKey: yup.string().required('cannot be empty'),
+  organizationKey: yup.string().required('cannot be empty'),
 });
 
 export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
@@ -28,13 +28,13 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
     onSubmit,
     loginWithGoogle,
     reactAppGoogleClientId,
-    multiCompanies,
+    multiOrganizations,
     openForgotPasswordModal,
     setOpenForgotPasswordModal,
   } = props;
 
   const { Image } = useUIStore((store) => store.components);
-  const companyKey = useUserStore((store) => store.company.key);
+  const organizationKey = useUserStore((store) => store.organization.key);
   const {
     handleSubmit,
     formState: { isValid, errors, touchedFields },
@@ -43,23 +43,23 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
     setValue,
     getValues,
   } = useForm<LoginFormType>({
-    resolver: yupResolver(loginMultiCompaniesSchema),
+    resolver: yupResolver(loginMultiOrganizationsSchema),
     mode: 'all',
     reValidateMode: 'onBlur',
   });
 
   useEffect(() => {
-    reset({ companyKey });
-  }, [isOpen, reset, companyKey]);
+    reset({ organizationKey });
+  }, [isOpen, reset, organizationKey]);
 
   // const { t } = useT();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
 
-  const { data } = useFetcher<ContentResponse<CompanyTrustedCompanyResponseDTO[]>>(
-    jukiApiManager.API_V2.company.getTrustedCompaniesList().url,
+  const { data } = useFetcher<ContentResponse<OrganizationTrustedOrganizationResponseDto[]>>(
+    jukiApiManager.API_V2.organization.getTrustedOrganizationsList().url,
   );
 
-  const trustedCompanies = data?.success ? data.content : [];
+  const trustedOrganizations = data?.success ? data.content : [];
 
   return (
     <SplitModal
@@ -103,15 +103,15 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
         )}
         <form onSubmit={handleSubmit((data: LoginFormType) => onSubmit(data, setLoaderRef.current!))}>
           <div className="jk-col stretch">
-            {!!trustedCompanies.length && (
+            {!!trustedOrganizations.length && (
               <div className="jk-row gap nowrap">
                 <InputSelect
                   label={<T className="tt-se">platform</T>}
                   labelPlacement="left"
-                  options={trustedCompanies.map(({ name, key }) => ({ label: name, value: key }))}
-                  selectedOption={{ value: getValues('companyKey') }}
+                  options={trustedOrganizations.map(({ name, key }) => ({ label: name, value: key }))}
+                  selectedOption={{ value: getValues('organizationKey') }}
                   onChange={({ value }) => {
-                    setValue('companyKey', value, { shouldTouch: true, shouldValidate: true });
+                    setValue('organizationKey', value, { shouldTouch: true, shouldValidate: true });
                   }}
                   expand
                 />
@@ -125,21 +125,21 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                 </div>
               </div>
             )}
-            {multiCompanies && (
+            {multiOrganizations && (
               <div className="jk-form-item">
                 <Input
                   labelPlacement="top"
                   label={<T className="tt-se">company key</T>}
-                  register={register('companyKey')}
+                  register={register('organizationKey')}
                   className={classNames({
-                    error: !!errors?.companyKey?.message,
-                    success: !!touchedFields.companyKey && !errors?.companyKey?.message,
+                    error: !!errors?.organizationKey?.message,
+                    success: !!touchedFields.organizationKey && !errors?.organizationKey?.message,
                   })}
                   expand
                   required
                 />
                 <p>
-                  <T>{(!isValid && errors?.companyKey?.message) || ''}</T>
+                  <T>{(!isValid && errors?.organizationKey?.message) || ''}</T>
                 </p>
               </div>
             )}
@@ -181,7 +181,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                   <T className="tt-se">forgot password?</T>
                 </div>
               </div>
-              {!multiCompanies && (
+              {!multiOrganizations && (
                 <div>
                   <p className="label">
                     <T className="tt-se">not a member?</T>,&nbsp;

@@ -1,51 +1,51 @@
 import {
   getWebSocketResponseEventKey,
-  isSubscribeCodeRunStatusWebSocketEventDTO,
-  isSubscribeContestChangesWebSocketEventDTO,
-  isSubscribeGetDataWebSocketEventDTO,
-  isSubscribeProblemCrawledWebSocketEventDTO,
-  isSubscribeSubmissionRunStatusWebSocketEventDTO,
-  isSubscribeSubmissionsCrawlWebSocketEventDTO,
-  isSubscribeUserNotificationWebSocketEventDTO,
-  isUnsubscribeCodeRunStatusWebSocketEventDTO,
-  isUnsubscribeContestChangesWebSocketEventDTO,
-  isUnsubscribeGetDataWebSocketEventDTO,
-  isUnsubscribeProblemCrawledWebSocketEventDTO,
-  isUnsubscribeSubmissionRunStatusWebSocketEventDTO,
-  isUnsubscribeSubmissionsCrawlWebSocketEventDTO,
-  isUnsubscribeUserNotificationWebSocketEventDTO,
+  isSubscribeCodeRunStatusWebSocketEventDto,
+  isSubscribeContestChangesWebSocketEventDto,
+  isSubscribeGetDataWebSocketEventDto,
+  isSubscribeProblemCrawledWebSocketEventDto,
+  isSubscribeSubmissionRunStatusWebSocketEventDto,
+  isSubscribeSubmissionsCrawlWebSocketEventDto,
+  isSubscribeUserNotificationWebSocketEventDto,
+  isUnsubscribeCodeRunStatusWebSocketEventDto,
+  isUnsubscribeContestChangesWebSocketEventDto,
+  isUnsubscribeGetDataWebSocketEventDto,
+  isUnsubscribeProblemCrawledWebSocketEventDto,
+  isUnsubscribeSubmissionRunStatusWebSocketEventDto,
+  isUnsubscribeSubmissionsCrawlWebSocketEventDto,
+  isUnsubscribeUserNotificationWebSocketEventDto,
   join,
   WebSocketResponseEvent,
   WebSocketResponseEventKey,
-  WebSocketSubscribeEventDTO,
+  WebSocketSubscribeEventDto,
   WebSocketSubscriptionEvent,
-  WebSocketUnsubscribeEventDTO,
+  WebSocketUnsubscribeEventDto,
 } from '@juki-team/commons';
 
-export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebSocketUnsubscribeEventDTO) {
-  if (isSubscribeCodeRunStatusWebSocketEventDTO(event) || isUnsubscribeCodeRunStatusWebSocketEventDTO(event)) {
+export function getKeyWebSocketEventDto(event: WebSocketSubscribeEventDto | WebSocketUnsubscribeEventDto) {
+  if (isSubscribeCodeRunStatusWebSocketEventDto(event) || isUnsubscribeCodeRunStatusWebSocketEventDto(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.CODE_RUN_STATUS, event.clientId, event.runId);
   }
-  if (isSubscribeSubmissionRunStatusWebSocketEventDTO(event) || isUnsubscribeSubmissionRunStatusWebSocketEventDTO(event)) {
+  if (isSubscribeSubmissionRunStatusWebSocketEventDto(event) || isUnsubscribeSubmissionRunStatusWebSocketEventDto(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.SUBMISSION_RUN_STATUS, event.clientId, event.submitId);
   }
-  if (isSubscribeGetDataWebSocketEventDTO(event) || isUnsubscribeGetDataWebSocketEventDTO(event)) {
+  if (isSubscribeGetDataWebSocketEventDto(event) || isUnsubscribeGetDataWebSocketEventDto(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_, event.clientId, event.dataId);
   }
-  if (isSubscribeUserNotificationWebSocketEventDTO(event) || isUnsubscribeUserNotificationWebSocketEventDTO(event)) {
+  if (isSubscribeUserNotificationWebSocketEventDto(event) || isUnsubscribeUserNotificationWebSocketEventDto(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.USER_NOTIFICATION_, event.clientId, '*');
   }
-  if (isSubscribeProblemCrawledWebSocketEventDTO(event) || isUnsubscribeProblemCrawledWebSocketEventDTO(event)) {
+  if (isSubscribeProblemCrawledWebSocketEventDto(event) || isUnsubscribeProblemCrawledWebSocketEventDto(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.PROBLEM_CRAWLED, event.clientId, event.problemKey);
   }
-  if (isSubscribeSubmissionsCrawlWebSocketEventDTO(event) || isUnsubscribeSubmissionsCrawlWebSocketEventDTO(event)) {
+  if (isSubscribeSubmissionsCrawlWebSocketEventDto(event) || isUnsubscribeSubmissionsCrawlWebSocketEventDto(event)) {
     return getWebSocketResponseEventKey(
       WebSocketResponseEvent.SUBMISSIONS_CRAWL,
       event.clientId,
       join([event.contestKey, event.problemKeys]),
     );
   }
-  if (isSubscribeContestChangesWebSocketEventDTO(event) || isUnsubscribeContestChangesWebSocketEventDTO(event)) {
+  if (isSubscribeContestChangesWebSocketEventDto(event) || isUnsubscribeContestChangesWebSocketEventDto(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.CONTEST_CHANGES, event.clientId, event.contestKey);
   }
 
@@ -54,27 +54,27 @@ export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebS
   return '' as WebSocketResponseEventKey;
 }
 
-export function getUnsubscribeEvent(event: WebSocketSubscribeEventDTO): WebSocketUnsubscribeEventDTO {
-  if (isSubscribeCodeRunStatusWebSocketEventDTO(event)) {
+export function getUnsubscribeEvent(event: WebSocketSubscribeEventDto): WebSocketUnsubscribeEventDto {
+  if (isSubscribeCodeRunStatusWebSocketEventDto(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_CODE_RUN_STATUS };
   }
-  if (isSubscribeSubmissionRunStatusWebSocketEventDTO(event)) {
+  if (isSubscribeSubmissionRunStatusWebSocketEventDto(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SUBMISSION_RUN_STATUS };
   }
-  if (isSubscribeGetDataWebSocketEventDTO(event)) {
+  if (isSubscribeGetDataWebSocketEventDto(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_GET_DATA };
   }
-  if (isSubscribeProblemCrawledWebSocketEventDTO(event)) {
+  if (isSubscribeProblemCrawledWebSocketEventDto(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_PROBLEM_CRAWLED };
   }
-  if (isSubscribeSubmissionsCrawlWebSocketEventDTO(event)) {
+  if (isSubscribeSubmissionsCrawlWebSocketEventDto(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SUBMISSIONS_CRAWL };
   }
-  if (isSubscribeContestChangesWebSocketEventDTO(event)) {
+  if (isSubscribeContestChangesWebSocketEventDto(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_CONTEST_CHANGES };
   }
 
-  if (isSubscribeUserNotificationWebSocketEventDTO(event)) {
+  if (isSubscribeUserNotificationWebSocketEventDto(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_USER_NOTIFICATION };
   }
 

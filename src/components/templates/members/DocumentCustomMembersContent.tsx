@@ -1,12 +1,12 @@
 import {
-  DocumentMemberResponseDTO,
+  DocumentMemberResponseDto,
   EntityAccess,
   EntityMembersRank,
-  type EntityMembersResponseDTO,
+  type EntityMembersResponseDto,
   getDocumentAccess,
   getUserKey,
   MemberType,
-  type UserSummaryListResponseDTO,
+  type UserSummaryListResponseDto,
 } from '@juki-team/commons';
 import { ReactNode } from 'react';
 import { useUserStore } from '../../../stores/user/useUserStore';
@@ -20,8 +20,8 @@ function PrintUsers({
   members,
   renderMember,
 }: {
-  members?: EntityMembersResponseDTO['spectators'];
-  renderMember?: (member: DocumentMemberResponseDTO) => ReactNode;
+  members?: EntityMembersResponseDto['spectators'];
+  renderMember?: (member: DocumentMemberResponseDto) => ReactNode;
 }) {
   const users = Object.values(members || {});
 
@@ -43,7 +43,7 @@ function PrintUsers({
             imageUrl={member.imageUrl}
             nickname={member.nickname}
             key={member.nickname}
-            companyKey={member.company.key}
+            organizationKey={member.organization.key}
           />
         ),
       )}
@@ -54,7 +54,7 @@ function PrintUsers({
 export function DocumentCustomMembersContent(props: DocumentCustomMembersContentProps) {
   const { members, setMembers, documentOwner, administrators, managers, participants, guests, spectators } = props;
 
-  const companyKey = useUserStore((state) => state.company.key);
+  const organizationKey = useUserStore((state) => state.organization.key);
   const documentAccess = getDocumentAccess({ members });
 
   const administratorsLabel = administrators?.name || 'administrators';
@@ -70,7 +70,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
         <div className="jk-row extend left">
           <UserChip
             nickname={documentOwner.nickname}
-            companyKey={documentOwner.company.key}
+            organizationKey={documentOwner.organization.key}
             imageUrl={documentOwner.imageUrl}
           />
         </div>
@@ -123,19 +123,19 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
             (administrators && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.administrators ?? {})}
-                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
-                  const administrators: EntityMembersResponseDTO['administrators'] = {};
+                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDto[]) => {
+                  const administrators: EntityMembersResponseDto['administrators'] = {};
                   for (const user of selectedUsers) {
-                    administrators[getUserKey(user.nickname, user.company.key)] = {
+                    administrators[getUserKey(user.nickname, user.organization.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      company: { key: user.company.key },
+                      organization: { key: user.organization.key },
                       type: MemberType.USER,
                     };
                   }
                   setMembers((prevState) => ({ ...prevState, administrators }));
                 }}
-                companyKey={companyKey}
+                organizationKey={organizationKey}
               />
             ) : (
               <PrintUsers members={members.administrators} renderMember={administrators.renderMember} />
@@ -190,19 +190,19 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
             (managers && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.managers ?? {})}
-                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
-                  const managers: EntityMembersResponseDTO['managers'] = {};
+                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDto[]) => {
+                  const managers: EntityMembersResponseDto['managers'] = {};
                   for (const user of selectedUsers) {
-                    managers[getUserKey(user.nickname, user.company.key)] = {
+                    managers[getUserKey(user.nickname, user.organization.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      company: { key: user.company.key },
+                      organization: { key: user.organization.key },
                       type: MemberType.USER,
                     };
                   }
                   setMembers((prevState) => ({ ...prevState, managers }));
                 }}
-                companyKey={companyKey}
+                organizationKey={organizationKey}
               />
             ) : (
               <PrintUsers members={members.managers} renderMember={managers.renderMember} />
@@ -259,19 +259,19 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
             (participants && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.participants ?? {})}
-                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
-                  const participants: EntityMembersResponseDTO['participants'] = {};
+                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDto[]) => {
+                  const participants: EntityMembersResponseDto['participants'] = {};
                   for (const user of selectedUsers) {
-                    participants[getUserKey(user.nickname, user.company.key)] = {
+                    participants[getUserKey(user.nickname, user.organization.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      company: { key: user.company.key },
+                      organization: { key: user.organization.key },
                       type: MemberType.USER,
                     };
                   }
                   setMembers((prevState) => ({ ...prevState, participants }));
                 }}
-                companyKey={companyKey}
+                organizationKey={organizationKey}
               />
             ) : (
               <PrintUsers members={members.participants} renderMember={participants.renderMember} />
@@ -328,19 +328,19 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
             (guests && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.guests ?? {})}
-                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
-                  const guests: EntityMembersResponseDTO['guests'] = {};
+                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDto[]) => {
+                  const guests: EntityMembersResponseDto['guests'] = {};
                   for (const user of selectedUsers) {
-                    guests[getUserKey(user.nickname, user.company.key)] = {
+                    guests[getUserKey(user.nickname, user.organization.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      company: { key: user.company.key },
+                      organization: { key: user.organization.key },
                       type: MemberType.USER,
                     };
                   }
                   setMembers((prevState) => ({ ...prevState, guests }));
                 }}
-                companyKey={companyKey}
+                organizationKey={organizationKey}
               />
             ) : (
               <PrintUsers members={members.guests} renderMember={guests.renderMember} />
@@ -395,19 +395,19 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
             (spectators && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.spectators ?? {})}
-                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
-                  const spectators: EntityMembersResponseDTO['spectators'] = {};
+                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDto[]) => {
+                  const spectators: EntityMembersResponseDto['spectators'] = {};
                   for (const user of selectedUsers) {
-                    spectators[getUserKey(user.nickname, user.company.key)] = {
+                    spectators[getUserKey(user.nickname, user.organization.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      company: { key: user.company.key },
+                      organization: { key: user.organization.key },
                       type: MemberType.USER,
                     };
                   }
                   setMembers((prevState) => ({ ...prevState, spectators }));
                 }}
-                companyKey={companyKey}
+                organizationKey={organizationKey}
               />
             ) : (
               <PrintUsers members={members.spectators} renderMember={spectators.renderMember} />

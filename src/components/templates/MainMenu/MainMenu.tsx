@@ -1,7 +1,7 @@
 import {
   type ContentsResponse,
   MenuViewMode,
-  type CompanyUserPermissionsResponseDTO,
+  type OrganizationUserPermissionsResponseDto,
   ProfileSetting,
   Theme,
 } from '@juki-team/commons';
@@ -38,7 +38,7 @@ export function MainMenu(props: MainMenuProps) {
     menuViewMode,
     profileSelected,
     moreApps,
-    multiCompanies,
+    multiOrganizations,
     children,
     topImageUrl,
     onBack,
@@ -48,13 +48,13 @@ export function MainMenu(props: MainMenuProps) {
   const viewPortSize = usePageStore((store) => store.viewPort.screen);
   const setSearchParams = useRouterStore((state) => state.setSearchParams);
   const isLoading = useUserStore((state) => state.isLoading);
-  const { imageUrl: companyImageUrl, name, styles } = useUserStore((state) => state.company);
+  const { imageUrl: organizationImageUrl, name, styles } = useUserStore((state) => state.organization);
   // only the fields the menu uses (not the whole user object, which changes with any user update)
   const isLogged = useUserStore((state) => state.user.isLogged);
   const preferredTheme = useUserStore((state) => state.user.settings[ProfileSetting.THEME]);
   const userPreferredMenuViewMode = useUserStore((state) => state.user.settings[ProfileSetting.MENU_VIEW_MODE]);
 
-  const imageUrl = topImageUrl || companyImageUrl;
+  const imageUrl = topImageUrl || organizationImageUrl;
 
   // consumers usually pass an inline callback: keep a stable one so the memoized LoginUser doesn't re-render
   const onSeeMyProfileRef = useStableRef(_onSeeMyProfile);
@@ -63,18 +63,18 @@ export function MainMenu(props: MainMenuProps) {
     [onSeeMyProfileRef],
   );
 
-  // The company selector (multi-company installations) is disabled. While it is, don't fetch the
+  // The organization selector (multi-organization installations) is disabled. While it is, don't fetch the
   // permission list nor subscribe to the URL (every navigation re-rendered the whole menu).
   const enabled = false;
-  const withCompanySelector = !!multiCompanies && isLogged && enabled;
-  const { data } = useFetcher<ContentsResponse<CompanyUserPermissionsResponseDTO>>(
-    withCompanySelector ? jukiApiManager.API_V2.company.getPermissionList().url : null,
+  const withOrganizationSelector = !!multiOrganizations && isLogged && enabled;
+  const { data } = useFetcher<ContentsResponse<OrganizationUserPermissionsResponseDto>>(
+    withOrganizationSelector ? jukiApiManager.API_V2.organization.getPermissionList().url : null,
   );
-  const companyKey = useRouterStore((state) =>
-    withCompanySelector ? (state.searchParams.get(QueryParamKey.COMPANY) as string) : '',
+  const organizationKey = useRouterStore((state) =>
+    withOrganizationSelector ? (state.searchParams.get(QueryParamKey.ORGANIZATION) as string) : '',
   );
-  const companies = useMemo(() => (data?.success ? data.contents : []), [data]);
-  const company = useMemo(() => companies.find((company) => company.key === companyKey), [companyKey, companies]);
+  const organizations = useMemo(() => (data?.success ? data.contents : []), [data]);
+  const organization = useMemo(() => organizations.find((organization) => organization.key === organizationKey), [organizationKey, organizations]);
   const isSmall = viewPortSize === 'sm';
   const isMedium = viewPortSize === 'md';
   const [helpOpen, setHelpOpen] = useState(false);
@@ -83,15 +83,15 @@ export function MainMenu(props: MainMenuProps) {
 
   const menu = useMemo(() => {
     const menu: MenuType[] = [];
-    if (withCompanySelector) {
+    if (withOrganizationSelector) {
       const select = (
         <Select
-          options={companies.map((company) => ({
-            value: company.key,
-            label: <span className="ws-np">{company.name}</span>,
+          options={organizations.map((organization) => ({
+            value: organization.key,
+            label: <span className="ws-np">{organization.name}</span>,
           }))}
-          selectedOption={{ value: company?.key || '', label: company?.key ? undefined : <T>select</T> }}
-          onChange={({ value }) => setSearchParams({ name: QueryParamKey.COMPANY, value })}
+          selectedOption={{ value: organization?.key || '', label: organization?.key ? undefined : <T>select</T> }}
+          onChange={({ value }) => setSearchParams({ name: QueryParamKey.ORGANIZATION, value })}
           className="jk-br-ie jk-button secondary"
           // containerWidth={1000}
           expand
@@ -104,7 +104,7 @@ export function MainMenu(props: MainMenuProps) {
           icon: null,
           selected: false,
           menuItemWrapper: ({ isOpenVerticalMenu }) => {
-            let imageUrl = company?.imageUrl?.replace('horizontal', 'vertical') || '';
+            let imageUrl = organization?.imageUrl?.replace('horizontal', 'vertical') || '';
             if (isSmall && preferredTheme !== Theme.DARK) {
               imageUrl = imageUrl.replace('white', 'color');
             }
@@ -112,14 +112,14 @@ export function MainMenu(props: MainMenuProps) {
             return (
               <div className={classNames('jk-menu-item menu-item-company-selector cr-tx-ht-it', { 'jk-col gap': isSmall })}>
                 <div className="jk-menu-item-icon" style={{ height: 48 }}>
-                  {company && (
+                  {organization && (
                     <Popover
                       popoverClassName="bc-sf-hi jk-br-ie elevation-1"
                       triggerOn={isOpenVerticalMenu ? [] : TriggerAction.CLICK}
                       content={<div style={{ width: 200 }}>{select}</div>}
                       placement="right"
                     >
-                      <Image src={imageUrl} alt={company?.name} width={24} height={48} />
+                      <Image src={imageUrl} alt={organization?.name} width={24} height={48} />
                     </Popover>
                   )}
                 </div>
@@ -135,7 +135,7 @@ export function MainMenu(props: MainMenuProps) {
     }
     menu.push(...initialMenu);
     return menu;
-  }, [withCompanySelector, initialMenu, companies, company, setSearchParams, isSmall, preferredTheme, Image]);
+  }, [withOrganizationSelector, initialMenu, organizations, organization, setSearchParams, isSmall, preferredTheme, Image]);
 
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode;
 

@@ -1,22 +1,22 @@
-import { ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import { ProblemSummaryListResponseDto } from '@juki-team/commons';
 import { IconProps } from '../../atoms/server/icons/types';
 import { TableHeadFieldProps } from '../../organisms/_layz_/DataViewer/types';
 
-type TableHeadFieldProblemSummaryListResponseDTOProps = TableHeadFieldProps<ProblemSummaryListResponseDTO>;
+type TableHeadFieldProblemSummaryListResponseDtoProps = TableHeadFieldProps<ProblemSummaryListResponseDto>;
 
-export type ProblemAdminActionsFieldProps = TableHeadFieldProblemSummaryListResponseDTOProps;
+export type ProblemAdminActionsFieldProps = TableHeadFieldProblemSummaryListResponseDtoProps;
 
-export type ProblemCrawlerFieldProps = TableHeadFieldProblemSummaryListResponseDTOProps;
+export type ProblemCrawlerFieldProps = TableHeadFieldProblemSummaryListResponseDtoProps;
 
-export type ProblemKeyFieldProps = TableHeadFieldProblemSummaryListResponseDTOProps;
+export type ProblemKeyFieldProps = TableHeadFieldProblemSummaryListResponseDtoProps;
 
-export type ProblemModeFieldProps = TableHeadFieldProblemSummaryListResponseDTOProps;
+export type ProblemModeFieldProps = TableHeadFieldProblemSummaryListResponseDtoProps;
 
-export type ProblemNameLinkFieldProps = TableHeadFieldProblemSummaryListResponseDTOProps;
+export type ProblemNameLinkFieldProps = TableHeadFieldProblemSummaryListResponseDtoProps;
 
-export type ProblemNameModalFieldProps = TableHeadFieldProblemSummaryListResponseDTOProps;
+export type ProblemNameModalFieldProps = TableHeadFieldProblemSummaryListResponseDtoProps;
 
-export type ProblemOwnerFieldProps = TableHeadFieldProblemSummaryListResponseDTOProps;
+export type ProblemOwnerFieldProps = TableHeadFieldProblemSummaryListResponseDtoProps;
 
 export interface ProblemStatusProps {
   solved: boolean,
@@ -26,4 +26,4 @@ export interface ProblemStatusProps {
 
 export type TagsFieldProps = TableHeadFieldProps<{ tags: string[] }>;
 
-export type ProblemTypeFieldProps = TableHeadFieldProblemSummaryListResponseDTOProps;
+export type ProblemTypeFieldProps = TableHeadFieldProblemSummaryListResponseDtoProps;

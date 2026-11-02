@@ -1,4 +1,4 @@
-import { type  ContentsResponse, type SessionBasicResponseDTO, Status } from '@juki-team/commons';
+import { type  ContentsResponse, type SessionBasicResponseDto, Status } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS } from '../../../constants';
 import { QueryParamKey } from '../../../enums';
@@ -22,26 +22,26 @@ export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
     data: response,
     request,
     setLoaderStatusRef,
-  } = useDataViewerRequester<ContentsResponse<SessionBasicResponseDTO>>(() => jukiApiManager.API_V2.user.getMySessions().url);
+  } = useDataViewerRequester<ContentsResponse<SessionBasicResponseDto>>(() => jukiApiManager.API_V2.user.getMySessions().url);
   
   const mutate = useMatchMutate();
   
-  const columns: DataViewerHeadersType<SessionBasicResponseDTO>[] = useMemo(() => [
+  const columns: DataViewerHeadersType<SessionBasicResponseDto>[] = useMemo(() => [
     {
       head: 'session',
       index: 'session',
-      Field: ({ record: { updateTimestamp, deviceName, osName, id } }) => (
+      Field: ({ record: { updatedAt, deviceName, osName, id } }) => (
         <Field className="jk-col center">
           <div className="fw-bd">{deviceName}</div>
           <div>{osName}</div>
-          <DateLiteral date={new Date(updateTimestamp)} />
+          <DateLiteral date={new Date(updatedAt)} />
           {userSessionId === id && <div className="jk-tag bc-io"><T className="tt-se">this device</T></div>}
         </Field>
       ),
       cardPosition: 'top',
       minWidth: 250,
       sort: {
-        compareFn: () => (rowA, rowB) => rowB.updateTimestamp - rowA.updateTimestamp,
+        compareFn: () => (rowA, rowB) => rowB.updatedAt - rowA.updatedAt,
       },
     },
     {
@@ -75,10 +75,10 @@ export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
     },
   ], [ deleteUserSession, mutate, userSessionId ]);
   
-  const data: SessionBasicResponseDTO[] = (response?.success ? response?.contents : []);
+  const data: SessionBasicResponseDto[] = (response?.success ? response?.contents : []);
   
   return (
-    <DataViewer<SessionBasicResponseDTO>
+    <DataViewer<SessionBasicResponseDto>
       headers={columns}
       data={data}
       rows={{ height: 100 }}

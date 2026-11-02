@@ -1,4 +1,4 @@
-import { type ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import { type ProblemSummaryListResponseDto } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ButtonLoader,
@@ -17,15 +17,15 @@ import { RefreshIcon } from '../../../../server';
 import type { DataViewerHeadersType, DataViewerProps, DataViewerRequestType } from '../types';
 import problems from './data.json';
 
-export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data' | 'headers'>) => {
-  const [ data, setData ] = useState<ProblemSummaryListResponseDTO[]>([]);
+export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryListResponseDto>, 'data' | 'headers'>) => {
+  const [ data, setData ] = useState<ProblemSummaryListResponseDto[]>([]);
   useEffect(() => {
     setTimeout(() => {
-      setData(problems.contents as ProblemSummaryListResponseDTO[]);
+      setData(problems.contents as ProblemSummaryListResponseDto[]);
       // setData([]);
     }, 2000);
   }, []);
-  const columns: DataViewerHeadersType<ProblemSummaryListResponseDTO>[] = useMemo(() => [
+  const columns: DataViewerHeadersType<ProblemSummaryListResponseDto>[] = useMemo(() => [
     getProblemKeyHeader(),
     getProblemNameHeader(false),
     getProblemModeHeader(),
@@ -79,7 +79,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
   
   return (
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px' }}>
-      <DataViewer<ProblemSummaryListResponseDTO>
+      <DataViewer<ProblemSummaryListResponseDto>
         {...props}
         cards={{ expanded: true }}
         // headers={columns.slice(0, 4).map(c => ({ ...c, sticky: false }))}

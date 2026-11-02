@@ -20,9 +20,9 @@ export const persistGlobalURLSearchParams = (searchParams: URLSearchParams) => {
   if (token) {
     newSp.set(QueryParamKey.TOKEN, token);
   }
-  const company = sp.get(QueryParamKey.COMPANY);
-  if (company) {
-    newSp.set(QueryParamKey.COMPANY, company);
+  const organization = sp.get(QueryParamKey.ORGANIZATION);
+  if (organization) {
+    newSp.set(QueryParamKey.ORGANIZATION, organization);
   }
   const submission = sp.get(QueryParamKey.SUBMISSION);
   if (submission) {
@@ -61,12 +61,12 @@ export class AppRoutes {
         return igu('/');
       },
       profiles: {
-        view({ nickname, companyKey, tab = ProfileTab.OVERVIEW }: {
+        view({ nickname, organizationKey, tab = ProfileTab.OVERVIEW }: {
           nickname: string,
-          companyKey: string,
+          organizationKey: string,
           tab?: ProfileTab
         }) {
-          return injectOrigin(origin, igu(`/profiles/${getUserKey(nickname, companyKey)}${tab ? `?tab=${tab}` : ''}`));
+          return injectOrigin(origin, igu(`/profiles/${getUserKey(nickname, organizationKey)}${tab ? `?tab=${tab}` : ''}`));
         },
       },
       problems: {

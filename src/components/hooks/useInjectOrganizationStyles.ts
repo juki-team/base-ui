@@ -15,9 +15,9 @@ const CSS_PROPS = [
   '--navbar-at-cr',
 ] as const;
 
-export const useInjectCompanyStyles = () => {
+export const useInjectOrganizationStyles = () => {
   const userPreferredTheme = useUserStore((state) => state.user.settings?.[ProfileSetting.THEME]);
-  const companyStyles = useUserStore((store) => store.company?.styles);
+  const organizationStyles = useUserStore((store) => store.organization?.styles);
 
   useEffect(() => {
     const body = document.body;
@@ -28,7 +28,7 @@ export const useInjectCompanyStyles = () => {
       }
     };
 
-    const theme = companyStyles?.[userPreferredTheme || Theme.LIGHT];
+    const theme = organizationStyles?.[userPreferredTheme || Theme.LIGHT];
     set('--body-tx-cr', theme?.body?.textColor);
     set('--body-tx-cr-ht', theme?.body?.textColorHighlight);
     set('--body-tx-cr-ht-it', theme?.body?.textColorHighlightInset);
@@ -43,5 +43,5 @@ export const useInjectCompanyStyles = () => {
     return () => {
       CSS_PROPS.forEach((prop) => body.style.removeProperty(prop));
     };
-  }, [companyStyles, userPreferredTheme]);
+  }, [organizationStyles, userPreferredTheme]);
 };

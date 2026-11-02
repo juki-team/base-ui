@@ -1,4 +1,4 @@
-import { JUDGE, Judge, Status, type UserProfileResponseDTO } from '@juki-team/commons';
+import { JUDGE, Judge, Status, type UserProfileResponseDto } from '@juki-team/commons';
 import { type Dispatch, useRef, useState } from 'react';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
 import { useUIStore } from '../../../stores/ui/useUIStore';
@@ -12,8 +12,8 @@ import type { EditProfileModalProps } from './types';
 
 interface JudgeInputProps {
   judge: (typeof JUDGE)[Judge];
-  user: UserProfileResponseDTO;
-  setUser: Dispatch<UserProfileResponseDTO>;
+  user: UserProfileResponseDto;
+  setUser: Dispatch<UserProfileResponseDto>;
 }
 
 function JudgeInput({ judge: { value, label, logo, logoSize }, user, setUser }: JudgeInputProps) {
@@ -68,7 +68,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
           isOpen={modalImageProfile}
           onClose={() => setModalImageProfile(false)}
           nickname={user.nickname}
-          companyKey={user.company.key}
+          organizationKey={user.organization.key}
         />
         <div className="jk-col top jk-pg-md">
           <Image
@@ -213,7 +213,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
                 handles: userState.handles,
               };
               return updateUserProfileData({
-                params: { nickname: user.nickname, companyKey: user.company.key },
+                params: { nickname: user.nickname, organizationKey: user.organization.key },
                 body,
                 setLoader,
                 onSuccess: async (response) => {

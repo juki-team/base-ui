@@ -22,7 +22,7 @@ export const Regular: Story = {
 
 Regular.args = {
   user: {
-    company: { key: '' },
+    organization: { key: '' },
     aboutMe: '',
     canEditPermissionsData: false,
     canEditProfileData: false,

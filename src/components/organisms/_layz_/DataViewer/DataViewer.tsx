@@ -1,3 +1,4 @@
+import { endOfDay, endOfHour, endOfMinute, endOfMonth, endOfSecond, isSameDay, isSameHour, isSameMillisecond, isSameMinute, isSameMonth, isSameSecond, isSameYear, isValidDate, isWithinInterval, startOfDay, startOfHour, startOfMinute, startOfMonth, startOfSecond } from '@juki-team/commons';
 import { consoleWarn, DataViewMode, isStringJson, join, ProfileSetting, split, Status } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { EMPTY_ARRAY } from '../../../../constants';
@@ -107,26 +108,26 @@ const applyOffline = <T extends object, >(data: T[], headers: DataViewerHeadersT
           showSeconds,
           showMilliseconds,
         } = showOfDateDisplayType(head.filter.pickerType || DEFAULT_PICKER_TYPE);
-        if (filters[filterIndex] && new Date(+filters[filterIndex])?.isValidDate()) {
+        if (filters[filterIndex] && (new Date(+filters[filterIndex]) ? isValidDate(new Date(+filters[filterIndex])) : undefined)) {
           const searchDate = new Date(+filters[filterIndex]);
           newData = newData.filter(datum => {
             if (isFilterDateAutoOffline(head?.filter)) {
               const value = head.filter.getValue ? head.filter.getValue({ record: datum }) : (headIndex in datum ? datum[headIndex as Extract<keyof T, string>] : null);
-              if (value instanceof Date && value?.isValidDate?.()) {
+              if (value instanceof Date && isValidDate(value)) {
                 if (showMilliseconds) {
-                  return searchDate.isSameMillisecond(value);
+                  return isSameMillisecond(searchDate, value);
                 } else if (showSeconds) {
-                  return searchDate.isSameSecond(value);
+                  return isSameSecond(searchDate, value);
                 } else if (showMinutes) {
-                  return searchDate.isSameMinute(value);
+                  return isSameMinute(searchDate, value);
                 } else if (showHours) {
-                  return searchDate.isSameHour(value);
+                  return isSameHour(searchDate, value);
                 } else if (showDays) {
-                  return searchDate.isSameDay(value);
+                  return isSameDay(searchDate, value);
                 } else if (showMonths) {
-                  return searchDate.isSameMonth(value);
+                  return isSameMonth(searchDate, value);
                 } else if (showYears) {
-                  return searchDate.isSameYear(value);
+                  return isSameYear(searchDate, value);
                 }
               } else {
                 consoleWarn('datum no filtered', { datum, searchDate, index: head.index, head });
@@ -142,7 +143,7 @@ const applyOffline = <T extends object, >(data: T[], headers: DataViewerHeadersT
         }
       } else if (isFilterDateRangeOffline(head?.filter)) {
         const [ start, end ] = split(filters[filterIndex]);
-        if (start && new Date(+start).isValidDate() && end && new Date(+end).isValidDate()) {
+        if (start && isValidDate(new Date(+start)) && end && isValidDate(new Date(+end))) {
           newData = newData.filter(head.filter.callbackFn({
             columnIndex: head.index,
             startSelectedDate: new Date(+start),
@@ -156,7 +157,7 @@ const applyOffline = <T extends object, >(data: T[], headers: DataViewerHeadersT
         }
       } else if (isFilterDateRangeAutoOffline(head?.filter)) {
         const [ start, end ] = split(filters[filterIndex]);
-        if (start && new Date(+start).isValidDate() && end && new Date(+end).isValidDate()) {
+        if (start && isValidDate(new Date(+start)) && end && isValidDate(new Date(+end))) {
           const startSelectedDate = new Date(+start);
           const endSelectedDate = new Date(+end);
           const {
@@ -170,41 +171,41 @@ const applyOffline = <T extends object, >(data: T[], headers: DataViewerHeadersT
           newData = newData.filter(datum => {
             if (isFilterDateRangeAutoOffline(head?.filter)) {
               const date = head.filter.getValue ? head.filter.getValue({ record: datum }) : (headIndex in datum ? datum[headIndex as Extract<keyof T, string>] : null);
-              if (date instanceof Date && date?.isValidDate?.()) {
+              if (date instanceof Date && isValidDate(date)) {
                 let isWithin = startSelectedDate.getFullYear() <= date.getFullYear() &&
                   date.getFullYear() <= endSelectedDate.getFullYear();
                 if (showMonths) {
-                  isWithin = isWithin && date.isWithinInterval({
-                    start: startSelectedDate.startOfMonth(),
-                    end: endSelectedDate.endOfMonth(),
+                  isWithin = isWithin && isWithinInterval(date, {
+                    start: startOfMonth(startSelectedDate),
+                    end: endOfMonth(endSelectedDate),
                   });
                 }
                 if (showDays) {
-                  isWithin = isWithin && date.isWithinInterval({
-                    start: startSelectedDate.startOfDay(),
-                    end: endSelectedDate.endOfDay(),
+                  isWithin = isWithin && isWithinInterval(date, {
+                    start: startOfDay(startSelectedDate),
+                    end: endOfDay(endSelectedDate),
                   });
                 }
                 if (showHours) {
-                  isWithin = isWithin && date.isWithinInterval({
-                    start: startSelectedDate.startOfHour(),
-                    end: endSelectedDate.endOfHour(),
+                  isWithin = isWithin && isWithinInterval(date, {
+                    start: startOfHour(startSelectedDate),
+                    end: endOfHour(endSelectedDate),
                   });
                 }
                 if (showMinutes) {
-                  isWithin = isWithin && date.isWithinInterval({
-                    start: startSelectedDate.startOfMinute(),
-                    end: endSelectedDate.endOfMinute(),
+                  isWithin = isWithin && isWithinInterval(date, {
+                    start: startOfMinute(startSelectedDate),
+                    end: endOfMinute(endSelectedDate),
                   });
                 }
                 if (showSeconds) {
-                  isWithin = isWithin && date.isWithinInterval({
-                    start: startSelectedDate.startOfSecond(),
-                    end: endSelectedDate.endOfSecond(),
+                  isWithin = isWithin && isWithinInterval(date, {
+                    start: startOfSecond(startSelectedDate),
+                    end: endOfSecond(endSelectedDate),
                   });
                 }
                 if (showMilliseconds) {
-                  isWithin = date.isWithinInterval({ start: startSelectedDate, end: endSelectedDate });
+                  isWithin = isWithinInterval(date, { start: startSelectedDate, end: endSelectedDate });
                 }
                 return isWithin;
               } else {
@@ -421,7 +422,7 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
         }
       } else if (filter?.type === FILTER_DATE_RANGE || filter?.type === FILTER_DATE_RANGE_AUTO) {
         const [ start, end ] = values[columnIndex] ? values[columnIndex] as [ Date, Date ] : [ null, null ];
-        if (start?.isValidDate() && end?.isValidDate()) {
+        if (isValidDate(start) && isValidDate(end)) {
           newSearchFilter[columnIndex] = join([ start.getTime() + '', end.getTime() + '' ]);
         } else {
           newSearchFilter[columnIndex] = '';

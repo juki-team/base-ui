@@ -2,7 +2,7 @@ import {
   CODE_LANGUAGE,
   CodeLanguage,
   type ContentResponse,
-  type JudgeDataResponseDTO,
+  type JudgeDataResponseDto,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 } from '@juki-team/commons';
 import { ReactNode, useMemo } from 'react';
@@ -16,7 +16,7 @@ export const useJudge = <T,>(
     label: ReactNode;
   }[],
 ) => {
-  const { data: virtualJudgeData } = useFetcher<ContentResponse<JudgeDataResponseDTO>>(
+  const { data: virtualJudgeData } = useFetcher<ContentResponse<JudgeDataResponseDto>>(
     isExternal ? jukiApiManager.API_V2.judge.getData({ params: { key } }).url : null,
   );
 

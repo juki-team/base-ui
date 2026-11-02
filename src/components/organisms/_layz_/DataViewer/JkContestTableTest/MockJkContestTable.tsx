@@ -1,4 +1,4 @@
-import { type  ContestSummaryListResponseDTO } from '@juki-team/commons';
+import { type  ContestSummaryListResponseDto } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { DataViewer } from '../';
 import { T } from '../../../../atoms';
@@ -13,15 +13,15 @@ import {
 import type { DataViewerHeadersType, DataViewerProps, DataViewerRequestType } from '../types';
 import contests from './data.json';
 
-export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryListResponseDTO>, 'data' | 'headers'>) => {
-  const [ data, setData ] = useState<ContestSummaryListResponseDTO[]>([]);
+export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryListResponseDto>, 'data' | 'headers'>) => {
+  const [ data, setData ] = useState<ContestSummaryListResponseDto[]>([]);
   useEffect(() => {
     setTimeout(() => {
-      setData(contests.contents as unknown as ContestSummaryListResponseDTO[]);
+      setData(contests.contents as unknown as ContestSummaryListResponseDto[]);
       // setData([]);
     }, 2000);
   }, []);
-  const columns: DataViewerHeadersType<ContestSummaryListResponseDTO>[] = useMemo(() => [
+  const columns: DataViewerHeadersType<ContestSummaryListResponseDto>[] = useMemo(() => [
     getContestStatusHeader(),
     getContestNameHeader(),
     getContestDateHeader(),
@@ -60,7 +60,7 @@ export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryLis
   
   return (
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px' }}>
-      <DataViewer<ContestSummaryListResponseDTO>
+      <DataViewer<ContestSummaryListResponseDto>
         {...props}
         cards={{ expanded: true }}
         // headers={columns.slice(0, 4).map(c => ({ ...c, sticky: false }))}

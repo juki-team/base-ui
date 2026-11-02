@@ -1,6 +1,6 @@
 import {
   CodeLanguage,
-  type CompanyPing,
+  type OrganizationPing,
   DataViewMode,
   DAY_NAMES,
   EMPTY_USER_PERMISSIONS,
@@ -25,7 +25,7 @@ export const ALPHANUMERIC_DASH_UNDERSCORE_REGEX = /^[a-z0-9\-_]+$/i;
 
 export const LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?"()-_]{8,}$/;
 
-export const EMPTY_COMPANY: CompanyPing = {
+export const EMPTY_ORGANIZATION: OrganizationPing = {
   name: '',
   imageUrl: '',
   contactEmail: 'contact@juki.app',
@@ -90,7 +90,7 @@ export const EMPTY_USER: UserPing = {
   permissions: { ...EMPTY_USER_PERMISSIONS },
   isLogged: false,
   sessionId: '' as RecordId,
-  company: {
+  organization: {
     key: '',
   },
 };

@@ -1,3 +1,4 @@
+import { isSameDay, isSameHour, isSameMillisecond, isSameMinute, isSameMonth, isSameSecond, isSameYear, isValidDate } from '@juki-team/commons';
 import { useEffect, useRef, useState } from 'react';
 import { Button, T } from '../../../../../atoms';
 import { InputDate } from '../../../../../molecules';
@@ -34,25 +35,25 @@ export const TableHeadFilterDate = (props: TableHeadFilterDateProps) => {
         inline
         isDisabled={isDisabled}
         isSelected={date => ({
-          year: !!value && date.isSameYear(value),
-          month: !!value && date.isSameMonth(value),
-          date: !!value && date.isSameDay(value),
-          hours: !!value && date.isSameHour(value),
-          minutes: !!value && date.isSameMinute(value),
-          seconds: !!value && date.isSameSecond(value),
-          milliseconds: !!value && date.isSameMillisecond(value),
+          year: !!value && isSameYear(date, value),
+          month: !!value && isSameMonth(date, value),
+          date: !!value && isSameDay(date, value),
+          hours: !!value && isSameHour(date, value),
+          minutes: !!value && isSameMinute(date, value),
+          seconds: !!value && isSameSecond(date, value),
+          milliseconds: !!value && isSameMillisecond(date, value),
         })}
         baseDate={baseDate}
         twoLines={pickerType === 'year-month-day-hours-minutes-seconds-milliseconds' || pickerType === 'year-month-day-hours-minutes-seconds' || pickerType === 'year-month-day-hours-minutes' || pickerType === 'year-month-day-hours'}
       />
       <div className="jk-row right gap buttons wh-100">
-        <Button size="tiny" type="secondary" onClick={onReset} disabled={!initialSelectedDate?.isValidDate()}>
+        <Button size="tiny" type="secondary" onClick={onReset} disabled={!isValidDate(initialSelectedDate)}>
           <T className="tt-se">reset</T>
         </Button>
         <Button
           size="tiny"
           onClick={() => value && onFilter({ columnIndex, selectedDate: value })}
-          disabled={!value?.isValidDate()}
+          disabled={!isValidDate(value)}
           ref={buttonRef}
         >
           <T className="tt-se">filter</T>

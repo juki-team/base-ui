@@ -3,9 +3,9 @@ import {
   ProblemVerdict,
   ProfileSetting,
   SUBMISSION_RUN_STATUS,
-  type SubmissionDataResponseDTO,
+  type SubmissionDataResponseDto,
   SubmissionRunStatus,
-  type SubmissionRunStatusWebSocketResponseEventDTO,
+  type SubmissionRunStatusWebSocketResponseEventDto,
   Theme,
 } from '@juki-team/commons';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
@@ -19,8 +19,8 @@ export interface SubmissionVerdictProps {
   points?: number;
   status?: SubmissionRunStatus;
   submitId: string;
-  submissionData?: SubmissionRunStatusWebSocketResponseEventDTO;
-  processedCases?: SubmissionDataResponseDTO['processedCases'];
+  submissionData?: SubmissionRunStatusWebSocketResponseEventDto;
+  processedCases?: SubmissionDataResponseDto['processedCases'];
   shortLabel?: boolean;
   className?: string;
 }

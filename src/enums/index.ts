@@ -1,6 +1,6 @@
 export enum QueryParamKey {
   TOKEN = 'TOKEN',
-  COMPANY = 'COMPANY',
+  ORGANIZATION = 'COMPANY',
   USER_PREVIEW = 'user_preview',
   WELCOME = 'welcome',
   SIGN_IN = 'sign_in',

@@ -29,10 +29,10 @@ export function UserMockChip(props: UserMockChipProps) {
 }
 
 export const UserChip = forwardRef<HTMLDivElement, UserChipProps>(function UserChipCmp(props, ref) {
-  const { imageUrl, email, familyName, nickname, givenName, className, companyKey, withoutLink, children, onlyImage } = props;
+  const { imageUrl, email, familyName, nickname, givenName, className, organizationKey, withoutLink, children, onlyImage } = props;
 
   const { Image } = useUIStore((store) => store.components);
-  const userCompanyKey = useUserStore((store) => store.company.key);
+  const userOrganizationKey = useUserStore((store) => store.organization.key);
 
   const onlyNickname = !givenName && !familyName && !email;
 
@@ -57,7 +57,7 @@ export const UserChip = forwardRef<HTMLDivElement, UserChipProps>(function UserC
           )}
         </>
       ) : (
-        <UserNicknameLink nickname={nickname} companyKey={companyKey}>
+        <UserNicknameLink nickname={nickname} organizationKey={organizationKey}>
           <div className="jk-row nowrap">
             {image}
             {!onlyImage && (
@@ -65,9 +65,9 @@ export const UserChip = forwardRef<HTMLDivElement, UserChipProps>(function UserC
                 &nbsp;
                 <div className="jk-col flex-1">
                   <div className="fw-bd">{nickname}</div>
-                  {userCompanyKey !== companyKey && (
+                  {userOrganizationKey !== organizationKey && (
                     <div className="jk-tag bc-ht-lt tx-t cr-tx-sc" style={{ padding: '1px 2px' }}>
-                      {companyKey}
+                      {organizationKey}
                     </div>
                   )}
                   {(!!givenName || !!familyName) && (

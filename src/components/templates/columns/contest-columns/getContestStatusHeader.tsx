@@ -1,11 +1,11 @@
-import { type ContestSummaryListResponseDTO } from '@juki-team/commons';
+import { type ContestSummaryListResponseDto } from '@juki-team/commons';
 import { T } from '../../../atoms';
 import { getContestState } from '../../../helpers';
 import { FrozenInformation, QuietInformation, UpsolvingInformation } from '../../../molecules';
 import { Field } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 
-export function getContestStatusHeader(): DataViewerHeadersType<ContestSummaryListResponseDTO> {
+export function getContestStatusHeader(): DataViewerHeadersType<ContestSummaryListResponseDto> {
   return {
     head: 'status',
     index: 'status',

@@ -1,4 +1,4 @@
-import type { ClientId, CompanyPing, Device, UserPing } from '@juki-team/commons';
+import type { ClientId, OrganizationPing, Device, UserPing } from '@juki-team/commons';
 import { KeyedMutator } from 'swr';
 
 export interface JukiUserProviderProps {}
@@ -8,8 +8,8 @@ export interface UserState {
   clientId: ClientId;
   user: UserPing;
   setUser: (user: Partial<UserPing>) => void;
-  company: CompanyPing;
-  setCompany: (company: CompanyPing) => void;
+  organization: OrganizationPing;
+  setOrganization: (organization: OrganizationPing) => void;
   isLoading: boolean;
   mutate: KeyedMutator<string>;
   setMutate: (mutate: KeyedMutator<string>) => void;
@@ -19,6 +19,6 @@ export interface UserState {
 
 export interface InitUserState {
   user: UserState['user'];
-  company: UserState['company'];
+  organization: UserState['organization'];
   isLoading: UserState['isLoading'];
 }

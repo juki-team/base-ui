@@ -33,11 +33,11 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
   const t = useI18nStore((store) => store.i18n.t);
 
   const {
-    company: { key: companyKey },
+    organization: { key: organizationKey },
     nickname,
   } = useUserStore((store) => store.user);
 
-  const storageKey = storeKey ? `jk-ai-chat/${getUserKey(nickname, companyKey)}/${storeKey}` : '';
+  const storageKey = storeKey ? `jk-ai-chat/${getUserKey(nickname, organizationKey)}/${storeKey}` : '';
 
   const { messages, sendMessage, status, setMessages, stop } = useChat({
     transport: new DefaultChatTransport({ api }),

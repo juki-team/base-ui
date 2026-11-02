@@ -1,8 +1,8 @@
-import { UserSummaryListResponseDTO } from '@juki-team/commons';
+import { UserSummaryListResponseDto } from '@juki-team/commons';
 
 export interface UsersSelectorProps {
   selectedUsers: string[],
-  onChangeSelectedUsers: (selectedUsers: UserSummaryListResponseDTO[]) => void,
+  onChangeSelectedUsers: (selectedUsers: UserSummaryListResponseDto[]) => void,
   maxUsersSelection?: number,
-  companyKey: string,
+  organizationKey: string,
 }

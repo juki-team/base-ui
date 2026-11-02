@@ -4,7 +4,7 @@ import {
   isQuizOptionsSheet,
   isStringJson,
   QuizOptionsSheet,
-  QuizOptionsSubmissionDTO,
+  QuizOptionsSubmissionDto,
   Status,
   WorksheetType,
 } from '@juki-team/commons';
@@ -94,14 +94,14 @@ export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheet>) =
                   expand
                   onClick={async (setLoaderStatus) => {
                     setLoaderStatus(Status.LOADING);
-                    const jkMdSubmissionDTO: QuizOptionsSubmissionDTO = {
+                    const jkMdSubmissionDto: QuizOptionsSubmissionDto = {
                       type: WorksheetType.QUIZ_OPTIONS,
                       id: content.id,
                       checkedOptions,
                     };
                     const { url, ...options } = jukiApiManager.API_V2.worksheet.submitQuizOptions({
                       params: { worksheetKey },
-                      body: jkMdSubmissionDTO,
+                      body: jkMdSubmissionDto,
                     });
                     const response = cleanRequest<ContentResponse<{}>>(await authorizedRequest(url, options));
                     await userResults?.mutate?.();

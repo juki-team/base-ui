@@ -1,8 +1,8 @@
-import { type ContestSummaryListResponseDTO } from '@juki-team/commons';
+import { type ContestSummaryListResponseDto } from '@juki-team/commons';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { ContestNameLinkField } from '../../ContestNameLinkField/ContestNameLinkField';
 
-export function getContestNameHeader(): DataViewerHeadersType<ContestSummaryListResponseDTO> {
+export function getContestNameHeader(): DataViewerHeadersType<ContestSummaryListResponseDto> {
   return {
     head: 'contest name',
     headClassName: 'left',

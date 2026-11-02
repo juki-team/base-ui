@@ -2,10 +2,10 @@ import {
   CODE_LANGUAGE,
   type ContentsResponse,
   Judge,
-  type JudgeDataResponseDTO,
+  type JudgeDataResponseDto,
   ProblemScoringMode,
   ProblemVerdict,
-  type SubmissionDataResponseDTO,
+  type SubmissionDataResponseDto,
   type TestCaseResult,
 } from '@juki-team/commons';
 import { type ReactNode } from 'react';
@@ -43,7 +43,7 @@ export const SubmitViewContent = ({
   header,
   className,
 }: {
-  submit: SubmissionDataResponseDTO;
+  submit: SubmissionDataResponseDto;
   header?: ReactNode;
   className?: string;
 }) => {
@@ -81,11 +81,11 @@ export const SubmitViewContent = ({
     verdict !== ProblemVerdict.NONE && verdict !== ProblemVerdict.PENDING && compilationResult?.success === false;
 
   const { Link } = useUIStore((store) => store.components);
-  const userCompanyKey = useUserStore((state) => state.company.key);
-  const origin = getJudgeOrigin(submit.problem.company.key, userCompanyKey);
+  const userOrganizationKey = useUserStore((state) => state.organization.key);
+  const origin = getJudgeOrigin(submit.problem.organization.key, userOrganizationKey);
 
   const isLeetCode = submit.problem.judge.key === Judge.LEETCODE;
-  const { data } = useFetcher<ContentsResponse<JudgeDataResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
+  const { data } = useFetcher<ContentsResponse<JudgeDataResponseDto>>(jukiApiManager.API_V2.judge.getSummaryList().url);
   const getSubmissionUrl = data?.success ? data.contents.find(({ key }) => key === Judge.LEETCODE)?.getSubmissionUrl : '';
   const getSubmissionUrlFn = new Function(
     'problemKey',
@@ -109,7 +109,7 @@ export const SubmitViewContent = ({
                   <UserChip
                     imageUrl={submit.user.imageUrl}
                     nickname={submit.user.nickname}
-                    companyKey={submit.user.company.key}
+                    organizationKey={submit.user.organization.key}
                   />
                 ),
               },

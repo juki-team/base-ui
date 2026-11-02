@@ -1,4 +1,4 @@
-import { WebSocketResponseEventDTO, WebSocketSubscribeEventDTO } from '@juki-team/commons';
+import { WebSocketResponseEventDto, WebSocketSubscribeEventDto } from '@juki-team/commons';
 import { useEffect } from 'react';
 import { useUserStore } from '../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
@@ -6,7 +6,7 @@ import { safeReportError } from '../helpers';
 import { useStableRef } from './useStableRef';
 import { useSyncedState } from './useSyncedState';
 
-export const useSubscribe = (event: Omit<WebSocketSubscribeEventDTO, 'clientId'>, cb: (response: WebSocketResponseEventDTO) => (void | Promise<void>), isValid = () => true) => {
+export const useSubscribe = (event: Omit<WebSocketSubscribeEventDto, 'clientId'>, cb: (response: WebSocketResponseEventDto) => (void | Promise<void>), isValid = () => true) => {
   
   const clientId = useUserStore(store => store.clientId);
   const subscribeToEvent = useWebsocketStore(store => store.subscribeToEvent);
@@ -19,8 +19,8 @@ export const useSubscribe = (event: Omit<WebSocketSubscribeEventDTO, 'clientId'>
     if (!isValidRef.current()) {
       return;
     }
-    const event: WebSocketSubscribeEventDTO = {
-      ...(stableEvent as WebSocketSubscribeEventDTO),
+    const event: WebSocketSubscribeEventDto = {
+      ...(stableEvent as WebSocketSubscribeEventDto),
       clientId,
     };
     return subscribeToEvent(event, async (message) => {

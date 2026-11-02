@@ -2,7 +2,7 @@ import {
   type ContentResponse,
   getUserKey,
   getWorksheetsInPages,
-  type WorksheetUserSubmissionsResponseDTO,
+  type WorksheetUserSubmissionsResponseDto,
 } from '@juki-team/commons';
 import { useCallback, useMemo } from 'react';
 import { jukiApiManager } from '../../../../settings';
@@ -40,7 +40,7 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
 
   const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
   const userNickname = useUserStore((state) => state.user.nickname);
-  const companyKey = useUserStore((state) => state.company.key);
+  const organizationKey = useUserStore((state) => state.organization.key);
   const userIsLogged = useUserStore((state) => state.user.isLogged);
   const setSearchParams = useRouterStore((state) => state.setSearchParams);
 
@@ -65,12 +65,12 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
     mutate: userResultsMutate,
     isLoading: userResultsIsLoading,
     isValidating: userResultsIsValidating,
-  } = useFetcher<ContentResponse<WorksheetUserSubmissionsResponseDTO>>(
+  } = useFetcher<ContentResponse<WorksheetUserSubmissionsResponseDto>>(
     worksheetKey && quizEnable && userIsLogged
       ? jukiApiManager.API_V2.worksheet.getSubmissionsUser({
           params: {
             key: worksheetKey,
-            userKey: resultsUserKey || getUserKey(userNickname, companyKey),
+            userKey: resultsUserKey || getUserKey(userNickname, organizationKey),
           },
         }).url
       : null,

@@ -1,6 +1,6 @@
 import { consoleInfo } from '@juki-team/commons';
 import { create } from 'zustand';
-import { getKeyWebSocketEventDTO } from '../../components/helpers';
+import { getKeyWebSocketEventDto } from '../../components/helpers';
 import { addTopicSubscription } from './topicChannels';
 import { WebsocketSubStore } from './types';
 
@@ -8,7 +8,7 @@ export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
   const getSubscribeToEvent: () => WebsocketSubStore['subscribeToEvent'] = () => {
     consoleInfo('new SubscribeToEvent function');
     return (event, callback) => {
-      const key = getKeyWebSocketEventDTO(event);
+      const key = getKeyWebSocketEventDto(event);
       // the events arrive by the TOPIC channels (see topicChannels.ts), the subscription only says which ones are needed
       const removeTopicSubscription = addTopicSubscription(event);
       set((state) => ({

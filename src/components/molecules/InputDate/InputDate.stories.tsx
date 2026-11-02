@@ -9,13 +9,13 @@ export default {
   component: InputDate,
 };
 
-const startTimestamp = new Date(Date.now() - ONE_DAY);
-const endTimestamp = new Date();
+const startsAt = new Date(Date.now() - ONE_DAY);
+const endsAt = new Date();
 
 export const DatePicker = () => {
   const [ date, setDate ] = useState(new Date());
   
-  console.info({ startTimestamp, endTimestamp });
+  console.info({ startsAt, endsAt });
   
   return (
     <MockupJukiProvider>
@@ -37,11 +37,11 @@ export const DatePicker = () => {
           isDisabled={() => ({})}
           // isSelected={() => ({})}
           isSelected={(date) => ({
-            year: getYears(date) >= getYears(startTimestamp) && getYears(date) <= getYears(endTimestamp),
-            month: getMonths(date) >= getMonths(startTimestamp) && getMonths(date) <= getMonths(endTimestamp),
-            day: getDays(date) >= getDays(startTimestamp) && getDays(date) <= getDays(endTimestamp),
-            hours: getHours(date) >= getHours(startTimestamp) && getHours(date) <= getHours(endTimestamp),
-            minutes: getMinutes(date) >= getMinutes(startTimestamp) && getMinutes(date) <= getMinutes(endTimestamp),
+            year: getYears(date) >= getYears(startsAt) && getYears(date) <= getYears(endsAt),
+            month: getMonths(date) >= getMonths(startsAt) && getMonths(date) <= getMonths(endsAt),
+            day: getDays(date) >= getDays(startsAt) && getDays(date) <= getDays(endsAt),
+            hours: getHours(date) >= getHours(startsAt) && getHours(date) <= getHours(endsAt),
+            minutes: getMinutes(date) >= getMinutes(startsAt) && getMinutes(date) <= getMinutes(endsAt),
           })}
           baseDate={date}
           onDatePick={(date) => setDate(date)}

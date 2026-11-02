@@ -3,10 +3,10 @@ import {
   type ContentResponse,
   type ContentsResponse,
   Judge,
-  type JudgeDataResponseDTO,
+  type JudgeDataResponseDto,
   PROBLEM_TYPE,
-  type ProblemBasicSummaryListResponseDTO,
-  type ProblemSummaryListResponseDTO,
+  type ProblemBasicSummaryListResponseDto,
+  type ProblemSummaryListResponseDto,
   Status,
 } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
@@ -19,14 +19,14 @@ import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
 import { DownloadIcon, RefreshIcon, SpinIcon } from '../../server';
 import type { JudgeDataType, ProblemSelectorProps } from './types';
 
-export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: ProblemSelectorProps) {
-  const [judge, setJudge] = useState<JudgeDataResponseDTO | null>(null);
+export function ProblemSelector({ onSelect, extend = false, organizationKey = '' }: ProblemSelectorProps) {
+  const [judge, setJudge] = useState<JudgeDataResponseDto | null>(null);
   const [key, setKey] = useState('');
   const [data, setData] = useState<JudgeDataType>({} as JudgeDataType);
   const { notifyResponse } = useJukiNotification();
   const [timestampTrigger, setTimestampTrigger] = useState(0);
-  const { data: judgesData } = useFetcher<ContentResponse<JudgeDataResponseDTO[]>>(
-    jukiApiManager.API_V2.company.getJudgeList({ params: { companyKey } }).url,
+  const { data: judgesData } = useFetcher<ContentResponse<JudgeDataResponseDto[]>>(
+    jukiApiManager.API_V2.organization.getJudgeList({ params: { organizationKey } }).url,
   );
   const judges = judgesData?.success ? judgesData.content : [];
   const firstJudge = judges[0];
@@ -52,7 +52,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
           },
         });
         // TODO: change limit of problems
-        const response = cleanRequest<ContentsResponse<ProblemBasicSummaryListResponseDTO>>(await authorizedRequest(url));
+        const response = cleanRequest<ContentsResponse<ProblemBasicSummaryListResponseDto>>(await authorizedRequest(url));
         const problems = response.success ? response.contents || [] : [];
         setData((prevState) => ({ ...prevState, [judge.key]: { problems, loading: false } }));
       }
@@ -82,7 +82,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
       onClick={async (setLoaderStatus) => {
         setLoaderStatus(Status.LOADING);
         const { url } = jukiApiManager.API_V2.problem.getSummary({ params: { key } });
-        const response = cleanRequest<ContentResponse<ProblemSummaryListResponseDTO>>(await authorizedRequest(url));
+        const response = cleanRequest<ContentResponse<ProblemSummaryListResponseDto>>(await authorizedRequest(url));
         if (response.success) {
           onSelect(response.content);
           setLoaderStatus(Status.SUCCESS);

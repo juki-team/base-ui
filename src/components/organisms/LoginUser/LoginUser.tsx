@@ -22,7 +22,7 @@ function LoginUserCmp({
 }: LoginUserProps) {
   const { logout } = useJukiUser();
   const userNickname = useUserStore((state) => state.user.nickname);
-  const userCompanyKey = useUserStore((state) => state.user.company.key);
+  const userOrganizationKey = useUserStore((state) => state.user.organization.key);
   const userImageUrl = useUserStore((state) => state.user.imageUrl);
   const userIsLogged = useUserStore((state) => state.user.isLogged);
   const userIsLoading = useUserStore((state) => state.isLoading);
@@ -53,7 +53,7 @@ function LoginUserCmp({
             {userNickname}
             <div className="jk-col gap">
               {!!onSeeMyProfile && (
-                <ButtonLoader expand onClick={() => onSeeMyProfile(userNickname, userCompanyKey)}>
+                <ButtonLoader expand onClick={() => onSeeMyProfile(userNickname, userOrganizationKey)}>
                   <T className="ws-np tt-se">my account</T>
                 </ButtonLoader>
               )}
@@ -78,7 +78,7 @@ function LoginUserCmp({
         placement={popoverPlacement}
       >
         <UserChip
-          companyKey={userCompanyKey}
+          organizationKey={userOrganizationKey}
           imageUrl={userImageUrl}
           nickname={userNickname}
           className={classNames('user-logged-head extend', { left: !!withLabel }, className)}

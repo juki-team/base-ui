@@ -68,8 +68,8 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
                     currentMembers.rankSpectators = EntityMembersRank.OPEN;
                     // for (const userId of managersIds) {
                     //   managers[userId] = {
-                    //     joinedAtTimestamp: members.managers?.[userId]?.joinedAtTimestamp ?? now,
-                    //     lastVisitTimestamp: members.managers?.[userId]?.lastVisitTimestamp ?? null,
+                    //     joinedAt: members.managers?.[userId]?.joinedAt ?? now,
+                    //     lastVisitedAt: members.managers?.[userId]?.lastVisitedAt ?? null,
                     //     userId,
                     //   };
                     // }
@@ -79,15 +79,15 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
                     currentMembers.rankSpectators = EntityMembersRank.CLOSE;
                     // for (const userId of managersIds) {
                     //   managers[userId] = {
-                    //     joinedAtTimestamp: members.managers?.[userId]?.joinedAtTimestamp ?? now,
-                    //     lastVisitTimestamp: members.managers?.[userId]?.lastVisitTimestamp ?? null,
+                    //     joinedAt: members.managers?.[userId]?.joinedAt ?? now,
+                    //     lastVisitedAt: members.managers?.[userId]?.lastVisitedAt ?? null,
                     //     userId,
                     //   };
                     // }
                     // for (const userId of spectatorsIds) {
                     //   spectators[userId] = {
-                    //     joinedAtTimestamp: members.spectators?.[userId]?.joinedAtTimestamp ?? now,
-                    //     lastVisitTimestamp: members.spectators?.[userId]?.lastVisitTimestamp ?? null,
+                    //     joinedAt: members.spectators?.[userId]?.joinedAt ?? now,
+                    //     lastVisitedAt: members.spectators?.[userId]?.lastVisitedAt ?? null,
                     //     userId,
                     //   };
                     // }
@@ -133,7 +133,7 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
       {/*      {[*/}
       {/*        ...Object.values(members.managers).map(mem => ({ ...mem, role: FileMemberRole.EDITOR })),*/}
       {/*        ...Object.values(members.spectators).map(mem => ({ ...mem, role: FileMemberRole.VIEWER })),*/}
-      {/*      ].map(({ nickname, imageUrl, company, role }) => (*/}
+      {/*      ].map(({ nickname, imageUrl, organization, role }) => (*/}
       {/*        <div*/}
       {/*          key={nickname}*/}
       {/*          className="jk-row gap space-between extend hover-highlight jk-br-ie"*/}
@@ -156,9 +156,9 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
       {/*              const { [nickname]: _1, ...newManagers } = members.managers;*/}
       {/*              const { [nickname]: _2, ...newSpectators } = members.spectators;*/}
       {/*              if (value === FileMemberRole.EDITOR) {*/}
-      {/*                newManagers[nickname] = { nickname, imageUrl, company, type: MemberType.USER };*/}
+      {/*                newManagers[nickname] = { nickname, imageUrl, organization, type: MemberType.USER };*/}
       {/*              } else {*/}
-      {/*                newSpectators[nickname] = { nickname, imageUrl, company, type: MemberType.USER };*/}
+      {/*                newSpectators[nickname] = { nickname, imageUrl, organization, type: MemberType.USER };*/}
       {/*              }*/}
       {/*              setMembers(prevState => ({ ...prevState, managers: newManagers, spectators: newSpectators }));*/}
       {/*            } : undefined}*/}
@@ -184,7 +184,7 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
       {/*      <div>*/}
       {/*        <T className="fw-bd tt-se">add people</T>*/}
       {/*        <UsersSelector*/}
-      {/*          companyKey={companyKey}*/}
+      {/*          organizationKey={organizationKey}*/}
       {/*          selectedUsers={[]}*/}
       {/*          onChangeSelectedUsers={([ user ]) => {*/}
       {/*            if (user && !members.managers[user.nickname] && !members.spectators[user.nickname]) {*/}
@@ -194,7 +194,7 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
       {/*                newManagers[user.nickname] = {*/}
       {/*                  nickname: user.nickname,*/}
       {/*                  imageUrl: user.imageUrl,*/}
-      {/*                  company: user.company,*/}
+      {/*                  organization: user.organization,*/}
       {/*                  type: MemberType.USER,*/}
       {/*                };*/}
       {/*                setMembers(prevState => ({ ...prevState, managers: newManagers }));*/}
@@ -203,7 +203,7 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
       {/*                newSpectators[user.nickname] = {*/}
       {/*                  nickname: user.nickname,*/}
       {/*                  imageUrl: user.imageUrl,*/}
-      {/*                  company: user.company,*/}
+      {/*                  organization: user.organization,*/}
       {/*                  type: MemberType.USER,*/}
       {/*                };*/}
       {/*                setMembers(prevState => ({ ...prevState, spectators: newSpectators }));*/}

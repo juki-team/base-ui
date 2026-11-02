@@ -17,7 +17,7 @@ export interface DrawerViewMenuMobileProps {
 
 export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: DrawerViewMenuMobileProps) => {
   const { Image } = useUIStore((store) => store.components);
-  const companyName = useUserStore((state) => state.company.name);
+  const organizationName = useUserStore((state) => state.organization.name);
   const [helpOpen, setHelpOpen] = useState(false);
 
   return (
@@ -39,7 +39,7 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: 
               <T className="tt-se">help</T>
             </div>
           ) : (
-            <Image src={logoImageUrl} alt={companyName} height={45} width={90} />
+            <Image src={logoImageUrl} alt={organizationName} height={45} width={90} />
           )}
         </div>
       </div>

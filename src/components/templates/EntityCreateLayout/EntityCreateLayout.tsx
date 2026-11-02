@@ -1,7 +1,7 @@
 import {
   cleanRequest,
   type ContentResponse,
-  type DocumentCreateResponseDTO,
+  type DocumentCreateResponseDto,
   HTTPMethod,
   Status,
 } from '@juki-team/commons';
@@ -39,7 +39,7 @@ export function EntityCreateLayout<T, U, V>(props: EntityCreateLayoutProps<T, U,
       icon={<SaveIcon />}
       onClick={async (setLoaderStatus) => {
         setLoaderStatus(Status.LOADING);
-        const response = cleanRequest<ContentResponse<DocumentCreateResponseDTO>>(await authorizedRequest(
+        const response = cleanRequest<ContentResponse<DocumentCreateResponseDto>>(await authorizedRequest(
           createApiURL(),
           {
             method: HTTPMethod.POST,

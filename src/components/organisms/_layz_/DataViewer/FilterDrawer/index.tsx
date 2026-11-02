@@ -1,3 +1,4 @@
+import { isValidDate } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
 import { Button, Input, T } from '../../../../atoms';
@@ -139,7 +140,7 @@ export const FilterDrawer = <T,>(props: FilterDrawerProps<T>) => {
               filterCmp = (
                 <InputDate
                   type={filter.pickerType}
-                  date={(values[columnIndex] as Date)?.isValidDate?.() ? (values[columnIndex] as Date) : null}
+                  date={((values[columnIndex] as Date) ? isValidDate((values[columnIndex] as Date)) : undefined) ? (values[columnIndex] as Date) : null}
                   onDatePick={(date) => setValues((prevState) => ({ ...prevState, [columnIndex]: date }))}
                   onDateClean={() => setValues((prevState) => ({ ...prevState, [columnIndex]: '' }))}
                   isDisabled={filter.isDisabled}
@@ -167,7 +168,7 @@ export const FilterDrawer = <T,>(props: FilterDrawerProps<T>) => {
                       type={filter.pickerType}
                       date={start}
                       onDatePick={(date) => {
-                        if (end && end.isValidDate()) {
+                        if (end && isValidDate(end)) {
                           setValues((prevState) => ({ ...prevState, [columnIndex]: [date, end] }));
                         } else {
                           setValues((prevState) => ({ ...prevState, [columnIndex]: [date, date] }));
@@ -193,7 +194,7 @@ export const FilterDrawer = <T,>(props: FilterDrawerProps<T>) => {
                       type={filter.pickerType}
                       date={end}
                       onDatePick={(date) => {
-                        if (start && start.isValidDate()) {
+                        if (start && isValidDate(start)) {
                           setValues((prevState) => ({ ...prevState, [columnIndex]: [start, date] }));
                         } else {
                           setValues((prevState) => ({ ...prevState, [columnIndex]: [date, date] }));

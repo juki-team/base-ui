@@ -1,8 +1,8 @@
-import { type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import { type SubmissionSummaryListResponseDto } from '@juki-team/commons';
 import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer/types';
 import { SubmissionDateField } from '../../submission/SubmissionDateField';
 
-export function getSubmissionDateHeader(): DataViewerHeadersType<SubmissionSummaryListResponseDTO> {
+export function getSubmissionDateHeader(): DataViewerHeadersType<SubmissionSummaryListResponseDto> {
   return {
     head: 'date',
     index: 'timestamp',

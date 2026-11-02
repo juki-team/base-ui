@@ -1,9 +1,9 @@
-import { type ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import { type ProblemSummaryListResponseDto } from '@juki-team/commons';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { ProblemNameLinkField } from '../../problem/ProblemNameLinkField';
 import { ProblemNameModalField } from '../../problem/ProblemNameModalField';
 
-export function getProblemNameHeader(modal: boolean, props?: Partial<DataViewerHeadersType<ProblemSummaryListResponseDTO>>): DataViewerHeadersType<ProblemSummaryListResponseDTO> {
+export function getProblemNameHeader(modal: boolean, props?: Partial<DataViewerHeadersType<ProblemSummaryListResponseDto>>): DataViewerHeadersType<ProblemSummaryListResponseDto> {
   return {
     head: 'problem name',
     headClassName: 'left',

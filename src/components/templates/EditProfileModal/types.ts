@@ -1,16 +1,16 @@
-import { ContentResponse, UserProfileResponseDTO } from '@juki-team/commons';
+import { ContentResponse, UserProfileResponseDto } from '@juki-team/commons';
 import { BasicModalProps } from '../../atoms/types';
-import { UpdateUserProfileDataPayloadDTO } from '../../types';
+import { UpdateUserProfileDataPayloadDto } from '../../types';
 
 export interface EditProfileModalProps extends BasicModalProps {
-  user: UserProfileResponseDTO,
+  user: UserProfileResponseDto,
   onSuccess?: (props: {
-    body: UpdateUserProfileDataPayloadDTO,
+    body: UpdateUserProfileDataPayloadDto,
     response: ContentResponse<string>,
   }) => Promise<void> | (() => void),
 }
 
 export interface ImageProfileModalProps extends BasicModalProps {
   nickname: string,
-  companyKey: string,
+  organizationKey: string,
 }

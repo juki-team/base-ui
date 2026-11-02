@@ -1,4 +1,4 @@
-import { ContentsResponse, ImageSummaryResponseDTO } from '@juki-team/commons';
+import { ContentsResponse, ImageSummaryResponseDto } from '@juki-team/commons';
 import { jukiApiManager } from '../../../../../settings';
 import { FetcherLayer } from '../../../../molecules';
 import { onPickImageUrlType } from '../types';
@@ -11,7 +11,7 @@ interface PublicImagesTabProps {
 }
 
 export const PublicImagesTab = (props: PublicImagesTabProps) => (
-  <FetcherLayer<ContentsResponse<ImageSummaryResponseDTO>>
+  <FetcherLayer<ContentsResponse<ImageSummaryResponseDto>>
     url={jukiApiManager.API_V2.image.getPublicList().url}
     triggerFetch={props.trigger}
   >

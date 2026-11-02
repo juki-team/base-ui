@@ -1,4 +1,4 @@
-import { HTTPMethod, Status, UserHandles, WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons';
+import { HTTPMethod, Status, UserHandles, WorksheetUserSubmissionsResponseDto } from '@juki-team/commons';
 import { ParsedUrlQuery } from 'querystring';
 import type {
   ChangeEvent,
@@ -176,7 +176,7 @@ export type TimeDisplayType =
   | 'milliseconds';
 
 export type UserResultsType = {
-  data?: WorksheetUserSubmissionsResponseDTO;
+  data?: WorksheetUserSubmissionsResponseDto;
   isLoading?: boolean;
   validating?: boolean;
   mutate?: KeyedMutator<any>;
@@ -190,19 +190,19 @@ export interface UpsertComponentEntityProps<EntityUI, Tab> {
   }>[];
 }
 
-export interface UpdatePasswordPayloadDTO {
+export interface UpdatePasswordPayloadDto {
   newPassword: string;
   oldPassword: string;
 }
 
-export interface SignInPayloadDTO {
+export interface SignInPayloadDto {
   nickname: string;
   password: string;
   deviceName: string;
   osName: string;
 }
 
-export interface SignUpPayloadDTO {
+export interface SignUpPayloadDto {
   givenName: string;
   familyName: string;
   nickname: string;
@@ -210,7 +210,7 @@ export interface SignUpPayloadDTO {
   password: string;
 }
 
-export interface UpdateUserProfileDataPayloadDTO {
+export interface UpdateUserProfileDataPayloadDto {
   nickname: string;
   givenName: string;
   familyName: string;

@@ -1,8 +1,8 @@
 import {
-  DocumentMemberResponseDTO,
+  DocumentMemberResponseDto,
   EntityAccess,
-  EntityMembersResponseDTO,
-  UserCompanyBasicInfoResponseDTO,
+  EntityMembersResponseDto,
+  UserOrganizationBasicInfoResponseDto,
 } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { ButtonSizeType } from '../../types';
@@ -12,13 +12,13 @@ type MemberObj = {
   description?: ReactNode;
   closeable?: boolean;
   readOnly?: boolean;
-  renderMember?: (member: DocumentMemberResponseDTO) => ReactNode;
+  renderMember?: (member: DocumentMemberResponseDto) => ReactNode;
 };
 
 export interface DocumentCustomMembersContentProps {
-  members: EntityMembersResponseDTO;
-  setMembers?: Dispatch<SetStateAction<EntityMembersResponseDTO>>;
-  documentOwner: UserCompanyBasicInfoResponseDTO;
+  members: EntityMembersResponseDto;
+  setMembers?: Dispatch<SetStateAction<EntityMembersResponseDto>>;
+  documentOwner: UserOrganizationBasicInfoResponseDto;
   administrators?: MemberObj;
   managers?: Omit<MemberObj, 'closeable'>;
   participants?: MemberObj;
@@ -43,7 +43,7 @@ interface DocCommon extends Pick<
 }
 
 export interface DocumentMembersButton1Props extends DocCommon {
-  onSave: (members: EntityMembersResponseDTO, close: () => void) => Promise<void>;
+  onSave: (members: EntityMembersResponseDto, close: () => void) => Promise<void>;
   saveUrl?: never;
   reloadDocument?: never;
 }
@@ -57,9 +57,9 @@ export interface DocumentMembersButton2Props extends DocCommon {
 export type DocumentMembersButtonProps = DocumentMembersButton1Props | DocumentMembersButton2Props;
 
 export interface DocumentMembersContentProps extends DocumentCustomMembersContentProps {
-  // members: EntityMembersResponseDTO,
-  // setMembers?: Dispatch<SetStateAction<EntityMembersResponseDTO>>,
-  // documentOwner: UserCompanyBasicInfoResponseDTO,
+  // members: EntityMembersResponseDto,
+  // setMembers?: Dispatch<SetStateAction<EntityMembersResponseDto>>,
+  // documentOwner: UserOrganizationBasicInfoResponseDto,
   // administrators?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
   // managers?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
   // participants?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },

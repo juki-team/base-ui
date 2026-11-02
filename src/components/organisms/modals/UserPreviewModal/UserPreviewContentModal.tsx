@@ -1,4 +1,4 @@
-import { ContentResponse, UserBasicResponseDTO } from '@juki-team/commons';
+import { ContentResponse, UserBasicResponseDto } from '@juki-team/commons';
 import { jukiApiManager } from '../../../../settings';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { Button, Modal, T } from '../../../atoms';
@@ -12,7 +12,7 @@ export const UserPreview = ({
   onClose,
   userHref,
 }: {
-  user: UserBasicResponseDTO;
+  user: UserBasicResponseDto;
   onClose: () => void;
   userHref: string;
 }) => {
@@ -43,15 +43,15 @@ export const UserPreview = ({
 
 export interface UserPreviewContentModalProps extends BasicModalProps {
   nickname: string;
-  companyKey: string;
+  organizationKey: string;
   userHref: string;
 }
 
-export const UserPreviewContentModal = ({ isOpen, nickname, companyKey, onClose, userHref }: UserPreviewContentModalProps) => {
+export const UserPreviewContentModal = ({ isOpen, nickname, organizationKey, onClose, userHref }: UserPreviewContentModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="modal-user-preview">
-      <FetcherLayer<ContentResponse<UserBasicResponseDTO>>
-        url={jukiApiManager.API_V2.user.getSummary({ params: { nickname, companyKey } }).url}
+      <FetcherLayer<ContentResponse<UserBasicResponseDto>>
+        url={jukiApiManager.API_V2.user.getSummary({ params: { nickname, organizationKey } }).url}
         onError={onClose}
       >
         {({ data }) => <UserPreview user={data?.content} onClose={onClose} userHref={userHref} />}

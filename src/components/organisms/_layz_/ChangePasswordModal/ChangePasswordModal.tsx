@@ -39,7 +39,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
   
   const { updatePassword } = useJukiUser();
   const nickname = useUserStore(state => state.user.nickname);
-  const companyKey = useUserStore(state => state.company.key);
+  const organizationKey = useUserStore(state => state.organization.key);
   const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   
@@ -55,7 +55,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
         </div>
         <form
           onSubmit={handleSubmit((data: ProfileChangePasswordInput) => updatePassword({
-            params: { nickname, companyKey },
+            params: { nickname, organizationKey },
             body: { newPassword: data.newPassword, oldPassword: data.oldPassword },
             setLoader: setLoaderRef.current!,
             onSuccess: () => onClose(() => () => Status.SUCCESS, Status.SUCCESS, {}),

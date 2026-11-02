@@ -2,9 +2,9 @@ import {
   cleanRequest,
   CodeLanguage,
   ContentResponse,
-  ProblemDataResponseDTO,
+  ProblemDataResponseDto,
   QuizProblemSheet,
-  QuizProblemSubmissionDTO,
+  QuizProblemSubmissionDto,
   Status,
   WorksheetType,
 } from '@juki-team/commons';
@@ -42,7 +42,7 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
           // height: validHeight ? `calc(${+content.height}px + var(--gap))` : 'calc(var(--100VH) * 0.6)',
         }}
       >
-        <FetcherLayer<ContentResponse<ProblemDataResponseDTO>>
+        <FetcherLayer<ContentResponse<ProblemDataResponseDto>>
           url={content.problemKey ? jukiApiManager.API_V2.problem.getData({ params: { key: content.problemKey } }).url : null}
         >
           {({ data }) => {
@@ -60,7 +60,7 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
                           // read the code at click time: the slot isn't re-rendered on every keystroke
                           const { source = '', language = CodeLanguage.TEXT } = getCurrentFile() || {};
                           setLoaderStatus(Status.LOADING);
-                          const quizProblem: QuizProblemSubmissionDTO = {
+                          const quizProblem: QuizProblemSubmissionDto = {
                             id: content.id,
                             type: WorksheetType.QUIZ_PROBLEM,
                             language,

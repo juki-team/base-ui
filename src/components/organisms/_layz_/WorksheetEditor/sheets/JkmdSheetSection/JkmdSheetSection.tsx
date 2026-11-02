@@ -4,7 +4,7 @@ import {
   isJkmdSheet,
   isStringJson,
   JkmdSheet,
-  JkmdSubmissionDTO,
+  JkmdSubmissionDto,
   Status,
   WorksheetType,
 } from '@juki-team/commons';
@@ -65,14 +65,14 @@ export const JkmdSheetSection = (props: SheetSection<JkmdSheet>) => {
                   data-tooltip-content={lastSubmission?.read ? 'mark as unread' : 'mark as read'}
                   onClick={async (setLoaderStatus) => {
                     setLoaderStatus(Status.LOADING);
-                    const jkMdSubmissionDTO: JkmdSubmissionDTO = {
+                    const jkMdSubmissionDto: JkmdSubmissionDto = {
                       type: WorksheetType.JK_MD,
                       id: content.id,
                       read: !lastSubmission?.read,
                     };
                     const { url, ...options } = jukiApiManager.API_V2.worksheet.submitJkMd({
                       params: { worksheetKey },
-                      body: jkMdSubmissionDTO,
+                      body: jkMdSubmissionDto,
                     });
                     const response = cleanRequest<ContentResponse<{}>>(await authorizedRequest(url, options));
                     await userResults?.mutate?.();

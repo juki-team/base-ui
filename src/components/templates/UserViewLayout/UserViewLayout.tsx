@@ -22,14 +22,14 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
   
   const mutatePing = useUserStore(state => state.mutate);
   const userNickname = useUserStore(state => state.user.nickname);
-  const userCompanyKey = useUserStore(state => state.user.company.key);
+  const userOrganizationKey = useUserStore(state => state.user.organization.key);
   const replaceRoute = useRouterStore(state => state.replaceRoute);
   const searchParams = useRouterStore(state => state.searchParams);
   const [ openModal, setOpenModal ] = useState('');
   
   const onClose = () => setOpenModal('');
   const tab = searchParams.get('tab') as ProfileTab || ProfileTab.OVERVIEW;
-  const isOwnProfile = user.nickname === userNickname && user.company.key === userCompanyKey;
+  const isOwnProfile = user.nickname === userNickname && user.organization.key === userOrganizationKey;
   
   let tabHeaders: TabsType<ProfileTab> = {
     [ProfileTab.OVERVIEW]: {
@@ -63,7 +63,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
       header: isOwnProfile
         ? <T className="tt-ce ws-np">my submissions</T>
         : <T className="tt-ce ws-np">submissions</T>,
-      body: <ProfileSubmissions userKey={getUserKey(user.nickname, user.company.key)} />,
+      body: <ProfileSubmissions userKey={getUserKey(user.nickname, user.organization.key)} />,
     };
   }
   
@@ -101,7 +101,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
         isOpen={openModal === 'RESET_PASSWORD'}
         onClose={onClose}
         nickname={user.nickname}
-        companyKey={user.company.key}
+        organizationKey={user.organization.key}
       />
       <EditProfileModal
         isOpen={openModal === 'DATA'}
@@ -111,7 +111,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
           if (nickname !== user.nickname) {
             replaceRoute(jukiAppRoutes.JUDGE().profiles.view({
               nickname: nickname as string,
-              companyKey: user.company.key,
+              organizationKey: user.organization.key,
               tab: ProfileTab.OVERVIEW,
             }));
           } else {
@@ -127,7 +127,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
         selectedTabKey={tab}
         getHrefOnTabChange={(tab) => jukiAppRoutes.JUDGE().profiles.view({
           nickname: user.nickname,
-          companyKey: user.company.key,
+          organizationKey: user.organization.key,
           tab,
         })}
       >

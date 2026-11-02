@@ -1,10 +1,10 @@
-import { type ContestSummaryListResponseDTO } from '@juki-team/commons';
+import { type ContestSummaryListResponseDto } from '@juki-team/commons';
 import { T } from '../../../atoms';
 import { Field } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { GroupIcon } from '../../../server';
 
-export function getContestContestantsHeader(): DataViewerHeadersType<ContestSummaryListResponseDTO> {
+export function getContestContestantsHeader(): DataViewerHeadersType<ContestSummaryListResponseDto> {
   return {
     head: 'contestants',
     index: 'totalContestants',

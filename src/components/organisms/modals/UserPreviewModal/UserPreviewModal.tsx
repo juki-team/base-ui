@@ -9,17 +9,17 @@ export function UserPreviewModal() {
   const searchParams = useRouterStore(state => state.searchParams);
   const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
   const userPreviewQuery = searchParams.getAll(QueryParamKey.USER_PREVIEW);
-  const companyKey = useUserStore(store => store.company.key);
-  const [ userPreviewNickname, userPreviewCompanyKey ] = Array.isArray(userPreviewQuery) ? userPreviewQuery as unknown as [ string, string ] : [ userPreviewQuery as string, companyKey ];
+  const organizationKey = useUserStore(store => store.organization.key);
+  const [ userPreviewNickname, userPreviewOrganizationKey ] = Array.isArray(userPreviewQuery) ? userPreviewQuery as unknown as [ string, string ] : [ userPreviewQuery as string, organizationKey ];
   
   return (
     <UserPreviewContentModal
       isOpen={!!searchParams.get(QueryParamKey.USER_PREVIEW)}
       nickname={userPreviewNickname}
-      companyKey={userPreviewCompanyKey}
+      organizationKey={userPreviewOrganizationKey}
       onClose={() => deleteSearchParams({ name: QueryParamKey.USER_PREVIEW })}
       userHref={
-        jukiAppRoutes.JUDGE().profiles.view({ nickname: userPreviewNickname, companyKey: userPreviewCompanyKey })
+        jukiAppRoutes.JUDGE().profiles.view({ nickname: userPreviewNickname, organizationKey: userPreviewOrganizationKey })
       }
     />
   );

@@ -108,9 +108,9 @@ export const JukiRouterInitializer = (props: JukiRouterInitializerProps) => {
     if (token) {
       sp.set(QueryParamKey.TOKEN, token);
     }
-    const company = (router.searchParams ?? _searchParams).get(QueryParamKey.COMPANY);
-    if (company) {
-      sp.set(QueryParamKey.COMPANY, company);
+    const organization = (router.searchParams ?? _searchParams).get(QueryParamKey.ORGANIZATION);
+    if (organization) {
+      sp.set(QueryParamKey.ORGANIZATION, organization);
     }
     void _push({ pathname, searchParams: sp });
   }, [ router.searchParams, _searchParams, _push ]);

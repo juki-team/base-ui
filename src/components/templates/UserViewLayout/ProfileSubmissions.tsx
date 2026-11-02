@@ -1,7 +1,7 @@
 import {
   type ContentsResponse,
-  type JudgeSummaryListResponseDTO,
-  type SubmissionSummaryListResponseDTO,
+  type JudgeSummaryListResponseDto,
+  type SubmissionSummaryListResponseDto,
 } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { QueryParamKey } from '../../../enums';
@@ -23,7 +23,7 @@ import type { ProfileSubmissionsProps } from './types';
 
 export function ProfileSubmissions({ userKey }: ProfileSubmissionsProps) {
 
-  const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
+  const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDto>>(jukiApiManager.API_V2.judge.getSummaryList().url);
   // const preload = usePreload();
   const languages = useMemo(() => {
     const result: LanguagesByJudge = {};
@@ -38,7 +38,7 @@ export function ProfileSubmissions({ userKey }: ProfileSubmissionsProps) {
     return result;
   }, [ judgePublicList ]);
   
-  const columns: DataViewerHeadersType<SubmissionSummaryListResponseDTO>[] = useMemo(() => [
+  const columns: DataViewerHeadersType<SubmissionSummaryListResponseDto>[] = useMemo(() => [
     getSubmissionProblemHeader(),
     getSubmissionDateHeader(),
     getSubmissionVerdictHeader(),
@@ -48,7 +48,7 @@ export function ProfileSubmissions({ userKey }: ProfileSubmissionsProps) {
   ], [ languages ]);
   
   return (
-    <PagedDataViewer<SubmissionSummaryListResponseDTO, SubmissionSummaryListResponseDTO>
+    <PagedDataViewer<SubmissionSummaryListResponseDto, SubmissionSummaryListResponseDto>
       rows={{ height: 80 }}
       cards={{ expanded: true }}
       headers={columns}

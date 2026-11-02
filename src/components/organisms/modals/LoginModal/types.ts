@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 
 export interface LoginModalProps {
-  multiCompanies?: boolean,
+  multiOrganizations?: boolean,
   openForgotPasswordModal: boolean,
   setOpenForgotPasswordModal: Dispatch<SetStateAction<boolean>>,
 }

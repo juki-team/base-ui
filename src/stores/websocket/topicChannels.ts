@@ -1,5 +1,5 @@
 import {
-  CHANNEL_COMPANY_PRESENCE,
+  CHANNEL_ORGANIZATION_PRESENCE,
   ClientId,
   consoleInfo,
   consoleWarn,
@@ -8,8 +8,8 @@ import {
   getContestKeyOfWebSocketSubscribeEvent,
   getWebSocketResponseEventKeyOfResponse,
   UserPresenceData,
-  WebSocketResponseEventDTO,
-  WebSocketSubscribeEventDTO,
+  WebSocketResponseEventDto,
+  WebSocketSubscribeEventDto,
 } from '@juki-team/commons';
 import type Ably from 'ably';
 
@@ -23,13 +23,13 @@ import type Ably from 'ably';
  * - private channels of the token (`session:{id}`, `user:{id}`): always
  * - topic channels needed by the active subscriptions (`getChannelOfWebSocketSubscribeEvent`): while they are used
  * - role channels of the contest being viewed (`contest:{key}:{role}` granted in the token): while it is viewed
- * - company presence (`presence:company:{id}`): this tab enters the presence of its company (`presence` only, it
- *   does not receive the others); the administrators watching a company also receive it (`presence-subscribe`)
+ * - organization presence (`presence:organization:{id}`): this tab enters the presence of its organization (`presence` only, it
+ *   does not receive the others); the administrators watching a organization also receive it (`presence-subscribe`)
  *
  * The messages are dispatched with the same keys as the subscriptions (`getWebSocketResponseEventKeyOfResponse`).
  */
 
-type Dispatch = (key: string, data: WebSocketResponseEventDTO) => void;
+type Dispatch = (key: string, data: WebSocketResponseEventDto) => void;
 
 let client: Ably.Realtime | null = null;
 let clientId = '' as ClientId;
@@ -37,7 +37,7 @@ let dispatch: Dispatch = () => undefined;
 
 const channelRefs = new Map<string, number>();
 const contestRefs = new Map<string, number>();
-const presenceCompanyRefs = new Map<string, number>();
+const presenceOrganizationRefs = new Map<string, number>();
 const attached = new Map<string, (message: Ably.InboundMessage) => void>();
 
 // the same event can arrive by two channels (e.g. owner + managers while the contest is frozen)
@@ -66,7 +66,7 @@ export const getTopicChannelsAuthParams = (): {
   presenceCompanyKey?: string;
 } => {
   const contestKey = lastKey(contestRefs);
-  const presenceCompanyKey = lastKey(presenceCompanyRefs);
+  const presenceCompanyKey = lastKey(presenceOrganizationRefs);
   return {
     ...(contestKey ? { contestKey } : {}),
     ...(presenceCompanyKey ? { presenceCompanyKey } : {}),
@@ -120,7 +120,7 @@ const canSubscribe = (capability: Record<string, string[]>, channel: string) =>
       (operations.includes('subscribe') || operations.includes('*')) && resourceMatches(resource, channel),
   );
 
-const onMessage = (data: WebSocketResponseEventDTO) => {
+const onMessage = (data: WebSocketResponseEventDto) => {
   const key = getWebSocketResponseEventKeyOfResponse(data, clientId);
   if (!key) {
     return;
@@ -157,7 +157,7 @@ const getDesiredChannels = () => {
 
 // PRESENCE
 
-const PRESENCE_CHANNEL_PREFIX = 'presence:company:';
+const PRESENCE_CHANNEL_PREFIX = 'presence:organization:';
 
 type PresenceListener = (members: Ably.PresenceMessage[]) => void;
 
@@ -249,7 +249,7 @@ const reconcilePresence = () => {
 };
 
 /**
- * Data of this tab in the presence of its company (informative, the identity is the clientId verified by Ably).
+ * Data of this tab in the presence of its organization (informative, the identity is the clientId verified by Ably).
  */
 export const setOwnPresenceData = (data: UserPresenceData) => {
   if (ownPresenceData?.href === data.href && ownPresenceData?.uiId === data.uiId) {
@@ -328,7 +328,7 @@ export const initTopicChannels = (realtimeClient: Ably.Realtime, newClientId: Cl
  * Registers the topic channel (and the contest token param) of a subscription.
  * Returns the function to unregister it.
  */
-export const addTopicSubscription = (event: WebSocketSubscribeEventDTO) => {
+export const addTopicSubscription = (event: WebSocketSubscribeEventDto) => {
   const channel = getChannelOfWebSocketSubscribeEvent(event);
   const contestKey = getContestKeyOfWebSocketSubscribeEvent(event);
 
@@ -362,13 +362,13 @@ export const addTopicSubscription = (event: WebSocketSubscribeEventDTO) => {
 };
 
 /**
- * Watches the live presence of the clients of a company (the API only grants it to its user administrators).
+ * Watches the live presence of the clients of a organization (the API only grants it to its user administrators).
  * The listener receives every present member on each change. Returns the function to stop watching.
  */
-export const watchCompanyPresence = (companyKey: string, listener: PresenceListener) => {
-  const name = CHANNEL_COMPANY_PRESENCE(companyKey);
+export const watchOrganizationPresence = (organizationKey: string, listener: PresenceListener) => {
+  const name = CHANNEL_ORGANIZATION_PRESENCE(organizationKey);
   const prevAuthParams = JSON.stringify(getTopicChannelsAuthParams());
-  increment(presenceCompanyRefs, companyKey);
+  increment(presenceOrganizationRefs, organizationKey);
   presenceListeners.set(name, new Set([...(presenceListeners.get(name) ?? []), listener]));
   if (JSON.stringify(getTopicChannelsAuthParams()) !== prevAuthParams) {
     reauthorize();
@@ -383,7 +383,7 @@ export const watchCompanyPresence = (companyKey: string, listener: PresenceListe
     }
     removed = true;
     const prev = JSON.stringify(getTopicChannelsAuthParams());
-    decrement(presenceCompanyRefs, companyKey);
+    decrement(presenceOrganizationRefs, organizationKey);
     presenceListeners.get(name)?.delete(listener);
     if (JSON.stringify(getTopicChannelsAuthParams()) !== prev) {
       reauthorize();

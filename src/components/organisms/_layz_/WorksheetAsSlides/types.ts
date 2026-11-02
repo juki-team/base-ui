@@ -1,7 +1,7 @@
-import type { WorksheetDataResponseDTO } from '@juki-team/commons';
+import type { WorksheetDataResponseDto } from '@juki-team/commons';
 
 export interface WorksheetAsSlidesProps {
-  worksheet: WorksheetDataResponseDTO,
+  worksheet: WorksheetDataResponseDto,
   resultsUserKey?: string,
   readOnly?: boolean,
   page?: number,

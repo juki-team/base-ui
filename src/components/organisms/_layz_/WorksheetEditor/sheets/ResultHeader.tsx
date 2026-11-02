@@ -1,4 +1,4 @@
-import { QuizOptionsSubmissionResponseDTO } from '@juki-team/commons';
+import { QuizOptionsSubmissionResponseDto } from '@juki-team/commons';
 import { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { T } from '../../../../atoms';
@@ -54,7 +54,7 @@ export const ResultHeader = (props: PropsWithChildren<ResultHeaderProps>) => {
 };
 
 interface ResultHeadersProps {
-  submissions: QuizOptionsSubmissionResponseDTO[];
+  submissions: QuizOptionsSubmissionResponseDto[];
   points: number;
   selectedIndex: number;
   setSelectedIndex: Dispatch<SetStateAction<number>>;

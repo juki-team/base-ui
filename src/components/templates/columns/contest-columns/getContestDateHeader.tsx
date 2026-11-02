@@ -1,10 +1,10 @@
-import { type ContestSummaryListResponseDTO } from '@juki-team/commons';
+import { type ContestSummaryListResponseDto } from '@juki-team/commons';
 import { DateLiteral, T } from '../../../atoms';
 import { Field } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { EventIcon, ScheduleIcon } from '../../../server';
 
-export function getContestDateHeader(): DataViewerHeadersType<ContestSummaryListResponseDTO> {
+export function getContestDateHeader(): DataViewerHeadersType<ContestSummaryListResponseDto> {
   return {
     head: 'dates',
     index: 'date',
@@ -21,20 +21,20 @@ export function getContestDateHeader(): DataViewerHeadersType<ContestSummaryList
             <div className="jk-row gap nowrap">
               <EventIcon size="small" />
               <div className="jk-col">
-                <div className="jk-row nowrap">{new Date(settings.startTimestamp).toLocaleDateString()}</div>
+                <div className="jk-row nowrap">{new Date(settings.startsAt).toLocaleDateString()}</div>
                 <T className="cr-tx-mt tx-s tt-se ws-np">start date</T>
               </div>
             </div>
             <div className="jk-row gap nowrap">
               <ScheduleIcon size="small" />
               <div className="jk-col">
-                <div className="jk-row ws-np">{new Date(settings.startTimestamp).toLocaleTimeString()}</div>
+                <div className="jk-row ws-np">{new Date(settings.startsAt).toLocaleTimeString()}</div>
                 <T className="cr-tx-mt tx-s tt-se">hour</T>
               </div>
             </div>
           </div>
         ) : (
-          <DateLiteral date={new Date(settings.startTimestamp)} show="year-month-day-hours-minutes" twoLines />
+          <DateLiteral date={new Date(settings.startsAt)} show="year-month-day-hours-minutes" twoLines />
         )}
         -
         {isEndless ? (
@@ -48,20 +48,20 @@ export function getContestDateHeader(): DataViewerHeadersType<ContestSummaryList
             <div className="jk-row gap nowrap">
               <EventIcon size="small" />
               <div className="jk-col">
-                <div>{new Date(settings.endTimestamp).toLocaleDateString()}</div>
+                <div>{new Date(settings.endsAt).toLocaleDateString()}</div>
                 <T className="cr-tx-mt tx-s tt-se">end date</T>
               </div>
             </div>
             <div className="jk-row gap nowrap">
               <ScheduleIcon size="small" />
               <div className="jk-col">
-                <div>{new Date(settings.endTimestamp).toLocaleTimeString()}</div>
+                <div>{new Date(settings.endsAt).toLocaleTimeString()}</div>
                 <T className="cr-tx-mt tx-s tt-se">hour</T>
               </div>
             </div>
           </div>
         ) : (
-          <DateLiteral date={new Date(settings.endTimestamp)} show="year-month-day-hours-minutes" twoLines />
+          <DateLiteral date={new Date(settings.endsAt)} show="year-month-day-hours-minutes" twoLines />
         )}
       </Field>
     ),

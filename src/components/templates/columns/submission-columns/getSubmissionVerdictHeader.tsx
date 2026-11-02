@@ -1,4 +1,4 @@
-import { PROBLEM_VERDICT, type  SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import { PROBLEM_VERDICT, type  SubmissionSummaryListResponseDto } from '@juki-team/commons';
 import { T } from '../../../atoms';
 import { AcUnitIcon, FitnessCenterIcon, LockClockIcon } from '../../../atoms/server';
 import { FieldText } from '../../../organisms';
@@ -6,7 +6,7 @@ import { SubmissionListenerVerdict } from '../../../organisms/SubmitView/commons
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { SubmissionInfo } from '../../submission/commons/SubmissionInfo';
 
-export function getSubmissionVerdictHeader(): DataViewerHeadersType<SubmissionSummaryListResponseDTO> {
+export function getSubmissionVerdictHeader(): DataViewerHeadersType<SubmissionSummaryListResponseDto> {
   return {
     head: 'verdict',
     index: 'verdicts',
@@ -65,5 +65,5 @@ export function getSubmissionVerdictHeader(): DataViewerHeadersType<SubmissionSu
     },
     cardPosition: 'bottom',
     minWidth: 220,
-  } as DataViewerHeadersType<SubmissionSummaryListResponseDTO>;
+  } as DataViewerHeadersType<SubmissionSummaryListResponseDto>;
 }

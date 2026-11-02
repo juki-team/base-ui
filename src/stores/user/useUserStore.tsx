@@ -27,11 +27,11 @@ const createUserStore = (initState: InitUserState) => create<UserState>()(
           set({ clientId: newClientId });
         }
       },
-      company: initState.company,
-      setCompany: (company) => {
-        const current = get().company;
-        if (JSON.stringify(current) !== JSON.stringify(company)) {
-          set({ company });
+      organization: initState.organization,
+      setOrganization: (organization) => {
+        const current = get().organization;
+        if (JSON.stringify(current) !== JSON.stringify(organization)) {
+          set({ organization });
         }
       },
       isLoading: initState.isLoading,
@@ -47,7 +47,7 @@ const createUserStore = (initState: InitUserState) => create<UserState>()(
   //     storage: createJSONStorage(() => sessionStorage, {}),
   //     partialize: (state) => ({
   //       user: state.user,
-  //       company: state.company,
+  //       organization: state.organization,
   //       isLoading: state.isLoading,
   //         device: state.device,
   //     }),

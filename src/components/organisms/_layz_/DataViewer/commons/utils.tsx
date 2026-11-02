@@ -1,3 +1,4 @@
+import { isDayAfter, isDayBefore, isHoursAfter, isHoursBefore, isMillisecondsAfter, isMillisecondsBefore, isMinutesAfter, isMinutesBefore, isMonthAfter, isMonthBefore, isSameDay, isSameHour, isSameMillisecond, isSameMinute, isSameMonth, isSameSecond, isSameYear, isSecondsAfter, isSecondsBefore, isValidDate, isWithinInterval, isYearAfter, isYearBefore } from '@juki-team/commons';
 import { join, split } from '@juki-team/commons';
 import { type TFunction } from 'i18next';
 import { type RefObject } from 'react';
@@ -140,32 +141,32 @@ export const renderHead = <T, >({ header, columnIndex, className }: renderHeadPr
 };
 
 export const isSelected = (start: Date | null) => (date: Date) => ({
-  year: !!start && date.isSameYear(start),
-  month: !!start && date.isSameMonth(start),
-  day: !!start && date.isSameDay(start),
-  hours: !!start && date.isSameHour(start),
-  minutes: !!start && date.isSameMinute(start),
-  seconds: !!start && date.isSameSecond(start),
-  milliseconds: !!start && date.isSameMillisecond(start),
+  year: !!start && isSameYear(date, start),
+  month: !!start && isSameMonth(date, start),
+  day: !!start && isSameDay(date, start),
+  hours: !!start && isSameHour(date, start),
+  minutes: !!start && isSameMinute(date, start),
+  seconds: !!start && isSameSecond(date, start),
+  milliseconds: !!start && isSameMillisecond(date, start),
 });
 
 export const isRangeSelected = (start: Date | null, end: Date | null) => (date: Date) => ({
-  year: !!start && !!end && (date.isSameYear(start) || date.isSameYear(end) || date.isWithinInterval({ start, end })),
-  month: !!start && !!end && (date.isSameMonth(start) || date.isSameMonth(end) || date.isWithinInterval({
+  year: !!start && !!end && (isSameYear(date, start) || isSameYear(date, end) || isWithinInterval(date, { start, end })),
+  month: !!start && !!end && (isSameMonth(date, start) || isSameMonth(date, end) || isWithinInterval(date, {
     start,
     end,
   })),
-  day: !!start && !!end && (date.isSameDay(start) || date.isSameDay(end) || date.isWithinInterval({ start, end })),
-  hours: !!start && !!end && (date.isSameHour(start) || date.isSameHour(end) || date.isWithinInterval({ start, end })),
-  minutes: !!start && !!end && (date.isSameMinute(start) || date.isSameMinute(end) || date.isWithinInterval({
+  day: !!start && !!end && (isSameDay(date, start) || isSameDay(date, end) || isWithinInterval(date, { start, end })),
+  hours: !!start && !!end && (isSameHour(date, start) || isSameHour(date, end) || isWithinInterval(date, { start, end })),
+  minutes: !!start && !!end && (isSameMinute(date, start) || isSameMinute(date, end) || isWithinInterval(date, {
     start,
     end,
   })),
-  seconds: !!start && !!end && (date.isSameSecond(start) || date.isSameSecond(end) || date.isWithinInterval({
+  seconds: !!start && !!end && (isSameSecond(date, start) || isSameSecond(date, end) || isWithinInterval(date, {
     start,
     end,
   })),
-  milliseconds: !!start && !!end && (date.isSameMillisecond(start) || date.isSameMillisecond(end) || date.isWithinInterval({
+  milliseconds: !!start && !!end && (isSameMillisecond(date, start) || isSameMillisecond(date, end) || isWithinInterval(date, {
     start,
     end,
   })),
@@ -173,13 +174,13 @@ export const isRangeSelected = (start: Date | null, end: Date | null) => (date: 
 
 export const isDisabledEnd = (start: Date | null): DatePickerDateFunType => (date) => {
   return {
-    year: !!start && date.isYearBefore(start),
-    month: !!start && date.isMonthBefore(start),
-    day: !!start && date.isDayBefore(start),
-    hours: !!start && date.isHoursBefore(start),
-    minutes: !!start && date.isMinutesBefore(start),
-    seconds: !!start && date.isSecondsBefore(start),
-    milliseconds: !!start && date.isMillisecondsBefore(start),
+    year: !!start && isYearBefore(date, start),
+    month: !!start && isMonthBefore(date, start),
+    day: !!start && isDayBefore(date, start),
+    hours: !!start && isHoursBefore(date, start),
+    minutes: !!start && isMinutesBefore(date, start),
+    seconds: !!start && isSecondsBefore(date, start),
+    milliseconds: !!start && isMillisecondsBefore(date, start),
   };
 };
 
@@ -199,13 +200,13 @@ export const orDatePickerDateFun = (fun1: DatePickerDateFunType, fun2: DatePicke
 
 export const isDisabledStart = (end: Date | null): DatePickerDateFunType => (date) => {
   return {
-    year: !!end && date.isYearAfter(end),
-    month: !!end && date.isMonthAfter(end),
-    day: !!end && date.isDayAfter(end),
-    hours: !!end && date.isHoursAfter(end),
-    minutes: !!end && date.isMinutesAfter(end),
-    seconds: !!end && date.isSecondsAfter(end),
-    milliseconds: !!end && date.isMillisecondsAfter(end),
+    year: !!end && isYearAfter(date, end),
+    month: !!end && isMonthAfter(date, end),
+    day: !!end && isDayAfter(date, end),
+    hours: !!end && isHoursAfter(date, end),
+    minutes: !!end && isMinutesAfter(date, end),
+    seconds: !!end && isSecondsAfter(date, end),
+    milliseconds: !!end && isMillisecondsAfter(date, end),
   };
 };
 
@@ -224,13 +225,13 @@ export const isSomethingFiltered = <T, >(headers: TableHeadersType<T>[]) => {
         filtered = true;
       }
     } else if (isFilterDate(filter)) {
-      if (filter.getFilter?.()?.isValidDate()) {
+      if ((filter.getFilter?.() ? isValidDate(filter.getFilter?.()) : undefined)) {
         values[index] = filter.getFilter() as Date;
         filtered = true;
       }
     } else if (isFilterDateRange(filter)) {
       const dates = filter.getFilter?.();
-      if (dates?.[0]?.isValidDate() && dates?.[1]?.isValidDate()) {
+      if ((dates?.[0] ? isValidDate(dates?.[0]) : undefined) && (dates?.[1] ? isValidDate(dates?.[1]) : undefined)) {
         values[index] = dates;
         filtered = true;
       }
@@ -403,7 +404,7 @@ export const buildHeaders = <T, >(headers: DataViewerHeadersType<T>[], searchVis
         onReset: onResetFilter(headIndex, filtersRef, setFilter, deleteFilter),
         getFilter: () => {
           return filtersRef.current[headIndex]
-          && new Date(+filtersRef.current[headIndex]).isValidDate() ? new Date(+filtersRef.current[headIndex]) : null;
+          && isValidDate(new Date(+filtersRef.current[headIndex])) ? new Date(+filtersRef.current[headIndex]) : null;
         },
         // selectedDate,
         baseDate: /* TODO: newHead.filter?.getFilter() as Date ||*/ filter.baseDate || new Date(),
@@ -421,8 +422,8 @@ export const buildHeaders = <T, >(headers: DataViewerHeadersType<T>[], searchVis
         isDisabled: filter.isDisabled || (() => ({})),
         getFilter: () => {
           const [ start, end ] = filtersRef.current[headIndex] ? split(filtersRef.current[headIndex]) : [];
-          const startSelectedDate = start && new Date(+start).isValidDate() ? new Date(+start) : null;
-          const endSelectedDate = end && new Date(+end).isValidDate() ? new Date(+end) : null;
+          const startSelectedDate = start && isValidDate(new Date(+start)) ? new Date(+start) : null;
+          const endSelectedDate = end && isValidDate(new Date(+end)) ? new Date(+end) : null;
           return [ startSelectedDate, endSelectedDate ];
         },
         baseStartDate: /* TODO: newHead.filter?.getFilter()?.[0] as Date ||*/ filter.baseStartDate || new Date(),

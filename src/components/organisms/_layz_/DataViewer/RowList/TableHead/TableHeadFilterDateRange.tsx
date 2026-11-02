@@ -1,3 +1,4 @@
+import { isValidDate } from '@juki-team/commons';
 import { useEffect, useRef, useState } from 'react';
 import { Button, T } from '../../../../../atoms';
 import { InputDate } from '../../../../../molecules';
@@ -64,18 +65,18 @@ export const TableHeadFilterDateRange = (props: TableHeadFilterDateRangeProps) =
       <div className="jk-row gap right buttons wh-100">
         <Button
           size="tiny" type="secondary" onClick={onReset}
-          disabled={!(initialStartSelectedDate && initialEndSelectedDate && initialStartSelectedDate?.isValidDate() && initialEndSelectedDate?.isValidDate())}
+          disabled={!(initialStartSelectedDate && initialEndSelectedDate && isValidDate(initialStartSelectedDate) && isValidDate(initialEndSelectedDate))}
         >
           <T className="tt-se">reset</T>
         </Button>
         <Button
           size="tiny"
-          onClick={() => start && end && start?.isValidDate() && end?.isValidDate() && onFilter({
+          onClick={() => start && end && isValidDate(start) && isValidDate(end) && onFilter({
             columnIndex,
             startSelectedDate: start,
             endSelectedDate: end,
           })}
-          disabled={!(start && end && start?.isValidDate() && end?.isValidDate())}
+          disabled={!(start && end && isValidDate(start) && isValidDate(end))}
           ref={buttonRef}
         >
           <T className="tt-se">filter</T>

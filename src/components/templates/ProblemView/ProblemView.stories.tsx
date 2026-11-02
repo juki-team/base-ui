@@ -4,7 +4,7 @@ import {
   EMPTY_ENTITY_MEMBERS,
   EntityState,
   Judge,
-  ProblemDataResponseDTO,
+  ProblemDataResponseDto,
   ProblemScoringMode,
   ProblemType,
 } from '@juki-team/commons';
@@ -27,7 +27,7 @@ export const Regular: Story = {
     <MockupJukiProvider>
       <div className="jk-col gap jk-pg bc-ss">
         <div style={{ width: '100%', height: 600 }}>
-          <FetcherLayer<ContentResponse<ProblemDataResponseDTO>>
+          <FetcherLayer<ContentResponse<ProblemDataResponseDto>>
             url={jukiApiManager.API_V2.problem.getData({ params: { key: 'P-1000' } }).url}
           >
             {data => (
@@ -162,7 +162,7 @@ Regular.args = {
       evaluatorSource: '',
     },
     members: EMPTY_ENTITY_MEMBERS(),
-    company: {
+    organization: {
       key: 'juki-app',
     },
     user: {
@@ -174,7 +174,7 @@ Regular.args = {
       tried: true,
     },
     owner: {
-      company: { key: '' },
+      organization: { key: '' },
       nickname: 'OscarGauss',
       imageUrl: '',
     },
@@ -187,7 +187,7 @@ export const RegularCustom: Story = {
     <MockupJukiProvider>
       <div className="jk-col gap">
         <div style={{ width: '100%', height: 600 }}>
-          <FetcherLayer<ContentResponse<ProblemDataResponseDTO>>
+          <FetcherLayer<ContentResponse<ProblemDataResponseDto>>
             url={jukiApiManager.API_V2.problem.getData({ params: { key: 'PL-two-sum' } }).url}
           >
             {data => (

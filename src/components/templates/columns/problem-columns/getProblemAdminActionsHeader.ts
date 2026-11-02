@@ -1,8 +1,8 @@
-import { type ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import { type ProblemSummaryListResponseDto } from '@juki-team/commons';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { ProblemAdminActionsField } from '../../problem/ProblemAdminActionsField';
 
-export function getProblemAdminActionsHeader(): DataViewerHeadersType<ProblemSummaryListResponseDTO> {
+export function getProblemAdminActionsHeader(): DataViewerHeadersType<ProblemSummaryListResponseDto> {
   return {
     head: 'actions',
     index: 'actions',

@@ -1,4 +1,4 @@
-import { type Judge, type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import { type Judge, type SubmissionSummaryListResponseDto } from '@juki-team/commons';
 import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer/types';
 import { SubmissionLanguageField } from '../../submission/SubmissionLanguageField';
 
@@ -8,7 +8,7 @@ export type LanguagesByJudge = {
 
 export function getSubmissionLanguageHeader(
   languagesByJudge: LanguagesByJudge,
-): DataViewerHeadersType<SubmissionSummaryListResponseDTO> {
+): DataViewerHeadersType<SubmissionSummaryListResponseDto> {
   return {
     head: 'language',
     index: 'languages',

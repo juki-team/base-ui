@@ -1,9 +1,9 @@
 import type {
   ContentsResponse,
-  JudgeSummaryListResponseDTO,
-  JudgeSystemSummaryListResponseDTO,
-  ProblemSummaryListResponseDTO,
-  SubmissionSummaryListResponseDTO,
+  JudgeSummaryListResponseDto,
+  JudgeSystemSummaryListResponseDto,
+  ProblemSummaryListResponseDto,
+  SubmissionSummaryListResponseDto,
 } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { jukiApiManager } from '../../../../../settings';
@@ -24,9 +24,9 @@ import {
 import { PagedDataViewer } from '../../../PagedDataViewer/PagedDataViewer';
 import type { DataViewerHeadersType, DataViewerProps } from '../types';
 
-export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data' | 'headers'>) => {
-  const { data: judgeSystemList } = useFetcher<ContentsResponse<JudgeSystemSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSystemList().url);
-  const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
+export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryListResponseDto>, 'data' | 'headers'>) => {
+  const { data: judgeSystemList } = useFetcher<ContentsResponse<JudgeSystemSummaryListResponseDto>>(jukiApiManager.API_V2.judge.getSystemList().url);
+  const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDto>>(jukiApiManager.API_V2.judge.getSummaryList().url);
   const allJudges = useMemo(() => judgeSystemList?.success ? judgeSystemList.contents : (judgePublicList?.success ? judgePublicList.contents : []), [ judgeSystemList, judgePublicList ]);
   const languages = useMemo(() => {
     const result: LanguagesByJudge = {};
@@ -39,7 +39,7 @@ export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryList
     }
     return result;
   }, [ allJudges ]);
-  const columns: DataViewerHeadersType<SubmissionSummaryListResponseDTO>[] = useMemo(() => [
+  const columns: DataViewerHeadersType<SubmissionSummaryListResponseDto>[] = useMemo(() => [
     getSubmissionNicknameHeader([
       { value: 'OscarGauss', label: 'OscarGauss' },
       { value: 'test', label: 'test' },
@@ -59,7 +59,7 @@ export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryList
   
   return (
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px' }}>
-      <PagedDataViewer<SubmissionSummaryListResponseDTO, SubmissionSummaryListResponseDTO>
+      <PagedDataViewer<SubmissionSummaryListResponseDto, SubmissionSummaryListResponseDto>
         rows={{ height: 80 }}
         cards={{ expanded: true }}
         headers={columns}

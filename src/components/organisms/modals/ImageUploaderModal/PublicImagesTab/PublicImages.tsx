@@ -1,4 +1,4 @@
-import { ImageSummaryResponseDTO, NotificationType } from '@juki-team/commons';
+import { ImageSummaryResponseDto, NotificationType } from '@juki-team/commons';
 import { T } from '../../../../atoms';
 import { copy } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
@@ -9,7 +9,7 @@ import { onPickImageUrlType } from '../types';
 interface PublicImagesTabProps {
   copyButtons?: boolean,
   onPickImageUrl?: onPickImageUrlType,
-  publicImages: ImageSummaryResponseDTO[],
+  publicImages: ImageSummaryResponseDto[],
 }
 
 export const PublicImages = (props: PublicImagesTabProps) => {

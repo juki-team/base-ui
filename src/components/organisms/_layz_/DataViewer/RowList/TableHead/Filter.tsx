@@ -1,3 +1,4 @@
+import { isValidDate } from '@juki-team/commons';
 import { useState } from 'react';
 import { TriggerAction } from '../../../../../../enums';
 import { Popover } from '../../../../../atoms';
@@ -25,9 +26,9 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
     : isFilterSelect(filter)
       ? !!filter.getFilter().length
       : isFilterDate(filter)
-        ? !!filter.getFilter()?.isValidDate()
+        ? !!(filter.getFilter() ? isValidDate(filter.getFilter()) : undefined)
         : isFilterDateRange(filter)
-          ? !!filter.getFilter()?.[0]?.isValidDate() && !!filter.getFilter()?.[1]?.isValidDate()
+          ? !!(filter.getFilter()?.[0] ? isValidDate(filter.getFilter()?.[0]) : undefined) && !!(filter.getFilter()?.[1] ? isValidDate(filter.getFilter()?.[1]) : undefined)
           : false;
   return (
     <Popover

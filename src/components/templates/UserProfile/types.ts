@@ -1,10 +1,10 @@
-import { UserBasicResponseDTO, UserProfileResponseDTO } from '@juki-team/commons';
+import { UserBasicResponseDto, UserProfileResponseDto } from '@juki-team/commons';
 
 export interface UserProfileProps {
-  user: UserProfileResponseDTO,
+  user: UserProfileResponseDto,
 }
 
 export interface UserProfileDataContentProps {
-  user: UserBasicResponseDTO,
+  user: UserBasicResponseDto,
   className?: string
 }

@@ -1,10 +1,10 @@
-import { type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import { type SubmissionSummaryListResponseDto } from '@juki-team/commons';
 import { SubmissionRejudgeButton } from '../../../molecules';
 import { Field } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer/types';
 import { SubmissionRetrieveButton } from '../../submission/SubmissionRetrieveButton';
 
-export function getSubmissionRejudgeHeader(): DataViewerHeadersType<SubmissionSummaryListResponseDTO> {
+export function getSubmissionRejudgeHeader(): DataViewerHeadersType<SubmissionSummaryListResponseDto> {
   return {
     head: 'rejudge',
     index: 'rejudge',

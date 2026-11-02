@@ -1,11 +1,11 @@
-import { type CodeEditorTestCases, type ProblemDataResponseDTO, SubmissionRunStatus } from '@juki-team/commons';
+import { type CodeEditorTestCases, type ProblemDataResponseDto, SubmissionRunStatus } from '@juki-team/commons';
 import { ReactNode } from 'react';
 import { useJudge } from '../../../hooks/useJudge';
 import { UserCodeEditor } from '../../../organisms/_layz_/UserCodeEditor';
 import type { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../../organisms/types';
 
 interface ProblemCodeEditorProps<T> {
-  problem: ProblemDataResponseDTO,
+  problem: ProblemDataResponseDto,
   codeEditorLeftButtons?: UserCodeEditorProps<T>['leftButtons'],
   codeEditorCenterButtons?: UserCodeEditorProps<T>['centerButtons'],
   codeEditorRightButtons?: UserCodeEditorProps<T>['rightButtons'],
@@ -41,7 +41,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       withPE: problem.settings.withPE,
       testOut: sample.output,
       hidden: false,
-      messageTimestamp: 0,
+      createdAt: 0,
     };
   });
   

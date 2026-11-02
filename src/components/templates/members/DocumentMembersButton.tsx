@@ -2,7 +2,7 @@ import {
   cleanRequest,
   type ContentResponse,
   ENTITY_ACCESS,
-  type EntityMembersDTO,
+  type EntityMembersDto,
   getDocumentAccess,
   HTTPMethod,
 } from '@juki-team/commons';
@@ -42,7 +42,7 @@ export function DocumentMembersButton(props: PropsWithChildren<DocumentMembersBu
   const onSave =
     initialOnSave ??
     (async (members, close) => {
-      const worksheetToPatch: { members: EntityMembersDTO } = {
+      const worksheetToPatch: { members: EntityMembersDto } = {
         members: {
           rankAdministrators: members.rankAdministrators,
           administrators: Object.keys(members.administrators),

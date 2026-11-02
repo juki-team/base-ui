@@ -1,4 +1,4 @@
-import { type EntityMembersResponseDTO, Status } from '@juki-team/commons';
+import { type EntityMembersResponseDto, Status } from '@juki-team/commons';
 import { type ReactNode, useState } from 'react';
 import { Modal, T } from '../../../atoms';
 import type { BasicModalProps } from '../../../atoms/Modal/types';
@@ -9,7 +9,7 @@ import type { DocumentCustomMembersContentProps } from '../types';
 
 export interface DocumentMembersModalProps extends BasicModalProps, Pick<DocumentCustomMembersContentProps, 'entityAccess' | 'documentOwner' | 'members' | 'administrators' | 'managers' | 'participants' | 'guests' | 'spectators'> {
   documentName: ReactNode,
-  onSave: (members: EntityMembersResponseDTO, close: () => void) => Promise<void>,
+  onSave: (members: EntityMembersResponseDto, close: () => void) => Promise<void>,
 }
 
 export function DocumentMembersModal(props: DocumentMembersModalProps) {

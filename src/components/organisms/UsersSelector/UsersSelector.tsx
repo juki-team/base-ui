@@ -1,4 +1,4 @@
-import { type ContentsResponse, getUserKey, type UserSummaryListResponseDTO } from '@juki-team/commons';
+import { type ContentsResponse, getUserKey, type UserSummaryListResponseDto } from '@juki-team/commons';
 import { useEffect, useMemo, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Button, Modal, T, TextArea } from '../../atoms';
@@ -14,21 +14,21 @@ export function UsersSelector(props: UsersSelectorProps) {
     selectedUsers,
     onChangeSelectedUsers: _onChangeSelectedUsers,
     maxUsersSelection = -1,
-    companyKey,
+    organizationKey,
   } = props;
   
-  const { isLoading, data, mutate } = useFetcher<ContentsResponse<UserSummaryListResponseDTO>>(
-    jukiApiManager.API_V2.user.getSummaryList({ params: { companyKey } }).url,
+  const { isLoading, data, mutate } = useFetcher<ContentsResponse<UserSummaryListResponseDto>>(
+    jukiApiManager.API_V2.user.getSummaryList({ params: { organizationKey } }).url,
   );
   const [ show, setShow ] = useState(false);
   const [ text, setText ] = useState('');
   const [ textNicknames, setTextNicknames ] = useState<string[]>([]);
   const [ error, setError ] = useState('');
   const users = useMemo(() => {
-    const users: { [key: string]: UserSummaryListResponseDTO } = {};
+    const users: { [key: string]: UserSummaryListResponseDto } = {};
     const dataUsers = (data?.success ? data?.contents : []);
     dataUsers.forEach(user => {
-      users[getUserKey(user.nickname, user.company.key)] = user;
+      users[getUserKey(user.nickname, user.organization.key)] = user;
     });
     return users;
   }, [ data ]);
@@ -38,7 +38,7 @@ export function UsersSelector(props: UsersSelectorProps) {
     let error = '';
     const validNicknames: string[] = [];
     nicknames.forEach(nickname => {
-      const userKey = getUserKey(nickname, companyKey);
+      const userKey = getUserKey(nickname, organizationKey);
       if (users[userKey]) {
         validNicknames.push(userKey);
       } else {
@@ -47,7 +47,7 @@ export function UsersSelector(props: UsersSelectorProps) {
     });
     setError(error);
     setTextNicknames(validNicknames);
-  }, [ companyKey, text, users ]);
+  }, [ organizationKey, text, users ]);
   
   const resetText = () => {
     setText(selectedUsers.join(','));
@@ -57,7 +57,7 @@ export function UsersSelector(props: UsersSelectorProps) {
   }
   
   const onChangeSelectedUsers = (userKeys: string[]) => {
-    const selectedUsers = userKeys.map(userKey => users[userKey]).filter(Boolean) as UserSummaryListResponseDTO[];
+    const selectedUsers = userKeys.map(userKey => users[userKey]).filter(Boolean) as UserSummaryListResponseDto[];
     if (maxUsersSelection > 0) {
       _onChangeSelectedUsers(selectedUsers.slice(-maxUsersSelection));
     } else {
@@ -104,7 +104,7 @@ export function UsersSelector(props: UsersSelectorProps) {
           label: (
             <UserChip
               nickname={user.nickname}
-              companyKey={user.company.key}
+              organizationKey={user.organization.key}
               imageUrl={user.imageUrl}
               email={user.email}
               familyName={user.familyName}
@@ -113,7 +113,7 @@ export function UsersSelector(props: UsersSelectorProps) {
             />
           ),
           inputLabel: user.nickname,
-          value: getUserKey(user.nickname, user.company.key),
+          value: getUserKey(user.nickname, user.organization.key),
         }))}
         selectedOptions={selectedUsers.map(user => ({ value: user }))}
         onChange={options => onChangeSelectedUsers(options.map(option => option.value))}

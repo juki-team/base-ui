@@ -7,7 +7,7 @@ import { setOwnPresenceData } from '../../stores/websocket/topicChannels';
 const UPDATE_DELAY_MS = 1000;
 
 /**
- * Keeps the page of this tab in the presence of its company (see topicChannels.ts).
+ * Keeps the page of this tab in the presence of its organization (see topicChannels.ts).
  * Ably sends the `leave` by itself when the connection closes.
  */
 export const useOwnPresence = () => {

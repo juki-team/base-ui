@@ -1,13 +1,13 @@
-import { type  SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import { type  SubmissionSummaryListResponseDto } from '@juki-team/commons';
 import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer/types';
 import { SubmissionProblemField } from '../../submission/SubmissionProblemField';
 
 type SubmissionProblemColumnProps = {
-  header?: Pick<DataViewerHeadersType<SubmissionSummaryListResponseDTO>, 'filter'>,
+  header?: Pick<DataViewerHeadersType<SubmissionSummaryListResponseDto>, 'filter'>,
   onlyProblem?: boolean,
 }
 
-export function getSubmissionProblemHeader(props?: SubmissionProblemColumnProps): DataViewerHeadersType<SubmissionSummaryListResponseDTO> {
+export function getSubmissionProblemHeader(props?: SubmissionProblemColumnProps): DataViewerHeadersType<SubmissionSummaryListResponseDto> {
   return {
     head: 'problem',
     index: 'problemKeys',

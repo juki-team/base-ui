@@ -3,7 +3,7 @@ import {
   CODE_LANGUAGE,
   CodeEditorFiles,
   CodeEditorSheet,
-  CodeEditorSubmissionDTO,
+  CodeEditorSubmissionDto,
   CodeEditorTestCases,
   CodeLanguage,
   ContentResponse,
@@ -53,7 +53,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
   const saveCode = async (files: CodeEditorFiles<CodeLanguage>, testCases: CodeEditorTestCases) => {
     setLoaderStatusRef.current?.(Status.LOADING);
     setSubmissionIndex(0);
-    const codeEditorSubmissionDTO: CodeEditorSubmissionDTO = {
+    const codeEditorSubmissionDto: CodeEditorSubmissionDto = {
       type: WorksheetType.CODE_EDITOR,
       id: content.id,
       files,
@@ -62,7 +62,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
     const assignmentId = searchParams.get(QueryParamKey.ASSIGNMENT);
     const { url, ...options } = jukiApiManager.API_V2.worksheet.submitCodeEditor({
       params: { worksheetKey, secondaryKey: assignmentId ?? '' },
-      body: codeEditorSubmissionDTO,
+      body: codeEditorSubmissionDto,
     });
     const response = cleanRequest<ContentResponse<void>>(await authorizedRequest(url, options));
     await userResults?.mutate?.();

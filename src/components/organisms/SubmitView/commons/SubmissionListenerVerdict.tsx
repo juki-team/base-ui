@@ -1,9 +1,9 @@
 import {
-  isSubmissionRunStatusMessageWebSocketResponseEventDTO,
+  isSubmissionRunStatusMessageWebSocketResponseEventDto,
   SubmissionRunStatus,
-  SubmissionRunStatusWebSocketResponseEventDTO,
-  type SubmissionSummaryListResponseDTO,
-  SubscribeSubmissionRunStatusWebSocketEventDTO,
+  SubmissionRunStatusWebSocketResponseEventDto,
+  type SubmissionSummaryListResponseDto,
+  SubscribeSubmissionRunStatusWebSocketEventDto,
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
 import { useState } from 'react';
@@ -34,7 +34,7 @@ const priority = (isSample: boolean) => ({
 });
 
 interface SubmissionListenerVerdictProps {
-  submit: SubmissionSummaryListResponseDTO,
+  submit: SubmissionSummaryListResponseDto,
   className?: string,
 }
 
@@ -43,16 +43,16 @@ export const SubmissionListenerVerdict = ({ submit, className }: SubmissionListe
   const { points, status, verdict, submitId, processedCases } = submit;
   
   const mutate = useMatchMutate();
-  const [ submissionData, setSubmissionData ] = useState<SubmissionRunStatusWebSocketResponseEventDTO | undefined>(undefined);
+  const [ submissionData, setSubmissionData ] = useState<SubmissionRunStatusWebSocketResponseEventDto | undefined>(undefined);
   
-  const event: Omit<SubscribeSubmissionRunStatusWebSocketEventDTO, 'clientId'> = {
+  const event: Omit<SubscribeSubmissionRunStatusWebSocketEventDto, 'clientId'> = {
     event: WebSocketSubscriptionEvent.SUBSCRIBE_SUBMISSION_RUN_STATUS,
     submitId,
   };
   useSubscribe(
     event,
     (data) => {
-      if (isSubmissionRunStatusMessageWebSocketResponseEventDTO(data)) {
+      if (isSubmissionRunStatusMessageWebSocketResponseEventDto(data)) {
         if (data.status === SubmissionRunStatus.COMPLETED || data.status === SubmissionRunStatus.RECEIVED) {
           void mutate(new RegExp(`${JUKI_SERVICE_V2_URL}/submission`));
         }
@@ -69,7 +69,7 @@ export const SubmissionListenerVerdict = ({ submit, className }: SubmissionListe
             currentStatus &&
             (
               priority(nextSampleCase)[nextStatus] > priority(currentSampleCase)[currentStatus]
-              || (priority(nextSampleCase)[nextStatus] === priority(currentSampleCase)[currentStatus] && data.messageTimestamp > prevState.messageTimestamp)
+              || (priority(nextSampleCase)[nextStatus] === priority(currentSampleCase)[currentStatus] && data.createdAt > prevState.createdAt)
             )
           ) {
             return data;

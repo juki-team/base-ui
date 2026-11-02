@@ -1,4 +1,4 @@
-import { type ContentResponse, isObjectJson, type LogDataResponseDTO } from '@juki-team/commons';
+import { type ContentResponse, isObjectJson, type LogDataResponseDto } from '@juki-team/commons';
 import { DateLiteral, Modal, T } from '../../atoms';
 import { classNames } from '../../helpers';
 import { FetcherLayer } from '../../molecules';
@@ -12,7 +12,7 @@ export function EntityLogsModal({ url, ...restProps }: EntityLogsModalProps) {
         <h3>
           <T>logs</T>
         </h3>
-        <FetcherLayer<ContentResponse<LogDataResponseDTO[]>> url={url}>
+        <FetcherLayer<ContentResponse<LogDataResponseDto[]>> url={url}>
           {({ data }) => (
             <div>
               {data.content.map(({ timestamp, changes, customerUser }, index) => (
@@ -22,7 +22,7 @@ export function EntityLogsModal({ url, ...restProps }: EntityLogsModalProps) {
                     <UserChip
                       imageUrl={customerUser.imageUrl}
                       nickname={customerUser.nickname}
-                      companyKey={customerUser.company.key}
+                      organizationKey={customerUser.organization.key}
                     />
                   </div>
                   <div className="jk-col gap stretch">

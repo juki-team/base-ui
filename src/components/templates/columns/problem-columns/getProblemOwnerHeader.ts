@@ -1,9 +1,9 @@
-import { type ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import { type ProblemSummaryListResponseDto } from '@juki-team/commons';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { ProblemCrawlerField } from '../../problem/ProblemCrawlerField';
 import { ProblemOwnerField } from '../../problem/ProblemOwnerField';
 
-export function getProblemOwnerHeader(isForeignProblem: boolean): DataViewerHeadersType<ProblemSummaryListResponseDTO> {
+export function getProblemOwnerHeader(isForeignProblem: boolean): DataViewerHeadersType<ProblemSummaryListResponseDto> {
   return {
     head: isForeignProblem ? 'crawler' : 'owner',
     index: 'owner',

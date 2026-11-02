@@ -1,5 +1,5 @@
 // https://medium.com/@MatDrinksTea/rendering-markdown-and-latex-in-react-dec355e74119
-import { CODE_LANGUAGE, CodeLanguage, type ContentResponse, type UserBasicResponseDTO } from '@juki-team/commons';
+import { CODE_LANGUAGE, CodeLanguage, type ContentResponse, type UserBasicResponseDto } from '@juki-team/commons';
 import { type Element } from 'hast';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 import { Children, ComponentType, type CSSProperties, memo, type ReactNode, useMemo } from 'react';
@@ -100,12 +100,12 @@ const hx =
   };
 
 function UserInlineChip({ nickname }: { nickname: string }) {
-  const companyKey = useUserStore((store) => store.company.key);
-  const { isLoading, data } = useFetcher<ContentResponse<UserBasicResponseDTO>>(
+  const organizationKey = useUserStore((store) => store.organization.key);
+  const { isLoading, data } = useFetcher<ContentResponse<UserBasicResponseDto>>(
     jukiApiManager.API_V2.user.getSummary({
       params: {
         nickname,
-        companyKey,
+        organizationKey,
       },
     }).url,
   );
@@ -121,7 +121,7 @@ function UserInlineChip({ nickname }: { nickname: string }) {
   return (
     <UserChip
       nickname={nickname}
-      companyKey={companyKey}
+      organizationKey={organizationKey}
       imageUrl={data.content.imageUrl}
       className="jk-tag bc-ht-lt dy-if- va-tp nowrap"
     />

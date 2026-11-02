@@ -1,10 +1,10 @@
-import { ProblemDataResponseDTO } from '@juki-team/commons';
+import { ProblemDataResponseDto } from '@juki-team/commons';
 import { ReactNode } from 'react';
 import { IconProps } from '../../atoms/server/icons/types';
 import { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../organisms/types';
 
 export interface ProblemStatementViewProps<T> {
-  problem: ProblemDataResponseDTO,
+  problem: ProblemDataResponseDto,
   contest?: { index: string, color: string },
   infoPlacement: 'left' | 'name' | 'none',
   withoutName?: boolean,
@@ -21,6 +21,6 @@ export interface ProblemViewProps<T> extends ProblemStatementViewProps<T> {
 }
 
 export interface ProblemInfoProps {
-  problem: ProblemDataResponseDTO,
+  problem: ProblemDataResponseDto,
   size?: IconProps['size'],
 }
