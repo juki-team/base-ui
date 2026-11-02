@@ -96,7 +96,38 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [treeSignature],
   );
-  // drop cached states of deleted/renamed files (a re-created file must not inherit the old undo history)
+  // A rename (also the one of a language change) replaces one key by another with the same source: the document is the
+  // same, so its editor state moves to the new key. Done during render because the editor swaps documents in its effects,
+  // which run before the ones of this component.
+  const previousDocumentRef = useRef({ documentScope, files, currentFileName });
+  const previousDocument = previousDocumentRef.current;
+  if (previousDocument.files !== files && previousDocument.documentScope === documentScope) {
+    const removed = Object.keys(previousDocument.files).filter((key) => !files[key]);
+    const added = Object.keys(files).filter((key) => !previousDocument.files[key]);
+    const [oldName] = removed;
+    const [newName] = added;
+    if (
+      removed.length === 1 &&
+      added.length === 1 &&
+      oldName !== undefined &&
+      newName !== undefined &&
+      previousDocument.files[oldName]?.source === files[newName]?.source
+    ) {
+      const oldKey = getDocumentKey(oldName);
+      const newKey = getDocumentKey(newName);
+      const cached = editorStateCache.get(oldKey);
+      if (cached) {
+        editorStateCache.set(newKey, cached);
+        editorStateCache.delete(oldKey);
+      }
+      if (oldName === previousDocument.currentFileName) {
+        (editorStateCache.renames ??= new Map()).set(oldKey, newKey);
+      }
+    }
+  }
+  previousDocumentRef.current = { documentScope, files, currentFileName };
+
+  // drop cached states of deleted files (a re-created file must not inherit the old undo history)
   useEffect(() => {
     const liveKeys = new Set(Object.keys(treeFiles).map(getDocumentKey));
     for (const key of Array.from(editorStateCache.keys())) {

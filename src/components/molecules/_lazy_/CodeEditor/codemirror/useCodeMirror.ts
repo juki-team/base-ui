@@ -177,6 +177,13 @@ export function useCodeMirror(props: UseCodeMirror) {
       documentKeyRef.current = documentKey;
       return;
     }
+    const renames = stateCacheRef.current?.renames;
+    if (previousKey !== undefined && documentKey !== undefined && renames?.get(previousKey) === documentKey) {
+      renames.delete(previousKey);
+      documentKeyRef.current = documentKey;
+      cacheCurrentDocument(view, false);
+      return;
+    }
     // an external update pending for the previous document must not land on the new one
     if (typingLatch.current) {
       typingLatch.current.cancel();

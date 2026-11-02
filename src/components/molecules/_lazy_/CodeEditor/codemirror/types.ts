@@ -11,7 +11,13 @@ export interface CachedEditorDocument {
 }
 
 /** Keyed by `documentKey`; owned by the caller so it can outlive the editor instance (e.g. remounts). */
-export type EditorStateCache = Map<string, CachedEditorDocument>;
+export interface EditorStateCache extends Map<string, CachedEditorDocument> {
+  /**
+   * The open document was renamed (old key -> new key): it is the same document, so the editor keeps its state
+   * (undo history, selection, scroll) instead of swapping to a new one.
+   */
+  renames?: Map<string, string>;
+}
 
 export interface ReactCodeMirrorProps
   extends Omit<EditorStateConfig, 'doc' | 'extensions'>,
