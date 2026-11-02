@@ -9,10 +9,9 @@ type Message = {
 type Subscriber = (message: Message) => void;
 
 export interface WebsocketSubStore {
-  channelPublishSubscription: Ably.RealtimeChannel | null,
   channelPublishMessages: Ably.RealtimeChannel | null,
   newAuth: () => void,
-  setProps: (props: Partial<Pick<WebsocketSubStore, 'channelPublishMessages' | 'channelPublishSubscription'>>) => void,
+  setProps: (props: Partial<Pick<WebsocketSubStore, 'channelPublishMessages'>>) => void,
   subscribers: Record<string, Subscriber[]>,
   broadcastMessage: (key: string, data: WebSocketResponseEventDTO) => void,
   subscribeToEvent: (event: WebSocketSubscribeEventDTO, callback: Subscriber) => () => void,

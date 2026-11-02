@@ -1,5 +1,5 @@
 import { memo, PropsWithChildren } from 'react';
-import { useClientTrackLocation } from '../hooks/useClientTrackLocation';
+import { useOwnPresence } from '../hooks/useOwnPresence';
 import { JukiAblyInitializer, JukiAblySpaceProvider } from './JukiAblyInitializer';
 import { JukiLastPathInitializer } from './JukiLastPathInitializer';
 import { JukiPageInitializer } from './JukiPageInitializer';
@@ -10,8 +10,8 @@ import { JukiUserProvider } from './JukiUserProvider';
 import { SoundInitializer } from './SoundInitializer';
 import { JukiProvidersProps } from './types';
 
-const ClientTrackLocation = memo(function UserTrack() {
-  useClientTrackLocation();
+const OwnPresence = memo(function OwnPresence() {
+  useOwnPresence();
   return null;
 });
 
@@ -65,7 +65,7 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
           {children}
         </JukiAblySpaceProvider>
       </JukiUIProvider>
-      <ClientTrackLocation />
+      <OwnPresence />
       <JukiUserProvider />
       <JukiAblyInitializer />
       <SoundInitializer />

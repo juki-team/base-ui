@@ -30,7 +30,8 @@ export * from '../components/hooks/useStableRef';
 export * from '../components/hooks/useSyncedState';
 export * from '../components/hooks/useTrackCursor';
 export * from '../components/hooks/useOverflowDetector';
-export * from '../components/hooks/useClientTrackLocation';
+export * from '../components/hooks/useCompanyPresence';
+export * from '../components/hooks/useOwnPresence';
 export * from '../components/hooks/useSubscribe';
 
 // store hooks

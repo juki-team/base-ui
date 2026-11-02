@@ -1,4 +1,5 @@
 import {
+  CHANNEL_COMPANY_PRESENCE,
   ClientId,
   consoleInfo,
   consoleWarn,
@@ -7,6 +8,7 @@ import {
   getContestKeyOfWebSocketSubscribeEvent,
   getWebSocketResponseEventKeyOfResponse,
   isSubscribeClientTrackDataWebSocketEventDTO,
+  UserPresenceData,
   WebSocketResponseEventDTO,
   WebSocketSubscribeEventDTO,
 } from '@juki-team/commons';
@@ -22,6 +24,8 @@ import type Ably from 'ably';
  * - private channels of the token (`session:{id}`, `user:{id}`): always
  * - topic channels needed by the active subscriptions (`getChannelOfWebSocketSubscribeEvent`): while they are used
  * - role channels of the contest being viewed (`contest:{key}:{role}` granted in the token): while it is viewed
+ * - company presence (`presence:company:{id}`): this tab enters the presence of its company (`presence` only, it
+ *   does not receive the others); the administrators watching a company also receive it (`presence-subscribe`)
  *
  * The messages are dispatched with the same keys as the subscriptions (`getWebSocketResponseEventKeyOfResponse`).
  */
@@ -35,6 +39,7 @@ let dispatch: Dispatch = () => undefined;
 const channelRefs = new Map<string, number>();
 const contestRefs = new Map<string, number>();
 const trackedClientRefs = new Map<string, number>();
+const presenceCompanyRefs = new Map<string, number>();
 const attached = new Map<string, (message: Ably.InboundMessage) => void>();
 
 // the same event can arrive by two channels (e.g. owner + managers while the contest is frozen)
@@ -58,12 +63,14 @@ const lastKey = (map: Map<string, number>) => [...map.keys()].pop();
 /**
  * Params sent to the API when requesting the Ably token: the API decides what is granted for them.
  */
-export const getTopicChannelsAuthParams = (): { contestKey?: string; trackedClientId?: string } => {
+export const getTopicChannelsAuthParams = (): { contestKey?: string; trackedClientId?: string; presenceCompanyId?: string } => {
   const contestKey = lastKey(contestRefs);
   const trackedClientId = lastKey(trackedClientRefs);
+  const presenceCompanyId = lastKey(presenceCompanyRefs);
   return {
     ...(contestKey ? { contestKey } : {}),
     ...(trackedClientId ? { trackedClientId } : {}),
+    ...(presenceCompanyId ? { presenceCompanyId } : {}),
   };
 };
 
@@ -149,10 +156,115 @@ const getDesiredChannels = () => {
   return new Set([...desired].filter((channel) => canSubscribe(capability, channel)));
 };
 
+// PRESENCE
+
+const PRESENCE_CHANNEL_PREFIX = 'presence:company:';
+
+type PresenceListener = (members: Ably.PresenceMessage[]) => void;
+
+let ownPresenceData: UserPresenceData | null = null;
+const presenceChannels = new Map<string, { modes: string; entered: boolean; subscribed: boolean }>();
+const presenceListeners = new Map<string, Set<PresenceListener>>();
+
+const getPresenceModes = (name: string): Ably.ChannelMode[] => {
+  const operations = capability[name] ?? [];
+  const modes: Ably.ChannelMode[] = [];
+  if (operations.includes('presence') || operations.includes('*')) {
+    modes.push('PRESENCE');
+  }
+  if (operations.includes('presence-subscribe') || operations.includes('subscribe') || operations.includes('*')) {
+    modes.push('PRESENCE_SUBSCRIBE');
+  }
+  return modes;
+};
+
+const notifyPresence = async (realtime: Ably.Realtime, name: string) => {
+  const listeners = presenceListeners.get(name);
+  if (!listeners?.size) {
+    return;
+  }
+  try {
+    const members = await realtime.channels.get(name).presence.get();
+    listeners.forEach((listener) => listener(members));
+  } catch (error) {
+    consoleWarn('error getting presence members', { name, error });
+  }
+};
+
+const reconcilePresenceChannels = async (realtime: Ably.Realtime) => {
+  const names = new Set(
+    Object.keys(capability).filter((resource) => resource.startsWith(PRESENCE_CHANNEL_PREFIX) && !resource.includes('*')),
+  );
+  for (const name of [...presenceChannels.keys()]) {
+    if (!names.has(name)) {
+      presenceChannels.delete(name);
+      const channel = realtime.channels.get(name);
+      channel.presence.unsubscribe();
+      channel
+        .detach()
+        .then(() => realtime.channels.release(name))
+        .catch((error) => consoleWarn('error detaching presence channel', { name, error }));
+    }
+  }
+  for (const name of names) {
+    const modes = getPresenceModes(name);
+    if (!modes.length) {
+      continue;
+    }
+    const state = presenceChannels.get(name) ?? { modes: '', entered: false, subscribed: false };
+    presenceChannels.set(name, state);
+    const channel = realtime.channels.get(name);
+    try {
+      const modesKey = modes.join(',');
+      if (state.modes !== modesKey) {
+        // re-attaches the channel with the modes allowed by the token
+        await channel.setOptions({ modes });
+        state.modes = modesKey;
+      }
+      if (modes.includes('PRESENCE') && ownPresenceData) {
+        await (state.entered ? channel.presence.update(ownPresenceData) : channel.presence.enter(ownPresenceData));
+        state.entered = true;
+      }
+      if (modes.includes('PRESENCE_SUBSCRIBE') && !state.subscribed) {
+        await channel.presence.subscribe(() => void notifyPresence(realtime, name));
+        state.subscribed = true;
+        void notifyPresence(realtime, name);
+      } else if (!modes.includes('PRESENCE_SUBSCRIBE') && state.subscribed) {
+        channel.presence.unsubscribe();
+        state.subscribed = false;
+      }
+    } catch (error) {
+      consoleWarn('error reconciling presence channel', { name, error });
+    }
+  }
+};
+
+let reconcilingPresence: Promise<void> = Promise.resolve();
+
+const reconcilePresence = () => {
+  const realtime = client;
+  if (!realtime) {
+    return;
+  }
+  reconcilingPresence = reconcilingPresence.then(() => reconcilePresenceChannels(realtime));
+};
+
+/**
+ * Data of this tab in the presence of its company (informative, the identity is the clientId verified by Ably).
+ */
+export const setOwnPresenceData = (data: UserPresenceData) => {
+  if (ownPresenceData?.href === data.href && ownPresenceData?.uiId === data.uiId) {
+    return;
+  }
+  ownPresenceData = data;
+  reconcilePresence();
+};
+
 const reconcile = () => {
   if (!client) {
     return;
   }
+  reconcilePresence();
   const realtime = client;
   const desired = getDesiredChannels();
   for (const [name, listener] of attached) {
@@ -206,6 +318,7 @@ export const initTopicChannels = (realtimeClient: Ably.Realtime, newClientId: Cl
   clientId = newClientId;
   dispatch = newDispatch;
   attached.clear();
+  presenceChannels.clear();
   realtimeClient.connection.on(['connected', 'update'], () => {
     consoleInfo('ably token updated, reconciling topic channels');
     reconcile();
@@ -248,6 +361,36 @@ export const addTopicSubscription = (event: WebSocketSubscribeEventDTO) => {
       reauthorize();
     } else {
       reconcile();
+    }
+  };
+};
+
+/**
+ * Watches the live presence of the clients of a company (the API only grants it to its user administrators).
+ * The listener receives every present member on each change. Returns the function to stop watching.
+ */
+export const watchCompanyPresence = (companyId: string, listener: PresenceListener) => {
+  const name = CHANNEL_COMPANY_PRESENCE(companyId);
+  const prevAuthParams = JSON.stringify(getTopicChannelsAuthParams());
+  increment(presenceCompanyRefs, companyId);
+  presenceListeners.set(name, new Set([...(presenceListeners.get(name) ?? []), listener]));
+  if (JSON.stringify(getTopicChannelsAuthParams()) !== prevAuthParams) {
+    reauthorize();
+  } else if (client) {
+    void notifyPresence(client, name);
+  }
+
+  let removed = false;
+  return () => {
+    if (removed) {
+      return;
+    }
+    removed = true;
+    const prev = JSON.stringify(getTopicChannelsAuthParams());
+    decrement(presenceCompanyRefs, companyId);
+    presenceListeners.get(name)?.delete(listener);
+    if (JSON.stringify(getTopicChannelsAuthParams()) !== prev) {
+      reauthorize();
     }
   };
 };
