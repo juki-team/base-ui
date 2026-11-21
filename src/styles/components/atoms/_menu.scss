@@ -172,8 +172,12 @@
   
   > .jk-bottom-horizontal-menu {
     height: var(--bottom-horizontal-menu-height);
-    
-    
+
+    // items are wrapped in `.link` (highlight colour), which is meant for the body, not the navbar
+    .jk-menu-item:not(.selected) {
+      color: var(--navbar-tx-cr);
+    }
+
     .jk-menu-item-icon {
       margin: 0;
       

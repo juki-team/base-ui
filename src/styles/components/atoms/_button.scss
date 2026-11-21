@@ -184,7 +184,12 @@
 
 .jk-button.ghost {
   outline-offset: 0 !important;
-  
+
+  // without it the <button> keeps the browser default colour (black), unreadable on dark themes
+  &:not([class*=" cr-"]):not([class^="cr-"]) {
+    color: inherit;
+  }
+
   &:not([class*=" bc-"]):not([class^="bc-"]):not(:hover) {
     --background-color: transparent;
   }
