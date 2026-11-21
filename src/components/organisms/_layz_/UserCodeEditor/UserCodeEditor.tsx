@@ -173,6 +173,14 @@ const getDefaultFileName = (codeLanguage: CodeLanguage) => CODE_LANGUAGE[codeLan
 
 const getExtension = (codeLanguage: unknown) => CODE_LANGUAGE[codeLanguage as CodeLanguage]?.fileExtension[0] ?? 'source';
 
+const getTemplate = (codeLanguage: unknown) => CODE_LANGUAGE[codeLanguage as CodeLanguage]?.templateSourceCode ?? '';
+
+/** Empty, or the untouched template of any language: nothing the user wrote is lost by replacing it. */
+const isTemplateSource = (source: string) => {
+  const trimmed = source.trim();
+  return !trimmed || Object.values(CODE_LANGUAGE).some(({ templateSourceCode }) => templateSourceCode?.trim() === trimmed);
+};
+
 const getFileExtension = (fileName: string) => {
   const dotIndex = fileName.lastIndexOf('.');
   return dotIndex > 0 ? fileName.slice(dotIndex + 1).toLowerCase() : '';
@@ -648,11 +656,13 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
           if (!prevFile) {
             return prevState;
           }
+          // a file still holding a template follows the language; code the user wrote is never replaced
+          const source = isTemplateSource(prevFile.source) ? getTemplate(newLanguage) : prevFile.source;
           const newState: StorageType<CodeEditorFiles<T>> = {
             ...prevState,
             [storeKey]: {
               ...prevState[storeKey],
-              [currentFileName]: { ...prevFile, language: newLanguage },
+              [currentFileName]: { ...prevFile, language: newLanguage, source },
             },
           };
           return newKey === currentFileName
